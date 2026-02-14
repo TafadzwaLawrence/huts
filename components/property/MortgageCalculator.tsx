@@ -46,8 +46,8 @@ export function MortgageCalculator({
     const insuranceEstimate = 15000
     const totalMonthly = calculateTotalMonthlyCost(
       monthlyMortgage,
-      propertyTaxAnnual,
-      hoaFeeMonthly,
+      propertyTaxAnnual ?? null,
+      hoaFeeMonthly ?? null,
       insuranceEstimate
     )
 
