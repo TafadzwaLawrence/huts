@@ -21,15 +21,18 @@ interface Property {
   id: string
   title: string
   slug: string
-  price: number
+  listing_type: 'rent' | 'sale' | null
+  price: number | null
+  sale_price: number | null
   beds: number
   baths: number
   sqft: number | null
   city: string
   neighborhood: string | null
+  property_type: string | null
   lat: number
   lng: number
-  property_images: Array<{ url: string; is_primary: boolean }>
+  property_images: Array<{ url: string; is_primary: boolean; alt_text?: string }>
 }
 
 interface MapViewProps {
@@ -115,6 +118,14 @@ export default function MapView({ properties, selectedProperty, onPropertySelect
         icon: createCustomIcon(isSelected),
       }).addTo(map)
 
+      // Determine listing type and format price
+      const listingType = property.listing_type || 'rent'
+      const isForSale = listingType === 'sale'
+      const price = isForSale && property.sale_price
+        ? property.sale_price
+        : property.price || property.sale_price || 0
+      const formattedPrice = `$${(price / 100).toLocaleString()}`
+
       // Create popup content
       const popupContent = `
         <div class="p-2 min-w-[250px]">
@@ -124,8 +135,9 @@ export default function MapView({ properties, selectedProperty, onPropertySelect
             class="w-full h-32 object-cover rounded-md mb-2"
           />
           <div class="mb-1">
-            <span class="font-bold text-[#212529]">$${(property.price / 100).toLocaleString()}</span>
-            <span class="text-xs text-[#495057]">/mo</span>
+            <span class="font-bold text-[#212529]">${formattedPrice}</span>
+            <span class="text-xs text-[#495057]">${isForSale ? '' : '/mo'}</span>
+            ${isForSale ? '<span class="ml-2 text-xs font-semibold bg-white text-black px-2 py-0.5 rounded border border-[#E9ECEF]">FOR SALE</span>' : ''}
           </div>
           <h4 class="font-semibold text-sm text-[#212529] mb-1">${property.title}</h4>
           <p class="text-xs text-[#495057] mb-2">${property.neighborhood ? property.neighborhood + ', ' : ''}${property.city}</p>
