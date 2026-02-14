@@ -54,8 +54,10 @@ export interface Database {
           title: string
           description: string | null
           property_type: 'apartment' | 'house' | 'studio' | 'room' | 'townhouse' | 'condo'
-          status: 'draft' | 'active' | 'rented' | 'inactive'
-          price: number
+          status: 'draft' | 'active' | 'rented' | 'inactive' | 'sold'
+          listing_type: 'rent' | 'sale' | null
+          price: number | null
+          sale_price: number | null
           deposit: number | null
           beds: number
           baths: number
@@ -70,6 +72,13 @@ export interface Database {
           amenities: Json
           available_from: string | null
           lease_term: string | null
+          property_tax_annual: number | null
+          hoa_fee_monthly: number | null
+          year_built: number | null
+          lot_size_sqft: number | null
+          parking_spaces: number | null
+          garage_spaces: number | null
+          stories: number | null
           slug: string
           meta_description: string | null
           created_at: string
@@ -82,8 +91,10 @@ export interface Database {
           title: string
           description?: string | null
           property_type?: 'apartment' | 'house' | 'studio' | 'room' | 'townhouse' | 'condo'
-          status?: 'draft' | 'active' | 'rented' | 'inactive'
-          price: number
+          status?: 'draft' | 'active' | 'rented' | 'inactive' | 'sold'
+          listing_type?: 'rent' | 'sale' | null
+          price?: number | null
+          sale_price?: number | null
           deposit?: number | null
           beds: number
           baths: number
@@ -98,6 +109,13 @@ export interface Database {
           amenities?: Json
           available_from?: string | null
           lease_term?: string | null
+          property_tax_annual?: number | null
+          hoa_fee_monthly?: number | null
+          year_built?: number | null
+          lot_size_sqft?: number | null
+          parking_spaces?: number | null
+          garage_spaces?: number | null
+          stories?: number | null
           slug?: string
           meta_description?: string | null
           created_at?: string
@@ -110,8 +128,10 @@ export interface Database {
           title?: string
           description?: string | null
           property_type?: 'apartment' | 'house' | 'studio' | 'room' | 'townhouse' | 'condo'
-          status?: 'draft' | 'active' | 'rented' | 'inactive'
-          price?: number
+          status?: 'draft' | 'active' | 'rented' | 'inactive' | 'sold'
+          listing_type?: 'rent' | 'sale' | null
+          price?: number | null
+          sale_price?: number | null
           deposit?: number | null
           beds?: number
           baths?: number
@@ -126,6 +146,13 @@ export interface Database {
           amenities?: Json
           available_from?: string | null
           lease_term?: string | null
+          property_tax_annual?: number | null
+          hoa_fee_monthly?: number | null
+          year_built?: number | null
+          lot_size_sqft?: number | null
+          parking_spaces?: number | null
+          garage_spaces?: number | null
+          stories?: number | null
           slug?: string
           meta_description?: string | null
           created_at?: string
@@ -183,6 +210,105 @@ export interface Database {
           property_id?: string
           saved_at?: string
           notes?: string | null
+        }
+      }
+      reviews: {
+        Row: {
+          id: string
+          property_id: string
+          author_id: string
+          rating: number
+          title: string
+          comment: string
+          is_verified: boolean
+          inquiry_id: string | null
+          status: 'pending' | 'published' | 'flagged' | 'hidden' | 'deleted'
+          flagged_reason: string | null
+          flagged_at: string | null
+          editable_until: string | null
+          edited: boolean
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          property_id: string
+          author_id: string
+          rating: number
+          title: string
+          comment: string
+          is_verified?: boolean
+          inquiry_id?: string | null
+          status?: 'pending' | 'published' | 'flagged' | 'hidden' | 'deleted'
+          flagged_reason?: string | null
+          flagged_at?: string | null
+          editable_until?: string | null
+          edited?: boolean
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          property_id?: string
+          author_id?: string
+          rating?: number
+          title?: string
+          comment?: string
+          is_verified?: boolean
+          inquiry_id?: string | null
+          status?: 'pending' | 'published' | 'flagged' | 'hidden' | 'deleted'
+          flagged_reason?: string | null
+          flagged_at?: string | null
+          editable_until?: string | null
+          edited?: boolean
+          created_at?: string
+          updated_at?: string
+        }
+      }
+      review_responses: {
+        Row: {
+          id: string
+          review_id: string
+          landlord_id: string
+          response: string
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          review_id: string
+          landlord_id: string
+          response: string
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          review_id?: string
+          landlord_id?: string
+          response?: string
+          created_at?: string
+          updated_at?: string
+        }
+      }
+      review_votes: {
+        Row: {
+          review_id: string
+          user_id: string
+          helpful: boolean
+          created_at: string
+        }
+        Insert: {
+          review_id: string
+          user_id: string
+          helpful: boolean
+          created_at?: string
+        }
+        Update: {
+          review_id?: string
+          user_id?: string
+          helpful?: boolean
+          created_at?: string
         }
       }
     }

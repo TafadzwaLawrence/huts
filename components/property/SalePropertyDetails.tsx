@@ -1,15 +1,20 @@
 'use client'
 
 import { Building2, Calendar, MapPin, Square, Car, Home as HomeIcon, Ruler } from 'lucide-react'
-import { SaleProperty } from '@/types'
+import { PropertyWithImages } from '@/types'
 import { formatSalePrice, formatPrice } from '@/lib/utils'
 import { MortgageCalculator } from './MortgageCalculator'
 
 interface SalePropertyDetailsProps {
-  property: SaleProperty
+  property: PropertyWithImages
 }
 
 export function SalePropertyDetails({ property }: SalePropertyDetailsProps) {
+  // Ensure this component is only used with sale properties
+  if (!property.sale_price) {
+    return null
+  }
+
   return (
     <div className="space-y-8">
       {/* Price Section */}
@@ -109,7 +114,7 @@ export function SalePropertyDetails({ property }: SalePropertyDetailsProps) {
             </div>
           )}
 
-          {property.parking_spaces > 0 && (
+          {property.parking_spaces && property.parking_spaces > 0 && (
             <div className="flex items-center gap-3">
               <div className="p-2 bg-off-white rounded">
                 <Car size={20} className="text-dark-gray" />
@@ -123,7 +128,7 @@ export function SalePropertyDetails({ property }: SalePropertyDetailsProps) {
             </div>
           )}
 
-          {property.garage_spaces > 0 && (
+          {property.garage_spaces && property.garage_spaces > 0 && (
             <div className="flex items-center gap-3">
               <div className="p-2 bg-off-white rounded">
                 <Car size={20} className="text-dark-gray" />

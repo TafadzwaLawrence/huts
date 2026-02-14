@@ -18,37 +18,12 @@ export type PropertyWithImages = Property & {
   profiles: Pick<Profile, 'name' | 'avatar_url' | 'verified'>
 }
 
-// Discriminated unions for rental vs sale properties
-export type RentalProperty = Property & {
-  listing_type: 'rent'
-  price: number
-  deposit: number | null
-  available_from: string | null
-  lease_term: string | null
-  sale_price: null
+// Type guards for listing types
+export function isRentalProperty(property: Property | PropertyWithImages): boolean {
+  return property.listing_type === 'rent' || property.listing_type === null // null defaults to rent
 }
 
-export type SaleProperty = Property & {
-  listing_type: 'sale'
-  sale_price: number
-  property_tax_annual: number | null
-  hoa_fee_monthly: number | null
-  year_built: number | null
-  lot_size_sqft: number | null
-  parking_spaces: number
-  garage_spaces: number
-  stories: number | null
-  price: null
-}
-
-export type PropertyListing = RentalProperty | SaleProperty
-
-// Type guards
-export function isRentalProperty(property: Property): property is RentalProperty {
-  return property.listing_type === 'rent'
-}
-
-export function isSaleProperty(property: Property): property is SaleProperty {
+export function isSaleProperty(property: Property | PropertyWithImages): boolean {
   return property.listing_type === 'sale'
 }
 

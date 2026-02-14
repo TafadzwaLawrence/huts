@@ -38,7 +38,7 @@ export default function NewReviewEmail({
     <Html>
       <Head />
       <Preview>
-        New {rating}-star review for {propertyTitle}
+        New {String(rating)}-star review for {propertyTitle}
       </Preview>
       <Body style={main}>
         <Container style={container}>

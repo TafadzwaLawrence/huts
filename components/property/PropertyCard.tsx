@@ -35,11 +35,11 @@ export function PropertyCard({ property }: PropertyCardProps) {
           )}
           
           {/* Price Badge */}
-          {isRentalProperty(property) ? (
+          {isRentalProperty(property) && property.price ? (
             <div className="property-card-badge">
               {formatPrice(property.price)}/mo
             </div>
-          ) : isSaleProperty(property) ? (
+          ) : isSaleProperty(property) && property.sale_price ? (
             <>
               <div className="property-card-badge">
                 {formatSalePrice(property.sale_price)}
@@ -80,13 +80,13 @@ export function PropertyCard({ property }: PropertyCardProps) {
             <div className="flex items-center gap-1">
               <Bed size={16} className="text-dark-gray" />
               <span>{property.beds} bed</span>
-            {isSaleProperty(property) && property.parking_spaces > 0 && (
+            </div>
+            {isSaleProperty(property) && property.parking_spaces && property.parking_spaces > 0 && (
               <div className="flex items-center gap-1">
                 <Car size={16} className="text-dark-gray" />
                 <span>{property.parking_spaces} park</span>
               </div>
             )}
-            </div>
             <div className="flex items-center gap-1">
               <Bath size={16} className="text-dark-gray" />
               <span>{property.baths} bath</span>
