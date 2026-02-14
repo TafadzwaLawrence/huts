@@ -2,11 +2,15 @@ import OpenAI from 'openai'
 
 export const runtime = 'edge'
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY!,
-})
+// Lazy-init to avoid build-time errors when env vars aren't available
+function getOpenAI() {
+  return new OpenAI({
+    apiKey: process.env.OPENAI_API_KEY!,
+  })
+}
 
 export async function POST(req: Request) {
+  const openai = getOpenAI()
   const { messages } = await req.json()
 
   const response = await openai.chat.completions.create({
