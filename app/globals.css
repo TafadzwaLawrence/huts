@@ -1,0 +1,461 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* NProgress - Route transition progress bar */
+#nprogress {
+  pointer-events: none;
+}
+
+#nprogress .bar {
+  background: #212529;
+  position: fixed;
+  z-index: 9999;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+}
+
+#nprogress .peg {
+  display: block;
+  position: absolute;
+  right: 0px;
+  width: 100px;
+  height: 100%;
+  box-shadow: 0 0 10px #212529, 0 0 5px #212529;
+  opacity: 1;
+  transform: rotate(3deg) translate(0px, -4px);
+}
+
+/* ============================================
+   HUTS B&W DESIGN SYSTEM
+   95% Black & White, 5% color for necessities
+   ============================================ */
+
+@layer base {
+  :root {
+    /* Core B&W Palette */
+    --pure-white: 0 0% 100%;
+    --off-white: 210 17% 98%;
+    --light-gray: 210 16% 93%;
+    --medium-gray: 210 14% 70%;
+    --dark-gray: 210 11% 31%;
+    --charcoal: 210 11% 15%;
+    --pure-black: 0 0% 0%;
+    
+    /* Functional Colors (use sparingly) */
+    --accent-red: 0 100% 71%;
+    --accent-green: 135 59% 56%;
+    
+    /* Shadcn/ui compatibility */
+    --background: var(--pure-white);
+    --foreground: var(--charcoal);
+    --card: var(--pure-white);
+    --card-foreground: var(--charcoal);
+    --popover: var(--pure-white);
+    --popover-foreground: var(--charcoal);
+    --primary: var(--pure-black);
+    --primary-foreground: var(--pure-white);
+    --secondary: var(--light-gray);
+    --secondary-foreground: var(--charcoal);
+    --muted: var(--off-white);
+    --muted-foreground: var(--dark-gray);
+    --accent: var(--off-white);
+    --accent-foreground: var(--charcoal);
+    --destructive: var(--accent-red);
+    --destructive-foreground: var(--pure-white);
+    --border: var(--light-gray);
+    --input: var(--light-gray);
+    --ring: var(--pure-black);
+    --radius: 0.5rem;
+  }
+
+  /* Dark Mode - Inverted */
+  .dark, [data-theme="dark"] {
+    --background: 0 0% 7%;
+    --foreground: 0 0% 95%;
+    --card: 0 0% 10%;
+    --card-foreground: 0 0% 95%;
+    --popover: 0 0% 10%;
+    --popover-foreground: 0 0% 95%;
+    --primary: var(--pure-white);
+    --primary-foreground: var(--pure-black);
+    --secondary: 0 0% 15%;
+    --secondary-foreground: 0 0% 95%;
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 65%;
+    --accent: 0 0% 15%;
+    --accent-foreground: 0 0% 95%;
+    --border: 0 0% 20%;
+    --input: 0 0% 20%;
+    --ring: var(--pure-white);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --background: 0 0% 7%;
+      --foreground: 0 0% 95%;
+      --card: 0 0% 10%;
+      --card-foreground: 0 0% 95%;
+      --popover: 0 0% 10%;
+      --popover-foreground: 0 0% 95%;
+      --primary: var(--pure-white);
+      --primary-foreground: var(--pure-black);
+      --secondary: 0 0% 15%;
+      --secondary-foreground: 0 0% 95%;
+      --muted: 0 0% 15%;
+      --muted-foreground: 0 0% 65%;
+      --accent: 0 0% 15%;
+      --accent-foreground: 0 0% 95%;
+      --border: 0 0% 20%;
+      --input: 0 0% 20%;
+      --ring: var(--pure-white);
+    }
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply bg-background text-foreground antialiased;
+    /* Font is applied via inter.className in layout.tsx */
+  }
+
+  /* Focus states - CRITICAL for accessibility */
+  *:focus-visible {
+    @apply outline-2 outline-offset-2 outline-black;
+  }
+
+  .dark *:focus-visible {
+    @apply outline-white;
+  }
+}
+
+/* ============================================
+   TYPOGRAPHY
+   ============================================ */
+
+@layer components {
+  .text-hero {
+    @apply text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight;
+  }
+
+  .text-page-title {
+    @apply text-3xl md:text-4xl font-bold;
+  }
+
+  .text-section-title {
+    @apply text-2xl font-semibold;
+  }
+
+  .text-card-title {
+    @apply text-lg font-semibold;
+  }
+
+  .text-body {
+    @apply text-base;
+  }
+
+  .text-small {
+    @apply text-sm text-muted-foreground;
+  }
+
+  .text-tiny {
+    @apply text-xs text-muted-foreground;
+  }
+}
+
+/* ============================================
+   BUTTONS
+   ============================================ */
+
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-md px-4 py-2 text-sm font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50;
+  }
+
+  .btn-primary {
+    @apply btn bg-black text-white border-2 border-black hover:bg-[#212529] hover:-translate-y-0.5;
+  }
+
+  .dark .btn-primary {
+    @apply bg-white text-black border-white hover:bg-gray-200;
+  }
+
+  .btn-secondary {
+    @apply btn bg-transparent text-black border-2 border-[#495057] hover:border-black hover:border-[3px];
+  }
+
+  .dark .btn-secondary {
+    @apply text-white border-gray-500 hover:border-white;
+  }
+
+  .btn-ghost {
+    @apply btn hover:bg-[#F8F9FA];
+  }
+
+  .dark .btn-ghost {
+    @apply hover:bg-gray-800;
+  }
+
+  .btn-icon {
+    @apply btn p-2;
+  }
+}
+
+/* ============================================
+   CARDS
+   ============================================ */
+
+@layer components {
+  .property-card {
+    @apply cursor-pointer border border-[#E9ECEF] rounded-lg overflow-hidden transition-all duration-300 hover:border-[#212529] hover:shadow-lg bg-white;
+  }
+
+  .dark .property-card {
+    @apply border-gray-700 hover:border-gray-400 bg-gray-900;
+  }
+
+  .property-card-image {
+    @apply relative h-48 overflow-hidden;
+  }
+
+  .property-card-image img {
+    @apply object-cover w-full h-full transition-transform duration-500 group-hover:scale-105;
+  }
+
+  .property-card-badge {
+    @apply absolute top-3 left-3 bg-black/90 text-white px-2 py-1 rounded text-sm font-semibold;
+  }
+
+  .property-card-content {
+    @apply p-4;
+  }
+
+  .property-card-features {
+    @apply flex gap-4 text-sm border-t border-[#E9ECEF] pt-3 mt-3;
+  }
+
+  .dark .property-card-features {
+    @apply border-gray-700;
+  }
+}
+
+/* ============================================
+   FORMS
+   ============================================ */
+
+@layer components {
+  .input {
+    @apply flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50;
+  }
+
+  .input:focus {
+    @apply border-black border-2;
+  }
+
+  .dark .input:focus {
+    @apply border-white;
+  }
+
+  .label {
+    @apply text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70;
+  }
+}
+
+/* ============================================
+   LAYOUT
+   ============================================ */
+
+@layer components {
+  .container-main {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .grid-properties {
+    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6;
+  }
+
+  .section {
+    @apply py-8 md:py-12 lg:py-16;
+  }
+}
+
+/* ============================================
+   NAVIGATION
+   ============================================ */
+
+@layer components {
+  .nav-link {
+    @apply text-sm font-medium text-[#495057] hover:text-black underline-offset-4 hover:underline transition-colors;
+  }
+
+  .dark .nav-link {
+    @apply text-gray-400 hover:text-white;
+  }
+
+  .nav-link-active {
+    @apply text-black font-semibold underline;
+  }
+
+  .dark .nav-link-active {
+    @apply text-white;
+  }
+
+  /* Mobile bottom navigation */
+  .bottom-nav {
+    @apply fixed bottom-0 left-0 right-0 bg-white border-t border-[#E9ECEF] py-2 px-4 flex justify-around items-center md:hidden z-50;
+  }
+
+  .dark .bottom-nav {
+    @apply bg-gray-900 border-gray-700;
+  }
+
+  .bottom-nav-item {
+    @apply flex flex-col items-center gap-1 text-xs text-[#495057] min-w-[44px] min-h-[44px] justify-center;
+  }
+
+  .bottom-nav-item.active {
+    @apply text-black font-medium;
+  }
+
+  .dark .bottom-nav-item {
+    @apply text-gray-400;
+  }
+
+  .dark .bottom-nav-item.active {
+    @apply text-white;
+  }
+}
+
+/* ============================================
+   SKELETON LOADING (B&W)
+   ============================================ */
+
+@layer components {
+  .skeleton {
+    @apply animate-pulse bg-[#E9ECEF] rounded;
+  }
+
+  .dark .skeleton {
+    @apply bg-gray-700;
+  }
+
+  .skeleton-text {
+    @apply skeleton h-4 w-full;
+  }
+
+  .skeleton-title {
+    @apply skeleton h-6 w-3/4;
+  }
+
+  .skeleton-image {
+    @apply skeleton h-48 w-full;
+  }
+
+  .skeleton-avatar {
+    @apply skeleton h-10 w-10 rounded-full;
+  }
+}
+
+/* ============================================
+   MICRO-INTERACTIONS
+   ============================================ */
+
+@layer utilities {
+  /* Image hover: grayscale to color */
+  .img-grayscale-hover {
+    @apply grayscale transition-all duration-300 hover:grayscale-0;
+  }
+
+  /* Heart save animation */
+  .heart-animation {
+    @apply transition-transform duration-200 active:scale-125;
+  }
+
+  /* Subtle lift on hover */
+  .hover-lift {
+    @apply transition-transform duration-200 hover:-translate-y-0.5 hover:shadow-md;
+  }
+}
+
+/* Fade in animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.5s ease-out;
+}
+
+/* ============================================
+   ACCESSIBILITY
+   ============================================ */
+
+/* Reduce motion for those who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Skip to main content link */
+.skip-link {
+  @apply absolute -top-10 left-0 bg-black text-white px-4 py-2 z-50 focus:top-0 transition-all;
+}
+
+/* Screen reader only */
+.sr-only {
+  @apply absolute w-px h-px p-0 -m-px overflow-hidden whitespace-nowrap border-0;
+  clip: rect(0, 0, 0, 0);
+}
+
+/* ============================================
+   SCROLLBAR (subtle B&W)
+   ============================================ */
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #F8F9FA;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ADB5BD;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #495057;
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: #1a1a1a;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: #4a4a4a;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #6a6a6a;
+}
