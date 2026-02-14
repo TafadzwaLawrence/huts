@@ -40,15 +40,15 @@ export function MobileMenu({ isLoggedIn, userName, userEmail, userAvatar, userIn
   const userLinks = isLoggedIn
     ? isLandlord
       ? [
-          { href: '/dashboard/overview', label: 'Dashboard', icon: User },
-          { href: '/dashboard/my-properties', label: 'My Properties', icon: Building2 },
-          { href: '/dashboard/reviews', label: 'Reviews', icon: Heart },
-          { href: '/settings', label: 'Settings', icon: Shield },
+          { href: '/dashboard/overview', label: 'Dashboard', icon: User, badge: unreadMessages },
+          { href: '/dashboard/my-properties', label: 'My Properties', icon: Building2, badge: undefined },
+          { href: '/dashboard/reviews', label: 'Reviews', icon: Heart, badge: undefined },
+          { href: '/settings', label: 'Settings', icon: Shield, badge: undefined },
         ]
       : [
-          { href: '/dashboard/overview', label: 'Dashboard', icon: User },
-          { href: '/dashboard/saved', label: 'Saved Properties', icon: Heart },
-          { href: '/settings', label: 'Settings', icon: Shield },
+          { href: '/dashboard/overview', label: 'Dashboard', icon: User, badge: unreadMessages },
+          { href: '/dashboard/saved', label: 'Saved Properties', icon: Heart, badge: undefined },
+          { href: '/settings', label: 'Settings', icon: Shield, badge: undefined },
         ]
     : []
 
