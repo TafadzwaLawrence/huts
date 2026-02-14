@@ -469,11 +469,6 @@ setAllProperties(data || [])
         )}
       </div>
 
-      {/* AI Search Assistant - TODO: Re-enable when AI budget available */}
-      {/* <AISearchAssistant 
-        onFiltersApply={handleAIFilters}
-        onSearchQuery={setSearchQuery}
-      /> */}
     </div>
   )
 }

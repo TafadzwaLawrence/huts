@@ -3,8 +3,6 @@ import { redirect } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Heart, MapPin, Bed, Bath, Square, Trash2, Home } from 'lucide-react'
-// TODO: Re-enable when AI budget available
-// import DashboardAIProvider from '@/components/dashboard/DashboardAIProvider'
 
 export const metadata = {
   title: 'Saved Properties - Huts',
@@ -182,9 +180,6 @@ export default async function SavedPropertiesPage() {
           </div>
         )}
       </div>
-
-      {/* AI Assistant */}
-      {/* <DashboardAIProvider /> */}
     </div>
   )
 }

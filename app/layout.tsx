@@ -7,8 +7,6 @@ import { NavbarSkeleton } from '@/components/layout/NavbarSkeleton'
 import { Footer } from '@/components/layout/Footer'
 import FloatingChatWidget from '@/components/chat/FloatingChatWidget'
 import { Toaster } from 'sonner'
-// TODO: Re-enable when AI budget available
-// import { HashbrownClientProvider } from '@/components/providers/HashbrownProvider'
 import { NProgressProvider } from '@/components/providers/NProgressProvider'
 
 const inter = Inter({ 
@@ -38,8 +36,7 @@ export default async function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className} suppressHydrationWarning>
-        {/* HashbrownClientProvider - TODO: Re-enable when AI budget available */}
-          <Suspense fallback={null}>
+        <Suspense fallback={null}>
             <NProgressProvider>
               <a href="#main-content" className="skip-link">
                 Skip to main content
@@ -55,7 +52,6 @@ export default async function RootLayout({
               <Toaster position="top-center" />
             </NProgressProvider>
           </Suspense>
-        {/* End HashbrownClientProvider */}
       </body>
     </html>
   )
