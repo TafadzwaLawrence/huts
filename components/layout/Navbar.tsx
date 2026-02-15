@@ -28,53 +28,55 @@ export async function Navbar() {
   return (
     <header className="sticky top-0 z-50 bg-white border-b border-[#E9ECEF]">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <Link href="/" className="flex items-center shrink-0">
-            <Image
-              src="/logo.png"
-              alt="Huts"
-              width={32}
-              height={32}
-              priority
-              className="h-8 w-8 object-contain"
-            />
-          </Link>
+        <div className="flex items-center h-16">
+          {/* Logo - fixed width left */}
+          <div className="flex items-center shrink-0 w-[120px]">
+            <Link href="/" className="flex items-center">
+              <Image
+                src="/logo.png"
+                alt="Huts"
+                width={32}
+                height={32}
+                priority
+                className="h-8 w-8 object-contain"
+              />
+            </Link>
+          </div>
 
           {/* Center Navigation - Desktop */}
-          <nav className="hidden md:flex items-center gap-1">
+          <nav className="hidden md:flex items-center justify-center flex-1 gap-1">
             {user && isLandlord ? (
               <>
-                <Link href="/dashboard/overview" className="px-3 py-1.5 text-sm text-[#495057] hover:text-[#212529] transition-colors">
+                <Link href="/dashboard/overview" className="px-3 py-1.5 text-sm font-medium text-[#495057] hover:text-[#212529] transition-colors">
                   Dashboard
                 </Link>
-                <Link href="/dashboard/my-properties" className="px-3 py-1.5 text-sm text-[#495057] hover:text-[#212529] transition-colors">
+                <Link href="/dashboard/my-properties" className="px-3 py-1.5 text-sm font-medium text-[#495057] hover:text-[#212529] transition-colors">
                   Properties
                 </Link>
-                <Link href="/dashboard/reviews" className="px-3 py-1.5 text-sm text-[#495057] hover:text-[#212529] transition-colors">
+                <Link href="/dashboard/reviews" className="px-3 py-1.5 text-sm font-medium text-[#495057] hover:text-[#212529] transition-colors">
                   Reviews
                 </Link>
               </>
             ) : (
               <>
-                <Link href="/search" className="px-3 py-1.5 text-sm text-[#495057] hover:text-[#212529] transition-colors">
+                <Link href="/search" className="px-3 py-1.5 text-sm font-medium text-[#495057] hover:text-[#212529] transition-colors">
                   Browse
                 </Link>
-                <Link href="/search?type=rent" className="px-3 py-1.5 text-sm text-[#495057] hover:text-[#212529] transition-colors">
+                <Link href="/search?type=rent" className="px-3 py-1.5 text-sm font-medium text-[#495057] hover:text-[#212529] transition-colors">
                   Rent
                 </Link>
-                <Link href="/search?type=sale" className="px-3 py-1.5 text-sm text-[#495057] hover:text-[#212529] transition-colors">
+                <Link href="/search?type=sale" className="px-3 py-1.5 text-sm font-medium text-[#495057] hover:text-[#212529] transition-colors">
                   Buy
                 </Link>
-                <Link href="/areas" className="px-3 py-1.5 text-sm text-[#495057] hover:text-[#212529] transition-colors">
+                <Link href="/areas" className="px-3 py-1.5 text-sm font-medium text-[#495057] hover:text-[#212529] transition-colors">
                   Areas
                 </Link>
               </>
             )}
           </nav>
 
-          {/* Right Actions */}
-          <div className="hidden md:flex items-center gap-2">
+          {/* Right Actions - matches logo width for centering */}
+          <div className="hidden md:flex items-center justify-end gap-2 min-w-[120px]">
             {user ? (
               <>
                 {/* Search */}
@@ -164,7 +166,7 @@ export async function Navbar() {
           </div>
 
           {/* Mobile */}
-          <div className="md:hidden flex items-center gap-1">
+          <div className="md:hidden flex items-center gap-1 ml-auto">
             <Link href="/search" className="p-2 text-[#495057]">
               <Search size={20} />
             </Link>
