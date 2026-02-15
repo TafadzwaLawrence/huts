@@ -15,26 +15,27 @@ export async function POST(request: NextRequest) {
     }
 
     const { data, error } = await resend.emails.send({
-      from: 'Huts <onboarding@resend.dev>',
+      from: 'Huts <noreply@huts.co.zw>',
       to: email,
-      subject: 'Welcome to Huts!',
+      subject: 'Welcome to Huts — Your account is ready!',
       react: WelcomeEmail({ name, role }),
     })
 
     if (error) {
-      console.error('Resend error:', error)
+      console.error('[Welcome Email] Resend error:', error)
       return NextResponse.json(
         { error: 'Failed to send email' },
         { status: 500 }
       )
     }
 
+    console.log('[Welcome Email] Sent to:', email, 'ID:', data?.id)
     return NextResponse.json({ 
       success: true,
       messageId: data?.id 
     })
   } catch (error) {
-    console.error('Welcome email error:', error)
+    console.error('[Welcome Email] error:', error)
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }

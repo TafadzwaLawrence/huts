@@ -219,7 +219,7 @@ export function DashboardNavbar({ user, profile }: DashboardNavbarProps) {
         scrolled ? 'bg-white/95 backdrop-blur-md shadow-sm' : 'bg-white border-b border-[#E9ECEF]'
       }`}>
         <nav>
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex items-center justify-between h-16">
               {/* Left: Logo + Nav */}
               <div className="flex items-center gap-6">

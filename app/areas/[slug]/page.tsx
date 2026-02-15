@@ -174,7 +174,7 @@ export default async function AreaGuidePage({ params }: PageProps) {
               Available Properties
             </h2>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {properties.map((property: any) => {
                 const primaryImage = property.property_images?.find((img: any) => img.is_primary) || property.property_images?.[0]
                 const imageUrl = primaryImage?.url || 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600&h=400&fit=crop'

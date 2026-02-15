@@ -67,7 +67,7 @@ export default async function DashboardOverviewPage() {
 
   return (
     <div className="min-h-screen bg-[#F8F9FA]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
         {/* Header */}
         <div className="mb-8">
           <p className="text-sm text-[#495057] font-medium mb-2">{greeting}</p>

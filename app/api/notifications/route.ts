@@ -7,7 +7,7 @@ export async function GET() {
     
     const { data: { user }, error: userError } = await supabase.auth.getUser()
     if (userError || !user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+      return NextResponse.json({ error: 'Authentication required' }, { status: 401 })
     }
 
     // Fetch notifications for the user
@@ -43,7 +43,7 @@ export async function PATCH(request: Request) {
     
     const { data: { user }, error: userError } = await supabase.auth.getUser()
     if (userError || !user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+      return NextResponse.json({ error: 'Authentication required' }, { status: 401 })
     }
 
     const { notificationId, markAllRead } = await request.json()
@@ -81,7 +81,7 @@ export async function DELETE(request: Request) {
     
     const { data: { user }, error: userError } = await supabase.auth.getUser()
     if (userError || !user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+      return NextResponse.json({ error: 'Authentication required' }, { status: 401 })
     }
 
     const { searchParams } = new URL(request.url)

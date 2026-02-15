@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
+import { resend } from '@/lib/resend'
+import NewReviewEmail from '@/emails/NewReviewEmail'
 
 export async function POST(request: NextRequest) {
   try {
@@ -8,7 +10,7 @@ export async function POST(request: NextRequest) {
     const { data: { user } } = await supabase.auth.getUser()
     if (!user) {
       return NextResponse.json(
-        { error: 'Unauthorized' },
+        { error: 'Authentication required' },
         { status: 401 }
       )
     }
@@ -86,6 +88,62 @@ export async function POST(request: NextRequest) {
         { error: 'Failed to create review' },
         { status: 500 }
       )
+    }
+
+    // Send email notification to landlord
+    try {
+      // Get property details and landlord info
+      const { data: property } = await supabase
+        .from('properties')
+        .select('title, slug, user_id')
+        .eq('id', property_id)
+        .single()
+
+      if (property) {
+        // Get reviewer name
+        const { data: reviewer } = await supabase
+          .from('profiles')
+          .select('name')
+          .eq('id', user.id)
+          .single()
+
+        // Get landlord name and email from profiles
+        const { data: landlordProfile } = await supabase
+          .from('profiles')
+          .select('name, email')
+          .eq('id', property.user_id)
+          .single()
+
+        const landlordEmail = landlordProfile?.email
+
+        if (landlordEmail) {
+          const propertySlug = property.slug || property_id
+          const { error: emailError } = await resend.emails.send({
+            from: 'Huts <noreply@huts.co.zw>',
+            to: landlordEmail,
+            subject: `New ${rating}-star review for ${property.title}`,
+            react: NewReviewEmail({
+              landlordName: landlordProfile?.name || 'Property Owner',
+              propertyTitle: property.title,
+              reviewerName: reviewer?.name || 'A renter',
+              rating,
+              reviewTitle: title,
+              reviewComment: comment,
+              propertyUrl: `https://www.huts.co.zw/property/${propertySlug}`,
+              reviewUrl: 'https://www.huts.co.zw/dashboard/property-reviews',
+            }),
+          })
+
+          if (emailError) {
+            console.error('[Review Email] Resend error:', emailError)
+          } else {
+            console.log('[Review Email] Sent to landlord:', landlordEmail)
+          }
+        }
+      }
+    } catch (emailError) {
+      console.error('[Review Email] error:', emailError)
+      // Don't fail the request if email fails
     }
 
     return NextResponse.json({ review }, { status: 201 })

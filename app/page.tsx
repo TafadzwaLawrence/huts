@@ -326,20 +326,15 @@ export default async function HomePage() {
         <div className="container-main relative">
           {/* Section Header */}
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6 mb-12">
-            <div className="flex items-start gap-4">
-              <div className="w-14 h-14 bg-[#212529] rounded-2xl flex items-center justify-center shadow-lg flex-shrink-0 group-hover:scale-110 transition-transform">
-                <Home size={24} className="text-white" />
-              </div>
-              <div>
-                <h2 className="text-3xl md:text-4xl font-bold text-[#212529] tracking-tight mb-2">
-                  Featured Rentals
-                </h2>
-                <p className="text-[#495057] text-sm md:text-base">Hand-picked rental listings updated daily</p>
-              </div>
+            <div>
+              <h2 className="text-3xl md:text-4xl font-bold text-[#212529] tracking-tight mb-2">
+                Featured Rentals
+              </h2>
+              <p className="text-[#495057] text-sm md:text-base">Hand-picked rental listings updated daily</p>
             </div>
             <Link
               href="/search?type=rent"
-              className="group/btn inline-flex items-center gap-2 text-sm font-bold text-[#212529] bg-white border-2 border-[#E9ECEF] px-6 py-3 rounded-full hover:border-[#212529] hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200"
+              className="group/btn inline-flex items-center gap-2 text-sm font-bold text-white bg-[#212529] px-6 py-3 rounded-lg hover:bg-black hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200"
             >
               <span>View all rentals</span>
               <ArrowRight size={16} className="group-hover/btn:translate-x-1 transition-transform" />
@@ -502,20 +497,13 @@ export default async function HomePage() {
         <div className="container-main relative">
           {/* Section Header */}
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6 mb-12">
-            <div className="flex items-start gap-4">
-              <div className="w-14 h-14 bg-[#212529] rounded-2xl flex items-center justify-center shadow-lg flex-shrink-0">
-                <Building2 size={24} className="text-white" />
-              </div>
-              <div>
-                <div className="flex items-center gap-3 mb-1">
-                  <h2 className="text-3xl md:text-4xl font-bold text-[#212529] tracking-tight">Homes for Sale</h2>
-                </div>
-                <p className="text-[#495057]">Find your dream home and make it yours</p>
-              </div>
+            <div>
+              <h2 className="text-3xl md:text-4xl font-bold text-[#212529] tracking-tight mb-2">Homes for Sale</h2>
+              <p className="text-[#495057]">Find your dream home and make it yours</p>
             </div>
             <Link
               href="/search?type=sale"
-              className="group inline-flex items-center gap-2 text-sm font-medium text-[#212529] bg-white border-2 border-[#E9ECEF] px-5 py-2.5 rounded-full hover:border-[#212529] hover:shadow-md transition-all"
+              className="group inline-flex items-center gap-2 text-sm font-bold text-white bg-[#212529] px-6 py-3 rounded-lg hover:bg-black hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200"
             >
               View all homes
               <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
@@ -617,9 +605,9 @@ export default async function HomePage() {
                     </div>
                   </div>
                   
-                  <h3 className="text-2xl md:text-3xl font-bold text-[#212529] mb-3">No homes for sale yet</h3>
+                  <h3 className="text-2xl md:text-3xl font-bold text-[#212529] mb-3">Ready to Sell? Your First Buyer Is Waiting</h3>
                   <p className="text-[#495057] text-lg mb-8 max-w-md mx-auto">
-                    Be the first to list a property for sale and reach thousands of potential buyers.
+                    Join thousands of successful sellers. List in minutes and connect with verified buyers actively searching for homes like yours.
                   </p>
                   
                   <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -641,10 +629,10 @@ export default async function HomePage() {
                   </div>
                   
                   {/* Trust indicators */}
-                  <div className="mt-10 pt-8 border-t border-[#E9ECEF] flex flex-wrap justify-center gap-6 text-sm text-[#ADB5BD]">
-                    <span className="flex items-center gap-2"><CheckCircle2 size={16} className="text-[#212529]" /> Free to list</span>
-                    <span className="flex items-center gap-2"><CheckCircle2 size={16} className="text-[#212529]" /> Verified buyers</span>
-                    <span className="flex items-center gap-2"><CheckCircle2 size={16} className="text-[#212529]" /> Secure messaging</span>
+                  <div className="mt-10 pt-8 border-t border-[#E9ECEF] flex flex-wrap justify-center gap-6 text-sm text-[#495057]">
+                    <span className="flex flex-col items-center gap-1"><CheckCircle2 size={16} className="text-[#212529]" /><span className="font-semibold">Free to list</span><span className="text-xs text-[#ADB5BD]">No hidden fees</span></span>
+                    <span className="flex flex-col items-center gap-1"><CheckCircle2 size={16} className="text-[#212529]" /><span className="font-semibold">Verified buyers</span><span className="text-xs text-[#ADB5BD]">Serious inquiries only</span></span>
+                    <span className="flex flex-col items-center gap-1"><CheckCircle2 size={16} className="text-[#212529]" /><span className="font-semibold">Secure messaging</span><span className="text-xs text-[#ADB5BD]">Private & protected</span></span>
                   </div>
                 </div>
               </div>

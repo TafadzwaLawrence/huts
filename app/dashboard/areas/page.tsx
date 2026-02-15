@@ -95,7 +95,7 @@ export default function AreaGuidesPage() {
 
   return (
     <div className="min-h-screen bg-[#F8F9FA] py-12">
-      <div className="container-main max-w-7xl">
+      <div className="container-main max-w-6xl">
         {/* Header */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
           <div>

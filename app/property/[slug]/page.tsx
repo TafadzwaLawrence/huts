@@ -175,9 +175,9 @@ export default async function PropertyPage({ params }: { params: Promise<{ slug:
         {/* Back Button */}
         <Link
           href="/search"
-          className="absolute top-4 left-4 bg-white p-2 rounded-full shadow-lg hover:bg-[#F8F9FA] transition-colors z-10"
+          className="absolute top-4 left-4 bg-white/95 backdrop-blur-sm p-2.5 rounded-xl shadow-lg hover:bg-white hover:scale-105 transition-all z-10 border border-[#E9ECEF]"
         >
-          <ChevronLeft size={24} className="text-black" />
+          <ChevronLeft size={22} className="text-[#212529]" />
         </Link>
 
         {/* Actions */}
@@ -190,110 +190,122 @@ export default async function PropertyPage({ params }: { params: Promise<{ slug:
       </div>
 
       {/* Content */}
-      <div className="max-w-7xl mx-auto px-4 py-8 md:py-12">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
           {/* Main Content */}
           <div className="lg:col-span-2">
-            {/* Header with badges */}
-            <div className="flex flex-wrap gap-2 mb-4">
-              <span className="inline-flex items-center gap-1.5 bg-[#212529] text-white px-3 py-1.5 rounded-full text-sm font-medium">
-                <Building2 size={14} />
-                {propertyTypeDisplay}
-              </span>
-              {isSale && (
-                <span className="bg-[#51CF66] text-white px-3 py-1.5 rounded-full text-sm font-medium">
-                  For Sale
+            {/* Header */}
+            <div className="mb-8">
+              {/* Badges */}
+              <div className="flex flex-wrap items-center gap-2 mb-4">
+                <span className="inline-flex items-center gap-1.5 bg-[#212529] text-white px-3 py-1 rounded-lg text-xs font-semibold tracking-wide uppercase">
+                  {propertyTypeDisplay}
                 </span>
-              )}
-              {isRental && !isSale && (
-                <span className="bg-[#495057] text-white px-3 py-1.5 rounded-full text-sm font-medium">
-                  For Rent
-                </span>
-              )}
-            </div>
+                {isSale && (
+                  <span className="bg-[#212529] text-white px-3 py-1 rounded-lg text-xs font-semibold tracking-wide uppercase">
+                    For Sale
+                  </span>
+                )}
+                {isRental && !isSale && (
+                  <span className="bg-[#212529] text-white px-3 py-1 rounded-lg text-xs font-semibold tracking-wide uppercase">
+                    For Rent
+                  </span>
+                )}
+              </div>
 
-            {/* Title & Price */}
-            <div className="mb-4">
-              <h1 className="text-2xl md:text-3xl font-bold text-[#212529] mb-2">{property.title}</h1>
+              {/* Title */}
+              <h1 className="text-3xl md:text-4xl font-bold text-[#212529] tracking-tight mb-3">{property.title}</h1>
+              
+              {/* Location */}
               <div className="flex items-center gap-2 text-[#495057]">
-                <MapPin size={18} className="flex-shrink-0" />
-                <span>{locationString}</span>
+                <MapPin size={16} className="flex-shrink-0 text-[#ADB5BD]" />
+                <span className="text-base">{locationString}</span>
               </div>
             </div>
 
-            {/* Price Card */}
-            <div className="bg-[#212529] text-white rounded-xl p-6 mb-8">
-              <div className="flex items-baseline gap-2">
-                <span className="text-3xl md:text-4xl font-bold">
-                  {isSale ? formatSalePrice(property.sale_price) : formatPrice(property.price)}
-                </span>
-                {isRental && !isSale && <span className="text-lg opacity-80">/month</span>}
-              </div>
-              {property.deposit && (
-                <p className="text-sm opacity-80 mt-2">
-                  Security deposit: {formatPrice(property.deposit)}
+            {/* Price + Key Stats Row */}
+            <div className="flex flex-col sm:flex-row gap-4 mb-10">
+              {/* Price */}
+              <div className="flex-1 bg-[#212529] rounded-2xl p-6">
+                <p className="text-xs font-semibold text-white/60 uppercase tracking-wider mb-1">
+                  {isSale ? 'Asking Price' : 'Monthly Rent'}
                 </p>
-              )}
-            </div>
+                <div className="flex items-baseline gap-2">
+                  <span className="text-3xl md:text-4xl font-bold text-white tracking-tight">
+                    {isSale ? formatSalePrice(property.sale_price) : formatPrice(property.price)}
+                  </span>
+                  {isRental && !isSale && <span className="text-sm text-white/50 font-medium">/month</span>}
+                </div>
+                {property.deposit && (
+                  <p className="text-sm text-white/50 mt-2">
+                    Deposit: {formatPrice(property.deposit)}
+                  </p>
+                )}
+              </div>
 
-            {/* Key Details */}
-            <div className="grid grid-cols-3 gap-4 mb-8">
-              <div className="text-center p-4 border-2 border-[#E9ECEF] rounded-xl hover:border-[#212529] transition-colors">
-                <Bed className="mx-auto text-[#212529] mb-2" size={28} />
-                <p className="text-2xl font-bold text-[#212529]">{property.beds}</p>
-                <p className="text-sm text-[#495057]">{property.beds === 1 ? 'Bedroom' : 'Bedrooms'}</p>
-              </div>
-              <div className="text-center p-4 border-2 border-[#E9ECEF] rounded-xl hover:border-[#212529] transition-colors">
-                <Bath className="mx-auto text-[#212529] mb-2" size={28} />
-                <p className="text-2xl font-bold text-[#212529]">{property.baths}</p>
-                <p className="text-sm text-[#495057]">{property.baths === 1 ? 'Bathroom' : 'Bathrooms'}</p>
-              </div>
-              {property.sqft ? (
-                <div className="text-center p-4 border-2 border-[#E9ECEF] rounded-xl hover:border-[#212529] transition-colors">
-                  <Square className="mx-auto text-[#212529] mb-2" size={28} />
-                  <p className="text-2xl font-bold text-[#212529]">{property.sqft.toLocaleString()}</p>
-                  <p className="text-sm text-[#495057]">Sq Ft</p>
+              {/* Quick Stats */}
+              <div className="flex sm:flex-col gap-3 sm:gap-2">
+                <div className="flex-1 flex items-center gap-3 px-5 py-3 border-2 border-[#E9ECEF] rounded-xl">
+                  <Bed size={20} className="text-[#212529] flex-shrink-0" />
+                  <div>
+                    <p className="text-lg font-bold text-[#212529] leading-none">{property.beds}</p>
+                    <p className="text-xs text-[#ADB5BD]">{property.beds === 1 ? 'Bed' : 'Beds'}</p>
+                  </div>
                 </div>
-              ) : (
-                <div className="text-center p-4 border-2 border-[#E9ECEF] rounded-xl hover:border-[#212529] transition-colors">
-                  <Car className="mx-auto text-[#212529] mb-2" size={28} />
-                  <p className="text-2xl font-bold text-[#212529]">{property.parking_spaces || 0}</p>
-                  <p className="text-sm text-[#495057]">Parking</p>
+                <div className="flex-1 flex items-center gap-3 px-5 py-3 border-2 border-[#E9ECEF] rounded-xl">
+                  <Bath size={20} className="text-[#212529] flex-shrink-0" />
+                  <div>
+                    <p className="text-lg font-bold text-[#212529] leading-none">{property.baths}</p>
+                    <p className="text-xs text-[#ADB5BD]">{property.baths === 1 ? 'Bath' : 'Baths'}</p>
+                  </div>
                 </div>
-              )}
+                <div className="flex-1 flex items-center gap-3 px-5 py-3 border-2 border-[#E9ECEF] rounded-xl">
+                  {property.sqft ? (
+                    <>
+                      <Square size={20} className="text-[#212529] flex-shrink-0" />
+                      <div>
+                        <p className="text-lg font-bold text-[#212529] leading-none">{property.sqft.toLocaleString()}</p>
+                        <p className="text-xs text-[#ADB5BD]">Sq Ft</p>
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <Car size={20} className="text-[#212529] flex-shrink-0" />
+                      <div>
+                        <p className="text-lg font-bold text-[#212529] leading-none">{property.parking_spaces || 0}</p>
+                        <p className="text-xs text-[#ADB5BD]">Parking</p>
+                      </div>
+                    </>
+                  )}
+                </div>
+              </div>
             </div>
 
             {/* Description */}
-            <div className="mb-8">
-              <h2 className="text-xl font-bold text-[#212529] mb-4 flex items-center gap-2">
-                <Home size={20} className="text-[#212529]" />
-                About this property
-              </h2>
+            <div className="mb-10">
+              <h2 className="text-lg font-bold text-[#212529] mb-4">About this property</h2>
               {property.description ? (
-                <p className="text-[#495057] whitespace-pre-line leading-relaxed">{property.description}</p>
+                <p className="text-[#495057] whitespace-pre-line leading-7">{property.description}</p>
               ) : (
-                <div className="p-6 bg-[#F8F9FA] rounded-xl text-center">
-                  <p className="text-[#495057] italic">Contact the landlord for more details about this property.</p>
+                <div className="p-6 bg-[#F8F9FA] rounded-xl border border-[#E9ECEF]">
+                  <p className="text-[#495057] text-sm">Contact the landlord for more details about this property.</p>
                 </div>
               )}
             </div>
 
             {/* Amenities */}
             {property.amenities && property.amenities.length > 0 && (
-              <div className="mb-8">
-                <h2 className="text-xl font-bold text-[#212529] mb-4 flex items-center gap-2">
-                  <Check size={20} className="text-[#212529]" />
-                  Amenities
-                </h2>
+              <div className="mb-10">
+                <h2 className="text-lg font-bold text-[#212529] mb-4">Amenities</h2>
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                   {property.amenities.map((amenity: string) => {
                     const Icon = AMENITY_ICONS[amenity] || Check
                     return (
-                      <div key={amenity} className="flex items-center gap-3 p-3 bg-[#F8F9FA] rounded-lg border border-[#E9ECEF]">
-                        <div className="p-2 bg-white rounded-full">
-                          <Icon size={18} className="text-[#212529]" />
+                      <div key={amenity} className="flex items-center gap-3 p-3 rounded-xl border border-[#E9ECEF] hover:border-[#212529] transition-colors">
+                        <div className="w-9 h-9 bg-[#F8F9FA] rounded-lg flex items-center justify-center flex-shrink-0">
+                          <Icon size={16} className="text-[#212529]" />
                         </div>
-                        <span className="text-[#212529] font-medium">{amenity}</span>
+                        <span className="text-sm font-medium text-[#212529]">{amenity}</span>
                       </div>
                     )
                   })}
@@ -303,24 +315,21 @@ export default async function PropertyPage({ params }: { params: Promise<{ slug:
 
             {/* Availability */}
             {(property.available_from || property.lease_term) && (
-              <div className="mb-8">
-                <h2 className="text-xl font-bold text-[#212529] mb-4 flex items-center gap-2">
-                  <Calendar size={20} className="text-[#212529]" />
-                  Availability
-                </h2>
+              <div className="mb-10">
+                <h2 className="text-lg font-bold text-[#212529] mb-4">Availability</h2>
                 <div className="flex flex-wrap gap-3">
                   {property.available_from && (
-                    <div className="flex items-center gap-3 px-4 py-3 bg-[#51CF66]/10 border border-[#51CF66]/30 rounded-lg">
-                      <Calendar size={20} className="text-[#51CF66]" />
-                      <span className="text-[#212529] font-medium">
+                    <div className="flex items-center gap-3 px-4 py-3 bg-[#F8F9FA] border border-[#E9ECEF] rounded-xl">
+                      <Calendar size={18} className="text-[#212529]" />
+                      <span className="text-sm font-medium text-[#212529]">
                         Available {new Date(property.available_from).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
                       </span>
                     </div>
                   )}
                   {property.lease_term && (
-                    <div className="flex items-center gap-3 px-4 py-3 bg-[#F8F9FA] border border-[#E9ECEF] rounded-lg">
-                      <Clock size={20} className="text-[#495057]" />
-                      <span className="text-[#212529] font-medium">{property.lease_term} lease</span>
+                    <div className="flex items-center gap-3 px-4 py-3 bg-[#F8F9FA] border border-[#E9ECEF] rounded-xl">
+                      <Clock size={18} className="text-[#212529]" />
+                      <span className="text-sm font-medium text-[#212529]">{property.lease_term} lease</span>
                     </div>
                   )}
                 </div>
@@ -330,24 +339,19 @@ export default async function PropertyPage({ params }: { params: Promise<{ slug:
 
           {/* Sidebar - Contact Card */}
           <div className="lg:col-span-1">
-            <div className="sticky top-24 bg-white border-2 border-[#E9ECEF] rounded-2xl overflow-hidden shadow-xl">
+            <div className="sticky top-24 border-2 border-[#E9ECEF] rounded-2xl overflow-hidden">
               {/* Header */}
-              <div className="bg-gradient-to-r from-[#212529] to-[#495057] text-white px-6 py-5">
-                <div className="flex items-center gap-2 mb-1">
-                  <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
-                    <Mail size={16} />
-                  </div>
-                  <p className="font-bold text-lg">Get in Touch</p>
-                </div>
-                <p className="text-sm opacity-80 ml-10">Typically responds within 24 hours</p>
+              <div className="bg-[#212529] text-white px-6 py-5">
+                <p className="font-bold text-lg">Get in Touch</p>
+                <p className="text-sm text-white/60 mt-0.5">Typically responds within 24 hours</p>
               </div>
 
               <div className="p-6">
                 {/* Landlord Info */}
                 {property.profiles && (
                   <div className="flex items-center gap-4 pb-5 border-b border-[#E9ECEF] mb-5">
-                    <div className="relative">
-                      <div className="relative w-16 h-16 rounded-full overflow-hidden bg-gradient-to-br from-[#E9ECEF] to-[#DEE2E6] border-2 border-[#212529] flex items-center justify-center flex-shrink-0">
+                    <div className="relative flex-shrink-0">
+                      <div className="relative w-14 h-14 rounded-full overflow-hidden bg-[#F8F9FA] border-2 border-[#E9ECEF] flex items-center justify-center">
                         {property.profiles.avatar_url ? (
                           <Image
                             src={property.profiles.avatar_url}
@@ -356,23 +360,16 @@ export default async function PropertyPage({ params }: { params: Promise<{ slug:
                             className="object-cover"
                           />
                         ) : (
-                          <span className="text-2xl font-bold text-[#495057]">
+                          <span className="text-xl font-bold text-[#495057]">
                             {property.profiles.name?.[0]?.toUpperCase() || 'L'}
                           </span>
                         )}
                       </div>
-                      {/* Online indicator */}
-                      <div className="absolute bottom-0 right-0 w-4 h-4 bg-[#51CF66] rounded-full border-2 border-white"></div>
+                      <div className="absolute -bottom-0.5 -right-0.5 w-4 h-4 bg-[#51CF66] rounded-full border-2 border-white"></div>
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="font-bold text-[#212529] text-lg truncate">{property.profiles.name || 'Property Owner'}</p>
-                      <div className="flex items-center gap-2 text-sm text-[#495057]">
-                        <span>Property Owner</span>
-                        <span className="inline-flex items-center gap-1 bg-[#51CF66]/10 text-[#51CF66] px-2 py-0.5 rounded-full text-xs font-medium">
-                          <Check size={10} />
-                          Verified
-                        </span>
-                      </div>
+                      <p className="font-bold text-[#212529] truncate">{property.profiles.name || 'Property Owner'}</p>
+                      <p className="text-xs text-[#ADB5BD]">Property Owner</p>
                     </div>
                   </div>
                 )}
@@ -382,18 +379,18 @@ export default async function PropertyPage({ params }: { params: Promise<{ slug:
                   {property.profiles?.phone && (
                     <a
                       href={`tel:${property.profiles.phone}`}
-                      className="group flex items-center justify-center gap-2 w-full py-3.5 bg-[#212529] text-white rounded-xl font-semibold hover:bg-black hover:-translate-y-0.5 hover:shadow-lg transition-all"
+                      className="flex items-center justify-center gap-2 w-full py-3 bg-[#212529] text-white rounded-xl text-sm font-semibold hover:bg-black hover:-translate-y-0.5 hover:shadow-lg transition-all"
                     >
-                      <Phone size={18} className="group-hover:animate-pulse" />
+                      <Phone size={16} />
                       Call Now
                     </a>
                   )}
 
                   <a
                     href={`mailto:${property.profiles?.email}?subject=Inquiry about ${property.title}`}
-                    className="flex items-center justify-center gap-2 w-full py-3.5 border-2 border-[#212529] text-[#212529] rounded-xl font-semibold hover:bg-[#212529] hover:text-white transition-all"
+                    className="flex items-center justify-center gap-2 w-full py-3 border-2 border-[#E9ECEF] text-[#212529] rounded-xl text-sm font-semibold hover:border-[#212529] transition-all"
                   >
-                    <Mail size={18} />
+                    <Mail size={16} />
                     Send Email
                   </a>
                 </div>
@@ -404,12 +401,12 @@ export default async function PropertyPage({ params }: { params: Promise<{ slug:
                     <div className="w-full border-t border-[#E9ECEF]"></div>
                   </div>
                   <div className="relative flex justify-center">
-                    <span className="px-4 bg-white text-[#ADB5BD] text-sm">or send a quick message</span>
+                    <span className="px-3 bg-white text-[#ADB5BD] text-xs">or send a message</span>
                   </div>
                 </div>
 
-                {/* Inquiry Form - Client Component */}
-                <Suspense fallback={<div className="h-48 bg-[#F8F9FA] rounded-lg animate-pulse" />}>
+                {/* Inquiry Form */}
+                <Suspense fallback={<div className="h-48 bg-[#F8F9FA] rounded-xl animate-pulse" />}>
                   <InquiryForm propertyId={property.id} />
                 </Suspense>
               </div>

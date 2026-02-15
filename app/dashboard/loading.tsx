@@ -3,7 +3,7 @@ export default function DashboardLoading() {
     <div className="min-h-screen bg-[#F8F9FA]">
       {/* Dashboard header skeleton */}
       <div className="bg-white border-b border-[#E9ECEF] px-6 py-4">
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
+        <div className="max-w-6xl mx-auto flex items-center justify-between">
           <div className="h-8 w-48 bg-[#E9ECEF] rounded animate-pulse" />
           <div className="flex gap-4">
             <div className="h-10 w-32 bg-[#E9ECEF] rounded animate-pulse" />
@@ -13,7 +13,7 @@ export default function DashboardLoading() {
       </div>
 
       {/* Dashboard content skeleton */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
         {/* Stats cards */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
           {[...Array(4)].map((_, i) => (

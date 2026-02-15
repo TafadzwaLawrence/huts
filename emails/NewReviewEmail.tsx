@@ -29,8 +29,8 @@ export default function NewReviewEmail({
   rating = 5,
   reviewTitle = 'Great stay!',
   reviewComment = 'Had an amazing experience at this property...',
-  propertyUrl = 'https://huts.com/property/123',
-  reviewUrl = 'https://huts.com/dashboard/property-reviews'
+  propertyUrl = 'https://www.huts.co.zw/property/123',
+  reviewUrl = 'https://www.huts.co.zw/dashboard/property-reviews'
 }: NewReviewEmailProps) {
   const stars = '★'.repeat(rating) + '☆'.repeat(5 - rating)
 

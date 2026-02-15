@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
+import { resend } from '@/lib/resend'
+import { PropertyInquiryEmail } from '@/emails/PropertyInquiryEmail'
 
 export async function POST(request: NextRequest) {
   try {
@@ -97,8 +99,50 @@ export async function POST(request: NextRequest) {
       // Don't fail - conversation exists, user can send message via Messages page
     }
 
-    // TODO: Add email notification when Resend is properly configured
-    // Email sending temporarily disabled due to API compatibility issues
+    // Send email notification to landlord
+    try {
+      // Get sender profile info
+      const { data: senderProfile } = await supabase
+        .from('profiles')
+        .select('name')
+        .eq('id', user.id)
+        .single()
+      
+      // Get landlord profile info (includes email)
+      const { data: landlordProfile } = await supabase
+        .from('profiles')
+        .select('name, email')
+        .eq('id', property.user_id)
+        .single()
+
+      const landlordEmail = landlordProfile?.email
+
+      if (landlordEmail) {
+        const { error: emailError } = await resend.emails.send({
+          from: 'Huts <noreply@huts.co.zw>',
+          to: landlordEmail,
+          replyTo: user.email || undefined,
+          subject: `New inquiry for ${property.title}`,
+          react: PropertyInquiryEmail({
+            propertyTitle: property.title,
+            propertyUrl: `https://www.huts.co.zw/property/${propertyId}`,
+            inquirerName: senderProfile?.name || user.user_metadata?.name || 'A renter',
+            inquirerEmail: user.email || '',
+            message,
+            landlordName: landlordProfile?.name || 'Property Owner',
+          }),
+        })
+
+        if (emailError) {
+          console.error('[Inquiry Email] Resend error:', emailError)
+        } else {
+          console.log('[Inquiry Email] Sent to landlord:', landlordEmail)
+        }
+      }
+    } catch (emailError) {
+      console.error('[Inquiry Email] error:', emailError)
+      // Don't fail the request if email fails
+    }
 
     return NextResponse.json({ 
       success: true, 

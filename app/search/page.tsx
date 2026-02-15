@@ -57,7 +57,9 @@ export default function SearchPage() {
   const [showMap, setShowMap] = useState(false)
   const [showFilters, setShowFilters] = useState(false)
   const [searchQuery, setSearchQuery] = useState(searchParams.get('q') || '')
-  const [listingType, setListingType] = useState<'all' | 'rent' | 'sale'>('all')
+  const [listingType, setListingType] = useState<'all' | 'rent' | 'sale'>(
+    (searchParams.get('type') as 'all' | 'rent' | 'sale') || 'all'
+  )
   const [filters, setFilters] = useState({
     minPrice: '',
     maxPrice: '',
@@ -135,6 +137,14 @@ setAllProperties(data || [])
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  // Sync listing type with URL parameter changes
+  useEffect(() => {
+    const typeParam = searchParams.get('type') as 'all' | 'rent' | 'sale' | null
+    if (typeParam && typeParam !== listingType) {
+      setListingType(typeParam)
+    }
+  }, [searchParams])
+
   // Filter properties based on search and filters
   useEffect(() => {
     let results = allProperties
@@ -211,7 +221,8 @@ setAllProperties(data || [])
   return (
     <div className="flex flex-col h-[calc(100vh-4rem)]">
       {/* Search Header */}
-      <div className="bg-white border-b border-[#E9ECEF] p-4 lg:px-8">
+      <div className="bg-white border-b border-[#E9ECEF]">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
         {/* Listing Type Toggle - Primary */}
         <div className="flex flex-col sm:flex-row sm:items-center gap-4 mb-4">
           <div className="inline-flex border-2 border-[#E9ECEF] rounded-lg overflow-hidden">
@@ -248,8 +259,9 @@ setAllProperties(data || [])
           </div>
           
           {/* Results count - desktop */}
-          <div className="hidden sm:block text-sm text-[#495057]">
-            <span className="font-semibold text-[#212529]">{filteredProperties.length}</span> {filteredProperties.length === 1 ? 'property' : 'properties'}
+          <div className="hidden sm:flex items-center gap-3 px-4 py-2.5 bg-[#F8F9FA] rounded-lg border border-[#E9ECEF]">
+            <span className="text-lg font-bold text-[#212529]">{filteredProperties.length}</span>
+            <span className="text-sm font-medium text-[#495057]">{filteredProperties.length === 1 ? 'property' : 'properties'}</span>
           </div>
         </div>
 
@@ -306,7 +318,7 @@ setAllProperties(data || [])
           <div className="mt-4 pt-4 border-t border-[#E9ECEF]">
             <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
               <div>
-                <label className="block text-xs font-medium text-[#495057] mb-1">
+                <label className="block text-xs font-medium text-[#212529] mb-1">
                   Min Price {listingType === 'sale' ? '' : '/mo'}
                 </label>
                 <input
@@ -314,11 +326,11 @@ setAllProperties(data || [])
                   placeholder={listingType === 'sale' ? '100,000' : '500'}
                   value={filters.minPrice}
                   onChange={(e) => setFilters({ ...filters, minPrice: e.target.value })}
-                  className="w-full px-3 py-2.5 border border-[#E9ECEF] rounded-xl text-sm focus:outline-none focus:border-2 focus:border-[#212529]"
+                  className="w-full px-3 py-2.5 border border-[#E9ECEF] rounded-xl text-sm text-[#212529] focus:outline-none focus:border-2 focus:border-[#212529]"
                 />
               </div>
               <div>
-                <label className="block text-xs font-medium text-[#495057] mb-1">
+                <label className="block text-xs font-medium text-[#212529] mb-1">
                   Max Price {listingType === 'sale' ? '' : '/mo'}
                 </label>
                 <input
@@ -326,15 +338,15 @@ setAllProperties(data || [])
                   placeholder={listingType === 'sale' ? '500,000' : '3,000'}
                   value={filters.maxPrice}
                   onChange={(e) => setFilters({ ...filters, maxPrice: e.target.value })}
-                  className="w-full px-3 py-2.5 border border-[#E9ECEF] rounded-xl text-sm focus:outline-none focus:border-2 focus:border-[#212529]"
+                  className="w-full px-3 py-2.5 border border-[#E9ECEF] rounded-xl text-sm text-[#212529] focus:outline-none focus:border-2 focus:border-[#212529]"
                 />
               </div>
               <div>
-                <label className="block text-xs font-medium text-[#495057] mb-1">Bedrooms</label>
+                <label className="block text-xs font-medium text-[#212529] mb-1">Bedrooms</label>
                 <select
                   value={filters.beds}
                   onChange={(e) => setFilters({ ...filters, beds: e.target.value })}
-                  className="w-full px-3 py-2.5 border border-[#E9ECEF] rounded-xl text-sm focus:outline-none focus:border-2 focus:border-[#212529]"
+                  className="w-full px-3 py-2.5 border border-[#E9ECEF] rounded-xl text-sm text-[#212529] focus:outline-none focus:border-2 focus:border-[#212529]"
                 >
                   <option value="">Any</option>
                   <option value="1">1+</option>
@@ -345,11 +357,11 @@ setAllProperties(data || [])
                 </select>
               </div>
               <div>
-                <label className="block text-xs font-medium text-[#495057] mb-1">Bathrooms</label>
+                <label className="block text-xs font-medium text-[#212529] mb-1">Bathrooms</label>
                 <select
                   value={filters.baths}
                   onChange={(e) => setFilters({ ...filters, baths: e.target.value })}
-                  className="w-full px-3 py-2.5 border border-[#E9ECEF] rounded-xl text-sm focus:outline-none focus:border-2 focus:border-[#212529]"
+                  className="w-full px-3 py-2.5 border border-[#E9ECEF] rounded-xl text-sm text-[#212529] focus:outline-none focus:border-2 focus:border-[#212529]"
                 >
                   <option value="">Any</option>
                   <option value="1">1+</option>
@@ -358,11 +370,11 @@ setAllProperties(data || [])
                 </select>
               </div>
               <div>
-                <label className="block text-xs font-medium text-[#495057] mb-1">Property Type</label>
+                <label className="block text-xs font-medium text-[#212529] mb-1">Property Type</label>
                 <select
                   value={filters.propertyType}
                   onChange={(e) => setFilters({ ...filters, propertyType: e.target.value })}
-                  className="w-full px-3 py-2.5 border border-[#E9ECEF] rounded-xl text-sm focus:outline-none focus:border-2 focus:border-[#212529]"
+                  className="w-full px-3 py-2.5 border border-[#E9ECEF] rounded-xl text-sm text-[#212529] focus:outline-none focus:border-2 focus:border-[#212529]"
                 >
                   <option value="all">All Types</option>
                   <option value="apartment">Apartment</option>
@@ -393,18 +405,20 @@ setAllProperties(data || [])
             )}
           </div>
         )}
-
         {/* Results Count - mobile */}
-        <div className="mt-4 text-sm text-[#495057] sm:hidden">
-          <span className="font-semibold text-[#212529]">{filteredProperties.length}</span> {filteredProperties.length === 1 ? 'property' : 'properties'}
+        <div className="flex sm:hidden items-center gap-2 px-3 py-2 bg-[#F8F9FA] rounded-lg border border-[#E9ECEF] w-fit">
+          <span className="text-base font-bold text-[#212529]">{filteredProperties.length}</span>
+          <span className="text-xs font-medium text-[#495057]">{filteredProperties.length === 1 ? 'property' : 'properties'}</span>
+        </div>
         </div>
       </div>
 
       {/* Content Area */}
-      <div className="flex-1 overflow-hidden">
+      <div className="flex-1 overflow-hidden bg-[#F8F9FA]">
         {loading ? (
-          <div className="h-full overflow-y-auto bg-[#F8F9FA] p-4 lg:p-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          <div className="h-full overflow-y-auto">
+            <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {[...Array(8)].map((_, i) => (
                 <div key={i} className="bg-white border border-[#E9ECEF] rounded-xl overflow-hidden">
                   <div className="h-52 bg-[#E9ECEF] animate-pulse" />
@@ -419,6 +433,7 @@ setAllProperties(data || [])
                 </div>
               ))}
             </div>
+            </div>
           </div>
         ) : showMap ? (
           <MapView
@@ -427,24 +442,29 @@ setAllProperties(data || [])
             onPropertySelect={setSelectedProperty}
           />
         ) : (
-          <div className="h-full overflow-y-auto bg-[#F8F9FA] p-4 lg:p-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          <div className="h-full overflow-y-auto">
+            <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {filteredProperties.map((property) => (
                 <PropertyListCard key={property.id} property={property} />
               ))}
             </div>
             {filteredProperties.length === 0 && (
-              <div className="text-center py-20 max-w-md mx-auto">
-                <div className="w-16 h-16 bg-[#E9ECEF] rounded-full flex items-center justify-center mx-auto mb-6">
-                  <Home size={32} className="text-[#495057]" />
+              <div className="flex flex-col items-center justify-center py-32 px-4">
+                <div className="flex items-center justify-center">
+                  <div className="w-20 h-20 bg-[#F8F9FA] rounded-2xl flex items-center justify-center border-2 border-[#E9ECEF] shadow-sm">
+                    <Home size={40} className="text-[#495057]" />
+                  </div>
                 </div>
-                <h3 className="text-xl font-bold text-[#212529] mb-2">No properties found</h3>
-                <p className="text-[#495057] mb-6">
+                
+                <h3 className="text-2xl md:text-3xl font-bold text-[#212529] mt-8 mb-3">No properties found</h3>
+                <p className="text-[#495057] text-center max-w-md mb-8 leading-relaxed">
                   {searchQuery 
-                    ? `We couldn't find any properties matching "${searchQuery}".`
-                    : 'Try adjusting your filters to see more results.'
+                    ? `We couldn't find any properties matching "${searchQuery}". Try adjusting your search or filters.`
+                    : 'Try adjusting your filters or search query to discover available properties.'
                   }
                 </p>
+                
                 <button
                   onClick={() => {
                     setSearchQuery('')
@@ -459,12 +479,17 @@ setAllProperties(data || [])
                       neighborhood: '',
                     })
                   }}
-                  className="btn-secondary"
+                  className="btn-primary"
                 >
                   Clear all filters
                 </button>
+                
+                <p className="text-[#ADB5BD] text-xs mt-6">
+                  Need help? <a href="/help" className="text-[#212529] font-medium hover:underline">View our guides</a>
+                </p>
               </div>
             )}
+            </div>
           </div>
         )}
       </div>

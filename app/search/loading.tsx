@@ -3,7 +3,7 @@ export default function SearchLoading() {
     <div className="min-h-screen bg-[#F8F9FA]">
       {/* Header Skeleton */}
       <div className="bg-white border-b border-[#E9ECEF] sticky top-0 z-40">
-        <div className="max-w-7xl mx-auto px-4 py-4">
+        <div className="max-w-6xl mx-auto px-4 py-4">
           <div className="flex items-center gap-4">
             <div className="flex-1 h-12 bg-[#E9ECEF] rounded-lg animate-pulse" />
             <div className="h-12 w-24 bg-[#E9ECEF] rounded-lg animate-pulse" />
@@ -13,7 +13,7 @@ export default function SearchLoading() {
       </div>
 
       {/* Content */}
-      <div className="max-w-7xl mx-auto px-4 py-8">
+      <div className="max-w-6xl mx-auto px-4 py-8">
         {/* Results Header */}
         <div className="flex items-center justify-between mb-6">
           <div className="h-6 w-48 bg-[#E9ECEF] rounded animate-pulse" />

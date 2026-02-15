@@ -35,10 +35,10 @@ export async function Navbar() {
               <Image
                 src="/logo.png"
                 alt="Huts"
-                width={32}
-                height={32}
+                width={40}
+                height={40}
                 priority
-                className="h-8 w-8 object-contain"
+                className="h-10 w-10 object-contain"
               />
             </Link>
           </div>
@@ -91,9 +91,9 @@ export async function Navbar() {
                 {isLandlord && (
                   <Link
                     href="/dashboard/new-property"
-                    className="inline-flex items-center gap-1.5 text-sm font-medium text-white bg-[#212529] px-3 py-1.5 rounded-md hover:bg-black transition-colors"
+                    className="inline-flex items-center gap-1.5 text-sm font-semibold text-white bg-[#212529] px-4 py-2.5 rounded-lg hover:bg-black hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
                   >
-                    <Plus size={14} strokeWidth={2.5} />
+                    <Plus size={16} strokeWidth={2.5} />
                     New
                   </Link>
                 )}
@@ -151,14 +151,16 @@ export async function Navbar() {
               </>
             ) : (
               <>
-                <Link href="/auth/signup" className="text-sm text-[#495057] hover:text-[#212529] px-3 py-1.5 transition-colors">
+                <Link 
+                  href="/auth/signup" 
+                  className="text-sm font-medium text-[#212529] px-4 py-2.5 rounded-lg border-2 border-[#E9ECEF] hover:border-[#212529] hover:bg-[#F8F9FA] transition-all duration-200"
+                >
                   Sign in
                 </Link>
                 <Link
                   href="/dashboard/new-property"
-                  className="inline-flex items-center gap-1.5 text-sm font-medium text-white bg-[#212529] px-3 py-1.5 rounded-md hover:bg-black transition-colors"
+                  className="inline-flex items-center gap-1.5 text-sm font-semibold text-white bg-[#212529] px-4 py-2.5 rounded-lg hover:bg-black hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
                 >
-                  <Plus size={14} strokeWidth={2.5} />
                   List
                 </Link>
               </>
