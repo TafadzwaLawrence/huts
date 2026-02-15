@@ -16,8 +16,13 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  title: 'Huts - Find Your Perfect Rental',
-  description: 'Discover your ideal rental property. Browse apartments, houses, and more in your area.',
+  metadataBase: new URL('https://www.huts.co.zw'),
+  title: {
+    template: '%s | Huts',
+    default: 'Huts — Find Your Perfect Rental in Zimbabwe',
+  },
+  description: 'Find apartments, houses, and rooms for rent across Zimbabwe. Browse verified properties in Harare, Bulawayo, and beyond. Your home is waiting.',
+  keywords: ['Zimbabwe rentals', 'Harare apartments', 'Bulawayo houses', 'property rental Zimbabwe', 'find accommodation Zimbabwe', 'rent house Zimbabwe', 'apartments for rent Harare'],
   icons: {
     icon: [
       { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
@@ -26,6 +31,27 @@ export const metadata: Metadata = {
     apple: '/apple-touch-icon.png',
   },
   manifest: '/site.webmanifest',
+  openGraph: {
+    siteName: 'Huts',
+    locale: 'en_ZW',
+    type: 'website',
+    title: 'Huts — Find Your Perfect Rental in Zimbabwe',
+    description: 'Find apartments, houses, and rooms for rent across Zimbabwe. Browse verified properties in Harare, Bulawayo, and beyond. Your home is waiting.',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    site: '@huts',
+  },
+  verification: {
+    google: '07HgtmO-cprVsWu7EANqo69fkJRo85EndexJLMzznlQ',
+  },
+  alternates: {
+    canonical: 'https://www.huts.co.zw',
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 }
 
 export default async function RootLayout({

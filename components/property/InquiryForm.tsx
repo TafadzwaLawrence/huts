@@ -108,7 +108,7 @@ export default function InquiryForm({ propertyId }: InquiryFormProps) {
             onChange={(e) => setMessage(e.target.value)}
             placeholder={isLoggedIn ? "Write your message here..." : "Sign in to contact the landlord"}
             disabled={!isLoggedIn}
-            className="w-full p-4 pr-12 border-2 border-[#E9ECEF] rounded-xl resize-none h-28 focus:border-[#212529] focus:outline-none transition-colors disabled:bg-[#F8F9FA] disabled:cursor-not-allowed text-sm text-[#212529] placeholder:text-[#ADB5BD]"
+            className="w-full p-4 pr-12 border border-[#E9ECEF] rounded-xl resize-none h-28 focus:border-2 focus:border-[#212529] focus:outline-none transition-colors disabled:bg-[#F8F9FA] disabled:cursor-not-allowed text-sm text-[#212529] placeholder:text-[#ADB5BD]"
           />
           {isLoggedIn && (
             <div className="absolute bottom-3 right-3 text-xs text-[#ADB5BD]">
@@ -121,7 +121,7 @@ export default function InquiryForm({ propertyId }: InquiryFormProps) {
           <button
             type="submit"
             disabled={sending || !message.trim()}
-            className="group w-full py-3.5 bg-[#212529] text-white rounded-xl font-semibold hover:bg-black hover:-translate-y-0.5 hover:shadow-lg transition-all mt-3 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-none flex items-center justify-center gap-2"
+            className="group w-full py-4 bg-[#212529] text-white rounded-xl font-semibold hover:bg-black hover:-translate-y-0.5 hover:shadow-lg transition-all mt-3 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-none flex items-center justify-center gap-2"
           >
             <Send size={16} className={sending ? 'animate-pulse' : 'group-hover:translate-x-1 transition-transform'} />
             {sending ? 'Sending...' : 'Send Message'}
@@ -129,7 +129,7 @@ export default function InquiryForm({ propertyId }: InquiryFormProps) {
         ) : (
           <Link
             href="/auth/signup"
-            className="block w-full py-3.5 bg-[#212529] text-white rounded-xl font-semibold hover:bg-black hover:-translate-y-0.5 hover:shadow-lg transition-all mt-3 text-center"
+            className="block w-full py-4 bg-[#212529] text-white rounded-xl font-semibold hover:bg-black hover:-translate-y-0.5 hover:shadow-lg transition-all mt-3 text-center"
           >
             Sign in to send inquiry
           </Link>

@@ -52,19 +52,63 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params
   const supabase = createStaticClient()
   
-  const { data: property } = await supabase
-    .from('properties')
-    .select('title, description, city, price')
-    .or(`slug.eq.${slug},id.eq.${slug}`)
-    .single()
+  try {
+    // First try by slug
+    let { data: property } = await supabase
+      .from('properties')
+      .select('title, description, city, price, sale_price, listing_type, beds, baths, property_type, property_images(url)')
+      .eq('slug', slug)
+      .single()
 
-  if (!property) {
-    return { title: 'Property Not Found | Huts' }
-  }
+    // If not found by slug, try by id
+    if (!property) {
+      const result = await supabase
+        .from('properties')
+        .select('title, description, city, price, sale_price, listing_type, beds, baths, property_type, property_images(url)')
+        .eq('id', slug)
+        .single()
+      property = result.data
+    }
 
-  return {
-    title: `${property.title} | Huts`,
-    description: property.description?.slice(0, 160) || `${property.title} in ${property.city}. ${formatPrice(property.price)}/month on Huts.`,
+    if (!property) {
+      return { 
+        title: 'Property Not Found',
+        description: 'The property you are looking for does not exist.'
+      }
+    }
+
+    const isRental = property.listing_type === 'rent' || (!property.listing_type && property.price)
+    const isSale = property.listing_type === 'sale' || property.sale_price
+    const priceDisplay = isSale 
+      ? formatSalePrice(property.sale_price) 
+      : formatPrice(property.price) + '/month'
+    const listingType = isSale ? 'For Sale' : 'For Rent'
+
+    return {
+      title: `${property.title}`,
+      description: `${listingType}: ${property.beds} bed, ${property.baths} bath ${property.property_type || 'property'} in ${property.city}, Zimbabwe. ${priceDisplay}.`,
+      openGraph: {
+        title: `${property.title} | Huts`,
+        description: `${listingType}: ${property.beds} bed, ${property.baths} bath in ${property.city}. ${priceDisplay}`,
+        type: 'article',
+        url: `https://www.huts.co.zw/property/${slug}`,
+        images: property.property_images?.[0]?.url ? [{
+          url: property.property_images[0].url,
+          width: 1200,
+          height: 630,
+          alt: property.title,
+        }] : [],
+      },
+      alternates: {
+        canonical: `https://www.huts.co.zw/property/${slug}`,
+      },
+    }
+  } catch (error) {
+    console.error('Error generating metadata:', error)
+    return { 
+      title: 'Property Not Found | Huts',
+      description: 'The property you are looking for does not exist.'
+    }
   }
 }
 
@@ -146,7 +190,7 @@ export default async function PropertyPage({ params }: { params: Promise<{ slug:
       </div>
 
       {/* Content */}
-      <div className="max-w-7xl mx-auto px-4 py-8">
+      <div className="max-w-7xl mx-auto px-4 py-8 md:py-12">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Main Content */}
           <div className="lg:col-span-2">
@@ -373,6 +417,50 @@ export default async function PropertyPage({ params }: { params: Promise<{ slug:
           </div>
         </div>
       </div>
+
+      {/* JSON-LD Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': isRental ? 'RealEstateListing' : 'SingleFamilyResidence',
+            name: property.title,
+            description: property.description || `${property.beds} bedroom, ${property.baths} bathroom ${property.property_type || 'property'} in ${property.city}, Zimbabwe`,
+            url: `https://www.huts.co.zw/property/${slug}`,
+            image: images.map((img: any) => img.url),
+            ...(property.sqft && {
+              floorSize: {
+                '@type': 'QuantitativeValue',
+                value: property.sqft,
+                unitCode: 'FTK',
+              },
+            }),
+            numberOfBedrooms: property.beds,
+            numberOfBathroomsFull: property.baths,
+            address: {
+              '@type': 'PostalAddress',
+              streetAddress: property.address,
+              addressLocality: property.city,
+              ...(property.state && { addressRegion: property.state }),
+              addressCountry: 'ZW',
+            },
+            ...(property.lat && property.lng && {
+              geo: {
+                '@type': 'GeoCoordinates',
+                latitude: property.lat,
+                longitude: property.lng,
+              },
+            }),
+            offers: {
+              '@type': 'Offer',
+              price: isRental ? property.price / 100 : (property.sale_price || 0) / 100,
+              priceCurrency: 'USD',
+              availability: 'https://schema.org/InStock',
+            },
+          }),
+        }}
+      />
     </div>
   )
 }

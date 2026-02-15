@@ -1,9 +1,24 @@
+import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Search, MapPin, Bed, Bath, Square, Home, ArrowRight, Shield, Clock, Smartphone, Car, Plus, CheckCircle2, Building2, Filter, MessageCircle, Calendar, CheckCircle, Key, Sparkles, Heart } from 'lucide-react'
 import { createClient } from '@/lib/supabase/server'
 import { formatPrice, formatSalePrice } from '@/lib/utils'
 import SaveButton from '@/components/property/SaveButton'
+
+export const metadata: Metadata = {
+  title: 'Huts — Find Your Perfect Rental in Zimbabwe',
+  description: 'Browse thousands of verified rental properties across Zimbabwe. Apartments, houses, rooms in Harare, Bulawayo, Gweru, and more. Your home is one search away.',
+  openGraph: {
+    title: 'Huts — Property Rentals in Zimbabwe',
+    description: 'Find apartments, houses, and rooms for rent. Verified listings across Zimbabwe.',
+    url: 'https://www.huts.co.zw',
+    images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: 'Huts property rentals' }],
+  },
+  alternates: {
+    canonical: 'https://www.huts.co.zw',
+  },
+}
 
 // ISR - Revalidate every 60 seconds for fresh data while caching for speed
 export const revalidate = 60
@@ -298,7 +313,7 @@ export default async function HomePage() {
       </section>
 
       {/* FEATURED RENTALS */}
-      <section className="py-16 md:py-24 bg-[#F8F9FA] relative overflow-hidden">
+      <section className="py-16 md:py-20 lg:py-24 bg-[#F8F9FA] relative overflow-hidden">
         {/* Decorative background elements */}
         <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-bl from-[#212529]/5 to-transparent rounded-full blur-3xl" />
         <div className="absolute bottom-0 left-0 w-64 h-64 bg-gradient-to-tr from-[#212529]/5 to-transparent rounded-full blur-3xl" />
@@ -474,7 +489,7 @@ export default async function HomePage() {
       </section>
 
       {/* HOMES FOR SALE */}
-      <section className="py-16 md:py-24 bg-[#F8F9FA] relative overflow-hidden">
+      <section className="py-16 md:py-20 lg:py-24 bg-[#F8F9FA] relative overflow-hidden">
         {/* Decorative background elements */}
         <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-bl from-[#212529]/5 to-transparent rounded-full blur-3xl" />
         <div className="absolute bottom-0 left-0 w-64 h-64 bg-gradient-to-tr from-[#212529]/5 to-transparent rounded-full blur-3xl" />
@@ -1236,6 +1251,45 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* JSON-LD Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'RealEstateAgent',
+            name: 'Huts',
+            url: 'https://www.huts.co.zw',
+            logo: 'https://www.huts.co.zw/logo.png',
+            description: "Zimbabwe's rental property marketplace connecting renters with landlords",
+            address: {
+              '@type': 'PostalAddress',
+              addressCountry: 'ZW',
+            },
+            areaServed: {
+              '@type': 'Country',
+              name: 'Zimbabwe',
+            },
+          }),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'WebSite',
+            url: 'https://www.huts.co.zw',
+            name: 'Huts',
+            potentialAction: {
+              '@type': 'SearchAction',
+              target: 'https://www.huts.co.zw/search?q={search_term_string}',
+              'query-input': 'required name=search_term_string',
+            },
+          }),
+        }}
+      />
     </div>
   )
 }

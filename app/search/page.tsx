@@ -314,7 +314,7 @@ setAllProperties(data || [])
                   placeholder={listingType === 'sale' ? '100,000' : '500'}
                   value={filters.minPrice}
                   onChange={(e) => setFilters({ ...filters, minPrice: e.target.value })}
-                  className="w-full px-3 py-2.5 border-2 border-[#E9ECEF] rounded-lg text-sm focus:outline-none focus:border-[#212529]"
+                  className="w-full px-3 py-2.5 border border-[#E9ECEF] rounded-xl text-sm focus:outline-none focus:border-2 focus:border-[#212529]"
                 />
               </div>
               <div>
@@ -326,7 +326,7 @@ setAllProperties(data || [])
                   placeholder={listingType === 'sale' ? '500,000' : '3,000'}
                   value={filters.maxPrice}
                   onChange={(e) => setFilters({ ...filters, maxPrice: e.target.value })}
-                  className="w-full px-3 py-2.5 border-2 border-[#E9ECEF] rounded-lg text-sm focus:outline-none focus:border-[#212529]"
+                  className="w-full px-3 py-2.5 border border-[#E9ECEF] rounded-xl text-sm focus:outline-none focus:border-2 focus:border-[#212529]"
                 />
               </div>
               <div>
@@ -334,7 +334,7 @@ setAllProperties(data || [])
                 <select
                   value={filters.beds}
                   onChange={(e) => setFilters({ ...filters, beds: e.target.value })}
-                  className="w-full px-3 py-2.5 border-2 border-[#E9ECEF] rounded-lg text-sm focus:outline-none focus:border-[#212529]"
+                  className="w-full px-3 py-2.5 border border-[#E9ECEF] rounded-xl text-sm focus:outline-none focus:border-2 focus:border-[#212529]"
                 >
                   <option value="">Any</option>
                   <option value="1">1+</option>
@@ -349,7 +349,7 @@ setAllProperties(data || [])
                 <select
                   value={filters.baths}
                   onChange={(e) => setFilters({ ...filters, baths: e.target.value })}
-                  className="w-full px-3 py-2.5 border-2 border-[#E9ECEF] rounded-lg text-sm focus:outline-none focus:border-[#212529]"
+                  className="w-full px-3 py-2.5 border border-[#E9ECEF] rounded-xl text-sm focus:outline-none focus:border-2 focus:border-[#212529]"
                 >
                   <option value="">Any</option>
                   <option value="1">1+</option>
@@ -362,7 +362,7 @@ setAllProperties(data || [])
                 <select
                   value={filters.propertyType}
                   onChange={(e) => setFilters({ ...filters, propertyType: e.target.value })}
-                  className="w-full px-3 py-2.5 border-2 border-[#E9ECEF] rounded-lg text-sm focus:outline-none focus:border-[#212529]"
+                  className="w-full px-3 py-2.5 border border-[#E9ECEF] rounded-xl text-sm focus:outline-none focus:border-2 focus:border-[#212529]"
                 >
                   <option value="all">All Types</option>
                   <option value="apartment">Apartment</option>
