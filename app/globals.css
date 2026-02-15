@@ -217,11 +217,17 @@
 
 @layer components {
   .btn {
-    @apply inline-flex items-center justify-center gap-2 rounded-md px-4 py-2 text-sm font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50;
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-6 py-2.5 text-sm font-semibold;
+    @apply transition-all duration-200;
+    @apply focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-offset-2;
+    @apply disabled:pointer-events-none disabled:opacity-50;
   }
 
   .btn-primary {
-    @apply btn bg-black text-white border-2 border-black hover:bg-[#212529] hover:-translate-y-0.5;
+    @apply btn bg-[#212529] text-white border-2 border-[#212529];
+    @apply hover:bg-black hover:-translate-y-1 hover:shadow-xl;
+    @apply active:translate-y-0 active:shadow-lg;
+    @apply focus-visible:ring-[#212529]/20;
   }
 
   .dark .btn-primary {
@@ -229,15 +235,18 @@
   }
 
   .btn-secondary {
-    @apply btn bg-transparent text-black border-2 border-[#495057] hover:border-black hover:border-[3px];
+    @apply btn bg-white text-[#212529] border-2 border-[#E9ECEF];
+    @apply hover:border-[#212529] hover:shadow-md hover:-translate-y-0.5;
+    @apply active:translate-y-0;
+    @apply focus-visible:ring-[#212529]/20;
   }
 
   .dark .btn-secondary {
-    @apply text-white border-gray-500 hover:border-white;
+    @apply bg-transparent text-white border-gray-700 hover:border-white;
   }
 
   .btn-ghost {
-    @apply btn hover:bg-[#F8F9FA];
+    @apply btn hover:bg-[#F8F9FA] border-2 border-transparent;
   }
 
   .dark .btn-ghost {
@@ -245,7 +254,7 @@
   }
 
   .btn-icon {
-    @apply btn p-2;
+    @apply btn p-2.5 w-10 h-10;
   }
 }
 
@@ -255,7 +264,14 @@
 
 @layer components {
   .property-card {
-    @apply cursor-pointer border border-[#E9ECEF] rounded-lg overflow-hidden transition-all duration-300 hover:border-[#212529] hover:shadow-lg bg-white;
+    @apply cursor-pointer border-2 border-[#E9ECEF] rounded-xl overflow-hidden bg-white;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .property-card:hover {
+    @apply border-[#212529];
+    transform: translateY(-4px);
+    box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
   }
 
   .dark .property-card {
@@ -263,15 +279,15 @@
   }
 
   .property-card-image {
-    @apply relative h-48 overflow-hidden;
+    @apply relative h-48 overflow-hidden bg-[#F8F9FA];
   }
 
   .property-card-image img {
-    @apply object-cover w-full h-full transition-transform duration-500 group-hover:scale-105;
+    @apply object-cover w-full h-full transition-transform duration-500 group-hover:scale-110;
   }
 
   .property-card-badge {
-    @apply absolute top-3 left-3 bg-black/90 text-white px-2 py-1 rounded text-sm font-semibold;
+    @apply absolute top-3 left-3 bg-black/90 backdrop-blur-sm text-white px-3 py-1.5 rounded-lg text-sm font-semibold shadow-lg;
   }
 
   .property-card-content {
@@ -293,19 +309,40 @@
 
 @layer components {
   .input {
-    @apply flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50;
+    @apply flex h-10 w-full rounded-xl border-2 border-[#E9ECEF] bg-white px-4 py-2 text-sm;
+    @apply placeholder:text-[#ADB5BD];
+    @apply transition-all duration-200;
+    @apply focus-visible:outline-none focus-visible:border-[#212529] focus-visible:ring-4 focus-visible:ring-[#212529]/10;
+    @apply disabled:cursor-not-allowed disabled:opacity-50;
+  }
+  
+  .input:hover:not(:disabled) {
+    @apply border-[#495057];
   }
 
-  .input:focus {
-    @apply border-black border-2;
+  .dark .input {
+    @apply bg-gray-900 border-gray-700;
   }
-
+  
   .dark .input:focus {
-    @apply border-white;
+    @apply border-white ring-white/10;
   }
 
   .label {
-    @apply text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70;
+    @apply text-sm font-medium leading-none text-[#212529] mb-2;
+    @apply peer-disabled:cursor-not-allowed peer-disabled:opacity-70;
+  }
+  
+  .textarea {
+    @apply min-h-[120px] w-full rounded-xl border-2 border-[#E9ECEF] bg-white px-4 py-3 text-sm;
+    @apply placeholder:text-[#ADB5BD] resize-none;
+    @apply transition-all duration-200;
+    @apply focus-visible:outline-none focus-visible:border-[#212529] focus-visible:ring-4 focus-visible:ring-[#212529]/10;
+    @apply disabled:cursor-not-allowed disabled:opacity-50;
+  }
+  
+  .textarea:hover:not(:disabled) {
+    @apply border-[#495057];
   }
 }
 
@@ -504,4 +541,94 @@
 
 .dark ::-webkit-scrollbar-thumb:hover {
   background: #6a6a6a;
+}
+
+/* ============================================
+   ANIMATIONS & INTERACTIONS
+   ============================================ */
+
+@layer utilities {
+  /* Smooth hover lift */
+  .hover-lift {
+    @apply transition-transform duration-200 hover:-translate-y-1;
+  }
+  
+  /* Smooth scale on hover */
+  .hover-scale {
+    @apply transition-transform duration-300 hover:scale-105;
+  }
+  
+  /* Fade in animation */
+  .fade-in {
+    animation: fadeIn 0.3s ease-in;
+  }
+  
+  /* Slide up animation */
+  .slide-up {
+    animation: slideUp 0.4s ease-out;
+  }
+  
+  /* Loading skeleton */
+  .skeleton {
+    @apply animate-pulse bg-[#E9ECEF] rounded;
+  }
+  
+  /* Smooth focus ring */
+  .focus-ring {
+    @apply focus:outline-none focus:ring-4 focus:ring-[#212529]/10 focus:border-[#212529];
+  }
+  
+  /* Glass effect */
+  .glass {
+    @apply bg-white/80 backdrop-blur-md border border-white/20;
+  }
+  
+  .dark .glass {
+    @apply bg-gray-900/80 border-gray-700/20;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============================================
+   IMPROVED FOCUS STATES (Accessibility)
+   ============================================ */
+
+@layer base {
+  *:focus-visible {
+    @apply outline-none ring-4 ring-[#212529]/20 ring-offset-2;
+  }
+  
+  button:focus-visible,
+  a:focus-visible {
+    @apply outline-none ring-4 ring-[#212529]/20 ring-offset-2;
+  }
+  
+  input:focus-visible,
+  textarea:focus-visible,
+  select:focus-visible {
+    @apply outline-none ring-4 ring-[#212529]/10 border-[#212529];
+  }
+  
+  .dark *:focus-visible {
+    @apply ring-white/20;
+  }
 }

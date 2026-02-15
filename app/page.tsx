@@ -222,35 +222,39 @@ export default async function HomePage() {
             
             {/* Search Bar - Prominent */}
             <div className="max-w-3xl mx-auto mb-8">
-              <div className="relative">
-                {/* Glow effect */}
-                <div className="absolute -inset-1 bg-gradient-to-r from-[#212529]/20 via-[#495057]/20 to-[#212529]/20 rounded-2xl blur-xl opacity-50" />
+              <div className="relative group/search">
+                {/* Animated glow effect */}
+                <div className="absolute -inset-1 bg-gradient-to-r from-[#212529]/20 via-[#495057]/20 to-[#212529]/20 rounded-2xl blur-xl opacity-50 group-hover/search:opacity-75 transition-opacity duration-300" />
                 
-                <div className="relative bg-white rounded-2xl shadow-2xl border border-[#E9ECEF] p-2">
+                <div className="relative bg-white rounded-2xl shadow-2xl border-2 border-[#E9ECEF] p-2 group-hover/search:border-[#495057] transition-colors duration-300">
                   <div className="flex flex-col md:flex-row gap-2">
                     {/* Location Input */}
-                    <div className="flex-1 flex items-center gap-3 px-4 py-3 bg-[#F8F9FA] rounded-xl hover:bg-[#F1F3F5] transition-colors group">
-                      <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center shadow-sm group-hover:shadow transition-shadow">
-                        <MapPin size={20} className="text-[#212529]" />
+                    <div className="flex-1 flex items-center gap-3 px-4 py-3 bg-[#F8F9FA] rounded-xl hover:bg-[#F1F3F5] transition-all duration-200 group/location">
+                      <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center shadow-sm group-hover/location:shadow transition-shadow">
+                        <MapPin size={20} className="text-[#212529] group-hover/location:scale-110 transition-transform" />
                       </div>
                       <div className="flex-1">
-                        <label className="block text-[10px] font-semibold text-[#ADB5BD] uppercase tracking-wider mb-0.5">Location</label>
+                        <label htmlFor="search-location" className="block text-[10px] font-bold text-[#ADB5BD] uppercase tracking-wider mb-0.5">Location</label>
                         <input
+                          id="search-location"
                           type="text"
                           placeholder="Where do you want to live?"
-                          className="w-full bg-transparent outline-none text-[#212529] placeholder:text-[#ADB5BD] text-sm font-medium"
+                          className="w-full bg-transparent outline-none text-[#212529] placeholder:text-[#ADB5BD] text-sm font-medium focus:placeholder:text-[#495057] transition-colors"
                         />
                       </div>
                     </div>
 
                     {/* Property Type */}
-                    <div className="hidden md:flex items-center gap-3 px-4 py-3 bg-[#F8F9FA] rounded-xl hover:bg-[#F1F3F5] transition-colors group min-w-[180px]">
-                      <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center shadow-sm group-hover:shadow transition-shadow">
-                        <Home size={20} className="text-[#212529]" />
+                    <div className="hidden md:flex items-center gap-3 px-4 py-3 bg-[#F8F9FA] rounded-xl hover:bg-[#F1F3F5] transition-all duration-200 group/type min-w-[180px]">
+                      <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center shadow-sm group-hover/type:shadow transition-shadow">
+                        <Home size={20} className="text-[#212529] group-hover/type:scale-110 transition-transform" />
                       </div>
                       <div className="flex-1">
-                        <label className="block text-[10px] font-semibold text-[#ADB5BD] uppercase tracking-wider mb-0.5">Type</label>
-                        <select className="w-full bg-transparent outline-none text-[#212529] text-sm font-medium appearance-none cursor-pointer">
+                        <label htmlFor="search-type" className="block text-[10px] font-bold text-[#ADB5BD] uppercase tracking-wider mb-0.5">Type</label>
+                        <select 
+                          id="search-type"
+                          className="w-full bg-transparent outline-none text-[#212529] text-sm font-medium appearance-none cursor-pointer focus:text-[#000]"
+                        >
                           <option>Any type</option>
                           <option>For Rent</option>
                           <option>For Sale</option>
@@ -261,9 +265,9 @@ export default async function HomePage() {
                     {/* Search Button */}
                     <Link
                       href="/search"
-                      className="group flex items-center justify-center gap-2 bg-[#212529] text-white px-8 py-4 rounded-xl font-semibold hover:bg-black transition-all duration-300 hover:shadow-xl hover:-translate-y-0.5 min-h-[56px]"
+                      className="group/btn flex items-center justify-center gap-2 bg-[#212529] text-white px-8 py-4 rounded-xl font-bold hover:bg-black transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 active:translate-y-0 min-h-[56px]"
                     >
-                      <Search size={20} className="group-hover:scale-110 transition-transform" />
+                      <Search size={20} className="group-hover/btn:scale-110 transition-transform" />
                       <span>Search</span>
                     </Link>
                   </div>
@@ -273,7 +277,7 @@ export default async function HomePage() {
 
             {/* Quick Links */}
             <div className="flex flex-wrap items-center justify-center gap-3">
-              <span className="text-sm text-[#ADB5BD] mr-1">Popular:</span>
+              <span className="text-sm text-[#495057] font-medium mr-1">Popular:</span>
               {[
                 { name: 'Avondale', count: '42' },
                 { name: 'Borrowdale', count: '38' },
@@ -283,11 +287,13 @@ export default async function HomePage() {
                 <Link
                   key={area.name}
                   href={`/search?area=${area.name.toLowerCase().replace(' ', '-')}`}
-                  className="group inline-flex items-center gap-2 px-4 py-2 bg-white border border-[#E9ECEF] rounded-full text-sm font-medium text-[#495057] hover:border-[#212529] hover:text-[#212529] hover:shadow-md transition-all duration-200"
+                  className="group/area inline-flex items-center gap-2 px-4 py-2 bg-white border-2 border-[#E9ECEF] rounded-full text-sm font-semibold text-[#495057] hover:border-[#212529] hover:text-[#212529] hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
                 >
-                  <MapPin size={14} className="text-[#ADB5BD] group-hover:text-[#212529] transition-colors" />
-                  {area.name}
-                  <span className="text-[10px] text-[#ADB5BD] bg-[#F8F9FA] px-1.5 py-0.5 rounded-full">{area.count}</span>
+                  <MapPin size={14} className="text-[#ADB5BD] group-hover/area:text-[#212529] transition-colors" />
+                  <span>{area.name}</span>
+                  <span className="text-[10px] font-bold text-[#495057] bg-[#F8F9FA] px-2 py-0.5 rounded-full group-hover/area:bg-[#212529] group-hover/area:text-white transition-colors">
+                    {area.count}
+                  </span>
                 </Link>
               ))}
             </div>
@@ -322,22 +328,22 @@ export default async function HomePage() {
           {/* Section Header */}
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6 mb-12">
             <div className="flex items-start gap-4">
-              <div className="w-14 h-14 bg-[#212529] rounded-2xl flex items-center justify-center shadow-lg flex-shrink-0">
+              <div className="w-14 h-14 bg-[#212529] rounded-2xl flex items-center justify-center shadow-lg flex-shrink-0 group-hover:scale-110 transition-transform">
                 <Home size={24} className="text-white" />
               </div>
               <div>
-                <div className="flex items-center gap-3 mb-1">
-                  <h2 className="text-3xl md:text-4xl font-bold text-[#212529] tracking-tight">Featured Rentals</h2>
-                </div>
-                <p className="text-[#495057]">Hand-picked rental listings updated daily</p>
+                <h2 className="text-3xl md:text-4xl font-bold text-[#212529] tracking-tight mb-2">
+                  Featured Rentals
+                </h2>
+                <p className="text-[#495057] text-sm md:text-base">Hand-picked rental listings updated daily</p>
               </div>
             </div>
             <Link
               href="/search?type=rent"
-              className="group inline-flex items-center gap-2 text-sm font-medium text-[#212529] bg-white border-2 border-[#E9ECEF] px-5 py-2.5 rounded-full hover:border-[#212529] hover:shadow-md transition-all"
+              className="group/btn inline-flex items-center gap-2 text-sm font-bold text-[#212529] bg-white border-2 border-[#E9ECEF] px-6 py-3 rounded-full hover:border-[#212529] hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200"
             >
-              View all rentals
-              <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+              <span>View all rentals</span>
+              <ArrowRight size={16} className="group-hover/btn:translate-x-1 transition-transform" />
             </Link>
           </div>
           
