@@ -277,25 +277,24 @@ export default async function HomePage() {
 
             {/* Quick Links */}
             <div className="flex flex-wrap items-center justify-center gap-3">
-              <span className="text-sm text-[#495057] font-medium mr-1">Popular:</span>
-              {[
-                { name: 'Avondale', count: '42' },
-                { name: 'Borrowdale', count: '38' },
-                { name: 'Mount Pleasant', count: '27' },
-                { name: 'City Centre', count: '51' },
-              ].map((area) => (
-                <Link
-                  key={area.name}
-                  href={`/search?area=${area.name.toLowerCase().replace(' ', '-')}`}
-                  className="group/area inline-flex items-center gap-2 px-4 py-2 bg-white border-2 border-[#E9ECEF] rounded-full text-sm font-semibold text-[#495057] hover:border-[#212529] hover:text-[#212529] hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
-                >
-                  <MapPin size={14} className="text-[#ADB5BD] group-hover/area:text-[#212529] transition-colors" />
-                  <span>{area.name}</span>
-                  <span className="text-[10px] font-bold text-[#495057] bg-[#F8F9FA] px-2 py-0.5 rounded-full group-hover/area:bg-[#212529] group-hover/area:text-white transition-colors">
-                    {area.count}
-                  </span>
-                </Link>
-              ))}
+              {popularAreas.length > 0 && (
+                <>
+                  <span className="text-sm text-[#495057] font-medium mr-1">Popular:</span>
+                  {popularAreas.slice(0, 4).map((area: any) => (
+                    <Link
+                      key={area.name}
+                      href={`/search?area=${area.slug}`}
+                      className="group/area inline-flex items-center gap-2 px-4 py-2 bg-white border-2 border-[#E9ECEF] rounded-full text-sm font-semibold text-[#495057] hover:border-[#212529] hover:text-[#212529] hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
+                    >
+                      <MapPin size={14} className="text-[#ADB5BD] group-hover/area:text-[#212529] transition-colors" />
+                      <span>{area.name}</span>
+                      <span className="text-[10px] font-bold text-[#495057] bg-[#F8F9FA] px-2 py-0.5 rounded-full group-hover/area:bg-[#212529] group-hover/area:text-white transition-colors">
+                        {area.count}
+                      </span>
+                    </Link>
+                  ))}
+                </>
+              )}
             </div>
 
             {/* Stats Row */}
