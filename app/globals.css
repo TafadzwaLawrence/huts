@@ -2,6 +2,48 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ============================================
+   HUTS SPACING SYSTEM
+   ============================================
+   
+   CONTAINERS (Horizontal Padding):
+   - Standard: px-4 sm:px-6 lg:px-8
+   - Max-width: max-w-7xl (1280px) or max-w-6xl (1152px)
+   
+   SECTIONS (Vertical Padding):
+   - Standard: py-12 md:py-16
+   - Hero: py-20 md:py-32
+   
+   CARDS (Internal Padding):
+   - Compact: p-4 (small cards, list items)
+   - Standard: p-6 (property cards, forms, reviews)
+   - Feature: p-8 (large feature cards, settings)
+   
+   GRID GAPS:
+   - Tight: gap-3 (amenity pills, inline elements)
+   - Standard: gap-6 (card grids, default layouts)
+   - Responsive: gap-6 lg:gap-8 (main property grids)
+   
+   BUTTONS:
+   - Compact: px-3 py-1.5 (navbar, inline links)
+   - Standard: px-6 py-2 (forms, secondary actions)
+   - Large: px-8 py-4 (CTAs, primary actions)
+   - Hero: px-10 py-5 (homepage hero CTAs)
+   
+   HEADINGS (Bottom Margins):
+   - h1: mb-6 (page titles)
+   - h2: mb-4 (section titles)
+   - h3: mb-3 (subsections)
+   - h4: mb-2 (card titles, small headers)
+   
+   TEXT STACKING:
+   - Tight: space-y-2 (related items)
+   - Standard: space-y-4 (list items, paragraphs)
+   - Forms: space-y-6 (form fields)
+   - Sections: space-y-8 or space-y-12 (page sections)
+   
+   ============================================ */
+
 /* NProgress - Route transition progress bar */
 #nprogress {
   pointer-events: none;
@@ -233,11 +275,11 @@
   }
 
   .property-card-content {
-    @apply p-4;
+    @apply p-6;
   }
 
   .property-card-features {
-    @apply flex gap-4 text-sm border-t border-[#E9ECEF] pt-3 mt-3;
+    @apply flex gap-4 text-sm border-t border-[#E9ECEF] pt-3 mt-4;
   }
 
   .dark .property-card-features {
@@ -277,11 +319,15 @@
   }
 
   .grid-properties {
-    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6;
+    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 lg:gap-8;
   }
 
   .section {
-    @apply py-8 md:py-12 lg:py-16;
+    @apply py-12 md:py-16;
+  }
+
+  .section-hero {
+    @apply py-20 md:py-32;
   }
 }
 

@@ -313,7 +313,7 @@ export default async function HomePage() {
       </section>
 
       {/* FEATURED RENTALS */}
-      <section className="py-16 md:py-20 lg:py-24 bg-[#F8F9FA] relative overflow-hidden">
+      <section className="py-12 md:py-16 bg-[#F8F9FA] relative overflow-hidden">
         {/* Decorative background elements */}
         <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-bl from-[#212529]/5 to-transparent rounded-full blur-3xl" />
         <div className="absolute bottom-0 left-0 w-64 h-64 bg-gradient-to-tr from-[#212529]/5 to-transparent rounded-full blur-3xl" />
@@ -489,7 +489,7 @@ export default async function HomePage() {
       </section>
 
       {/* HOMES FOR SALE */}
-      <section className="py-16 md:py-20 lg:py-24 bg-[#F8F9FA] relative overflow-hidden">
+      <section className="py-12 md:py-16 bg-[#F8F9FA] relative overflow-hidden">
         {/* Decorative background elements */}
         <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-bl from-[#212529]/5 to-transparent rounded-full blur-3xl" />
         <div className="absolute bottom-0 left-0 w-64 h-64 bg-gradient-to-tr from-[#212529]/5 to-transparent rounded-full blur-3xl" />
@@ -664,7 +664,7 @@ export default async function HomePage() {
       </section>
 
       {/* POPULAR AREAS */}
-      <section className="py-20 md:py-28 bg-gradient-to-b from-[#F8F9FA] via-white to-[#F8F9FA] relative overflow-hidden">
+      <section className="py-12 md:py-16 bg-gradient-to-b from-[#F8F9FA] via-white to-[#F8F9FA] relative overflow-hidden">
         {/* Decorative elements */}
         <div className="absolute top-0 right-0 w-96 h-96 bg-[#212529]/5 rounded-full blur-3xl" />
         <div className="absolute bottom-0 left-0 w-80 h-80 bg-[#212529]/5 rounded-full blur-3xl" />
@@ -805,7 +805,7 @@ export default async function HomePage() {
       </section>
 
       {/* HOW IT WORKS */}
-      <section className="py-24 md:py-32 bg-gradient-to-b from-[#F8F9FA] via-white to-[#F8F9FA] relative overflow-hidden">
+      <section className="py-12 md:py-16 bg-gradient-to-b from-[#F8F9FA] via-white to-[#F8F9FA] relative overflow-hidden">
         {/* Decorative background elements */}
         <div className="absolute top-20 left-10 w-72 h-72 bg-[#212529]/5 rounded-full blur-3xl" />
         <div className="absolute bottom-20 right-10 w-96 h-96 bg-[#212529]/5 rounded-full blur-3xl" />
@@ -937,7 +937,7 @@ export default async function HomePage() {
       </section>
 
       {/* TRUST BAR */}
-      <section className="py-24 md:py-32 bg-[#212529] text-white relative overflow-hidden">
+      <section className="py-12 md:py-16 bg-[#212529] text-white relative overflow-hidden">
         {/* Animated gradient orbs */}
         <div className="absolute top-0 left-1/4 w-96 h-96 bg-white/5 rounded-full blur-3xl" />
         <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-white/3 rounded-full blur-3xl" />

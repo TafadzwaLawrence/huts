@@ -105,7 +105,7 @@ export default async function PropertyReviewsPage() {
 
   return (
     <div className="min-h-screen bg-[#F8F9FA]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
         {/* Header */}
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-[#212529] mb-2">
