@@ -119,7 +119,7 @@ export default function ReviewCard({
             <div className="flex items-center gap-2 text-sm text-dark-gray">
               <RatingStars rating={review.rating} size={14} showNumber={false} />
               <span>·</span>
-              <span>{timeAgo(review.created_at)}</span>
+              <span>{review.created_at ? timeAgo(review.created_at) : 'Recently'}</span>
               {review.edited && <span className="text-xs">(edited)</span>}
             </div>
           </div>
@@ -203,7 +203,7 @@ export default function ReviewCard({
           </div>
           <p className="text-sm text-dark-gray">{review.review_responses.response}</p>
           <span className="text-xs text-medium-gray">
-            {timeAgo(review.review_responses.created_at)}
+            {review.review_responses.created_at ? timeAgo(review.review_responses.created_at) : 'Recently'}
           </span>
         </div>
       )}
