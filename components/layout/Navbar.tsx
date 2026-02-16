@@ -35,10 +35,10 @@ export async function Navbar() {
               <Image
                 src="/logo.png"
                 alt="Huts"
-                width={40}
-                height={40}
+                width={50}
+                height={50}
                 priority
-                className="h-10 w-10 object-contain"
+                className="h-12 w-12 object-contain"
               />
             </Link>
           </div>

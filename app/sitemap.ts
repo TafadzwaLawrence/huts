@@ -5,19 +5,41 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const supabase = createStaticClient()
   const baseUrl = 'https://www.huts.co.zw'
 
-  // Fetch all active properties
-  const { data: properties } = await supabase
-    .from('properties')
-    .select('slug, updated_at')
-    .eq('status', 'active')
-    .eq('verification_status', 'approved')
-    .order('updated_at', { ascending: false })
+  // Fetch all active properties with error handling
+  let properties: Array<{ slug: string; updated_at: string }> = []
+  try {
+    const { data, error } = await supabase
+      .from('properties')
+      .select('slug, updated_at')
+      .eq('status', 'active')
+      .eq('verification_status', 'approved')
+      .order('updated_at', { ascending: false })
 
-  // Fetch all area guide pages
-  const { data: areas } = await supabase
-    .from('areas')
-    .select('slug, updated_at')
-    .order('updated_at', { ascending: false })
+    if (error) {
+      console.error('[Sitemap] Properties query error:', error)
+    } else {
+      properties = data || []
+    }
+  } catch (err) {
+    console.error('[Sitemap] Properties fetch exception:', err)
+  }
+
+  // Fetch all area guide pages with error handling
+  let areas: Array<{ slug: string; updated_at: string }> = []
+  try {
+    const { data, error } = await supabase
+      .from('areas')
+      .select('slug, updated_at')
+      .order('updated_at', { ascending: false })
+
+    if (error) {
+      console.error('[Sitemap] Areas query error:', error)
+    } else {
+      areas = data || []
+    }
+  } catch (err) {
+    console.error('[Sitemap] Areas fetch exception:', err)
+  }
 
   // Static routes
   const staticRoutes: MetadataRoute.Sitemap = [
@@ -72,7 +94,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   ]
 
   // Property routes
-  const propertyRoutes: MetadataRoute.Sitemap = (properties || []).map((property) => ({
+  const propertyRoutes: MetadataRoute.Sitemap = properties.map((property) => ({
     url: `${baseUrl}/property/${property.slug}`,
     lastModified: new Date(property.updated_at),
     changeFrequency: 'daily' as const,
@@ -80,7 +102,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }))
 
   // Area routes
-  const areaRoutes: MetadataRoute.Sitemap = (areas || []).map((area) => ({
+  const areaRoutes: MetadataRoute.Sitemap = areas.map((area) => ({
     url: `${baseUrl}/areas/${area.slug}`,
     lastModified: new Date(area.updated_at),
     changeFrequency: 'weekly' as const,
