@@ -120,6 +120,7 @@ export default function SearchPage() {
             property_images(url, is_primary, alt_text)
           `)
           .eq('status', 'active')
+          .eq('verification_status', 'approved')
           .order('created_at', { ascending: false })
 
         if (error) throw error

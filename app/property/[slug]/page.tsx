@@ -39,6 +39,7 @@ export async function generateStaticParams() {
     .from('properties')
     .select('slug, id')
     .eq('status', 'active')
+    .eq('verification_status', 'approved')
     .order('created_at', { ascending: false })
     .limit(50)
 
@@ -143,6 +144,13 @@ export default async function PropertyPage({ params }: { params: Promise<{ slug:
   }
 
   if (error || !property) {
+    notFound()
+  }
+
+  // Block public access to unverified properties (owners can still view their own)
+  const { data: { user } } = await supabase.auth.getUser()
+  const isOwner = user?.id === property.user_id
+  if (property.verification_status && property.verification_status !== 'approved' && !isOwner) {
     notFound()
   }
 

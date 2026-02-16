@@ -69,6 +69,7 @@ export default async function HomePage() {
         property_images(url, is_primary)
       `)
       .eq('status', 'active')
+      .eq('verification_status', 'approved')
       .eq('listing_type', 'rent')
       .order('created_at', { ascending: false })
       .limit(6),
@@ -92,6 +93,7 @@ export default async function HomePage() {
         property_images(url, is_primary)
       `)
       .eq('status', 'active')
+      .eq('verification_status', 'approved')
       .eq('listing_type', 'sale')
       .order('created_at', { ascending: false })
       .limit(6),
@@ -100,13 +102,15 @@ export default async function HomePage() {
     supabase
       .from('properties')
       .select('*', { count: 'exact', head: true })
-      .eq('status', 'active'),
+      .eq('status', 'active')
+      .eq('verification_status', 'approved'),
 
     // Fetch popular neighborhoods based on property count
     supabase
       .from('properties')
       .select('neighborhood, city')
       .eq('status', 'active')
+      .eq('verification_status', 'approved')
       .not('neighborhood', 'is', null),
 
     // Get total renters count
@@ -125,7 +129,8 @@ export default async function HomePage() {
     supabase
       .from('properties')
       .select('*', { count: 'exact', head: true })
-      .eq('status', 'active'),
+      .eq('status', 'active')
+      .eq('verification_status', 'approved'),
 
     // Get recent landlords for testimonial section
     supabase
@@ -167,9 +172,6 @@ export default async function HomePage() {
 
   // Calculate stats for "Why Choose Huts" section
   const uniqueNeighborhoods = Object.keys(neighborhoodCounts || {}).length
-  const happyRenters = totalRenters || 0
-  const verifiedListingsPercent = 100 // All listings are manually verified
-  const avgResponseHours = 2 // Target response time
 
   // Get featured testimonial from reviews
   const featuredReview = featuredReviews?.[0]
@@ -930,146 +932,158 @@ export default async function HomePage() {
       </section>
 
       {/* TRUST BAR */}
-      <section className="py-12 md:py-16 bg-[#212529] text-white relative overflow-hidden">
-        {/* Animated gradient orbs */}
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-white/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-white/3 rounded-full blur-3xl" />
+      <section className="py-16 md:py-24 bg-[#212529] text-white relative overflow-hidden">
+        {/* Ambient glow */}
+        <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-white/[0.03] rounded-full blur-[120px]" />
+        <div className="absolute bottom-0 right-1/3 w-[400px] h-[400px] bg-white/[0.02] rounded-full blur-[100px]" />
         
         <div className="container-main relative">
           {/* Section Header */}
-          <div className="text-center mb-20">
-            <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-full px-5 py-2.5 mb-8 border border-white/10">
-              <span className="text-xs font-semibold tracking-widest uppercase">Why choose Huts</span>
+          <div className="text-center mb-16 md:mb-20">
+            <div className="inline-flex items-center gap-2 bg-white/[0.08] backdrop-blur-sm rounded-full px-5 py-2 mb-6 border border-white/[0.08]">
+              <Shield size={14} className="text-white/60" />
+              <span className="text-xs font-semibold tracking-widest uppercase text-white/80">Why choose Huts</span>
             </div>
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6">
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-5">
               Built on trust
             </h2>
-            <p className="text-lg md:text-xl text-[#ADB5BD] max-w-2xl mx-auto leading-relaxed">
-              We verify every listing so you can search with confidence
+            <p className="text-base md:text-lg text-[#ADB5BD] max-w-xl mx-auto leading-relaxed">
+              Every listing verified. Every landlord checked. <br className="hidden md:block" />
+              Search with confidence.
             </p>
           </div>
 
           {/* Bento Grid Layout */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6 max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-6 gap-4 lg:gap-5">
             
-            {/* Verified Listings - Featured Card */}
-            <div className="group relative md:col-span-2 lg:col-span-1 lg:row-span-2">
-              <div className="absolute inset-0 bg-gradient-to-br from-white/20 via-white/5 to-transparent rounded-3xl opacity-0 group-hover:opacity-100 transition-all duration-700" />
-              <div className="relative h-full p-8 md:p-10 rounded-3xl bg-white/[0.03] border border-white/10 hover:border-white/30 transition-all duration-500 flex flex-col">
-                {/* Icon badge */}
-                <div className="inline-flex items-center justify-center w-16 h-16 bg-white rounded-2xl mb-8 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-2xl">
-                  <Shield size={30} className="text-[#212529]" />
+            {/* Verified Listings - Featured Card (tall left) */}
+            <div className="group relative md:col-span-3 lg:col-span-2 md:row-span-2">
+              <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-all duration-700" />
+              <div className="relative h-full p-8 md:p-9 rounded-2xl bg-white/[0.04] border border-white/[0.08] hover:border-white/20 transition-all duration-500 flex flex-col">
+                {/* Icon */}
+                <div className="inline-flex items-center justify-center w-14 h-14 bg-white rounded-xl mb-8 group-hover:scale-105 transition-transform duration-500 shadow-lg shadow-black/20">
+                  <Shield size={26} className="text-[#212529]" />
                 </div>
                 
-                {/* Big number with unit */}
-                <div className="mb-6">
-                  <span className="text-7xl md:text-8xl font-bold tracking-tighter bg-gradient-to-br from-white via-white to-white/40 bg-clip-text text-transparent">
-                    100
-                  </span>
-                  <span className="text-3xl md:text-4xl font-bold text-white/60 ml-1">%</span>
+                {/* Big stat */}
+                <div className="mb-5">
+                  <span className="text-7xl font-bold tracking-tighter text-white">100</span>
+                  <span className="text-3xl font-bold text-white/40 ml-0.5">%</span>
                 </div>
                 
-                <h3 className="text-2xl font-bold mb-4 tracking-tight">Verified Listings</h3>
-                <p className="text-[#ADB5BD] leading-relaxed mb-8 flex-grow">
-                  Every property is manually reviewed by our team. We check photos, verify landlords, and ensure accurate details before any listing goes live.
+                <h3 className="text-xl font-bold mb-3 tracking-tight">Verified Listings</h3>
+                <p className="text-sm text-[#ADB5BD] leading-relaxed mb-8 flex-grow">
+                  Every property is manually reviewed before going live. We check photos, verify landlord identity, and confirm pricing accuracy.
                 </p>
                 
-                {/* Checkmarks */}
-                <div className="space-y-3">
-                  {['Photo verification', 'Landlord identity check', 'Price accuracy'].map((item) => (
-                    <div key={item} className="flex items-center gap-3 text-sm">
-                      <div className="w-5 h-5 rounded-full bg-white/10 flex items-center justify-center">
-                        <svg className="w-3 h-3 text-[#212529]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                        </svg>
-                      </div>
-                      <span className="text-white/80">{item}</span>
+                {/* Verification checklist */}
+                <div className="space-y-3 pt-6 border-t border-white/[0.08]">
+                  {[
+                    'Photo & location verified',
+                    'Landlord identity confirmed',
+                    'Price accuracy checked',
+                  ].map((item) => (
+                    <div key={item} className="flex items-center gap-2.5 text-sm">
+                      <CheckCircle size={16} className="text-white/50 shrink-0" />
+                      <span className="text-white/70">{item}</span>
                     </div>
                   ))}
                 </div>
               </div>
             </div>
 
-            {/* Updated Daily */}
-            <div className="group relative">
-              <div className="absolute inset-0 bg-gradient-to-br from-white/15 to-transparent rounded-3xl opacity-0 group-hover:opacity-100 transition-all duration-500" />
-              <div className="relative h-full p-8 rounded-3xl bg-white/[0.03] border border-white/10 hover:border-white/30 transition-all duration-500">
-                <div className="flex items-start justify-between mb-6">
-                  <div className="inline-flex items-center justify-center w-12 h-12 bg-white rounded-xl group-hover:scale-110 transition-all duration-300 shadow-lg">
-                    <Clock size={22} className="text-[#212529]" />
-                  </div>
+            {/* Always Fresh */}
+            <div className="group relative md:col-span-3 lg:col-span-2">
+              <div className="relative h-full p-7 md:p-8 rounded-2xl bg-white/[0.04] border border-white/[0.08] hover:border-white/20 transition-all duration-500">
+                <div className="inline-flex items-center justify-center w-11 h-11 bg-white rounded-lg mb-5 group-hover:scale-105 transition-transform duration-300 shadow-lg shadow-black/20">
+                  <Clock size={20} className="text-[#212529]" />
                 </div>
                 
-                <div className="mb-4">
-                  <span className="text-5xl font-bold tracking-tighter">24</span>
-                  <span className="text-2xl font-bold text-white/50 ml-1">hrs</span>
+                <div className="mb-3">
+                  <span className="text-4xl font-bold tracking-tighter">24</span>
+                  <span className="text-xl font-bold text-white/40 ml-0.5">hrs</span>
                 </div>
                 
-                <h3 className="text-lg font-bold mb-2">Updated Daily</h3>
+                <h3 className="text-lg font-semibold mb-2">Always Fresh</h3>
                 <p className="text-sm text-[#ADB5BD] leading-relaxed">
-                  Fresh listings every day. Stale properties auto-removed.
+                  Listings updated daily. Stale or filled properties are automatically removed so you never waste time.
                 </p>
               </div>
             </div>
 
-            {/* Local Focus */}
-            <div className="group relative">
-              <div className="absolute inset-0 bg-gradient-to-br from-white/15 to-transparent rounded-3xl opacity-0 group-hover:opacity-100 transition-all duration-500" />
-              <div className="relative h-full p-8 rounded-3xl bg-white/[0.03] border border-white/10 hover:border-white/30 transition-all duration-500">
-                <div className="flex items-start justify-between mb-6">
-                  <div className="inline-flex items-center justify-center w-12 h-12 bg-white rounded-xl group-hover:scale-110 transition-all duration-300 shadow-lg">
-                    <MapPin size={22} className="text-[#212529]" />
-                  </div>
+            {/* Local Knowledge */}
+            <div className="group relative md:col-span-3 lg:col-span-2">
+              <div className="relative h-full p-7 md:p-8 rounded-2xl bg-white/[0.04] border border-white/[0.08] hover:border-white/20 transition-all duration-500">
+                <div className="inline-flex items-center justify-center w-11 h-11 bg-white rounded-lg mb-5 group-hover:scale-105 transition-transform duration-300 shadow-lg shadow-black/20">
+                  <MapPin size={20} className="text-[#212529]" />
                 </div>
                 
-                <div className="mb-4">
-                  <span className="text-5xl font-bold tracking-tighter">{uniqueNeighborhoods || 50}</span>
-                  <span className="text-2xl font-bold text-white/50 ml-1">+</span>
+                <div className="mb-3">
+                  <span className="text-4xl font-bold tracking-tighter">{uniqueNeighborhoods > 10 ? uniqueNeighborhoods : 50}</span>
+                  <span className="text-xl font-bold text-white/40 ml-0.5">+</span>
                 </div>
                 
-                <h3 className="text-lg font-bold mb-2">Neighborhoods</h3>
+                <h3 className="text-lg font-semibold mb-2">Neighborhoods</h3>
                 <p className="text-sm text-[#ADB5BD] leading-relaxed">
-                  Hyper-local insights, walkability scores & area guides.
+                  Hyper-local area guides with insights on amenities, transport, and what it&apos;s really like to live there.
                 </p>
               </div>
             </div>
 
-            {/* Stats Row */}
-            <div className="md:col-span-2 grid grid-cols-2 gap-4">
-              {/* Happy Renters */}
-              <div className="group relative">
-                <div className="relative p-6 md:p-8 rounded-3xl bg-white/[0.03] border border-white/10 hover:border-white/30 transition-all duration-500 text-center">
-                  <div className="text-4xl md:text-5xl font-bold tracking-tighter mb-2">
-                    {happyRenters || 500}<span className="text-white/50">+</span>
-                  </div>
-                  <p className="text-sm text-[#ADB5BD]">Happy renters</p>
+            {/* Quick Response */}
+            <div className="group relative md:col-span-3 lg:col-span-2">
+              <div className="relative h-full p-7 md:p-8 rounded-2xl bg-white/[0.04] border border-white/[0.08] hover:border-white/20 transition-all duration-500">
+                <div className="inline-flex items-center justify-center w-11 h-11 bg-white rounded-lg mb-5 group-hover:scale-105 transition-transform duration-300 shadow-lg shadow-black/20">
+                  <MessageCircle size={20} className="text-[#212529]" />
                 </div>
+                
+                <div className="mb-3">
+                  <span className="text-4xl font-bold tracking-tighter">&lt;2</span>
+                  <span className="text-xl font-bold text-white/40 ml-0.5">hr</span>
+                </div>
+                
+                <h3 className="text-lg font-semibold mb-2">Quick Response</h3>
+                <p className="text-sm text-[#ADB5BD] leading-relaxed">
+                  Message landlords directly and get fast replies. Most inquiries answered within two hours.
+                </p>
               </div>
-              
-              {/* Response Time */}
-              <div className="group relative">
-                <div className="relative p-6 md:p-8 rounded-3xl bg-white/[0.03] border border-white/10 hover:border-white/30 transition-all duration-500 text-center">
-                  <div className="text-4xl md:text-5xl font-bold tracking-tighter mb-2">
-                    &lt;2<span className="text-white/50">h</span>
-                  </div>
-                  <p className="text-sm text-[#ADB5BD]">Avg. response time</p>
+            </div>
+
+            {/* Direct Contact */}
+            <div className="group relative md:col-span-3 lg:col-span-2">
+              <div className="relative h-full p-7 md:p-8 rounded-2xl bg-white/[0.04] border border-white/[0.08] hover:border-white/20 transition-all duration-500">
+                <div className="inline-flex items-center justify-center w-11 h-11 bg-white rounded-lg mb-5 group-hover:scale-105 transition-transform duration-300 shadow-lg shadow-black/20">
+                  <Key size={20} className="text-[#212529]" />
                 </div>
+                
+                <div className="mb-3">
+                  <span className="text-4xl font-bold tracking-tighter">0</span>
+                  <span className="text-xl font-bold text-white/40 ml-0.5">fees</span>
+                </div>
+                
+                <h3 className="text-lg font-semibold mb-2">No Middlemen</h3>
+                <p className="text-sm text-[#ADB5BD] leading-relaxed">
+                  Connect directly with property owners. No agent fees, no hidden costs — just you and the landlord.
+                </p>
               </div>
             </div>
           </div>
 
-          {/* Bottom strip */}
-          <div className="mt-20 flex flex-wrap items-center justify-center gap-6 md:gap-10 text-sm">
-            {[
-              { icon: Shield, text: 'SSL Secured' },
-              { icon: Clock, text: '24/7 Support' },
-              { icon: MapPin, text: 'Zimbabwe Coverage' },
-            ].map(({ icon: Icon, text }) => (
-              <div key={text} className="flex items-center gap-2 text-white/40 hover:text-white/70 transition-colors">
-                <Icon size={16} />
-                <span>{text}</span>
-              </div>
-            ))}
+          {/* Trust strip */}
+          <div className="mt-14 md:mt-16 pt-8 border-t border-white/[0.06]">
+            <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-xs tracking-wide">
+              {[
+                { icon: Shield, text: 'SSL Encrypted' },
+                { icon: CheckCircle, text: 'Verified Landlords' },
+                { icon: MapPin, text: 'Zimbabwe-Wide' },
+                { icon: Clock, text: 'Email Support' },
+              ].map(({ icon: Icon, text }) => (
+                <div key={text} className="flex items-center gap-1.5 text-white/30">
+                  <Icon size={13} />
+                  <span>{text}</span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>

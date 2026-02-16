@@ -1,97 +1,153 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import { Mail } from 'lucide-react'
+import { Mail, MapPin, Phone, ArrowUpRight } from 'lucide-react'
 
 export function Footer() {
   const currentYear = new Date().getFullYear()
 
   return (
-    <footer className="bg-[#212529] text-white">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
-          {/* Brand */}
-          <div className="md:col-span-1">
-            <div className="flex items-center gap-2.5 mb-4">
+    <footer className="bg-[#212529] text-white relative overflow-hidden">
+      {/* Ambient glow */}
+      <div className="absolute bottom-0 left-1/4 w-[500px] h-[300px] bg-white/[0.02] rounded-full blur-[120px]" />
+
+      {/* Main footer */}
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 md:pt-20 pb-8 relative">
+        
+        {/* Top: Brand + Newsletter */}
+        <div className="flex flex-col lg:flex-row justify-between gap-10 mb-14 md:mb-16">
+          <div className="max-w-md">
+            <div className="flex items-center gap-2.5 mb-5">
               <Image
                 src="/logo.png"
                 alt="Huts"
-                width={32}
-                height={32}
-                className="h-8 w-8 object-contain invert"
+                width={36}
+                height={36}
+                className="h-9 w-9 object-contain invert"
               />
-              
+              <span className="text-xl font-bold tracking-tight">Huts</span>
             </div>
-            <p className="text-sm text-[#ADB5BD] leading-relaxed">
-              The simplest way to find your next rental. No clutter, no noise — just homes.
+            <p className="text-[15px] text-[#ADB5BD] leading-relaxed mb-6">
+              The simplest way to find your next home in Zimbabwe. No clutter, no noise — just verified properties from real landlords.
             </p>
+            <div className="flex items-center gap-3">
+              <a
+                href="mailto:hello@huts.co.zw"
+                className="inline-flex items-center gap-2 bg-white/[0.08] hover:bg-white/[0.12] border border-white/[0.08] rounded-lg px-4 py-2.5 text-sm text-white/80 hover:text-white transition-all"
+              >
+                <Mail size={15} />
+                hello@huts.co.zw
+              </a>
+            </div>
           </div>
 
-          {/* Quick Links */}
-          <div>
-            <h3 className="text-xs font-semibold uppercase tracking-widest text-[#ADB5BD] mb-4">Explore</h3>
-            <ul className="space-y-3 text-sm">
-              <li>
-                <Link href="/search" className="text-[#ADB5BD] hover:text-white transition-colors">
-                  Browse Properties
-                </Link>
-              </li>
-              <li>
-                <Link href="/areas" className="text-[#ADB5BD] hover:text-white transition-colors">
-                  Area Guides
-                </Link>
-              </li>
-              <li>
-                <Link href="/dashboard" className="text-[#ADB5BD] hover:text-white transition-colors">
-                  Sign In
-                </Link>
-              </li>
-            </ul>
-          </div>
+          {/* Link columns */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-8 lg:gap-14">
+            {/* Explore */}
+            <div>
+              <h3 className="text-[13px] font-semibold uppercase tracking-widest text-white/40 mb-5">Explore</h3>
+              <ul className="space-y-3.5">
+                <li>
+                  <Link href="/search?type=rent" className="text-[15px] text-[#ADB5BD] hover:text-white transition-colors inline-flex items-center gap-1 group">
+                    Rentals
+                    <ArrowUpRight size={13} className="opacity-0 -translate-y-0.5 group-hover:opacity-60 group-hover:translate-y-0 transition-all" />
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/search?type=sale" className="text-[15px] text-[#ADB5BD] hover:text-white transition-colors inline-flex items-center gap-1 group">
+                    For Sale
+                    <ArrowUpRight size={13} className="opacity-0 -translate-y-0.5 group-hover:opacity-60 group-hover:translate-y-0 transition-all" />
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/areas" className="text-[15px] text-[#ADB5BD] hover:text-white transition-colors inline-flex items-center gap-1 group">
+                    Area Guides
+                    <ArrowUpRight size={13} className="opacity-0 -translate-y-0.5 group-hover:opacity-60 group-hover:translate-y-0 transition-all" />
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/search" className="text-[15px] text-[#ADB5BD] hover:text-white transition-colors inline-flex items-center gap-1 group">
+                    Browse All
+                    <ArrowUpRight size={13} className="opacity-0 -translate-y-0.5 group-hover:opacity-60 group-hover:translate-y-0 transition-all" />
+                  </Link>
+                </li>
+              </ul>
+            </div>
 
-          {/* For Landlords */}
-          <div>
-            <h3 className="text-xs font-semibold uppercase tracking-widest text-[#ADB5BD] mb-4">Landlords</h3>
-            <ul className="space-y-3 text-sm">
-              <li>
-                <Link href="/dashboard/new-property" className="text-[#ADB5BD] hover:text-white transition-colors">
-                  Post a Property
-                </Link>
-              </li>
-              <li>
-                <Link href="/pricing" className="text-[#ADB5BD] hover:text-white transition-colors">
-                  It's Free
-                </Link>
-              </li>
-              <li>
-                <Link href="/help" className="text-[#ADB5BD] hover:text-white transition-colors">
-                  Help Center
-                </Link>
-              </li>
-            </ul>
-          </div>
+            {/* Landlords */}
+            <div>
+              <h3 className="text-[13px] font-semibold uppercase tracking-widest text-white/40 mb-5">Landlords</h3>
+              <ul className="space-y-3.5">
+                <li>
+                  <Link href="/dashboard/new-property" className="text-[15px] text-[#ADB5BD] hover:text-white transition-colors inline-flex items-center gap-1 group">
+                    Post a Property
+                    <ArrowUpRight size={13} className="opacity-0 -translate-y-0.5 group-hover:opacity-60 group-hover:translate-y-0 transition-all" />
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/pricing" className="text-[15px] text-[#ADB5BD] hover:text-white transition-colors inline-flex items-center gap-1 group">
+                    Pricing
+                    <ArrowUpRight size={13} className="opacity-0 -translate-y-0.5 group-hover:opacity-60 group-hover:translate-y-0 transition-all" />
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/dashboard" className="text-[15px] text-[#ADB5BD] hover:text-white transition-colors inline-flex items-center gap-1 group">
+                    Dashboard
+                    <ArrowUpRight size={13} className="opacity-0 -translate-y-0.5 group-hover:opacity-60 group-hover:translate-y-0 transition-all" />
+                  </Link>
+                </li>
+              </ul>
+            </div>
 
-          {/* Contact */}
-          <div>
-            <h3 className="text-xs font-semibold uppercase tracking-widest text-[#ADB5BD] mb-4">Contact</h3>
-            <ul className="space-y-3 text-sm">
-              <li>
-                <a href="mailto:hello@huts.com" className="flex items-center gap-2 text-[#ADB5BD] hover:text-white transition-colors">
-                  <Mail size={14} />
-                  hello@huts.com
-                </a>
-              </li>
-            </ul>
+            {/* Support & Contact */}
+            <div>
+              <h3 className="text-[13px] font-semibold uppercase tracking-widest text-white/40 mb-5">Support</h3>
+              <ul className="space-y-3.5">
+                <li>
+                  <Link href="/help" className="text-[15px] text-[#ADB5BD] hover:text-white transition-colors inline-flex items-center gap-1 group">
+                    Help Center
+                    <ArrowUpRight size={13} className="opacity-0 -translate-y-0.5 group-hover:opacity-60 group-hover:translate-y-0 transition-all" />
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/contact" className="text-[15px] text-[#ADB5BD] hover:text-white transition-colors inline-flex items-center gap-1 group">
+                    Contact Us
+                    <ArrowUpRight size={13} className="opacity-0 -translate-y-0.5 group-hover:opacity-60 group-hover:translate-y-0 transition-all" />
+                  </Link>
+                </li>
+                <li>
+                  <a href="mailto:support@huts.co.zw" className="text-[15px] text-[#ADB5BD] hover:text-white transition-colors flex items-center gap-2">
+                    <Mail size={14} className="shrink-0" />
+                    support@huts.co.zw
+                  </a>
+                </li>
+                <li>
+                  <a href="tel:+263780000000" className="text-[15px] text-[#ADB5BD] hover:text-white transition-colors flex items-center gap-2">
+                    <Phone size={14} className="shrink-0" />
+                    +263 78 000 0000
+                  </a>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
 
-        <div className="border-t border-[#495057] mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-[#ADB5BD]">
-          <p>&copy; {currentYear} Huts. All rights reserved.</p>
-          <div className="flex gap-6">
-            <Link href="/privacy" className="hover:text-white transition-colors">
-              Privacy
+        {/* Divider */}
+        <div className="border-t border-white/[0.08]" />
+
+        {/* Bottom bar */}
+        <div className="pt-7 pb-2 flex flex-col sm:flex-row justify-between items-center gap-4">
+          <div className="flex items-center gap-2 text-sm text-white/30">
+            <MapPin size={13} />
+            <span>Harare, Zimbabwe</span>
+            <span className="text-white/15 mx-1">·</span>
+            <span>&copy; {currentYear} Huts</span>
+          </div>
+          <div className="flex items-center gap-6 text-sm">
+            <Link href="/privacy" className="text-white/30 hover:text-white/70 transition-colors">
+              Privacy Policy
             </Link>
-            <Link href="/terms" className="hover:text-white transition-colors">
-              Terms
+            <Link href="/terms" className="text-white/30 hover:text-white/70 transition-colors">
+              Terms of Service
             </Link>
           </div>
         </div>

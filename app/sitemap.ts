@@ -10,6 +10,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     .from('properties')
     .select('slug, updated_at')
     .eq('status', 'active')
+    .eq('verification_status', 'approved')
     .order('updated_at', { ascending: false })
 
   // Fetch all area guide pages

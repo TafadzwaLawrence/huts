@@ -177,6 +177,7 @@ export default function NewPropertyPage() {
           property_type: formData.propertyType,
           listing_type: formData.listingType,
           status: 'active',
+          verification_status: 'pending',
           // For rent: price is monthly rent. For sale: price is 0, sale_price is the price
           price: formData.listingType === 'rent' ? priceValue : 0,
           sale_price: formData.listingType === 'sale' ? priceValue : null,
@@ -243,7 +244,19 @@ export default function NewPropertyPage() {
         toast.error('Property created but image upload failed', { id: 'image-upload' })
       }
       
-      toast.success('Property listed successfully!')
+      // Send verification email to admin
+      try {
+        await fetch('/api/properties/verify/send', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ propertyId: property.id }),
+        })
+      } catch (verifyError) {
+        console.error('Verification email failed:', verifyError)
+        // Don't block the user - property is created, admin can verify later
+      }
+
+      toast.success('Property submitted! It will be visible once verified by our team.')
       router.push('/dashboard/overview')
     } catch (error: any) {
       console.error('Error creating property:', error)
@@ -998,7 +1011,7 @@ export default function NewPropertyPage() {
                 ) : (
                   <>
                     <Sparkles size={18} />
-                    {formData.listingType === 'rent' ? 'List for Rent' : 'List for Sale'}
+                    Submit for Verification
                   </>
                 )}
               </button>

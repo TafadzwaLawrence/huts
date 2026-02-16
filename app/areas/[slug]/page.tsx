@@ -69,6 +69,7 @@ export default async function AreaGuidePage({ params }: PageProps) {
       property_images(url, is_primary)
     `)
     .eq('status', 'active')
+    .eq('verification_status', 'approved')
     .eq('city', area.city)
 
   if (area.neighborhood) {

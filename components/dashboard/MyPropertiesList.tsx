@@ -22,7 +22,10 @@ import {
   TrendingUp,
   Copy,
   Archive,
-  ArrowUpDown
+  ArrowUpDown,
+  ShieldCheck,
+  ShieldAlert,
+  ShieldX,
 } from 'lucide-react'
 
 type PropertyWithStats = any // TODO: Type this properly
@@ -287,6 +290,7 @@ export default function MyPropertiesList({ properties }: { properties: PropertyW
               || property.property_images?.sort((a: any, b: any) => a.order - b.order)[0]
             const isActive = property.status === 'active'
             const isForSale = property.listing_type === 'sale'
+            const verificationStatus = property.verification_status || 'approved' // Default for old properties
             const price = isForSale ? property.sale_price : property.price
             const daysAgo = Math.floor((Date.now() - new Date(property.created_at).getTime()) / (1000 * 60 * 60 * 24))
 
@@ -333,6 +337,19 @@ export default function MyPropertiesList({ properties }: { properties: PropertyW
                       }`}>
                         {isActive ? <CheckCircle2 size={12} /> : <Clock size={12} />}
                         {isActive ? 'Active' : 'Inactive'}
+                      </span>
+                      {/* Verification Status Badge */}
+                      <span className={`px-3 py-1.5 text-xs font-semibold rounded-lg flex items-center gap-1.5 backdrop-blur-sm ${
+                        verificationStatus === 'approved'
+                          ? 'bg-[#212529]/90 text-white'
+                          : verificationStatus === 'pending'
+                            ? 'bg-[#ffc107]/90 text-[#212529]'
+                            : 'bg-[#FF6B6B]/90 text-white'
+                      }`}>
+                        {verificationStatus === 'approved' && <ShieldCheck size={12} />}
+                        {verificationStatus === 'pending' && <ShieldAlert size={12} />}
+                        {verificationStatus === 'rejected' && <ShieldX size={12} />}
+                        {verificationStatus === 'approved' ? 'Verified' : verificationStatus === 'pending' ? 'Pending Review' : 'Rejected'}
                       </span>
                     </div>
                   </Link>
