@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
+import dynamic from 'next/dynamic'
 import { createClient } from '@/lib/supabase/client'
 import { uploadFiles } from '@/lib/uploadthing'
 import { compressImages } from '@/lib/image-compression'
@@ -26,8 +27,18 @@ import {
   Calendar,
   Car,
   TreePine,
+  Loader2,
 } from 'lucide-react'
-import LocationPicker from '@/components/property/LocationPicker'
+
+// Dynamic import to avoid SSR issues with Leaflet
+const LocationPicker = dynamic(() => import('@/components/property/LocationPicker'), {
+  ssr: false,
+  loading: () => (
+    <div className="h-[400px] w-full bg-[#F8F9FA] rounded-xl border-2 border-[#E9ECEF] flex items-center justify-center">
+      <Loader2 className="h-8 w-8 animate-spin text-[#ADB5BD]" />
+    </div>
+  ),
+})
 
 export default function NewPropertyPage() {
   const router = useRouter()
