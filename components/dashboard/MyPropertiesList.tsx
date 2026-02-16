@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from 'react'
 import Link from 'next/link'
+import { toast } from 'sonner'
 import { 
   Building2, 
   Eye, 
@@ -26,6 +27,8 @@ import {
   ShieldCheck,
   ShieldAlert,
   ShieldX,
+  Mail,
+  Loader2,
 } from 'lucide-react'
 
 type PropertyWithStats = any // TODO: Type this properly
@@ -36,6 +39,30 @@ type TypeFilter = 'all' | 'rent' | 'sale'
 
 export default function MyPropertiesList({ properties }: { properties: PropertyWithStats[] }) {
   const [statusFilter, setStatusFilter] = useState<StatusFilter>('all')
+  const [resendingId, setResendingId] = useState<string | null>(null)
+
+  const resendVerification = async (propertyId: string) => {
+    setResendingId(propertyId)
+    try {
+      const res = await fetch('/api/properties/verify/send', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ propertyId }),
+      })
+      const data = await res.json()
+      if (!res.ok) {
+        console.error('[Verification] Resend error:', res.status, data)
+        toast.error(data.error || 'Failed to resend verification email')
+      } else {
+        toast.success('Verification email sent to admin!')
+      }
+    } catch (error) {
+      console.error('[Verification] Resend network error:', error)
+      toast.error('Failed to resend verification email')
+    } finally {
+      setResendingId(null)
+    }
+  }
   const [typeFilter, setTypeFilter] = useState<TypeFilter>('all')
   const [sortBy, setSortBy] = useState<SortOption>('newest')
 
@@ -438,6 +465,21 @@ export default function MyPropertiesList({ properties }: { properties: PropertyW
                       </div>
 
                       <div className="flex items-center gap-2">
+                        {verificationStatus === 'pending' && (
+                          <button
+                            onClick={() => resendVerification(property.id)}
+                            disabled={resendingId === property.id}
+                            className="inline-flex items-center gap-2 px-4 py-3 text-sm font-semibold text-[#212529] bg-[#ffc107]/15 hover:bg-[#ffc107]/30 border border-[#ffc107] rounded-xl transition-all disabled:opacity-50"
+                            title="Resend verification email to admin"
+                          >
+                            {resendingId === property.id ? (
+                              <Loader2 size={16} className="animate-spin" />
+                            ) : (
+                              <Mail size={16} />
+                            )}
+                            Resend Verification
+                          </button>
+                        )}
                         <Link
                           href={`/property/${property.slug || property.id}`}
                           target="_blank"

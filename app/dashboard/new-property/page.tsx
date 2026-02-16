@@ -254,14 +254,21 @@ export default function NewPropertyPage() {
       
       // Send verification email to admin
       try {
-        await fetch('/api/properties/verify/send', {
+        const verifyRes = await fetch('/api/properties/verify/send', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ propertyId: property.id }),
         })
+        const verifyData = await verifyRes.json()
+        if (!verifyRes.ok) {
+          console.error('[Verification] API error:', verifyRes.status, verifyData)
+          toast.error('Property created but verification email failed to send')
+        } else {
+          console.log('[Verification] Email sent successfully:', verifyData)
+        }
       } catch (verifyError) {
-        console.error('Verification email failed:', verifyError)
-        // Don't block the user - property is created, admin can verify later
+        console.error('[Verification] Network error:', verifyError)
+        toast.error('Property created but verification email failed to send')
       }
 
       toast.success('Property submitted! It will be visible once verified by our team.')

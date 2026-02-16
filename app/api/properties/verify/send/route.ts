@@ -24,6 +24,7 @@ export async function POST(request: Request) {
     }
 
     // Fetch the property with its details
+    console.log('[Verification] Fetching property:', propertyId, 'for user:', user.id)
     const { data: property, error: propertyError } = await supabase
       .from('properties')
       .select(`
@@ -37,11 +38,16 @@ export async function POST(request: Request) {
 
     if (propertyError || !property) {
       console.error('[Verification] Property fetch error:', propertyError)
-      return NextResponse.json({ error: 'Property not found' }, { status: 404 })
+      return NextResponse.json({ error: 'Property not found', details: propertyError?.message }, { status: 404 })
     }
 
     // Get verification token
     const verificationToken = property.verification_token
+    if (!verificationToken) {
+      console.error('[Verification] No verification token found for property:', propertyId)
+      return NextResponse.json({ error: 'No verification token' }, { status: 500 })
+    }
+    console.log('[Verification] Token found, building email for:', property.title)
 
     // Build URLs for approval/rejection
     const approveUrl = `${BASE_URL}/api/properties/verify?token=${verificationToken}&action=approve`
@@ -90,10 +96,11 @@ export async function POST(request: Request) {
     })
 
     if (emailError) {
-      console.error('[Verification] Email send error:', emailError)
-      return NextResponse.json({ error: 'Failed to send verification email' }, { status: 500 })
+      console.error('[Verification] Email send error:', JSON.stringify(emailError))
+      return NextResponse.json({ error: 'Failed to send verification email', details: emailError }, { status: 500 })
     }
 
+    console.log('[Verification] Email sent successfully for property:', property.title)
     return NextResponse.json({ 
       success: true, 
       message: 'Property submitted for verification' 
