@@ -213,8 +213,8 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
           property_type: formData.propertyType,
           listing_type: formData.listingType,
           status: formData.status,
-          // For rent: price is monthly rent. For sale: price is 0, sale_price is the price
-          price: formData.listingType === 'rent' ? priceValue : 0,
+          // For rent: price is monthly rent. For sale: price is NULL, sale_price is the price
+          price: formData.listingType === 'rent' ? priceValue : null,
           sale_price: formData.listingType === 'sale' ? priceValue : null,
           deposit: formData.listingType === 'rent' ? depositInCents : null,
           beds: parseInt(formData.beds),

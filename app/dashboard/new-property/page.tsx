@@ -178,8 +178,8 @@ export default function NewPropertyPage() {
           listing_type: formData.listingType,
           status: 'active',
           verification_status: 'pending',
-          // For rent: price is monthly rent. For sale: price is 0, sale_price is the price
-          price: formData.listingType === 'rent' ? priceValue : 0,
+          // For rent: price is monthly rent. For sale: price is NULL, sale_price is the price
+          price: formData.listingType === 'rent' ? priceValue : null,
           sale_price: formData.listingType === 'sale' ? priceValue : null,
           deposit: formData.listingType === 'rent' ? depositInCents : null,
           beds: parseInt(formData.beds),
@@ -647,7 +647,7 @@ export default function NewPropertyPage() {
                           max="2030"
                           value={formData.yearBuilt}
                           onChange={handleInputChange}
-                          className="w-full px-3 py-3 border-2 border-[#E9ECEF] rounded-xl text-center focus:outline-none focus:border-[#212529] transition-colors"
+                          className="w-full px-3 py-3 border-2 border-[#E9ECEF] rounded-xl text-[#212529] text-center focus:outline-none focus:border-[#212529] transition-colors"
                           placeholder="2020"
                         />
                       </div>
@@ -662,7 +662,7 @@ export default function NewPropertyPage() {
                           min="0"
                           value={formData.lotSize}
                           onChange={handleInputChange}
-                          className="w-full px-3 py-3 border-2 border-[#E9ECEF] rounded-xl text-center focus:outline-none focus:border-[#212529] transition-colors"
+                          className="w-full px-3 py-3 border-2 border-[#E9ECEF] rounded-xl text-[#212529] text-center focus:outline-none focus:border-[#212529] transition-colors"
                           placeholder="5000"
                         />
                       </div>
@@ -677,7 +677,7 @@ export default function NewPropertyPage() {
                           min="0"
                           value={formData.parkingSpaces}
                           onChange={handleInputChange}
-                          className="w-full px-3 py-3 border-2 border-[#E9ECEF] rounded-xl text-center focus:outline-none focus:border-[#212529] transition-colors"
+                          className="w-full px-3 py-3 border-2 border-[#E9ECEF] rounded-xl text-[#212529] text-center focus:outline-none focus:border-[#212529] transition-colors"
                           placeholder="2"
                         />
                       </div>
@@ -692,7 +692,7 @@ export default function NewPropertyPage() {
                           min="0"
                           value={formData.garageSpaces}
                           onChange={handleInputChange}
-                          className="w-full px-3 py-3 border-2 border-[#E9ECEF] rounded-xl text-center focus:outline-none focus:border-[#212529] transition-colors"
+                          className="w-full px-3 py-3 border-2 border-[#E9ECEF] rounded-xl text-[#212529] text-center focus:outline-none focus:border-[#212529] transition-colors"
                           placeholder="1"
                         />
                       </div>
