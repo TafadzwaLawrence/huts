@@ -524,7 +524,7 @@ export default function NewPropertyPage() {
                         className={`flex items-center gap-2.5 px-4 py-3 rounded-xl border-2 transition-all text-sm font-medium ${
                           formData.propertyType === value
                             ? 'border-[#212529] bg-[#212529] text-white'
-                            : 'border-[#E9ECEF] text-[#495057] hover:border-[#495057] bg-white'
+                            : 'border-[#E9ECEF] text-[#212529] hover:border-[#495057] bg-white'
                         }`}
                       >
                         <Icon size={16} />
@@ -988,7 +988,7 @@ export default function NewPropertyPage() {
                         className={`flex items-center gap-2 px-4 py-3 rounded-xl border-2 transition-all text-sm font-medium ${
                           formData.amenities.includes(amenity)
                             ? 'border-[#212529] bg-[#212529] text-white'
-                            : 'border-[#E9ECEF] text-[#495057] hover:border-[#495057] bg-white'
+                            : 'border-[#E9ECEF] text-[#212529] hover:border-[#495057] bg-white'
                         }`}
                       >
                         {formData.amenities.includes(amenity) && <Check size={14} />}
@@ -1007,7 +1007,7 @@ export default function NewPropertyPage() {
               <button
                 type="button"
                 onClick={prevStep}
-                className="flex items-center justify-center gap-2 px-5 py-3.5 border-2 border-[#E9ECEF] text-[#495057] rounded-xl text-sm font-semibold hover:border-[#212529] hover:text-[#212529] transition-all"
+                className="flex items-center justify-center gap-2 px-5 py-3.5 border-2 border-[#E9ECEF] text-[#212529] rounded-xl text-sm font-semibold hover:border-[#212529] transition-all"
               >
                 <ArrowLeft size={16} />
                 Back
