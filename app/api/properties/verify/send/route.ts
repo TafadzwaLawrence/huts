@@ -73,26 +73,31 @@ export async function POST(request: Request) {
 
     // Send verification email to admin
     const resend = getResend()
-    const { error: emailError } = await resend.emails.send({
+
+    const emailProps = {
+      propertyTitle: property.title || 'Untitled Property',
+      propertyAddress: property.address || 'N/A',
+      propertyCity: property.city || 'N/A',
+      propertyType: property.property_type || 'property',
+      listingType: (property.listing_type || 'rent') as 'rent' | 'sale',
+      price: displayPrice,
+      beds: property.beds || 0,
+      baths: property.baths || 0,
+      ownerName,
+      ownerEmail,
+      propertyUrl,
+      approveUrl,
+      rejectUrl,
+      imageUrl: primaryImage?.url,
+    }
+
+    console.log('[Verification] Sending email with props:', JSON.stringify({ ...emailProps, imageUrl: emailProps.imageUrl ? '(set)' : '(none)' }))
+
+    const { data: emailData, error: emailError } = await resend.emails.send({
       from: 'Huts <noreply@huts.co.zw>',
       to: ADMIN_EMAIL,
       subject: `[Verify] New property: ${property.title}`,
-      react: PropertyVerificationEmail({
-        propertyTitle: property.title,
-        propertyAddress: property.address,
-        propertyCity: property.city,
-        propertyType: property.property_type || 'property',
-        listingType: property.listing_type || 'rent',
-        price: displayPrice,
-        beds: property.beds,
-        baths: property.baths,
-        ownerName,
-        ownerEmail,
-        propertyUrl,
-        approveUrl,
-        rejectUrl,
-        imageUrl: primaryImage?.url,
-      }),
+      react: PropertyVerificationEmail(emailProps),
     })
 
     if (emailError) {
@@ -105,8 +110,11 @@ export async function POST(request: Request) {
       success: true, 
       message: 'Property submitted for verification' 
     })
-  } catch (error) {
-    console.error('[Verification] Unexpected error:', error)
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
+  } catch (error: any) {
+    console.error('[Verification] Unexpected error:', error?.message || error, error?.stack)
+    return NextResponse.json({ 
+      error: 'Internal server error', 
+      details: error?.message || String(error) 
+    }, { status: 500 })
   }
 }
