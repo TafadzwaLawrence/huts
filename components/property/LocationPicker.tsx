@@ -1,45 +1,13 @@
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 import { MapPin, Search, Loader2, X, Navigation } from 'lucide-react'
-import dynamic from 'next/dynamic'
-
-// Dynamic imports for Leaflet (no SSR)
-const MapContainer = dynamic(
-  () => import('react-leaflet').then((mod) => mod.MapContainer),
-  { ssr: false }
-)
-const TileLayer = dynamic(
-  () => import('react-leaflet').then((mod) => mod.TileLayer),
-  { ssr: false }
-)
-const Marker = dynamic(
-  () => import('react-leaflet').then((mod) => mod.Marker),
-  { ssr: false }
-)
-const useMapEvents = dynamic(
-  () => import('react-leaflet').then((mod) => mod.useMapEvents as any),
-  { ssr: false }
-) as any
 
 interface LocationPickerProps {
   lat?: number
   lng?: number
   onLocationChange: (lat: number, lng: number, address?: string) => void
   className?: string
-}
-
-// Click handler component
-function MapClickHandler({ onMapClick }: { onMapClick: (lat: number, lng: number) => void }) {
-  const MapEventsComponent = require('react-leaflet').useMapEvents
-  
-  MapEventsComponent({
-    click: (e: any) => {
-      onMapClick(e.latlng.lat, e.latlng.lng)
-    },
-  })
-  
-  return null
 }
 
 export default function LocationPicker({ lat, lng, onLocationChange, className }: LocationPickerProps) {
@@ -52,26 +20,93 @@ export default function LocationPicker({ lat, lng, onLocationChange, className }
   const [isLocating, setIsLocating] = useState(false)
   const [mounted, setMounted] = useState(false)
 
+  const mapContainerRef = useRef<HTMLDivElement>(null)
+  const mapRef = useRef<any>(null)
+  const markerRef = useRef<any>(null)
+
+  // Initialize map
   useEffect(() => {
-    setMounted(true)
-    // Fix Leaflet default icon issue
-    if (typeof window !== 'undefined') {
-      const L = require('leaflet')
-      delete (L.Icon.Default.prototype as any)._getIconUrl
-      L.Icon.Default.mergeOptions({
-        iconRetinaUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x.png',
-        iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png',
-        shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
+    if (typeof window === 'undefined') return
+
+    let cancelled = false
+
+    const initMap = async () => {
+      const L = (await import('leaflet')).default
+      await import('leaflet/dist/leaflet.css')
+
+      if (cancelled || !mapContainerRef.current || mapRef.current) return
+
+      // Fix default icon
+      const DefaultIcon = L.icon({
+        iconRetinaUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png',
+        iconUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png',
+        shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+        shadowSize: [41, 41],
       })
+      L.Marker.prototype.options.icon = DefaultIcon
+
+      const initialCenter: [number, number] = lat && lng ? [lat, lng] : [-17.8292, 31.0522]
+      const initialZoom = lat && lng ? 15 : 12
+
+      const map = L.map(mapContainerRef.current, {
+        center: initialCenter,
+        zoom: initialZoom,
+        zoomControl: true,
+      })
+
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+        maxZoom: 19,
+      }).addTo(map)
+
+      // Add initial marker if position exists
+      if (lat && lng) {
+        markerRef.current = L.marker([lat, lng]).addTo(map)
+      }
+
+      // Click handler
+      map.on('click', (e: any) => {
+        const clickLat = e.latlng.lat
+        const clickLng = e.latlng.lng
+        placeMarker(L, map, clickLat, clickLng)
+        setPosition([clickLat, clickLng])
+        onLocationChange(clickLat, clickLng)
+        reverseGeocode(clickLat, clickLng)
+      })
+
+      mapRef.current = map
+      setMounted(true)
+
+      // Force a resize after mount to ensure tiles render fully
+      setTimeout(() => {
+        map.invalidateSize()
+      }, 200)
     }
+
+    initMap()
+
+    return () => {
+      cancelled = true
+      if (mapRef.current) {
+        mapRef.current.remove()
+        mapRef.current = null
+        markerRef.current = null
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const handleMapClick = useCallback((clickLat: number, clickLng: number) => {
-    setPosition([clickLat, clickLng])
-    onLocationChange(clickLat, clickLng)
-    // Reverse geocode to get address
-    reverseGeocode(clickLat, clickLng)
-  }, [onLocationChange])
+  const placeMarker = useCallback((L: any, map: any, newLat: number, newLng: number) => {
+    if (markerRef.current) {
+      markerRef.current.setLatLng([newLat, newLng])
+    } else {
+      markerRef.current = L.marker([newLat, newLng]).addTo(map)
+    }
+    map.flyTo([newLat, newLng], 16, { duration: 0.8 })
+  }, [])
 
   const reverseGeocode = async (lat: number, lng: number) => {
     try {
@@ -89,7 +124,7 @@ export default function LocationPicker({ lat, lng, onLocationChange, className }
 
   const searchLocation = async () => {
     if (!searchQuery.trim()) return
-    
+
     setIsSearching(true)
     try {
       const response = await fetch(
@@ -104,13 +139,19 @@ export default function LocationPicker({ lat, lng, onLocationChange, className }
     }
   }
 
-  const selectSearchResult = (result: any) => {
+  const selectSearchResult = async (result: any) => {
     const newLat = parseFloat(result.lat)
     const newLng = parseFloat(result.lon)
     setPosition([newLat, newLng])
     onLocationChange(newLat, newLng, result.display_name)
     setSearchResults([])
     setSearchQuery(result.display_name.split(',')[0])
+
+    // Move map to selected result
+    if (mapRef.current) {
+      const L = (await import('leaflet')).default
+      placeMarker(L, mapRef.current, newLat, newLng)
+    }
   }
 
   const getCurrentLocation = () => {
@@ -121,11 +162,16 @@ export default function LocationPicker({ lat, lng, onLocationChange, className }
 
     setIsLocating(true)
     navigator.geolocation.getCurrentPosition(
-      (position) => {
-        const { latitude, longitude } = position.coords
+      async (pos) => {
+        const { latitude, longitude } = pos.coords
         setPosition([latitude, longitude])
         onLocationChange(latitude, longitude)
         reverseGeocode(latitude, longitude)
+
+        if (mapRef.current) {
+          const L = (await import('leaflet')).default
+          placeMarker(L, mapRef.current, latitude, longitude)
+        }
         setIsLocating(false)
       },
       (error) => {
@@ -137,37 +183,40 @@ export default function LocationPicker({ lat, lng, onLocationChange, className }
     )
   }
 
-  if (!mounted) {
-    return (
-      <div className={`bg-[#F8F9FA] rounded-xl h-[400px] flex items-center justify-center ${className}`}>
-        <Loader2 className="h-8 w-8 animate-spin text-[#ADB5BD]" />
-      </div>
-    )
+  const clearPosition = async () => {
+    setPosition(null)
+    onLocationChange(0, 0, '')
+    if (markerRef.current && mapRef.current) {
+      mapRef.current.removeLayer(markerRef.current)
+      markerRef.current = null
+      mapRef.current.flyTo([-17.8292, 31.0522], 12, { duration: 0.8 })
+    }
   }
 
   return (
-    <div className={`space-y-4 ${className}`}>
+    <div className={`space-y-3 ${className || ''}`}>
       {/* Search Bar */}
-      <div className="flex gap-3">
+      <div className="flex gap-2">
         <div className="relative flex-1">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-[#ADB5BD]" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-[#ADB5BD]" />
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && searchLocation()}
             placeholder="Search for an address..."
-            className="w-full pl-10 pr-4 py-3 border-2 border-[#E9ECEF] rounded-xl focus:border-[#212529] focus:outline-none transition-colors"
+            className="w-full pl-9 pr-8 py-3 border-2 border-[#E9ECEF] rounded-xl text-[#212529] bg-white placeholder:text-[#ADB5BD] focus:border-[#212529] focus:outline-none transition-colors text-sm"
           />
           {searchQuery && (
             <button
+              type="button"
               onClick={() => {
                 setSearchQuery('')
                 setSearchResults([])
               }}
               className="absolute right-3 top-1/2 -translate-y-1/2 text-[#ADB5BD] hover:text-[#495057]"
             >
-              <X size={18} />
+              <X size={16} />
             </button>
           )}
         </div>
@@ -175,21 +224,21 @@ export default function LocationPicker({ lat, lng, onLocationChange, className }
           type="button"
           onClick={searchLocation}
           disabled={isSearching}
-          className="px-5 py-3 bg-[#212529] text-white rounded-xl hover:bg-black transition-colors disabled:opacity-50"
+          className="px-4 py-3 bg-[#212529] text-white rounded-xl hover:bg-black transition-colors disabled:opacity-50 text-sm font-medium"
         >
-          {isSearching ? <Loader2 className="h-5 w-5 animate-spin" /> : 'Search'}
+          {isSearching ? <Loader2 className="h-4 w-4 animate-spin" /> : 'Search'}
         </button>
         <button
           type="button"
           onClick={getCurrentLocation}
           disabled={isLocating}
-          className="px-4 py-3 border-2 border-[#E9ECEF] rounded-xl hover:border-[#212529] transition-colors"
+          className="px-3 py-3 border-2 border-[#E9ECEF] rounded-xl hover:border-[#212529] transition-colors"
           title="Use my location"
         >
           {isLocating ? (
-            <Loader2 className="h-5 w-5 animate-spin text-[#495057]" />
+            <Loader2 className="h-4 w-4 animate-spin text-[#495057]" />
           ) : (
-            <Navigation className="h-5 w-5 text-[#495057]" />
+            <Navigation className="h-4 w-4 text-[#495057]" />
           )}
         </button>
       </div>
@@ -204,8 +253,8 @@ export default function LocationPicker({ lat, lng, onLocationChange, className }
               onClick={() => selectSearchResult(result)}
               className="w-full px-4 py-3 text-left hover:bg-[#F8F9FA] transition-colors border-b border-[#E9ECEF] last:border-b-0"
             >
-              <div className="flex items-start gap-3">
-                <MapPin className="h-5 w-5 text-[#495057] mt-0.5 shrink-0" />
+              <div className="flex items-start gap-2.5">
+                <MapPin className="h-4 w-4 text-[#495057] mt-0.5 shrink-0" />
                 <div>
                   <p className="text-sm font-medium text-[#212529]">
                     {result.display_name.split(',')[0]}
@@ -222,26 +271,25 @@ export default function LocationPicker({ lat, lng, onLocationChange, className }
 
       {/* Map */}
       <div className="relative rounded-xl overflow-hidden border-2 border-[#E9ECEF]">
-        <MapContainer
-          center={position || [-17.8292, 31.0522]} // Default to Harare
-          zoom={position ? 15 : 12}
+        <div
+          ref={mapContainerRef}
           style={{ height: '400px', width: '100%' }}
-          className="z-0"
-        >
-          <TileLayer
-            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          />
-          {position && <Marker position={position} />}
-          <MapClickHandler onMapClick={handleMapClick} />
-        </MapContainer>
+          className="z-0 bg-[#F8F9FA]"
+        />
+
+        {/* Loading overlay before map mounts */}
+        {!mounted && (
+          <div className="absolute inset-0 bg-[#F8F9FA] flex items-center justify-center">
+            <Loader2 className="h-8 w-8 animate-spin text-[#ADB5BD]" />
+          </div>
+        )}
 
         {/* Instructions overlay */}
-        {!position && (
-          <div className="absolute bottom-4 left-4 right-4 bg-white/95 backdrop-blur-sm rounded-lg p-3 shadow-lg">
-            <p className="text-sm text-[#495057] flex items-center gap-2">
-              <MapPin size={16} className="text-[#212529]" />
-              Click on the map to set property location
+        {mounted && !position && (
+          <div className="absolute bottom-4 left-4 right-4 bg-white/95 backdrop-blur-sm rounded-lg px-4 py-3 shadow-lg z-[1000]">
+            <p className="text-sm text-[#212529] flex items-center gap-2 font-medium">
+              <MapPin size={15} className="text-[#495057]" />
+              Click anywhere on the map to set location
             </p>
           </div>
         )}
@@ -249,25 +297,22 @@ export default function LocationPicker({ lat, lng, onLocationChange, className }
 
       {/* Selected Location */}
       {position && (
-        <div className="bg-[#F8F9FA] rounded-xl p-4 flex items-center justify-between">
+        <div className="bg-[#F8F9FA] rounded-xl px-4 py-3 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="h-10 w-10 rounded-full bg-[#F8F9FA] border border-[#E9ECEF] flex items-center justify-center">
-              <MapPin className="h-5 w-5 text-[#212529]" />
+            <div className="h-9 w-9 rounded-full bg-white border border-[#E9ECEF] flex items-center justify-center">
+              <MapPin className="h-4 w-4 text-[#212529]" />
             </div>
             <div>
               <p className="text-sm font-medium text-[#212529]">Location Selected</p>
-              <p className="text-xs text-[#ADB5BD]">
+              <p className="text-xs text-[#ADB5BD] tabular-nums">
                 {position[0].toFixed(6)}, {position[1].toFixed(6)}
               </p>
             </div>
           </div>
           <button
             type="button"
-            onClick={() => {
-              setPosition(null)
-              onLocationChange(0, 0, '')
-            }}
-            className="text-sm text-[#FF6B6B] hover:text-red-600 font-medium"
+            onClick={clearPosition}
+            className="text-xs text-[#FF6B6B] hover:text-red-600 font-semibold"
           >
             Clear
           </button>
