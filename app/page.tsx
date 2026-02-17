@@ -320,33 +320,41 @@ export default async function HomePage() {
       </section>
 
       {/* FEATURED RENTALS */}
-      <section className="py-12 md:py-16 bg-[#F8F9FA] relative overflow-hidden">
-        {/* Decorative background elements */}
-        <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-bl from-[#212529]/5 to-transparent rounded-full blur-3xl" />
-        <div className="absolute bottom-0 left-0 w-64 h-64 bg-gradient-to-tr from-[#212529]/5 to-transparent rounded-full blur-3xl" />
+      <section className="py-16 md:py-24 bg-white relative overflow-hidden">
+        {/* Subtle background texture */}
+        <div className="absolute inset-0 opacity-[0.015]" style={{
+          backgroundImage: `radial-gradient(circle at 1px 1px, #212529 1px, transparent 0)`,
+          backgroundSize: '32px 32px'
+        }} />
         
         <div className="container-main relative">
           {/* Section Header */}
-          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6 mb-12">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-6 mb-10 md:mb-14">
             <div>
-              <h2 className="text-3xl md:text-4xl font-bold text-[#212529] tracking-tight mb-2">
+              <div className="inline-flex items-center gap-2 bg-[#F8F9FA] border border-[#E9ECEF] rounded-full px-4 py-1.5 mb-4">
+                <Home size={13} className="text-[#495057]" />
+                <span className="text-[10px] font-bold text-[#495057] uppercase tracking-widest">For Rent</span>
+              </div>
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#212529] tracking-tight mb-3">
                 Featured Rentals
               </h2>
-              <p className="text-[#495057] text-sm md:text-base">Hand-picked rental listings updated daily</p>
+              <p className="text-[#495057] text-base md:text-lg max-w-md">
+                Hand-picked listings reviewed and updated daily
+              </p>
             </div>
             <Link
               href="/search?type=rent"
-              className="group/btn inline-flex items-center gap-2 text-sm font-bold text-white bg-[#212529] px-6 py-3 rounded-lg hover:bg-black hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200"
+              className="group/btn inline-flex items-center gap-2.5 text-sm font-semibold text-[#212529] border-2 border-[#E9ECEF] px-5 py-2.5 rounded-full hover:border-[#212529] hover:bg-[#212529] hover:text-white transition-all duration-200"
             >
               <span>View all rentals</span>
-              <ArrowRight size={16} className="group-hover/btn:translate-x-1 transition-transform" />
+              <ArrowRight size={15} className="group-hover/btn:translate-x-0.5 transition-transform" />
             </Link>
           </div>
           
           {/* Rental Property Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6">
             {rentalProperties && rentalProperties.length > 0 ? (
-              rentalProperties.map((property: any, index: number) => {
+              rentalProperties.map((property: any) => {
                 const primaryImage = property.property_images?.find((img: any) => img.is_primary) || property.property_images?.[0]
                 const imageUrl = primaryImage?.url || 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600&h=400&fit=crop'
                 
@@ -356,67 +364,64 @@ export default async function HomePage() {
                     href={`/property/${property.slug || property.id}`}
                     className="group"
                   >
-                    <article className="relative border-2 border-[#E9ECEF] rounded-xl overflow-hidden bg-white hover:border-[#212529] hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
+                    <article className="relative border border-[#E9ECEF] rounded-2xl overflow-hidden bg-white hover:border-[#212529] hover:shadow-xl transition-all duration-300">
                       {/* Image */}
-                      <div className="relative h-64 overflow-hidden bg-[#E9ECEF]">
+                      <div className="relative h-56 md:h-60 overflow-hidden bg-[#F8F9FA]">
                         <Image
                           src={imageUrl}
                           alt={property.title}
                           fill
-                          className="object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700"
+                          className="object-cover group-hover:scale-105 transition-transform duration-500"
                           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                         />
                         
-                        {/* Overlay gradient on hover */}
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                        {/* Gradient scrim */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
+
+                        {/* Price Badge */}
+                        <div className="absolute bottom-4 left-4">
+                          <div className="bg-white/95 backdrop-blur-sm px-3.5 py-2 rounded-xl shadow-lg">
+                            <span className="text-lg font-bold text-[#212529] tracking-tight">
+                              {formatPriceLocal(property.price)}
+                            </span>
+                            <span className="text-xs text-[#495057] font-medium ml-0.5">/mo</span>
+                          </div>
+                        </div>
 
                         {/* Save Button */}
-                        <SaveButton className="absolute top-4 right-4 p-2.5 bg-white/95 backdrop-blur-sm rounded-full hover:bg-white hover:scale-110 transition-all min-w-[44px] min-h-[44px] flex items-center justify-center shadow-md" />
+                        <SaveButton className="absolute top-3 right-3 p-2 bg-white/90 backdrop-blur-sm rounded-full hover:bg-white hover:scale-110 transition-all min-w-[40px] min-h-[40px] flex items-center justify-center shadow-sm" />
                       </div>
 
                       {/* Content */}
-                      <div className="p-6">
-                        {/* Price */}
-                        <div className="flex items-baseline justify-between mb-3">
-                          <span className="text-2xl font-bold text-[#212529] tracking-tight">
-                            {formatPriceLocal(property.price)}
-                          </span>
-                          <span className="text-sm text-[#ADB5BD] font-medium">/month</span>
-                        </div>
-
-                        <h3 className="font-semibold text-[#212529] text-lg mb-3 leading-snug line-clamp-2 min-h-[3.5rem]">
+                      <div className="p-5">
+                        <h3 className="font-semibold text-[#212529] text-base mb-2 leading-snug line-clamp-1 group-hover:underline underline-offset-2 decoration-[#212529]/30">
                           {property.title}
                         </h3>
                         
-                        <div className="flex items-center text-[#495057] text-sm mb-5">
-                          <MapPin size={15} className="mr-1.5 flex-shrink-0 text-[#ADB5BD]" />
+                        <div className="flex items-center text-[#495057] text-sm mb-4">
+                          <MapPin size={14} className="mr-1.5 flex-shrink-0 text-[#ADB5BD]" />
                           <span className="truncate">{property.neighborhood ? `${property.neighborhood}, ` : ''}{property.city}</span>
                         </div>
 
-                        {/* Features - Enhanced */}
-                        <div className="flex items-center gap-5 text-sm text-[#495057] pt-5 border-t-2 border-[#F8F9FA]">
-                          <span className="flex items-center gap-1.5 font-medium">
-                            <Bed size={16} className="text-[#ADB5BD]" />
-                            <span className="text-[#212529]">{property.beds}</span> bed
+                        {/* Features */}
+                        <div className="flex items-center gap-4 text-sm text-[#495057] pt-4 border-t border-[#F1F3F5]">
+                          <span className="flex items-center gap-1.5">
+                            <Bed size={15} className="text-[#ADB5BD]" />
+                            <span className="font-semibold text-[#212529]">{property.beds}</span>
+                            <span className="text-[#ADB5BD]">bed</span>
                           </span>
-                          <span className="flex items-center gap-1.5 font-medium">
-                            <Bath size={16} className="text-[#ADB5BD]" />
-                            <span className="text-[#212529]">{property.baths}</span> bath
+                          <span className="flex items-center gap-1.5">
+                            <Bath size={15} className="text-[#ADB5BD]" />
+                            <span className="font-semibold text-[#212529]">{property.baths}</span>
+                            <span className="text-[#ADB5BD]">bath</span>
                           </span>
-                          {property.sqft && (
-                            <span className="flex items-center gap-1.5 font-medium">
-                              <Square size={16} className="text-[#ADB5BD]" />
-                              <span className="text-[#212529]">{property.sqft}</span> sqft
+                          {property.sqft && property.sqft > 0 && (
+                            <span className="flex items-center gap-1.5">
+                              <Square size={15} className="text-[#ADB5BD]" />
+                              <span className="font-semibold text-[#212529]">{property.sqft.toLocaleString()}</span>
+                              <span className="text-[#ADB5BD]">sqft</span>
                             </span>
                           )}
-                        </div>
-
-                        {/* View Details Link - Appears on hover */}
-                        <div className="mt-5 pt-5 border-t-2 border-[#F8F9FA] opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                          <div className="flex items-center justify-between text-sm font-medium text-[#212529]">
-                            <span>View details</span>
-                            <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-                          </div>
                         </div>
                       </div>
                     </article>
@@ -425,16 +430,16 @@ export default async function HomePage() {
               })
             ) : (
               <div className="col-span-full">
-                <div className="bg-white border-2 border-dashed border-[#E9ECEF] rounded-2xl p-12 md:p-16 text-center">
+                <div className="bg-[#F8F9FA] border-2 border-dashed border-[#E9ECEF] rounded-2xl p-12 md:p-16 text-center">
                   {/* Decorative icons */}
                   <div className="flex justify-center items-center gap-4 mb-8">
-                    <div className="w-16 h-16 bg-[#F8F9FA] rounded-2xl flex items-center justify-center border border-[#E9ECEF] rotate-[-6deg]">
+                    <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center border border-[#E9ECEF] rotate-[-6deg]">
                       <Home size={28} className="text-[#ADB5BD]" />
                     </div>
                     <div className="w-20 h-20 bg-[#212529] rounded-2xl flex items-center justify-center shadow-xl">
                       <Building2 size={36} className="text-white" />
                     </div>
-                    <div className="w-16 h-16 bg-[#F8F9FA] rounded-2xl flex items-center justify-center border border-[#E9ECEF] rotate-[6deg]">
+                    <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center border border-[#E9ECEF] rotate-[6deg]">
                       <MapPin size={28} className="text-[#ADB5BD]" />
                     </div>
                   </div>
@@ -475,16 +480,17 @@ export default async function HomePage() {
 
           {/* View All Rentals CTA */}
           {rentalProperties && rentalProperties.length > 0 && (
-            <div className="mt-12 text-center">
+            <div className="mt-12 flex flex-col items-center">
               <Link 
                 href="/search?type=rent" 
-                className="group inline-flex items-center gap-3 bg-[#212529] text-white px-10 py-4 rounded-full font-semibold text-base hover:bg-black hover:shadow-xl hover:-translate-y-0.5 transition-all"
+                className="group inline-flex items-center gap-2.5 text-sm font-semibold text-[#212529] border-2 border-[#212529] px-8 py-3.5 rounded-full hover:bg-[#212529] hover:text-white transition-all duration-200"
               >
-                <Search size={18} />
                 Browse all rentals
-                <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+                <ArrowRight size={16} className="group-hover:translate-x-0.5 transition-transform" />
               </Link>
-              <p className="text-[#ADB5BD] text-sm mt-4">Explore all available rental properties in Zimbabwe</p>
+              <p className="text-[#ADB5BD] text-xs mt-3">
+                {totalListings || 0}+ properties across Zimbabwe
+              </p>
             </div>
           )}
         </div>
