@@ -19,7 +19,11 @@ import {
   ArrowUpRight,
   BarChart3,
   Clock,
+  ShieldCheck,
+  ShieldAlert,
+  ShieldX,
 } from 'lucide-react'
+import RetryVerificationButton from '@/components/dashboard/RetryVerificationButton'
 
 function formatTimeAgo(dateString: string): string {
   const now = new Date()
@@ -61,7 +65,7 @@ export default async function DashboardOverviewPage() {
     supabase.from('properties').select('*', { count: 'exact', head: true }).eq('user_id', user.id),
     supabase.from('conversations').select('*', { count: 'exact', head: true }).or(`landlord_id.eq.${user.id},renter_id.eq.${user.id}`),
     supabase.from('properties').select('id, title, slug, city, neighborhood, price, sale_price, listing_type, property_images(url, is_primary)').eq('status', 'active').eq('verification_status', 'approved').order('created_at', { ascending: false }).limit(4),
-    supabase.from('properties').select('id, title, slug, status, price, sale_price, listing_type, city, neighborhood, created_at, property_images(url, is_primary)').eq('user_id', user.id).order('created_at', { ascending: false }).limit(3),
+    supabase.from('properties').select('id, title, slug, status, verification_status, price, sale_price, listing_type, city, neighborhood, created_at, property_images(url, is_primary)').eq('user_id', user.id).order('created_at', { ascending: false }).limit(3),
     supabase.from('conversations').select('id, last_message_preview, last_message_at, property_id, properties:property_id(title, slug), profiles:renter_id(name, avatar_url)').or(`landlord_id.eq.${user.id},renter_id.eq.${user.id}`).order('last_message_at', { ascending: false }).limit(3),
     supabase.from('reviews').select('*', { count: 'exact', head: true }).eq('author_id', user.id),
   ])
@@ -276,20 +280,53 @@ export default async function DashboardOverviewPage() {
                                 >
                                   {property.title}
                                 </Link>
-                                <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold flex-shrink-0 ${
-                                  property.status === 'active' ? 'bg-[#51CF66]/10 text-[#37B24D]' :
-                                  property.status === 'draft' ? 'bg-[#ADB5BD]/10 text-[#868E96]' :
-                                  property.status === 'rented' || property.status === 'sold' ? 'bg-blue-50 text-blue-600' :
-                                  'bg-[#FF6B6B]/10 text-[#F03E3E]'
-                                }`}>
-                                  <span className={`w-1.5 h-1.5 rounded-full mr-1.5 ${
-                                    property.status === 'active' ? 'bg-[#51CF66]' :
-                                    property.status === 'draft' ? 'bg-[#ADB5BD]' :
-                                    property.status === 'rented' || property.status === 'sold' ? 'bg-blue-500' :
-                                    'bg-[#FF6B6B]'
-                                  }`} />
-                                  {property.status}
-                                </span>
+                                {/* Combined status: verification_status takes priority for display */}
+                                {(() => {
+                                  const vs = property.verification_status || 'pending'
+                                  const st = property.status
+
+                                  // Determine display label, colors, icon
+                                  if (vs === 'rejected') {
+                                    return (
+                                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold flex-shrink-0 bg-[#FF6B6B]/10 text-[#F03E3E]">
+                                        <ShieldX size={11} />
+                                        Rejected
+                                      </span>
+                                    )
+                                  }
+                                  if (vs === 'pending') {
+                                    return (
+                                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold flex-shrink-0 bg-amber-50 text-amber-600">
+                                        <ShieldAlert size={11} />
+                                        Pending
+                                      </span>
+                                    )
+                                  }
+                                  // vs === 'approved' — show listing status
+                                  if (st === 'rented' || st === 'sold') {
+                                    return (
+                                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold flex-shrink-0 bg-blue-50 text-blue-600">
+                                        <span className="w-1.5 h-1.5 rounded-full bg-blue-500" />
+                                        {st === 'rented' ? 'Rented' : 'Sold'}
+                                      </span>
+                                    )
+                                  }
+                                  if (st === 'draft') {
+                                    return (
+                                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold flex-shrink-0 bg-[#ADB5BD]/10 text-[#868E96]">
+                                        <span className="w-1.5 h-1.5 rounded-full bg-[#ADB5BD]" />
+                                        Draft
+                                      </span>
+                                    )
+                                  }
+                                  // active + approved
+                                  return (
+                                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold flex-shrink-0 bg-[#51CF66]/10 text-[#37B24D]">
+                                      <ShieldCheck size={11} />
+                                      Live
+                                    </span>
+                                  )
+                                })()}
                               </div>
                               {location && (
                                 <p className="text-xs text-[#ADB5BD] flex items-center gap-1 mb-2">
@@ -302,12 +339,18 @@ export default async function DashboardOverviewPage() {
                               <p className="text-base font-bold text-[#212529]">
                                 {priceDisplay}
                               </p>
-                              <Link
-                                href={`/dashboard/edit-property/${property.id}`}
-                                className="text-[11px] font-medium text-[#495057] hover:text-[#212529] border border-[#E9ECEF] hover:border-[#ADB5BD] px-2.5 py-1 rounded-md transition-colors"
-                              >
-                                Edit
-                              </Link>
+                              <div className="flex items-center gap-2">
+                                {/* Show retry verification for pending/rejected properties */}
+                                {(property.verification_status === 'pending' || property.verification_status === 'rejected') && (
+                                  <RetryVerificationButton propertyId={property.id} />
+                                )}
+                                <Link
+                                  href={`/dashboard/edit-property/${property.id}`}
+                                  className="text-[11px] font-medium text-[#495057] hover:text-[#212529] border border-[#E9ECEF] hover:border-[#ADB5BD] px-2.5 py-1 rounded-md transition-colors"
+                                >
+                                  Edit
+                                </Link>
+                              </div>
                             </div>
                           </div>
                         </div>
