@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { createClient } from '@/lib/supabase/server'
+import { createAdminClient } from '@/lib/supabase/server'
 
 const BASE_URL = process.env.NEXT_PUBLIC_APP_URL || 'https://www.huts.co.zw'
 
@@ -17,7 +17,8 @@ export async function GET(request: NextRequest) {
       return redirectWithMessage('error', 'Invalid action')
     }
 
-    const supabase = await createClient()
+    // Use admin client to bypass RLS — auth is via the secret verification token
+    const supabase = createAdminClient()
 
     // Find property by verification token
     const { data: property, error: fetchError } = await supabase

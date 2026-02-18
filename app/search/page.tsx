@@ -232,91 +232,110 @@ setAllProperties(data || [])
   return (
     <div className="flex flex-col h-[calc(100vh-4rem)]">
       {/* Search Header */}
-      <div className="bg-white border-b border-[#E9ECEF]">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
+      <div className="bg-white border-b border-[#E9ECEF] shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-5">
+
+        {/* Listing Type Pills + Results Count - moved above search for better hierarchy */}
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center gap-0.5 bg-[#F8F9FA] p-0.5 rounded-full border border-[#E9ECEF]">
+            {(['all', 'rent', 'sale'] as const).map((type) => (
+              <button
+                key={type}
+                onClick={() => setListingType(type)}
+                className={`px-5 py-2 text-sm font-semibold rounded-full transition-all duration-200 ${
+                  listingType === type
+                    ? 'bg-[#212529] text-white shadow-md shadow-black/10'
+                    : 'text-[#495057] hover:text-[#212529] hover:bg-white/80'
+                }`}
+              >
+                {type === 'all' ? 'All' : type === 'rent' ? 'Rent' : 'Buy'}
+              </button>
+            ))}
+          </div>
+
+          <div className="flex items-center gap-1.5">
+            <span className="text-lg font-bold text-[#212529] tabular-nums">{filteredProperties.length}</span>
+            <span className="text-sm text-[#ADB5BD] hidden sm:inline">{filteredProperties.length === 1 ? 'property' : 'properties'}</span>
+          </div>
+        </div>
 
         {/* Unified Search Bar */}
-        <div className="flex flex-col lg:flex-row items-stretch gap-3">
-          {/* Main Search Bar - Segmented */}
-          <div className="flex-1 flex flex-col sm:flex-row items-stretch border-2 border-[#E9ECEF] rounded-2xl bg-white hover:border-[#ADB5BD] focus-within:border-[#212529] focus-within:shadow-lg focus-within:shadow-black/[0.03] transition-all overflow-hidden divide-y sm:divide-y-0 sm:divide-x divide-[#E9ECEF]">
+        <div className="flex flex-col sm:flex-row items-stretch gap-2.5">
+          {/* Main Search Bar */}
+          <div className="flex-1 flex flex-col sm:flex-row items-stretch rounded-full bg-[#F8F9FA] border border-[#E9ECEF] hover:bg-[#F1F3F5] focus-within:bg-white focus-within:border-[#212529] focus-within:ring-4 focus-within:ring-black/[0.04] transition-all duration-200 overflow-hidden">
             {/* Location Input */}
-            <div className="flex-1 flex items-center gap-3 px-4 py-3 sm:py-0 group relative">
-              <div className="flex items-center justify-center w-9 h-9 rounded-xl bg-[#F8F9FA] group-focus-within:bg-[#212529] transition-colors flex-shrink-0">
-                <MapPin size={16} className="text-[#495057] group-focus-within:text-white transition-colors" />
-              </div>
-              <div className="flex-1 min-w-0">
-                <label className="block text-[10px] font-semibold text-[#ADB5BD] uppercase tracking-wider leading-none mb-1">
-                  Location
-                </label>
-                <input
-                  type="text"
-                  placeholder="Where do you want to live?"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full outline-none bg-transparent text-sm font-medium text-[#212529] placeholder:text-[#ADB5BD] placeholder:font-normal"
-                />
-              </div>
+            <div className="flex-1 flex items-center gap-3 pl-4 sm:pl-5 pr-3 py-3 sm:py-3.5 group">
+              <MapPin size={18} className="text-[#ADB5BD] group-focus-within:text-[#212529] transition-colors flex-shrink-0" />
+              <input
+                type="text"
+                placeholder="City, neighborhood, or address..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full outline-none bg-transparent text-[15px] text-[#212529] placeholder:text-[#ADB5BD] font-medium"
+              />
               {searchQuery && (
                 <button
                   onClick={() => setSearchQuery('')}
-                  className="p-1.5 hover:bg-[#F8F9FA] rounded-full transition-colors flex-shrink-0"
+                  className="p-1 hover:bg-[#E9ECEF] rounded-full transition-colors flex-shrink-0"
                 >
-                  <X size={14} className="text-[#ADB5BD]" />
+                  <X size={14} className="text-[#495057]" />
                 </button>
               )}
             </div>
 
-            {/* Type Selector */}
-            <div className="flex items-center gap-3 px-4 py-3 sm:py-0 sm:min-w-[200px]">
-              <div className="flex items-center justify-center w-9 h-9 rounded-xl bg-[#F8F9FA] flex-shrink-0">
-                <Home size={16} className="text-[#495057]" />
-              </div>
-              <div className="flex-1 min-w-0">
-                <label className="block text-[10px] font-semibold text-[#ADB5BD] uppercase tracking-wider leading-none mb-1">
-                  Type
-                </label>
-                <select
-                  value={filters.propertyType}
-                  onChange={(e) => setFilters({ ...filters, propertyType: e.target.value })}
-                  className="w-full outline-none bg-transparent text-sm font-medium text-[#212529] cursor-pointer appearance-none"
-                >
-                  <option value="all">Any type</option>
-                  <option value="apartment">Apartment</option>
-                  <option value="house">House</option>
-                  <option value="townhouse">Townhouse</option>
-                  <option value="condo">Condo</option>
-                  <option value="studio">Studio</option>
-                  <option value="room">Room</option>
-                </select>
-              </div>
-              <ChevronDown size={14} className="text-[#ADB5BD] flex-shrink-0 pointer-events-none" />
+            {/* Divider */}
+            <div className="hidden sm:flex items-center">
+              <div className="w-px h-7 bg-[#E9ECEF]" />
             </div>
 
-            {/* Search Button - inside bar on desktop */}
-            <button
-              type="button"
-              onClick={() => {/* Search triggers reactively */}}
-              className="hidden sm:flex items-center justify-center gap-2 px-6 bg-[#212529] text-white font-semibold text-sm hover:bg-black transition-colors"
-            >
-              <Search size={16} />
-              Search
-            </button>
+            {/* Type Selector */}
+            <div className="relative flex items-center sm:min-w-[170px] px-4 py-3 sm:py-3.5 border-t sm:border-t-0 border-[#E9ECEF] sm:border-none">
+              <Home size={18} className="text-[#ADB5BD] flex-shrink-0 mr-3" />
+              <select
+                value={filters.propertyType}
+                onChange={(e) => setFilters({ ...filters, propertyType: e.target.value })}
+                className="w-full outline-none bg-transparent text-[15px] text-[#212529] font-medium cursor-pointer appearance-none pr-5"
+              >
+                <option value="all">Any type</option>
+                <option value="apartment">Apartment</option>
+                <option value="house">House</option>
+                <option value="townhouse">Townhouse</option>
+                <option value="condo">Condo</option>
+                <option value="studio">Studio</option>
+                <option value="room">Room</option>
+              </select>
+              <ChevronDown size={14} className="text-[#ADB5BD] flex-shrink-0 pointer-events-none absolute right-4" />
+            </div>
+
+            {/* Search Button - integrated pill */}
+            <div className="hidden sm:flex items-center pr-1.5">
+              <button
+                type="button"
+                onClick={() => {/* Search triggers reactively */}}
+                className="flex items-center justify-center gap-2 px-5 py-2.5 bg-[#212529] text-white font-semibold text-sm rounded-full hover:bg-black active:scale-[0.97] transition-all shadow-sm"
+              >
+                <Search size={15} />
+                Search
+              </button>
+            </div>
           </div>
 
           {/* Action Buttons */}
           <div className="flex gap-2">
             <button
               onClick={() => setShowFilters(!showFilters)}
-              className={`relative flex items-center gap-2 px-4 py-3 border-2 rounded-2xl font-medium transition-all text-sm ${
+              className={`relative flex items-center gap-2 px-4 py-3 rounded-full font-semibold transition-all duration-200 text-sm ${
                 showFilters
-                  ? 'border-[#212529] bg-[#212529] text-white'
-                  : 'border-[#E9ECEF] text-[#495057] hover:border-[#212529] hover:text-[#212529]'
+                  ? 'bg-[#212529] text-white shadow-md shadow-black/10'
+                  : activeFilterCount > 0
+                    ? 'bg-[#F8F9FA] text-[#212529] border border-[#212529] hover:bg-[#212529] hover:text-white'
+                    : 'bg-[#F8F9FA] text-[#495057] border border-[#E9ECEF] hover:border-[#ADB5BD] hover:text-[#212529]'
               }`}
             >
-              <SlidersHorizontal size={16} />
+              <SlidersHorizontal size={15} />
               <span className="hidden sm:inline">Filters</span>
               {activeFilterCount > 0 && (
-                <span className={`inline-flex items-center justify-center w-5 h-5 rounded-full text-[10px] font-bold ${
+                <span className={`inline-flex items-center justify-center min-w-[20px] h-5 rounded-full text-[10px] font-bold px-1 ${
                   showFilters ? 'bg-white text-[#212529]' : 'bg-[#212529] text-white'
                 }`}>
                   {activeFilterCount}
@@ -325,103 +344,87 @@ setAllProperties(data || [])
             </button>
             <button
               onClick={() => setShowMap(!showMap)}
-              className={`flex items-center gap-2 px-4 py-3 border-2 rounded-2xl font-medium transition-all text-sm ${
+              className={`flex items-center gap-2 px-4 py-3 rounded-full font-semibold transition-all duration-200 text-sm ${
                 showMap
-                  ? 'border-[#212529] bg-[#212529] text-white'
-                  : 'border-[#E9ECEF] text-[#495057] hover:border-[#212529] hover:text-[#212529]'
+                  ? 'bg-[#212529] text-white shadow-md shadow-black/10'
+                  : 'bg-[#F8F9FA] text-[#495057] border border-[#E9ECEF] hover:border-[#ADB5BD] hover:text-[#212529]'
               }`}
             >
-              {showMap ? <Grid3x3 size={16} /> : <MapIcon size={16} />}
+              {showMap ? <Grid3x3 size={15} /> : <MapIcon size={15} />}
               <span className="hidden sm:inline">{showMap ? 'List' : 'Map'}</span>
             </button>
-          </div>
-        </div>
-
-        {/* Listing Type Pills + Results Count */}
-        <div className="flex items-center justify-between mt-4">
-          <div className="flex items-center gap-1.5 bg-[#F8F9FA] p-1 rounded-xl">
-            {(['all', 'rent', 'sale'] as const).map((type) => (
-              <button
-                key={type}
-                onClick={() => setListingType(type)}
-                className={`px-4 py-2 text-sm font-medium rounded-lg transition-all ${
-                  listingType === type
-                    ? 'bg-[#212529] text-white shadow-sm'
-                    : 'text-[#495057] hover:text-[#212529] hover:bg-white'
-                }`}
-              >
-                {type === 'all' ? 'All' : type === 'rent' ? 'Rent' : 'Buy'}
-              </button>
-            ))}
-          </div>
-
-          <div className="flex items-center gap-2">
-            <span className="text-lg font-bold text-[#212529] tabular-nums">{filteredProperties.length}</span>
-            <span className="text-sm text-[#495057]">{filteredProperties.length === 1 ? 'property' : 'properties'}</span>
           </div>
         </div>
 
         {/* Filters Panel */}
         {showFilters && (
           <div className="mt-4 pt-4 border-t border-[#E9ECEF] animate-in slide-in-from-top-2 duration-200">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
               <div>
-                <label className="block text-[10px] font-semibold text-[#ADB5BD] uppercase tracking-wider mb-1.5">
+                <label className="block text-xs font-semibold text-[#495057] mb-1.5">
                   Min Price{listingType !== 'sale' && ' /mo'}
                 </label>
                 <div className="relative">
-                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-[#ADB5BD] text-sm font-medium">$</span>
+                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-[#ADB5BD] text-sm">$</span>
                   <input
                     type="number"
                     placeholder={listingType === 'sale' ? '100,000' : '500'}
                     value={filters.minPrice}
                     onChange={(e) => setFilters({ ...filters, minPrice: e.target.value })}
-                    className="w-full pl-7 pr-3 py-2.5 border-2 border-[#E9ECEF] rounded-xl text-sm text-[#212529] font-medium focus:outline-none focus:border-[#212529] transition-colors"
+                    className="w-full pl-7 pr-3 py-2.5 bg-[#F8F9FA] border border-[#E9ECEF] rounded-xl text-sm text-[#212529] font-medium focus:outline-none focus:bg-white focus:border-[#212529] focus:ring-4 focus:ring-black/[0.04] transition-all"
                   />
                 </div>
               </div>
               <div>
-                <label className="block text-[10px] font-semibold text-[#ADB5BD] uppercase tracking-wider mb-1.5">
+                <label className="block text-xs font-semibold text-[#495057] mb-1.5">
                   Max Price{listingType !== 'sale' && ' /mo'}
                 </label>
                 <div className="relative">
-                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-[#ADB5BD] text-sm font-medium">$</span>
+                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-[#ADB5BD] text-sm">$</span>
                   <input
                     type="number"
                     placeholder={listingType === 'sale' ? '500,000' : '3,000'}
                     value={filters.maxPrice}
                     onChange={(e) => setFilters({ ...filters, maxPrice: e.target.value })}
-                    className="w-full pl-7 pr-3 py-2.5 border-2 border-[#E9ECEF] rounded-xl text-sm text-[#212529] font-medium focus:outline-none focus:border-[#212529] transition-colors"
+                    className="w-full pl-7 pr-3 py-2.5 bg-[#F8F9FA] border border-[#E9ECEF] rounded-xl text-sm text-[#212529] font-medium focus:outline-none focus:bg-white focus:border-[#212529] focus:ring-4 focus:ring-black/[0.04] transition-all"
                   />
                 </div>
               </div>
               <div>
-                <label className="block text-[10px] font-semibold text-[#ADB5BD] uppercase tracking-wider mb-1.5">Bedrooms</label>
-                <select
-                  value={filters.beds}
-                  onChange={(e) => setFilters({ ...filters, beds: e.target.value })}
-                  className="w-full px-3 py-2.5 border-2 border-[#E9ECEF] rounded-xl text-sm text-[#212529] font-medium focus:outline-none focus:border-[#212529] transition-colors"
-                >
-                  <option value="">Any</option>
-                  <option value="1">1+</option>
-                  <option value="2">2+</option>
-                  <option value="3">3+</option>
-                  <option value="4">4+</option>
-                  <option value="5">5+</option>
-                </select>
+                <label className="block text-xs font-semibold text-[#495057] mb-1.5">Bedrooms</label>
+                <div className="flex gap-1">
+                  {['', '1', '2', '3', '4', '5'].map((val) => (
+                    <button
+                      key={val}
+                      onClick={() => setFilters({ ...filters, beds: val })}
+                      className={`flex-1 py-2.5 text-sm font-medium rounded-lg transition-all ${
+                        filters.beds === val
+                          ? 'bg-[#212529] text-white shadow-sm'
+                          : 'bg-[#F8F9FA] text-[#495057] border border-[#E9ECEF] hover:border-[#ADB5BD]'
+                      }`}
+                    >
+                      {val === '' ? 'Any' : `${val}+`}
+                    </button>
+                  ))}
+                </div>
               </div>
               <div>
-                <label className="block text-[10px] font-semibold text-[#ADB5BD] uppercase tracking-wider mb-1.5">Bathrooms</label>
-                <select
-                  value={filters.baths}
-                  onChange={(e) => setFilters({ ...filters, baths: e.target.value })}
-                  className="w-full px-3 py-2.5 border-2 border-[#E9ECEF] rounded-xl text-sm text-[#212529] font-medium focus:outline-none focus:border-[#212529] transition-colors"
-                >
-                  <option value="">Any</option>
-                  <option value="1">1+</option>
-                  <option value="2">2+</option>
-                  <option value="3">3+</option>
-                </select>
+                <label className="block text-xs font-semibold text-[#495057] mb-1.5">Bathrooms</label>
+                <div className="flex gap-1">
+                  {['', '1', '2', '3'].map((val) => (
+                    <button
+                      key={val}
+                      onClick={() => setFilters({ ...filters, baths: val })}
+                      className={`flex-1 py-2.5 text-sm font-medium rounded-lg transition-all ${
+                        filters.baths === val
+                          ? 'bg-[#212529] text-white shadow-sm'
+                          : 'bg-[#F8F9FA] text-[#495057] border border-[#E9ECEF] hover:border-[#ADB5BD]'
+                      }`}
+                    >
+                      {val === '' ? 'Any' : `${val}+`}
+                    </button>
+                  ))}
+                </div>
               </div>
             </div>
             {/* Clear Filters */}
@@ -436,9 +439,9 @@ setAllProperties(data || [])
                   city: '',
                   neighborhood: '',
                 })}
-                className="mt-4 flex items-center gap-1.5 text-sm text-[#495057] hover:text-[#212529] font-medium transition-colors"
+                className="mt-4 flex items-center gap-1.5 text-sm text-[#495057] hover:text-[#212529] font-medium transition-colors group"
               >
-                <X size={14} />
+                <X size={14} className="group-hover:rotate-90 transition-transform" />
                 Clear all filters
               </button>
             )}

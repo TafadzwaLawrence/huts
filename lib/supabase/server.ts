@@ -11,6 +11,19 @@ export function createStaticClient() {
   )
 }
 
+// Admin client using service role key — bypasses RLS
+// Use ONLY for trusted server-side operations (e.g. verification via secret token)
+export function createAdminClient() {
+  const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY
+  if (!serviceRoleKey) {
+    throw new Error('SUPABASE_SERVICE_ROLE_KEY is not set')
+  }
+  return createSupabaseClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    serviceRoleKey
+  )
+}
+
 // Server client for request-time operations (requires cookies)
 export async function createClient() {
   const cookieStore = await cookies()
