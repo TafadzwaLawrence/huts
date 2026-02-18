@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef, useMemo } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import dynamic from 'next/dynamic'
@@ -33,6 +33,8 @@ import {
   CheckCircle2,
   XCircle,
   Clock,
+  ChevronUp,
+  ChevronDown,
 } from 'lucide-react'
 
 const LocationPicker = dynamic(() => import('@/components/property/LocationPicker'), {
@@ -81,6 +83,18 @@ const PROPERTY_TYPES = [
   { value: 'condo', label: 'Condo', icon: Building2 },
 ] as const
 
+const SECTIONS = [
+  { id: 'status', label: 'Status' },
+  { id: 'type', label: 'Type' },
+  { id: 'basic', label: 'Basic' },
+  { id: 'pricing', label: 'Pricing' },
+  { id: 'specs', label: 'Specs' },
+  { id: 'location', label: 'Location' },
+  { id: 'amenities', label: 'Amenities' },
+  { id: 'photos', label: 'Photos' },
+  { id: 'availability', label: 'Dates' },
+]
+
 export default function EditPropertyPage({ params }: { params: Promise<{ id: string }> }) {
   const router = useRouter()
   const supabase = createClient()
@@ -126,6 +140,13 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
   const [newImagePreviews, setNewImagePreviews] = useState<string[]>([])
   const [imagesToDelete, setImagesToDelete] = useState<string[]>([])
   const [primaryImageId, setPrimaryImageId] = useState<string | null>(null)
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false)
+  const [deleting, setDeleting] = useState(false)
+  const [showStickyBar, setShowStickyBar] = useState(false)
+  const [activeSection, setActiveSection] = useState('status')
+  const formRef = useRef<HTMLFormElement>(null)
+  const submitAreaRef = useRef<HTMLDivElement>(null)
+  const originalListingTypeRef = useRef<string>('rent')
 
   // Load property data
   useEffect(() => {
@@ -162,6 +183,7 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
         : property.price ? (property.price / 100).toString() : ''
 
       setPropertySlug(property.slug || '')
+      originalListingTypeRef.current = listingType
       setFormData({
         listingType,
         title: property.title || '',
@@ -212,6 +234,51 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
     window.addEventListener('beforeunload', handleBeforeUnload)
     return () => window.removeEventListener('beforeunload', handleBeforeUnload)
   }, [hasChanges])
+
+  // Ctrl+S keyboard shortcut
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+        e.preventDefault()
+        if (!saving && hasChanges) {
+          formRef.current?.requestSubmit()
+        }
+      }
+    }
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [saving, hasChanges])
+
+  // Scroll observer for sticky save bar + active section tracking
+  useEffect(() => {
+    if (loading) return
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setShowStickyBar(!entry.isIntersecting),
+      { threshold: 0 }
+    )
+    if (submitAreaRef.current) observer.observe(submitAreaRef.current)
+
+    const sectionObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id)
+          }
+        })
+      },
+      { rootMargin: '-80px 0px -70% 0px' }
+    )
+    SECTIONS.forEach(({ id }) => {
+      const el = document.getElementById(id)
+      if (el) sectionObserver.observe(el)
+    })
+
+    return () => {
+      observer.disconnect()
+      sectionObserver.disconnect()
+    }
+  }, [loading])
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target
@@ -271,6 +338,44 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
         : [...prev.amenities, amenity],
     }))
     setHasChanges(true)
+  }
+
+  const scrollToSection = (id: string) => {
+    const el = document.getElementById(id)
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }
+
+  const moveImage = (imageId: string, direction: 'up' | 'down') => {
+    setExistingImages(prev => {
+      const index = prev.findIndex(img => img.id === imageId)
+      if (index === -1) return prev
+      const targetIndex = direction === 'up' ? index - 1 : index + 1
+      if (targetIndex < 0 || targetIndex >= prev.length) return prev
+      const updated = [...prev]
+      ;[updated[index], updated[targetIndex]] = [updated[targetIndex], updated[index]]
+      return updated.map((img, i) => ({ ...img, order: i }))
+    })
+    setHasChanges(true)
+  }
+
+  const handleDelete = async () => {
+    setDeleting(true)
+    try {
+      const { error } = await supabase
+        .from('properties')
+        .delete()
+        .eq('id', propertyId)
+      if (error) throw error
+      setHasChanges(false)
+      toast.success('Property deleted')
+      router.push('/dashboard/my-properties')
+    } catch (error: any) {
+      console.error('Delete error:', error)
+      toast.error(error.message || 'Failed to delete property')
+    } finally {
+      setDeleting(false)
+      setShowDeleteConfirm(false)
+    }
   }
 
   const validate = (): boolean => {
@@ -367,6 +472,19 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
           .eq('id', primaryImageId)
       }
 
+      // Update image order
+      const orderedImages = existingImages.filter(img => !imagesToDelete.includes(img.id))
+      if (orderedImages.length > 0) {
+        await Promise.all(
+          orderedImages.map((img) =>
+            supabase
+              .from('property_images')
+              .update({ order: img.order })
+              .eq('id', img.id)
+          )
+        )
+      }
+
       // Upload new images
       if (newImages.length > 0) {
         toast.loading('Compressing images...', { id: 'image-upload' })
@@ -423,6 +541,22 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
   const totalImageCount = activeImages.length + newImages.length
   const statusOptions = STATUS_OPTIONS[formData.listingType] || STATUS_OPTIONS.rent
 
+  const completion = useMemo(() => {
+    let filled = 0
+    const total = 10
+    if (formData.title.trim()) filled++
+    if (formData.price && parseFloat(formData.price) > 0) filled++
+    if (formData.beds) filled++
+    if (formData.baths) filled++
+    if (formData.address.trim()) filled++
+    if (formData.city.trim()) filled++
+    if (formData.description.trim()) filled++
+    if (totalImageCount > 0) filled++
+    if (formData.amenities.length > 0) filled++
+    if (formData.lat !== 0 && formData.lng !== 0) filled++
+    return Math.round((filled / total) * 100)
+  }, [formData, totalImageCount])
+
   if (loading) {
     return (
       <div className="min-h-screen bg-white flex items-center justify-center">
@@ -437,7 +571,7 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
   return (
     <div className="min-h-screen bg-white">
       {/* Sticky Header */}
-      <div className="bg-white border-b border-[#E9ECEF] sticky top-0 z-10">
+      <div className="bg-white/95 backdrop-blur-sm border-b border-[#E9ECEF] sticky top-0 z-10">
         <div className="max-w-3xl mx-auto px-4 py-3 sm:py-4">
           <div className="flex items-center justify-between">
             <Link
@@ -449,6 +583,16 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
             </Link>
             <h1 className="text-sm font-semibold text-[#212529] tracking-wide uppercase">Edit Listing</h1>
             <div className="flex items-center gap-3">
+              {/* Completion indicator */}
+              <div className="hidden sm:flex items-center gap-2">
+                <div className="w-16 h-1.5 bg-[#E9ECEF] rounded-full overflow-hidden">
+                  <div
+                    className={`h-full rounded-full transition-all duration-500 ${completion === 100 ? 'bg-[#51CF66]' : 'bg-[#212529]'}`}
+                    style={{ width: `${completion}%` }}
+                  />
+                </div>
+                <span className="text-[10px] text-[#ADB5BD] tabular-nums font-medium">{completion}%</span>
+              </div>
               {propertySlug && (
                 <Link
                   href={`/property/${propertySlug}`}
@@ -468,13 +612,32 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
             </div>
           </div>
         </div>
+        {/* Section Navigation */}
+        <div className="max-w-3xl mx-auto px-4 pb-2 -mt-1">
+          <div className="flex gap-1 overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+            {SECTIONS.map(section => (
+              <button
+                key={section.id}
+                type="button"
+                onClick={() => scrollToSection(section.id)}
+                className={`text-[11px] px-2.5 py-1 rounded-full whitespace-nowrap transition-all font-medium ${
+                  activeSection === section.id
+                    ? 'bg-[#212529] text-white'
+                    : 'text-[#ADB5BD] hover:text-[#212529] hover:bg-[#F8F9FA]'
+                }`}
+              >
+                {section.label}
+              </button>
+            ))}
+          </div>
+        </div>
       </div>
 
       <div className="max-w-2xl mx-auto px-4 py-8 md:py-12">
-        <form onSubmit={handleSubmit}>
+        <form ref={formRef} onSubmit={handleSubmit}>
 
           {/* ===== STATUS ===== */}
-          <section className="mb-10">
+          <section id="status" className="mb-10 scroll-mt-24">
             <h2 className="text-sm font-semibold text-[#212529] mb-4 uppercase tracking-wider">Status</h2>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-2.5">
               {statusOptions.map(opt => {
@@ -508,7 +671,7 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
           <div className="h-px bg-[#E9ECEF] mb-10" />
 
           {/* ===== LISTING TYPE ===== */}
-          <section className="mb-10">
+          <section id="type" className="mb-10 scroll-mt-24">
             <h2 className="text-sm font-semibold text-[#212529] mb-4 uppercase tracking-wider">Listing Type</h2>
             <div className="grid grid-cols-2 gap-3">
               <button
@@ -559,12 +722,18 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
                 )}
               </button>
             </div>
+            {formData.listingType !== originalListingTypeRef.current && (
+              <p className="mt-3 text-xs text-amber-600 flex items-center gap-1.5 bg-amber-50 px-3 py-2 rounded-lg">
+                <AlertCircle size={14} />
+                Switching type will adjust pricing fields on save
+              </p>
+            )}
           </section>
 
           <div className="h-px bg-[#E9ECEF] mb-10" />
 
           {/* ===== BASIC INFORMATION ===== */}
-          <section className="mb-10">
+          <section id="basic" className="mb-10 scroll-mt-24">
             <h2 className="text-sm font-semibold text-[#212529] mb-6 uppercase tracking-wider">Basic Information</h2>
 
             <div className="space-y-6">
@@ -644,7 +813,7 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
           <div className="h-px bg-[#E9ECEF] mb-10" />
 
           {/* ===== PRICING ===== */}
-          <section className="mb-10">
+          <section id="pricing" className="mb-10 scroll-mt-24">
             <h2 className="text-sm font-semibold text-[#212529] mb-6 uppercase tracking-wider">Pricing</h2>
 
             <div className="space-y-6">
@@ -747,7 +916,7 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
           <div className="h-px bg-[#E9ECEF] mb-10" />
 
           {/* ===== PROPERTY DETAILS ===== */}
-          <section className="mb-10">
+          <section id="specs" className="mb-10 scroll-mt-24">
             <h2 className="text-sm font-semibold text-[#212529] mb-6 uppercase tracking-wider">Property Specifications</h2>
 
             <div className="grid grid-cols-3 gap-3 mb-6">
@@ -900,7 +1069,7 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
           <div className="h-px bg-[#E9ECEF] mb-10" />
 
           {/* ===== LOCATION ===== */}
-          <section className="mb-10">
+          <section id="location" className="mb-10 scroll-mt-24">
             <h2 className="text-sm font-semibold text-[#212529] mb-6 uppercase tracking-wider">Location</h2>
 
             <div className="space-y-6">
@@ -1022,7 +1191,7 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
           <div className="h-px bg-[#E9ECEF] mb-10" />
 
           {/* ===== AMENITIES ===== */}
-          <section className="mb-10">
+          <section id="amenities" className="mb-10 scroll-mt-24">
             <h2 className="text-sm font-semibold text-[#212529] mb-1 uppercase tracking-wider">Amenities</h2>
             <p className="text-xs text-[#ADB5BD] mb-4">Select all that apply</p>
 
@@ -1048,7 +1217,7 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
           <div className="h-px bg-[#E9ECEF] mb-10" />
 
           {/* ===== PHOTOS ===== */}
-          <section className="mb-10">
+          <section id="photos" className="mb-10 scroll-mt-24">
             <div className="flex items-center justify-between mb-1">
               <h2 className="text-sm font-semibold text-[#212529] uppercase tracking-wider">Photos</h2>
               <span className="text-xs text-[#ADB5BD] font-medium tabular-nums">{totalImageCount}/10</span>
@@ -1105,6 +1274,30 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
                             {isPrimary && (
                               <div className="absolute bottom-2 left-2 bg-[#212529] text-white text-[10px] font-semibold px-2 py-0.5 rounded-md tracking-wide uppercase">
                                 Cover
+                              </div>
+                            )}
+                            {activeImages.length > 1 && (
+                              <div className="absolute bottom-2 right-2 flex gap-0.5 opacity-0 group-hover:opacity-100 transition-opacity">
+                                {activeImages.findIndex(img => img.id === image.id) > 0 && (
+                                  <button
+                                    type="button"
+                                    onClick={() => moveImage(image.id, 'up')}
+                                    className="p-1 bg-black/60 text-white rounded hover:bg-black/80"
+                                    title="Move earlier"
+                                  >
+                                    <ChevronUp size={10} />
+                                  </button>
+                                )}
+                                {activeImages.findIndex(img => img.id === image.id) < activeImages.length - 1 && (
+                                  <button
+                                    type="button"
+                                    onClick={() => moveImage(image.id, 'down')}
+                                    className="p-1 bg-black/60 text-white rounded hover:bg-black/80"
+                                    title="Move later"
+                                  >
+                                    <ChevronDown size={10} />
+                                  </button>
+                                )}
                               </div>
                             )}
                           </>
@@ -1166,7 +1359,7 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
           <div className="h-px bg-[#E9ECEF] mb-10" />
 
           {/* ===== AVAILABILITY ===== */}
-          <section className="mb-10">
+          <section id="availability" className="mb-10 scroll-mt-24">
             <h2 className="text-sm font-semibold text-[#212529] mb-6 uppercase tracking-wider">Availability</h2>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -1207,7 +1400,7 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
           </section>
 
           {/* ===== SUBMIT ===== */}
-          <div className="flex gap-3 pt-6 border-t border-[#E9ECEF]">
+          <div ref={submitAreaRef} className="flex gap-3 pt-6 border-t border-[#E9ECEF]">
             <Link
               href="/dashboard/my-properties"
               className="flex items-center justify-center gap-2 px-5 py-3.5 border-2 border-[#E9ECEF] text-[#212529] rounded-xl text-sm font-semibold hover:border-[#212529] transition-all"
@@ -1234,6 +1427,82 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
           </div>
         </form>
       </div>
+
+      {/* Sticky Bottom Save Bar */}
+      {showStickyBar && (
+        <div className="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-sm border-t border-[#E9ECEF] z-20 py-3">
+          <div className="max-w-2xl mx-auto px-4 flex items-center justify-between gap-3">
+            <div className="flex items-center gap-3">
+              <div className="hidden sm:flex items-center gap-2">
+                <div className="w-20 h-1.5 bg-[#E9ECEF] rounded-full overflow-hidden">
+                  <div
+                    className={`h-full rounded-full transition-all duration-500 ${completion === 100 ? 'bg-[#51CF66]' : 'bg-[#212529]'}`}
+                    style={{ width: `${completion}%` }}
+                  />
+                </div>
+                <span className="text-xs text-[#ADB5BD] tabular-nums">{completion}%</span>
+              </div>
+              {hasChanges && (
+                <span className="text-xs text-[#FF6B6B] font-medium flex items-center gap-1">
+                  <Clock size={12} /> Unsaved changes
+                </span>
+              )}
+            </div>
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={() => setShowDeleteConfirm(true)}
+                className="p-2.5 text-[#ADB5BD] hover:text-[#FF6B6B] rounded-xl transition-colors"
+                title="Delete property"
+              >
+                <Trash2 size={16} />
+              </button>
+              <button
+                type="button"
+                onClick={() => formRef.current?.requestSubmit()}
+                disabled={saving}
+                className="flex items-center gap-2 bg-[#212529] text-white px-5 py-2.5 rounded-xl text-sm font-semibold hover:bg-black transition-all disabled:opacity-50"
+              >
+                {saving ? <Loader2 className="animate-spin" size={16} /> : <Check size={16} />}
+                {saving ? 'Saving...' : 'Save'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Delete Confirmation Modal */}
+      {showDeleteConfirm && (
+        <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4" onClick={() => setShowDeleteConfirm(false)}>
+          <div className="bg-white rounded-2xl p-6 max-w-sm w-full shadow-xl" onClick={e => e.stopPropagation()}>
+            <div className="w-12 h-12 rounded-full bg-[#FF6B6B]/10 flex items-center justify-center mx-auto mb-4">
+              <Trash2 size={20} className="text-[#FF6B6B]" />
+            </div>
+            <h3 className="text-lg font-bold text-[#212529] text-center mb-2">Delete this property?</h3>
+            <p className="text-sm text-[#495057] text-center mb-6">
+              This will permanently remove the listing, images, reviews, and analytics. This cannot be undone.
+            </p>
+            <div className="flex gap-3">
+              <button
+                type="button"
+                onClick={() => setShowDeleteConfirm(false)}
+                className="flex-1 px-4 py-2.5 border-2 border-[#E9ECEF] text-[#212529] rounded-xl text-sm font-semibold hover:border-[#212529] transition-colors"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                onClick={handleDelete}
+                disabled={deleting}
+                className="flex-1 px-4 py-2.5 bg-[#FF6B6B] text-white rounded-xl text-sm font-semibold hover:bg-red-500 transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
+              >
+                {deleting ? <Loader2 size={16} className="animate-spin" /> : <Trash2 size={16} />}
+                {deleting ? 'Deleting...' : 'Delete'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
