@@ -41,13 +41,48 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Property not found', details: propertyError?.message }, { status: 404 })
     }
 
-    // Get verification token
-    const verificationToken = property.verification_token
+    // Get or generate verification token
+    let verificationToken = property.verification_token
+
     if (!verificationToken) {
-      console.error('[Verification] No verification token found for property:', propertyId)
-      return NextResponse.json({ error: 'No verification token' }, { status: 500 })
+      // Generate a new token if missing
+      console.log('[Verification] No token found, generating one for:', propertyId)
+      const newToken = crypto.randomUUID()
+      const { error: tokenError } = await supabase
+        .from('properties')
+        .update({ verification_token: newToken })
+        .eq('id', propertyId)
+
+      if (tokenError) {
+        console.error('[Verification] Failed to generate token:', tokenError)
+        return NextResponse.json({ error: 'Failed to prepare verification' }, { status: 500 })
+      }
+      verificationToken = newToken
     }
-    console.log('[Verification] Token found, building email for:', property.title)
+
+    // If retrying (status is rejected/pending), reset to pending and regenerate token
+    // so old approve/reject links are invalidated and admin can act on the new email
+    if (property.verification_status === 'rejected') {
+      console.log('[Verification] Resetting rejected property to pending:', propertyId)
+      const freshToken = crypto.randomUUID()
+      const { error: resetError } = await supabase
+        .from('properties')
+        .update({
+          verification_status: 'pending',
+          verification_token: freshToken,
+          verified_at: null,
+          rejection_reason: null,
+        })
+        .eq('id', propertyId)
+
+      if (resetError) {
+        console.error('[Verification] Failed to reset status:', resetError)
+        return NextResponse.json({ error: 'Failed to reset verification status' }, { status: 500 })
+      }
+      verificationToken = freshToken
+    }
+
+    console.log('[Verification] Token ready, building email for:', property.title)
 
     // Build URLs for approval/rejection
     const approveUrl = `${BASE_URL}/api/properties/verify?token=${verificationToken}&action=approve`
@@ -72,7 +107,13 @@ export async function POST(request: Request) {
     const ownerEmail = ownerProfile?.email || user.email || 'Unknown'
 
     // Send verification email to admin
-    const resend = getResend()
+    let resend
+    try {
+      resend = getResend()
+    } catch (initError: any) {
+      console.error('[Verification] Resend init error:', initError.message)
+      return NextResponse.json({ error: 'Email service not configured' }, { status: 500 })
+    }
 
     const emailProps = {
       propertyTitle: property.title || 'Untitled Property',

@@ -7,8 +7,7 @@ import {
   Home, 
   Heart, 
   MessageSquare, 
-  PlusCircle, 
-  LogOut, 
+    LogOut, 
   Search, 
   Bell, 
   Settings, 
@@ -276,8 +275,7 @@ export function DashboardNavbar({ user, profile }: DashboardNavbarProps) {
                       href="/dashboard/new-property"
                       className="flex items-center gap-1.5 px-3 py-2 bg-[#212529] text-white text-sm font-medium rounded-lg hover:bg-black transition-colors"
                     >
-                      <PlusCircle size={16} />
-                      <span className="hidden lg:inline">Add Property</span>
+                      <span>New</span>
                     </Link>
                   )}
                 </div>
@@ -552,8 +550,7 @@ export function DashboardNavbar({ user, profile }: DashboardNavbarProps) {
                 onClick={() => setMobileMenuOpen(false)}
                 className="flex items-center gap-3 px-4 py-3 rounded-lg bg-[#212529] text-white font-medium transition-colors"
               >
-                <PlusCircle size={20} />
-                Add Property
+                New Property
               </Link>
             )}
           </div>

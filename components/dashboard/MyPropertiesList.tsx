@@ -55,7 +55,7 @@ export default function MyPropertiesList({ properties }: { properties: PropertyW
       })
       const data = await res.json()
       if (!res.ok) {
-        console.error('[Verification] Resend error:', res.status, data)
+        console.error('[Verification] Resend error:', res.status, JSON.stringify(data))
         toast.error(data.error || 'Failed to resend verification email')
       } else {
         toast.success('Verification email sent to admin!')
