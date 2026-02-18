@@ -61,7 +61,7 @@ export default async function DashboardOverviewPage() {
     supabase.from('properties').select('*', { count: 'exact', head: true }).eq('user_id', user.id),
     supabase.from('conversations').select('*', { count: 'exact', head: true }).or(`landlord_id.eq.${user.id},renter_id.eq.${user.id}`),
     supabase.from('properties').select('id, title, slug, city, neighborhood, price, sale_price, listing_type, property_images(url, is_primary)').eq('status', 'active').eq('verification_status', 'approved').order('created_at', { ascending: false }).limit(4),
-    supabase.from('properties').select('id, title, slug, status, price, sale_price, listing_type, created_at, property_images(url, is_primary)').eq('user_id', user.id).order('created_at', { ascending: false }).limit(3),
+    supabase.from('properties').select('id, title, slug, status, price, sale_price, listing_type, city, neighborhood, created_at, property_images(url, is_primary)').eq('user_id', user.id).order('created_at', { ascending: false }).limit(3),
     supabase.from('conversations').select('id, last_message_preview, last_message_at, property_id, properties:property_id(title, slug), profiles:renter_id(name, avatar_url)').or(`landlord_id.eq.${user.id},renter_id.eq.${user.id}`).order('last_message_at', { ascending: false }).limit(3),
     supabase.from('reviews').select('*', { count: 'exact', head: true }).eq('author_id', user.id),
   ])
@@ -224,51 +224,94 @@ export default async function DashboardOverviewPage() {
                     View all <ChevronRight size={13} />
                   </Link>
                 </div>
-                <div className="divide-y divide-[#F1F3F5]">
+                <div className="p-4 space-y-3">
                   {userProperties.map((property) => {
                     const primaryImage = property.property_images?.find((img: any) => img.is_primary) || property.property_images?.[0]
                     const price = property.listing_type === 'sale' ? property.sale_price : property.price
                     const priceDisplay = property.listing_type === 'sale' 
                       ? `$${((price || 0) / 100).toLocaleString()}`
                       : `$${((price || 0) / 100).toLocaleString()}/mo`
+                    const location = [property.neighborhood, property.city].filter(Boolean).join(', ')
                     
                     return (
-                      <Link
+                      <div
                         key={property.id}
-                        href={`/property/${property.slug || property.id}`}
-                        className="flex items-center gap-4 px-5 py-3.5 hover:bg-[#FAFAFA] transition-colors group"
+                        className="group rounded-xl border border-[#F1F3F5] hover:border-[#212529] overflow-hidden transition-all hover:shadow-sm"
                       >
-                        <div className="relative w-12 h-12 rounded-lg overflow-hidden bg-[#F8F9FA] flex-shrink-0">
-                          {primaryImage?.url ? (
-                            <Image
-                              src={primaryImage.url}
-                              alt={property.title}
-                              fill
-                              className="object-cover"
-                              sizes="48px"
-                            />
-                          ) : (
-                            <div className="w-full h-full flex items-center justify-center">
-                              <Home size={16} className="text-[#ADB5BD]" />
+                        <div className="flex gap-0">
+                          {/* Thumbnail */}
+                          <div className="relative w-28 sm:w-36 flex-shrink-0 bg-[#F8F9FA]">
+                            {primaryImage?.url ? (
+                              <Image
+                                src={primaryImage.url}
+                                alt=""
+                                fill
+                                className="object-cover"
+                                sizes="144px"
+                              />
+                            ) : (
+                              <div className="w-full h-full flex items-center justify-center min-h-[100px]">
+                                <Home size={22} className="text-[#ADB5BD]" />
+                              </div>
+                            )}
+                            {/* Listing type badge on image */}
+                            <div className="absolute top-2 left-2">
+                              <span className={`px-1.5 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider ${
+                                property.listing_type === 'sale'
+                                  ? 'bg-[#212529] text-white'
+                                  : 'bg-white/90 text-[#212529] backdrop-blur-sm'
+                              }`}>
+                                {property.listing_type === 'sale' ? 'Sale' : 'Rent'}
+                              </span>
                             </div>
-                          )}
+                          </div>
+
+                          {/* Details */}
+                          <div className="flex-1 p-3.5 min-w-0 flex flex-col justify-between">
+                            <div>
+                              <div className="flex items-start justify-between gap-2 mb-1">
+                                <Link
+                                  href={`/property/${property.slug || property.id}`}
+                                  className="text-sm font-semibold text-[#212529] truncate hover:underline underline-offset-2 block"
+                                >
+                                  {property.title}
+                                </Link>
+                                <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold flex-shrink-0 ${
+                                  property.status === 'active' ? 'bg-[#51CF66]/10 text-[#37B24D]' :
+                                  property.status === 'draft' ? 'bg-[#ADB5BD]/10 text-[#868E96]' :
+                                  property.status === 'rented' || property.status === 'sold' ? 'bg-blue-50 text-blue-600' :
+                                  'bg-[#FF6B6B]/10 text-[#F03E3E]'
+                                }`}>
+                                  <span className={`w-1.5 h-1.5 rounded-full mr-1.5 ${
+                                    property.status === 'active' ? 'bg-[#51CF66]' :
+                                    property.status === 'draft' ? 'bg-[#ADB5BD]' :
+                                    property.status === 'rented' || property.status === 'sold' ? 'bg-blue-500' :
+                                    'bg-[#FF6B6B]'
+                                  }`} />
+                                  {property.status}
+                                </span>
+                              </div>
+                              {location && (
+                                <p className="text-xs text-[#ADB5BD] flex items-center gap-1 mb-2">
+                                  <MapPin size={11} />
+                                  {location}
+                                </p>
+                              )}
+                            </div>
+                            <div className="flex items-center justify-between">
+                              <p className="text-base font-bold text-[#212529]">
+                                {priceDisplay}
+                              </p>
+                              <Link
+                                href={`/dashboard/edit-property/${property.id}`}
+                                className="text-[11px] font-medium text-[#495057] hover:text-[#212529] border border-[#E9ECEF] hover:border-[#ADB5BD] px-2.5 py-1 rounded-md transition-colors"
+                              >
+                                Edit
+                              </Link>
+                            </div>
+                          </div>
                         </div>
-                        <div className="flex-1 min-w-0">
-                          <p className="text-sm font-medium text-[#212529] truncate group-hover:underline underline-offset-2">{property.title}</p>
-                          <p className="text-xs text-[#ADB5BD] mt-0.5">{priceDisplay}</p>
-                        </div>
-                        <div className="flex items-center gap-2 flex-shrink-0">
-                          <span className={`inline-flex items-center px-2 py-0.5 rounded text-[10px] font-semibold uppercase tracking-wider ${
-                            property.status === 'active' ? 'bg-[#51CF66]/10 text-[#51CF66]' :
-                            property.status === 'draft' ? 'bg-[#ADB5BD]/10 text-[#ADB5BD]' :
-                            property.status === 'rented' || property.status === 'sold' ? 'bg-blue-50 text-blue-500' :
-                            'bg-[#FF6B6B]/10 text-[#FF6B6B]'
-                          }`}>
-                            {property.status}
-                          </span>
-                          <ChevronRight size={14} className="text-[#ADB5BD] opacity-0 group-hover:opacity-100 transition-opacity" />
-                        </div>
-                      </Link>
+                      </div>
                     )
                   })}
                 </div>
