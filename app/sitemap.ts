@@ -28,7 +28,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   let areas: Array<{ slug: string; updated_at: string }> = []
   try {
     const { data, error } = await supabase
-      .from('areas')
+      .from('area_guides')
       .select('slug, updated_at')
       .order('updated_at', { ascending: false })
 

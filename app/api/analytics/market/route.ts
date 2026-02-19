@@ -2,6 +2,8 @@ import { createClient } from '@/lib/supabase/server'
 import { NextResponse } from 'next/server'
 import { getPriceTrends } from '@/lib/analysis'
 
+export const dynamic = 'force-dynamic'
+
 /**
  * Market analytics API - public endpoint for area/market data
  */
