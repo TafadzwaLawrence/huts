@@ -42,14 +42,12 @@ export function MobileMenu({ isLoggedIn, userName, userEmail, userAvatar, userIn
       ? [
           { href: '/dashboard/overview', label: 'Dashboard', icon: User },
           { href: '/dashboard/my-properties', label: 'My Properties', icon: Building2 },
-          { href: '/dashboard/messages', label: 'Messages', icon: Bell },
           { href: '/dashboard/reviews', label: 'Reviews', icon: Heart },
           { href: '/settings', label: 'Settings', icon: Shield },
         ]
       : [
           { href: '/dashboard/overview', label: 'Dashboard', icon: User },
           { href: '/dashboard/saved', label: 'Saved Properties', icon: Heart },
-          { href: '/dashboard/messages', label: 'Messages', icon: Bell },
           { href: '/settings', label: 'Settings', icon: Shield },
         ]
     : []

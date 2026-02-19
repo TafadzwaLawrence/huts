@@ -6,8 +6,7 @@ import { usePathname } from 'next/navigation'
 import { 
   Home, 
   Heart, 
-  MessageSquare, 
-    LogOut, 
+  LogOut, 
   Search, 
   Bell, 
   Settings, 
@@ -202,12 +201,10 @@ export function DashboardNavbar({ user, profile }: DashboardNavbarProps) {
     { href: '/dashboard/overview', label: 'Overview', icon: LayoutDashboard },
     { href: '/dashboard/my-properties', label: 'Properties', icon: Building2 },
     { href: '/dashboard/map', label: 'Map', icon: MapPin },
-    { href: '/dashboard/messages', label: 'Messages', icon: MessageSquare },
     { href: '/dashboard/reviews', label: 'Reviews', icon: Star },
   ] : [
     { href: '/dashboard/overview', label: 'Overview', icon: LayoutDashboard },
     { href: '/dashboard/saved', label: 'Saved', icon: Heart },
-    { href: '/dashboard/messages', label: 'Messages', icon: MessageSquare },
   ]
 
   const isActive = (href: string) => pathname === href
@@ -248,12 +245,6 @@ export function DashboardNavbar({ user, profile }: DashboardNavbarProps) {
                     >
                       <Icon size={16} />
                       {label}
-                      {/* Message badge */}
-                      {href === '/dashboard/messages' && unreadMessages > 0 && (
-                        <span className="absolute -top-1 -right-1 min-w-[18px] h-[18px] bg-[#FF6B6B] text-white text-[10px] font-bold rounded-full flex items-center justify-center px-1">
-                          {unreadMessages > 9 ? '9+' : unreadMessages}
-                        </span>
-                      )}
                     </Link>
                   ))}
                 </div>
@@ -522,14 +513,6 @@ export function DashboardNavbar({ user, profile }: DashboardNavbarProps) {
                   <Icon size={20} />
                   {label}
                 </div>
-                {/* Message badge */}
-                {href === '/dashboard/messages' && unreadMessages > 0 && (
-                  <span className={`min-w-[20px] h-[20px] text-[11px] font-bold rounded-full flex items-center justify-center px-1.5 ${
-                    isActive(href) ? 'bg-white text-[#212529]' : 'bg-[#FF6B6B] text-white'
-                  }`}>
-                    {unreadMessages > 9 ? '9+' : unreadMessages}
-                  </span>
-                )}
               </Link>
             ))}
           </div>

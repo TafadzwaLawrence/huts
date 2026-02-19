@@ -31,7 +31,6 @@ export async function Navbar() {
     ? [
         { href: '/dashboard/overview', label: 'Dashboard' },
         { href: '/dashboard/my-properties', label: 'Properties' },
-        { href: '/dashboard/messages', label: 'Messages' },
         { href: '/dashboard/reviews', label: 'Reviews' },
       ]
     : [

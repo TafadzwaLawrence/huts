@@ -24,6 +24,7 @@ import {
   ShieldX,
 } from 'lucide-react'
 import RetryVerificationButton from '@/components/dashboard/RetryVerificationButton'
+import { OpenChatButton, OpenChatConversation } from '@/components/chat/OpenChatButton'
 
 function formatTimeAgo(dateString: string): string {
   const now = new Date()
@@ -150,10 +151,7 @@ export default async function DashboardOverviewPage() {
           </Link>
 
           {/* Conversations */}
-          <Link 
-            href="/dashboard/messages"
-            className="group bg-white rounded-xl border border-[#E9ECEF] p-5 hover:border-[#212529] transition-all hover:shadow-md relative"
-          >
+          <OpenChatButton className="group bg-white rounded-xl border border-[#E9ECEF] p-5 hover:border-[#212529] transition-all hover:shadow-md relative text-left cursor-pointer">
             <div className="flex items-center justify-between mb-3">
               <div className="w-9 h-9 bg-[#F8F9FA] rounded-lg flex items-center justify-center group-hover:bg-[#212529] transition-colors relative">
                 <MessageSquare size={17} className="text-[#495057] group-hover:text-white transition-colors" />
@@ -166,7 +164,7 @@ export default async function DashboardOverviewPage() {
             </div>
             <p className="text-stat-sm">{conversationCount || 0}</p>
             <p className="text-stat-label mt-0.5">Conversations</p>
-          </Link>
+          </OpenChatButton>
 
           {/* Landlord: Views */}
           {isLandlord && (
@@ -473,9 +471,9 @@ export default async function DashboardOverviewPage() {
             <div className="bg-white rounded-xl border border-[#E9ECEF] overflow-hidden">
               <div className="flex items-center justify-between px-5 py-4 border-b border-[#F1F3F5]">
                 <h2 className="text-label">Recent Messages</h2>
-                <Link href="/dashboard/messages" className="text-xs text-[#495057] hover:text-[#212529] font-medium flex items-center gap-1 transition-colors">
+                <OpenChatButton className="text-xs text-[#495057] hover:text-[#212529] font-medium flex items-center gap-1 transition-colors">
                   All <ChevronRight size={13} />
-                </Link>
+                </OpenChatButton>
               </div>
               {recentConversations && recentConversations.length > 0 ? (
                 <div className="divide-y divide-[#F1F3F5]">
@@ -483,10 +481,10 @@ export default async function DashboardOverviewPage() {
                     const otherPerson = convo.profiles
                     const property = convo.properties
                     return (
-                      <Link
+                      <OpenChatConversation
                         key={convo.id}
-                        href="/dashboard/messages"
-                        className="flex items-center gap-3 px-5 py-3.5 hover:bg-[#FAFAFA] transition-colors group"
+                        conversationId={convo.id}
+                        className="flex items-center gap-3 px-5 py-3.5 hover:bg-[#FAFAFA] transition-colors group w-full text-left"
                       >
                         <div className="w-9 h-9 rounded-full bg-[#F8F9FA] flex items-center justify-center flex-shrink-0 text-xs font-bold text-[#495057]">
                           {otherPerson?.avatar_url ? (
@@ -512,7 +510,7 @@ export default async function DashboardOverviewPage() {
                             {convo.last_message_preview || (property?.title ? `Re: ${property.title}` : 'No messages yet')}
                           </p>
                         </div>
-                      </Link>
+                      </OpenChatConversation>
                     )
                   })}
                 </div>

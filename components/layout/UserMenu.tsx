@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { LayoutDashboard, Heart, MessageSquare, Settings, LogOut, Building2, Star, Search } from 'lucide-react'
+import { LayoutDashboard, Heart, Settings, LogOut, Building2, Star, Search } from 'lucide-react'
 
 interface UserMenuProps {
   userName: string
@@ -41,13 +41,11 @@ export function UserMenu({ userName, userEmail, userAvatar, userInitial, isLandl
     ? [
         { href: '/dashboard/overview', label: 'Dashboard', icon: LayoutDashboard },
         { href: '/dashboard/my-properties', label: 'Properties', icon: Building2 },
-        { href: '/dashboard/messages', label: 'Messages', icon: MessageSquare },
         { href: '/dashboard/reviews', label: 'Reviews', icon: Star },
       ]
     : [
         { href: '/dashboard/overview', label: 'Dashboard', icon: LayoutDashboard },
         { href: '/dashboard/saved', label: 'Saved', icon: Heart },
-        { href: '/dashboard/messages', label: 'Messages', icon: MessageSquare },
       ]
 
   return (
