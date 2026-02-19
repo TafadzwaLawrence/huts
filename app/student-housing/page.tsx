@@ -26,14 +26,27 @@ export const metadata: Metadata = {
 
 export const revalidate = 120
 
-// Zimbabwe universities with their cities for search links
+// Zimbabwe universities with their cities and campus locations
 const UNIVERSITIES = [
+  // --- Major public universities ---
   { name: 'University of Zimbabwe', short: 'UZ', city: 'Harare', area: 'Mount Pleasant', icon: GraduationCap },
-  { name: 'NUST', short: 'NUST', city: 'Bulawayo', area: 'Bulawayo', icon: Building2 },
-  { name: 'Midlands State University', short: 'MSU', city: 'Gweru', area: 'Gweru', icon: BookOpen },
-  { name: 'Chinhoyi University', short: 'CUT', city: 'Chinhoyi', area: 'Chinhoyi', icon: GraduationCap },
-  { name: 'Bindura University', short: 'BUSE', city: 'Bindura', area: 'Bindura', icon: BookOpen },
-  { name: 'Great Zimbabwe University', short: 'GZU', city: 'Masvingo', area: 'Masvingo', icon: Building2 },
+  { name: 'National University of Science & Technology', short: 'NUST', city: 'Bulawayo', area: 'Ascot', icon: Building2 },
+  { name: 'Midlands State University', short: 'MSU', city: 'Gweru', area: 'Senga', icon: BookOpen },
+  { name: 'Chinhoyi University of Technology', short: 'CUT', city: 'Chinhoyi', area: 'Chinhoyi', icon: Building2 },
+  { name: 'Bindura University of Science Education', short: 'BUSE', city: 'Bindura', area: 'Bindura', icon: BookOpen },
+  { name: 'Great Zimbabwe University', short: 'GZU', city: 'Masvingo', area: 'Mucheke', icon: GraduationCap },
+  { name: 'Harare Institute of Technology', short: 'HIT', city: 'Harare', area: 'Belvedere', icon: Building2 },
+  { name: 'Lupane State University', short: 'LSU', city: 'Lupane', area: 'Lupane', icon: BookOpen },
+  { name: 'Gwanda State University', short: 'GSU', city: 'Gwanda', area: 'Gwanda', icon: GraduationCap },
+  // --- Private & church universities ---
+  { name: 'Africa University', short: 'AU', city: 'Mutare', area: 'Old Mutare', icon: GraduationCap },
+  { name: 'Solusi University', short: 'SU', city: 'Bulawayo', area: 'Solusi (50km west)', icon: BookOpen },
+  { name: 'Catholic University of Zimbabwe', short: 'CUZ', city: 'Harare', area: 'Harare', icon: Building2 },
+  { name: 'Arrupe Jesuit University', short: 'AJU', city: 'Harare', area: 'Mount Pleasant', icon: BookOpen },
+  { name: 'Reformed Church University', short: 'RCU', city: 'Masvingo', area: 'Masvingo', icon: GraduationCap },
+  { name: 'Zimbabwe Ezekiel Guti University', short: 'ZEGU', city: 'Bindura', area: 'Bindura', icon: Building2 },
+  { name: "Women's University in Africa", short: 'WUA', city: 'Marondera', area: 'Marondera', icon: BookOpen },
+  { name: 'Zimbabwe Open University', short: 'ZOU', city: 'Harare', area: 'Mount Pleasant', icon: GraduationCap },
 ]
 
 async function getStudentProperties() {
@@ -148,7 +161,7 @@ export default async function StudentHousingPage() {
             {/* Quick stats */}
             <div className="mt-14 pt-8 border-t border-white/[0.08] grid grid-cols-3 gap-8 max-w-md">
               {[
-                { value: '6+', label: 'Universities' },
+                { value: '17', label: 'Universities' },
                 { value: '100%', label: 'Verified' },
                 { value: '$0', label: 'Agent Fees' },
               ].map((stat) => (
@@ -224,33 +237,37 @@ export default async function StudentHousingPage() {
               Find housing near your university
             </h2>
             <p className="text-[#495057] text-lg max-w-lg mx-auto">
-              Browse student-friendly rentals close to Zimbabwe&apos;s major campuses
+              Browse student-friendly rentals close to all {UNIVERSITIES.length} Zimbabwean universities
             </p>
           </div>
 
+          {/* Major universities - always visible */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-5">
             {UNIVERSITIES.map(({ name, short, city, area, icon: Icon }) => (
               <Link
                 key={short}
                 href={`/search?type=rent&city=${encodeURIComponent(city)}`}
-                className="group relative bg-white border-2 border-[#E9ECEF] rounded-2xl p-6 hover:border-[#212529] hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden"
+                className="group relative bg-white border-2 border-[#E9ECEF] rounded-2xl p-5 hover:border-[#212529] hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden"
               >
                 {/* Hover gradient */}
                 <div className="absolute inset-0 bg-gradient-to-br from-[#F8F9FA] to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
 
                 <div className="relative flex items-start gap-4">
-                  <div className="w-12 h-12 bg-[#F8F9FA] group-hover:bg-[#212529] rounded-xl flex items-center justify-center flex-shrink-0 transition-colors duration-300">
-                    <Icon size={22} className="text-[#495057] group-hover:text-white transition-colors" />
+                  <div className="w-11 h-11 bg-[#F8F9FA] group-hover:bg-[#212529] rounded-xl flex items-center justify-center flex-shrink-0 transition-colors duration-300">
+                    <Icon size={20} className="text-[#495057] group-hover:text-white transition-colors" />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <h3 className="font-bold text-[#212529] text-base mb-1 line-clamp-1">{name}</h3>
-                    <div className="flex items-center gap-1.5 text-sm text-[#495057]">
-                      <MapPin size={13} className="text-[#ADB5BD] flex-shrink-0" />
-                      <span>{area}, {city}</span>
+                    <div className="flex items-center gap-2 mb-0.5">
+                      <h3 className="font-bold text-[#212529] text-sm line-clamp-1">{name}</h3>
+                      <span className="text-[10px] font-bold text-[#ADB5BD] bg-[#F8F9FA] px-1.5 py-0.5 rounded flex-shrink-0">{short}</span>
                     </div>
-                    <div className="mt-3 pt-3 border-t border-[#E9ECEF] flex items-center justify-between opacity-70 group-hover:opacity-100 transition-opacity">
-                      <span className="text-xs font-semibold text-[#495057]">Browse rentals nearby</span>
-                      <ArrowRight size={14} className="text-[#212529] group-hover:translate-x-1 transition-transform" />
+                    <div className="flex items-center gap-1.5 text-sm text-[#495057]">
+                      <MapPin size={12} className="text-[#ADB5BD] flex-shrink-0" />
+                      <span className="truncate">{area !== city ? `${area}, ${city}` : city}</span>
+                    </div>
+                    <div className="mt-2.5 pt-2.5 border-t border-[#E9ECEF] flex items-center justify-between opacity-60 group-hover:opacity-100 transition-opacity">
+                      <span className="text-[11px] font-semibold text-[#495057]">Browse rentals nearby</span>
+                      <ArrowRight size={13} className="text-[#212529] group-hover:translate-x-1 transition-transform" />
                     </div>
                   </div>
                 </div>
