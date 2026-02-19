@@ -539,6 +539,7 @@ setAllProperties(data || [])
                       propertyType: 'all',
                       city: '',
                       neighborhood: '',
+                      studentHousingOnly: false,
                     })
                   }}
                   className="btn-primary"
