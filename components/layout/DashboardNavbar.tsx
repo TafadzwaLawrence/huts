@@ -19,7 +19,8 @@ import {
   LayoutDashboard,
   MapPin,
   Check,
-  Eye
+  Eye,
+  MessageSquare
 } from 'lucide-react'
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { createClient } from '@/lib/supabase/client'
