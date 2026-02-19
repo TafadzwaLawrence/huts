@@ -4,6 +4,7 @@ import { NextResponse } from 'next/server'
 export async function GET(request: Request) {
   const requestUrl = new URL(request.url)
   const code = requestUrl.searchParams.get('code')
+  const next = requestUrl.searchParams.get('next') || '/dashboard/overview'
   const origin = requestUrl.origin
 
   if (code) {
@@ -11,6 +12,6 @@ export async function GET(request: Request) {
     await supabase.auth.exchangeCodeForSession(code)
   }
 
-  // Redirect to dashboard after successful OAuth
-  return NextResponse.redirect(`${origin}/dashboard/overview`)
+  // Redirect to specified next URL (admin dashboard or default dashboard)
+  return NextResponse.redirect(`${origin}${next}`)
 }
