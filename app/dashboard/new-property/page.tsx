@@ -28,6 +28,7 @@ import {
   Car,
   TreePine,
   Loader2,
+  GraduationCap,
 } from 'lucide-react'
 
 // Dynamic import to avoid SSR issues with Leaflet
@@ -56,7 +57,7 @@ export default function NewPropertyPage() {
     // Basic info
     title: '',
     description: '',
-    propertyType: 'apartment' as 'apartment' | 'house' | 'studio' | 'room' | 'townhouse' | 'condo',
+    propertyType: 'apartment' as 'apartment' | 'house' | 'studio' | 'room' | 'townhouse' | 'condo' | 'student',
     
     // Pricing
     price: '',        // Monthly rent (for rent) OR sale price (for sale)
@@ -88,6 +89,13 @@ export default function NewPropertyPage() {
     lotSize: '',
     parkingSpaces: '',
     garageSpaces: '',
+    
+    // Student housing-specific
+    furnished: false,
+    sharedRooms: false,
+    utilitiesIncluded: false,
+    nearbyUniversities: '' as string, // Comma-separated list
+    studentLeaseTerms: '',
   })
 
   const [images, setImages] = useState<File[]>([])
@@ -131,6 +139,13 @@ export default function NewPropertyPage() {
     }))
   }
 
+  const toggleStudentField = (field: 'furnished' | 'sharedRooms' | 'utilitiesIncluded') => {
+    setFormData(prev => ({
+      ...prev,
+      [field]: !prev[field],
+    }))
+  }
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setLoading(true)
@@ -166,6 +181,13 @@ export default function NewPropertyPage() {
       // Convert price to cents
       const priceValue = Math.round(parseFloat(formData.price) * 100)
       const depositInCents = formData.deposit ? Math.round(parseFloat(formData.deposit) * 100) : null
+
+      // Parse nearby universities from comma-separated string to JSON array
+      const nearbyUniversities = formData.nearbyUniversities
+        .split(',')
+        .map(uni => uni.trim())
+        .filter(uni => uni.length > 0)
+        .map(name => ({ name })) // Simple object with name field
 
       // Create property
       // Generate slug from title
@@ -206,6 +228,12 @@ export default function NewPropertyPage() {
           lot_size_sqft: formData.listingType === 'sale' && formData.lotSize ? parseInt(formData.lotSize) : null,
           parking_spaces: formData.parkingSpaces ? parseInt(formData.parkingSpaces) : 0,
           garage_spaces: formData.garageSpaces ? parseInt(formData.garageSpaces) : 0,
+          // Student housing-specific fields
+          furnished: formData.propertyType === 'student' ? formData.furnished : null,
+          shared_rooms: formData.propertyType === 'student' ? formData.sharedRooms : null,
+          utilities_included: formData.propertyType === 'student' ? formData.utilitiesIncluded : null,
+          nearby_universities: formData.propertyType === 'student' && nearbyUniversities.length > 0 ? nearbyUniversities : null,
+          student_lease_terms: formData.propertyType === 'student' ? formData.studentLeaseTerms || null : null,
           lat: formData.lat,
           lng: formData.lng,
           published_at: new Date().toISOString(),
@@ -534,6 +562,7 @@ export default function NewPropertyPage() {
                       { value: 'room', label: 'Room', icon: Bed },
                       { value: 'townhouse', label: 'Townhouse', icon: Home },
                       { value: 'condo', label: 'Condo', icon: Building2 },
+                      { value: 'student', label: 'Student Housing', icon: GraduationCap },
                     ].map(({ value, label, icon: Icon }) => (
                       <button
                         key={value}
@@ -677,6 +706,110 @@ export default function NewPropertyPage() {
                     </div>
                   </div>
                 </div>
+
+                {/* Student housing-specific fields */}
+                {formData.propertyType === 'student' && (
+                  <div>
+                    <h3 className="text-sm font-semibold text-[#212529] mb-4">Student Housing Features</h3>
+                    
+                    {/* Toggle switches */}
+                    <div className="space-y-3 mb-6">
+                      <div className="flex items-center justify-between p-4 border-2 border-[#E9ECEF] rounded-xl bg-white hover:border-[#495057] transition-colors">
+                        <div>
+                          <p className="font-medium text-[#212529]">Furnished</p>
+                          <p className="text-xs text-[#ADB5BD]">Property includes furniture</p>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={() => toggleStudentField('furnished')}
+                          className={`relative inline-flex h-8 w-14 items-center rounded-full transition-colors ${
+                            formData.furnished ? 'bg-[#212529]' : 'bg-[#E9ECEF]'
+                          }`}
+                        >
+                          <span
+                            className={`inline-block h-6 w-6 transform rounded-full bg-white transition-transform ${
+                              formData.furnished ? 'translate-x-7' : 'translate-x-1'
+                            }`}
+                          />
+                        </button>
+                      </div>
+
+                      <div className="flex items-center justify-between p-4 border-2 border-[#E9ECEF] rounded-xl bg-white hover:border-[#495057] transition-colors">
+                        <div>
+                          <p className="font-medium text-[#212529]">Shared Rooms</p>
+                          <p className="text-xs text-[#ADB5BD]">Supports shared bedrooms/roommates</p>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={() => toggleStudentField('sharedRooms')}
+                          className={`relative inline-flex h-8 w-14 items-center rounded-full transition-colors ${
+                            formData.sharedRooms ? 'bg-[#212529]' : 'bg-[#E9ECEF]'
+                          }`}
+                        >
+                          <span
+                            className={`inline-block h-6 w-6 transform rounded-full bg-white transition-transform ${
+                              formData.sharedRooms ? 'translate-x-7' : 'translate-x-1'
+                            }`}
+                          />
+                        </button>
+                      </div>
+
+                      <div className="flex items-center justify-between p-4 border-2 border-[#E9ECEF] rounded-xl bg-white hover:border-[#495057] transition-colors">
+                        <div>
+                          <p className="font-medium text-[#212529]">Utilities Included</p>
+                          <p className="text-xs text-[#ADB5BD]">Rent includes water, electricity, internet</p>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={() => toggleStudentField('utilitiesIncluded')}
+                          className={`relative inline-flex h-8 w-14 items-center rounded-full transition-colors ${
+                            formData.utilitiesIncluded ? 'bg-[#212529]' : 'bg-[#E9ECEF]'
+                          }`}
+                        >
+                          <span
+                            className={`inline-block h-6 w-6 transform rounded-full bg-white transition-transform ${
+                              formData.utilitiesIncluded ? 'translate-x-7' : 'translate-x-1'
+                            }`}
+                          />
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Nearby Universities */}
+                    <div className="mb-4">
+                      <label htmlFor="nearbyUniversities" className="block text-sm font-semibold text-[#212529] mb-2">
+                        Nearby Universities
+                      </label>
+                      <input
+                        id="nearbyUniversities"
+                        name="nearbyUniversities"
+                        type="text"
+                        value={formData.nearbyUniversities}
+                        onChange={handleInputChange}
+                        className="w-full px-4 py-3.5 border-2 border-[#E9ECEF] rounded-xl text-[#212529] bg-white placeholder:text-[#ADB5BD] focus:outline-none focus:border-[#212529] transition-colors"
+                        placeholder="e.g., University of Arizona, Arizona State University"
+                      />
+                      <p className="mt-2 text-xs text-[#ADB5BD]">Comma-separated list of nearby universities</p>
+                    </div>
+
+                    {/* Student Lease Terms */}
+                    <div>
+                      <label htmlFor="studentLeaseTerms" className="block text-sm font-semibold text-[#212529] mb-2">
+                        Student Lease Terms
+                      </label>
+                      <textarea
+                        id="studentLeaseTerms"
+                        name="studentLeaseTerms"
+                        rows={3}
+                        value={formData.studentLeaseTerms}
+                        onChange={handleInputChange}
+                        className="w-full px-4 py-3.5 border-2 border-[#E9ECEF] rounded-xl text-[#212529] bg-white placeholder:text-[#ADB5BD] focus:outline-none focus:border-[#212529] transition-colors resize-none"
+                        placeholder="e.g., Semester-based lease available, flexible sublet options, great for summer subletting"
+                      />
+                      <p className="mt-2 text-xs text-[#ADB5BD]">Describe lease flexibility and student-friendly terms</p>
+                    </div>
+                  </div>
+                )}
 
                 {/* Sale-specific fields */}
                 {formData.listingType === 'sale' && (

@@ -35,6 +35,7 @@ import {
   Clock,
   ChevronUp,
   ChevronDown,
+  GraduationCap,
 } from 'lucide-react'
 
 const LocationPicker = dynamic(() => import('@/components/property/LocationPicker'), {
@@ -81,6 +82,7 @@ const PROPERTY_TYPES = [
   { value: 'room', label: 'Room', icon: Bed },
   { value: 'townhouse', label: 'Townhouse', icon: Home },
   { value: 'condo', label: 'Condo', icon: Building2 },
+  { value: 'student', label: 'Student Housing', icon: GraduationCap },
 ] as const
 
 const SECTIONS = [
@@ -91,6 +93,7 @@ const SECTIONS = [
   { id: 'specs', label: 'Specs' },
   { id: 'location', label: 'Location' },
   { id: 'amenities', label: 'Amenities' },
+  { id: 'student', label: 'Student' },
   { id: 'photos', label: 'Photos' },
   { id: 'availability', label: 'Dates' },
 ]
@@ -109,7 +112,7 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
     listingType: 'rent' as 'rent' | 'sale',
     title: '',
     description: '',
-    propertyType: 'apartment' as 'apartment' | 'house' | 'studio' | 'room' | 'townhouse' | 'condo',
+    propertyType: 'apartment' as 'apartment' | 'house' | 'studio' | 'room' | 'townhouse' | 'condo' | 'student',
     price: '',
     deposit: '',
     beds: '',
@@ -133,6 +136,12 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
     garageSpaces: '',
     propertyTax: '',
     hoaFee: '',
+    // Student housing-specific fields
+    furnished: false,
+    sharedRooms: false,
+    utilitiesIncluded: false,
+    nearbyUniversities: '',
+    studentLeaseTerms: '',
   })
 
   const [existingImages, setExistingImages] = useState<PropertyImage[]>([])
@@ -184,6 +193,12 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
 
       setPropertySlug(property.slug || '')
       originalListingTypeRef.current = listingType
+      
+      // Parse nearby universities from JSON array to comma-separated string
+      const nearbyUniversitiesString = property.nearby_universities && Array.isArray(property.nearby_universities)
+        ? property.nearby_universities.map((uni: any) => uni.name || uni).join(', ')
+        : ''
+      
       setFormData({
         listingType,
         title: property.title || '',
@@ -211,6 +226,11 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
         garageSpaces: property.garage_spaces?.toString() || '',
         propertyTax: property.property_tax_annual ? (property.property_tax_annual / 100).toString() : '',
         hoaFee: property.hoa_fee_monthly ? (property.hoa_fee_monthly / 100).toString() : '',
+        furnished: property.furnished || false,
+        sharedRooms: property.shared_rooms || false,
+        utilitiesIncluded: property.utilities_included || false,
+        nearbyUniversities: nearbyUniversitiesString,
+        studentLeaseTerms: property.student_lease_terms || '',
       })
 
       const sortedImages = (property.property_images || []).sort((a: PropertyImage, b: PropertyImage) => a.order - b.order)
@@ -340,6 +360,14 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
     setHasChanges(true)
   }
 
+  const toggleStudentField = (field: 'furnished' | 'sharedRooms' | 'utilitiesIncluded') => {
+    setFormData(prev => ({
+      ...prev,
+      [field]: !prev[field],
+    }))
+    setHasChanges(true)
+  }
+
   const scrollToSection = (id: string) => {
     const el = document.getElementById(id)
     if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
@@ -413,6 +441,13 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
       const priceValue = Math.round(parseFloat(formData.price) * 100)
       const depositInCents = formData.deposit ? Math.round(parseFloat(formData.deposit) * 100) : null
 
+      // Parse nearby universities
+      const nearbyUniversities = formData.nearbyUniversities
+        .split(',')
+        .map(uni => uni.trim())
+        .filter(uni => uni.length > 0)
+        .map(name => ({ name }))
+
       const { error: updateError } = await supabase
         .from('properties')
         .update({
@@ -443,6 +478,12 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
           garage_spaces: formData.garageSpaces ? parseInt(formData.garageSpaces) : 0,
           property_tax_annual: formData.listingType === 'sale' && formData.propertyTax ? Math.round(parseFloat(formData.propertyTax) * 100) : null,
           hoa_fee_monthly: formData.listingType === 'sale' && formData.hoaFee ? Math.round(parseFloat(formData.hoaFee) * 100) : null,
+          // Student housing fields
+          furnished: formData.propertyType === 'student' ? formData.furnished : null,
+          shared_rooms: formData.propertyType === 'student' ? formData.sharedRooms : null,
+          utilities_included: formData.propertyType === 'student' ? formData.utilitiesIncluded : null,
+          nearby_universities: formData.propertyType === 'student' && nearbyUniversities.length > 0 ? nearbyUniversities : null,
+          student_lease_terms: formData.propertyType === 'student' ? formData.studentLeaseTerms || null : null,
         })
         .eq('id', propertyId)
         .eq('user_id', user.id)

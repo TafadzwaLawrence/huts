@@ -27,6 +27,11 @@ export function isSaleProperty(property: Property | PropertyWithImages): boolean
   return property.listing_type === 'sale'
 }
 
+// Type guard for student properties
+export function isStudentProperty(property: Property | PropertyWithImages): boolean {
+  return property.property_type === 'student'
+}
+
 export type PropertyCardProps = {
   property: PropertyWithImages
 }

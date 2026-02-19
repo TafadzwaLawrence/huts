@@ -69,6 +69,7 @@ export default function SearchPage() {
     propertyType: 'all',
     city: '',
     neighborhood: '',
+    studentHousingOnly: false,
   })
   const [allProperties, setAllProperties] = useState<Property[]>([])
   const [filteredProperties, setFilteredProperties] = useState<Property[]>([])
@@ -205,6 +206,11 @@ setAllProperties(data || [])
       results = results.filter((p) => p.property_type === filters.propertyType)
     }
 
+    // Student housing filter
+    if (filters.studentHousingOnly) {
+      results = results.filter((p) => p.property_type === 'student')
+    }
+
     // City filter
     if (filters.city) {
       results = results.filter((p) => p.city.toLowerCase().includes(filters.city.toLowerCase()))
@@ -218,7 +224,7 @@ setAllProperties(data || [])
     }
 
     setFilteredProperties(results)
-  }, [searchQuery, listingType, filters.minPrice, filters.maxPrice, filters.beds, filters.baths, filters.propertyType, filters.city, filters.neighborhood, allProperties])
+  }, [searchQuery, listingType, filters.minPrice, filters.maxPrice, filters.beds, filters.baths, filters.propertyType, filters.city, filters.neighborhood, filters.studentHousingOnly, allProperties])
 
   // Active filter count for badge
   const activeFilterCount = [
@@ -227,6 +233,7 @@ setAllProperties(data || [])
     filters.beds,
     filters.baths,
     filters.propertyType !== 'all' ? filters.propertyType : '',
+    filters.studentHousingOnly ? 'student-housing' : '',
   ].filter(Boolean).length
 
   return (
@@ -303,6 +310,7 @@ setAllProperties(data || [])
                 <option value="condo">Condo</option>
                 <option value="studio">Studio</option>
                 <option value="room">Room</option>
+                <option value="student">Student Housing</option>
               </select>
               <ChevronDown size={14} className="text-[#ADB5BD] flex-shrink-0 pointer-events-none absolute right-4" />
             </div>
@@ -427,8 +435,24 @@ setAllProperties(data || [])
                 </div>
               </div>
             </div>
+            
+            {/* Student Housing Checkbox */}
+            <div className="mt-4 pt-4 border-t border-[#E9ECEF]">
+              <label className="flex items-center gap-3 cursor-pointer group">
+                <input
+                  type="checkbox"
+                  checked={filters.studentHousingOnly}
+                  onChange={(e) => setFilters({ ...filters, studentHousingOnly: e.target.checked })}
+                  className="w-4 h-4 rounded border-2 border-[#E9ECEF] bg-white cursor-pointer appearance-none checked:bg-[#212529] checked:border-[#212529] rounded focus:ring-2 focus:ring-black/[0.04] transition-all"
+                />
+                <span className="text-sm font-semibold text-[#212529] group-hover:text-black transition-colors flex items-center gap-2">
+                  Student Housing Only
+                  <span className="text-xs font-normal text-[#ADB5BD]">(furnished, shared rooms, utilities included)</span>
+                </span>
+              </label>
+            </div>
             {/* Clear Filters */}
-            {(filters.minPrice || filters.maxPrice || filters.beds || filters.baths || filters.propertyType !== 'all') && (
+            {(filters.minPrice || filters.maxPrice || filters.beds || filters.baths || filters.propertyType !== 'all' || filters.studentHousingOnly) && (
               <button
                 onClick={() => setFilters({
                   minPrice: '',
@@ -438,6 +462,7 @@ setAllProperties(data || [])
                   propertyType: 'all',
                   city: '',
                   neighborhood: '',
+                  studentHousingOnly: false,
                 })}
                 className="mt-4 flex items-center gap-1.5 text-sm text-[#495057] hover:text-[#212529] font-medium transition-colors group"
               >

@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { MapPin, Bed, Bath, Square, Heart, Home, Car } from 'lucide-react'
-import { PropertyWithImages, isRentalProperty, isSaleProperty } from '@/types'
+import { MapPin, Bed, Bath, Square, Heart, Home, Car, GraduationCap, Sofa, Users, Zap } from 'lucide-react'
+import { PropertyWithImages, isRentalProperty, isSaleProperty, isStudentProperty } from '@/types'
 import { formatPrice, formatSalePrice } from '@/lib/utils'
 
 interface PropertyCardProps {
@@ -53,6 +53,27 @@ export function PropertyCard({ property }: PropertyCardProps) {
               </div>
             </>
           ) : null}
+
+          {/* Student Housing Badges */}
+          {isStudentProperty(property) && (
+            <div className="absolute top-3 left-3 flex flex-wrap gap-1.5 max-w-[140px]">
+              {property.furnished && (
+                <div className="bg-blue-500/90 backdrop-blur-sm text-white px-2 py-1 rounded text-xs font-semibold flex items-center gap-1 shadow-md hover:bg-blue-600 transition-colors" title="Furnished">
+                  <Sofa size={12} /> Furnished
+                </div>
+              )}
+              {property.shared_rooms && (
+                <div className="bg-green-500/90 backdrop-blur-sm text-white px-2 py-1 rounded text-xs font-semibold flex items-center gap-1 shadow-md hover:bg-green-600 transition-colors" title="Shared Rooms Available">
+                  <Users size={12} /> Shared
+                </div>
+              )}
+              {property.utilities_included && (
+                <div className="bg-amber-500/90 backdrop-blur-sm text-white px-2 py-1 rounded text-xs font-semibold flex items-center gap-1 shadow-md hover:bg-amber-600 transition-colors" title="Utilities Included">
+                  <Zap size={12} /> Utilities
+                </div>
+              )}
+            </div>
+          )}
 
           {/* Save Button */}
           <button

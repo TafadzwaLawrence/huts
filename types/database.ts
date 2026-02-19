@@ -346,6 +346,7 @@ export type Database = {
           created_at: string | null
           deposit: number | null
           description: string | null
+          furnished: boolean | null
           garage_spaces: number | null
           hoa_fee_monthly: number | null
           id: string
@@ -355,6 +356,7 @@ export type Database = {
           lng: number | null
           lot_size_sqft: number | null
           meta_description: string | null
+          nearby_universities: Json | null
           neighborhood: string | null
           parking_spaces: number | null
           price: number | null
@@ -363,14 +365,17 @@ export type Database = {
           published_at: string | null
           rejection_reason: string | null
           sale_price: number | null
+          shared_rooms: boolean | null
           slug: string | null
           sqft: number | null
           state: string | null
           status: Database["public"]["Enums"]["property_status"]
           stories: number | null
+          student_lease_terms: string | null
           title: string
           updated_at: string | null
           user_id: string
+          utilities_included: boolean | null
           verification_status: string
           verification_token: string | null
           verified_at: string | null
@@ -387,6 +392,7 @@ export type Database = {
           created_at?: string | null
           deposit?: number | null
           description?: string | null
+          furnished?: boolean | null
           garage_spaces?: number | null
           hoa_fee_monthly?: number | null
           id?: string
@@ -396,6 +402,7 @@ export type Database = {
           lng?: number | null
           lot_size_sqft?: number | null
           meta_description?: string | null
+          nearby_universities?: Json | null
           neighborhood?: string | null
           parking_spaces?: number | null
           price?: number | null
@@ -404,14 +411,17 @@ export type Database = {
           published_at?: string | null
           rejection_reason?: string | null
           sale_price?: number | null
+          shared_rooms?: boolean | null
           slug?: string | null
           sqft?: number | null
           state?: string | null
           status?: Database["public"]["Enums"]["property_status"]
           stories?: number | null
+          student_lease_terms?: string | null
           title: string
           updated_at?: string | null
           user_id: string
+          utilities_included?: boolean | null
           verification_status?: string
           verification_token?: string | null
           verified_at?: string | null
@@ -428,6 +438,7 @@ export type Database = {
           created_at?: string | null
           deposit?: number | null
           description?: string | null
+          furnished?: boolean | null
           garage_spaces?: number | null
           hoa_fee_monthly?: number | null
           id?: string
@@ -437,6 +448,7 @@ export type Database = {
           lng?: number | null
           lot_size_sqft?: number | null
           meta_description?: string | null
+          nearby_universities?: Json | null
           neighborhood?: string | null
           parking_spaces?: number | null
           price?: number | null
@@ -445,14 +457,17 @@ export type Database = {
           published_at?: string | null
           rejection_reason?: string | null
           sale_price?: number | null
+          shared_rooms?: boolean | null
           slug?: string | null
           sqft?: number | null
           state?: string | null
           status?: Database["public"]["Enums"]["property_status"]
           stories?: number | null
+          student_lease_terms?: string | null
           title?: string
           updated_at?: string | null
           user_id?: string
+          utilities_included?: boolean | null
           verification_status?: string
           verification_token?: string | null
           verified_at?: string | null
@@ -1214,6 +1229,7 @@ export type Database = {
         | "room"
         | "townhouse"
         | "condo"
+        | "student"
       review_status: "pending" | "published" | "flagged" | "hidden" | "deleted"
     }
     CompositeTypes: {
@@ -1352,6 +1368,7 @@ export const Constants = {
         "room",
         "townhouse",
         "condo",
+        "student",
       ],
       review_status: ["pending", "published", "flagged", "hidden", "deleted"],
     },

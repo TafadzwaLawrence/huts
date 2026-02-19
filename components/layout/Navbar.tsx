@@ -68,6 +68,9 @@ export async function Navbar() {
                 <Link href="/search?type=sale" className="px-3 py-1.5 text-sm font-medium text-[#495057] hover:text-[#212529] transition-colors">
                   Buy
                 </Link>
+                <Link href="/student-housing" className="px-3 py-1.5 text-sm font-medium text-[#495057] hover:text-[#212529] transition-colors">
+                  Student
+                </Link>
                 <Link href="/areas" className="px-3 py-1.5 text-sm font-medium text-[#495057] hover:text-[#212529] transition-colors">
                   Areas
                 </Link>
