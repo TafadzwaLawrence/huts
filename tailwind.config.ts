@@ -11,13 +11,6 @@ const config: Config = {
     extend: {
       /* B&W Color Palette */
       colors: {
-        'pure-white': '#FFFFFF',
-        'off-white': '#F8F9FA',
-        'light-gray': '#E9ECEF',
-        'medium-gray': '#ADB5BD',
-        'dark-gray': '#495057',
-        'charcoal': '#212529',
-        'pure-black': '#000000',
         /* Functional (use sparingly) */
         'accent-red': '#FF6B6B',
         'accent-green': '#51CF66',

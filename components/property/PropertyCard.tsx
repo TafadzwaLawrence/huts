@@ -90,11 +90,11 @@ export function PropertyCard({ property }: PropertyCardProps) {
 
         {/* Content */}
         <div className="property-card-content">
-          <h3 className="text-lg font-bold text-[#212529] mb-2 line-clamp-1 group-hover:text-[#000] transition-colors">
+          <h3 className="text-card-title mb-2 line-clamp-1 group-hover:text-[#000] transition-colors">
             {property.title}
           </h3>
           
-          <div className="flex items-center text-[#495057] text-sm mb-4">
+          <div className="flex items-center text-muted-foreground text-sm mb-4">
             <MapPin size={14} className="mr-1.5 flex-shrink-0 text-[#ADB5BD]" />
             <span className="line-clamp-1">
               {property.neighborhood ? `${property.neighborhood}, ` : ''}

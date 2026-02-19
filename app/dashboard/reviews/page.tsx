@@ -89,8 +89,8 @@ export default function MyReviewsPage() {
       <div className="max-w-4xl mx-auto px-4 py-8">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-[#212529] mb-2">My Reviews</h1>
-          <p className="text-[#495057]">
+          <h1 className="text-page-title mb-2">My Reviews</h1>
+          <p className="text-muted-foreground">
             Manage your property reviews and see landlord responses
           </p>
         </div>
@@ -100,8 +100,8 @@ export default function MyReviewsPage() {
           <div className="bg-white border border-[#E9ECEF] rounded-lg p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-[#495057] mb-1">Total Reviews</p>
-                <p className="text-3xl font-bold text-[#212529]">
+                <p className="text-secondary mb-1">Total Reviews</p>
+                <p className="text-stat">
                   {reviews?.length || 0}
                 </p>
               </div>
@@ -109,11 +109,11 @@ export default function MyReviewsPage() {
             </div>
           </div>
 
-          <div className="bg-white border border-light-gray rounded-lg p-6">
+          <div className="bg-white border border-[#E9ECEF] rounded-lg p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-dark-gray mb-1">Avg Rating Given</p>
-                <p className="text-3xl font-bold text-charcoal">
+                <p className="text-secondary mb-1">Avg Rating Given</p>
+                <p className="text-stat">
                   {reviews && reviews.length > 0
                     ? (
                         reviews.reduce((acc, r) => acc + r.rating, 0) /
@@ -126,15 +126,15 @@ export default function MyReviewsPage() {
             </div>
           </div>
 
-          <div className="bg-white border border-light-gray rounded-lg p-6">
+          <div className="bg-white border border-[#E9ECEF] rounded-lg p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-dark-gray mb-1">With Response</p>
-                <p className="text-3xl font-bold text-charcoal">
+                <p className="text-secondary mb-1">With Response</p>
+                <p className="text-stat">
                   {reviews?.filter((r) => r.review_responses).length || 0}
                 </p>
               </div>
-              <Edit size={32} className="text-medium-gray" />
+              <Edit size={32} className="text-[#ADB5BD]" />
             </div>
           </div>
         </div>
@@ -143,15 +143,15 @@ export default function MyReviewsPage() {
         {!reviews || reviews.length === 0 ? (
           <div className="bg-white border border-[#E9ECEF] rounded-lg p-12 text-center">
             <Star size={48} className="mx-auto text-[#ADB5BD] mb-4" />
-            <h3 className="text-xl font-semibold text-[#212529] mb-2">
+            <h3 className="text-subsection-title mb-2">
               No reviews yet
             </h3>
-            <p className="text-[#495057] mb-6">
+            <p className="text-muted-foreground mb-6">
               Start exploring properties and share your experiences
             </p>
             <Link
               href="/"
-              className="inline-block bg-black text-white px-6 py-2 rounded border-2 border-black hover:bg-charcoal hover:-translate-y-0.5 transition-all"
+              className="inline-block bg-black text-white px-6 py-2 rounded border-2 border-black hover:bg-[#212529] hover:-translate-y-0.5 transition-all"
             >
               Browse Properties
             </Link>
@@ -161,19 +161,19 @@ export default function MyReviewsPage() {
             {reviews.map((review) => (
               <div
                 key={review.id}
-                className="bg-white border border-light-gray rounded-lg overflow-hidden"
+                className="bg-white border border-[#E9ECEF] rounded-lg overflow-hidden"
               >
                 {/* Property Info */}
                 <Link
                   href={`/property/${review.properties?.id}`}
-                  className="block p-4 border-b border-light-gray hover:bg-off-white transition-colors"
+                  className="block p-4 border-b border-[#E9ECEF] hover:bg-[#F8F9FA] transition-colors"
                 >
                   <div className="flex items-center justify-between">
                     <div>
-                      <h3 className="font-semibold text-charcoal">
+                      <h3 className="text-card-title-sm">
                         {review.properties?.title}
                       </h3>
-                      <p className="text-sm text-dark-gray">
+                      <p className="text-secondary">
                         {review.properties?.location} · ${review.properties?.price}/mo
                       </p>
                     </div>
@@ -185,7 +185,7 @@ export default function MyReviewsPage() {
                           className={
                             i < review.rating
                               ? 'fill-black text-black'
-                              : 'text-medium-gray'
+                              : 'text-[#ADB5BD]'
                           }
                         />
                       ))}
@@ -197,24 +197,24 @@ export default function MyReviewsPage() {
                 <div className="p-6 space-y-4">
                   <div>
                     <div className="flex items-center justify-between mb-2">
-                      <h4 className="font-semibold text-charcoal">
+                      <h4 className="text-card-title-sm">
                         {review.title}
                       </h4>
                       {review.editable_until &&
                         new Date(review.editable_until) > new Date() && (
                           <Link
                             href={`/dashboard/reviews/${review.id}/edit`}
-                            className="p-2 hover:bg-light-gray rounded transition-colors"
+                            className="p-2 hover:bg-[#E9ECEF] rounded transition-colors"
                             title="Edit review"
                           >
-                            <Edit size={16} className="text-dark-gray" />
+                            <Edit size={16} className="text-[#495057]" />
                           </Link>
                         )}
                     </div>
-                    <p className="text-dark-gray leading-relaxed">
+                    <p className="text-muted-foreground leading-relaxed">
                       {review.comment}
                     </p>
-                    <p className="text-sm text-[#ADB5BD] mt-2">
+                    <p className="text-small mt-2">
                       {timeAgo(review.created_at)}
                       {review.edited && ' (edited)'}
                     </p>
@@ -222,18 +222,18 @@ export default function MyReviewsPage() {
 
                   {/* Landlord Response */}
                   {review.review_responses && (
-                    <div className="ml-4 pl-4 border-l-2 border-light-gray space-y-2">
+                    <div className="ml-4 pl-4 border-l-2 border-[#E9ECEF] space-y-2">
                       <div className="flex items-center gap-2">
-                        <span className="text-sm font-medium text-charcoal">
+                        <span className="text-label">
                           Response from{' '}
                           {review.review_responses.profiles?.name ||
                             'Property Owner'}
                         </span>
                       </div>
-                      <p className="text-sm text-dark-gray">
+                      <p className="text-secondary">
                         {review.review_responses.response}
                       </p>
-                      <span className="text-xs text-medium-gray">
+                      <span className="text-small">
                         {timeAgo(review.review_responses.created_at)}
                       </span>
                     </div>

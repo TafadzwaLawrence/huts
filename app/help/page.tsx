@@ -13,10 +13,10 @@ export default function HelpPage() {
       {/* Hero */}
       <section className="border-b border-[#E9ECEF] bg-white py-20 md:py-32">
         <div className="container-main text-center">
-          <h1 className="text-4xl md:text-5xl font-bold text-[#212529] mb-6">
+          <h1 className="text-page-title mb-6">
             How can we help you?
           </h1>
-          <p className="text-lg text-[#495057] max-w-2xl mx-auto mb-10">
+          <p className="text-body-lg max-w-2xl mx-auto mb-10">
             Search our help center or browse popular topics below
           </p>
 
@@ -43,8 +43,8 @@ export default function HelpPage() {
               <div className="w-12 h-12 bg-[#F8F9FA] rounded-lg flex items-center justify-center mb-6">
                 <Search size={24} className="text-[#212529]" />
               </div>
-              <h3 className="text-xl font-bold text-[#212529] mb-3">For Renters</h3>
-              <p className="text-sm text-[#495057] mb-6">
+              <h3 className="text-subsection-title mb-3">For Renters</h3>
+              <p className="text-secondary mb-6">
                 Find answers about searching, viewing properties, and applying.
               </p>
               <ul className="space-y-3 text-sm">
@@ -76,8 +76,8 @@ export default function HelpPage() {
               <div className="w-12 h-12 bg-[#F8F9FA] rounded-lg flex items-center justify-center mb-6">
                 <Home size={24} className="text-[#212529]" />
               </div>
-              <h3 className="text-xl font-bold text-[#212529] mb-3">For Landlords</h3>
-              <p className="text-sm text-[#495057] mb-6">
+              <h3 className="text-subsection-title mb-3">For Landlords</h3>
+              <p className="text-secondary mb-6">
                 Learn how to list properties and manage inquiries.
               </p>
               <ul className="space-y-3 text-sm">
@@ -109,8 +109,8 @@ export default function HelpPage() {
               <div className="w-12 h-12 bg-[#F8F9FA] rounded-lg flex items-center justify-center mb-6">
                 <User size={24} className="text-[#212529]" />
               </div>
-              <h3 className="text-xl font-bold text-[#212529] mb-3">Account & Billing</h3>
-              <p className="text-sm text-[#495057] mb-6">
+              <h3 className="text-subsection-title mb-3">Account & Billing</h3>
+              <p className="text-secondary mb-6">
                 Manage your account, subscription, and payments.
               </p>
               <ul className="space-y-3 text-sm">
@@ -143,7 +143,7 @@ export default function HelpPage() {
       {/* Popular Articles */}
       <section className="py-20 md:py-32 bg-[#F8F9FA] border-t border-[#E9ECEF]">
         <div className="container-main max-w-4xl">
-          <h2 className="text-3xl font-bold text-[#212529] mb-12">Popular Articles</h2>
+          <h2 className="text-section-title mb-12">Popular Articles</h2>
           
           <div className="space-y-4">
             {[
@@ -176,10 +176,10 @@ export default function HelpPage() {
       <section className="py-20 bg-white border-t border-[#E9ECEF]">
         <div className="container-main text-center max-w-2xl">
           <MessageCircle size={48} className="mx-auto text-[#212529] mb-6" />
-          <h2 className="text-3xl font-bold text-[#212529] mb-4">
+          <h2 className="text-section-title mb-4">
             Still need help?
           </h2>
-          <p className="text-[#495057] mb-8">
+          <p className="text-muted-foreground mb-8">
             Can't find what you're looking for? Get in touch with our support team.
           </p>
           <Link

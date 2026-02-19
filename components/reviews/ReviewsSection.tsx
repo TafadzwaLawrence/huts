@@ -55,8 +55,8 @@ export default function ReviewsSection({
   if (loading) {
     return (
       <div className={cn('animate-pulse space-y-4', className)}>
-        <div className="h-32 bg-light-gray rounded-lg" />
-        <div className="h-64 bg-light-gray rounded-lg" />
+        <div className="h-32 bg-[#E9ECEF] rounded-lg" />
+        <div className="h-64 bg-[#E9ECEF] rounded-lg" />
       </div>
     )
   }
@@ -64,18 +64,18 @@ export default function ReviewsSection({
   return (
     <section className={cn('space-y-8', className)}>
       {/* Stats Header */}
-      <div className="border border-light-gray rounded-lg p-6">
+      <div className="border border-[#E9ECEF] rounded-lg p-6">
         <div className="grid md:grid-cols-2 gap-8">
           {/* Average Rating */}
           <div className="space-y-4">
-            <h2 className="text-2xl font-semibold text-charcoal">
+            <h2 className="text-section-title">
               Guest Reviews
             </h2>
             
             {stats.totalReviews > 0 ? (
               <>
                 <div className="flex items-end gap-3">
-                  <span className="text-5xl font-bold text-charcoal">
+                  <span className="text-5xl font-bold text-foreground">
                     {stats.averageRating.toFixed(1)}
                   </span>
                   <RatingStars
@@ -85,19 +85,19 @@ export default function ReviewsSection({
                     className="mb-2"
                   />
                 </div>
-                <p className="text-dark-gray">
+                <p className="text-muted-foreground">
                   Based on {stats.totalReviews} {stats.totalReviews === 1 ? 'review' : 'reviews'}
                 </p>
               </>
             ) : (
-              <p className="text-dark-gray">No reviews yet</p>
+              <p className="text-muted-foreground">No reviews yet</p>
             )}
 
             {/* Write Review Button */}
             {canReview && !showReviewForm && (
               <button
                 onClick={() => setShowReviewForm(true)}
-                className="mt-4 bg-black text-white px-6 py-2 rounded border-2 border-black hover:bg-charcoal hover:-translate-y-0.5 transition-all"
+                className="mt-4 bg-black text-white px-6 py-2 rounded border-2 border-black hover:bg-[#212529] hover:-translate-y-0.5 transition-all"
               >
                 Write a Review
               </button>
@@ -107,7 +107,7 @@ export default function ReviewsSection({
           {/* Rating Distribution */}
           {stats.totalReviews > 0 && (
             <div>
-              <h3 className="text-sm font-medium text-charcoal mb-4">
+              <h3 className="text-label mb-4">
                 Rating Distribution
               </h3>
               <RatingDistribution

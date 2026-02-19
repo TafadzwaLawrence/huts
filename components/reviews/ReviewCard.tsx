@@ -88,11 +88,11 @@ export default function ReviewCard({
   }
 
   return (
-    <div className={cn('border border-light-gray rounded-lg p-6 space-y-4', className)}>
+    <div className={cn('border border-[#E9ECEF] rounded-lg p-6 space-y-4', className)}>
       {/* Header */}
       <div className="flex items-start justify-between">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-full bg-light-gray flex items-center justify-center">
+          <div className="w-10 h-10 rounded-full bg-[#E9ECEF] flex items-center justify-center">
             {review.profiles?.avatar_url ? (
               <img
                 src={review.profiles.avatar_url}
@@ -100,14 +100,14 @@ export default function ReviewCard({
                 className="w-full h-full rounded-full object-cover"
               />
             ) : (
-              <span className="text-dark-gray font-semibold">
+              <span className="text-muted-foreground font-semibold">
                 {review.profiles?.name?.[0]?.toUpperCase() || 'U'}
               </span>
             )}
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <span className="font-medium text-charcoal">
+              <span className="font-medium text-foreground">
                 {review.profiles?.name || 'Anonymous'}
               </span>
               {review.is_verified && (
@@ -116,7 +116,7 @@ export default function ReviewCard({
                 </span>
               )}
             </div>
-            <div className="flex items-center gap-2 text-sm text-dark-gray">
+            <div className="flex items-center gap-2 text-sm text-muted-foreground">
               <RatingStars rating={review.rating} size={14} showNumber={false} />
               <span>·</span>
               <span>{review.created_at ? timeAgo(review.created_at) : 'Recently'}</span>
@@ -130,28 +130,28 @@ export default function ReviewCard({
           {isEditable && onEdit && (
             <button
               onClick={() => onEdit(review.id)}
-              className="p-2 hover:bg-light-gray rounded transition-colors"
+              className="p-2 hover:bg-[#E9ECEF] rounded transition-colors"
               title="Edit review"
             >
-              <Edit size={16} className="text-dark-gray" />
+              <Edit size={16} className="text-[#495057]" />
             </button>
           )}
           {isAuthor && onDelete && (
             <button
               onClick={() => onDelete(review.id)}
-              className="p-2 hover:bg-light-gray rounded transition-colors"
+              className="p-2 hover:bg-[#E9ECEF] rounded transition-colors"
               title="Delete review"
             >
-              <Trash2 size={16} className="text-dark-gray" />
+              <Trash2 size={16} className="text-[#495057]" />
             </button>
           )}
           {!isAuthor && onFlag && (
             <button
               onClick={() => onFlag(review.id)}
-              className="p-2 hover:bg-light-gray rounded transition-colors"
+              className="p-2 hover:bg-[#E9ECEF] rounded transition-colors"
               title="Flag review"
             >
-              <Flag size={16} className="text-dark-gray" />
+              <Flag size={16} className="text-[#495057]" />
             </button>
           )}
         </div>
@@ -159,20 +159,20 @@ export default function ReviewCard({
 
       {/* Review Content */}
       <div className="space-y-2">
-        <h4 className="font-semibold text-charcoal">{review.title}</h4>
-        <p className="text-dark-gray leading-relaxed">{review.comment}</p>
+        <h4 className="text-card-title-sm">{review.title}</h4>
+        <p className="text-muted-foreground leading-relaxed">{review.comment}</p>
       </div>
 
       {/* Helpful Votes */}
-      <div className="flex items-center gap-4 pt-2 border-t border-light-gray">
-        <span className="text-sm text-dark-gray">Was this helpful?</span>
+      <div className="flex items-center gap-4 pt-2 border-t border-[#E9ECEF]">
+        <span className="text-secondary">Was this helpful?</span>
         <button
           onClick={() => handleVote(true)}
           className={cn(
             'flex items-center gap-1 px-3 py-1 rounded border-2 transition-all',
             review.user_vote === true
               ? 'bg-black text-white border-black'
-              : 'border-light-gray hover:border-dark-gray'
+              : 'border-[#E9ECEF] hover:border-[#495057]'
           )}
         >
           <ThumbsUp size={14} />
@@ -184,7 +184,7 @@ export default function ReviewCard({
             'flex items-center gap-1 px-3 py-1 rounded border-2 transition-all',
             review.user_vote === false
               ? 'bg-black text-white border-black'
-              : 'border-light-gray hover:border-dark-gray'
+              : 'border-[#E9ECEF] hover:border-[#495057]'
           )}
         >
           <ThumbsDown size={14} />
@@ -194,15 +194,15 @@ export default function ReviewCard({
 
       {/* Landlord Response */}
       {review.review_responses && (
-        <div className="ml-8 pl-4 border-l-2 border-light-gray space-y-2">
+        <div className="ml-8 pl-4 border-l-2 border-[#E9ECEF] space-y-2">
           <div className="flex items-center gap-2">
-            <MessageCircle size={14} className="text-dark-gray" />
-            <span className="text-sm font-medium text-charcoal">
+            <MessageCircle size={14} className="text-[#495057]" />
+            <span className="text-label">
               Response from {review.review_responses.profiles?.name || 'Property Owner'}
             </span>
           </div>
-          <p className="text-sm text-dark-gray">{review.review_responses.response}</p>
-          <span className="text-xs text-medium-gray">
+          <p className="text-secondary">{review.review_responses.response}</p>
+          <span className="text-small">
             {review.review_responses.created_at ? timeAgo(review.review_responses.created_at) : 'Recently'}
           </span>
         </div>
@@ -214,7 +214,7 @@ export default function ReviewCard({
           {!showResponse ? (
             <button
               onClick={() => setShowResponse(true)}
-              className="flex items-center gap-2 text-sm text-dark-gray hover:text-black transition-colors"
+              className="flex items-center gap-2 text-secondary hover:text-foreground transition-colors"
             >
               <MessageCircle size={14} />
               Respond to this review
@@ -226,13 +226,13 @@ export default function ReviewCard({
                 onChange={(e) => setResponseText(e.target.value)}
                 placeholder="Write your response (10-1000 characters)"
                 rows={3}
-                className="w-full px-3 py-2 border-2 border-light-gray rounded focus:border-black focus:outline-none transition-colors resize-none text-sm"
+                className="w-full px-3 py-2 border-2 border-[#E9ECEF] rounded focus:border-black focus:outline-none transition-colors resize-none text-sm"
               />
               <div className="flex gap-2">
                 <button
                   onClick={handleSubmitResponse}
                   disabled={loading || responseText.length < 10}
-                  className="bg-black text-white px-4 py-1 rounded text-sm border-2 border-black hover:bg-charcoal transition-colors disabled:opacity-50"
+                  className="bg-black text-white px-4 py-1 rounded text-sm border-2 border-black hover:bg-[#212529] transition-colors disabled:opacity-50"
                 >
                   {loading ? 'Submitting...' : 'Submit Response'}
                 </button>
@@ -242,7 +242,7 @@ export default function ReviewCard({
                     setResponseText('')
                   }}
                   disabled={loading}
-                  className="bg-transparent text-black px-4 py-1 rounded text-sm border-2 border-dark-gray hover:border-black transition-colors"
+                  className="bg-transparent text-black px-4 py-1 rounded text-sm border-2 border-[#495057] hover:border-black transition-colors"
                 >
                   Cancel
                 </button>

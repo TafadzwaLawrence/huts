@@ -100,8 +100,8 @@ export default async function DashboardOverviewPage() {
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-8">
           <div>
-            <p className="text-xs text-[#ADB5BD] font-medium uppercase tracking-wider mb-2">{dateString}</p>
-            <h1 className="text-2xl md:text-3xl font-bold text-[#212529] tracking-tight">
+            <p className="text-small uppercase tracking-wider mb-2">{dateString}</p>
+            <h1 className="text-page-title">
               {greeting}, {firstName}
             </h1>
           </div>
@@ -143,8 +143,8 @@ export default async function DashboardOverviewPage() {
               </div>
               <ArrowUpRight size={14} className="text-[#ADB5BD] opacity-0 group-hover:opacity-100 transition-opacity" />
             </div>
-            <p className="text-2xl font-bold text-[#212529] tabular-nums">{isLandlord ? propertyCount || 0 : savedCount || 0}</p>
-            <p className="text-xs text-[#ADB5BD] font-medium mt-0.5">
+            <p className="text-stat-sm">{isLandlord ? propertyCount || 0 : savedCount || 0}</p>
+            <p className="text-stat-label mt-0.5">
               {isLandlord ? 'Properties' : 'Saved'}
             </p>
           </Link>
@@ -164,8 +164,8 @@ export default async function DashboardOverviewPage() {
                 </span>
               )}
             </div>
-            <p className="text-2xl font-bold text-[#212529] tabular-nums">{conversationCount || 0}</p>
-            <p className="text-xs text-[#ADB5BD] font-medium mt-0.5">Conversations</p>
+            <p className="text-stat-sm">{conversationCount || 0}</p>
+            <p className="text-stat-label mt-0.5">Conversations</p>
           </Link>
 
           {/* Landlord: Views */}
@@ -176,8 +176,8 @@ export default async function DashboardOverviewPage() {
                   <Eye size={17} className="text-[#495057]" />
                 </div>
               </div>
-              <p className="text-2xl font-bold text-[#212529] tabular-nums">{totalViews}</p>
-              <p className="text-xs text-[#ADB5BD] font-medium mt-0.5">Total Views</p>
+              <p className="text-stat-sm">{totalViews}</p>
+              <p className="text-stat-label mt-0.5">Total Views</p>
             </div>
           )}
 
@@ -193,8 +193,8 @@ export default async function DashboardOverviewPage() {
                 </div>
                 <ArrowUpRight size={14} className="text-[#ADB5BD] opacity-0 group-hover:opacity-100 transition-opacity" />
               </div>
-              <p className="text-2xl font-bold text-[#212529] tabular-nums">{reviewCount || 0}</p>
-              <p className="text-xs text-[#ADB5BD] font-medium mt-0.5">Reviews</p>
+              <p className="text-stat-sm">{reviewCount || 0}</p>
+              <p className="text-stat-label mt-0.5">Reviews</p>
             </Link>
           ) : (
             <Link 
@@ -207,8 +207,8 @@ export default async function DashboardOverviewPage() {
                 </div>
                 <ArrowUpRight size={14} className="text-[#ADB5BD] opacity-0 group-hover:opacity-100 transition-opacity" />
               </div>
-              <p className="text-2xl font-bold text-[#212529]">Explore</p>
-              <p className="text-xs text-[#ADB5BD] font-medium mt-0.5">Area Guides</p>
+              <p className="text-stat-sm">Explore</p>
+              <p className="text-stat-label mt-0.5">Area Guides</p>
             </Link>
           )}
         </div>
@@ -223,7 +223,7 @@ export default async function DashboardOverviewPage() {
             {isLandlord && userProperties && userProperties.length > 0 && (
               <div className="bg-white rounded-xl border border-[#E9ECEF] overflow-hidden">
                 <div className="flex items-center justify-between px-5 py-4 border-b border-[#F1F3F5]">
-                  <h2 className="text-sm font-semibold text-[#212529]">Your Listings</h2>
+                  <h2 className="text-label">Your Listings</h2>
                   <Link href="/dashboard/my-properties" className="text-xs text-[#495057] hover:text-[#212529] font-medium flex items-center gap-1 transition-colors">
                     View all <ChevronRight size={13} />
                   </Link>
@@ -367,8 +367,8 @@ export default async function DashboardOverviewPage() {
                 <div className="w-14 h-14 bg-[#F8F9FA] rounded-2xl flex items-center justify-center mx-auto mb-4">
                   <Building2 size={24} className="text-[#ADB5BD]" />
                 </div>
-                <h3 className="font-semibold text-[#212529] mb-1">No properties yet</h3>
-                <p className="text-sm text-[#495057] mb-5 max-w-xs mx-auto">
+                <h3 className="text-card-title-sm mb-1">No properties yet</h3>
+                <p className="text-secondary mb-5 max-w-xs mx-auto">
                   List your first property and start receiving inquiries from verified renters.
                 </p>
                 <Link
@@ -385,7 +385,7 @@ export default async function DashboardOverviewPage() {
             {!isLandlord && recentProperties && recentProperties.length > 0 && (
               <div className="bg-white rounded-xl border border-[#E9ECEF] overflow-hidden">
                 <div className="flex items-center justify-between px-5 py-4 border-b border-[#F1F3F5]">
-                  <h2 className="text-sm font-semibold text-[#212529]">Recently Added</h2>
+                  <h2 className="text-label">Recently Added</h2>
                   <Link href="/search" className="text-xs text-[#495057] hover:text-[#212529] font-medium flex items-center gap-1 transition-colors">
                     View all <ChevronRight size={13} />
                   </Link>
@@ -449,8 +449,8 @@ export default async function DashboardOverviewPage() {
                     <Sparkles size={20} />
                   </div>
                   <div className="flex-1">
-                    <h3 className="font-semibold text-base mb-1">Start saving favorites</h3>
-                    <p className="text-sm text-white/60 mb-4">
+                    <h3 className="text-card-title-sm mb-1">Start saving favorites</h3>
+                    <p className="text-secondary text-white/60 mb-4">
                       Browse properties and tap the heart icon to save them here for easy comparison.
                     </p>
                     <Link 
@@ -472,7 +472,7 @@ export default async function DashboardOverviewPage() {
             {/* Recent Messages */}
             <div className="bg-white rounded-xl border border-[#E9ECEF] overflow-hidden">
               <div className="flex items-center justify-between px-5 py-4 border-b border-[#F1F3F5]">
-                <h2 className="text-sm font-semibold text-[#212529]">Recent Messages</h2>
+                <h2 className="text-label">Recent Messages</h2>
                 <Link href="/dashboard/messages" className="text-xs text-[#495057] hover:text-[#212529] font-medium flex items-center gap-1 transition-colors">
                   All <ChevronRight size={13} />
                 </Link>
@@ -527,7 +527,7 @@ export default async function DashboardOverviewPage() {
             {/* Quick Links */}
             <div className="bg-white rounded-xl border border-[#E9ECEF] overflow-hidden">
               <div className="px-5 py-4 border-b border-[#F1F3F5]">
-                <h2 className="text-sm font-semibold text-[#212529]">Quick Links</h2>
+                <h2 className="text-label">Quick Links</h2>
               </div>
               <div className="p-2">
                 {(isLandlord ? [

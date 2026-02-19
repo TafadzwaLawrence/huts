@@ -17,10 +17,10 @@ export default function PricingPage() {
             <Sparkles size={14} />
             100% Free
           </div>
-          <h1 className="text-4xl md:text-5xl font-bold text-[#212529] mb-6">
+          <h1 className="text-page-title mb-6">
             Free for everyone
           </h1>
-          <p className="text-lg text-[#495057] max-w-2xl mx-auto">
+          <p className="text-body-lg max-w-2xl mx-auto">
             No fees. No subscriptions. No hidden charges. Just list your property and connect with renters.
           </p>
         </div>
@@ -31,7 +31,7 @@ export default function PricingPage() {
         <div className="max-w-xl mx-auto px-4">
           <div className="border-2 border-[#212529] rounded-2xl p-8 md:p-10 bg-white">
             <div className="text-center mb-8">
-              <h3 className="text-2xl font-bold text-[#212529] mb-2">Everything included</h3>
+              <h3 className="text-section-title mb-2">Everything included</h3>
               <div className="flex items-baseline justify-center gap-2">
                 <span className="text-5xl font-bold text-[#212529]">$0</span>
                 <span className="text-[#ADB5BD]">forever</span>
@@ -78,24 +78,24 @@ export default function PricingPage() {
       {/* FAQ Section */}
       <section className="py-20 md:py-32 bg-[#F8F9FA] border-t border-[#E9ECEF]">
         <div className="max-w-3xl mx-auto px-4">
-          <h2 className="text-3xl font-bold text-[#212529] text-center mb-12">
+          <h2 className="text-section-title text-center mb-12">
             Questions?
           </h2>
           
           <div className="space-y-4">
             <div className="bg-white border border-[#E9ECEF] rounded-lg p-5">
-              <h3 className="font-semibold text-[#212529] mb-1">Why is it free?</h3>
-              <p className="text-sm text-[#495057]">We're building the best rental platform in Zimbabwe. Right now, we're focused on growing our community of landlords and renters.</p>
+              <h3 className="text-card-title-sm mb-1">Why is it free?</h3>
+              <p className="text-secondary">We're building the best rental platform in Zimbabwe. Right now, we're focused on growing our community of landlords and renters.</p>
             </div>
 
             <div className="bg-white border border-[#E9ECEF] rounded-lg p-5">
-              <h3 className="font-semibold text-[#212529] mb-1">Will you charge in the future?</h3>
-              <p className="text-sm text-[#495057]">We may introduce optional premium features later, but basic listing will always remain free.</p>
+              <h3 className="text-card-title-sm mb-1">Will you charge in the future?</h3>
+              <p className="text-secondary">We may introduce optional premium features later, but basic listing will always remain free.</p>
             </div>
 
             <div className="bg-white border border-[#E9ECEF] rounded-lg p-5">
-              <h3 className="font-semibold text-[#212529] mb-1">How many properties can I list?</h3>
-              <p className="text-sm text-[#495057]">As many as you want! There's no limit on the number of properties you can list.</p>
+              <h3 className="text-card-title-sm mb-1">How many properties can I list?</h3>
+              <p className="text-secondary">As many as you want! There's no limit on the number of properties you can list.</p>
             </div>
           </div>
         </div>
@@ -104,10 +104,10 @@ export default function PricingPage() {
       {/* CTA */}
       <section className="py-20 bg-white border-t border-[#E9ECEF]">
         <div className="max-w-4xl mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold text-[#212529] mb-4">
+          <h2 className="text-section-title mb-4">
             Start listing today
           </h2>
-          <p className="text-[#495057] mb-8">
+          <p className="text-muted-foreground mb-8">
             Join landlords across Zimbabwe connecting with quality tenants.
           </p>
           <Link

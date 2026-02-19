@@ -26,7 +26,7 @@ export function Footer() {
               />
               <span className="text-xl font-bold tracking-tight">Huts</span>
             </div>
-            <p className="text-[15px] text-[#ADB5BD] leading-relaxed mb-6">
+            <p className="text-sm text-[#ADB5BD] leading-relaxed mb-6">
               The simplest way to find your next home in Zimbabwe. No clutter, no noise — just verified properties from real landlords.
             </p>
             <div className="flex items-center gap-3">
@@ -44,28 +44,28 @@ export function Footer() {
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-8 lg:gap-14">
             {/* Explore */}
             <div>
-              <h3 className="text-[13px] font-semibold uppercase tracking-widest text-white/40 mb-5">Explore</h3>
+              <h3 className="text-xs font-semibold uppercase tracking-widest text-white/40 mb-5">Explore</h3>
               <ul className="space-y-3.5">
                 <li>
-                  <Link href="/search?type=rent" className="text-[15px] text-[#ADB5BD] hover:text-white transition-colors inline-flex items-center gap-1 group">
+                  <Link href="/search?type=rent" className="text-sm text-[#ADB5BD] hover:text-white transition-colors inline-flex items-center gap-1 group">
                     Rentals
                     <ArrowUpRight size={13} className="opacity-0 -translate-y-0.5 group-hover:opacity-60 group-hover:translate-y-0 transition-all" />
                   </Link>
                 </li>
                 <li>
-                  <Link href="/search?type=sale" className="text-[15px] text-[#ADB5BD] hover:text-white transition-colors inline-flex items-center gap-1 group">
+                  <Link href="/search?type=sale" className="text-sm text-[#ADB5BD] hover:text-white transition-colors inline-flex items-center gap-1 group">
                     For Sale
                     <ArrowUpRight size={13} className="opacity-0 -translate-y-0.5 group-hover:opacity-60 group-hover:translate-y-0 transition-all" />
                   </Link>
                 </li>
                 <li>
-                  <Link href="/areas" className="text-[15px] text-[#ADB5BD] hover:text-white transition-colors inline-flex items-center gap-1 group">
+                  <Link href="/areas" className="text-sm text-[#ADB5BD] hover:text-white transition-colors inline-flex items-center gap-1 group">
                     Area Guides
                     <ArrowUpRight size={13} className="opacity-0 -translate-y-0.5 group-hover:opacity-60 group-hover:translate-y-0 transition-all" />
                   </Link>
                 </li>
                 <li>
-                  <Link href="/search" className="text-[15px] text-[#ADB5BD] hover:text-white transition-colors inline-flex items-center gap-1 group">
+                  <Link href="/search" className="text-sm text-[#ADB5BD] hover:text-white transition-colors inline-flex items-center gap-1 group">
                     Browse All
                     <ArrowUpRight size={13} className="opacity-0 -translate-y-0.5 group-hover:opacity-60 group-hover:translate-y-0 transition-all" />
                   </Link>
@@ -75,22 +75,22 @@ export function Footer() {
 
             {/* Landlords */}
             <div>
-              <h3 className="text-[13px] font-semibold uppercase tracking-widest text-white/40 mb-5">Landlords</h3>
+              <h3 className="text-xs font-semibold uppercase tracking-widest text-white/40 mb-5">Landlords</h3>
               <ul className="space-y-3.5">
                 <li>
-                  <Link href="/dashboard/new-property" className="text-[15px] text-[#ADB5BD] hover:text-white transition-colors inline-flex items-center gap-1 group">
+                  <Link href="/dashboard/new-property" className="text-sm text-[#ADB5BD] hover:text-white transition-colors inline-flex items-center gap-1 group">
                     Post a Property
                     <ArrowUpRight size={13} className="opacity-0 -translate-y-0.5 group-hover:opacity-60 group-hover:translate-y-0 transition-all" />
                   </Link>
                 </li>
                 <li>
-                  <Link href="/pricing" className="text-[15px] text-[#ADB5BD] hover:text-white transition-colors inline-flex items-center gap-1 group">
+                  <Link href="/pricing" className="text-sm text-[#ADB5BD] hover:text-white transition-colors inline-flex items-center gap-1 group">
                     Pricing
                     <ArrowUpRight size={13} className="opacity-0 -translate-y-0.5 group-hover:opacity-60 group-hover:translate-y-0 transition-all" />
                   </Link>
                 </li>
                 <li>
-                  <Link href="/dashboard" className="text-[15px] text-[#ADB5BD] hover:text-white transition-colors inline-flex items-center gap-1 group">
+                  <Link href="/dashboard" className="text-sm text-[#ADB5BD] hover:text-white transition-colors inline-flex items-center gap-1 group">
                     Dashboard
                     <ArrowUpRight size={13} className="opacity-0 -translate-y-0.5 group-hover:opacity-60 group-hover:translate-y-0 transition-all" />
                   </Link>
@@ -100,28 +100,28 @@ export function Footer() {
 
             {/* Support & Contact */}
             <div>
-              <h3 className="text-[13px] font-semibold uppercase tracking-widest text-white/40 mb-5">Support</h3>
+              <h3 className="text-xs font-semibold uppercase tracking-widest text-white/40 mb-5">Support</h3>
               <ul className="space-y-3.5">
                 <li>
-                  <Link href="/help" className="text-[15px] text-[#ADB5BD] hover:text-white transition-colors inline-flex items-center gap-1 group">
+                  <Link href="/help" className="text-sm text-[#ADB5BD] hover:text-white transition-colors inline-flex items-center gap-1 group">
                     Help Center
                     <ArrowUpRight size={13} className="opacity-0 -translate-y-0.5 group-hover:opacity-60 group-hover:translate-y-0 transition-all" />
                   </Link>
                 </li>
                 <li>
-                  <Link href="/contact" className="text-[15px] text-[#ADB5BD] hover:text-white transition-colors inline-flex items-center gap-1 group">
+                  <Link href="/contact" className="text-sm text-[#ADB5BD] hover:text-white transition-colors inline-flex items-center gap-1 group">
                     Contact Us
                     <ArrowUpRight size={13} className="opacity-0 -translate-y-0.5 group-hover:opacity-60 group-hover:translate-y-0 transition-all" />
                   </Link>
                 </li>
                 <li>
-                  <a href="mailto:support@huts.co.zw" className="text-[15px] text-[#ADB5BD] hover:text-white transition-colors flex items-center gap-2">
+                  <a href="mailto:support@huts.co.zw" className="text-sm text-[#ADB5BD] hover:text-white transition-colors flex items-center gap-2">
                     <Mail size={14} className="shrink-0" />
                     support@huts.co.zw
                   </a>
                 </li>
                 <li>
-                  <a href="tel:+263780000000" className="text-[15px] text-[#ADB5BD] hover:text-white transition-colors flex items-center gap-2">
+                  <a href="tel:+263780000000" className="text-sm text-[#ADB5BD] hover:text-white transition-colors flex items-center gap-2">
                     <Phone size={14} className="shrink-0" />
                     +263 78 000 0000
                   </a>

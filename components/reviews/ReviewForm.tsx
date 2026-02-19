@@ -80,9 +80,9 @@ export default function ReviewForm({
   return (
     <form
       onSubmit={handleSubmit}
-      className={cn('space-y-4 border border-light-gray rounded-lg p-6', className)}
+      className={cn('space-y-4 border border-[#E9ECEF] rounded-lg p-6', className)}
     >
-      <h3 className="text-xl font-semibold text-charcoal">Write a Review</h3>
+      <h3 className="text-subsection-title">Write a Review</h3>
 
       {error && (
         <div className="bg-accent-red/10 border border-accent-red text-accent-red px-4 py-3 rounded text-sm">
@@ -92,7 +92,7 @@ export default function ReviewForm({
 
       {/* Star Rating */}
       <div className="space-y-2">
-        <label className="text-sm font-medium text-charcoal">
+        <label className="text-label">
           Rating <span className="text-accent-red">*</span>
         </label>
         <div className="flex gap-1">
@@ -104,7 +104,7 @@ export default function ReviewForm({
                 'cursor-pointer transition-colors',
                 star <= (hoverRating || formData.rating)
                   ? 'fill-black text-black'
-                  : 'text-medium-gray hover:text-dark-gray'
+                  : 'text-[#ADB5BD] hover:text-[#495057]'
               )}
               onClick={() => setFormData({ ...formData, rating: star })}
               onMouseEnter={() => setHoverRating(star)}
@@ -116,7 +116,7 @@ export default function ReviewForm({
 
       {/* Title */}
       <div className="space-y-2">
-        <label htmlFor="title" className="text-sm font-medium text-charcoal">
+        <label htmlFor="title" className="text-label">
           Title <span className="text-accent-red">*</span>
         </label>
         <input
@@ -125,14 +125,14 @@ export default function ReviewForm({
           value={formData.title}
           onChange={(e) => setFormData({ ...formData, title: e.target.value })}
           placeholder="Summarize your experience"
-          className="w-full px-3 py-2 border-2 border-light-gray rounded focus:border-black focus:outline-none transition-colors"
+          className="w-full px-3 py-2 border-2 border-[#E9ECEF] rounded focus:border-black focus:outline-none transition-colors"
           required
         />
       </div>
 
       {/* Comment */}
       <div className="space-y-2">
-        <label htmlFor="comment" className="text-sm font-medium text-charcoal">
+        <label htmlFor="comment" className="text-label">
           Your Review <span className="text-accent-red">*</span>
         </label>
         <textarea
@@ -141,10 +141,10 @@ export default function ReviewForm({
           onChange={(e) => setFormData({ ...formData, comment: e.target.value })}
           placeholder="Share details about your experience (minimum 50 characters)"
           rows={6}
-          className="w-full px-3 py-2 border-2 border-light-gray rounded focus:border-black focus:outline-none transition-colors resize-none"
+          className="w-full px-3 py-2 border-2 border-[#E9ECEF] rounded focus:border-black focus:outline-none transition-colors resize-none"
           required
         />
-        <p className="text-sm text-dark-gray">
+        <p className="text-secondary">
           {formData.comment.length}/2000 characters
           {formData.comment.length < 50 && formData.comment.length > 0 && (
             <span className="text-accent-red ml-2">
@@ -159,7 +159,7 @@ export default function ReviewForm({
         <button
           type="submit"
           disabled={loading}
-          className="bg-black text-white px-6 py-2 rounded border-2 border-black hover:bg-charcoal hover:-translate-y-0.5 transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0"
+          className="bg-black text-white px-6 py-2 rounded border-2 border-black hover:bg-[#212529] hover:-translate-y-0.5 transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0"
         >
           {loading ? (
             <>
@@ -176,7 +176,7 @@ export default function ReviewForm({
             type="button"
             onClick={onCancel}
             disabled={loading}
-            className="bg-transparent text-black px-6 py-2 rounded border-2 border-dark-gray hover:border-black hover:border-[3px] transition-all disabled:opacity-50"
+            className="bg-transparent text-black px-6 py-2 rounded border-2 border-[#495057] hover:border-black hover:border-[3px] transition-all disabled:opacity-50"
           >
             Cancel
           </button>

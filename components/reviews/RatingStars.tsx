@@ -40,15 +40,15 @@ export default function RatingStars({
             size={size}
             className={cn(
               'transition-colors',
-              isFilled ? 'fill-black text-black' : 'text-medium-gray',
-              interactive && 'cursor-pointer hover:fill-dark-gray hover:text-dark-gray'
+              isFilled ? 'fill-black text-black' : 'text-[#ADB5BD]',
+              interactive && 'cursor-pointer hover:fill-[#495057] hover:text-[#495057]'
             )}
             onClick={() => handleClick(starValue)}
           />
         )
       })}
       {showNumber && (
-        <span className="ml-1 text-sm font-medium text-charcoal">
+        <span className="ml-1 text-sm font-medium text-foreground">
           {rating.toFixed(1)}
         </span>
       )}

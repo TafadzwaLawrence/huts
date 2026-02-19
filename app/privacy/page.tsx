@@ -10,10 +10,10 @@ export default function PrivacyPage() {
   return (
     <div className="min-h-screen bg-white">
       <div className="container-main max-w-4xl py-20 md:py-32">
-        <h1 className="text-4xl md:text-5xl font-bold text-[#212529] mb-6">
+        <h1 className="text-page-title mb-6">
           Privacy Policy
         </h1>
-        <p className="text-sm text-[#ADB5BD] mb-12">
+        <p className="text-small mb-12">
           Last updated: February 10, 2026
         </p>
 
@@ -21,8 +21,8 @@ export default function PrivacyPage() {
           <div className="space-y-12">
             {/* Introduction */}
             <section>
-              <h2 className="text-2xl font-bold text-[#212529] mb-4">1. Introduction</h2>
-              <p className="text-[#495057] leading-relaxed mb-4">
+              <h2 className="text-section-title mb-4">1. Introduction</h2>
+              <p className="text-muted-foreground leading-relaxed mb-4">
                 Huts ("we", "our", or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our platform at huts.com.
               </p>
               <p className="text-[#495057] leading-relaxed">
@@ -32,9 +32,9 @@ export default function PrivacyPage() {
 
             {/* Information We Collect */}
             <section>
-              <h2 className="text-2xl font-bold text-[#212529] mb-4">2. Information We Collect</h2>
+              <h2 className="text-section-title mb-4">2. Information We Collect</h2>
               
-              <h3 className="text-xl font-semibold text-[#212529] mb-3 mt-6">2.1 Personal Information</h3>
+              <h3 className="text-subsection-title mb-3 mt-6">2.1 Personal Information</h3>
               <p className="text-[#495057] leading-relaxed mb-3">
                 When you create an account, we collect:
               </p>
@@ -46,7 +46,7 @@ export default function PrivacyPage() {
                 <li>Account type (landlord or renter)</li>
               </ul>
 
-              <h3 className="text-xl font-semibold text-[#212529] mb-3 mt-6">2.2 Property Information</h3>
+              <h3 className="text-subsection-title mb-3 mt-6">2.2 Property Information</h3>
               <p className="text-[#495057] leading-relaxed mb-3">
                 When listing a property, we collect:
               </p>
@@ -57,7 +57,7 @@ export default function PrivacyPage() {
                 <li>Property features and amenities</li>
               </ul>
 
-              <h3 className="text-xl font-semibold text-[#212529] mb-3 mt-6">2.3 Usage Data</h3>
+              <h3 className="text-subsection-title mb-3 mt-6">2.3 Usage Data</h3>
               <p className="text-[#495057] leading-relaxed">
                 We automatically collect information about your device and how you interact with our platform, including IP address, browser type, pages visited, and time spent on pages.
               </p>
@@ -65,7 +65,7 @@ export default function PrivacyPage() {
 
             {/* How We Use Information */}
             <section>
-              <h2 className="text-2xl font-bold text-[#212529] mb-4">3. How We Use Your Information</h2>
+              <h2 className="text-section-title mb-4">3. How We Use Your Information</h2>
               <p className="text-[#495057] leading-relaxed mb-3">
                 We use the information we collect to:
               </p>
@@ -82,7 +82,7 @@ export default function PrivacyPage() {
 
             {/* Information Sharing */}
             <section>
-              <h2 className="text-2xl font-bold text-[#212529] mb-4">4. Information Sharing</h2>
+              <h2 className="text-section-title mb-4">4. Information Sharing</h2>
               <p className="text-[#495057] leading-relaxed mb-3">
                 We do not sell your personal information. We may share information in the following circumstances:
               </p>
@@ -95,7 +95,7 @@ export default function PrivacyPage() {
 
             {/* Data Security */}
             <section>
-              <h2 className="text-2xl font-bold text-[#212529] mb-4">5. Data Security</h2>
+              <h2 className="text-section-title mb-4">5. Data Security</h2>
               <p className="text-[#495057] leading-relaxed">
                 We implement industry-standard security measures to protect your information, including encryption, secure servers, and access controls. However, no method of transmission over the internet is 100% secure, and we cannot guarantee absolute security.
               </p>
@@ -103,7 +103,7 @@ export default function PrivacyPage() {
 
             {/* Your Rights */}
             <section>
-              <h2 className="text-2xl font-bold text-[#212529] mb-4">6. Your Rights</h2>
+              <h2 className="text-section-title mb-4">6. Your Rights</h2>
               <p className="text-[#495057] leading-relaxed mb-3">
                 You have the right to:
               </p>
@@ -121,7 +121,7 @@ export default function PrivacyPage() {
 
             {/* Cookies */}
             <section>
-              <h2 className="text-2xl font-bold text-[#212529] mb-4">7. Cookies</h2>
+              <h2 className="text-section-title mb-4">7. Cookies</h2>
               <p className="text-[#495057] leading-relaxed">
                 We use cookies and similar tracking technologies to maintain your session, remember your preferences, and analyze platform usage. You can control cookies through your browser settings, but disabling them may limit functionality.
               </p>
@@ -129,7 +129,7 @@ export default function PrivacyPage() {
 
             {/* Children's Privacy */}
             <section>
-              <h2 className="text-2xl font-bold text-[#212529] mb-4">8. Children's Privacy</h2>
+              <h2 className="text-section-title mb-4">8. Children's Privacy</h2>
               <p className="text-[#495057] leading-relaxed">
                 Huts is not intended for users under 18 years of age. We do not knowingly collect information from children. If you believe we have collected information from a minor, please contact us immediately.
               </p>
@@ -137,7 +137,7 @@ export default function PrivacyPage() {
 
             {/* Changes */}
             <section>
-              <h2 className="text-2xl font-bold text-[#212529] mb-4">9. Changes to This Policy</h2>
+              <h2 className="text-section-title mb-4">9. Changes to This Policy</h2>
               <p className="text-[#495057] leading-relaxed">
                 We may update this Privacy Policy from time to time. We will notify you of significant changes by email or through a notice on our platform. Your continued use of Huts after changes constitutes acceptance of the updated policy.
               </p>
@@ -145,7 +145,7 @@ export default function PrivacyPage() {
 
             {/* Contact */}
             <section>
-              <h2 className="text-2xl font-bold text-[#212529] mb-4">10. Contact Us</h2>
+              <h2 className="text-section-title mb-4">10. Contact Us</h2>
               <p className="text-[#495057] leading-relaxed mb-4">
                 If you have questions about this Privacy Policy, please contact us:
               </p>

@@ -27,18 +27,18 @@ export default function RatingDistribution({
 
         return (
           <div key={rating} className="flex items-center gap-2">
-            <span className="w-12 text-sm text-dark-gray">
+            <span className="w-12 text-sm text-muted-foreground">
               {rating} star
             </span>
             
-            <div className="flex-1 h-2 bg-light-gray rounded-full overflow-hidden">
+            <div className="flex-1 h-2 bg-[#E9ECEF] rounded-full overflow-hidden">
               <div
                 className="h-full bg-black transition-all duration-300"
                 style={{ width: `${percentage}%` }}
               />
             </div>
             
-            <span className="w-12 text-sm text-dark-gray text-right">
+            <span className="w-12 text-sm text-muted-foreground text-right">
               {count}
             </span>
           </div>

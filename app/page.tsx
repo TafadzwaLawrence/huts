@@ -309,7 +309,7 @@ export default async function HomePage() {
                   { value: '100%', label: 'Verified' },
                 ].map((stat) => (
                   <div key={stat.label}>
-                    <div className="text-2xl md:text-3xl font-bold text-[#212529] mb-1">{stat.value}</div>
+                    <div className="text-2xl md:text-3xl font-bold text-[#212529] tabular-nums mb-1">{stat.value}</div>
                     <div className="text-xs md:text-sm text-[#ADB5BD] font-medium">{stat.label}</div>
                   </div>
                 ))}
@@ -506,8 +506,8 @@ export default async function HomePage() {
           {/* Section Header */}
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6 mb-12">
             <div>
-              <h2 className="text-3xl md:text-4xl font-bold text-[#212529] tracking-tight mb-2">Homes for Sale</h2>
-              <p className="text-[#495057]">Find your dream home and make it yours</p>
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#212529] tracking-tight mb-2">Homes for Sale</h2>
+              <p className="text-[#495057] text-base md:text-lg">Find your dream home and make it yours</p>
             </div>
             <Link
               href="/search?type=sale"
@@ -819,7 +819,7 @@ export default async function HomePage() {
               <Sparkles size={14} className="text-yellow-400" />
               <span className="text-xs font-semibold tracking-widest uppercase text-white">Simple Process</span>
             </div>
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#212529] tracking-tight mb-6">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#212529] tracking-tight mb-6">
               How Huts Works
             </h2>
             <p className="text-lg md:text-xl text-[#495057] max-w-2xl mx-auto leading-relaxed">
@@ -950,7 +950,7 @@ export default async function HomePage() {
               <Shield size={14} className="text-white/60" />
               <span className="text-xs font-semibold tracking-widest uppercase text-white/80">Why choose Huts</span>
             </div>
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-5">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-5">
               Built on trust
             </h2>
             <p className="text-base md:text-lg text-[#ADB5BD] max-w-xl mx-auto leading-relaxed">
