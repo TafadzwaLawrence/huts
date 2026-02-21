@@ -4,8 +4,16 @@ import { createClient } from '@/lib/supabase/server'
 import { MapPin, Home, DollarSign, ArrowRight } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'Browse Areas | Huts',
-  description: 'Explore rental properties by neighborhood. Find the perfect area to call home.',
+  title: 'Browse Neighborhoods — Rentals & Homes by Area | Huts',
+  description: 'Explore rental properties and homes for sale by neighborhood across Zimbabwe. Get local insights, average prices, and find your perfect area in Harare, Bulawayo, and beyond.',
+  openGraph: {
+    title: 'Browse Neighborhoods — Rentals & Homes by Area | Huts',
+    description: 'Explore properties by neighborhood across Zimbabwe. Local insights, average prices, and verified listings.',
+    url: 'https://www.huts.co.zw/areas',
+  },
+  alternates: {
+    canonical: 'https://www.huts.co.zw/areas',
+  },
 }
 
 export default async function AreasPage() {
@@ -115,7 +123,7 @@ export default async function AreasPage() {
       <section className="py-16 md:py-20 bg-[#F8F9FA] border-t border-[#E9ECEF]">
         <div className="container-main text-center max-w-3xl">
           <h2 className="text-3xl font-bold text-[#212529] mb-4">
-            Don't see your area?
+            Don&apos;t see your area?
           </h2>
           <p className="text-lg text-[#495057] mb-8">
             Search all properties across the city or contact us to add your neighborhood
@@ -129,6 +137,46 @@ export default async function AreasPage() {
           </Link>
         </div>
       </section>
+
+      {/* JSON-LD */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'CollectionPage',
+            name: 'Browse Neighborhoods in Zimbabwe',
+            description: 'Explore rental properties and homes for sale by neighborhood across Zimbabwe.',
+            url: 'https://www.huts.co.zw/areas',
+            isPartOf: { '@type': 'WebSite', url: 'https://www.huts.co.zw' },
+            ...(areas && areas.length > 0 && {
+              mainEntity: {
+                '@type': 'ItemList',
+                numberOfItems: areas.length,
+                itemListElement: areas.map((area: any, i: number) => ({
+                  '@type': 'ListItem',
+                  position: i + 1,
+                  name: area.name,
+                  url: `https://www.huts.co.zw/areas/${area.slug}`,
+                })),
+              },
+            }),
+          }),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'BreadcrumbList',
+            itemListElement: [
+              { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.huts.co.zw' },
+              { '@type': 'ListItem', position: 2, name: 'Areas', item: 'https://www.huts.co.zw/areas' },
+            ],
+          }),
+        }}
+      />
     </div>
   )
 }

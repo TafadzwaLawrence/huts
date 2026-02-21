@@ -21,8 +21,8 @@ export const metadata: Metadata = {
     template: '%s | Huts',
     default: 'Huts — Find Your Perfect Rental in Zimbabwe',
   },
-  description: 'Find apartments, houses, and rooms for rent across Zimbabwe. Browse verified properties in Harare, Bulawayo, and beyond. Your home is waiting.',
-  keywords: ['Zimbabwe rentals', 'Harare apartments', 'Bulawayo houses', 'property rental Zimbabwe', 'find accommodation Zimbabwe', 'rent house Zimbabwe', 'apartments for rent Harare'],
+  description: 'Find apartments, houses, and rooms for rent or sale across Zimbabwe. Browse verified properties in Harare, Bulawayo, and beyond. Your home is waiting.',
+  keywords: ['Zimbabwe rentals', 'Harare apartments', 'Bulawayo houses', 'property rental Zimbabwe', 'find accommodation Zimbabwe', 'rent house Zimbabwe', 'apartments for rent Harare', 'homes for sale Zimbabwe', 'buy property Zimbabwe', 'Zimbabwe real estate'],
   icons: {
     icon: [
       { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     locale: 'en_ZW',
     type: 'website',
     title: 'Huts — Find Your Perfect Rental in Zimbabwe',
-    description: 'Find apartments, houses, and rooms for rent across Zimbabwe. Browse verified properties in Harare, Bulawayo, and beyond. Your home is waiting.',
+    description: 'Find apartments, houses, and rooms for rent or sale across Zimbabwe. Browse verified properties in Harare, Bulawayo, and beyond. Your home is waiting.',
   },
   twitter: {
     card: 'summary_large_image',

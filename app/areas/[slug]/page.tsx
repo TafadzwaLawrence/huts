@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   
   const { data: area } = await supabase
     .from('area_guides')
-    .select('name, meta_title, meta_description')
+    .select('name, city, meta_title, meta_description')
     .eq('slug', params.slug)
     .single()
 
@@ -33,9 +33,21 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     }
   }
 
+  const title = area.meta_title || `${area.name} — Rentals & Homes | Huts`
+  const description = area.meta_description || `Find rental properties and homes for sale in ${area.name}, ${area.city || 'Zimbabwe'}. Browse verified listings, average prices, and neighborhood insights.`
+
   return {
-    title: area.meta_title || `${area.name} | Huts`,
-    description: area.meta_description || `Find rental properties in ${area.name}`,
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      url: `https://www.huts.co.zw/areas/${params.slug}`,
+      type: 'website',
+    },
+    alternates: {
+      canonical: `https://www.huts.co.zw/areas/${params.slug}`,
+    },
   }
 }
 

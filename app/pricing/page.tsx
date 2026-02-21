@@ -3,8 +3,16 @@ import Link from 'next/link'
 import { Check, ArrowRight, Sparkles } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'Pricing - Huts',
-  description: 'List your property for free on Huts. No hidden fees, no subscriptions.',
+  title: 'Pricing — Free Property Listings | Huts',
+  description: 'List your property for free on Huts. No hidden fees, no subscriptions. Connect directly with renters and buyers in Zimbabwe at zero cost.',
+  openGraph: {
+    title: 'Free Property Listings | Huts',
+    description: 'List rental properties and homes for sale for free on Huts. No fees, no subscriptions.',
+    url: 'https://www.huts.co.zw/pricing',
+  },
+  alternates: {
+    canonical: 'https://www.huts.co.zw/pricing',
+  },
 }
 
 export default function PricingPage() {

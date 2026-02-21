@@ -6,7 +6,7 @@ export function Footer() {
   const currentYear = new Date().getFullYear()
 
   return (
-    <footer className="bg-[#212529] text-white relative overflow-hidden">
+    <footer className="bg-[#212529] text-white relative overflow-hidden" role="contentinfo">
       {/* Ambient glow */}
       <div className="absolute bottom-0 left-1/4 w-[500px] h-[300px] bg-white/[0.02] rounded-full blur-[120px]" />
 
@@ -121,15 +121,35 @@ export function Footer() {
                   </a>
                 </li>
                 <li>
-                  <a href="tel:+263780000000" className="text-sm text-[#ADB5BD] hover:text-white transition-colors flex items-center gap-2">
+                  <a href="tel:+263786470999" className="text-sm text-[#ADB5BD] hover:text-white transition-colors flex items-center gap-2">
                     <Phone size={14} className="shrink-0" />
-                    +263 78 000 0000
+                    +263 78 647 0999
                   </a>
                 </li>
               </ul>
             </div>
           </div>
         </div>
+
+        {/* Divider */}
+        <div className="border-t border-white/[0.08]" />
+
+        {/* SEO internal links — crawlable by search engines */}
+        <nav className="pt-7 pb-5" aria-label="Property search links">
+          <h3 className="text-xs font-semibold uppercase tracking-widest text-white/30 mb-4">Popular Searches</h3>
+          <div className="flex flex-wrap gap-x-5 gap-y-2 text-xs text-white/25">
+            <Link href="/search?type=rent" className="hover:text-white/50 transition-colors">Rentals in Zimbabwe</Link>
+            <Link href="/search?type=sale" className="hover:text-white/50 transition-colors">Homes for Sale</Link>
+            <Link href="/search?city=Harare&type=rent" className="hover:text-white/50 transition-colors">Harare Rentals</Link>
+            <Link href="/search?city=Bulawayo&type=rent" className="hover:text-white/50 transition-colors">Bulawayo Rentals</Link>
+            <Link href="/search?city=Harare&type=sale" className="hover:text-white/50 transition-colors">Houses for Sale Harare</Link>
+            <Link href="/search?beds=1&type=rent" className="hover:text-white/50 transition-colors">1 Bed Apartments</Link>
+            <Link href="/search?beds=2&type=rent" className="hover:text-white/50 transition-colors">2 Bed Apartments</Link>
+            <Link href="/search?beds=3&type=rent" className="hover:text-white/50 transition-colors">3 Bed Houses</Link>
+            <Link href="/student-housing" className="hover:text-white/50 transition-colors">Student Housing</Link>
+            <Link href="/areas" className="hover:text-white/50 transition-colors">Area Guides</Link>
+          </div>
+        </nav>
 
         {/* Divider */}
         <div className="border-t border-white/[0.08]" />

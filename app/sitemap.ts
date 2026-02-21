@@ -6,11 +6,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://www.huts.co.zw'
 
   // Fetch all active properties with error handling
-  let properties: Array<{ slug: string; updated_at: string }> = []
+  let properties: Array<{ slug: string; updated_at: string; listing_type: string | null }> = []
   try {
     const { data, error } = await supabase
       .from('properties')
-      .select('slug, updated_at')
+      .select('slug, updated_at, listing_type')
       .eq('status', 'active')
       .eq('verification_status', 'approved')
       .order('updated_at', { ascending: false })
@@ -56,7 +56,25 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.9,
     },
     {
+      url: `${baseUrl}/search?type=rent`,
+      lastModified: new Date(),
+      changeFrequency: 'hourly',
+      priority: 0.85,
+    },
+    {
+      url: `${baseUrl}/search?type=sale`,
+      lastModified: new Date(),
+      changeFrequency: 'hourly',
+      priority: 0.85,
+    },
+    {
       url: `${baseUrl}/areas`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/student-housing`,
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.7,

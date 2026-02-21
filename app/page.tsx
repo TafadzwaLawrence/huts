@@ -7,13 +7,13 @@ import { formatPrice, formatSalePrice } from '@/lib/utils'
 import SaveButton from '@/components/property/SaveButton'
 
 export const metadata: Metadata = {
-  title: 'Huts — Find Your Perfect Rental in Zimbabwe',
-  description: 'Browse thousands of verified rental properties across Zimbabwe. Apartments, houses, rooms in Harare, Bulawayo, Gweru, and more. Your home is one search away.',
+  title: 'Huts — Find Properties for Rent & Sale in Zimbabwe',
+  description: 'Browse thousands of verified rental properties and homes for sale across Zimbabwe. Apartments, houses, rooms in Harare, Bulawayo, Gweru, and more. Your home is one search away.',
   openGraph: {
-    title: 'Huts — Property Rentals in Zimbabwe',
-    description: 'Find apartments, houses, and rooms for rent. Verified listings across Zimbabwe.',
+    title: 'Huts — Property Rentals & Sales in Zimbabwe',
+    description: 'Find apartments, houses, and rooms for rent or sale. Verified listings across Zimbabwe.',
     url: 'https://www.huts.co.zw',
-    images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: 'Huts property rentals' }],
+    images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: 'Huts property marketplace' }],
   },
   alternates: {
     canonical: 'https://www.huts.co.zw',
@@ -1275,7 +1275,7 @@ export default async function HomePage() {
             name: 'Huts',
             url: 'https://www.huts.co.zw',
             logo: 'https://www.huts.co.zw/logo.png',
-            description: "Zimbabwe's rental property marketplace connecting renters with landlords",
+            description: "Zimbabwe's property marketplace connecting renters and buyers with landlords and sellers",
             address: {
               '@type': 'PostalAddress',
               addressCountry: 'ZW',
@@ -1284,6 +1284,24 @@ export default async function HomePage() {
               '@type': 'Country',
               name: 'Zimbabwe',
             },
+            makesOffer: [
+              {
+                '@type': 'Offer',
+                itemOffered: {
+                  '@type': 'Service',
+                  name: 'Property Rental Listings',
+                  description: 'Browse verified rental properties across Zimbabwe',
+                },
+              },
+              {
+                '@type': 'Offer',
+                itemOffered: {
+                  '@type': 'Service',
+                  name: 'Property Sale Listings',
+                  description: 'Browse homes for sale across Zimbabwe',
+                },
+              },
+            ],
           }),
         }}
       />
@@ -1295,9 +1313,13 @@ export default async function HomePage() {
             '@type': 'WebSite',
             url: 'https://www.huts.co.zw',
             name: 'Huts',
+            description: 'Find apartments, houses, and rooms for rent or sale in Zimbabwe',
             potentialAction: {
               '@type': 'SearchAction',
-              target: 'https://www.huts.co.zw/search?q={search_term_string}',
+              target: {
+                '@type': 'EntryPoint',
+                urlTemplate: 'https://www.huts.co.zw/search?q={search_term_string}',
+              },
               'query-input': 'required name=search_term_string',
             },
           }),

@@ -8,8 +8,10 @@ export default function robots(): MetadataRoute.Robots {
         allow: [
           '/',
           '/search',
+          '/search?*',
           '/property/',
           '/areas/',
+          '/student-housing',
           '/contact',
           '/help',
           '/pricing',
@@ -21,10 +23,23 @@ export default function robots(): MetadataRoute.Robots {
           '/api/',
           '/auth/',
           '/settings/',
+          '/admin/',
           '/uploadthing/',
+        ],
+      },
+      {
+        userAgent: 'Googlebot',
+        allow: '/',
+        disallow: [
+          '/dashboard/',
+          '/api/',
+          '/auth/',
+          '/settings/',
+          '/admin/',
         ],
       },
     ],
     sitemap: 'https://www.huts.co.zw/sitemap.xml',
+    host: 'https://www.huts.co.zw',
   }
 }

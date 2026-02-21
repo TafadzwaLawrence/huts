@@ -1,6 +1,7 @@
 module.exports = {
   reactStrictMode: true,
   poweredByHeader: false,
+  trailingSlash: false,
   images: {
     remotePatterns: [
       {
@@ -56,6 +57,19 @@ module.exports = {
             key: 'Permissions-Policy',
             value: 'camera=(), microphone=(), geolocation=(self)',
           },
+        ],
+      },
+      // Allow search engines to cache sitemap and robots
+      {
+        source: '/sitemap.xml',
+        headers: [
+          { key: 'Cache-Control', value: 'public, max-age=3600, s-maxage=3600' },
+        ],
+      },
+      {
+        source: '/robots.txt',
+        headers: [
+          { key: 'Cache-Control', value: 'public, max-age=86400, s-maxage=86400' },
         ],
       },
     ]

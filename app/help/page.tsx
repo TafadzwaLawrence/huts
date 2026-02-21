@@ -4,7 +4,15 @@ import { Search, Home, User, MessageCircle, FileText, ArrowRight } from 'lucide-
 
 export const metadata: Metadata = {
   title: 'Help Center - Huts',
-  description: 'Get help with listing your property, searching for rentals, and using Huts.',
+  description: 'Get help with listing your property, searching for rentals, and using Huts. Guides for landlords and renters in Zimbabwe.',
+  openGraph: {
+    title: 'Help Center | Huts',
+    description: 'Guides and support for listing properties and finding rentals on Huts.',
+    url: 'https://www.huts.co.zw/help',
+  },
+  alternates: {
+    canonical: 'https://www.huts.co.zw/help',
+  },
 }
 
 export default function HelpPage() {
@@ -180,7 +188,7 @@ export default function HelpPage() {
             Still need help?
           </h2>
           <p className="text-muted-foreground mb-8">
-            Can't find what you're looking for? Get in touch with our support team.
+            Can&apos;t find what you&apos;re looking for? Get in touch with our support team.
           </p>
           <Link
             href="/contact"
@@ -191,6 +199,62 @@ export default function HelpPage() {
           </Link>
         </div>
       </section>
+
+      {/* FAQ Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'FAQPage',
+            mainEntity: [
+              {
+                '@type': 'Question',
+                name: 'How long does it take for my listing to appear?',
+                acceptedAnswer: { '@type': 'Answer', text: 'Listings are reviewed within 24 hours and appear on the site once approved by our verification team.' },
+              },
+              {
+                '@type': 'Question',
+                name: 'Can I list multiple properties?',
+                acceptedAnswer: { '@type': 'Answer', text: 'Yes, you can list unlimited properties for free on Huts. There are no limits on the number of listings per landlord.' },
+              },
+              {
+                '@type': 'Question',
+                name: 'How do I search for properties?',
+                acceptedAnswer: { '@type': 'Answer', text: 'Use the search page to filter properties by location, price range, number of bedrooms, property type, and listing type (rent or sale).' },
+              },
+              {
+                '@type': 'Question',
+                name: 'Is Huts free to use?',
+                acceptedAnswer: { '@type': 'Answer', text: 'Yes, Huts is completely free for both renters and landlords. There are no hidden fees or subscriptions.' },
+              },
+              {
+                '@type': 'Question',
+                name: 'How do I contact a landlord?',
+                acceptedAnswer: { '@type': 'Answer', text: 'You can send an inquiry directly from any property listing page. The landlord will receive a notification and can respond through our messaging system.' },
+              },
+              {
+                '@type': 'Question',
+                name: 'How do I report a suspicious listing?',
+                acceptedAnswer: { '@type': 'Answer', text: 'If you encounter a suspicious listing, contact our support team at support@huts.co.zw and we will investigate immediately.' },
+              },
+            ],
+          }),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'BreadcrumbList',
+            itemListElement: [
+              { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.huts.co.zw' },
+              { '@type': 'ListItem', position: 2, name: 'Help Center', item: 'https://www.huts.co.zw/help' },
+            ],
+          }),
+        }}
+      />
     </div>
   )
 }

@@ -2,8 +2,16 @@ import { Metadata } from 'next'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
-  title: 'Privacy Policy - Huts',
-  description: 'Learn how Huts collects, uses, and protects your personal information.',
+  title: 'Privacy Policy — Huts',
+  description: 'Learn how Huts collects, uses, and protects your personal information when using our Zimbabwe property marketplace.',
+  openGraph: {
+    title: 'Privacy Policy | Huts',
+    description: 'How Huts handles and protects your personal data.',
+    url: 'https://www.huts.co.zw/privacy',
+  },
+  alternates: {
+    canonical: 'https://www.huts.co.zw/privacy',
+  },
 }
 
 export default function PrivacyPage() {

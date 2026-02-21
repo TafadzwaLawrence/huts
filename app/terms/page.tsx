@@ -2,8 +2,16 @@ import { Metadata } from 'next'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
-  title: 'Terms of Service - Huts',
-  description: 'Read the terms and conditions for using Huts rental property platform.',
+  title: 'Terms of Service — Huts',
+  description: 'Read the terms and conditions for using the Huts property marketplace in Zimbabwe.',
+  openGraph: {
+    title: 'Terms of Service | Huts',
+    description: 'Terms and conditions for using the Huts property marketplace.',
+    url: 'https://www.huts.co.zw/terms',
+  },
+  alternates: {
+    canonical: 'https://www.huts.co.zw/terms',
+  },
 }
 
 export default function TermsPage() {

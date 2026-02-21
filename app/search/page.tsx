@@ -1,7 +1,7 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-import { useSearchParams } from 'next/navigation'
+import { useState, useEffect, useCallback, useRef } from 'react'
+import { useSearchParams, useRouter, usePathname } from 'next/navigation'
 import Image from 'next/image'
 import { 
   Search, 
@@ -53,8 +53,22 @@ const MapView = dynamic<{
   ),
 })
 
+// Debounce hook
+function useDebounce<T>(value: T, delay: number): T {
+  const [debouncedValue, setDebouncedValue] = useState(value)
+  useEffect(() => {
+    const handler = setTimeout(() => setDebouncedValue(value), delay)
+    return () => clearTimeout(handler)
+  }, [value, delay])
+  return debouncedValue
+}
+
 export default function SearchPage() {
   const searchParams = useSearchParams()
+  const router = useRouter()
+  const pathname = usePathname()
+
+  // Initialize state from URL params
   const [showMap, setShowMap] = useState(false)
   const [showFilters, setShowFilters] = useState(false)
   const [searchQuery, setSearchQuery] = useState(searchParams.get('q') || '')
@@ -62,14 +76,14 @@ export default function SearchPage() {
     (searchParams.get('type') as 'all' | 'rent' | 'sale') || 'all'
   )
   const [filters, setFilters] = useState({
-    minPrice: '',
-    maxPrice: '',
-    beds: '',
-    baths: '',
-    propertyType: 'all',
-    city: '',
-    neighborhood: '',
-    studentHousingOnly: false,
+    minPrice: searchParams.get('minPrice') || '',
+    maxPrice: searchParams.get('maxPrice') || '',
+    beds: searchParams.get('beds') || '',
+    baths: searchParams.get('baths') || '',
+    propertyType: searchParams.get('propertyType') || 'all',
+    city: searchParams.get('city') || '',
+    neighborhood: searchParams.get('neighborhood') || '',
+    studentHousingOnly: searchParams.get('student') === '1',
   })
   const [allProperties, setAllProperties] = useState<Property[]>([])
   const [filteredProperties, setFilteredProperties] = useState<Property[]>([])
@@ -77,25 +91,32 @@ export default function SearchPage() {
   const [loading, setLoading] = useState(true)
   const supabase = createClient()
 
-  // Handle AI-generated filters
-  const handleAIFilters = (aiFilters: any) => {
-    setFilters(prev => ({
-      ...prev,
-      minPrice: aiFilters.minPrice ? String(aiFilters.minPrice / 100) : prev.minPrice,
-      maxPrice: aiFilters.maxPrice ? String(aiFilters.maxPrice / 100) : prev.maxPrice,
-      beds: aiFilters.beds ? String(aiFilters.beds) : prev.beds,
-      baths: aiFilters.baths ? String(aiFilters.baths) : prev.baths,
-      propertyType: aiFilters.propertyType || prev.propertyType,
-      city: aiFilters.city || prev.city,
-      neighborhood: aiFilters.neighborhood || prev.neighborhood,
-    }))
-    // Also set search query if location is provided
-    if (aiFilters.neighborhood || aiFilters.city) {
-      setSearchQuery(aiFilters.neighborhood || aiFilters.city)
+  // Debounce search query for URL sync (avoid excessive URL updates while typing)
+  const debouncedQuery = useDebounce(searchQuery, 400)
+
+  // Sync state to URL params
+  const isInitialMount = useRef(true)
+  useEffect(() => {
+    if (isInitialMount.current) {
+      isInitialMount.current = false
+      return
     }
-    // Show filters panel so user can see what was applied
-    setShowFilters(true)
-  }
+    const params = new URLSearchParams()
+    if (debouncedQuery) params.set('q', debouncedQuery)
+    if (listingType !== 'all') params.set('type', listingType)
+    if (filters.minPrice) params.set('minPrice', filters.minPrice)
+    if (filters.maxPrice) params.set('maxPrice', filters.maxPrice)
+    if (filters.beds) params.set('beds', filters.beds)
+    if (filters.baths) params.set('baths', filters.baths)
+    if (filters.propertyType !== 'all') params.set('propertyType', filters.propertyType)
+    if (filters.city) params.set('city', filters.city)
+    if (filters.neighborhood) params.set('neighborhood', filters.neighborhood)
+    if (filters.studentHousingOnly) params.set('student', '1')
+
+    const queryString = params.toString()
+    const newUrl = queryString ? `${pathname}?${queryString}` : pathname
+    router.replace(newUrl, { scroll: false })
+  }, [debouncedQuery, listingType, filters, pathname, router])
 
   // Fetch properties from Supabase on mount
   useEffect(() => {
@@ -127,7 +148,7 @@ export default function SearchPage() {
 
         if (error) throw error
 
-setAllProperties(data || [])
+        setAllProperties(data || [])
         setFilteredProperties(data || [])
       } catch (error) {
         console.error('Error fetching properties:', error)
@@ -140,11 +161,20 @@ setAllProperties(data || [])
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  // Sync listing type with URL parameter changes
+  // Sync listing type with URL parameter changes (e.g., navigating from homepage links)
   useEffect(() => {
     const typeParam = searchParams.get('type') as 'all' | 'rent' | 'sale' | null
     if (typeParam && typeParam !== listingType) {
       setListingType(typeParam)
+    }
+    // Sync city/neighborhood from URL (from area pages linking to search)
+    const cityParam = searchParams.get('city')
+    const neighborhoodParam = searchParams.get('neighborhood')
+    if (cityParam && cityParam !== filters.city) {
+      setFilters(prev => ({ ...prev, city: cityParam }))
+    }
+    if (neighborhoodParam && neighborhoodParam !== filters.neighborhood) {
+      setFilters(prev => ({ ...prev, neighborhood: neighborhoodParam }))
     }
   }, [searchParams])
 
@@ -153,10 +183,9 @@ setAllProperties(data || [])
     let results = allProperties
 
     // Listing type filter (rent/sale)
-    // Handle null/undefined listing_type - treat as 'rent' (default)
     if (listingType !== 'all') {
       results = results.filter((p) => {
-        const type = p.listing_type || 'rent' // Default to 'rent' if null
+        const type = p.listing_type || 'rent'
         return type === listingType
       })
     }
@@ -176,7 +205,6 @@ setAllProperties(data || [])
     if (filters.minPrice) {
       const minCents = parseInt(filters.minPrice) * 100
       results = results.filter((p) => {
-        // Get the appropriate price based on listing type
         const type = p.listing_type || 'rent'
         const propertyPrice = type === 'sale' ? (p.sale_price || p.price) : (p.price || p.sale_price)
         return propertyPrice && propertyPrice >= minCents
@@ -226,6 +254,20 @@ setAllProperties(data || [])
     setFilteredProperties(results)
   }, [searchQuery, listingType, filters.minPrice, filters.maxPrice, filters.beds, filters.baths, filters.propertyType, filters.city, filters.neighborhood, filters.studentHousingOnly, allProperties])
 
+  // Update document title dynamically based on search state
+  useEffect(() => {
+    const parts: string[] = []
+    if (listingType === 'rent') parts.push('Rentals')
+    else if (listingType === 'sale') parts.push('Homes for Sale')
+    else parts.push('Properties')
+
+    const location = debouncedQuery || filters.city || filters.neighborhood
+    if (location) parts.push(`in ${location}`)
+    else parts.push('in Zimbabwe')
+
+    document.title = `${parts.join(' ')} | Huts`
+  }, [debouncedQuery, listingType, filters.city, filters.neighborhood])
+
   // Active filter count for badge
   const activeFilterCount = [
     filters.minPrice,
@@ -236,8 +278,25 @@ setAllProperties(data || [])
     filters.studentHousingOnly ? 'student-housing' : '',
   ].filter(Boolean).length
 
+  // Generate SEO heading text
+  const headingText = (() => {
+    const parts: string[] = []
+    if (listingType === 'rent') parts.push('Rentals')
+    else if (listingType === 'sale') parts.push('Homes for Sale')
+    else parts.push('Properties')
+    
+    const location = searchQuery || filters.city || filters.neighborhood
+    if (location) parts.push(`in ${location}`)
+    else parts.push('in Zimbabwe')
+    
+    return parts.join(' ')
+  })()
+
   return (
     <div className="flex flex-col h-[calc(100vh-4rem)]">
+      {/* Visually hidden but crawlable H1 for SEO */}
+      <h1 className="sr-only">{headingText} — Search on Huts</h1>
+
       {/* Search Header */}
       <div className="bg-white border-b border-[#E9ECEF] shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-5">
@@ -557,6 +616,26 @@ setAllProperties(data || [])
         )}
       </div>
 
+      {/* Structured Data for Search Results */}
+      {!loading && filteredProperties.length > 0 && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'ItemList',
+              name: headingText,
+              numberOfItems: filteredProperties.length,
+              itemListElement: filteredProperties.slice(0, 10).map((p, i) => ({
+                '@type': 'ListItem',
+                position: i + 1,
+                url: `https://www.huts.co.zw/property/${p.slug || p.id}`,
+                name: p.title,
+              })),
+            }),
+          }}
+        />
+      )}
     </div>
   )
 }

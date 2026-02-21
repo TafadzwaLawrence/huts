@@ -3,7 +3,15 @@ import { Mail, Phone, MapPin, Send, MessageSquare } from 'lucide-react'
 
 export const metadata: Metadata = {
   title: 'Contact Us - Huts',
-  description: 'Get in touch with the Huts team. We\'re here to help with any questions about finding or listing rental properties.',
+  description: 'Get in touch with the Huts team. We\'re here to help with any questions about finding or listing rental properties in Zimbabwe.',
+  openGraph: {
+    title: 'Contact Us | Huts',
+    description: 'Get in touch with the Huts team for help with renting or listing properties in Zimbabwe.',
+    url: 'https://www.huts.co.zw/contact',
+  },
+  alternates: {
+    canonical: 'https://www.huts.co.zw/contact',
+  },
 }
 
 export default function ContactPage() {
@@ -164,10 +172,10 @@ export default function ContactPage() {
                   <div>
                     <h3 className="text-card-title-sm mb-1">Phone</h3>
                     <a 
-                      href="tel:+263712345678" 
+                      href="tel:+263786470999" 
                       className="text-muted-foreground hover:text-foreground hover:underline"
                     >
-                      +263 71 234 5678
+                      +263 78 647 0999
                     </a>
                     <p className="text-small mt-1">Mon-Fri 8:00 AM - 6:00 PM CAT</p>
                   </div>
@@ -187,19 +195,22 @@ export default function ContactPage() {
                   </div>
                 </div>
 
-                {/* Support */}
+                {/* WhatsApp */}
                 <div className="flex items-start gap-4">
                   <div className="w-12 h-12 bg-[#F8F9FA] rounded-lg flex items-center justify-center flex-shrink-0">
                     <MessageSquare size={24} className="text-[#212529]" />
                   </div>
                   <div>
-                    <h3 className="text-card-title-sm mb-1">Live Chat</h3>
-                    <p className="text-muted-foreground mb-2">
-                      Chat with our support team
-                    </p>
-                    <button className="text-sm text-[#212529] font-medium border-2 border-[#212529] px-4 py-2 rounded-md hover:bg-[#212529] hover:text-white transition-all">
-                      Start Chat
-                    </button>
+                    <h3 className="text-card-title-sm mb-1">WhatsApp</h3>
+                    <a 
+                      href="https://wa.me/263786470999" 
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-muted-foreground hover:text-foreground hover:underline"
+                    >
+                      +263 78 647 0999
+                    </a>
+                    <p className="text-small mt-1">Message us anytime on WhatsApp</p>
                   </div>
                 </div>
               </div>
@@ -222,6 +233,46 @@ export default function ContactPage() {
           </div>
         </div>
       </section>
+
+      {/* JSON-LD Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'ContactPage',
+            name: 'Contact Huts',
+            description: 'Get in touch with the Huts team for help with renting or listing properties in Zimbabwe.',
+            url: 'https://www.huts.co.zw/contact',
+            mainEntity: {
+              '@type': 'Organization',
+              name: 'Huts',
+              url: 'https://www.huts.co.zw',
+              email: 'hello@huts.co.zw',
+              telephone: '+263786470999',
+              address: {
+                '@type': 'PostalAddress',
+                streetAddress: '123 Samora Machel Avenue',
+                addressLocality: 'Harare',
+                addressCountry: 'ZW',
+              },
+            },
+          }),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'BreadcrumbList',
+            itemListElement: [
+              { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.huts.co.zw' },
+              { '@type': 'ListItem', position: 2, name: 'Contact', item: 'https://www.huts.co.zw/contact' },
+            ],
+          }),
+        }}
+      />
     </div>
   )
 }

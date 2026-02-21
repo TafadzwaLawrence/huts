@@ -85,9 +85,18 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       : formatPrice(property.price) + '/month'
     const listingType = isSale ? 'For Sale' : 'For Rent'
 
+    const descriptionParts = [
+      `${listingType}: ${property.beds} bed, ${property.baths} bath ${property.property_type || 'property'} in ${property.city}, Zimbabwe.`,
+      priceDisplay + '.',
+    ]
+    if (property.description) {
+      descriptionParts.push(property.description.slice(0, 120).replace(/\s+/g, ' ').trim() + (property.description.length > 120 ? '...' : ''))
+    }
+    const description = descriptionParts.join(' ')
+
     return {
       title: `${property.title}`,
-      description: `${listingType}: ${property.beds} bed, ${property.baths} bath ${property.property_type || 'property'} in ${property.city}, Zimbabwe. ${priceDisplay}.`,
+      description,
       openGraph: {
         title: `${property.title} | Huts`,
         description: `${listingType}: ${property.beds} bed, ${property.baths} bath in ${property.city}. ${priceDisplay}`,
@@ -99,6 +108,12 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
           height: 630,
           alt: property.title,
         }] : [],
+      },
+      twitter: {
+        card: 'summary_large_image',
+        title: `${property.title} | Huts`,
+        description: `${listingType}: ${property.beds} bed, ${property.baths} bath in ${property.city}. ${priceDisplay}`,
+        ...(property.property_images?.[0]?.url && { images: [property.property_images[0].url] }),
       },
       alternates: {
         canonical: `https://www.huts.co.zw/property/${slug}`,
@@ -429,11 +444,12 @@ export default async function PropertyPage({ params }: { params: Promise<{ slug:
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({
             '@context': 'https://schema.org',
-            '@type': isRental ? 'RealEstateListing' : 'SingleFamilyResidence',
+            '@type': 'RealEstateListing',
             name: property.title,
             description: property.description || `${property.beds} bedroom, ${property.baths} bathroom ${property.property_type || 'property'} in ${property.city}, Zimbabwe`,
             url: `https://www.huts.co.zw/property/${slug}`,
             image: images.map((img: any) => img.url),
+            datePosted: property.created_at,
             ...(property.sqft && {
               floorSize: {
                 '@type': 'QuantitativeValue',
@@ -459,10 +475,25 @@ export default async function PropertyPage({ params }: { params: Promise<{ slug:
             }),
             offers: {
               '@type': 'Offer',
-              price: isRental ? property.price / 100 : (property.sale_price || 0) / 100,
+              price: isRental ? (property.price || 0) / 100 : (property.sale_price || 0) / 100,
               priceCurrency: 'USD',
               availability: 'https://schema.org/InStock',
+              ...(isRental && { priceValidUntil: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0] }),
             },
+          }),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'BreadcrumbList',
+            itemListElement: [
+              { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.huts.co.zw' },
+              { '@type': 'ListItem', position: 2, name: 'Search', item: 'https://www.huts.co.zw/search' },
+              { '@type': 'ListItem', position: 3, name: property.title, item: `https://www.huts.co.zw/property/${slug}` },
+            ],
           }),
         }}
       />
