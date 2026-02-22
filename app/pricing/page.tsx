@@ -19,9 +19,9 @@ export default function PricingPage() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero */}
-      <section className="border-b border-border bg-white py-20 md:py-32">
+      <section className="border-b border-[#E9ECEF] bg-white py-20 md:py-32">
         <div className="max-w-4xl mx-auto px-4 text-center">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-muted rounded-full text-sm text-foreground mb-6">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-[#F8F9FA] rounded-full text-sm text-[#212529] mb-6">
             <Sparkles size={14} />
             100% Free
           </div>
@@ -37,45 +37,45 @@ export default function PricingPage() {
       {/* Single Free Plan */}
       <section className="py-20 md:py-32">
         <div className="max-w-xl mx-auto px-4">
-          <div className="border-2 border-foreground rounded-2xl p-8 md:p-10 bg-white">
+          <div className="border-2 border-[#212529] rounded-2xl p-8 md:p-10 bg-white">
             <div className="text-center mb-8">
               <h3 className="text-section-title mb-2">Everything included</h3>
               <div className="flex items-baseline justify-center gap-2">
-                <span className="text-5xl font-bold text-foreground">$0</span>
-                <span className="text-muted-foreground">forever</span>
+                <span className="text-5xl font-bold text-[#212529]">$0</span>
+                <span className="text-[#ADB5BD]">forever</span>
               </div>
             </div>
 
             <ul className="space-y-4 mb-8">
               <li className="flex items-start gap-3">
-                <Check size={20} className="text-foreground flex-shrink-0 mt-0.5" />
-                <span className="text-sm text-muted-foreground">Unlimited property listings</span>
+                <Check size={20} className="text-[#212529] flex-shrink-0 mt-0.5" />
+                <span className="text-sm text-[#495057]">Unlimited property listings</span>
               </li>
               <li className="flex items-start gap-3">
-                <Check size={20} className="text-foreground flex-shrink-0 mt-0.5" />
-                <span className="text-sm text-muted-foreground">Upload up to 10 photos per property</span>
+                <Check size={20} className="text-[#212529] flex-shrink-0 mt-0.5" />
+                <span className="text-sm text-[#495057]">Upload up to 10 photos per property</span>
               </li>
               <li className="flex items-start gap-3">
-                <Check size={20} className="text-foreground flex-shrink-0 mt-0.5" />
-                <span className="text-sm text-muted-foreground">Direct messaging with renters</span>
+                <Check size={20} className="text-[#212529] flex-shrink-0 mt-0.5" />
+                <span className="text-sm text-[#495057]">Direct messaging with renters</span>
               </li>
               <li className="flex items-start gap-3">
-                <Check size={20} className="text-foreground flex-shrink-0 mt-0.5" />
-                <span className="text-sm text-muted-foreground">Appear in search results</span>
+                <Check size={20} className="text-[#212529] flex-shrink-0 mt-0.5" />
+                <span className="text-sm text-[#495057]">Appear in search results</span>
               </li>
               <li className="flex items-start gap-3">
-                <Check size={20} className="text-foreground flex-shrink-0 mt-0.5" />
-                <span className="text-sm text-muted-foreground">Property analytics</span>
+                <Check size={20} className="text-[#212529] flex-shrink-0 mt-0.5" />
+                <span className="text-sm text-[#495057]">Property analytics</span>
               </li>
               <li className="flex items-start gap-3">
-                <Check size={20} className="text-foreground flex-shrink-0 mt-0.5" />
-                <span className="text-sm text-muted-foreground">Review management</span>
+                <Check size={20} className="text-[#212529] flex-shrink-0 mt-0.5" />
+                <span className="text-sm text-[#495057]">Review management</span>
               </li>
             </ul>
 
             <Link
               href="/dashboard/new-property"
-              className="block w-full text-center px-6 py-3 bg-foreground text-white rounded-lg font-semibold hover:bg-black transition-all"
+              className="block w-full text-center px-6 py-3 bg-[#212529] text-white rounded-lg font-semibold hover:bg-black transition-all"
             >
               List Your Property
             </Link>
@@ -84,24 +84,24 @@ export default function PricingPage() {
       </section>
 
       {/* FAQ Section */}
-      <section className="py-20 md:py-32 bg-muted border-t border-border">
+      <section className="py-20 md:py-32 bg-[#F8F9FA] border-t border-[#E9ECEF]">
         <div className="max-w-3xl mx-auto px-4">
           <h2 className="text-section-title text-center mb-12">
             Questions?
           </h2>
           
           <div className="space-y-4">
-            <div className="bg-white border border-border rounded-lg p-5">
+            <div className="bg-white border border-[#E9ECEF] rounded-lg p-5">
               <h3 className="text-card-title-sm mb-1">Why is it free?</h3>
               <p className="text-secondary">We're building the best rental platform in Zimbabwe. Right now, we're focused on growing our community of landlords and renters.</p>
             </div>
 
-            <div className="bg-white border border-border rounded-lg p-5">
+            <div className="bg-white border border-[#E9ECEF] rounded-lg p-5">
               <h3 className="text-card-title-sm mb-1">Will you charge in the future?</h3>
               <p className="text-secondary">We may introduce optional premium features later, but basic listing will always remain free.</p>
             </div>
 
-            <div className="bg-white border border-border rounded-lg p-5">
+            <div className="bg-white border border-[#E9ECEF] rounded-lg p-5">
               <h3 className="text-card-title-sm mb-1">How many properties can I list?</h3>
               <p className="text-secondary">As many as you want! There's no limit on the number of properties you can list.</p>
             </div>
@@ -110,7 +110,7 @@ export default function PricingPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-20 bg-white border-t border-border">
+      <section className="py-20 bg-white border-t border-[#E9ECEF]">
         <div className="max-w-4xl mx-auto px-4 text-center">
           <h2 className="text-section-title mb-4">
             Start listing today
@@ -120,7 +120,7 @@ export default function PricingPage() {
           </p>
           <Link
             href="/dashboard/new-property"
-            className="inline-flex items-center gap-2 bg-foreground text-white px-8 py-4 rounded-lg font-semibold hover:bg-black transition-all"
+            className="inline-flex items-center gap-2 bg-[#212529] text-white px-8 py-4 rounded-lg font-semibold hover:bg-black transition-all"
           >
             List Your Property
             <ArrowRight size={18} />

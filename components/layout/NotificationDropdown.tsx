@@ -39,15 +39,15 @@ function timeAgo(dateString: string): string {
 function getNotificationIcon(type: string) {
   switch (type) {
     case 'message':
-      return <MessageSquare size={16} className="text-foreground" />
+      return <MessageSquare size={16} className="text-[#212529]" />
     case 'inquiry':
-      return <FileQuestion size={16} className="text-foreground" />
+      return <FileQuestion size={16} className="text-[#212529]" />
     case 'review':
-      return <Star size={16} className="text-foreground" />
+      return <Star size={16} className="text-[#212529]" />
     case 'property_update':
-      return <Home size={16} className="text-foreground" />
+      return <Home size={16} className="text-[#212529]" />
     default:
-      return <Bell size={16} className="text-foreground" />
+      return <Bell size={16} className="text-[#495057]" />
   }
 }
 
@@ -182,12 +182,12 @@ export function NotificationDropdown() {
       {/* Bell Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="relative p-2.5 rounded-xl text-foreground hover:text-foreground hover:bg-muted transition-all group"
+        className="relative p-2.5 rounded-xl text-[#495057] hover:text-[#212529] hover:bg-[#F8F9FA] transition-all group"
         title="Notifications"
       >
         <Bell size={20} className="group-hover:scale-110 transition-transform" />
         {unreadCount > 0 && (
-          <span className="absolute top-1 right-1 min-w-[18px] h-[18px] px-1 bg-muted text-white text-[10px] font-bold rounded-full flex items-center justify-center ring-2 ring-white">
+          <span className="absolute top-1 right-1 min-w-[18px] h-[18px] px-1 bg-[#FF6B6B] text-white text-[10px] font-bold rounded-full flex items-center justify-center ring-2 ring-white">
             {unreadCount > 9 ? '9+' : unreadCount}
           </span>
         )}
@@ -203,14 +203,14 @@ export function NotificationDropdown() {
           />
 
           {/* Dropdown Panel */}
-          <div className="absolute right-0 top-full mt-2 w-80 sm:w-96 bg-white rounded-xl shadow-2xl border border-border z-50 overflow-hidden">
+          <div className="absolute right-0 top-full mt-2 w-80 sm:w-96 bg-white rounded-xl shadow-2xl border border-[#E9ECEF] z-50 overflow-hidden">
             {/* Header */}
-            <div className="flex items-center justify-between px-4 py-3 border-b border-border bg-muted">
-              <h3 className="font-semibold text-foreground">Notifications</h3>
+            <div className="flex items-center justify-between px-4 py-3 border-b border-[#E9ECEF] bg-[#F8F9FA]">
+              <h3 className="font-semibold text-[#212529]">Notifications</h3>
               {unreadCount > 0 && (
                 <button
                   onClick={markAllAsRead}
-                  className="text-xs text-foreground hover:text-foreground flex items-center gap-1"
+                  className="text-xs text-[#495057] hover:text-[#212529] flex items-center gap-1"
                 >
                   <Check size={12} />
                   Mark all read
@@ -222,46 +222,46 @@ export function NotificationDropdown() {
             <div className="max-h-[400px] overflow-y-auto">
               {isLoading ? (
                 <div className="flex items-center justify-center py-8">
-                  <Loader2 size={24} className="animate-spin text-foreground" />
+                  <Loader2 size={24} className="animate-spin text-[#ADB5BD]" />
                 </div>
               ) : notifications.length === 0 ? (
                 <div className="text-center py-8 px-4">
-                  <div className="w-12 h-12 mx-auto mb-3 rounded-full bg-muted flex items-center justify-center">
-                    <Bell size={24} className="text-foreground" />
+                  <div className="w-12 h-12 mx-auto mb-3 rounded-full bg-[#F8F9FA] flex items-center justify-center">
+                    <Bell size={24} className="text-[#ADB5BD]" />
                   </div>
-                  <p className="text-sm text-foreground font-medium">No notifications yet</p>
-                  <p className="text-xs text-foreground mt-1">We&apos;ll let you know when something arrives</p>
+                  <p className="text-sm text-[#495057] font-medium">No notifications yet</p>
+                  <p className="text-xs text-[#ADB5BD] mt-1">We&apos;ll let you know when something arrives</p>
                 </div>
               ) : (
                 notifications.slice(0, 10).map((notification) => (
                   <button
                     key={notification.id}
                     onClick={() => handleNotificationClick(notification)}
-                    className={`w-full flex items-start gap-3 px-4 py-3 hover:bg-muted transition-colors border-b border-border last:border-b-0 text-left ${
-                      !notification.read_at ? 'bg-muted/50' : ''
+                    className={`w-full flex items-start gap-3 px-4 py-3 hover:bg-[#F8F9FA] transition-colors border-b border-[#E9ECEF] last:border-b-0 text-left ${
+                      !notification.read_at ? 'bg-[#F8F9FA]/50' : ''
                     }`}
                   >
-                    <div className="w-8 h-8 rounded-full bg-muted flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <div className="w-8 h-8 rounded-full bg-[#F8F9FA] flex items-center justify-center flex-shrink-0 mt-0.5">
                       {getNotificationIcon(notification.type)}
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className={`text-sm ${!notification.read_at ? 'font-semibold text-foreground' : 'text-foreground'}`}>
+                      <p className={`text-sm ${!notification.read_at ? 'font-semibold text-[#212529]' : 'text-[#495057]'}`}>
                         {notification.title}
                       </p>
                       {notification.description && (
-                        <p className="text-xs text-foreground mt-0.5 line-clamp-2">
+                        <p className="text-xs text-[#ADB5BD] mt-0.5 line-clamp-2">
                           {notification.description}
                         </p>
                       )}
-                      <p className="text-[10px] text-foreground mt-1">
+                      <p className="text-[10px] text-[#ADB5BD] mt-1">
                         {timeAgo(notification.created_at)}
                         {(notification.type === 'message' || notification.type === 'inquiry') && (
-                          <span className="ml-2 text-foreground">• Open in chat</span>
+                          <span className="ml-2 text-[#495057]">• Open in chat</span>
                         )}
                       </p>
                     </div>
                     {!notification.read_at && (
-                      <div className="w-2 h-2 rounded-full bg-muted flex-shrink-0 mt-2" />
+                      <div className="w-2 h-2 rounded-full bg-[#FF6B6B] flex-shrink-0 mt-2" />
                     )}
                   </button>
                 ))
@@ -269,11 +269,11 @@ export function NotificationDropdown() {
             </div>
 
             {/* Footer */}
-            <div className="px-4 py-3 border-t border-border bg-muted">
+            <div className="px-4 py-3 border-t border-[#E9ECEF] bg-[#F8F9FA]">
               <Link
                 href="/settings/notifications"
                 onClick={() => setIsOpen(false)}
-                className="flex items-center justify-center gap-2 text-xs text-foreground hover:text-foreground transition-colors"
+                className="flex items-center justify-center gap-2 text-xs text-[#495057] hover:text-[#212529] transition-colors"
               >
                 <Settings size={12} />
                 Notification Settings

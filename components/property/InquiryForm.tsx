@@ -81,7 +81,7 @@ export default function InquiryForm({ propertyId }: InquiryFormProps) {
       {/* Quick Message Templates */}
       {isLoggedIn && (
         <div className="mb-4">
-          <p className="text-xs text-foreground mb-2 font-medium uppercase tracking-wide">Quick messages</p>
+          <p className="text-xs text-[#ADB5BD] mb-2 font-medium uppercase tracking-wide">Quick messages</p>
           <div className="flex flex-wrap gap-2">
             {QUICK_MESSAGES.map((msg, index) => (
               <button
@@ -90,8 +90,8 @@ export default function InquiryForm({ propertyId }: InquiryFormProps) {
                 onClick={() => setMessage(msg.text)}
                 className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium transition-all ${
                   message === msg.text
-                    ? 'bg-muted text-white'
-                    : 'bg-muted text-foreground hover:bg-muted border border-border'
+                    ? 'bg-[#212529] text-white'
+                    : 'bg-[#F8F9FA] text-[#495057] hover:bg-[#E9ECEF] border border-[#E9ECEF]'
                 }`}
               >
                 <msg.icon size={ICON_SIZES.xs} />
@@ -109,10 +109,10 @@ export default function InquiryForm({ propertyId }: InquiryFormProps) {
             onChange={(e) => setMessage(e.target.value)}
             placeholder={isLoggedIn ? "Write your message here..." : "Sign in to contact the landlord"}
             disabled={!isLoggedIn}
-            className="w-full p-4 pr-12 border border-border rounded-xl resize-none h-28 focus:border-2 focus:border-border focus:outline-none transition-colors disabled:bg-muted disabled:cursor-not-allowed text-sm text-foreground placeholder:text-foreground"
+            className="w-full p-4 pr-12 border border-[#E9ECEF] rounded-xl resize-none h-28 focus:border-2 focus:border-[#212529] focus:outline-none transition-colors disabled:bg-[#F8F9FA] disabled:cursor-not-allowed text-sm text-[#212529] placeholder:text-[#ADB5BD]"
           />
           {isLoggedIn && (
-            <div className="absolute bottom-3 right-3 text-xs text-foreground">
+            <div className="absolute bottom-3 right-3 text-xs text-[#ADB5BD]">
               {message.length}/500
             </div>
           )}
@@ -122,7 +122,7 @@ export default function InquiryForm({ propertyId }: InquiryFormProps) {
           <button
             type="submit"
             disabled={sending || !message.trim()}
-            className="group w-full py-4 bg-muted text-white rounded-xl font-semibold hover:bg-black hover:-translate-y-0.5 hover:shadow-lg transition-all mt-3 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-none flex items-center justify-center gap-2"
+            className="group w-full py-4 bg-[#212529] text-white rounded-xl font-semibold hover:bg-black hover:-translate-y-0.5 hover:shadow-lg transition-all mt-3 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-none flex items-center justify-center gap-2"
           >
             <Send size={ICON_SIZES.md} className={sending ? 'animate-pulse' : 'group-hover:translate-x-1 transition-transform'} />
             {sending ? 'Sending...' : 'Send Message'}
@@ -130,7 +130,7 @@ export default function InquiryForm({ propertyId }: InquiryFormProps) {
         ) : (
           <Link
             href="/auth/signup"
-            className="block w-full py-4 bg-muted text-white rounded-xl font-semibold hover:bg-black hover:-translate-y-0.5 hover:shadow-lg transition-all mt-3 text-center"
+            className="block w-full py-4 bg-[#212529] text-white rounded-xl font-semibold hover:bg-black hover:-translate-y-0.5 hover:shadow-lg transition-all mt-3 text-center"
           >
             Sign in to send inquiry
           </Link>
@@ -138,17 +138,17 @@ export default function InquiryForm({ propertyId }: InquiryFormProps) {
       </form>
 
       {/* Trust badges */}
-      <div className="flex items-center justify-center gap-4 mt-5 pt-5 border-t border-border">
-        <div className="flex items-center gap-1.5 text-xs text-foreground">
+      <div className="flex items-center justify-center gap-4 mt-5 pt-5 border-t border-[#E9ECEF]">
+        <div className="flex items-center gap-1.5 text-xs text-[#ADB5BD]">
           <MessageSquare size={ICON_SIZES.xs} />
           <span>Free to message</span>
         </div>
-        <div className="flex items-center gap-1.5 text-xs text-foreground">
-          <span className="w-1 h-1 rounded-full bg-muted"></span>
+        <div className="flex items-center gap-1.5 text-xs text-[#ADB5BD]">
+          <span className="w-1 h-1 rounded-full bg-[#ADB5BD]"></span>
           <span>No spam</span>
         </div>
-        <div className="flex items-center gap-1.5 text-xs text-foreground">
-          <span className="w-1 h-1 rounded-full bg-muted"></span>
+        <div className="flex items-center gap-1.5 text-xs text-[#ADB5BD]">
+          <span className="w-1 h-1 rounded-full bg-[#ADB5BD]"></span>
           <span>Secure</span>
         </div>
       </div>

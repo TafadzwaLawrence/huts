@@ -81,7 +81,7 @@ export default function ReviewForm({
   return (
     <form
       onSubmit={handleSubmit}
-      className={cn('space-y-4 border border-border rounded-lg p-6', className)}
+      className={cn('space-y-4 border border-[#E9ECEF] rounded-lg p-6', className)}
     >
       <h3 className="text-subsection-title">Write a Review</h3>
 
@@ -105,7 +105,7 @@ export default function ReviewForm({
                 'cursor-pointer transition-colors',
                 star <= (hoverRating || formData.rating)
                   ? 'fill-black text-black'
-                  : 'text-foreground hover:text-foreground'
+                  : 'text-[#ADB5BD] hover:text-[#495057]'
               )}
               onClick={() => setFormData({ ...formData, rating: star })}
               onMouseEnter={() => setHoverRating(star)}
@@ -126,7 +126,7 @@ export default function ReviewForm({
           value={formData.title}
           onChange={(e) => setFormData({ ...formData, title: e.target.value })}
           placeholder="Summarize your experience"
-          className="w-full px-3 py-2 border-2 border-border rounded focus:border-black focus:outline-none transition-colors"
+          className="w-full px-3 py-2 border-2 border-[#E9ECEF] rounded focus:border-black focus:outline-none transition-colors"
           required
         />
       </div>
@@ -142,7 +142,7 @@ export default function ReviewForm({
           onChange={(e) => setFormData({ ...formData, comment: e.target.value })}
           placeholder="Share details about your experience (minimum 50 characters)"
           rows={6}
-          className="w-full px-3 py-2 border-2 border-border rounded focus:border-black focus:outline-none transition-colors resize-none"
+          className="w-full px-3 py-2 border-2 border-[#E9ECEF] rounded focus:border-black focus:outline-none transition-colors resize-none"
           required
         />
         <p className="text-secondary">
@@ -160,7 +160,7 @@ export default function ReviewForm({
         <button
           type="submit"
           disabled={loading}
-          className="bg-black text-white px-6 py-2 rounded border-2 border-black hover:bg-muted hover:-translate-y-0.5 transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0"
+          className="bg-black text-white px-6 py-2 rounded border-2 border-black hover:bg-[#212529] hover:-translate-y-0.5 transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0"
         >
           {loading ? (
             <>
@@ -177,7 +177,7 @@ export default function ReviewForm({
             type="button"
             onClick={onCancel}
             disabled={loading}
-            className="bg-transparent text-black px-6 py-2 rounded border-2 border-border hover:border-black hover:border-[3px] transition-all disabled:opacity-50"
+            className="bg-transparent text-black px-6 py-2 rounded border-2 border-[#495057] hover:border-black hover:border-[3px] transition-all disabled:opacity-50"
           >
             Cancel
           </button>

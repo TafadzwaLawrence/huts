@@ -10,7 +10,7 @@ export default function SaveButton({ className }: { className?: string }) {
       className={className || "absolute top-3 right-3 p-2 bg-white/90 rounded-full hover:bg-white transition-colors z-10"}
       aria-label="Save property"
     >
-      <Heart size={ICON_SIZES.lg} className="text-foreground" />
+      <Heart size={ICON_SIZES.lg} className="text-[#495057]" />
     </button>
   )
 }

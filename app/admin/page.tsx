@@ -60,8 +60,8 @@ export default async function AdminOverviewPage() {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       {/* Header */}
       <div className="mb-8">
-        <p className="text-xs text-foreground font-medium uppercase tracking-wider mb-2">{dateString}</p>
-        <h1 className="text-2xl md:text-3xl font-bold text-foreground tracking-tight">
+        <p className="text-xs text-[#ADB5BD] font-medium uppercase tracking-wider mb-2">{dateString}</p>
+        <h1 className="text-2xl md:text-3xl font-bold text-[#212529] tracking-tight">
           Admin Dashboard
         </h1>
       </div>
@@ -70,18 +70,18 @@ export default async function AdminOverviewPage() {
       {(pendingProperties || 0) > 0 && (
         <Link
           href="/admin/verification"
-          className="flex items-center gap-4 bg-muted border border-border rounded-xl p-4 mb-6 group hover:border-border transition-colors"
+          className="flex items-center gap-4 bg-[#F8F9FA] border border-[#E9ECEF] rounded-xl p-4 mb-6 group hover:border-[#212529] transition-colors"
         >
-          <div className="w-10 h-10 bg-muted rounded-xl flex items-center justify-center flex-shrink-0">
-            <ShieldAlert size={20} className="text-foreground" />
+          <div className="w-10 h-10 bg-[#E9ECEF] rounded-xl flex items-center justify-center flex-shrink-0">
+            <ShieldAlert size={20} className="text-[#495057]" />
           </div>
           <div className="flex-1">
-            <p className="text-sm font-semibold text-foreground">
+            <p className="text-sm font-semibold text-[#212529]">
               {pendingProperties} {pendingProperties === 1 ? 'property' : 'properties'} awaiting verification
             </p>
-            <p className="text-xs text-foreground">Review and approve or reject pending listings</p>
+            <p className="text-xs text-[#495057]">Review and approve or reject pending listings</p>
           </div>
-          <ArrowUpRight size={16} className="text-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
+          <ArrowUpRight size={16} className="text-[#495057] opacity-0 group-hover:opacity-100 transition-opacity" />
         </Link>
       )}
 
@@ -124,23 +124,23 @@ export default async function AdminOverviewPage() {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Pending Properties */}
-        <div className="bg-white rounded-xl border border-border overflow-hidden">
-          <div className="flex items-center justify-between px-5 py-4 border-b border-border">
-            <h2 className="text-sm font-semibold text-foreground flex items-center gap-2">
-              <ShieldAlert size={15} className="text-foreground" />
+        <div className="bg-white rounded-xl border border-[#E9ECEF] overflow-hidden">
+          <div className="flex items-center justify-between px-5 py-4 border-b border-[#F1F3F5]">
+            <h2 className="text-sm font-semibold text-[#212529] flex items-center gap-2">
+              <ShieldAlert size={15} className="text-[#495057]" />
               Pending Verification
             </h2>
-            <Link href="/admin/verification" className="text-xs text-foreground hover:text-foreground font-medium transition-colors">
+            <Link href="/admin/verification" className="text-xs text-[#495057] hover:text-[#212529] font-medium transition-colors">
               View all →
             </Link>
           </div>
           {recentPending && recentPending.length > 0 ? (
-            <div className="divide-y divide-border">
+            <div className="divide-y divide-[#F1F3F5]">
               {recentPending.map((property: any) => (
                 <div key={property.id} className="px-5 py-3.5 flex items-center justify-between gap-3">
                   <div className="min-w-0 flex-1">
-                    <p className="text-sm font-medium text-foreground truncate">{property.title}</p>
-                    <p className="text-xs text-foreground mt-0.5">
+                    <p className="text-sm font-medium text-[#212529] truncate">{property.title}</p>
+                    <p className="text-xs text-[#ADB5BD] mt-0.5">
                       {(property.profiles as any)?.name || 'Unknown'} · {property.city}
                     </p>
                   </div>
@@ -153,7 +153,7 @@ export default async function AdminOverviewPage() {
                     />
                     <Link
                       href={`/admin/verification`}
-                      className="text-[11px] font-medium text-foreground hover:text-foreground border border-border hover:border-border px-2.5 py-1 rounded-md transition-colors"
+                      className="text-[11px] font-medium text-[#495057] hover:text-[#212529] border border-[#E9ECEF] hover:border-[#212529] px-2.5 py-1 rounded-md transition-colors"
                     >
                       Review
                     </Link>
@@ -163,40 +163,40 @@ export default async function AdminOverviewPage() {
             </div>
           ) : (
             <div className="py-10 text-center">
-              <ShieldCheck size={24} className="mx-auto text-foreground mb-2" />
-              <p className="text-sm text-foreground">All caught up!</p>
+              <ShieldCheck size={24} className="mx-auto text-[#51CF66] mb-2" />
+              <p className="text-sm text-[#ADB5BD]">All caught up!</p>
             </div>
           )}
         </div>
 
         {/* Recent Users */}
-        <div className="bg-white rounded-xl border border-border overflow-hidden">
-          <div className="flex items-center justify-between px-5 py-4 border-b border-border">
-            <h2 className="text-sm font-semibold text-foreground flex items-center gap-2">
-              <Users size={15} className="text-foreground" />
+        <div className="bg-white rounded-xl border border-[#E9ECEF] overflow-hidden">
+          <div className="flex items-center justify-between px-5 py-4 border-b border-[#F1F3F5]">
+            <h2 className="text-sm font-semibold text-[#212529] flex items-center gap-2">
+              <Users size={15} className="text-[#495057]" />
               Recent Users
             </h2>
-            <Link href="/admin/users" className="text-xs text-foreground hover:text-foreground font-medium transition-colors">
+            <Link href="/admin/users" className="text-xs text-[#495057] hover:text-[#212529] font-medium transition-colors">
               View all →
             </Link>
           </div>
           {recentUsers && recentUsers.length > 0 ? (
-            <div className="divide-y divide-border">
+            <div className="divide-y divide-[#F1F3F5]">
               {recentUsers.map((u: any) => (
                 <div key={u.id} className="px-5 py-3.5 flex items-center justify-between gap-3">
                   <div className="flex items-center gap-3 min-w-0">
-                    <div className="w-8 h-8 rounded-full bg-muted flex items-center justify-center text-xs font-bold text-foreground flex-shrink-0">
+                    <div className="w-8 h-8 rounded-full bg-[#F8F9FA] flex items-center justify-center text-xs font-bold text-[#495057] flex-shrink-0">
                       {(u.name || u.email || '?')[0].toUpperCase()}
                     </div>
                     <div className="min-w-0">
-                      <p className="text-sm font-medium text-foreground truncate">{u.name || 'No name'}</p>
-                      <p className="text-xs text-foreground truncate">{u.email}</p>
+                      <p className="text-sm font-medium text-[#212529] truncate">{u.name || 'No name'}</p>
+                      <p className="text-xs text-[#ADB5BD] truncate">{u.email}</p>
                     </div>
                   </div>
                   <span className={`px-2 py-0.5 rounded-full text-[10px] font-semibold flex-shrink-0 ${
                     u.role === 'landlord' 
-                      ? 'bg-muted text-white' 
-                      : 'bg-muted text-foreground'
+                      ? 'bg-[#212529] text-white' 
+                      : 'bg-[#F8F9FA] text-[#495057]'
                   }`}>
                     {u.role}
                   </span>
@@ -205,7 +205,7 @@ export default async function AdminOverviewPage() {
             </div>
           ) : (
             <div className="py-10 text-center">
-              <p className="text-sm text-foreground">No users yet</p>
+              <p className="text-sm text-[#ADB5BD]">No users yet</p>
             </div>
           )}
         </div>
@@ -216,9 +216,9 @@ export default async function AdminOverviewPage() {
 
 function MiniStat({ label, value }: { label: string; value: number }) {
   return (
-    <div className="bg-white rounded-xl border border-border px-4 py-3">
-      <p className="text-lg font-bold text-foreground tabular-nums">{value}</p>
-      <p className="text-[10px] text-foreground font-medium uppercase tracking-wider">{label}</p>
+    <div className="bg-white rounded-xl border border-[#E9ECEF] px-4 py-3">
+      <p className="text-lg font-bold text-[#212529] tabular-nums">{value}</p>
+      <p className="text-[10px] text-[#ADB5BD] font-medium uppercase tracking-wider">{label}</p>
     </div>
   )
 }

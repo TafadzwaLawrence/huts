@@ -50,15 +50,15 @@ export function InvestmentAnalysis({ propertyId }: InvestmentAnalysisProps) {
 
   if (loading) return <InvestmentSkeleton />
   if (error) return (
-    <div className="text-sm text-foreground py-4 text-center">{error}</div>
+    <div className="text-sm text-[#6C757D] py-4 text-center">{error}</div>
   )
   if (!data) return null
 
   const recommendationStyles = {
-    'strong-buy': 'bg-muted text-white border-border',
-    'buy': 'bg-muted text-white border-border',
-    'hold': 'bg-muted text-white border-border',
-    'avoid': 'bg-muted text-foreground border-border'
+    'strong-buy': 'bg-[#212529] text-white border-[#212529]',
+    'buy': 'bg-[#495057] text-white border-[#495057]',
+    'hold': 'bg-[#ADB5BD] text-white border-[#ADB5BD]',
+    'avoid': 'bg-[#E9ECEF] text-[#495057] border-[#E9ECEF]'
   }
 
   const recommendationLabels = {
@@ -69,9 +69,9 @@ export function InvestmentAnalysis({ propertyId }: InvestmentAnalysisProps) {
   }
 
   return (
-    <div className="border border-border rounded-lg overflow-hidden">
+    <div className="border border-[#E9ECEF] rounded-lg overflow-hidden">
       {/* Header */}
-      <div className="p-4 bg-muted border-b border-border">
+      <div className="p-4 bg-[#F8F9FA] border-b border-[#E9ECEF]">
         <div className="flex items-center justify-between">
           <h3 className="font-semibold flex items-center gap-2">
             <Calculator size={ICON_SIZES.lg} />
@@ -83,32 +83,32 @@ export function InvestmentAnalysis({ propertyId }: InvestmentAnalysisProps) {
             {recommendationLabels[data.recommendation]}
           </span>
         </div>
-        <p className="text-sm text-foreground mt-1">{data.analysis}</p>
+        <p className="text-sm text-[#6C757D] mt-1">{data.analysis}</p>
       </div>
 
       {/* Key Metrics */}
       <div className="p-4 space-y-4">
         {/* Primary Metrics Row */}
         <div className="grid grid-cols-3 gap-4">
-          <div className="text-center p-3 bg-muted rounded">
+          <div className="text-center p-3 bg-[#F8F9FA] rounded">
             <div className="text-2xl font-bold">{data.capRate}%</div>
-            <div className="text-xs text-foreground">Cap Rate</div>
+            <div className="text-xs text-[#6C757D]">Cap Rate</div>
           </div>
-          <div className="text-center p-3 bg-muted rounded">
+          <div className="text-center p-3 bg-[#F8F9FA] rounded">
             <div className="text-2xl font-bold">{data.cashOnCashReturn}%</div>
-            <div className="text-xs text-foreground">Cash on Cash</div>
+            <div className="text-xs text-[#6C757D]">Cash on Cash</div>
           </div>
-          <div className="text-center p-3 bg-muted rounded">
+          <div className="text-center p-3 bg-[#F8F9FA] rounded">
             <div className="text-2xl font-bold">{data.grossRentMultiplier}x</div>
-            <div className="text-xs text-foreground">Gross Rent Multiplier</div>
+            <div className="text-xs text-[#6C757D]">Gross Rent Multiplier</div>
           </div>
         </div>
 
         {/* Cash Flow */}
-        <div className="flex items-center justify-between py-3 border-y border-border">
-          <span className="text-sm text-foreground">Monthly Cash Flow</span>
+        <div className="flex items-center justify-between py-3 border-y border-[#E9ECEF]">
+          <span className="text-sm text-[#6C757D]">Monthly Cash Flow</span>
           <span className={`text-lg font-bold ${
-            data.monthlyNetCashFlow >= 0 ? 'text-foreground' : 'text-foreground'
+            data.monthlyNetCashFlow >= 0 ? 'text-[#212529]' : 'text-[#495057]'
           }`}>
             ${data.monthlyNetCashFlow.toLocaleString()}
             {data.monthlyNetCashFlow < 0 && (
@@ -119,7 +119,7 @@ export function InvestmentAnalysis({ propertyId }: InvestmentAnalysisProps) {
 
         {/* Rental Estimate */}
         <div className="flex items-center justify-between">
-          <span className="text-sm text-foreground">Est. Monthly Rent</span>
+          <span className="text-sm text-[#6C757D]">Est. Monthly Rent</span>
           <span className="font-semibold">
             ${(data.estimatedMonthlyRent / 100).toLocaleString()}/mo
           </span>
@@ -128,7 +128,7 @@ export function InvestmentAnalysis({ propertyId }: InvestmentAnalysisProps) {
         {/* Expand/Collapse Details */}
         <button
           onClick={() => setShowDetails(!showDetails)}
-          className="w-full flex items-center justify-center gap-1 text-sm text-foreground hover:text-foreground py-2"
+          className="w-full flex items-center justify-center gap-1 text-sm text-[#6C757D] hover:text-[#212529] py-2"
         >
           {showDetails ? 'Hide' : 'Show'} detailed breakdown
           {showDetails ? <ChevronUp size={ICON_SIZES.md} /> : <ChevronDown size={ICON_SIZES.md} />}
@@ -136,22 +136,22 @@ export function InvestmentAnalysis({ propertyId }: InvestmentAnalysisProps) {
 
         {/* Detailed Breakdown */}
         {showDetails && (
-          <div className="space-y-4 pt-2 border-t border-border">
+          <div className="space-y-4 pt-2 border-t border-[#E9ECEF]">
             {/* Adjustable Parameters */}
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs text-foreground mb-1">Down Payment %</label>
+                <label className="block text-xs text-[#6C757D] mb-1">Down Payment %</label>
                 <input
                   type="number"
                   value={downPayment}
                   onChange={(e) => setDownPayment(Number(e.target.value))}
                   min={0}
                   max={100}
-                  className="w-full px-3 py-2 border border-border rounded text-sm focus:outline-none focus:border-border"
+                  className="w-full px-3 py-2 border border-[#E9ECEF] rounded text-sm focus:outline-none focus:border-[#212529]"
                 />
               </div>
               <div>
-                <label className="block text-xs text-foreground mb-1">Interest Rate %</label>
+                <label className="block text-xs text-[#6C757D] mb-1">Interest Rate %</label>
                 <input
                   type="number"
                   value={interestRate}
@@ -159,61 +159,61 @@ export function InvestmentAnalysis({ propertyId }: InvestmentAnalysisProps) {
                   min={0}
                   max={20}
                   step={0.1}
-                  className="w-full px-3 py-2 border border-border rounded text-sm focus:outline-none focus:border-border"
+                  className="w-full px-3 py-2 border border-[#E9ECEF] rounded text-sm focus:outline-none focus:border-[#212529]"
                 />
               </div>
             </div>
 
             {/* Financing Summary */}
-            <div className="bg-muted rounded p-3 space-y-2">
-              <div className="text-xs font-medium text-foreground uppercase">Financing</div>
+            <div className="bg-[#F8F9FA] rounded p-3 space-y-2">
+              <div className="text-xs font-medium text-[#495057] uppercase">Financing</div>
               <div className="grid grid-cols-2 gap-2 text-sm">
                 <div className="flex justify-between">
-                  <span className="text-foreground">Down Payment</span>
+                  <span className="text-[#6C757D]">Down Payment</span>
                   <span>${(data.financing.downPayment / 100).toLocaleString()}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-foreground">Loan Amount</span>
+                  <span className="text-[#6C757D]">Loan Amount</span>
                   <span>${(data.financing.loanAmount / 100).toLocaleString()}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-foreground">Monthly Mortgage</span>
+                  <span className="text-[#6C757D]">Monthly Mortgage</span>
                   <span>${(data.financing.monthlyMortgage / 100).toLocaleString()}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-foreground">Total Monthly</span>
+                  <span className="text-[#6C757D]">Total Monthly</span>
                   <span className="font-medium">${(data.financing.totalMonthlyPayment / 100).toLocaleString()}</span>
                 </div>
               </div>
             </div>
 
             {/* Expenses Breakdown */}
-            <div className="bg-muted rounded p-3 space-y-2">
-              <div className="text-xs font-medium text-foreground uppercase">Annual Expenses</div>
+            <div className="bg-[#F8F9FA] rounded p-3 space-y-2">
+              <div className="text-xs font-medium text-[#495057] uppercase">Annual Expenses</div>
               <div className="space-y-1 text-sm">
                 <div className="flex justify-between">
-                  <span className="text-foreground">Property Tax</span>
+                  <span className="text-[#6C757D]">Property Tax</span>
                   <span>${(data.estimatedExpenses.propertyTax / 100).toLocaleString()}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-foreground">Insurance</span>
+                  <span className="text-[#6C757D]">Insurance</span>
                   <span>${(data.estimatedExpenses.insurance / 100).toLocaleString()}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-foreground">Maintenance</span>
+                  <span className="text-[#6C757D]">Maintenance</span>
                   <span>${(data.estimatedExpenses.maintenance / 100).toLocaleString()}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-foreground">Vacancy</span>
+                  <span className="text-[#6C757D]">Vacancy</span>
                   <span>${(data.estimatedExpenses.vacancy / 100).toLocaleString()}</span>
                 </div>
                 {data.estimatedExpenses.hoa > 0 && (
                   <div className="flex justify-between">
-                    <span className="text-foreground">HOA</span>
+                    <span className="text-[#6C757D]">HOA</span>
                     <span>${(data.estimatedExpenses.hoa / 100).toLocaleString()}</span>
                   </div>
                 )}
-                <div className="flex justify-between pt-2 border-t border-border font-medium">
+                <div className="flex justify-between pt-2 border-t border-[#E9ECEF] font-medium">
                   <span>Total Expenses</span>
                   <span>${(data.estimatedExpenses.total / 100).toLocaleString()}/yr</span>
                 </div>
@@ -222,8 +222,8 @@ export function InvestmentAnalysis({ propertyId }: InvestmentAnalysisProps) {
 
             {/* Break-even Info */}
             <div className="flex items-center justify-between text-sm">
-              <span className="text-foreground">Break-even Occupancy</span>
-              <span className={data.breakEvenOccupancy > 90 ? 'text-foreground' : 'text-foreground'}>
+              <span className="text-[#6C757D]">Break-even Occupancy</span>
+              <span className={data.breakEvenOccupancy > 90 ? 'text-[#495057]' : 'text-[#212529]'}>
                 {data.breakEvenOccupancy}%
                 {data.breakEvenOccupancy > 90 && (
                   <AlertCircle size={ICON_SIZES.xs} className="inline ml-1" />
@@ -232,7 +232,7 @@ export function InvestmentAnalysis({ propertyId }: InvestmentAnalysisProps) {
             </div>
 
             <div className="flex items-center justify-between text-sm">
-              <span className="text-foreground">Net Operating Income</span>
+              <span className="text-[#6C757D]">Net Operating Income</span>
               <span className="font-medium">
                 ${(data.netOperatingIncome / 100).toLocaleString()}/yr
               </span>
@@ -246,17 +246,17 @@ export function InvestmentAnalysis({ propertyId }: InvestmentAnalysisProps) {
 
 function InvestmentSkeleton() {
   return (
-    <div className="border border-border rounded-lg overflow-hidden">
-      <div className="p-4 bg-muted border-b border-border">
-        <div className="h-5 w-40 bg-muted rounded animate-pulse" />
+    <div className="border border-[#E9ECEF] rounded-lg overflow-hidden">
+      <div className="p-4 bg-[#F8F9FA] border-b border-[#E9ECEF]">
+        <div className="h-5 w-40 bg-[#E9ECEF] rounded animate-pulse" />
       </div>
       <div className="p-4 space-y-4">
         <div className="grid grid-cols-3 gap-4">
           {[1, 2, 3].map(i => (
-            <div key={i} className="h-16 bg-muted rounded animate-pulse" />
+            <div key={i} className="h-16 bg-[#F8F9FA] rounded animate-pulse" />
           ))}
         </div>
-        <div className="h-12 bg-muted rounded animate-pulse" />
+        <div className="h-12 bg-[#F8F9FA] rounded animate-pulse" />
       </div>
     </div>
   )

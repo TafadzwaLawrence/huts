@@ -82,11 +82,11 @@ export default function MyReviewsPage() {
   }, [router, supabase])
 
   if (loading) {
-    return <div className="min-h-screen bg-muted flex items-center justify-center">Loading...</div>
+    return <div className="min-h-screen bg-[#F8F9FA] flex items-center justify-center">Loading...</div>
   }
 
   return (
-    <div className="min-h-screen bg-muted">
+    <div className="min-h-screen bg-[#F8F9FA]">
       <div className="max-w-4xl mx-auto px-4 py-8">
         {/* Header */}
         <div className="mb-8">
@@ -98,7 +98,7 @@ export default function MyReviewsPage() {
 
         {/* Stats */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
-          <div className="bg-white border border-border rounded-lg p-6">
+          <div className="bg-white border border-[#E9ECEF] rounded-lg p-6">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-secondary mb-1">Total Reviews</p>
@@ -106,11 +106,11 @@ export default function MyReviewsPage() {
                   {reviews?.length || 0}
                 </p>
               </div>
-              <Star size={ICON_SIZES['2xl']} className="text-foreground" />
+              <Star size={ICON_SIZES['2xl']} className="text-[#ADB5BD]" />
             </div>
           </div>
 
-          <div className="bg-white border border-border rounded-lg p-6">
+          <div className="bg-white border border-[#E9ECEF] rounded-lg p-6">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-secondary mb-1">Avg Rating Given</p>
@@ -127,7 +127,7 @@ export default function MyReviewsPage() {
             </div>
           </div>
 
-          <div className="bg-white border border-border rounded-lg p-6">
+          <div className="bg-white border border-[#E9ECEF] rounded-lg p-6">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-secondary mb-1">With Response</p>
@@ -135,15 +135,15 @@ export default function MyReviewsPage() {
                   {reviews?.filter((r) => r.review_responses).length || 0}
                 </p>
               </div>
-              <Edit size={ICON_SIZES['2xl']} className="text-foreground" />
+              <Edit size={ICON_SIZES['2xl']} className="text-[#ADB5BD]" />
             </div>
           </div>
         </div>
 
         {/* Reviews List */}
         {!reviews || reviews.length === 0 ? (
-          <div className="bg-white border border-border rounded-lg p-12 text-center">
-            <Star size={ICON_SIZES['3xl']} className="mx-auto text-foreground mb-4" />
+          <div className="bg-white border border-[#E9ECEF] rounded-lg p-12 text-center">
+            <Star size={ICON_SIZES['3xl']} className="mx-auto text-[#ADB5BD] mb-4" />
             <h3 className="text-subsection-title mb-2">
               No reviews yet
             </h3>
@@ -152,7 +152,7 @@ export default function MyReviewsPage() {
             </p>
             <Link
               href="/"
-              className="inline-block bg-black text-white px-6 py-2 rounded border-2 border-black hover:bg-muted hover:-translate-y-0.5 transition-all"
+              className="inline-block bg-black text-white px-6 py-2 rounded border-2 border-black hover:bg-[#212529] hover:-translate-y-0.5 transition-all"
             >
               Browse Properties
             </Link>
@@ -162,12 +162,12 @@ export default function MyReviewsPage() {
             {reviews.map((review) => (
               <div
                 key={review.id}
-                className="bg-white border border-border rounded-lg overflow-hidden"
+                className="bg-white border border-[#E9ECEF] rounded-lg overflow-hidden"
               >
                 {/* Property Info */}
                 <Link
                   href={`/property/${review.properties?.id}`}
-                  className="block p-4 border-b border-border hover:bg-muted transition-colors"
+                  className="block p-4 border-b border-[#E9ECEF] hover:bg-[#F8F9FA] transition-colors"
                 >
                   <div className="flex items-center justify-between">
                     <div>
@@ -186,7 +186,7 @@ export default function MyReviewsPage() {
                           className={
                             i < review.rating
                               ? 'fill-black text-black'
-                              : 'text-foreground'
+                              : 'text-[#ADB5BD]'
                           }
                         />
                       ))}
@@ -205,10 +205,10 @@ export default function MyReviewsPage() {
                         new Date(review.editable_until) > new Date() && (
                           <Link
                             href={`/dashboard/reviews/${review.id}/edit`}
-                            className="p-2 hover:bg-muted rounded transition-colors"
+                            className="p-2 hover:bg-[#E9ECEF] rounded transition-colors"
                             title="Edit review"
                           >
-                            <Edit size={ICON_SIZES.md} className="text-foreground" />
+                            <Edit size={ICON_SIZES.md} className="text-[#495057]" />
                           </Link>
                         )}
                     </div>
@@ -223,7 +223,7 @@ export default function MyReviewsPage() {
 
                   {/* Landlord Response */}
                   {review.review_responses && (
-                    <div className="ml-4 pl-4 border-l-2 border-border space-y-2">
+                    <div className="ml-4 pl-4 border-l-2 border-[#E9ECEF] space-y-2">
                       <div className="flex items-center gap-2">
                         <span className="text-label">
                           Response from{' '}

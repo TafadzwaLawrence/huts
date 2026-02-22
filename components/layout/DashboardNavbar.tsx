@@ -213,7 +213,7 @@ export function DashboardNavbar({ user, profile }: DashboardNavbarProps) {
   return (
     <>
       <header className={`sticky top-0 z-50 transition-all duration-200 ${
-        scrolled ? 'bg-white/95 backdrop-blur-md shadow-sm' : 'bg-white border-b border-border'
+        scrolled ? 'bg-white/95 backdrop-blur-md shadow-sm' : 'bg-white border-b border-[#E9ECEF]'
       }`}>
         <nav>
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -240,8 +240,8 @@ export function DashboardNavbar({ user, profile }: DashboardNavbarProps) {
                       href={href}
                       className={`relative flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-lg transition-colors ${
                         isActive(href)
-                          ? 'text-foreground bg-muted'
-                          : 'text-muted-foreground hover:text-foreground hover:bg-muted'
+                          ? 'text-[#212529] bg-[#F8F9FA]'
+                          : 'text-[#495057] hover:text-[#212529] hover:bg-[#F8F9FA]'
                       }`}
                     >
                       <Icon size={16} />
@@ -257,7 +257,7 @@ export function DashboardNavbar({ user, profile }: DashboardNavbarProps) {
                 <div className="hidden md:flex items-center gap-1 mr-4">
                   <Link
                     href="/search"
-                    className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted rounded-lg transition-colors"
+                    className="px-3 py-2 text-sm font-medium text-[#495057] hover:text-[#212529] hover:bg-[#F8F9FA] rounded-lg transition-colors"
                   >
                     Browse
                   </Link>
@@ -265,7 +265,7 @@ export function DashboardNavbar({ user, profile }: DashboardNavbarProps) {
                   {isLandlord && (
                     <Link
                       href="/dashboard/new-property"
-                      className="flex items-center gap-1.5 px-3 py-2 bg-foreground text-white text-sm font-medium rounded-lg hover:bg-black transition-colors"
+                      className="flex items-center gap-1.5 px-3 py-2 bg-[#212529] text-white text-sm font-medium rounded-lg hover:bg-black transition-colors"
                     >
                       <span>New</span>
                     </Link>
@@ -273,28 +273,28 @@ export function DashboardNavbar({ user, profile }: DashboardNavbarProps) {
                 </div>
 
                 {/* Utilities Group - Desktop */}
-                <div className="hidden md:flex items-center gap-1 mr-3 pr-3 border-r border-border">
+                <div className="hidden md:flex items-center gap-1 mr-3 pr-3 border-r border-[#E9ECEF]">
                   {/* Notification Bell with Dropdown */}
                   <div className="relative" ref={notificationRef}>
                     <button 
                       onClick={() => setNotificationsOpen(!notificationsOpen)}
-                      className="relative p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+                      className="relative p-2 rounded-lg text-[#495057] hover:text-[#212529] hover:bg-[#F8F9FA] transition-colors"
                     >
                       <Bell size={18} />
                       {unreadCount > 0 && (
-                        <span className="absolute top-1 right-1 w-2 h-2 bg-warning rounded-full" />
+                        <span className="absolute top-1 right-1 w-2 h-2 bg-[#FF6B6B] rounded-full" />
                       )}
                     </button>
 
                     {/* Notification Dropdown */}
                     {notificationsOpen && (
-                      <div className="absolute top-full right-0 mt-2 w-80 bg-white rounded-xl shadow-xl border border-border overflow-hidden z-50">
-                        <div className="flex items-center justify-between px-4 py-3 border-b border-border">
-                          <h3 className="font-semibold text-foreground">Notifications</h3>
+                      <div className="absolute top-full right-0 mt-2 w-80 bg-white rounded-xl shadow-xl border border-[#E9ECEF] overflow-hidden z-50">
+                        <div className="flex items-center justify-between px-4 py-3 border-b border-[#E9ECEF]">
+                          <h3 className="font-semibold text-[#212529]">Notifications</h3>
                           {unreadCount > 0 && (
                             <button 
                               onClick={markAllAsRead}
-                              className="text-xs text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1"
+                              className="text-xs text-[#495057] hover:text-[#212529] transition-colors flex items-center gap-1"
                             >
                               <Check size={12} />
                               Mark all read
@@ -304,7 +304,7 @@ export function DashboardNavbar({ user, profile }: DashboardNavbarProps) {
 
                         <div className="max-h-80 overflow-y-auto">
                           {notifications.length === 0 ? (
-                            <div className="py-8 text-center text-muted-foreground">
+                            <div className="py-8 text-center text-[#ADB5BD]">
                               <Bell size={24} className="mx-auto mb-2 opacity-50" />
                               <p className="text-sm">No notifications yet</p>
                             </div>
@@ -317,37 +317,37 @@ export function DashboardNavbar({ user, profile }: DashboardNavbarProps) {
                                   if (!notification.read_at) markAsRead(notification.id)
                                   setNotificationsOpen(false)
                                 }}
-                                className={`flex items-start gap-3 px-4 py-3 hover:bg-muted transition-colors border-b border-border last:border-0 ${
-                                  !notification.read_at ? 'bg-muted/50' : ''
+                                className={`flex items-start gap-3 px-4 py-3 hover:bg-[#F8F9FA] transition-colors border-b border-[#E9ECEF] last:border-0 ${
+                                  !notification.read_at ? 'bg-[#F8F9FA]/50' : ''
                                 }`}
                               >
-                                <div className="w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0 bg-muted">
-                                  {notification.type === 'message' && <MessageSquare size={16} className="text-foreground" />}
-                                  {notification.type === 'inquiry' && <Building2 size={16} className="text-foreground" />}
-                                  {notification.type === 'review' && <Star size={16} className="text-foreground" />}
-                                  {notification.type === 'property_update' && <Building2 size={16} className="text-foreground" />}
-                                  {notification.type === 'system' && <Bell size={16} className="text-foreground" />}
+                                <div className="w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0 bg-[#F8F9FA]">
+                                  {notification.type === 'message' && <MessageSquare size={16} className="text-[#212529]" />}
+                                  {notification.type === 'inquiry' && <Building2 size={16} className="text-[#212529]" />}
+                                  {notification.type === 'review' && <Star size={16} className="text-[#212529]" />}
+                                  {notification.type === 'property_update' && <Building2 size={16} className="text-[#212529]" />}
+                                  {notification.type === 'system' && <Bell size={16} className="text-[#212529]" />}
                                 </div>
                                 <div className="flex-1 min-w-0">
                                   <div className="flex items-center gap-2">
-                                    <p className="font-medium text-sm text-foreground">{notification.title}</p>
+                                    <p className="font-medium text-sm text-[#212529]">{notification.title}</p>
                                     {!notification.read_at && (
-                                      <span className="w-2 h-2 bg-warning rounded-full flex-shrink-0" />
+                                      <span className="w-2 h-2 bg-[#FF6B6B] rounded-full flex-shrink-0" />
                                     )}
                                   </div>
-                                  <p className="text-xs text-muted-foreground truncate">{notification.description}</p>
-                                  <p className="text-xs text-muted-foreground mt-0.5">{timeAgo(notification.created_at)}</p>
+                                  <p className="text-xs text-[#495057] truncate">{notification.description}</p>
+                                  <p className="text-xs text-[#ADB5BD] mt-0.5">{timeAgo(notification.created_at)}</p>
                                 </div>
                               </Link>
                             ))
                           )}
                         </div>
 
-                        <div className="border-t border-border">
+                        <div className="border-t border-[#E9ECEF]">
                           <Link
                             href="/settings/notifications"
                             onClick={() => setNotificationsOpen(false)}
-                            className="flex items-center justify-center gap-2 px-4 py-3 text-sm text-muted-foreground hover:bg-muted transition-colors"
+                            className="flex items-center justify-center gap-2 px-4 py-3 text-sm text-[#495057] hover:bg-[#F8F9FA] transition-colors"
                           >
                             <Settings size={14} />
                             Notification Settings
@@ -359,7 +359,7 @@ export function DashboardNavbar({ user, profile }: DashboardNavbarProps) {
                   
                   <Link
                     href="/settings"
-                    className="p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+                    className="p-2 rounded-lg text-[#495057] hover:text-[#212529] hover:bg-[#F8F9FA] transition-colors"
                   >
                     <Settings size={18} />
                   </Link>
@@ -367,7 +367,7 @@ export function DashboardNavbar({ user, profile }: DashboardNavbarProps) {
 
                 {/* User Profile - Desktop */}
                 <div className="hidden md:block relative group">
-                  <button className="flex items-center gap-2 pl-2 pr-2.5 py-1.5 rounded-lg hover:bg-muted transition-colors">
+                  <button className="flex items-center gap-2 pl-2 pr-2.5 py-1.5 rounded-lg hover:bg-[#F8F9FA] transition-colors">
                     {userAvatar ? (
                       <Image
                         src={userAvatar}
@@ -377,54 +377,54 @@ export function DashboardNavbar({ user, profile }: DashboardNavbarProps) {
                         className="w-8 h-8 rounded-full object-cover"
                       />
                     ) : (
-                      <div className="w-8 h-8 bg-foreground rounded-full flex items-center justify-center text-white font-semibold text-sm">
+                      <div className="w-8 h-8 bg-[#212529] rounded-full flex items-center justify-center text-white font-semibold text-sm">
                         {userInitial}
                       </div>
                     )}
                     <div className="hidden xl:block text-left">
-                      <p className="text-sm font-medium text-foreground leading-tight">{userName.split(' ')[0]}</p>
-                      <p className="text-xs text-muted-foreground capitalize leading-tight">{profile?.role}</p>
+                      <p className="text-sm font-medium text-[#212529] leading-tight">{userName.split(' ')[0]}</p>
+                      <p className="text-xs text-[#ADB5BD] capitalize leading-tight">{profile?.role}</p>
                     </div>
-                    <ChevronDown size={14} className="text-muted-foreground hidden xl:block" />
+                    <ChevronDown size={14} className="text-[#ADB5BD] hidden xl:block" />
                   </button>
 
                   {/* Dropdown Menu */}
                   <div className="absolute top-full right-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                    <div className="bg-white rounded-lg shadow-xl border border-border py-2 min-w-[200px]">
-                      <div className="px-4 py-2 border-b border-border">
-                        <p className="font-medium text-foreground text-sm">{userName}</p>
-                        <p className="text-xs text-muted-foreground truncate">{user.email}</p>
+                    <div className="bg-white rounded-lg shadow-xl border border-[#E9ECEF] py-2 min-w-[200px]">
+                      <div className="px-4 py-2 border-b border-[#E9ECEF]">
+                        <p className="font-medium text-[#212529] text-sm">{userName}</p>
+                        <p className="text-xs text-[#ADB5BD] truncate">{user.email}</p>
                       </div>
                       
                       <div className="py-2">
                         <Link
                           href="/dashboard/overview"
-                          className="flex items-center gap-2 px-4 py-2 text-sm text-muted-foreground hover:bg-muted transition-colors"
+                          className="flex items-center gap-2 px-4 py-2 text-sm text-[#495057] hover:bg-[#F8F9FA] transition-colors"
                         >
                           <LayoutDashboard size={16} />
                           Dashboard
                         </Link>
                         <Link
                           href="/settings/profile"
-                          className="flex items-center gap-2 px-4 py-2 text-sm text-muted-foreground hover:bg-muted transition-colors"
+                          className="flex items-center gap-2 px-4 py-2 text-sm text-[#495057] hover:bg-[#F8F9FA] transition-colors"
                         >
                           <User size={16} />
                           Profile
                         </Link>
                         <Link
                           href="/settings"
-                          className="flex items-center gap-2 px-4 py-2 text-sm text-muted-foreground hover:bg-muted transition-colors"
+                          className="flex items-center gap-2 px-4 py-2 text-sm text-[#495057] hover:bg-[#F8F9FA] transition-colors"
                         >
                           <Settings size={16} />
                           Settings
                         </Link>
                       </div>
                       
-                      <div className="border-t border-border pt-2">
+                      <div className="border-t border-[#E9ECEF] pt-2">
                         <form action="/auth/signout" method="post">
                           <button
                             type="submit"
-                            className="flex items-center gap-2 w-full px-4 py-2 text-sm text-muted-foreground hover:bg-red-50 hover:text-warning transition-colors"
+                            className="flex items-center gap-2 w-full px-4 py-2 text-sm text-[#495057] hover:bg-[#FFF5F5] hover:text-[#FF6B6B] transition-colors"
                           >
                             <LogOut size={16} />
                             Sign Out
@@ -438,7 +438,7 @@ export function DashboardNavbar({ user, profile }: DashboardNavbarProps) {
                 {/* Mobile Menu Button */}
                 <button
                   onClick={() => setMobileMenuOpen(true)}
-                  className="flex md:hidden items-center justify-center w-10 h-10 rounded-lg text-muted-foreground hover:bg-muted transition-colors"
+                  className="flex md:hidden items-center justify-center w-10 h-10 rounded-lg text-[#495057] hover:bg-[#F8F9FA] transition-colors"
                 >
                   <Menu size={20} />
                 </button>
@@ -463,7 +463,7 @@ export function DashboardNavbar({ user, profile }: DashboardNavbarProps) {
         }`}
       >
         {/* Header */}
-        <div className="flex items-center justify-between p-4 border-b border-border">
+        <div className="flex items-center justify-between p-4 border-b border-[#E9ECEF]">
           <div className="flex items-center gap-3">
             {userAvatar ? (
               <Image
@@ -474,18 +474,18 @@ export function DashboardNavbar({ user, profile }: DashboardNavbarProps) {
                 className="w-10 h-10 rounded-full object-cover"
               />
             ) : (
-              <div className="w-10 h-10 bg-foreground rounded-full flex items-center justify-center text-white font-semibold">
+              <div className="w-10 h-10 bg-[#212529] rounded-full flex items-center justify-center text-white font-semibold">
                 {userInitial}
               </div>
             )}
             <div>
-              <p className="font-medium text-foreground">{userName}</p>
-              <p className="text-xs text-muted-foreground capitalize">{profile?.role}</p>
+              <p className="font-medium text-[#212529]">{userName}</p>
+              <p className="text-xs text-[#ADB5BD] capitalize">{profile?.role}</p>
             </div>
           </div>
           <button
             onClick={() => setMobileMenuOpen(false)}
-            className="p-2 rounded-lg text-muted-foreground hover:bg-muted transition-colors"
+            className="p-2 rounded-lg text-[#495057] hover:bg-[#F8F9FA] transition-colors"
           >
             <X size={20} />
           </button>
@@ -502,8 +502,8 @@ export function DashboardNavbar({ user, profile }: DashboardNavbarProps) {
                 onClick={() => setMobileMenuOpen(false)}
                 className={`flex items-center justify-between px-4 py-3 rounded-lg font-medium transition-colors ${
                   isActive(href)
-                    ? 'bg-foreground text-white'
-                    : 'text-muted-foreground hover:bg-muted'
+                    ? 'bg-[#212529] text-white'
+                    : 'text-[#495057] hover:bg-[#F8F9FA]'
                 }`}
               >
                 <div className="flex items-center gap-3">
@@ -515,11 +515,11 @@ export function DashboardNavbar({ user, profile }: DashboardNavbarProps) {
           </div>
 
           {/* Actions */}
-          <div className="p-4 border-t border-border space-y-1">
+          <div className="p-4 border-t border-[#E9ECEF] space-y-1">
             <Link
               href="/search"
               onClick={() => setMobileMenuOpen(false)}
-              className="flex items-center gap-3 px-4 py-3 rounded-lg text-muted-foreground hover:bg-muted font-medium transition-colors"
+              className="flex items-center gap-3 px-4 py-3 rounded-lg text-[#495057] hover:bg-[#F8F9FA] font-medium transition-colors"
             >
               <Search size={20} />
               Browse Properties
@@ -528,7 +528,7 @@ export function DashboardNavbar({ user, profile }: DashboardNavbarProps) {
               <Link
                 href="/dashboard/new-property"
                 onClick={() => setMobileMenuOpen(false)}
-                className="flex items-center gap-3 px-4 py-3 rounded-lg bg-foreground text-white font-medium transition-colors"
+                className="flex items-center gap-3 px-4 py-3 rounded-lg bg-[#212529] text-white font-medium transition-colors"
               >
                 New Property
               </Link>
@@ -539,18 +539,18 @@ export function DashboardNavbar({ user, profile }: DashboardNavbarProps) {
           <div className="flex-grow" />
 
           {/* Bottom Actions */}
-          <div className="p-4 border-t border-border space-y-1">
+          <div className="p-4 border-t border-[#E9ECEF] space-y-1">
             <Link
               href="/settings/notifications"
               onClick={() => setMobileMenuOpen(false)}
-              className="flex items-center justify-between px-4 py-3 rounded-lg text-muted-foreground hover:bg-muted font-medium transition-colors"
+              className="flex items-center justify-between px-4 py-3 rounded-lg text-[#495057] hover:bg-[#F8F9FA] font-medium transition-colors"
             >
               <div className="flex items-center gap-3">
                 <Bell size={20} />
                 Notifications
               </div>
               {unreadCount > 0 && (
-                <span className="bg-warning text-white text-xs font-medium px-2 py-0.5 rounded-full">
+                <span className="bg-[#FF6B6B] text-white text-xs font-medium px-2 py-0.5 rounded-full">
                   {unreadCount}
                 </span>
               )}
@@ -558,7 +558,7 @@ export function DashboardNavbar({ user, profile }: DashboardNavbarProps) {
             <Link
               href="/settings"
               onClick={() => setMobileMenuOpen(false)}
-              className="flex items-center gap-3 px-4 py-3 rounded-lg text-muted-foreground hover:bg-muted font-medium transition-colors"
+              className="flex items-center gap-3 px-4 py-3 rounded-lg text-[#495057] hover:bg-[#F8F9FA] font-medium transition-colors"
             >
               <Settings size={20} />
               Settings
@@ -566,7 +566,7 @@ export function DashboardNavbar({ user, profile }: DashboardNavbarProps) {
             <form action="/auth/signout" method="post">
               <button
                 type="submit"
-                className="flex items-center gap-3 w-full px-4 py-3 rounded-lg text-muted-foreground hover:bg-red-50 hover:text-warning font-medium transition-colors"
+                className="flex items-center gap-3 w-full px-4 py-3 rounded-lg text-[#495057] hover:bg-[#FFF5F5] hover:text-[#FF6B6B] font-medium transition-colors"
               >
                 <LogOut size={20} />
                 Sign Out

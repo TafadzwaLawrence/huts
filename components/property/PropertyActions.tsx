@@ -81,7 +81,7 @@ export default function PropertyActions({ propertyId, propertyTitle, initialSave
     <div className="flex gap-2">
       <button
         onClick={handleShare}
-        className="bg-white p-2 rounded-full shadow-lg hover:bg-muted transition-colors"
+        className="bg-white p-2 rounded-full shadow-lg hover:bg-[#F8F9FA] transition-colors"
         aria-label="Share property"
       >
         <Share2 size={ICON_SIZES.lg} className="text-black" />
@@ -90,7 +90,7 @@ export default function PropertyActions({ propertyId, propertyTitle, initialSave
         onClick={handleSave}
         disabled={isLoading}
         className={`p-2 rounded-full shadow-lg transition-all ${
-          isSaved ? 'bg-red-500 text-white' : 'bg-white hover:bg-muted'
+          isSaved ? 'bg-red-500 text-white' : 'bg-white hover:bg-[#F8F9FA]'
         } ${isLoading ? 'opacity-50' : ''}`}
         aria-label={isSaved ? 'Remove from saved' : 'Save property'}
       >

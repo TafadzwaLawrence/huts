@@ -106,13 +106,13 @@ export function NavbarSearch() {
       {!isOpen ? (
         <button
           onClick={() => setIsOpen(true)}
-          className="group flex items-center gap-3 w-full bg-muted hover:bg-white border border-border hover:border-border rounded-full px-4 py-2 transition-all duration-200 hover:shadow-lg"
+          className="group flex items-center gap-3 w-full bg-[#F8F9FA] hover:bg-white border border-[#E9ECEF] hover:border-[#212529] rounded-full px-4 py-2 transition-all duration-200 hover:shadow-lg"
         >
-          <Search size={16} className="text-foreground group-hover:text-foreground transition-colors shrink-0" />
-          <span className="text-sm text-foreground group-hover:text-foreground transition-colors truncate">
+          <Search size={16} className="text-[#ADB5BD] group-hover:text-[#212529] transition-colors shrink-0" />
+          <span className="text-sm text-[#ADB5BD] group-hover:text-[#495057] transition-colors truncate">
             Search properties...
           </span>
-          <kbd className="hidden group-hover:inline-flex ml-auto text-[10px] text-foreground bg-white px-1.5 py-0.5 rounded border border-border font-mono shrink-0">/</kbd>
+          <kbd className="hidden group-hover:inline-flex ml-auto text-[10px] text-[#ADB5BD] bg-white px-1.5 py-0.5 rounded border border-[#E9ECEF] font-mono shrink-0">/</kbd>
         </button>
       ) : (
         <>
@@ -121,45 +121,45 @@ export function NavbarSearch() {
           
           {/* Search Modal */}
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] max-w-[90vw] z-50">
-            <div className="bg-white rounded-2xl shadow-2xl border border-border overflow-hidden">
+            <div className="bg-white rounded-2xl shadow-2xl border border-[#E9ECEF] overflow-hidden">
               {/* Search Input */}
               <form onSubmit={handleSubmit} className="relative">
-                <Search size={20} className="absolute left-4 top-1/2 -translate-y-1/2 text-foreground" />
+                <Search size={20} className="absolute left-4 top-1/2 -translate-y-1/2 text-[#ADB5BD]" />
                 <input
                   ref={inputRef}
                   type="text"
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                   placeholder="Search by location, property type, or keywords..."
-                  className="w-full pl-12 pr-12 py-4 text-foreground placeholder-muted-foreground focus:outline-none text-base"
+                  className="w-full pl-12 pr-12 py-4 text-[#212529] placeholder-[#ADB5BD] focus:outline-none text-base"
                 />
                 {query && (
                   <button
                     type="button"
                     onClick={() => setQuery('')}
-                    className="absolute right-14 top-1/2 -translate-y-1/2 p-1 hover:bg-muted rounded-full transition-colors"
+                    className="absolute right-14 top-1/2 -translate-y-1/2 p-1 hover:bg-[#F8F9FA] rounded-full transition-colors"
                   >
-                    <X size={16} className="text-foreground" />
+                    <X size={16} className="text-[#ADB5BD]" />
                   </button>
                 )}
                 <button
                   type="submit"
                   disabled={!query.trim()}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 p-2 bg-muted text-white rounded-lg hover:bg-muted disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 p-2 bg-[#212529] text-white rounded-lg hover:bg-[#495057] disabled:opacity-50 disabled:cursor-not-allowed transition-all"
                 >
                   <ArrowRight size={16} />
                 </button>
               </form>
 
-              <div className="border-t border-border">
+              <div className="border-t border-[#E9ECEF]">
                 {/* Recent Searches */}
                 {recentSearches.length > 0 && (
                   <div className="p-3">
                     <div className="flex items-center justify-between mb-2 px-1">
-                      <span className="text-xs font-medium text-foreground uppercase tracking-wider">Recent</span>
+                      <span className="text-xs font-medium text-[#ADB5BD] uppercase tracking-wider">Recent</span>
                       <button
                         onClick={clearRecentSearches}
-                        className="text-xs text-foreground hover:text-foreground transition-colors"
+                        className="text-xs text-[#ADB5BD] hover:text-[#495057] transition-colors"
                       >
                         Clear all
                       </button>
@@ -169,10 +169,10 @@ export function NavbarSearch() {
                         <button
                           key={i}
                           onClick={() => handleSearch(recent.query)}
-                          className="flex items-center gap-3 w-full px-3 py-2 rounded-lg hover:bg-muted transition-colors text-left"
+                          className="flex items-center gap-3 w-full px-3 py-2 rounded-lg hover:bg-[#F8F9FA] transition-colors text-left"
                         >
-                          <Clock size={14} className="text-foreground shrink-0" />
-                          <span className="text-sm text-foreground truncate">{recent.query}</span>
+                          <Clock size={14} className="text-[#ADB5BD] shrink-0" />
+                          <span className="text-sm text-[#495057] truncate">{recent.query}</span>
                         </button>
                       ))}
                     </div>
@@ -180,8 +180,8 @@ export function NavbarSearch() {
                 )}
 
                 {/* Quick Links */}
-                <div className="p-3 border-t border-border">
-                  <span className="text-xs font-medium text-foreground uppercase tracking-wider px-1 mb-2 block">Quick Links</span>
+                <div className="p-3 border-t border-[#E9ECEF]">
+                  <span className="text-xs font-medium text-[#ADB5BD] uppercase tracking-wider px-1 mb-2 block">Quick Links</span>
                   <div className="space-y-1">
                     {quickLinks.map((link, i) => (
                       <button
@@ -190,19 +190,19 @@ export function NavbarSearch() {
                           router.push(link.href)
                           setIsOpen(false)
                         }}
-                        className="flex items-center gap-3 w-full px-3 py-2 rounded-lg hover:bg-muted transition-colors text-left"
+                        className="flex items-center gap-3 w-full px-3 py-2 rounded-lg hover:bg-[#F8F9FA] transition-colors text-left"
                       >
-                        <link.icon size={14} className="text-foreground shrink-0" />
-                        <span className="text-sm text-foreground">{link.label}</span>
+                        <link.icon size={14} className="text-[#495057] shrink-0" />
+                        <span className="text-sm text-[#495057]">{link.label}</span>
                       </button>
                     ))}
                   </div>
                 </div>
 
                 {/* Keyboard Hint */}
-                <div className="px-4 py-3 bg-muted flex items-center justify-between text-xs text-foreground">
-                  <span>Press <kbd className="px-1.5 py-0.5 bg-white rounded border border-border font-mono">Enter</kbd> to search</span>
-                  <span>Press <kbd className="px-1.5 py-0.5 bg-white rounded border border-border font-mono">Esc</kbd> to close</span>
+                <div className="px-4 py-3 bg-[#F8F9FA] flex items-center justify-between text-xs text-[#ADB5BD]">
+                  <span>Press <kbd className="px-1.5 py-0.5 bg-white rounded border border-[#E9ECEF] font-mono">Enter</kbd> to search</span>
+                  <span>Press <kbd className="px-1.5 py-0.5 bg-white rounded border border-[#E9ECEF] font-mono">Esc</kbd> to close</span>
                 </div>
               </div>
             </div>

@@ -20,9 +20,9 @@ export function AdminActionButton({
   className = ''
 }: ActionButtonProps) {
   const variants = {
-    primary: 'bg-muted text-white hover:bg-black',
-    danger: 'border-2 border-border text-foreground hover:bg-muted',
-    secondary: 'border-2 border-border text-foreground hover:border-border',
+    primary: 'bg-[#212529] text-white hover:bg-black',
+    danger: 'border-2 border-[#FF6B6B] text-[#FF6B6B] hover:bg-[#FFF5F5]',
+    secondary: 'border-2 border-[#E9ECEF] text-[#495057] hover:border-[#212529]',
   }
 
   return (

@@ -122,12 +122,12 @@ export default function OptimisticSaveButton({
         size={size}
         className={`transition-all duration-300 ${
           isSaved 
-            ? 'fill-foreground text-foreground' 
-            : 'text-foreground group-hover:text-foreground'
+            ? 'fill-[#FF6B6B] text-[#FF6B6B]' 
+            : 'text-[#495057] group-hover:text-[#FF6B6B]'
         }`}
       />
       {showText && (
-        <span className={`text-sm font-medium ${isSaved ? 'text-foreground' : 'text-foreground'}`}>
+        <span className={`text-sm font-medium ${isSaved ? 'text-[#FF6B6B]' : 'text-[#495057]'}`}>
           {isSaved ? 'Saved' : 'Save'}
         </span>
       )}

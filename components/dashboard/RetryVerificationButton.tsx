@@ -42,7 +42,7 @@ export default function RetryVerificationButton({ propertyId }: RetryVerificatio
     <button
       onClick={handleRetry}
       disabled={loading}
-      className="inline-flex items-center gap-1.5 text-[11px] font-medium text-foreground hover:text-foreground border border-border hover:border-border px-2.5 py-1 rounded-md transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+      className="inline-flex items-center gap-1.5 text-[11px] font-medium text-[#495057] hover:text-[#212529] border border-[#E9ECEF] hover:border-[#ADB5BD] px-2.5 py-1 rounded-md transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
     >
       <RotateCw size={11} className={loading ? 'animate-spin' : ''} />
       {loading ? 'Sending…' : 'Retry verification'}

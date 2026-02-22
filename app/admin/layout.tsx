@@ -30,9 +30,9 @@ export default async function AdminLayout({
   if (!ADMIN_EMAILS.includes(user.email || '')) redirect('/dashboard')
 
   return (
-    <div className="min-h-screen bg-muted">
+    <div className="min-h-screen bg-[#F9FAFB]">
       {/* Top Bar */}
-      <div className="bg-muted text-white shadow-sm">
+      <div className="bg-[#212529] text-white shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-14">
             <div className="flex items-center gap-3">
@@ -59,7 +59,7 @@ export default async function AdminLayout({
       </div>
 
       {/* Navigation */}
-      <div className="bg-white border-b border-border">
+      <div className="bg-white border-b border-[#E9ECEF]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <nav className="flex items-center gap-1 -mb-px">
             <AdminNavLink href="/admin" icon={LayoutDashboard} label="Overview" />
@@ -88,7 +88,7 @@ function AdminNavLink({
   return (
     <Link
       href={href}
-      className="flex items-center gap-2 px-4 py-3 text-sm font-medium text-foreground hover:text-foreground border-b-2 border-transparent hover:border-border transition-all"
+      className="flex items-center gap-2 px-4 py-3 text-sm font-medium text-[#495057] hover:text-[#212529] border-b-2 border-transparent hover:border-[#212529] transition-all"
     >
       <Icon size={15} />
       {label}

@@ -99,18 +99,18 @@ export default function NewAreaGuidePage() {
   }
 
   return (
-    <div className="min-h-screen bg-muted py-12">
+    <div className="min-h-screen bg-[#F8F9FA] py-12">
       <div className="container-main max-w-4xl">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-2">Create Area Guide</h1>
-          <p className="text-foreground">Create a new neighborhood or city page for local SEO</p>
+          <h1 className="text-3xl md:text-4xl font-bold text-[#212529] mb-2">Create Area Guide</h1>
+          <p className="text-[#495057]">Create a new neighborhood or city page for local SEO</p>
         </div>
 
-        <form onSubmit={handleSubmit} className="bg-white border-2 border-border rounded-xl p-8 md:p-10 shadow-lg">
+        <form onSubmit={handleSubmit} className="bg-white border-2 border-[#E9ECEF] rounded-xl p-8 md:p-10 shadow-lg">
           {/* Basic Information */}
           <section className="mb-10">
-            <h2 className="text-xl font-bold text-foreground mb-6 flex items-center gap-2">
+            <h2 className="text-xl font-bold text-[#212529] mb-6 flex items-center gap-2">
               <MapPin size={ICON_SIZES.xl} />
               Basic Information
             </h2>
@@ -118,8 +118,8 @@ export default function NewAreaGuidePage() {
             <div className="space-y-6">
               {/* Name */}
               <div>
-                <label htmlFor="name" className="block text-sm font-medium text-foreground mb-2">
-                  Area Name <span className="text-foreground">*</span>
+                <label htmlFor="name" className="block text-sm font-medium text-[#212529] mb-2">
+                  Area Name <span className="text-[#FF6B6B]">*</span>
                 </label>
                 <input
                   id="name"
@@ -128,11 +128,11 @@ export default function NewAreaGuidePage() {
                   required
                   value={formData.name}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 border-2 border-border rounded-md text-foreground focus:outline-none focus:border-border transition-colors"
+                  className="w-full px-4 py-3 border-2 border-[#E9ECEF] rounded-md text-[#212529] focus:outline-none focus:border-[#212529] transition-colors"
                   placeholder="e.g., Downtown Apartments, Avondale Rentals"
                 />
                 {formData.name && (
-                  <p className="mt-2 text-xs text-foreground font-mono">
+                  <p className="mt-2 text-xs text-[#ADB5BD] font-mono">
                     URL: /areas/{generateSlug(formData.name)}
                   </p>
                 )}
@@ -141,8 +141,8 @@ export default function NewAreaGuidePage() {
               {/* City and Neighborhood */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label htmlFor="city" className="block text-sm font-medium text-foreground mb-2">
-                    City <span className="text-foreground">*</span>
+                  <label htmlFor="city" className="block text-sm font-medium text-[#212529] mb-2">
+                    City <span className="text-[#FF6B6B]">*</span>
                   </label>
                   <input
                     id="city"
@@ -151,14 +151,14 @@ export default function NewAreaGuidePage() {
                     required
                     value={formData.city}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-3 border-2 border-border rounded-md text-foreground focus:outline-none focus:border-border transition-colors"
+                    className="w-full px-4 py-3 border-2 border-[#E9ECEF] rounded-md text-[#212529] focus:outline-none focus:border-[#212529] transition-colors"
                     placeholder="Harare"
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="neighborhood" className="block text-sm font-medium text-foreground mb-2">
-                    Neighborhood <span className="text-xs text-foreground">(Optional)</span>
+                  <label htmlFor="neighborhood" className="block text-sm font-medium text-[#212529] mb-2">
+                    Neighborhood <span className="text-xs text-[#ADB5BD]">(Optional)</span>
                   </label>
                   <input
                     id="neighborhood"
@@ -166,7 +166,7 @@ export default function NewAreaGuidePage() {
                     type="text"
                     value={formData.neighborhood}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-3 border-2 border-border rounded-md text-foreground focus:outline-none focus:border-border transition-colors"
+                    className="w-full px-4 py-3 border-2 border-[#E9ECEF] rounded-md text-[#212529] focus:outline-none focus:border-[#212529] transition-colors"
                     placeholder="Avondale"
                   />
                 </div>
@@ -174,7 +174,7 @@ export default function NewAreaGuidePage() {
 
               {/* Description */}
               <div>
-                <label htmlFor="description" className="block text-sm font-medium text-foreground mb-2">
+                <label htmlFor="description" className="block text-sm font-medium text-[#212529] mb-2">
                   Short Description
                 </label>
                 <textarea
@@ -183,7 +183,7 @@ export default function NewAreaGuidePage() {
                   rows={3}
                   value={formData.description}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 border-2 border-border rounded-md text-foreground focus:outline-none focus:border-border transition-colors resize-none"
+                  className="w-full px-4 py-3 border-2 border-[#E9ECEF] rounded-md text-[#212529] focus:outline-none focus:border-[#212529] transition-colors resize-none"
                   placeholder="A brief description of this area (1-2 sentences)"
                 />
               </div>
@@ -191,15 +191,15 @@ export default function NewAreaGuidePage() {
           </section>
 
           {/* Content */}
-          <section className="mb-10 pb-10 border-b border-border">
-            <h2 className="text-xl font-bold text-foreground mb-6 flex items-center gap-2">
+          <section className="mb-10 pb-10 border-b border-[#E9ECEF]">
+            <h2 className="text-xl font-bold text-[#212529] mb-6 flex items-center gap-2">
               <FileText size={ICON_SIZES.xl} />
               Page Content
             </h2>
 
             <div>
-              <label htmlFor="content" className="block text-sm font-medium text-foreground mb-2">
-                Detailed Content <span className="text-xs text-foreground">(Markdown supported)</span>
+              <label htmlFor="content" className="block text-sm font-medium text-[#212529] mb-2">
+                Detailed Content <span className="text-xs text-[#ADB5BD]">(Markdown supported)</span>
               </label>
               <textarea
                 id="content"
@@ -207,7 +207,7 @@ export default function NewAreaGuidePage() {
                 rows={12}
                 value={formData.content}
                 onChange={handleInputChange}
-                className="w-full px-4 py-3 border-2 border-border rounded-md text-foreground focus:outline-none focus:border-border transition-colors resize-none font-mono text-sm"
+                className="w-full px-4 py-3 border-2 border-[#E9ECEF] rounded-md text-[#212529] focus:outline-none focus:border-[#212529] transition-colors resize-none font-mono text-sm"
                 placeholder="Write about the area, what makes it special, amenities, transportation, schools, etc.
 
 ## About [Area Name]
@@ -227,7 +227,7 @@ The area is perfect for..."
 
           {/* SEO Settings */}
           <section className="mb-10">
-            <h2 className="text-xl font-bold text-foreground mb-6 flex items-center gap-2">
+            <h2 className="text-xl font-bold text-[#212529] mb-6 flex items-center gap-2">
               <SearchIcon size={ICON_SIZES.xl} />
               SEO Settings
             </h2>
@@ -235,8 +235,8 @@ The area is perfect for..."
             <div className="space-y-6">
               {/* Meta Title */}
               <div>
-                <label htmlFor="metaTitle" className="block text-sm font-medium text-foreground mb-2">
-                  Meta Title <span className="text-xs text-foreground">(Defaults to Area Name)</span>
+                <label htmlFor="metaTitle" className="block text-sm font-medium text-[#212529] mb-2">
+                  Meta Title <span className="text-xs text-[#ADB5BD]">(Defaults to Area Name)</span>
                 </label>
                 <input
                   id="metaTitle"
@@ -245,17 +245,17 @@ The area is perfect for..."
                   maxLength={60}
                   value={formData.metaTitle}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 border-2 border-border rounded-md text-foreground focus:outline-none focus:border-border transition-colors"
+                  className="w-full px-4 py-3 border-2 border-[#E9ECEF] rounded-md text-[#212529] focus:outline-none focus:border-[#212529] transition-colors"
                   placeholder="Best Apartments in Downtown | Huts"
                 />
-                <p className="mt-1 text-xs text-foreground">
+                <p className="mt-1 text-xs text-[#ADB5BD]">
                   {formData.metaTitle.length}/60 characters
                 </p>
               </div>
 
               {/* Meta Description */}
               <div>
-                <label htmlFor="metaDescription" className="block text-sm font-medium text-foreground mb-2">
+                <label htmlFor="metaDescription" className="block text-sm font-medium text-[#212529] mb-2">
                   Meta Description
                 </label>
                 <textarea
@@ -265,10 +265,10 @@ The area is perfect for..."
                   maxLength={160}
                   value={formData.metaDescription}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 border-2 border-border rounded-md text-foreground focus:outline-none focus:border-border transition-colors resize-none"
+                  className="w-full px-4 py-3 border-2 border-[#E9ECEF] rounded-md text-[#212529] focus:outline-none focus:border-[#212529] transition-colors resize-none"
                   placeholder="Find the perfect rental in Downtown. Browse apartments, condos, and houses. Get local insights and property listings."
                 />
-                <p className="mt-1 text-xs text-foreground">
+                <p className="mt-1 text-xs text-[#ADB5BD]">
                   {formData.metaDescription.length}/160 characters
                 </p>
               </div>
@@ -280,14 +280,14 @@ The area is perfect for..."
             <button
               type="button"
               onClick={() => router.back()}
-              className="flex-1 px-6 py-4 border-2 border-border text-foreground rounded-lg font-medium hover:border-border transition-all"
+              className="flex-1 px-6 py-4 border-2 border-[#E9ECEF] text-[#212529] rounded-lg font-medium hover:border-[#212529] transition-all"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={loading}
-              className="flex-1 flex items-center justify-center gap-2 bg-muted text-white px-6 py-4 rounded-lg font-medium hover:bg-black hover:shadow-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+              className="flex-1 flex items-center justify-center gap-2 bg-[#212529] text-white px-6 py-4 rounded-lg font-medium hover:bg-black hover:shadow-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {loading ? (
                 <>

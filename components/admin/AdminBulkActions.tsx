@@ -86,7 +86,7 @@ export function BulkActionToolbar({
               <button
                 onClick={() => handleBulkAction('approve', 'approve')}
                 disabled={loading}
-                className="px-3 py-1.5 bg-muted hover:bg-black rounded-lg text-sm font-medium transition-colors disabled:opacity-50 flex items-center gap-1.5"
+                className="px-3 py-1.5 bg-[#212529] hover:bg-black rounded-lg text-sm font-medium transition-colors disabled:opacity-50 flex items-center gap-1.5"
               >
                 <CheckSquare size={14} />
                 Approve
@@ -94,7 +94,7 @@ export function BulkActionToolbar({
               <button
                 onClick={() => handleBulkAction('reject', 'reject')}
                 disabled={loading}
-                className="px-3 py-1.5 bg-muted hover:bg-muted/90 rounded-lg text-sm font-medium transition-colors disabled:opacity-50 flex items-center gap-1.5"
+                className="px-3 py-1.5 bg-[#FF6B6B] hover:bg-[#FF6B6B]/90 rounded-lg text-sm font-medium transition-colors disabled:opacity-50 flex items-center gap-1.5"
               >
                 <XSquare size={14} />
                 Reject
@@ -107,7 +107,7 @@ export function BulkActionToolbar({
               <button
                 onClick={() => handleBulkAction('suspend', 'suspend')}
                 disabled={loading}
-                className="px-3 py-1.5 bg-muted hover:bg-muted rounded-lg text-sm font-medium transition-colors disabled:opacity-50 flex items-center gap-1.5"
+                className="px-3 py-1.5 bg-[#495057] hover:bg-[#212529] rounded-lg text-sm font-medium transition-colors disabled:opacity-50 flex items-center gap-1.5"
               >
                 <UserX size={14} />
                 Suspend
@@ -115,7 +115,7 @@ export function BulkActionToolbar({
               <button
                 onClick={() => handleBulkAction('unsuspend', 'unsuspend')}
                 disabled={loading}
-                className="px-3 py-1.5 bg-muted hover:bg-black rounded-lg text-sm font-medium transition-colors disabled:opacity-50 flex items-center gap-1.5"
+                className="px-3 py-1.5 bg-[#212529] hover:bg-black rounded-lg text-sm font-medium transition-colors disabled:opacity-50 flex items-center gap-1.5"
               >
                 <UserCheck size={14} />
                 Unsuspend
@@ -126,7 +126,7 @@ export function BulkActionToolbar({
           <button
             onClick={() => handleBulkAction('delete', 'delete')}
             disabled={loading}
-            className="px-3 py-1.5 bg-muted hover:bg-muted/90 rounded-lg text-sm font-medium transition-colors disabled:opacity-50 flex items-center gap-1.5"
+            className="px-3 py-1.5 bg-[#FF6B6B] hover:bg-[#FF6B6B]/90 rounded-lg text-sm font-medium transition-colors disabled:opacity-50 flex items-center gap-1.5"
           >
             <Trash2 size={14} />
             Delete

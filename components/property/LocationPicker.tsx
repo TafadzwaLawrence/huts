@@ -185,14 +185,14 @@ export default function LocationPicker({ lat, lng, onLocationChange, className }
         {/* Search Bar */}
         <div className="flex gap-2">
           <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-foreground" />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-[#ADB5BD]" />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && searchLocation()}
               placeholder="Search for an address..."
-              className="w-full pl-9 pr-8 py-3 border-2 border-border rounded-xl text-foreground bg-white placeholder:text-foreground focus:border-border focus:outline-none transition-colors text-sm"
+              className="w-full pl-9 pr-8 py-3 border-2 border-[#E9ECEF] rounded-xl text-[#212529] bg-white placeholder:text-[#ADB5BD] focus:border-[#212529] focus:outline-none transition-colors text-sm"
             />
             {searchQuery && (
               <button
@@ -201,7 +201,7 @@ export default function LocationPicker({ lat, lng, onLocationChange, className }
                   setSearchQuery('')
                   setSearchResults([])
                 }}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-foreground hover:text-foreground"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-[#ADB5BD] hover:text-[#495057]"
               >
                 <X size={ICON_SIZES.md} />
               </button>
@@ -211,7 +211,7 @@ export default function LocationPicker({ lat, lng, onLocationChange, className }
             type="button"
             onClick={searchLocation}
             disabled={isSearching}
-            className="px-4 py-3 bg-muted text-white rounded-xl hover:bg-black transition-colors disabled:opacity-50 text-sm font-medium"
+            className="px-4 py-3 bg-[#212529] text-white rounded-xl hover:bg-black transition-colors disabled:opacity-50 text-sm font-medium"
           >
             {isSearching ? <Loader2 className="h-4 w-4 animate-spin" /> : 'Search'}
           </button>
@@ -219,34 +219,34 @@ export default function LocationPicker({ lat, lng, onLocationChange, className }
             type="button"
             onClick={getCurrentLocation}
             disabled={isLocating}
-            className="px-3 py-3 border-2 border-border rounded-xl hover:border-border transition-colors"
+            className="px-3 py-3 border-2 border-[#E9ECEF] rounded-xl hover:border-[#212529] transition-colors"
             title="Use my location"
           >
             {isLocating ? (
-              <Loader2 className="h-4 w-4 animate-spin text-foreground" />
+              <Loader2 className="h-4 w-4 animate-spin text-[#495057]" />
             ) : (
-              <Navigation className="h-4 w-4 text-foreground" />
+              <Navigation className="h-4 w-4 text-[#495057]" />
             )}
           </button>
         </div>
 
         {/* Search Results Dropdown */}
         {searchResults.length > 0 && (
-          <div className="bg-white border border-border rounded-xl shadow-lg overflow-hidden z-50 relative">
+          <div className="bg-white border border-[#E9ECEF] rounded-xl shadow-lg overflow-hidden z-50 relative">
             {searchResults.map((result, index) => (
               <button
                 key={index}
                 type="button"
                 onClick={() => selectSearchResult(result)}
-                className="w-full px-4 py-3 text-left hover:bg-muted transition-colors border-b border-border last:border-b-0"
+                className="w-full px-4 py-3 text-left hover:bg-[#F8F9FA] transition-colors border-b border-[#E9ECEF] last:border-b-0"
               >
                 <div className="flex items-start gap-2.5">
-                  <MapPin className="h-4 w-4 text-foreground mt-0.5 shrink-0" />
+                  <MapPin className="h-4 w-4 text-[#495057] mt-0.5 shrink-0" />
                   <div>
-                    <p className="text-sm font-medium text-foreground">
+                    <p className="text-sm font-medium text-[#212529]">
                       {result.display_name.split(',')[0]}
                     </p>
-                    <p className="text-xs text-foreground line-clamp-1">
+                    <p className="text-xs text-[#ADB5BD] line-clamp-1">
                       {result.display_name}
                     </p>
                   </div>
@@ -257,25 +257,25 @@ export default function LocationPicker({ lat, lng, onLocationChange, className }
         )}
 
         {/* Map */}
-        <div className="relative rounded-xl overflow-hidden border-2 border-border">
+        <div className="relative rounded-xl overflow-hidden border-2 border-[#E9ECEF]">
           <div
             ref={mapContainerRef}
             style={{ height: '400px', width: '100%' }}
-            className="z-0 bg-muted"
+            className="z-0 bg-[#F8F9FA]"
           />
 
           {/* Loading overlay before map mounts */}
           {!mounted && (
-            <div className="absolute inset-0 bg-muted flex items-center justify-center">
-              <Loader2 className="h-8 w-8 animate-spin text-foreground" />
+            <div className="absolute inset-0 bg-[#F8F9FA] flex items-center justify-center">
+              <Loader2 className="h-8 w-8 animate-spin text-[#ADB5BD]" />
             </div>
           )}
 
           {/* Instructions overlay */}
           {mounted && !position && (
             <div className="absolute bottom-4 left-4 right-4 bg-white/95 backdrop-blur-sm rounded-lg px-4 py-3 shadow-lg z-[1000]">
-              <p className="text-sm text-foreground flex items-center gap-2 font-medium">
-                <MapPin size={ICON_SIZES.sm} className="text-foreground" />
+              <p className="text-sm text-[#212529] flex items-center gap-2 font-medium">
+                <MapPin size={ICON_SIZES.sm} className="text-[#495057]" />
                 Click anywhere on the map to set location
               </p>
             </div>
@@ -284,14 +284,14 @@ export default function LocationPicker({ lat, lng, onLocationChange, className }
 
         {/* Selected Location */}
         {position && (
-          <div className="bg-muted rounded-xl px-4 py-3 flex items-center justify-between">
+          <div className="bg-[#F8F9FA] rounded-xl px-4 py-3 flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="h-9 w-9 rounded-full bg-white border border-border flex items-center justify-center">
-                <MapPin className="h-4 w-4 text-foreground" />
+              <div className="h-9 w-9 rounded-full bg-white border border-[#E9ECEF] flex items-center justify-center">
+                <MapPin className="h-4 w-4 text-[#212529]" />
               </div>
               <div>
-                <p className="text-sm font-medium text-foreground">Location Selected</p>
-                <p className="text-xs text-foreground tabular-nums">
+                <p className="text-sm font-medium text-[#212529]">Location Selected</p>
+                <p className="text-xs text-[#ADB5BD] tabular-nums">
                   {position[0].toFixed(6)}, {position[1].toFixed(6)}
                 </p>
               </div>
@@ -299,7 +299,7 @@ export default function LocationPicker({ lat, lng, onLocationChange, className }
             <button
               type="button"
               onClick={clearPosition}
-              className="text-xs text-foreground hover:text-red-600 font-semibold"
+              className="text-xs text-[#FF6B6B] hover:text-red-600 font-semibold"
             >
               Clear
             </button>

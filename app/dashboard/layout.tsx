@@ -20,7 +20,7 @@ export default async function DashboardLayout({
   }
 
   return (
-    <div className="min-h-screen bg-muted">
+    <div className="min-h-screen bg-[#F8F9FA]">
       {children}
     </div>
   )

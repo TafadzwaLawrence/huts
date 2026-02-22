@@ -141,16 +141,16 @@ export default function MyPropertiesList({ properties }: { properties: PropertyW
   if (properties.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center py-20">
-        <div className="w-20 h-20 bg-muted rounded-2xl flex items-center justify-center mb-6 border border-border">
-          <Building2 size={ICON_SIZES['2xl']} className="text-muted-foreground" />
+        <div className="w-20 h-20 bg-[#F8F9FA] rounded-2xl flex items-center justify-center mb-6 border border-[#E9ECEF]">
+          <Building2 size={ICON_SIZES['2xl']} className="text-[#ADB5BD]" />
         </div>
-        <h2 className="text-2xl font-bold text-foreground mb-2">No properties yet</h2>
-        <p className="text-muted-foreground mb-8 max-w-sm text-center">
+        <h2 className="text-2xl font-bold text-[#212529] mb-2">No properties yet</h2>
+        <p className="text-[#495057] mb-8 max-w-sm text-center">
           Start earning by listing your first property. It only takes a few minutes.
         </p>
         <Link
           href="/dashboard/new-property"
-          className="inline-flex items-center gap-2 bg-foreground text-white px-8 py-3.5 rounded-xl font-semibold hover:bg-black hover:shadow-lg hover:-translate-y-0.5 transition-all"
+          className="inline-flex items-center gap-2 bg-[#212529] text-white px-8 py-3.5 rounded-xl font-semibold hover:bg-black hover:shadow-lg hover:-translate-y-0.5 transition-all"
         >
           <Sparkles size={ICON_SIZES.lg} />
           List Your First Property
@@ -164,8 +164,8 @@ export default function MyPropertiesList({ properties }: { properties: PropertyW
       {/* Page Header */}
       <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-foreground">My Properties</h1>
-          <p className="text-sm text-muted-foreground mt-1">
+          <h1 className="text-2xl font-bold text-[#212529]">My Properties</h1>
+          <p className="text-sm text-[#495057] mt-1">
             {stats.total} {stats.total === 1 ? 'property' : 'properties'} &middot; {stats.active} active
           </p>
         </div>
@@ -173,13 +173,13 @@ export default function MyPropertiesList({ properties }: { properties: PropertyW
 
       {/* Pending Verification Banner */}
       {stats.pending > 0 && (
-        <div className="bg-amber-50 border border-amber-400/40 rounded-xl px-5 py-4 flex items-start sm:items-center gap-3">
-          <ShieldAlert size={ICON_SIZES.lg} className="text-amber-600 flex-shrink-0 mt-0.5 sm:mt-0" />
+        <div className="bg-[#fff8e1] border border-[#ffc107]/40 rounded-xl px-5 py-4 flex items-start sm:items-center gap-3">
+          <ShieldAlert size={ICON_SIZES.lg} className="text-[#f59f00] flex-shrink-0 mt-0.5 sm:mt-0" />
           <div className="flex-1 min-w-0">
-            <p className="text-sm font-semibold text-foreground">
+            <p className="text-sm font-semibold text-[#212529]">
               {stats.pending} {stats.pending === 1 ? 'property' : 'properties'} pending verification
             </p>
-            <p className="text-xs text-muted-foreground mt-0.5">
+            <p className="text-xs text-[#495057] mt-0.5">
               Our team is reviewing your listing. This usually takes less than 24 hours.
             </p>
           </div>
@@ -188,65 +188,65 @@ export default function MyPropertiesList({ properties }: { properties: PropertyW
 
       {/* Stats Row */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-        <div className="bg-white rounded-xl border border-border p-4 hover:border-muted-foreground transition-colors">
+        <div className="bg-white rounded-xl border border-[#E9ECEF] p-4 hover:border-[#ADB5BD] transition-colors">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-muted rounded-lg flex items-center justify-center flex-shrink-0">
-              <Eye size={ICON_SIZES.lg} className="text-foreground" />
+            <div className="w-10 h-10 bg-[#F8F9FA] rounded-lg flex items-center justify-center flex-shrink-0">
+              <Eye size={ICON_SIZES.lg} className="text-[#212529]" />
             </div>
             <div className="min-w-0">
-              <p className="text-xl font-bold text-foreground tabular-nums">{stats.totalViews.toLocaleString()}</p>
-              <p className="text-xs text-muted-foreground">Total views</p>
+              <p className="text-xl font-bold text-[#212529] tabular-nums">{stats.totalViews.toLocaleString()}</p>
+              <p className="text-xs text-[#495057]">Total views</p>
             </div>
           </div>
         </div>
-        <div className="bg-white rounded-xl border border-border p-4 hover:border-muted-foreground transition-colors">
+        <div className="bg-white rounded-xl border border-[#E9ECEF] p-4 hover:border-[#ADB5BD] transition-colors">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-muted rounded-lg flex items-center justify-center flex-shrink-0">
-              <Heart size={ICON_SIZES.lg} className="text-foreground" />
+            <div className="w-10 h-10 bg-[#F8F9FA] rounded-lg flex items-center justify-center flex-shrink-0">
+              <Heart size={ICON_SIZES.lg} className="text-[#212529]" />
             </div>
             <div className="min-w-0">
-              <p className="text-xl font-bold text-foreground tabular-nums">{stats.totalSaves.toLocaleString()}</p>
-              <p className="text-xs text-muted-foreground">Saves</p>
+              <p className="text-xl font-bold text-[#212529] tabular-nums">{stats.totalSaves.toLocaleString()}</p>
+              <p className="text-xs text-[#495057]">Saves</p>
             </div>
           </div>
         </div>
-        <div className="bg-white rounded-xl border border-border p-4 hover:border-muted-foreground transition-colors">
+        <div className="bg-white rounded-xl border border-[#E9ECEF] p-4 hover:border-[#ADB5BD] transition-colors">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-muted rounded-lg flex items-center justify-center flex-shrink-0">
-              <MessageSquare size={ICON_SIZES.lg} className="text-foreground" />
+            <div className="w-10 h-10 bg-[#F8F9FA] rounded-lg flex items-center justify-center flex-shrink-0">
+              <MessageSquare size={ICON_SIZES.lg} className="text-[#212529]" />
             </div>
             <div className="min-w-0">
-              <p className="text-xl font-bold text-foreground tabular-nums">{stats.totalInquiries}</p>
-              <p className="text-xs text-muted-foreground">Inquiries</p>
+              <p className="text-xl font-bold text-[#212529] tabular-nums">{stats.totalInquiries}</p>
+              <p className="text-xs text-[#495057]">Inquiries</p>
             </div>
           </div>
         </div>
-        <div className="bg-white rounded-xl border border-border p-4 hover:border-muted-foreground transition-colors">
+        <div className="bg-white rounded-xl border border-[#E9ECEF] p-4 hover:border-[#ADB5BD] transition-colors">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-muted rounded-lg flex items-center justify-center flex-shrink-0">
-              <BarChart3 size={ICON_SIZES.lg} className="text-foreground" />
+            <div className="w-10 h-10 bg-[#F8F9FA] rounded-lg flex items-center justify-center flex-shrink-0">
+              <BarChart3 size={ICON_SIZES.lg} className="text-[#212529]" />
             </div>
             <div className="min-w-0">
-              <p className="text-xl font-bold text-foreground tabular-nums">
+              <p className="text-xl font-bold text-[#212529] tabular-nums">
                 {stats.totalViews > 0 ? `${((stats.totalInquiries / stats.totalViews) * 100).toFixed(1)}%` : '—'}
               </p>
-              <p className="text-xs text-muted-foreground">Conversion</p>
+              <p className="text-xs text-[#495057]">Conversion</p>
             </div>
           </div>
         </div>
       </div>
 
       {/* Toolbar — Search + Filters + Sort */}
-      <div className="bg-white rounded-xl border border-border p-3 space-y-3">
+      <div className="bg-white rounded-xl border border-[#E9ECEF] p-3 space-y-3">
         {/* Search */}
         <div className="relative">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-[#ADB5BD]" />
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search by title, city, or neighborhood..."
-            className="w-full pl-9 pr-4 py-2.5 text-sm text-foreground bg-muted border border-border rounded-lg placeholder:text-muted-foreground focus:border-foreground focus:outline-none focus:bg-white transition-colors"
+            className="w-full pl-9 pr-4 py-2.5 text-sm text-[#212529] bg-[#F8F9FA] border border-[#E9ECEF] rounded-lg placeholder:text-[#ADB5BD] focus:border-[#212529] focus:outline-none focus:bg-white transition-colors"
           />
         </div>
 
@@ -254,15 +254,15 @@ export default function MyPropertiesList({ properties }: { properties: PropertyW
         <div className="flex flex-col sm:flex-row sm:items-center gap-3">
           <div className="flex flex-wrap items-center gap-2 flex-1">
             {/* Type pills */}
-            <div className="flex items-center bg-muted rounded-lg p-0.5 border border-border">
+            <div className="flex items-center bg-[#F8F9FA] rounded-lg p-0.5 border border-[#E9ECEF]">
               {(['all', 'rent', 'sale'] as TypeFilter[]).map(t => (
                 <button
                   key={t}
                   onClick={() => setTypeFilter(t)}
                   className={`px-3 py-1.5 rounded-md text-xs font-semibold transition-all ${
                     typeFilter === t 
-                      ? 'bg-foreground text-white shadow-sm' 
-                      : 'text-foreground hover:bg-white'
+                      ? 'bg-[#212529] text-white shadow-sm' 
+                      : 'text-[#212529] hover:bg-white'
                   }`}
                 >
                   {t === 'all' ? 'All' : t === 'rent' ? `Rent (${stats.rent})` : `Sale (${stats.sale})`}
@@ -271,15 +271,15 @@ export default function MyPropertiesList({ properties }: { properties: PropertyW
             </div>
 
             {/* Status pills */}
-            <div className="flex items-center bg-muted rounded-lg p-0.5 border border-border">
+            <div className="flex items-center bg-[#F8F9FA] rounded-lg p-0.5 border border-[#E9ECEF]">
               {(['all', 'active', 'inactive'] as StatusFilter[]).map(s => (
                 <button
                   key={s}
                   onClick={() => setStatusFilter(s)}
                   className={`px-3 py-1.5 rounded-md text-xs font-semibold transition-all flex items-center gap-1 ${
                     statusFilter === s 
-                      ? 'bg-foreground text-white shadow-sm' 
-                      : 'text-foreground hover:bg-white'
+                      ? 'bg-[#212529] text-white shadow-sm' 
+                      : 'text-[#212529] hover:bg-white'
                   }`}
                 >
                   {s === 'active' && <CheckCircle2 size={ICON_SIZES.xs} />}
@@ -291,7 +291,7 @@ export default function MyPropertiesList({ properties }: { properties: PropertyW
 
             {/* Verification pills */}
             {(stats.pending > 0 || stats.rejected > 0) && (
-              <div className="flex items-center bg-muted rounded-lg p-0.5 border border-border">
+              <div className="flex items-center bg-[#F8F9FA] rounded-lg p-0.5 border border-[#E9ECEF]">
                 {(['all', 'pending', 'approved', 'rejected'] as VerificationFilter[]).map(v => {
                   const count = v === 'pending' ? stats.pending : v === 'approved' ? stats.verified : v === 'rejected' ? stats.rejected : stats.total
                   if (v !== 'all' && count === 0) return null
@@ -301,8 +301,8 @@ export default function MyPropertiesList({ properties }: { properties: PropertyW
                       onClick={() => setVerificationFilter(v)}
                       className={`px-3 py-1.5 rounded-md text-xs font-semibold transition-all flex items-center gap-1 ${
                         verificationFilter === v 
-                          ? 'bg-foreground text-white shadow-sm' 
-                          : 'text-foreground hover:bg-white'
+                          ? 'bg-[#212529] text-white shadow-sm' 
+                          : 'text-[#212529] hover:bg-white'
                       }`}
                     >
                       {v === 'pending' && <ShieldAlert size={ICON_SIZES.xs} />}
@@ -321,7 +321,7 @@ export default function MyPropertiesList({ properties }: { properties: PropertyW
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value as SortOption)}
-              className="appearance-none pl-3 pr-8 py-2 bg-muted border border-border rounded-lg text-xs font-semibold text-foreground hover:border-muted-foreground focus:border-foreground focus:outline-none transition-all cursor-pointer"
+              className="appearance-none pl-3 pr-8 py-2 bg-[#F8F9FA] border border-[#E9ECEF] rounded-lg text-xs font-semibold text-[#212529] hover:border-[#ADB5BD] focus:border-[#212529] focus:outline-none transition-all cursor-pointer"
             >
               <option value="newest">Newest</option>
               <option value="oldest">Oldest</option>
@@ -330,13 +330,13 @@ export default function MyPropertiesList({ properties }: { properties: PropertyW
               <option value="price-high">Price high</option>
               <option value="price-low">Price low</option>
             </select>
-            <ArrowUpDown size={ICON_SIZES.xs} className="absolute right-2.5 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none" />
+            <ArrowUpDown size={ICON_SIZES.xs} className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[#495057] pointer-events-none" />
           </div>
         </div>
       </div>
 
       {/* Results count */}
-      <p className="text-xs text-muted-foreground px-1">
+      <p className="text-xs text-[#495057] px-1">
         {filteredProperties.length === properties.length
           ? `${properties.length} ${properties.length === 1 ? 'property' : 'properties'}`
           : `${filteredProperties.length} of ${properties.length} properties`}
@@ -344,12 +344,12 @@ export default function MyPropertiesList({ properties }: { properties: PropertyW
 
       {/* Property List */}
       {filteredProperties.length === 0 ? (
-        <div className="bg-white rounded-xl border border-border p-12 text-center">
-          <div className="w-16 h-16 bg-muted rounded-full flex items-center justify-center mx-auto mb-4">
-            <Filter size={ICON_SIZES.xl} className="text-muted-foreground" />
+        <div className="bg-white rounded-xl border border-[#E9ECEF] p-12 text-center">
+          <div className="w-16 h-16 bg-[#F8F9FA] rounded-full flex items-center justify-center mx-auto mb-4">
+            <Filter size={ICON_SIZES.xl} className="text-[#ADB5BD]" />
           </div>
-          <h3 className="text-base font-semibold text-foreground mb-1">No properties match</h3>
-          <p className="text-sm text-muted-foreground mb-4">Try adjusting your filters or search</p>
+          <h3 className="text-base font-semibold text-[#212529] mb-1">No properties match</h3>
+          <p className="text-sm text-[#495057] mb-4">Try adjusting your filters or search</p>
           <button
             onClick={() => {
               setStatusFilter('all')
@@ -357,7 +357,7 @@ export default function MyPropertiesList({ properties }: { properties: PropertyW
               setVerificationFilter('all')
               setSearchQuery('')
             }}
-            className="text-sm font-semibold text-foreground underline underline-offset-4 hover:text-black"
+            className="text-sm font-semibold text-[#212529] underline underline-offset-4 hover:text-black"
           >
             Clear all filters
           </button>
@@ -378,14 +378,14 @@ export default function MyPropertiesList({ properties }: { properties: PropertyW
               <div
                 key={property.id}
                 className={`group bg-white rounded-xl border overflow-hidden transition-all duration-200 hover:shadow-md ${
-                  isPending ? 'border-amber-400/50' : isRejected ? 'border-warning/40' : 'border-border hover:border-foreground'
+                  isPending ? 'border-[#ffc107]/50' : isRejected ? 'border-[#FF6B6B]/40' : 'border-[#E9ECEF] hover:border-[#212529]'
                 }`}
               >
                 <div className="flex flex-col sm:flex-row">
                   {/* Image */}
                   <Link 
                     href={`/property/${property.slug || property.id}`}
-                    className="relative w-full sm:w-52 md:w-56 h-48 sm:h-auto flex-shrink-0 overflow-hidden bg-muted"
+                    className="relative w-full sm:w-52 md:w-56 h-48 sm:h-auto flex-shrink-0 overflow-hidden bg-[#F8F9FA]"
                   >
                     {image ? (
                       <img 
@@ -395,15 +395,15 @@ export default function MyPropertiesList({ properties }: { properties: PropertyW
                       />
                     ) : (
                       <div className="w-full h-full flex items-center justify-center min-h-[160px]">
-                        <Building2 size={ICON_SIZES['2xl']} className="text-muted-foreground" />
+                        <Building2 size={ICON_SIZES['2xl']} className="text-[#ADB5BD]" />
                       </div>
                     )}
                     {/* Top-left badges */}
                     <div className="absolute top-3 left-3 flex items-center gap-1.5">
                       <span className={`px-2 py-1 text-[10px] font-bold rounded-md uppercase tracking-wide backdrop-blur-sm ${
                         isForSale 
-                          ? 'bg-foreground/90 text-white' 
-                          : 'bg-white/90 text-foreground'
+                          ? 'bg-[#212529]/90 text-white' 
+                          : 'bg-white/90 text-[#212529]'
                       }`}>
                         {isForSale ? 'Sale' : 'Rent'}
                       </span>
@@ -411,8 +411,8 @@ export default function MyPropertiesList({ properties }: { properties: PropertyW
                       {verificationStatus !== 'approved' && (
                         <span className={`px-2 py-1 text-[10px] font-bold rounded-md flex items-center gap-1 backdrop-blur-sm ${
                           isPending
-                            ? 'bg-amber-400/90 text-foreground'
-                            : 'bg-warning/90 text-white'
+                            ? 'bg-[#ffc107]/90 text-[#212529]'
+                            : 'bg-[#FF6B6B]/90 text-white'
                         }`}>
                           {isPending ? <ShieldAlert size={ICON_SIZES.xs} /> : <ShieldX size={ICON_SIZES.xs} />}
                           {isPending ? 'Pending' : 'Rejected'}
@@ -423,10 +423,10 @@ export default function MyPropertiesList({ properties }: { properties: PropertyW
                     <div className="absolute bottom-3 left-3">
                       <span className={`px-2 py-1 text-[10px] font-semibold rounded-md flex items-center gap-1 backdrop-blur-sm ${
                         isActive 
-                          ? 'bg-success/90 text-white' 
-                          : 'bg-muted-foreground/80 text-white'
+                          ? 'bg-[#51CF66]/90 text-white' 
+                          : 'bg-[#495057]/80 text-white'
                       }`}>
-                        <span className={`w-1.5 h-1.5 rounded-full ${isActive ? 'bg-white' : 'bg-muted-foreground'}`} />
+                        <span className={`w-1.5 h-1.5 rounded-full ${isActive ? 'bg-white' : 'bg-[#ADB5BD]'}`} />
                         {isActive ? 'Active' : 'Inactive'}
                       </span>
                     </div>
@@ -440,71 +440,71 @@ export default function MyPropertiesList({ properties }: { properties: PropertyW
                         <div className="flex-1 min-w-0">
                           <Link 
                             href={`/property/${property.slug || property.id}`}
-                            className="text-base font-bold text-foreground hover:underline underline-offset-2 line-clamp-1 block"
+                            className="text-base font-bold text-[#212529] hover:underline underline-offset-2 line-clamp-1 block"
                           >
                             {property.title}
                           </Link>
-                          <p className="text-xs text-muted-foreground flex items-center gap-1.5 mt-1">
-                            <MapPin size={ICON_SIZES.xs} className="flex-shrink-0 text-muted-foreground" />
+                          <p className="text-xs text-[#495057] flex items-center gap-1.5 mt-1">
+                            <MapPin size={ICON_SIZES.xs} className="flex-shrink-0 text-[#ADB5BD]" />
                             <span className="line-clamp-1">
                               {[property.neighborhood, property.city].filter(Boolean).join(', ') || property.address}
                             </span>
                           </p>
                         </div>
                         <div className="text-right flex-shrink-0">
-                          <p className="text-lg font-bold text-foreground tabular-nums">
+                          <p className="text-lg font-bold text-[#212529] tabular-nums">
                             ${price ? (price / 100).toLocaleString() : '0'}
                           </p>
-                          <p className="text-[10px] text-muted-foreground font-medium uppercase tracking-wide">
+                          <p className="text-[10px] text-[#495057] font-medium uppercase tracking-wide">
                             {isForSale ? 'sale price' : 'per month'}
                           </p>
                         </div>
                       </div>
 
                       {/* Property specs + date */}
-                      <div className="flex flex-wrap items-center gap-3 text-xs text-muted-foreground mb-3">
+                      <div className="flex flex-wrap items-center gap-3 text-xs text-[#495057] mb-3">
                         {property.beds > 0 && (
                           <span className="flex items-center gap-1">
-                            <Bed size={ICON_SIZES.xs} className="text-muted-foreground" /> 
-                            <span className="font-semibold text-foreground">{property.beds}</span> bed
+                            <Bed size={ICON_SIZES.xs} className="text-[#ADB5BD]" /> 
+                            <span className="font-semibold text-[#212529]">{property.beds}</span> bed
                           </span>
                         )}
                         {property.baths > 0 && (
                           <span className="flex items-center gap-1">
-                            <Bath size={ICON_SIZES.xs} className="text-muted-foreground" /> 
-                            <span className="font-semibold text-foreground">{property.baths}</span> bath
+                            <Bath size={ICON_SIZES.xs} className="text-[#ADB5BD]" /> 
+                            <span className="font-semibold text-[#212529]">{property.baths}</span> bath
                           </span>
                         )}
                         {property.sqft > 0 && (
                           <span className="flex items-center gap-1">
-                            <Square size={ICON_SIZES.xs} className="text-muted-foreground" /> 
-                            <span className="font-semibold text-foreground">{property.sqft.toLocaleString()}</span> sqft
+                            <Square size={ICON_SIZES.xs} className="text-[#ADB5BD]" /> 
+                            <span className="font-semibold text-[#212529]">{property.sqft.toLocaleString()}</span> sqft
                           </span>
                         )}
-                        <span className="ml-auto flex items-center gap-1 text-muted-foreground">
+                        <span className="ml-auto flex items-center gap-1 text-[#ADB5BD]">
                           <Calendar size={ICON_SIZES.xs} /> {formatTimeAgo(property.created_at)}
                         </span>
                       </div>
                     </div>
 
                     {/* Bottom row: stats bar + actions */}
-                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-3 border-t border-gray-100">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-3 border-t border-[#F0F0F0]">
                       {/* Inline stats */}
                       <div className="flex items-center gap-4">
-                        <span className="flex items-center gap-1.5 text-xs text-muted-foreground">
-                          <Eye size={ICON_SIZES.xs} className="text-muted-foreground" />
-                          <span className="font-bold text-foreground tabular-nums">{property.stats.views}</span>
+                        <span className="flex items-center gap-1.5 text-xs text-[#495057]">
+                          <Eye size={ICON_SIZES.xs} className="text-[#ADB5BD]" />
+                          <span className="font-bold text-[#212529] tabular-nums">{property.stats.views}</span>
                         </span>
-                        <span className="flex items-center gap-1.5 text-xs text-muted-foreground">
-                          <Heart size={ICON_SIZES.xs} className="text-muted-foreground" />
-                          <span className="font-bold text-foreground tabular-nums">{property.stats.saves}</span>
+                        <span className="flex items-center gap-1.5 text-xs text-[#495057]">
+                          <Heart size={ICON_SIZES.xs} className="text-[#ADB5BD]" />
+                          <span className="font-bold text-[#212529] tabular-nums">{property.stats.saves}</span>
                         </span>
-                        <span className="flex items-center gap-1.5 text-xs text-muted-foreground">
-                          <MessageSquare size={ICON_SIZES.xs} className="text-muted-foreground" />
-                          <span className="font-bold text-foreground tabular-nums">{property.stats.inquiries}</span>
+                        <span className="flex items-center gap-1.5 text-xs text-[#495057]">
+                          <MessageSquare size={ICON_SIZES.xs} className="text-[#ADB5BD]" />
+                          <span className="font-bold text-[#212529] tabular-nums">{property.stats.inquiries}</span>
                         </span>
                         {property.stats.views > 0 && (
-                          <span className="hidden sm:flex items-center gap-1 text-[10px] font-semibold text-success bg-success/10 px-2 py-1 rounded-md">
+                          <span className="hidden sm:flex items-center gap-1 text-[10px] font-semibold text-[#51CF66] bg-[#51CF66]/10 px-2 py-1 rounded-md">
                             <TrendingUp size={ICON_SIZES.xs} />
                             {((property.stats.inquiries / property.stats.views) * 100).toFixed(1)}%
                           </span>
@@ -517,7 +517,7 @@ export default function MyPropertiesList({ properties }: { properties: PropertyW
                           <button
                             onClick={() => resendVerification(property.id)}
                             disabled={resendingId === property.id}
-                            className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold text-foreground bg-amber-400/15 hover:bg-amber-400/25 border border-amber-400/50 rounded-lg transition-all disabled:opacity-50"
+                            className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold text-[#212529] bg-[#ffc107]/15 hover:bg-[#ffc107]/25 border border-[#ffc107]/50 rounded-lg transition-all disabled:opacity-50"
                             title="Resend verification email"
                           >
                             {resendingId === property.id ? (
@@ -531,14 +531,14 @@ export default function MyPropertiesList({ properties }: { properties: PropertyW
                         <Link
                           href={`/property/${property.slug || property.id}`}
                           target="_blank"
-                          className="p-2 text-muted-foreground hover:text-foreground hover:bg-muted rounded-lg transition-all border border-border"
+                          className="p-2 text-[#495057] hover:text-[#212529] hover:bg-[#F8F9FA] rounded-lg transition-all border border-[#E9ECEF]"
                           title="View listing"
                         >
                           <ExternalLink size={ICON_SIZES.sm} />
                         </Link>
                         <Link
                           href={`/dashboard/edit-property/${property.id}`}
-                          className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-semibold text-white bg-foreground hover:bg-black rounded-lg transition-all"
+                          className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-semibold text-white bg-[#212529] hover:bg-black rounded-lg transition-all"
                         >
                           <Pencil size={ICON_SIZES.sm} />
                           Edit

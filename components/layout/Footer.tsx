@@ -7,7 +7,7 @@ export function Footer() {
   const currentYear = new Date().getFullYear()
 
   return (
-    <footer className="bg-foreground text-white relative overflow-hidden" role="contentinfo">
+    <footer className="bg-[#212529] text-white relative overflow-hidden" role="contentinfo">
       {/* Ambient glow */}
       <div className="absolute bottom-0 left-1/4 w-[500px] h-[300px] bg-white/[0.02] rounded-full blur-[120px]" />
 
@@ -27,7 +27,7 @@ export function Footer() {
               />
               <span className="text-xl font-bold tracking-tight">Huts</span>
             </div>
-            <p className="text-sm text-on-dark-muted leading-relaxed mb-6">
+            <p className="text-sm text-[#ADB5BD] leading-relaxed mb-6">
               The simplest way to find your next home in Zimbabwe. No clutter, no noise — just verified properties from real landlords.
             </p>
             <div className="flex items-center gap-3">
@@ -48,25 +48,25 @@ export function Footer() {
               <h3 className="text-xs font-semibold uppercase tracking-widest text-white/40 mb-5">Explore</h3>
               <ul className="space-y-3.5">
                 <li>
-                  <Link href="/search?type=rent" className="text-sm text-on-dark-muted hover:text-white transition-colors inline-flex items-center gap-1 group">
+                  <Link href="/search?type=rent" className="text-sm text-[#ADB5BD] hover:text-white transition-colors inline-flex items-center gap-1 group">
                     Rentals
                     <ArrowUpRight size={ICON_SIZES.xs} className="opacity-0 -translate-y-0.5 group-hover:opacity-60 group-hover:translate-y-0 transition-all" />
                   </Link>
                 </li>
                 <li>
-                  <Link href="/search?type=sale" className="text-sm text-on-dark-muted hover:text-white transition-colors inline-flex items-center gap-1 group">
+                  <Link href="/search?type=sale" className="text-sm text-[#ADB5BD] hover:text-white transition-colors inline-flex items-center gap-1 group">
                     For Sale
                     <ArrowUpRight size={ICON_SIZES.xs} className="opacity-0 -translate-y-0.5 group-hover:opacity-60 group-hover:translate-y-0 transition-all" />
                   </Link>
                 </li>
                 <li>
-                  <Link href="/areas" className="text-sm text-on-dark-muted hover:text-white transition-colors inline-flex items-center gap-1 group">
+                  <Link href="/areas" className="text-sm text-[#ADB5BD] hover:text-white transition-colors inline-flex items-center gap-1 group">
                     Area Guides
                     <ArrowUpRight size={ICON_SIZES.xs} className="opacity-0 -translate-y-0.5 group-hover:opacity-60 group-hover:translate-y-0 transition-all" />
                   </Link>
                 </li>
                 <li>
-                  <Link href="/search" className="text-sm text-on-dark-muted hover:text-white transition-colors inline-flex items-center gap-1 group">
+                  <Link href="/search" className="text-sm text-[#ADB5BD] hover:text-white transition-colors inline-flex items-center gap-1 group">
                     Browse All
                     <ArrowUpRight size={ICON_SIZES.xs} className="opacity-0 -translate-y-0.5 group-hover:opacity-60 group-hover:translate-y-0 transition-all" />
                   </Link>
@@ -79,19 +79,19 @@ export function Footer() {
               <h3 className="text-xs font-semibold uppercase tracking-widest text-white/40 mb-5">Landlords</h3>
               <ul className="space-y-3.5">
                 <li>
-                  <Link href="/dashboard/new-property" className="text-sm text-on-dark-muted hover:text-white transition-colors inline-flex items-center gap-1 group">
+                  <Link href="/dashboard/new-property" className="text-sm text-[#ADB5BD] hover:text-white transition-colors inline-flex items-center gap-1 group">
                     Post a Property
                     <ArrowUpRight size={ICON_SIZES.xs} className="opacity-0 -translate-y-0.5 group-hover:opacity-60 group-hover:translate-y-0 transition-all" />
                   </Link>
                 </li>
                 <li>
-                  <Link href="/pricing" className="text-sm text-on-dark-muted hover:text-white transition-colors inline-flex items-center gap-1 group">
+                  <Link href="/pricing" className="text-sm text-[#ADB5BD] hover:text-white transition-colors inline-flex items-center gap-1 group">
                     Pricing
                     <ArrowUpRight size={ICON_SIZES.xs} className="opacity-0 -translate-y-0.5 group-hover:opacity-60 group-hover:translate-y-0 transition-all" />
                   </Link>
                 </li>
                 <li>
-                  <Link href="/dashboard" className="text-sm text-on-dark-muted hover:text-white transition-colors inline-flex items-center gap-1 group">
+                  <Link href="/dashboard" className="text-sm text-[#ADB5BD] hover:text-white transition-colors inline-flex items-center gap-1 group">
                     Dashboard
                     <ArrowUpRight size={ICON_SIZES.xs} className="opacity-0 -translate-y-0.5 group-hover:opacity-60 group-hover:translate-y-0 transition-all" />
                   </Link>
@@ -104,25 +104,25 @@ export function Footer() {
               <h3 className="text-xs font-semibold uppercase tracking-widest text-white/40 mb-5">Support</h3>
               <ul className="space-y-3.5">
                 <li>
-                  <Link href="/help" className="text-sm text-on-dark-muted hover:text-white transition-colors inline-flex items-center gap-1 group">
+                  <Link href="/help" className="text-sm text-[#ADB5BD] hover:text-white transition-colors inline-flex items-center gap-1 group">
                     Help Center
                     <ArrowUpRight size={ICON_SIZES.xs} className="opacity-0 -translate-y-0.5 group-hover:opacity-60 group-hover:translate-y-0 transition-all" />
                   </Link>
                 </li>
                 <li>
-                  <Link href="/contact" className="text-sm text-on-dark-muted hover:text-white transition-colors inline-flex items-center gap-1 group">
+                  <Link href="/contact" className="text-sm text-[#ADB5BD] hover:text-white transition-colors inline-flex items-center gap-1 group">
                     Contact Us
                     <ArrowUpRight size={ICON_SIZES.xs} className="opacity-0 -translate-y-0.5 group-hover:opacity-60 group-hover:translate-y-0 transition-all" />
                   </Link>
                 </li>
                 <li>
-                  <a href="mailto:support@huts.co.zw" className="text-sm text-on-dark-muted hover:text-white transition-colors flex items-center gap-2">
+                  <a href="mailto:support@huts.co.zw" className="text-sm text-[#ADB5BD] hover:text-white transition-colors flex items-center gap-2">
                     <Mail size={ICON_SIZES.sm} className="shrink-0" />
                     support@huts.co.zw
                   </a>
                 </li>
                 <li>
-                  <a href="tel:+263786470999" className="text-sm text-on-dark-muted hover:text-white transition-colors flex items-center gap-2">
+                  <a href="tel:+263786470999" className="text-sm text-[#ADB5BD] hover:text-white transition-colors flex items-center gap-2">
                     <Phone size={ICON_SIZES.sm} className="shrink-0" />
                     +263 78 647 0999
                   </a>

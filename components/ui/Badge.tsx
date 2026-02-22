@@ -11,10 +11,10 @@ interface BadgeProps extends HTMLAttributes<HTMLDivElement> {
 export const Badge = forwardRef<HTMLDivElement, BadgeProps>(
   ({ className, variant = 'default', size = 'md', icon: Icon, children, ...props }, ref) => {
     const variantClasses = {
-      default: 'bg-muted text-foreground border border-border',
-      outline: 'bg-transparent text-foreground border-2 border-border',
-      subtle: 'bg-muted text-foreground',
-      solid: 'bg-muted text-white',
+      default: 'bg-[#F8F9FA] text-[#495057] border border-[#E9ECEF]',
+      outline: 'bg-transparent text-[#212529] border-2 border-[#212529]',
+      subtle: 'bg-[#F8F9FA] text-[#212529]',
+      solid: 'bg-[#212529] text-white',
     }
     
     const sizeClasses = {

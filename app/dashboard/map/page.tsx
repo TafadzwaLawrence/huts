@@ -114,25 +114,25 @@ export default function DashboardMapPage() {
 
   if (loading || !mounted) {
     return (
-      <div className="min-h-screen bg-muted flex items-center justify-center">
-        <Loader2 className="h-8 w-8 animate-spin text-foreground" />
+      <div className="min-h-screen bg-[#F8F9FA] flex items-center justify-center">
+        <Loader2 className="h-8 w-8 animate-spin text-[#ADB5BD]" />
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen bg-muted">
+    <div className="min-h-screen bg-[#F8F9FA]">
       {/* Header */}
-      <div className="bg-white border-b border-border sticky top-0 z-10">
+      <div className="bg-white border-b border-[#E9ECEF] sticky top-0 z-10">
         <div className="container-main py-6">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-2xl font-bold text-foreground">Property Map</h1>
-              <p className="text-foreground">View all your listings on a map</p>
+              <h1 className="text-2xl font-bold text-[#212529]">Property Map</h1>
+              <p className="text-[#495057]">View all your listings on a map</p>
             </div>
             <Link
               href="/dashboard/new-property"
-              className="flex items-center gap-2 bg-muted text-white px-4 py-2 rounded-xl hover:bg-black transition-colors"
+              className="flex items-center gap-2 bg-[#212529] text-white px-4 py-2 rounded-xl hover:bg-black transition-colors"
             >
               <Plus size={20} />
               Add Property
@@ -143,43 +143,43 @@ export default function DashboardMapPage() {
 
       <div className="flex h-[calc(100vh-120px)]">
         {/* Sidebar - Property List */}
-        <div className="w-96 bg-white border-r border-border overflow-y-auto">
-          <div className="p-4 border-b border-border">
-            <p className="text-sm text-foreground">
+        <div className="w-96 bg-white border-r border-[#E9ECEF] overflow-y-auto">
+          <div className="p-4 border-b border-[#E9ECEF]">
+            <p className="text-sm text-[#495057]">
               {properties.length} {properties.length === 1 ? 'property' : 'properties'} with locations
             </p>
           </div>
 
           {properties.length === 0 ? (
             <div className="p-8 text-center">
-              <div className="h-16 w-16 mx-auto bg-muted rounded-full flex items-center justify-center mb-4">
-                <MapPin className="h-8 w-8 text-foreground" />
+              <div className="h-16 w-16 mx-auto bg-[#F8F9FA] rounded-full flex items-center justify-center mb-4">
+                <MapPin className="h-8 w-8 text-[#ADB5BD]" />
               </div>
-              <h3 className="font-semibold text-foreground mb-2">No properties with locations</h3>
-              <p className="text-sm text-foreground mb-4">
+              <h3 className="font-semibold text-[#212529] mb-2">No properties with locations</h3>
+              <p className="text-sm text-[#495057] mb-4">
                 Add locations to your properties to see them on the map
               </p>
               <Link
                 href="/dashboard/new-property"
-                className="inline-flex items-center gap-2 text-foreground font-medium hover:underline"
+                className="inline-flex items-center gap-2 text-[#212529] font-medium hover:underline"
               >
                 <Plus size={16} />
                 Add a Property
               </Link>
             </div>
           ) : (
-            <div className="divide-y divide-border">
+            <div className="divide-y divide-[#E9ECEF]">
               {properties.map((property) => (
                 <button
                   key={property.id}
                   onClick={() => setSelectedProperty(property)}
-                  className={`w-full p-4 text-left hover:bg-muted transition-colors ${
-                    selectedProperty?.id === property.id ? 'bg-muted border-l-4 border-border' : ''
+                  className={`w-full p-4 text-left hover:bg-[#F8F9FA] transition-colors ${
+                    selectedProperty?.id === property.id ? 'bg-[#F8F9FA] border-l-4 border-[#212529]' : ''
                   }`}
                 >
                   <div className="flex gap-3">
                     {/* Thumbnail */}
-                    <div className="w-20 h-20 rounded-lg overflow-hidden bg-muted shrink-0">
+                    <div className="w-20 h-20 rounded-lg overflow-hidden bg-[#E9ECEF] shrink-0">
                       {property.property_images?.[0]?.url ? (
                         <img
                           src={property.property_images[0].url}
@@ -188,18 +188,18 @@ export default function DashboardMapPage() {
                         />
                       ) : (
                         <div className="w-full h-full flex items-center justify-center">
-                          <Home className="h-8 w-8 text-foreground" />
+                          <Home className="h-8 w-8 text-[#ADB5BD]" />
                         </div>
                       )}
                     </div>
 
                     {/* Details */}
                     <div className="flex-1 min-w-0">
-                      <h3 className="font-semibold text-foreground truncate">{property.title}</h3>
-                      <p className="text-sm text-foreground truncate">
+                      <h3 className="font-semibold text-[#212529] truncate">{property.title}</h3>
+                      <p className="text-sm text-[#495057] truncate">
                         {property.neighborhood || property.city}
                       </p>
-                      <div className="flex items-center gap-3 mt-2 text-sm text-foreground">
+                      <div className="flex items-center gap-3 mt-2 text-sm text-[#495057]">
                         <span className="flex items-center gap-1">
                           <DollarSign size={14} />
                           {formatPrice(property.price)}/mo
@@ -215,8 +215,8 @@ export default function DashboardMapPage() {
                       </div>
                       <span className={`inline-block mt-2 px-2 py-0.5 text-xs rounded-full ${
                         property.status === 'active'
-                          ? 'bg-muted/10 text-foreground'
-                          : 'bg-muted text-foreground'
+                          ? 'bg-[#212529]/10 text-[#212529]'
+                          : 'bg-[#E9ECEF] text-[#495057]'
                       }`}>
                         {property.status}
                       </span>
@@ -258,17 +258,17 @@ export default function DashboardMapPage() {
                         style={{ width: 'calc(100% + 24px)' }}
                       />
                     )}
-                    <h3 className="font-semibold text-foreground mb-1">{property.title}</h3>
-                    <p className="text-sm text-foreground mb-2">
+                    <h3 className="font-semibold text-[#212529] mb-1">{property.title}</h3>
+                    <p className="text-sm text-[#495057] mb-2">
                       {property.neighborhood || property.city}
                     </p>
                     <div className="flex items-center justify-between">
-                      <span className="font-bold text-foreground">
+                      <span className="font-bold text-[#212529]">
                         {formatPrice(property.price)}/mo
                       </span>
                       <Link
                         href={`/property/${property.id}`}
-                        className="text-foreground hover:underline text-sm flex items-center gap-1"
+                        className="text-[#212529] hover:underline text-sm flex items-center gap-1"
                       >
                         View <ExternalLink size={12} />
                       </Link>
@@ -283,15 +283,15 @@ export default function DashboardMapPage() {
           <div className="absolute top-4 right-4 bg-white rounded-xl shadow-lg p-4 z-[1000]">
             <div className="flex items-center gap-6">
               <div className="text-center">
-                <p className="text-2xl font-bold text-foreground">{properties.length}</p>
-                <p className="text-xs text-foreground">Properties</p>
+                <p className="text-2xl font-bold text-[#212529]">{properties.length}</p>
+                <p className="text-xs text-[#495057]">Properties</p>
               </div>
-              <div className="h-10 w-px bg-muted" />
+              <div className="h-10 w-px bg-[#E9ECEF]" />
               <div className="text-center">
-                <p className="text-2xl font-bold text-foreground">
+                <p className="text-2xl font-bold text-[#212529]">
                   {properties.filter(p => p.status === 'active').length}
                 </p>
-                <p className="text-xs text-foreground">Active</p>
+                <p className="text-xs text-[#495057]">Active</p>
               </div>
             </div>
           </div>

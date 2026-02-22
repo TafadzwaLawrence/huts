@@ -89,11 +89,11 @@ export default function ReviewCard({
   }
 
   return (
-    <div className={cn('border border-border rounded-lg p-6 space-y-4', className)}>
+    <div className={cn('border border-[#E9ECEF] rounded-lg p-6 space-y-4', className)}>
       {/* Header */}
       <div className="flex items-start justify-between">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-full bg-muted flex items-center justify-center">
+          <div className="w-10 h-10 rounded-full bg-[#E9ECEF] flex items-center justify-center">
             {review.profiles?.avatar_url ? (
               <img
                 src={review.profiles.avatar_url}
@@ -131,28 +131,28 @@ export default function ReviewCard({
           {isEditable && onEdit && (
             <button
               onClick={() => onEdit(review.id)}
-              className="p-2 hover:bg-muted rounded transition-colors"
+              className="p-2 hover:bg-[#E9ECEF] rounded transition-colors"
               title="Edit review"
             >
-              <Edit size={ICON_SIZES.md} className="text-foreground" />
+              <Edit size={ICON_SIZES.md} className="text-[#495057]" />
             </button>
           )}
           {isAuthor && onDelete && (
             <button
               onClick={() => onDelete(review.id)}
-              className="p-2 hover:bg-muted rounded transition-colors"
+              className="p-2 hover:bg-[#E9ECEF] rounded transition-colors"
               title="Delete review"
             >
-              <Trash2 size={ICON_SIZES.md} className="text-foreground" />
+              <Trash2 size={ICON_SIZES.md} className="text-[#495057]" />
             </button>
           )}
           {!isAuthor && onFlag && (
             <button
               onClick={() => onFlag(review.id)}
-              className="p-2 hover:bg-muted rounded transition-colors"
+              className="p-2 hover:bg-[#E9ECEF] rounded transition-colors"
               title="Flag review"
             >
-              <Flag size={ICON_SIZES.md} className="text-foreground" />
+              <Flag size={ICON_SIZES.md} className="text-[#495057]" />
             </button>
           )}
         </div>
@@ -165,7 +165,7 @@ export default function ReviewCard({
       </div>
 
       {/* Helpful Votes */}
-      <div className="flex items-center gap-4 pt-2 border-t border-border">
+      <div className="flex items-center gap-4 pt-2 border-t border-[#E9ECEF]">
         <span className="text-secondary">Was this helpful?</span>
         <button
           onClick={() => handleVote(true)}
@@ -173,7 +173,7 @@ export default function ReviewCard({
             'flex items-center gap-1 px-3 py-1 rounded border-2 transition-all',
             review.user_vote === true
               ? 'bg-black text-white border-black'
-              : 'border-border hover:border-border'
+              : 'border-[#E9ECEF] hover:border-[#495057]'
           )}
         >
           <ThumbsUp size={ICON_SIZES.sm} />
@@ -185,7 +185,7 @@ export default function ReviewCard({
             'flex items-center gap-1 px-3 py-1 rounded border-2 transition-all',
             review.user_vote === false
               ? 'bg-black text-white border-black'
-              : 'border-border hover:border-border'
+              : 'border-[#E9ECEF] hover:border-[#495057]'
           )}
         >
           <ThumbsDown size={ICON_SIZES.sm} />
@@ -195,9 +195,9 @@ export default function ReviewCard({
 
       {/* Landlord Response */}
       {review.review_responses && (
-        <div className="ml-8 pl-4 border-l-2 border-border space-y-2">
+        <div className="ml-8 pl-4 border-l-2 border-[#E9ECEF] space-y-2">
           <div className="flex items-center gap-2">
-            <MessageCircle size={ICON_SIZES.sm} className="text-foreground" />
+            <MessageCircle size={ICON_SIZES.sm} className="text-[#495057]" />
             <span className="text-label">
               Response from {review.review_responses.profiles?.name || 'Property Owner'}
             </span>
@@ -227,13 +227,13 @@ export default function ReviewCard({
                 onChange={(e) => setResponseText(e.target.value)}
                 placeholder="Write your response (10-1000 characters)"
                 rows={3}
-                className="w-full px-3 py-2 border-2 border-border rounded focus:border-black focus:outline-none transition-colors resize-none text-sm"
+                className="w-full px-3 py-2 border-2 border-[#E9ECEF] rounded focus:border-black focus:outline-none transition-colors resize-none text-sm"
               />
               <div className="flex gap-2">
                 <button
                   onClick={handleSubmitResponse}
                   disabled={loading || responseText.length < 10}
-                  className="bg-black text-white px-4 py-1 rounded text-sm border-2 border-black hover:bg-muted transition-colors disabled:opacity-50"
+                  className="bg-black text-white px-4 py-1 rounded text-sm border-2 border-black hover:bg-[#212529] transition-colors disabled:opacity-50"
                 >
                   {loading ? 'Submitting...' : 'Submit Response'}
                 </button>
@@ -243,7 +243,7 @@ export default function ReviewCard({
                     setResponseText('')
                   }}
                   disabled={loading}
-                  className="bg-transparent text-black px-4 py-1 rounded text-sm border-2 border-border hover:border-black transition-colors"
+                  className="bg-transparent text-black px-4 py-1 rounded text-sm border-2 border-[#495057] hover:border-black transition-colors"
                 >
                   Cancel
                 </button>

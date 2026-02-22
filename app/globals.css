@@ -182,25 +182,6 @@
    Standardized typography scale for consistency.
    Use these classes across all pages/components.
    Colors use semantic tokens for dark mode support.
-   
-   COLOR MAPPING (DO NOT use hardcoded hex values):
-   - text-foreground       → #212529 (charcoal, primary text)
-   - text-muted-foreground → #495057 (dark gray, secondary text)
-   - text-muted-foreground → #ADB5BD (medium gray, tertiary text)
-   - text-success          → #51CF66 (green, positive states)
-   - text-warning          → #FF6B6B (red, errors/alerts)
-   - text-on-dark          → white (text on dark backgrounds)
-   - text-on-dark-muted    → white/70 (muted on dark backgrounds)
-   - text-on-dark-subtle   → white/40 (subtle on dark backgrounds)
-   
-   BACKGROUND MAPPING:
-   - bg-background → #FFFFFF (white, main background)
-   - bg-muted      → #F8F9FA (off-white, card backgrounds)
-   - bg-foreground → #212529 (charcoal, dark sections)
-   
-   BORDER MAPPING:
-   - border-border → #E9ECEF (light gray, default borders)
-   
    ============================================ */
 
 @layer components {
@@ -277,38 +258,6 @@
   /* Badge text */
   .text-badge {
     @apply text-xs font-bold uppercase tracking-wider;
-  }
-
-  /* ========================================
-     STATUS & STATE COLORS
-     ======================================== */
-  
-  /* Success: Positive states, approved items, active status */
-  .text-success {
-    @apply text-[#51CF66];
-  }
-
-  /* Warning/Error: Urgent alerts, errors, rejected items */
-  .text-warning {
-    @apply text-[#FF6B6B];
-  }
-
-  /* Inactive: Disabled states, inactive items */
-  .text-inactive {
-    @apply text-muted-foreground opacity-60;
-  }
-
-  /* Text on dark backgrounds: White text with semantic variants */
-  .text-on-dark {
-    @apply text-white;
-  }
-
-  .text-on-dark-muted {
-    @apply text-white/70;
-  }
-
-  .text-on-dark-subtle {
-    @apply text-white/40;
   }
 }
 

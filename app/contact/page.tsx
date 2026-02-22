@@ -19,7 +19,7 @@ export default function ContactPage() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero */}
-      <section className="border-b border-border bg-white py-20 md:py-32">
+      <section className="border-b border-[#E9ECEF] bg-white py-20 md:py-32">
         <div className="container-main text-center">
           <h1 className="text-page-title mb-6">
             Get in touch
@@ -42,28 +42,28 @@ export default function ContactPage() {
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
                     <label htmlFor="firstName" className="block text-label mb-2">
-                      First Name <span className="text-warning">*</span>
+                      First Name <span className="text-[#FF6B6B]">*</span>
                     </label>
                     <input
                       type="text"
                       id="firstName"
                       name="firstName"
                       required
-                      className="w-full px-4 py-3 border-2 border-border rounded-md text-foreground focus:outline-none focus:border-foreground transition-colors bg-white"
+                      className="w-full px-4 py-3 border-2 border-[#E9ECEF] rounded-md text-[#212529] focus:outline-none focus:border-[#212529] transition-colors bg-white"
                       placeholder="John"
                     />
                   </div>
                   
                   <div>
                     <label htmlFor="lastName" className="block text-label mb-2">
-                      Last Name <span className="text-warning">*</span>
+                      Last Name <span className="text-[#FF6B6B]">*</span>
                     </label>
                     <input
                       type="text"
                       id="lastName"
                       name="lastName"
                       required
-                      className="w-full px-4 py-3 border-2 border-border rounded-md text-foreground focus:outline-none focus:border-foreground transition-colors bg-white"
+                      className="w-full px-4 py-3 border-2 border-[#E9ECEF] rounded-md text-[#212529] focus:outline-none focus:border-[#212529] transition-colors bg-white"
                       placeholder="Doe"
                     />
                   </div>
@@ -71,14 +71,14 @@ export default function ContactPage() {
 
                 <div>
                   <label htmlFor="email" className="block text-label mb-2">
-                    Email <span className="text-warning">*</span>
+                    Email <span className="text-[#FF6B6B]">*</span>
                   </label>
                   <input
                     type="email"
                     id="email"
                     name="email"
                     required
-                    className="w-full px-4 py-3 border-2 border-border rounded-md text-foreground focus:outline-none focus:border-foreground transition-colors bg-white"
+                    className="w-full px-4 py-3 border-2 border-[#E9ECEF] rounded-md text-[#212529] focus:outline-none focus:border-[#212529] transition-colors bg-white"
                     placeholder="john@example.com"
                   />
                 </div>
@@ -91,20 +91,20 @@ export default function ContactPage() {
                     type="tel"
                     id="phone"
                     name="phone"
-                    className="w-full px-4 py-3 border-2 border-border rounded-md text-foreground focus:outline-none focus:border-foreground transition-colors bg-white"
+                    className="w-full px-4 py-3 border-2 border-[#E9ECEF] rounded-md text-[#212529] focus:outline-none focus:border-[#212529] transition-colors bg-white"
                     placeholder="+263 71 234 5678"
                   />
                 </div>
 
                 <div>
                   <label htmlFor="subject" className="block text-label mb-2">
-                    Subject <span className="text-warning">*</span>
+                    Subject <span className="text-[#FF6B6B]">*</span>
                   </label>
                   <select
                     id="subject"
                     name="subject"
                     required
-                    className="w-full px-4 py-3 border-2 border-border rounded-md text-foreground focus:outline-none focus:border-foreground transition-colors bg-white"
+                    className="w-full px-4 py-3 border-2 border-[#E9ECEF] rounded-md text-[#212529] focus:outline-none focus:border-[#212529] transition-colors bg-white"
                   >
                     <option value="">Select a subject</option>
                     <option value="listing">Listing a property</option>
@@ -118,21 +118,21 @@ export default function ContactPage() {
 
                 <div>
                   <label htmlFor="message" className="block text-label mb-2">
-                    Message <span className="text-warning">*</span>
+                    Message <span className="text-[#FF6B6B]">*</span>
                   </label>
                   <textarea
                     id="message"
                     name="message"
                     rows={6}
                     required
-                    className="w-full px-4 py-3 border-2 border-border rounded-md text-foreground focus:outline-none focus:border-foreground transition-colors resize-none bg-white"
+                    className="w-full px-4 py-3 border-2 border-[#E9ECEF] rounded-md text-[#212529] focus:outline-none focus:border-[#212529] transition-colors resize-none bg-white"
                     placeholder="How can we help you?"
                   />
                 </div>
 
                 <button
                   type="submit"
-                  className="w-full inline-flex items-center justify-center gap-2 bg-foreground text-white px-6 py-4 rounded-lg font-semibold hover:bg-black hover:shadow-xl transition-all"
+                  className="w-full inline-flex items-center justify-center gap-2 bg-[#212529] text-white px-6 py-4 rounded-lg font-semibold hover:bg-black hover:shadow-xl transition-all"
                 >
                   Send Message
                   <Send size={ICON_SIZES.lg} />
@@ -150,8 +150,8 @@ export default function ContactPage() {
               <div className="space-y-6">
                 {/* Email */}
                 <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 bg-muted rounded-lg flex items-center justify-center flex-shrink-0">
-                    <Mail size={ICON_SIZES.xl} className="text-foreground" />
+                  <div className="w-12 h-12 bg-[#F8F9FA] rounded-lg flex items-center justify-center flex-shrink-0">
+                    <Mail size={ICON_SIZES.xl} className="text-[#212529]" />
                   </div>
                   <div>
                     <h3 className="text-card-title-sm mb-1">Email</h3>
@@ -167,8 +167,8 @@ export default function ContactPage() {
 
                 {/* Phone */}
                 <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 bg-muted rounded-lg flex items-center justify-center flex-shrink-0">
-                    <Phone size={ICON_SIZES.xl} className="text-foreground" />
+                  <div className="w-12 h-12 bg-[#F8F9FA] rounded-lg flex items-center justify-center flex-shrink-0">
+                    <Phone size={ICON_SIZES.xl} className="text-[#212529]" />
                   </div>
                   <div>
                     <h3 className="text-card-title-sm mb-1">Phone</h3>
@@ -184,8 +184,8 @@ export default function ContactPage() {
 
                 {/* Office */}
                 <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 bg-muted rounded-lg flex items-center justify-center flex-shrink-0">
-                    <MapPin size={ICON_SIZES.xl} className="text-foreground" />
+                  <div className="w-12 h-12 bg-[#F8F9FA] rounded-lg flex items-center justify-center flex-shrink-0">
+                    <MapPin size={ICON_SIZES.xl} className="text-[#212529]" />
                   </div>
                   <div>
                     <h3 className="text-card-title-sm mb-1">Office</h3>
@@ -198,8 +198,8 @@ export default function ContactPage() {
 
                 {/* WhatsApp */}
                 <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 bg-muted rounded-lg flex items-center justify-center flex-shrink-0">
-                    <MessageSquare size={ICON_SIZES.xl} className="text-foreground" />
+                  <div className="w-12 h-12 bg-[#F8F9FA] rounded-lg flex items-center justify-center flex-shrink-0">
+                    <MessageSquare size={ICON_SIZES.xl} className="text-[#212529]" />
                   </div>
                   <div>
                     <h3 className="text-card-title-sm mb-1">WhatsApp</h3>
@@ -217,14 +217,14 @@ export default function ContactPage() {
               </div>
 
               {/* FAQ Link */}
-              <div className="mt-12 p-6 bg-muted border border-border rounded-lg">
+              <div className="mt-12 p-6 bg-[#F8F9FA] border border-[#E9ECEF] rounded-lg">
                 <h3 className="text-card-title-sm mb-2">Before you contact us...</h3>
                 <p className="text-secondary mb-4">
                   Many common questions are answered in our Help Center. Check there first for quick answers.
                 </p>
                 <a 
                   href="/help"
-                  className="text-sm text-foreground font-medium hover:underline inline-flex items-center gap-2"
+                  className="text-sm text-[#212529] font-medium hover:underline inline-flex items-center gap-2"
                 >
                   Visit Help Center
                   <Send size={ICON_SIZES.sm} />

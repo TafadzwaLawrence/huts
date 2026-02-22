@@ -120,16 +120,16 @@ export default function ReviewsList({
         <div className="relative">
           <button
             onClick={() => setShowSortMenu(!showSortMenu)}
-            className="flex items-center gap-2 px-3 py-2 border-2 border-border rounded hover:border-border transition-colors"
+            className="flex items-center gap-2 px-3 py-2 border-2 border-[#E9ECEF] rounded hover:border-[#495057] transition-colors"
           >
             <span className="text-sm">
               {sortOptions.find((opt) => opt.value === sortBy)?.label}
             </span>
-            <ChevronDown size={ICON_SIZES.md} className="text-foreground" />
+            <ChevronDown size={ICON_SIZES.md} className="text-[#495057]" />
           </button>
 
           {showSortMenu && (
-            <div className="absolute right-0 mt-1 w-48 bg-white border border-border rounded shadow-lg z-10">
+            <div className="absolute right-0 mt-1 w-48 bg-white border border-[#E9ECEF] rounded shadow-lg z-10">
               {sortOptions.map((option) => (
                 <button
                   key={option.value}
@@ -139,8 +139,8 @@ export default function ReviewsList({
                     setPage(1)
                   }}
                   className={cn(
-                    'w-full text-left px-4 py-2 text-sm hover:bg-muted transition-colors',
-                    sortBy === option.value && 'bg-muted font-medium'
+                    'w-full text-left px-4 py-2 text-sm hover:bg-[#E9ECEF] transition-colors',
+                    sortBy === option.value && 'bg-[#E9ECEF] font-medium'
                   )}
                 >
                   {option.label}
@@ -153,7 +153,7 @@ export default function ReviewsList({
 
       {/* Reviews List */}
       {reviews.length === 0 && !loading ? (
-        <div className="text-center py-12 border border-border rounded-lg">
+        <div className="text-center py-12 border border-[#E9ECEF] rounded-lg">
           <p className="text-muted-foreground">No reviews yet. Be the first to review!</p>
         </div>
       ) : (
@@ -178,7 +178,7 @@ export default function ReviewsList({
               <button
                 onClick={handleLoadMore}
                 disabled={loading}
-                className="bg-transparent text-black px-6 py-2 rounded border-2 border-border hover:border-black hover:border-[3px] transition-all disabled:opacity-50"
+                className="bg-transparent text-black px-6 py-2 rounded border-2 border-[#495057] hover:border-black hover:border-[3px] transition-all disabled:opacity-50"
               >
                 {loading ? (
                   <>

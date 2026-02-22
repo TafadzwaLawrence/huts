@@ -53,13 +53,13 @@ export function AdminTable<T extends Record<string, any>>({
 
   if (loading) {
     return (
-      <div className="bg-white rounded-xl border border-border overflow-hidden">
+      <div className="bg-white rounded-xl border border-[#E9ECEF] overflow-hidden">
         {[...Array(5)].map((_, i) => (
-          <div key={i} className="flex items-center gap-4 px-5 py-4 border-b border-border">
-            <div className="w-12 h-12 bg-muted rounded-lg animate-pulse flex-shrink-0" />
+          <div key={i} className="flex items-center gap-4 px-5 py-4 border-b border-[#F1F3F5]">
+            <div className="w-12 h-12 bg-[#E9ECEF] rounded-lg animate-pulse flex-shrink-0" />
             <div className="flex-1 space-y-2">
-              <div className="h-4 bg-muted rounded animate-pulse w-1/2" />
-              <div className="h-3 bg-muted rounded animate-pulse w-1/3" />
+              <div className="h-4 bg-[#E9ECEF] rounded animate-pulse w-1/2" />
+              <div className="h-3 bg-[#E9ECEF] rounded animate-pulse w-1/3" />
             </div>
           </div>
         ))}
@@ -73,15 +73,15 @@ export function AdminTable<T extends Record<string, any>>({
 
   return (
     <div className="space-y-4">
-      <div className="bg-white rounded-xl border border-border overflow-hidden">
+      <div className="bg-white rounded-xl border border-[#E9ECEF] overflow-hidden">
         {/* Table Header */}
-        <div className="hidden md:grid gap-4 px-5 py-3 bg-muted text-[10px] font-semibold text-foreground uppercase tracking-wider border-b border-border"
+        <div className="hidden md:grid gap-4 px-5 py-3 bg-[#F8F9FA] text-[10px] font-semibold text-[#ADB5BD] uppercase tracking-wider border-b border-[#E9ECEF]"
           style={{ gridTemplateColumns: columns.map(col => col.className || 'auto').join(' ') }}
         >
           {columns.map((column) => (
             <div 
               key={column.key}
-              className={`flex items-center gap-1 ${column.sortable || (sortable && onSort) ? 'cursor-pointer hover:text-foreground' : ''}`}
+              className={`flex items-center gap-1 ${column.sortable || (sortable && onSort) ? 'cursor-pointer hover:text-[#495057]' : ''}`}
               onClick={() => (column.sortable || (sortable && onSort)) && handleSort(column.key)}
             >
               {column.label}
@@ -93,11 +93,11 @@ export function AdminTable<T extends Record<string, any>>({
         </div>
 
         {/* Table Body */}
-        <div className="divide-y divide-border">
+        <div className="divide-y divide-[#F1F3F5]">
           {data.map((item) => (
             <div 
               key={keyExtractor(item)}
-              className="grid gap-2 md:gap-4 items-center px-5 py-3.5 hover:bg-muted transition-colors"
+              className="grid gap-2 md:gap-4 items-center px-5 py-3.5 hover:bg-[#FAFAFA] transition-colors"
               style={{ gridTemplateColumns: columns.map(col => col.className || 'auto').join(' ') }}
             >
               {columns.map((column) => (
@@ -116,17 +116,17 @@ export function AdminTable<T extends Record<string, any>>({
           <button
             onClick={() => pagination.onPageChange(Math.max(1, pagination.currentPage - 1))}
             disabled={pagination.currentPage === 1}
-            className="p-2 rounded-lg border border-border text-foreground hover:border-border disabled:opacity-30 disabled:hover:border-border transition-colors"
+            className="p-2 rounded-lg border border-[#E9ECEF] text-[#495057] hover:border-[#212529] disabled:opacity-30 disabled:hover:border-[#E9ECEF] transition-colors"
           >
             <ChevronLeft size={16} />
           </button>
-          <span className="text-sm text-foreground px-3">
+          <span className="text-sm text-[#495057] px-3">
             Page {pagination.currentPage} of {pagination.totalPages}
           </span>
           <button
             onClick={() => pagination.onPageChange(Math.min(pagination.totalPages, pagination.currentPage + 1))}
             disabled={pagination.currentPage === pagination.totalPages}
-            className="p-2 rounded-lg border border-border text-foreground hover:border-border disabled:opacity-30 disabled:hover:border-border transition-colors"
+            className="p-2 rounded-lg border border-[#E9ECEF] text-[#495057] hover:border-[#212529] disabled:opacity-30 disabled:hover:border-[#E9ECEF] transition-colors"
           >
             <ChevronRight size={16} />
           </button>
