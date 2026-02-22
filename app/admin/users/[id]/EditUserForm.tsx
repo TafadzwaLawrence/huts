@@ -157,19 +157,21 @@ export default function EditUserForm({ user }: EditUserFormProps) {
 
       {/* Action Buttons */}
       <div className="flex items-center gap-3 pt-4 border-t border-light-gray">
-        <AdminActionButtons.Button
-          onClick={handleSubmit}
-          loading={loading}
+        <button
+          type="submit"
           disabled={loading}
+          className="flex items-center gap-1.5 px-4 py-2 text-sm font-semibold rounded-lg bg-[#212529] text-white hover:bg-black disabled:opacity-50 transition-colors"
         >
+          {loading && <span className="animate-spin">⏳</span>}
           Save Changes
-        </AdminActionButtons.Button>
-        <AdminActionButtons.SecondaryButton
+        </button>
+        <AdminActionButtons.Button
           onClick={handleCancel}
           disabled={loading}
+          variant="secondary"
         >
           Cancel
-        </AdminActionButtons.SecondaryButton>
+        </AdminActionButtons.Button>
       </div>
     </form>
   )
