@@ -101,7 +101,7 @@ export default async function DashboardOverviewPage() {
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-8">
           <div>
-            <p className="text-xs uppercase tracking-wider mb-2 text-black">{dateString}</p>
+            <p className="text-xs uppercase tracking-wider mb-2 text-[#ADB5BD]">{dateString}</p>
             <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-black">
               {greeting}, {firstName}
             </h1>
@@ -110,7 +110,7 @@ export default async function DashboardOverviewPage() {
             {isLandlord ? (
               <Link
                 href="/dashboard/my-properties"
-                className="inline-flex items-center gap-2 text-sm font-medium text-black hover:text-black border border-[#E9ECEF] px-4 py-2 rounded-lg hover:border-black transition-all"
+                className="inline-flex items-center gap-2 text-sm font-medium text-[#495057] hover:text-black border border-[#E9ECEF] px-4 py-2 rounded-lg hover:border-black transition-all"
               >
                 <Building2 size={15} />
                 My Properties
@@ -137,15 +137,15 @@ export default async function DashboardOverviewPage() {
             <div className="flex items-center justify-between mb-3">
               <div className="w-9 h-9 bg-[#F8F9FA] rounded-lg flex items-center justify-center group-hover:bg-black transition-colors">
                 {isLandlord ? (
-                  <Building2 size={17} className="text-black group-hover:text-white transition-colors" />
+                  <Building2 size={17} className="text-[#495057] group-hover:text-white transition-colors" />
                 ) : (
-                  <Heart size={17} className="text-black group-hover:text-white transition-colors" />
+                  <Heart size={17} className="text-[#495057] group-hover:text-white transition-colors" />
                 )}
               </div>
-              <ArrowUpRight size={14} className="text-black opacity-0 group-hover:opacity-100 transition-opacity" />
+              <ArrowUpRight size={14} className="text-[#ADB5BD] opacity-0 group-hover:opacity-100 transition-opacity" />
             </div>
             <p className="text-2xl font-bold text-black tabular-nums">{isLandlord ? propertyCount || 0 : savedCount || 0}</p>
-            <p className="text-xs text-black font-medium mt-0.5">
+            <p className="text-xs text-[#495057] font-medium mt-0.5">
               {isLandlord ? 'Properties' : 'Saved'}
             </p>
           </Link>
@@ -154,7 +154,7 @@ export default async function DashboardOverviewPage() {
           <OpenChatButton className="group bg-white rounded-xl border border-[#E9ECEF] p-5 hover:border-black transition-all hover:shadow-md relative text-left cursor-pointer">
             <div className="flex items-center justify-between mb-3">
               <div className="w-9 h-9 bg-[#F8F9FA] rounded-lg flex items-center justify-center group-hover:bg-black transition-colors relative">
-                <MessageSquare size={17} className="text-black group-hover:text-white transition-colors" />
+                <MessageSquare size={17} className="text-[#495057] group-hover:text-white transition-colors" />
               </div>
               {(conversationCount || 0) > 0 && (
                 <span className="w-5 h-5 bg-black text-white text-[10px] font-bold rounded-full flex items-center justify-center">
@@ -163,7 +163,7 @@ export default async function DashboardOverviewPage() {
               )}
             </div>
             <p className="text-2xl font-bold text-black tabular-nums">{conversationCount || 0}</p>
-            <p className="text-xs text-black font-medium mt-0.5">Conversations</p>
+            <p className="text-xs text-[#495057] font-medium mt-0.5">Conversations</p>
           </OpenChatButton>
 
           {/* Landlord: Views */}
@@ -171,11 +171,11 @@ export default async function DashboardOverviewPage() {
             <div className="bg-white rounded-xl border border-[#E9ECEF] p-5">
               <div className="flex items-center justify-between mb-3">
                 <div className="w-9 h-9 bg-[#F8F9FA] rounded-lg flex items-center justify-center">
-                  <Eye size={17} className="text-black" />
+                  <Eye size={17} className="text-[#495057]" />
                 </div>
               </div>
               <p className="text-2xl font-bold text-black tabular-nums">{totalViews}</p>
-              <p className="text-xs text-black font-medium mt-0.5">Total Views</p>
+              <p className="text-xs text-[#495057] font-medium mt-0.5">Total Views</p>
             </div>
           )}
 
@@ -187,12 +187,12 @@ export default async function DashboardOverviewPage() {
             >
               <div className="flex items-center justify-between mb-3">
                 <div className="w-9 h-9 bg-[#F8F9FA] rounded-lg flex items-center justify-center group-hover:bg-black transition-colors">
-                  <Star size={17} className="text-black group-hover:text-white transition-colors" />
+                  <Star size={17} className="text-[#495057] group-hover:text-white transition-colors" />
                 </div>
-                <ArrowUpRight size={14} className="text-black opacity-0 group-hover:opacity-100 transition-opacity" />
+                <ArrowUpRight size={14} className="text-[#ADB5BD] opacity-0 group-hover:opacity-100 transition-opacity" />
               </div>
               <p className="text-2xl font-bold text-black tabular-nums">{reviewCount || 0}</p>
-              <p className="text-xs text-black font-medium mt-0.5">Reviews</p>
+              <p className="text-xs text-[#495057] font-medium mt-0.5">Reviews</p>
             </Link>
           ) : (
             <Link 
@@ -201,12 +201,12 @@ export default async function DashboardOverviewPage() {
             >
               <div className="flex items-center justify-between mb-3">
                 <div className="w-9 h-9 bg-[#F8F9FA] rounded-lg flex items-center justify-center group-hover:bg-black transition-colors">
-                  <MapPin size={17} className="text-black group-hover:text-white transition-colors" />
+                  <MapPin size={17} className="text-[#495057] group-hover:text-white transition-colors" />
                 </div>
-                <ArrowUpRight size={14} className="text-black opacity-0 group-hover:opacity-100 transition-opacity" />
+                <ArrowUpRight size={14} className="text-[#ADB5BD] opacity-0 group-hover:opacity-100 transition-opacity" />
               </div>
               <p className="text-2xl font-bold text-black tabular-nums">Explore</p>
-              <p className="text-xs text-black font-medium mt-0.5">Area Guides</p>
+              <p className="text-xs text-[#495057] font-medium mt-0.5">Area Guides</p>
             </Link>
           )}
         </div>
@@ -222,7 +222,7 @@ export default async function DashboardOverviewPage() {
               <div className="bg-white rounded-xl border border-[#E9ECEF] overflow-hidden">
                 <div className="flex items-center justify-between px-5 py-4 border-b border-[#F1F3F5]">
                   <h2 className="text-sm font-semibold text-black">Your Listings</h2>
-                  <Link href="/dashboard/my-properties" className="text-xs text-black hover:text-black font-medium flex items-center gap-1 transition-colors">
+                  <Link href="/dashboard/my-properties" className="text-xs text-[#495057] hover:text-black font-medium flex items-center gap-1 transition-colors">
                     View all <ChevronRight size={13} />
                   </Link>
                 </div>
@@ -261,7 +261,7 @@ export default async function DashboardOverviewPage() {
                               <span className={`px-1.5 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider ${
                                 property.listing_type === 'sale'
                                   ? 'bg-black text-white'
-                                  : 'bg-white/90 text-black backdrop-blur-sm'
+                                  : 'bg-white/90 text-[#212529] backdrop-blur-sm'
                               }`}>
                                 {property.listing_type === 'sale' ? 'Sale' : 'Rent'}
                               </span>
@@ -274,7 +274,7 @@ export default async function DashboardOverviewPage() {
                               <div className="flex items-start justify-between gap-2 mb-1">
                                 <Link
                                   href={`/property/${property.slug || property.id}`}
-                                  className="text-sm font-semibold text-black truncate hover:underline underline-offset-2 block"
+                                  className="text-sm font-semibold text-[#212529] truncate hover:underline underline-offset-2 block"
                                 >
                                   {property.title}
                                 </Link>
@@ -311,8 +311,8 @@ export default async function DashboardOverviewPage() {
                                   }
                                   if (st === 'draft') {
                                     return (
-                                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold flex-shrink-0 bg-black/10 text-black">
-                                        <span className="w-1.5 h-1.5 rounded-full bg-black" />
+                                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold flex-shrink-0 bg-[#ADB5BD]/10 text-[#495057]">
+                                        <span className="w-1.5 h-1.5 rounded-full bg-[#ADB5BD]" />
                                         Draft
                                       </span>
                                     )
@@ -327,14 +327,14 @@ export default async function DashboardOverviewPage() {
                                 })()}
                               </div>
                               {location && (
-                                <p className="text-xs text-black flex items-center gap-1 mb-2">
+                                <p className="text-xs text-[#ADB5BD] flex items-center gap-1 mb-2">
                                   <MapPin size={11} />
                                   {location}
                                 </p>
                               )}
                             </div>
                             <div className="flex items-center justify-between">
-                              <p className="text-base font-bold text-black">
+                              <p className="text-base font-bold text-[#212529]">
                                 {priceDisplay}
                               </p>
                               <div className="flex items-center gap-2">
@@ -344,7 +344,7 @@ export default async function DashboardOverviewPage() {
                                 )}
                                 <Link
                                   href={`/dashboard/edit-property/${property.id}`}
-                                  className="text-[11px] font-medium text-black hover:text-black border border-[#E9ECEF] hover:border-black px-2.5 py-1 rounded-md transition-colors"
+                                  className="text-[11px] font-medium text-[#495057] hover:text-black border border-[#E9ECEF] hover:border-black px-2.5 py-1 rounded-md transition-colors"
                                 >
                                   Edit
                                 </Link>
@@ -363,10 +363,10 @@ export default async function DashboardOverviewPage() {
             {isLandlord && (!userProperties || userProperties.length === 0) && (
               <div className="bg-white rounded-xl border border-[#E9ECEF] p-8 text-center">
                 <div className="w-14 h-14 bg-[#F8F9FA] rounded-2xl flex items-center justify-center mx-auto mb-4">
-                  <Building2 size={24} className="text-black" />
+                  <Building2 size={24} className="text-[#ADB5BD]" />
                 </div>
                 <h3 className="text-base font-semibold text-black mb-1">No properties yet</h3>
-                <p className="text-sm text-black mb-5 max-w-xs mx-auto">
+                <p className="text-sm text-[#495057] mb-5 max-w-xs mx-auto">
                   List your first property and start receiving inquiries from verified renters.
                 </p>
                 <Link
@@ -384,7 +384,7 @@ export default async function DashboardOverviewPage() {
               <div className="bg-white rounded-xl border border-[#E9ECEF] overflow-hidden">
                 <div className="flex items-center justify-between px-5 py-4 border-b border-[#F1F3F5]">
                   <h2 className="text-sm font-semibold text-black">Recently Added</h2>
-                  <Link href="/search" className="text-xs text-black hover:text-black font-medium flex items-center gap-1 transition-colors">
+                  <Link href="/search" className="text-xs text-[#495057] hover:text-black font-medium flex items-center gap-1 transition-colors">
                     View all <ChevronRight size={13} />
                   </Link>
                 </div>
@@ -413,10 +413,10 @@ export default async function DashboardOverviewPage() {
                             />
                           ) : (
                             <div className="w-full h-full flex items-center justify-center">
-                              <Home size={20} className="text-black" />
+                              <Home size={20} className="text-[#ADB5BD]" />
                             </div>
                           )}
-                          <div className="absolute bottom-2 left-2 bg-white/95 backdrop-blur-sm px-2 py-1 rounded text-xs font-bold text-black">
+                          <div className="absolute bottom-2 left-2 bg-white/95 backdrop-blur-sm px-2 py-1 rounded text-xs font-bold text-[#212529]">
                             {priceDisplay}
                           </div>
                           {property.listing_type === 'sale' && (
@@ -426,8 +426,8 @@ export default async function DashboardOverviewPage() {
                           )}
                         </div>
                         <div className="p-3">
-                          <p className="text-xs font-medium text-black truncate group-hover:underline underline-offset-2">{property.title}</p>
-                          <p className="text-[10px] text-black mt-0.5 flex items-center gap-1">
+                          <p className="text-xs font-medium text-[#212529] truncate group-hover:underline underline-offset-2">{property.title}</p>
+                          <p className="text-[10px] text-[#ADB5BD] mt-0.5 flex items-center gap-1">
                             <MapPin size={10} />
                             {property.neighborhood ? `${property.neighborhood}, ` : ''}{property.city}
                           </p>
@@ -441,7 +441,7 @@ export default async function DashboardOverviewPage() {
 
             {/* Renter: Empty saved state tip */}
             {!isLandlord && (savedCount || 0) === 0 && (
-              <div className="bg-black rounded-xl p-6 text-white">
+              <div className="bg-[#212529] rounded-xl p-6 text-white">
                 <div className="flex items-start gap-4">
                   <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center flex-shrink-0">
                     <Sparkles size={20} />
@@ -453,7 +453,7 @@ export default async function DashboardOverviewPage() {
                     </p>
                     <Link 
                       href="/search" 
-                      className="inline-flex items-center gap-1.5 bg-white text-black px-4 py-2 rounded-lg text-sm font-semibold hover:bg-[#F8F9FA] transition-colors"
+                      className="inline-flex items-center gap-1.5 bg-white text-[#212529] px-4 py-2 rounded-lg text-sm font-semibold hover:bg-[#F8F9FA] transition-colors"
                     >
                       <Search size={14} />
                       Browse properties
@@ -471,7 +471,7 @@ export default async function DashboardOverviewPage() {
             <div className="bg-white rounded-xl border border-[#E9ECEF] overflow-hidden">
               <div className="flex items-center justify-between px-5 py-4 border-b border-[#F1F3F5]">
                 <h2 className="text-sm font-semibold text-black">Recent Messages</h2>
-                <OpenChatButton className="text-xs text-black hover:text-black font-medium flex items-center gap-1 transition-colors">
+                <OpenChatButton className="text-xs text-[#495057] hover:text-black font-medium flex items-center gap-1 transition-colors">
                   All <ChevronRight size={13} />
                 </OpenChatButton>
               </div>
@@ -486,7 +486,7 @@ export default async function DashboardOverviewPage() {
                         conversationId={convo.id}
                         className="flex items-center gap-3 px-5 py-3.5 hover:bg-[#FAFAFA] transition-colors group w-full text-left"
                       >
-                        <div className="w-9 h-9 rounded-full bg-[#F8F9FA] flex items-center justify-center flex-shrink-0 text-xs font-bold text-black">
+                        <div className="w-9 h-9 rounded-full bg-[#F8F9FA] flex items-center justify-center flex-shrink-0 text-xs font-bold text-[#495057]">
                           {otherPerson?.avatar_url ? (
                             <Image
                               src={otherPerson.avatar_url}
@@ -501,12 +501,12 @@ export default async function DashboardOverviewPage() {
                         </div>
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center justify-between gap-2">
-                            <p className="text-sm font-medium text-black truncate">{otherPerson?.name || 'User'}</p>
+                            <p className="text-sm font-medium text-[#212529] truncate">{otherPerson?.name || 'User'}</p>
                             {convo.last_message_at && (
-                              <span className="text-[10px] text-black flex-shrink-0">{formatTimeAgo(convo.last_message_at)}</span>
+                              <span className="text-[10px] text-[#ADB5BD] flex-shrink-0">{formatTimeAgo(convo.last_message_at)}</span>
                             )}
                           </div>
-                          <p className="text-xs text-black truncate mt-0.5">
+                          <p className="text-xs text-[#ADB5BD] truncate mt-0.5">
                             {convo.last_message_preview || (property?.title ? `Re: ${property.title}` : 'No messages yet')}
                           </p>
                         </div>
@@ -516,8 +516,8 @@ export default async function DashboardOverviewPage() {
                 </div>
               ) : (
                 <div className="py-8 text-center">
-                  <MessageSquare size={20} className="mx-auto text-black mb-2" />
-                  <p className="text-xs text-black">No conversations yet</p>
+                  <MessageSquare size={20} className="mx-auto text-[#E9ECEF] mb-2" />
+                  <p className="text-xs text-[#ADB5BD]">No conversations yet</p>
                 </div>
               )}
             </div>
@@ -545,13 +545,13 @@ export default async function DashboardOverviewPage() {
                     className="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-[#F8F9FA] transition-colors group"
                   >
                     <div className="w-8 h-8 bg-[#F8F9FA] rounded-lg flex items-center justify-center group-hover:bg-black transition-colors flex-shrink-0">
-                      <Icon size={14} className="text-black group-hover:text-white transition-colors" />
+                      <Icon size={14} className="text-[#495057] group-hover:text-white transition-colors" />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium text-black">{label}</p>
-                      <p className="text-[10px] text-black">{desc}</p>
+                      <p className="text-sm font-medium text-[#212529]">{label}</p>
+                      <p className="text-[10px] text-[#ADB5BD]">{desc}</p>
                     </div>
-                    <ChevronRight size={14} className="text-black group-hover:text-black transition-colors flex-shrink-0" />
+                    <ChevronRight size={14} className="text-[#E9ECEF] group-hover:text-[#ADB5BD] transition-colors flex-shrink-0" />
                   </Link>
                 ))}
               </div>
@@ -559,10 +559,10 @@ export default async function DashboardOverviewPage() {
 
             {/* Landlord: Performance Snapshot */}
             {isLandlord && (propertyCount || 0) > 0 && (
-              <div className="bg-black rounded-xl p-5 text-white">
+              <div className="bg-[#212529] rounded-xl p-5 text-white">
                 <div className="flex items-center gap-2 mb-4">
                   <BarChart3 size={16} className="text-white/60" />
-                  <h3 className="text-sm font-semibold text-white">Performance</h3>
+                  <h3 className="text-sm font-semibold">Performance</h3>
                 </div>
                 <div className="grid grid-cols-2 gap-3">
                   <div className="bg-white/[0.06] rounded-lg p-3">
