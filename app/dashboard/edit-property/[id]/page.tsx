@@ -58,13 +58,13 @@ const STATUS_OPTIONS = {
   rent: [
     { value: 'active', label: 'Active', description: 'Visible to renters', icon: Eye, color: 'text-[#51CF66]' },
     { value: 'draft', label: 'Draft', description: 'Hidden from search', icon: EyeOff, color: 'text-[#ADB5BD]' },
-    { value: 'rented', label: 'Rented', description: 'Marked as taken', icon: CheckCircle2, color: 'text-blue-500' },
+    { value: 'rented', label: 'Rented', description: 'Marked as taken', icon: CheckCircle2, color: 'text-[#212529]' },
     { value: 'inactive', label: 'Inactive', description: 'Temporarily hidden', icon: XCircle, color: 'text-[#FF6B6B]' },
   ],
   sale: [
     { value: 'active', label: 'Active', description: 'Visible to buyers', icon: Eye, color: 'text-[#51CF66]' },
     { value: 'draft', label: 'Draft', description: 'Hidden from search', icon: EyeOff, color: 'text-[#ADB5BD]' },
-    { value: 'sold', label: 'Sold', description: 'Marked as sold', icon: CheckCircle2, color: 'text-blue-500' },
+    { value: 'sold', label: 'Sold', description: 'Marked as sold', icon: CheckCircle2, color: 'text-[#212529]' },
     { value: 'inactive', label: 'Inactive', description: 'Temporarily hidden', icon: XCircle, color: 'text-[#FF6B6B]' },
   ],
 } as const
@@ -410,6 +410,7 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
     const newErrors: Record<string, string> = {}
 
     if (!formData.title.trim()) newErrors.title = 'Title is required'
+    if (formData.description.length > 2000) newErrors.description = 'Description must be 2000 characters or less'
     if (!formData.price || parseFloat(formData.price) <= 0) newErrors.price = 'A valid price is required'
     if (!formData.beds) newErrors.beds = 'Required'
     if (!formData.baths) newErrors.baths = 'Required'
@@ -474,8 +475,8 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
           lng: formData.lng || null,
           year_built: formData.listingType === 'sale' && formData.yearBuilt ? parseInt(formData.yearBuilt) : null,
           lot_size_sqft: formData.listingType === 'sale' && formData.lotSize ? parseInt(formData.lotSize) : null,
-          parking_spaces: formData.parkingSpaces ? parseInt(formData.parkingSpaces) : 0,
-          garage_spaces: formData.garageSpaces ? parseInt(formData.garageSpaces) : 0,
+          parking_spaces: formData.parkingSpaces ? parseInt(formData.parkingSpaces) : null,
+          garage_spaces: formData.garageSpaces ? parseInt(formData.garageSpaces) : null,
           property_tax_annual: formData.listingType === 'sale' && formData.propertyTax ? Math.round(parseFloat(formData.propertyTax) * 100) : null,
           hoa_fee_monthly: formData.listingType === 'sale' && formData.hoaFee ? Math.round(parseFloat(formData.hoaFee) * 100) : null,
           // Student housing fields
@@ -656,7 +657,13 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
         {/* Section Navigation */}
         <div className="max-w-3xl mx-auto px-4 pb-2 -mt-1">
           <div className="flex gap-1 overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-            {SECTIONS.map(section => (
+            {SECTIONS.filter(section => {
+              // Only show Student tab when property type is student housing
+              if (section.id === 'student') {
+                return formData.propertyType === 'student'
+              }
+              return true
+            }).map(section => (
               <button
                 key={section.id}
                 type="button"
@@ -764,7 +771,7 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
               </button>
             </div>
             {formData.listingType !== originalListingTypeRef.current && (
-              <p className="mt-3 text-xs text-amber-600 flex items-center gap-1.5 bg-amber-50 px-3 py-2 rounded-lg">
+              <p className="mt-3 text-xs text-[#495057] flex items-center gap-1.5 bg-[#F8F9FA] px-3 py-2 rounded-lg">
                 <AlertCircle size={14} />
                 Switching type will adjust pricing fields on save
               </p>
@@ -810,15 +817,40 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
                 <textarea
                   id="description"
                   name="description"
-                  rows={4}
+                  rows={8}
+                  maxLength={2000}
                   value={formData.description}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3.5 border-2 border-[#E9ECEF] rounded-xl text-[#212529] bg-white placeholder:text-[#ADB5BD] focus:outline-none focus:border-[#212529] transition-colors resize-none"
+                  className={`w-full px-4 py-3.5 border-2 rounded-xl text-[#212529] bg-white placeholder:text-[#ADB5BD] focus:outline-none transition-colors resize-none ${
+                    formData.description.length > 2000
+                      ? 'border-[#FF6B6B]'
+                      : formData.description.length > 1800
+                      ? 'border-amber-500'
+                      : 'border-[#E9ECEF] focus:border-[#212529]'
+                  }`}
                   placeholder="Describe the property, its features, nearby amenities..."
                 />
                 <div className="flex justify-between mt-2">
-                  <p className="text-xs text-[#ADB5BD]">Optional but recommended</p>
-                  <p className="text-xs text-[#ADB5BD] tabular-nums">{formData.description.length}/2000</p>
+                  {formData.description.length > 2000 ? (
+                    <p className="text-xs text-[#FF6B6B] flex items-center gap-1">
+                      <AlertCircle size={12} /> Description is too long
+                    </p>
+                  ) : formData.description.length > 1800 ? (
+                    <p className="text-xs text-[#495057] flex items-center gap-1">
+                      <AlertCircle size={12} /> Approaching character limit
+                    </p>
+                  ) : (
+                    <p className="text-xs text-[#ADB5BD]">Optional but recommended</p>
+                  )}
+                  <p className={`text-xs tabular-nums ${
+                    formData.description.length > 2000
+                      ? 'text-[#FF6B6B] font-semibold'
+                      : formData.description.length > 1800
+                      ? 'text-[#495057] font-medium'
+                      : 'text-[#ADB5BD]'
+                  }`}>
+                    {formData.description.length}/2000
+                  </p>
                 </div>
               </div>
 
@@ -1230,6 +1262,117 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
           </section>
 
           <div className="h-px bg-[#E9ECEF] mb-10" />
+
+          {/* ===== STUDENT HOUSING ===== */}
+          {formData.propertyType === 'student' && (
+            <>
+              <section id="student" className="mb-10 scroll-mt-24">
+                <h2 className="text-sm font-semibold text-[#212529] mb-1 uppercase tracking-wider">Student Housing Details</h2>
+                <p className="text-xs text-[#ADB5BD] mb-6">Additional information specific to student housing</p>
+
+                <div className="space-y-6">
+                  {/* Toggle Options */}
+                  <div className="space-y-3">
+                    <button
+                      type="button"
+                      onClick={() => toggleStudentField('furnished')}
+                      className={`w-full flex items-center justify-between px-5 py-4 rounded-xl border-2 transition-all ${
+                        formData.furnished
+                          ? 'border-[#212529] bg-[#212529] text-white'
+                          : 'border-[#E9ECEF] bg-white text-[#212529] hover:border-[#495057]'
+                      }`}
+                    >
+                      <span className="flex items-center gap-3">
+                        <GraduationCap size={18} />
+                        <span className="font-semibold text-sm">Furnished</span>
+                      </span>
+                      <div className={`w-5 h-5 rounded border-2 flex items-center justify-center ${
+                        formData.furnished ? 'border-white bg-white' : 'border-[#ADB5BD]'
+                      }`}>
+                        {formData.furnished && <Check size={14} className="text-[#212529]" />}
+                      </div>
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => toggleStudentField('sharedRooms')}
+                      className={`w-full flex items-center justify-between px-5 py-4 rounded-xl border-2 transition-all ${
+                        formData.sharedRooms
+                          ? 'border-[#212529] bg-[#212529] text-white'
+                          : 'border-[#E9ECEF] bg-white text-[#212529] hover:border-[#495057]'
+                      }`}
+                    >
+                      <span className="flex items-center gap-3">
+                        <Bed size={18} />
+                        <span className="font-semibold text-sm">Shared Rooms Available</span>
+                      </span>
+                      <div className={`w-5 h-5 rounded border-2 flex items-center justify-center ${
+                        formData.sharedRooms ? 'border-white bg-white' : 'border-[#ADB5BD]'
+                      }`}>
+                        {formData.sharedRooms && <Check size={14} className="text-[#212529]" />}
+                      </div>
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => toggleStudentField('utilitiesIncluded')}
+                      className={`w-full flex items-center justify-between px-5 py-4 rounded-xl border-2 transition-all ${
+                        formData.utilitiesIncluded
+                          ? 'border-[#212529] bg-[#212529] text-white'
+                          : 'border-[#E9ECEF] bg-white text-[#212529] hover:border-[#495057]'
+                      }`}
+                    >
+                      <span className="flex items-center gap-3">
+                        <Check size={18} />
+                        <span className="font-semibold text-sm">Utilities Included in Rent</span>
+                      </span>
+                      <div className={`w-5 h-5 rounded border-2 flex items-center justify-center ${
+                        formData.utilitiesIncluded ? 'border-white bg-white' : 'border-[#ADB5BD]'
+                      }`}>
+                        {formData.utilitiesIncluded && <Check size={14} className="text-[#212529]" />}
+                      </div>
+                    </button>
+                  </div>
+
+                  {/* Nearby Universities */}
+                  <div>
+                    <label htmlFor="nearbyUniversities" className="block text-sm font-semibold text-[#212529] mb-2">
+                      Nearby Universities
+                    </label>
+                    <input
+                      id="nearbyUniversities"
+                      name="nearbyUniversities"
+                      type="text"
+                      value={formData.nearbyUniversities}
+                      onChange={handleInputChange}
+                      className="w-full px-4 py-3.5 border-2 border-[#E9ECEF] rounded-xl text-[#212529] bg-white placeholder:text-[#ADB5BD] focus:outline-none focus:border-[#212529] transition-colors"
+                      placeholder="e.g., University of Zimbabwe, NUST, Midlands State University"
+                    />
+                    <p className="mt-2 text-xs text-[#ADB5BD]">Separate multiple universities with commas</p>
+                  </div>
+
+                  {/* Student Lease Terms */}
+                  <div>
+                    <label htmlFor="studentLeaseTerms" className="block text-sm font-semibold text-[#212529] mb-2">
+                      Student Lease Terms
+                    </label>
+                    <textarea
+                      id="studentLeaseTerms"
+                      name="studentLeaseTerms"
+                      rows={3}
+                      value={formData.studentLeaseTerms}
+                      onChange={handleInputChange}
+                      className="w-full px-4 py-3.5 border-2 border-[#E9ECEF] rounded-xl text-[#212529] bg-white placeholder:text-[#ADB5BD] focus:outline-none focus:border-[#212529] transition-colors resize-none"
+                      placeholder="e.g., Academic year lease (September - June), Summer subletting allowed, Parental guarantee required"
+                    />
+                    <p className="mt-2 text-xs text-[#ADB5BD]">Special lease conditions for student tenants</p>
+                  </div>
+                </div>
+              </section>
+
+              <div className="h-px bg-[#E9ECEF] mb-10" />
+            </>
+          )}
 
           {/* ===== AMENITIES ===== */}
           <section id="amenities" className="mb-10 scroll-mt-24">

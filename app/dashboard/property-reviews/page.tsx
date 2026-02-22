@@ -2,6 +2,7 @@ import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { Star, MessageCircle, Flag, Home } from 'lucide-react'
 import Link from 'next/link'
+import { ICON_SIZES } from '@/lib/constants'
 
 // Simple relative time formatter
 function formatDistanceToNow(date: Date): string {
@@ -47,7 +48,7 @@ export default async function PropertyReviewsPage() {
           </h1>
           <div className="bg-white border-2 border-[#E9ECEF] rounded-2xl p-12 text-center">
             <div className="w-20 h-20 bg-[#F8F9FA] rounded-full flex items-center justify-center mx-auto mb-6">
-              <Home size={36} className="text-[#ADB5BD]" />
+              <Home size={ICON_SIZES['2xl']} className="text-[#ADB5BD]" />
             </div>
             <h3 className="text-xl font-bold text-[#212529] mb-2">
               No properties yet
@@ -125,7 +126,7 @@ export default async function PropertyReviewsPage() {
                 <p className="text-4xl font-bold text-[#212529]">{totalReviews}</p>
               </div>
               <div className="w-14 h-14 bg-[#F8F9FA] rounded-2xl flex items-center justify-center">
-                <Star size={28} className="text-[#212529]" />
+                <Star size={ICON_SIZES.xl} className="text-[#212529]" />
               </div>
             </div>
           </div>
@@ -139,7 +140,7 @@ export default async function PropertyReviewsPage() {
                 </p>
               </div>
               <div className="w-14 h-14 bg-[#F8F9FA] rounded-2xl flex items-center justify-center">
-                <Star size={28} className="fill-[#212529] text-[#212529]" />
+                <Star size={ICON_SIZES.xl} className="fill-[#212529] text-[#212529]" />
               </div>
             </div>
           </div>
@@ -151,7 +152,7 @@ export default async function PropertyReviewsPage() {
                 <p className="text-4xl font-bold text-[#212529]">{needsResponse}</p>
               </div>
               <div className="w-14 h-14 bg-[#F8F9FA] rounded-2xl flex items-center justify-center">
-                <MessageCircle size={28} className="text-[#212529]" />
+                <MessageCircle size={ICON_SIZES.xl} className="text-[#212529]" />
               </div>
             </div>
           </div>
@@ -165,7 +166,7 @@ export default async function PropertyReviewsPage() {
                 </p>
               </div>
               <div className="w-14 h-14 bg-[#F8F9FA] rounded-2xl flex items-center justify-center">
-                <Flag size={28} className="text-[#212529]" />
+                <Flag size={ICON_SIZES.xl} className="text-[#212529]" />
               </div>
             </div>
           </div>
@@ -175,7 +176,7 @@ export default async function PropertyReviewsPage() {
         {!reviews || reviews.length === 0 ? (
           <div className="bg-white border-2 border-[#E9ECEF] rounded-2xl p-12 text-center">
             <div className="w-20 h-20 bg-[#F8F9FA] rounded-full flex items-center justify-center mx-auto mb-6">
-              <Star size={36} className="text-[#ADB5BD]" />
+              <Star size={ICON_SIZES['2xl']} className="text-[#ADB5BD]" />
             </div>
             <h3 className="text-xl font-bold text-[#212529] mb-2">
               No reviews yet
@@ -218,7 +219,7 @@ export default async function PropertyReviewsPage() {
                       </div>
                       <div className="text-right">
                         <div className="flex items-center gap-2 justify-end mb-1">
-                          <Star size={20} className="fill-[#212529] text-[#212529]" />
+                          <Star size={ICON_SIZES.lg} className="fill-[#212529] text-[#212529]" />
                           <span className="text-2xl font-bold text-[#212529]">
                             {propertyAvgRating.toFixed(1)}
                           </span>
@@ -260,7 +261,7 @@ export default async function PropertyReviewsPage() {
                                   {Array.from({ length: 5 }, (_, i) => (
                                     <Star
                                       key={i}
-                                      size={14}
+                                      size={ICON_SIZES.sm}
                                       className={
                                         i < review.rating
                                           ? 'fill-[#212529] text-[#212529]'
@@ -304,7 +305,7 @@ export default async function PropertyReviewsPage() {
                             href={`/dashboard/property-reviews/${review.id}/respond`}
                             className="inline-flex items-center gap-2 text-sm bg-[#212529] text-white px-5 py-2.5 rounded-xl font-medium hover:bg-black hover:shadow-lg transition-all"
                           >
-                            <MessageCircle size={16} />
+                            <MessageCircle size={ICON_SIZES.md} />
                             Respond to Review
                           </Link>
                         )}

@@ -6,6 +6,7 @@ import {
   ChevronDown, ChevronUp, AlertCircle, CheckCircle
 } from 'lucide-react'
 import type { InvestmentMetrics } from '@/lib/analysis'
+import { ICON_SIZES } from '@/lib/constants'
 
 interface InvestmentAnalysisProps {
   propertyId: string
@@ -54,10 +55,10 @@ export function InvestmentAnalysis({ propertyId }: InvestmentAnalysisProps) {
   if (!data) return null
 
   const recommendationStyles = {
-    'strong-buy': 'bg-green-100 text-green-700 border-green-300',
-    'buy': 'bg-blue-100 text-blue-700 border-blue-300',
-    'hold': 'bg-yellow-100 text-yellow-700 border-yellow-300',
-    'avoid': 'bg-red-100 text-red-700 border-red-300'
+    'strong-buy': 'bg-[#212529] text-white border-[#212529]',
+    'buy': 'bg-[#495057] text-white border-[#495057]',
+    'hold': 'bg-[#ADB5BD] text-white border-[#ADB5BD]',
+    'avoid': 'bg-[#E9ECEF] text-[#495057] border-[#E9ECEF]'
   }
 
   const recommendationLabels = {
@@ -73,7 +74,7 @@ export function InvestmentAnalysis({ propertyId }: InvestmentAnalysisProps) {
       <div className="p-4 bg-[#F8F9FA] border-b border-[#E9ECEF]">
         <div className="flex items-center justify-between">
           <h3 className="font-semibold flex items-center gap-2">
-            <Calculator size={18} />
+            <Calculator size={ICON_SIZES.lg} />
             Investment Analysis
           </h3>
           <span className={`px-3 py-1 rounded border text-sm font-medium ${
@@ -107,11 +108,11 @@ export function InvestmentAnalysis({ propertyId }: InvestmentAnalysisProps) {
         <div className="flex items-center justify-between py-3 border-y border-[#E9ECEF]">
           <span className="text-sm text-[#6C757D]">Monthly Cash Flow</span>
           <span className={`text-lg font-bold ${
-            data.monthlyNetCashFlow >= 0 ? 'text-green-600' : 'text-red-500'
+            data.monthlyNetCashFlow >= 0 ? 'text-[#212529]' : 'text-[#495057]'
           }`}>
             ${data.monthlyNetCashFlow.toLocaleString()}
             {data.monthlyNetCashFlow < 0 && (
-              <AlertCircle size={14} className="inline ml-1" />
+              <AlertCircle size={ICON_SIZES.sm} className="inline ml-1" />
             )}
           </span>
         </div>
@@ -130,7 +131,7 @@ export function InvestmentAnalysis({ propertyId }: InvestmentAnalysisProps) {
           className="w-full flex items-center justify-center gap-1 text-sm text-[#6C757D] hover:text-[#212529] py-2"
         >
           {showDetails ? 'Hide' : 'Show'} detailed breakdown
-          {showDetails ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+          {showDetails ? <ChevronUp size={ICON_SIZES.md} /> : <ChevronDown size={ICON_SIZES.md} />}
         </button>
 
         {/* Detailed Breakdown */}
@@ -222,10 +223,10 @@ export function InvestmentAnalysis({ propertyId }: InvestmentAnalysisProps) {
             {/* Break-even Info */}
             <div className="flex items-center justify-between text-sm">
               <span className="text-[#6C757D]">Break-even Occupancy</span>
-              <span className={data.breakEvenOccupancy > 90 ? 'text-red-500' : 'text-[#212529]'}>
+              <span className={data.breakEvenOccupancy > 90 ? 'text-[#495057]' : 'text-[#212529]'}>
                 {data.breakEvenOccupancy}%
                 {data.breakEvenOccupancy > 90 && (
-                  <AlertCircle size={12} className="inline ml-1" />
+                  <AlertCircle size={ICON_SIZES.xs} className="inline ml-1" />
                 )}
               </span>
             </div>

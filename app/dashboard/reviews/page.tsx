@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 import { Star, Edit } from 'lucide-react'
 import Link from 'next/link'
+import { ICON_SIZES } from '@/lib/constants'
 
 // Simple time ago formatter
 function timeAgo(date: string) {
@@ -105,7 +106,7 @@ export default function MyReviewsPage() {
                   {reviews?.length || 0}
                 </p>
               </div>
-              <Star size={32} className="text-[#ADB5BD]" />
+              <Star size={ICON_SIZES['2xl']} className="text-[#ADB5BD]" />
             </div>
           </div>
 
@@ -122,7 +123,7 @@ export default function MyReviewsPage() {
                     : '0.0'}
                 </p>
               </div>
-              <Star size={32} className="fill-black text-black" />
+              <Star size={ICON_SIZES['2xl']} className="fill-black text-black" />
             </div>
           </div>
 
@@ -134,7 +135,7 @@ export default function MyReviewsPage() {
                   {reviews?.filter((r) => r.review_responses).length || 0}
                 </p>
               </div>
-              <Edit size={32} className="text-[#ADB5BD]" />
+              <Edit size={ICON_SIZES['2xl']} className="text-[#ADB5BD]" />
             </div>
           </div>
         </div>
@@ -142,7 +143,7 @@ export default function MyReviewsPage() {
         {/* Reviews List */}
         {!reviews || reviews.length === 0 ? (
           <div className="bg-white border border-[#E9ECEF] rounded-lg p-12 text-center">
-            <Star size={48} className="mx-auto text-[#ADB5BD] mb-4" />
+            <Star size={ICON_SIZES['3xl']} className="mx-auto text-[#ADB5BD] mb-4" />
             <h3 className="text-subsection-title mb-2">
               No reviews yet
             </h3>
@@ -181,7 +182,7 @@ export default function MyReviewsPage() {
                       {Array.from({ length: 5 }, (_, i) => (
                         <Star
                           key={i}
-                          size={16}
+                          size={ICON_SIZES.md}
                           className={
                             i < review.rating
                               ? 'fill-black text-black'
@@ -207,7 +208,7 @@ export default function MyReviewsPage() {
                             className="p-2 hover:bg-[#E9ECEF] rounded transition-colors"
                             title="Edit review"
                           >
-                            <Edit size={16} className="text-[#495057]" />
+                            <Edit size={ICON_SIZES.md} className="text-[#495057]" />
                           </Link>
                         )}
                     </div>

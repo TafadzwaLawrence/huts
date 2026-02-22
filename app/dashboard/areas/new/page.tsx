@@ -11,6 +11,7 @@ import {
   ArrowRight,
   Home,
 } from 'lucide-react'
+import { ICON_SIZES } from '@/lib/constants'
 
 export default function NewAreaGuidePage() {
   const router = useRouter()
@@ -110,7 +111,7 @@ export default function NewAreaGuidePage() {
           {/* Basic Information */}
           <section className="mb-10">
             <h2 className="text-xl font-bold text-[#212529] mb-6 flex items-center gap-2">
-              <MapPin size={24} />
+              <MapPin size={ICON_SIZES.xl} />
               Basic Information
             </h2>
 
@@ -192,7 +193,7 @@ export default function NewAreaGuidePage() {
           {/* Content */}
           <section className="mb-10 pb-10 border-b border-[#E9ECEF]">
             <h2 className="text-xl font-bold text-[#212529] mb-6 flex items-center gap-2">
-              <FileText size={24} />
+              <FileText size={ICON_SIZES.xl} />
               Page Content
             </h2>
 
@@ -227,7 +228,7 @@ The area is perfect for..."
           {/* SEO Settings */}
           <section className="mb-10">
             <h2 className="text-xl font-bold text-[#212529] mb-6 flex items-center gap-2">
-              <SearchIcon size={24} />
+              <SearchIcon size={ICON_SIZES.xl} />
               SEO Settings
             </h2>
 
@@ -296,7 +297,7 @@ The area is perfect for..."
               ) : (
                 <>
                   Create Area Guide
-                  <ArrowRight size={20} />
+                  <ArrowRight size={ICON_SIZES.lg} />
                 </>
               )}
             </button>

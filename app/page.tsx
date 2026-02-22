@@ -5,6 +5,7 @@ import { Search, MapPin, Bed, Bath, Square, Home, ArrowRight, Shield, Clock, Sma
 import { createClient } from '@/lib/supabase/server'
 import { formatPrice, formatSalePrice } from '@/lib/utils'
 import SaveButton from '@/components/property/SaveButton'
+import { ICON_SIZES } from '@/lib/constants'
 
 export const metadata: Metadata = {
   title: 'Huts — Find Properties for Rent & Sale in Zimbabwe',
@@ -205,7 +206,7 @@ export default async function HomePage() {
           <div className="max-w-5xl mx-auto">
             {/* Headline */}
             <div className="text-center mb-12">
-              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.05] text-[#212529] mb-6">
+              <h1 className="text-hero mb-6">
                 Find your
                 <span className="relative mx-3">
                   <span className="relative z-10">perfect</span>
@@ -231,9 +232,9 @@ export default async function HomePage() {
                 <div className="relative bg-white rounded-2xl shadow-2xl border-2 border-[#E9ECEF] p-2 group-hover/search:border-[#495057] transition-colors duration-300">
                   <div className="flex flex-col md:flex-row gap-2">
                     {/* Location Input */}
-                    <div className="flex-1 flex items-center gap-3 px-4 py-3 bg-[#F8F9FA] rounded-xl hover:bg-[#F1F3F5] transition-all duration-200 group/location">
+                    <div className="flex-1 flex items-center gap-3 px-4 py-3 bg-[#F8F9FA] rounded-xl hover:bg-[#E9ECEF] transition-all duration-200 group/location">
                       <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center shadow-sm group-hover/location:shadow transition-shadow">
-                        <MapPin size={20} className="text-[#212529] group-hover/location:scale-110 transition-transform" />
+                        <MapPin size={ICON_SIZES.lg} className="text-[#212529] group-hover/location:scale-110 transition-transform" />
                       </div>
                       <div className="flex-1">
                         <label htmlFor="search-location" className="block text-[10px] font-bold text-[#ADB5BD] uppercase tracking-wider mb-0.5">Location</label>
@@ -247,9 +248,9 @@ export default async function HomePage() {
                     </div>
 
                     {/* Property Type */}
-                    <div className="hidden md:flex items-center gap-3 px-4 py-3 bg-[#F8F9FA] rounded-xl hover:bg-[#F1F3F5] transition-all duration-200 group/type min-w-[180px]">
+                    <div className="hidden md:flex items-center gap-3 px-4 py-3 bg-[#F8F9FA] rounded-xl hover:bg-[#E9ECEF] transition-all duration-200 group/type min-w-[180px]">
                       <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center shadow-sm group-hover/type:shadow transition-shadow">
-                        <Home size={20} className="text-[#212529] group-hover/type:scale-110 transition-transform" />
+                        <Home size={ICON_SIZES.lg} className="text-[#212529] group-hover/type:scale-110 transition-transform" />
                       </div>
                       <div className="flex-1">
                         <label htmlFor="search-type" className="block text-[10px] font-bold text-[#ADB5BD] uppercase tracking-wider mb-0.5">Type</label>
@@ -267,9 +268,9 @@ export default async function HomePage() {
                     {/* Search Button */}
                     <Link
                       href="/search"
-                      className="group/btn flex items-center justify-center gap-2 bg-[#212529] text-white px-8 py-4 rounded-xl font-bold hover:bg-black transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 active:translate-y-0 min-h-[56px]"
+                      className="btn btn-primary flex items-center justify-center gap-2 px-8 py-4 min-h-[56px]"
                     >
-                      <Search size={20} className="group-hover/btn:scale-110 transition-transform" />
+                      <Search size={ICON_SIZES.lg} />
                       <span>Search</span>
                     </Link>
                   </div>
@@ -286,9 +287,9 @@ export default async function HomePage() {
                     <Link
                       key={area.name}
                       href={`/search?area=${area.slug}`}
-                      className="group/area inline-flex items-center gap-2 px-4 py-2 bg-white border-2 border-[#E9ECEF] rounded-full text-sm font-semibold text-[#495057] hover:border-[#212529] hover:text-[#212529] hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
+                      className="group/area inline-flex items-center gap-2 px-4 py-2 bg-white border-2 border-[#E9ECEF] rounded-full text-sm font-semibold text-[#495057] hover:border-[#212529] hover:text-[#212529] card-hover-subtle"
                     >
-                      <MapPin size={14} className="text-[#ADB5BD] group-hover/area:text-[#212529] transition-colors" />
+                      <MapPin size={ICON_SIZES.sm} className="text-[#ADB5BD] group-hover/area:text-[#212529] transition-colors" />
                       <span>{area.name}</span>
                       <span className="text-[10px] font-bold text-[#495057] bg-[#F8F9FA] px-2 py-0.5 rounded-full group-hover/area:bg-[#212529] group-hover/area:text-white transition-colors">
                         {area.count}
@@ -332,10 +333,10 @@ export default async function HomePage() {
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-6 mb-10 md:mb-14">
             <div>
               <div className="inline-flex items-center gap-2 bg-[#F8F9FA] border border-[#E9ECEF] rounded-full px-4 py-1.5 mb-4">
-                <Home size={13} className="text-[#495057]" />
+                <Home size={ICON_SIZES.sm} className="text-[#495057]" />
                 <span className="text-[10px] font-bold text-[#495057] uppercase tracking-widest">For Rent</span>
               </div>
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#212529] tracking-tight mb-3">
+              <h2 className="text-section-title mb-3">
                 Featured Rentals
               </h2>
               <p className="text-[#495057] text-base md:text-lg max-w-md">
@@ -344,10 +345,10 @@ export default async function HomePage() {
             </div>
             <Link
               href="/search?type=rent"
-              className="group/btn inline-flex items-center gap-2.5 text-sm font-semibold text-[#212529] border-2 border-[#E9ECEF] px-5 py-2.5 rounded-full hover:border-[#212529] hover:bg-[#212529] hover:text-white transition-all duration-200"
+              className="btn btn-secondary group/btn inline-flex items-center gap-2.5"
             >
               <span>View all rentals</span>
-              <ArrowRight size={15} className="group-hover/btn:translate-x-0.5 transition-transform" />
+              <ArrowRight size={ICON_SIZES.sm} className="group-hover/btn:translate-x-0.5 transition-transform" />
             </Link>
           </div>
           
@@ -399,25 +400,25 @@ export default async function HomePage() {
                         </h3>
                         
                         <div className="flex items-center text-[#495057] text-sm mb-4">
-                          <MapPin size={14} className="mr-1.5 flex-shrink-0 text-[#ADB5BD]" />
+                          <MapPin size={ICON_SIZES.sm} className="mr-1.5 flex-shrink-0 text-[#ADB5BD]" />
                           <span className="truncate">{property.neighborhood ? `${property.neighborhood}, ` : ''}{property.city}</span>
                         </div>
 
                         {/* Features */}
-                        <div className="flex items-center gap-4 text-sm text-[#495057] pt-4 border-t border-[#F1F3F5]">
+                        <div className="flex items-center gap-4 text-sm text-[#495057] pt-4 border-t border-[#E9ECEF]">
                           <span className="flex items-center gap-1.5">
-                            <Bed size={15} className="text-[#ADB5BD]" />
+                            <Bed size={ICON_SIZES.sm} className="text-[#ADB5BD]" />
                             <span className="font-semibold text-[#212529]">{property.beds}</span>
                             <span className="text-[#ADB5BD]">bed</span>
                           </span>
                           <span className="flex items-center gap-1.5">
-                            <Bath size={15} className="text-[#ADB5BD]" />
+                            <Bath size={ICON_SIZES.sm} className="text-[#ADB5BD]" />
                             <span className="font-semibold text-[#212529]">{property.baths}</span>
                             <span className="text-[#ADB5BD]">bath</span>
                           </span>
                           {property.sqft && property.sqft > 0 && (
                             <span className="flex items-center gap-1.5">
-                              <Square size={15} className="text-[#ADB5BD]" />
+                              <Square size={ICON_SIZES.sm} className="text-[#ADB5BD]" />
                               <span className="font-semibold text-[#212529]">{property.sqft.toLocaleString()}</span>
                               <span className="text-[#ADB5BD]">sqft</span>
                             </span>
@@ -434,13 +435,13 @@ export default async function HomePage() {
                   {/* Decorative icons */}
                   <div className="flex justify-center items-center gap-4 mb-8">
                     <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center border border-[#E9ECEF] rotate-[-6deg]">
-                      <Home size={28} className="text-[#ADB5BD]" />
+                      <Home size={ICON_SIZES['2xl']} className="text-[#ADB5BD]" />
                     </div>
                     <div className="w-20 h-20 bg-[#212529] rounded-2xl flex items-center justify-center shadow-xl">
-                      <Building2 size={36} className="text-white" />
+                      <Building2 size={ICON_SIZES['3xl']} className="text-white" />
                     </div>
                     <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center border border-[#E9ECEF] rotate-[6deg]">
-                      <MapPin size={28} className="text-[#ADB5BD]" />
+                      <MapPin size={ICON_SIZES['2xl']} className="text-[#ADB5BD]" />
                     </div>
                   </div>
                   
@@ -454,24 +455,24 @@ export default async function HomePage() {
                       href="/dashboard/new-property"
                       className="group inline-flex items-center justify-center gap-2 bg-[#212529] text-white px-8 py-4 rounded-xl font-semibold text-base hover:bg-black hover:shadow-xl hover:-translate-y-0.5 transition-all"
                     >
-                      <Plus size={20} />
+                      <Plus size={ICON_SIZES.lg} />
                       List Your Property
-                      <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+                      <ArrowRight size={ICON_SIZES.lg} className="group-hover:translate-x-1 transition-transform" />
                     </Link>
                     <Link
                       href="/search?type=rent"
                       className="inline-flex items-center justify-center gap-2 bg-white text-[#212529] border-2 border-[#E9ECEF] px-8 py-4 rounded-xl font-semibold text-base hover:border-[#212529] hover:shadow-md transition-all"
                     >
-                      <Search size={18} />
+                      <Search size={ICON_SIZES.lg} />
                       Browse All Areas
                     </Link>
                   </div>
                   
                   {/* Trust indicators */}
                   <div className="mt-10 pt-8 border-t border-[#E9ECEF] flex flex-wrap justify-center gap-6 text-sm text-[#ADB5BD]">
-                    <span className="flex items-center gap-2"><CheckCircle2 size={16} className="text-[#212529]" /> Free to list</span>
-                    <span className="flex items-center gap-2"><CheckCircle2 size={16} className="text-[#212529]" /> Verified renters</span>
-                    <span className="flex items-center gap-2"><CheckCircle2 size={16} className="text-[#212529]" /> Secure messaging</span>
+                    <span className="flex items-center gap-2"><CheckCircle2 size={ICON_SIZES.md} className="text-[#212529]" /> Free to list</span>
+                    <span className="flex items-center gap-2"><CheckCircle2 size={ICON_SIZES.md} className="text-[#212529]" /> Verified renters</span>
+                    <span className="flex items-center gap-2"><CheckCircle2 size={ICON_SIZES.md} className="text-[#212529]" /> Secure messaging</span>
                   </div>
                 </div>
               </div>
@@ -486,7 +487,7 @@ export default async function HomePage() {
                 className="group inline-flex items-center gap-2.5 text-sm font-semibold text-[#212529] border-2 border-[#212529] px-8 py-3.5 rounded-full hover:bg-[#212529] hover:text-white transition-all duration-200"
               >
                 Browse all rentals
-                <ArrowRight size={16} className="group-hover:translate-x-0.5 transition-transform" />
+                <ArrowRight size={ICON_SIZES.md} className="group-hover:translate-x-0.5 transition-transform" />
               </Link>
               <p className="text-[#ADB5BD] text-xs mt-3">
                 {totalListings || 0}+ properties across Zimbabwe
@@ -506,15 +507,15 @@ export default async function HomePage() {
           {/* Section Header */}
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6 mb-12">
             <div>
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#212529] tracking-tight mb-2">Homes for Sale</h2>
+              <h2 className="text-section-title mb-2">Homes for Sale</h2>
               <p className="text-[#495057] text-base md:text-lg">Find your dream home and make it yours</p>
             </div>
             <Link
               href="/search?type=sale"
-              className="group inline-flex items-center gap-2 text-sm font-bold text-white bg-[#212529] px-6 py-3 rounded-lg hover:bg-black hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200"
+              className="btn btn-primary group inline-flex items-center gap-2"
             >
               View all homes
-              <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+              <ArrowRight size={ICON_SIZES.md} className="group-hover:translate-x-1 transition-transform" />
             </Link>
           </div>
           
@@ -563,23 +564,23 @@ export default async function HomePage() {
                         </h3>
                         
                         <div className="flex items-center text-[#495057] text-sm mb-5">
-                          <MapPin size={15} className="mr-1.5 flex-shrink-0 text-[#ADB5BD]" />
+                          <MapPin size={ICON_SIZES.sm} className="mr-1.5 flex-shrink-0 text-[#ADB5BD]" />
                           <span className="truncate">{property.neighborhood ? `${property.neighborhood}, ` : ''}{property.city}</span>
                         </div>
 
                         {/* Features - Enhanced */}
                         <div className="flex items-center gap-5 text-sm text-[#495057] pt-5 border-t-2 border-[#F8F9FA]">
                           <span className="flex items-center gap-1.5 font-medium">
-                            <Bed size={16} className="text-[#ADB5BD]" />
+                            <Bed size={ICON_SIZES.md} className="text-[#ADB5BD]" />
                             <span className="text-[#212529]">{property.beds}</span> bed
                           </span>
                           <span className="flex items-center gap-1.5 font-medium">
-                            <Bath size={16} className="text-[#ADB5BD]" />
+                            <Bath size={ICON_SIZES.md} className="text-[#ADB5BD]" />
                             <span className="text-[#212529]">{property.baths}</span> bath
                           </span>
                           {property.sqft && (
                             <span className="flex items-center gap-1.5 font-medium">
-                              <Square size={16} className="text-[#ADB5BD]" />
+                              <Square size={ICON_SIZES.md} className="text-[#ADB5BD]" />
                               <span className="text-[#212529]">{property.sqft}</span> sqft
                             </span>
                           )}
@@ -589,7 +590,7 @@ export default async function HomePage() {
                         <div className="mt-5 pt-5 border-t-2 border-[#F8F9FA] opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                           <div className="flex items-center justify-between text-sm font-medium text-[#212529]">
                             <span>View details</span>
-                            <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                            <ArrowRight size={ICON_SIZES.md} className="group-hover:translate-x-1 transition-transform" />
                           </div>
                         </div>
                       </div>
@@ -603,13 +604,13 @@ export default async function HomePage() {
                   {/* Decorative icons */}
                   <div className="flex justify-center items-center gap-4 mb-8">
                     <div className="w-16 h-16 bg-[#F8F9FA] rounded-2xl flex items-center justify-center border border-[#E9ECEF] rotate-[-6deg]">
-                      <Home size={28} className="text-[#ADB5BD]" />
+                      <Home size={ICON_SIZES['2xl']} className="text-[#ADB5BD]" />
                     </div>
                     <div className="w-20 h-20 bg-[#212529] rounded-2xl flex items-center justify-center shadow-xl">
-                      <Building2 size={36} className="text-white" />
+                      <Building2 size={ICON_SIZES['3xl']} className="text-white" />
                     </div>
                     <div className="w-16 h-16 bg-[#F8F9FA] rounded-2xl flex items-center justify-center border border-[#E9ECEF] rotate-[6deg]">
-                      <MapPin size={28} className="text-[#ADB5BD]" />
+                      <MapPin size={ICON_SIZES['2xl']} className="text-[#ADB5BD]" />
                     </div>
                   </div>
                   
@@ -623,24 +624,24 @@ export default async function HomePage() {
                       href="/dashboard/new-property"
                       className="group inline-flex items-center justify-center gap-2 bg-[#212529] text-white px-8 py-4 rounded-xl font-semibold text-base hover:bg-black hover:shadow-xl hover:-translate-y-0.5 transition-all"
                     >
-                      <Plus size={20} />
+                      <Plus size={ICON_SIZES.lg} />
                       List Your Property
-                      <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+                      <ArrowRight size={ICON_SIZES.lg} className="group-hover:translate-x-1 transition-transform" />
                     </Link>
                     <Link
                       href="/search?type=rent"
                       className="inline-flex items-center justify-center gap-2 bg-white text-[#212529] border-2 border-[#E9ECEF] px-8 py-4 rounded-xl font-semibold text-base hover:border-[#212529] hover:shadow-md transition-all"
                     >
-                      <Search size={18} />
+                      <Search size={ICON_SIZES.lg} />
                       Browse Rentals Instead
                     </Link>
                   </div>
                   
                   {/* Trust indicators */}
                   <div className="mt-10 pt-8 border-t border-[#E9ECEF] flex flex-wrap justify-center gap-6 text-sm text-[#495057]">
-                    <span className="flex flex-col items-center gap-1"><CheckCircle2 size={16} className="text-[#212529]" /><span className="font-semibold">Free to list</span><span className="text-xs text-[#ADB5BD]">No hidden fees</span></span>
-                    <span className="flex flex-col items-center gap-1"><CheckCircle2 size={16} className="text-[#212529]" /><span className="font-semibold">Verified buyers</span><span className="text-xs text-[#ADB5BD]">Serious inquiries only</span></span>
-                    <span className="flex flex-col items-center gap-1"><CheckCircle2 size={16} className="text-[#212529]" /><span className="font-semibold">Secure messaging</span><span className="text-xs text-[#ADB5BD]">Private & protected</span></span>
+                    <span className="flex flex-col items-center gap-1"><CheckCircle2 size={ICON_SIZES.md} className="text-[#212529]" /><span className="font-semibold">Free to list</span><span className="text-xs text-[#ADB5BD]">No hidden fees</span></span>
+                    <span className="flex flex-col items-center gap-1"><CheckCircle2 size={ICON_SIZES.md} className="text-[#212529]" /><span className="font-semibold">Verified buyers</span><span className="text-xs text-[#ADB5BD]">Serious inquiries only</span></span>
+                    <span className="flex flex-col items-center gap-1"><CheckCircle2 size={ICON_SIZES.md} className="text-[#212529]" /><span className="font-semibold">Secure messaging</span><span className="text-xs text-[#ADB5BD]">Private & protected</span></span>
                   </div>
                 </div>
               </div>
@@ -654,9 +655,9 @@ export default async function HomePage() {
                 href="/search?type=sale" 
                 className="group inline-flex items-center gap-3 bg-[#212529] text-white px-10 py-4 rounded-full font-semibold text-base hover:bg-black hover:shadow-xl hover:-translate-y-0.5 transition-all"
               >
-                <Search size={18} />
+                <Search size={ICON_SIZES.lg} />
                 Browse all homes for sale
-                <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+                <ArrowRight size={ICON_SIZES.lg} className="group-hover:translate-x-1 transition-transform" />
               </Link>
               <p className="text-[#ADB5BD] text-sm mt-4">Explore all available properties for sale in Zimbabwe</p>
             </div>
@@ -674,7 +675,7 @@ export default async function HomePage() {
           {/* Section Header */}
           <div className="text-center mb-16">
             <div className="inline-flex items-center gap-2 bg-[#212529] rounded-full px-5 py-2.5 mb-6">
-              <MapPin size={14} className="text-white" />
+              <MapPin size={ICON_SIZES.sm} className="text-white" />
               <span className="text-xs font-semibold tracking-widest uppercase text-white">Explore Zimbabwe</span>
             </div>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#212529] tracking-tight mb-4">
@@ -699,7 +700,7 @@ export default async function HomePage() {
                   <div className="relative">
                     {/* Icon */}
                     <div className="w-12 h-12 bg-[#F8F9FA] group-hover:bg-[#212529] rounded-xl flex items-center justify-center mx-auto mb-4 transition-colors">
-                      <MapPin size={22} className="text-[#495057] group-hover:text-white transition-colors" />
+                      <MapPin size={ICON_SIZES.xl} className="text-[#495057] group-hover:text-white transition-colors" />
                     </div>
                     
                     {/* Count */}
@@ -714,7 +715,7 @@ export default async function HomePage() {
                     {/* View arrow */}
                     <div className="mt-4 pt-3 border-t border-[#E9ECEF] opacity-0 group-hover:opacity-100 transition-opacity">
                       <span className="text-xs font-medium text-[#212529] flex items-center justify-center gap-1">
-                        Explore <ArrowRight size={12} className="group-hover:translate-x-1 transition-transform" />
+                        Explore <ArrowRight size={ICON_SIZES.xs} className="group-hover:translate-x-1 transition-transform" />
                       </span>
                     </div>
                   </div>
@@ -727,16 +728,16 @@ export default async function HomePage() {
               <div className="relative bg-white border-2 border-dashed border-[#E9ECEF] rounded-3xl p-12 md:p-16 text-center overflow-hidden">
                 {/* Decorative floating pins */}
                 <div className="absolute top-8 left-8 w-10 h-10 bg-[#F8F9FA] rounded-full flex items-center justify-center opacity-50 animate-pulse">
-                  <MapPin size={18} className="text-[#ADB5BD]" />
+                  <MapPin size={ICON_SIZES.lg} className="text-[#ADB5BD]" />
                 </div>
                 <div className="absolute top-12 right-12 w-8 h-8 bg-[#F8F9FA] rounded-full flex items-center justify-center opacity-40 animate-pulse" style={{ animationDelay: '1s' }}>
-                  <MapPin size={14} className="text-[#ADB5BD]" />
+                  <MapPin size={ICON_SIZES.sm} className="text-[#ADB5BD]" />
                 </div>
                 <div className="absolute bottom-8 left-16 w-8 h-8 bg-[#F8F9FA] rounded-full flex items-center justify-center opacity-40 animate-pulse" style={{ animationDelay: '2s' }}>
-                  <MapPin size={14} className="text-[#ADB5BD]" />
+                  <MapPin size={ICON_SIZES.sm} className="text-[#ADB5BD]" />
                 </div>
                 <div className="absolute bottom-12 right-8 w-10 h-10 bg-[#F8F9FA] rounded-full flex items-center justify-center opacity-50 animate-pulse" style={{ animationDelay: '0.5s' }}>
-                  <MapPin size={18} className="text-[#ADB5BD]" />
+                  <MapPin size={ICON_SIZES.lg} className="text-[#ADB5BD]" />
                 </div>
                 
                 {/* Main icon */}
@@ -745,7 +746,7 @@ export default async function HomePage() {
                     <div className="w-32 h-32 bg-[#212529]/5 rounded-full animate-ping" style={{ animationDuration: '3s' }} />
                   </div>
                   <div className="relative w-20 h-20 bg-gradient-to-br from-[#212529] to-[#495057] rounded-2xl flex items-center justify-center mx-auto shadow-xl">
-                    <MapPin size={36} className="text-white" />
+                    <MapPin size={ICON_SIZES['3xl']} className="text-white" />
                   </div>
                 </div>
                 
@@ -762,16 +763,16 @@ export default async function HomePage() {
                     href="/dashboard/new-property"
                     className="group inline-flex items-center gap-3 bg-[#212529] text-white px-8 py-4 rounded-2xl font-bold hover:bg-black hover:-translate-y-1 hover:shadow-xl transition-all"
                   >
-                    <Plus size={20} />
+                    <Plus size={ICON_SIZES.lg} />
                     List Your Property
-                    <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+                    <ArrowRight size={ICON_SIZES.lg} className="group-hover:translate-x-1 transition-transform" />
                   </Link>
                   <Link
                     href="/search"
                     className="inline-flex items-center gap-2 text-[#495057] hover:text-[#212529] font-medium transition-colors"
                   >
                     Browse all properties
-                    <ArrowRight size={16} />
+                    <ArrowRight size={ICON_SIZES.md} />
                   </Link>
                 </div>
                 
@@ -798,7 +799,7 @@ export default async function HomePage() {
                 className="group inline-flex items-center gap-2 bg-transparent text-[#212529] px-8 py-4 rounded-xl font-semibold border-2 border-[#E9ECEF] hover:border-[#212529] hover:bg-[#F8F9FA] transition-all"
               >
                 View all neighborhoods
-                <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+                <ArrowRight size={ICON_SIZES.lg} className="group-hover:translate-x-1 transition-transform" />
               </Link>
             </div>
           )}
@@ -816,7 +817,7 @@ export default async function HomePage() {
           {/* Section Header */}
           <div className="text-center mb-20">
             <div className="inline-flex items-center gap-2 bg-[#212529] rounded-full px-5 py-2.5 mb-8">
-              <Sparkles size={14} className="text-yellow-400" />
+              <Sparkles size={ICON_SIZES.sm} className="text-white" />
               <span className="text-xs font-semibold tracking-widest uppercase text-white">Simple Process</span>
             </div>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#212529] tracking-tight mb-6">
@@ -892,7 +893,7 @@ export default async function HomePage() {
                         <div className={`absolute inset-0 bg-gradient-to-br ${gradient} rounded-2xl blur-xl opacity-30 group-hover:opacity-50 transition-opacity`} />
                         {/* Icon container */}
                         <div className={`relative w-full h-full bg-gradient-to-br ${gradient} rounded-2xl flex items-center justify-center group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-xl`}>
-                          <Icon size={32} className="text-white" />
+                          <Icon size={ICON_SIZES['2xl']} className="text-white" />
                         </div>
                       </div>
                     </div>
@@ -906,7 +907,7 @@ export default async function HomePage() {
                       <div className="flex flex-wrap justify-center gap-3">
                         {features.map(({ icon: FeatureIcon, text }) => (
                           <div key={text} className="inline-flex items-center gap-2 bg-[#F8F9FA] group-hover:bg-white px-4 py-2 rounded-full border border-[#E9ECEF] group-hover:border-[#212529]/20 transition-all">
-                            <FeatureIcon size={14} className="text-[#212529]" />
+                            <FeatureIcon size={ICON_SIZES.sm} className="text-[#212529]" />
                             <span className="text-sm font-medium text-[#495057]">{text}</span>
                           </div>
                         ))}
@@ -927,7 +928,7 @@ export default async function HomePage() {
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
                 <span className="relative">Start Your Search</span>
-                <ArrowRight size={20} className="relative group-hover:translate-x-1 transition-transform" />
+                <ArrowRight size={ICON_SIZES.lg} className="relative group-hover:translate-x-1 transition-transform" />
               </Link>
               <p className="text-sm text-[#495057]">
                 <span className="text-[#212529] font-semibold">500+</span> properties waiting for you
@@ -947,7 +948,7 @@ export default async function HomePage() {
           {/* Section Header */}
           <div className="text-center mb-16 md:mb-20">
             <div className="inline-flex items-center gap-2 bg-white/[0.08] backdrop-blur-sm rounded-full px-5 py-2 mb-6 border border-white/[0.08]">
-              <Shield size={14} className="text-white/60" />
+              <Shield size={ICON_SIZES.sm} className="text-white/60" />
               <span className="text-xs font-semibold tracking-widest uppercase text-white/80">Why choose Huts</span>
             </div>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-5">
@@ -968,7 +969,7 @@ export default async function HomePage() {
               <div className="relative h-full p-8 md:p-9 rounded-2xl bg-white/[0.04] border border-white/[0.08] hover:border-white/20 transition-all duration-500 flex flex-col">
                 {/* Icon */}
                 <div className="inline-flex items-center justify-center w-14 h-14 bg-white rounded-xl mb-8 group-hover:scale-105 transition-transform duration-500 shadow-lg shadow-black/20">
-                  <Shield size={26} className="text-[#212529]" />
+                  <Shield size={ICON_SIZES.xl} className="text-[#212529]" />
                 </div>
                 
                 {/* Big stat */}
@@ -990,7 +991,7 @@ export default async function HomePage() {
                     'Price accuracy checked',
                   ].map((item) => (
                     <div key={item} className="flex items-center gap-2.5 text-sm">
-                      <CheckCircle size={16} className="text-white/50 shrink-0" />
+                      <CheckCircle size={ICON_SIZES.md} className="text-white/50 shrink-0" />
                       <span className="text-white/70">{item}</span>
                     </div>
                   ))}
@@ -1002,7 +1003,7 @@ export default async function HomePage() {
             <div className="group relative md:col-span-3 lg:col-span-2">
               <div className="relative h-full p-7 md:p-8 rounded-2xl bg-white/[0.04] border border-white/[0.08] hover:border-white/20 transition-all duration-500">
                 <div className="inline-flex items-center justify-center w-11 h-11 bg-white rounded-lg mb-5 group-hover:scale-105 transition-transform duration-300 shadow-lg shadow-black/20">
-                  <Clock size={20} className="text-[#212529]" />
+                  <Clock size={ICON_SIZES.lg} className="text-[#212529]" />
                 </div>
                 
                 <div className="mb-3">
@@ -1021,7 +1022,7 @@ export default async function HomePage() {
             <div className="group relative md:col-span-3 lg:col-span-2">
               <div className="relative h-full p-7 md:p-8 rounded-2xl bg-white/[0.04] border border-white/[0.08] hover:border-white/20 transition-all duration-500">
                 <div className="inline-flex items-center justify-center w-11 h-11 bg-white rounded-lg mb-5 group-hover:scale-105 transition-transform duration-300 shadow-lg shadow-black/20">
-                  <MapPin size={20} className="text-[#212529]" />
+                  <MapPin size={ICON_SIZES.lg} className="text-[#212529]" />
                 </div>
                 
                 <div className="mb-3">
@@ -1040,7 +1041,7 @@ export default async function HomePage() {
             <div className="group relative md:col-span-3 lg:col-span-2">
               <div className="relative h-full p-7 md:p-8 rounded-2xl bg-white/[0.04] border border-white/[0.08] hover:border-white/20 transition-all duration-500">
                 <div className="inline-flex items-center justify-center w-11 h-11 bg-white rounded-lg mb-5 group-hover:scale-105 transition-transform duration-300 shadow-lg shadow-black/20">
-                  <MessageCircle size={20} className="text-[#212529]" />
+                  <MessageCircle size={ICON_SIZES.lg} className="text-[#212529]" />
                 </div>
                 
                 <div className="mb-3">
@@ -1059,7 +1060,7 @@ export default async function HomePage() {
             <div className="group relative md:col-span-3 lg:col-span-2">
               <div className="relative h-full p-7 md:p-8 rounded-2xl bg-white/[0.04] border border-white/[0.08] hover:border-white/20 transition-all duration-500">
                 <div className="inline-flex items-center justify-center w-11 h-11 bg-white rounded-lg mb-5 group-hover:scale-105 transition-transform duration-300 shadow-lg shadow-black/20">
-                  <Key size={20} className="text-[#212529]" />
+                  <Key size={ICON_SIZES.lg} className="text-[#212529]" />
                 </div>
                 
                 <div className="mb-3">
@@ -1085,7 +1086,7 @@ export default async function HomePage() {
                 { icon: Clock, text: 'Email Support' },
               ].map(({ icon: Icon, text }) => (
                 <div key={text} className="flex items-center gap-1.5 text-white/30">
-                  <Icon size={13} />
+                  <Icon size={ICON_SIZES.xs} />
                   <span>{text}</span>
                 </div>
               ))}
@@ -1150,7 +1151,7 @@ export default async function HomePage() {
                       ].map(({ icon: Icon, text, highlight }) => (
                         <div key={text} className="flex items-center gap-3">
                           <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${highlight ? 'bg-[#212529]' : 'bg-white/10'}`}>
-                            <Icon size={16} className="text-white" />
+                            <Icon size={ICON_SIZES.md} className="text-white" />
                           </div>
                           <span className={`font-medium ${highlight ? 'text-white' : 'text-white/70'}`}>{text}</span>
                         </div>
@@ -1165,14 +1166,14 @@ export default async function HomePage() {
                       >
                         <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#212529]/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
                         <span className="relative">Post Your Property</span>
-                        <ArrowRight size={18} className="relative group-hover:translate-x-1 transition-transform" />
+                        <ArrowRight size={ICON_SIZES.lg} className="relative group-hover:translate-x-1 transition-transform" />
                       </Link>
                       <Link
                         href="/dashboard"
                         className="inline-flex items-center justify-center gap-2 bg-transparent text-white px-8 py-4 rounded-2xl font-semibold text-base border-2 border-white/20 hover:border-white/40 hover:bg-white/5 transition-all"
                       >
                         Sign In
-                        <ArrowRight size={16} className="text-white/60" />
+                        <ArrowRight size={ICON_SIZES.md} className="text-white/60" />
                       </Link>
                     </div>
                   </div>
@@ -1260,6 +1261,118 @@ export default async function HomePage() {
                   </p>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* SEO FOOTER LINKS - Internal Linking for Google */}
+      <section className="py-12 bg-white border-t border-[#E9ECEF]">
+        <div className="container-main max-w-6xl">
+          <div className="grid md:grid-cols-3 gap-8">
+            {/* Rentals by City */}
+            <div>
+              <h3 className="font-bold text-[#212529] mb-4 text-sm uppercase tracking-wider flex items-center gap-2">
+                <MapPin size={ICON_SIZES.md} />
+                Rentals by City
+              </h3>
+              <ul className="space-y-2 text-sm">
+                <li>
+                  <Link href="/rentals-in-harare" className="text-[#495057] hover:text-[#212529] hover:underline transition-colors">
+                    Properties for Rent in Harare
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/search?city=Bulawayo&type=rent" className="text-[#495057] hover:text-[#212529] hover:underline transition-colors">
+                    Rentals in Bulawayo
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/search?city=Gweru&type=rent" className="text-[#495057] hover:text-[#212529] hover:underline transition-colors">
+                    Properties in Gweru
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/search?city=Mutare&type=rent" className="text-[#495057] hover:text-[#212529] hover:underline transition-colors">
+                    Mutare Rentals
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/properties-for-rent-zimbabwe" className="text-[#212529] font-semibold hover:underline transition-colors">
+                    All Zimbabwe Rentals →
+                  </Link>
+                </li>
+              </ul>
+            </div>
+
+            {/* Property Types */}
+            <div>
+              <h3 className="font-bold text-[#212529] mb-4 text-sm uppercase tracking-wider flex items-center gap-2">
+                <Home size={ICON_SIZES.md} />
+                Property Types
+              </h3>
+              <ul className="space-y-2 text-sm">
+                <li>
+                  <Link href="/search?property_type=apartment&type=rent" className="text-[#495057] hover:text-[#212529] hover:underline transition-colors">
+                    Apartments for Rent
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/search?property_type=house&type=rent" className="text-[#495057] hover:text-[#212529] hover:underline transition-colors">
+                    Houses for Rent
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/search?property_type=room&type=rent" className="text-[#495057] hover:text-[#212529] hover:underline transition-colors">
+                    Rooms for Rent
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/search?type=sale" className="text-[#495057] hover:text-[#212529] hover:underline transition-colors">
+                    Homes for Sale
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/student-housing" className="text-[#495057] hover:text-[#212529] hover:underline transition-colors">
+                    Student Housing
+                  </Link>
+                </li>
+              </ul>
+            </div>
+
+            {/* Popular Searches */}
+            <div>
+              <h3 className="font-bold text-[#212529] mb-4 text-sm uppercase tracking-wider flex items-center gap-2">
+                <Search size={ICON_SIZES.md} />
+                Popular Searches
+              </h3>
+              <ul className="space-y-2 text-sm">
+                <li>
+                  <Link href="/search?neighborhood=Borrowdale&city=Harare&type=rent" className="text-[#495057] hover:text-[#212529] hover:underline transition-colors">
+                    Borrowdale Apartments
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/search?neighborhood=Avondale&city=Harare&type=rent" className="text-[#495057] hover:text-[#212529] hover:underline transition-colors">
+                    Avondale Rentals
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/search?neighborhood=Mount Pleasant&city=Harare&type=rent" className="text-[#495057] hover:text-[#212529] hover:underline transition-colors">
+                    Mount Pleasant Houses
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/search?min_price=0&max_price=30000&type=rent" className="text-[#495057] hover:text-[#212529] hover:underline transition-colors">
+                    Affordable Rentals
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/areas" className="text-[#212529] font-semibold hover:underline transition-colors">
+                    All Neighborhoods →
+                  </Link>
+                </li>
+              </ul>
             </div>
           </div>
         </div>

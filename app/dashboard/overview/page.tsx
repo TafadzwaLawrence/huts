@@ -25,6 +25,7 @@ import {
 } from 'lucide-react'
 import RetryVerificationButton from '@/components/dashboard/RetryVerificationButton'
 import { OpenChatButton, OpenChatConversation } from '@/components/chat/OpenChatButton'
+import { ICON_SIZES } from '@/lib/constants'
 
 function formatTimeAgo(dateString: string): string {
   const now = new Date()
@@ -95,14 +96,14 @@ export default async function DashboardOverviewPage() {
   const dateString = today.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })
 
   return (
-    <div className="min-h-screen bg-[#FAFAFA]">
+    <div className="min-h-screen bg-[#F8F9FA]">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-10">
 
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-8">
           <div>
             <p className="text-xs uppercase tracking-wider mb-2 text-[#ADB5BD]">{dateString}</p>
-            <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-black">
+            <h1 className="text-page-title">
               {greeting}, {firstName}
             </h1>
           </div>
@@ -110,17 +111,17 @@ export default async function DashboardOverviewPage() {
             {isLandlord ? (
               <Link
                 href="/dashboard/my-properties"
-                className="inline-flex items-center gap-2 text-sm font-medium text-[#495057] hover:text-black border border-[#E9ECEF] px-4 py-2 rounded-lg hover:border-black transition-all"
+                className="btn btn-secondary inline-flex items-center gap-2"
               >
-                <Building2 size={15} />
+                <Building2 size={ICON_SIZES.sm} />
                 My Properties
               </Link>
             ) : (
               <Link
                 href="/search"
-                className="inline-flex items-center gap-2 text-sm font-medium text-white bg-[#212529] px-4 py-2 rounded-lg hover:bg-black transition-all"
+                className="btn btn-primary inline-flex items-center gap-2"
               >
-                <Search size={15} />
+                <Search size={ICON_SIZES.sm} />
                 Find a home
               </Link>
             )}
@@ -132,17 +133,17 @@ export default async function DashboardOverviewPage() {
           {/* Properties / Saved */}
           <Link 
             href={isLandlord ? '/dashboard/my-properties' : '/dashboard/saved'}
-            className="group bg-white rounded-xl border border-[#E9ECEF] p-5 hover:border-[#212529] transition-all hover:shadow-md"
+            className="group bg-white rounded-xl border border-[#E9ECEF] p-6 card-hover-subtle"
           >
             <div className="flex items-center justify-between mb-3">
               <div className="w-9 h-9 bg-[#F8F9FA] rounded-lg flex items-center justify-center group-hover:bg-black transition-colors">
                 {isLandlord ? (
-                  <Building2 size={17} className="text-[#495057] group-hover:text-white transition-colors" />
+                  <Building2 size={ICON_SIZES.md} className="text-[#495057] group-hover:text-white transition-colors" />
                 ) : (
-                  <Heart size={17} className="text-[#495057] group-hover:text-white transition-colors" />
+                  <Heart size={ICON_SIZES.md} className="text-[#495057] group-hover:text-white transition-colors" />
                 )}
               </div>
-              <ArrowUpRight size={14} className="text-[#ADB5BD] opacity-0 group-hover:opacity-100 transition-opacity" />
+              <ArrowUpRight size={ICON_SIZES.sm} className="text-[#ADB5BD] opacity-0 group-hover:opacity-100 transition-opacity" />
             </div>
             <p className="text-2xl font-bold text-black tabular-nums">{isLandlord ? propertyCount || 0 : savedCount || 0}</p>
             <p className="text-xs text-[#495057] font-medium mt-0.5">
@@ -151,10 +152,10 @@ export default async function DashboardOverviewPage() {
           </Link>
 
           {/* Conversations */}
-          <OpenChatButton className="group bg-white rounded-xl border border-[#E9ECEF] p-5 hover:border-black transition-all hover:shadow-md relative text-left cursor-pointer">
+          <OpenChatButton className="group bg-white rounded-xl border border-[#E9ECEF] p-6 card-hover-subtle relative text-left cursor-pointer">
             <div className="flex items-center justify-between mb-3">
               <div className="w-9 h-9 bg-[#F8F9FA] rounded-lg flex items-center justify-center group-hover:bg-black transition-colors relative">
-                <MessageSquare size={17} className="text-[#495057] group-hover:text-white transition-colors" />
+                <MessageSquare size={ICON_SIZES.md} className="text-[#495057] group-hover:text-white transition-colors" />
               </div>
               {(conversationCount || 0) > 0 && (
                 <span className="w-5 h-5 bg-black text-white text-[10px] font-bold rounded-full flex items-center justify-center">
@@ -168,10 +169,10 @@ export default async function DashboardOverviewPage() {
 
           {/* Landlord: Views */}
           {isLandlord && (
-            <div className="bg-white rounded-xl border border-[#E9ECEF] p-5">
+            <div className="bg-white rounded-xl border border-[#E9ECEF] p-6">
               <div className="flex items-center justify-between mb-3">
                 <div className="w-9 h-9 bg-[#F8F9FA] rounded-lg flex items-center justify-center">
-                  <Eye size={17} className="text-[#495057]" />
+                  <Eye size={ICON_SIZES.md} className="text-[#495057]" />
                 </div>
               </div>
               <p className="text-2xl font-bold text-black tabular-nums">{totalViews}</p>
@@ -183,13 +184,13 @@ export default async function DashboardOverviewPage() {
           {isLandlord ? (
             <Link 
               href="/dashboard/reviews"
-              className="group bg-white rounded-xl border border-[#E9ECEF] p-5 hover:border-black transition-all hover:shadow-md"
+              className="group bg-white rounded-xl border border-[#E9ECEF] p-6 card-hover-subtle"
             >
               <div className="flex items-center justify-between mb-3">
                 <div className="w-9 h-9 bg-[#F8F9FA] rounded-lg flex items-center justify-center group-hover:bg-black transition-colors">
-                  <Star size={17} className="text-[#495057] group-hover:text-white transition-colors" />
+                  <Star size={ICON_SIZES.md} className="text-[#495057] group-hover:text-white transition-colors" />
                 </div>
-                <ArrowUpRight size={14} className="text-[#ADB5BD] opacity-0 group-hover:opacity-100 transition-opacity" />
+                <ArrowUpRight size={ICON_SIZES.sm} className="text-[#ADB5BD] opacity-0 group-hover:opacity-100 transition-opacity" />
               </div>
               <p className="text-2xl font-bold text-black tabular-nums">{reviewCount || 0}</p>
               <p className="text-xs text-[#495057] font-medium mt-0.5">Reviews</p>
@@ -197,13 +198,13 @@ export default async function DashboardOverviewPage() {
           ) : (
             <Link 
               href="/areas"
-              className="group bg-white rounded-xl border border-[#E9ECEF] p-5 hover:border-black transition-all hover:shadow-md"
+              className="group bg-white rounded-xl border border-[#E9ECEF] p-6 card-hover-subtle"
             >
               <div className="flex items-center justify-between mb-3">
                 <div className="w-9 h-9 bg-[#F8F9FA] rounded-lg flex items-center justify-center group-hover:bg-black transition-colors">
-                  <MapPin size={17} className="text-[#495057] group-hover:text-white transition-colors" />
+                  <MapPin size={ICON_SIZES.md} className="text-[#495057] group-hover:text-white transition-colors" />
                 </div>
-                <ArrowUpRight size={14} className="text-[#ADB5BD] opacity-0 group-hover:opacity-100 transition-opacity" />
+                <ArrowUpRight size={ICON_SIZES.sm} className="text-[#ADB5BD] opacity-0 group-hover:opacity-100 transition-opacity" />
               </div>
               <p className="text-2xl font-bold text-black tabular-nums">Explore</p>
               <p className="text-xs text-[#495057] font-medium mt-0.5">Area Guides</p>
@@ -223,7 +224,7 @@ export default async function DashboardOverviewPage() {
                 <div className="flex items-center justify-between px-5 py-4 border-b border-[#F1F3F5]">
                   <h2 className="text-sm font-semibold text-black">Your Listings</h2>
                   <Link href="/dashboard/my-properties" className="text-xs text-[#495057] hover:text-black font-medium flex items-center gap-1 transition-colors">
-                    View all <ChevronRight size={13} />
+                    View all <ChevronRight size={ICON_SIZES.xs} />
                   </Link>
                 </div>
                 <div className="p-4 space-y-3">
@@ -238,7 +239,7 @@ export default async function DashboardOverviewPage() {
                     return (
                       <div
                         key={property.id}
-                        className="group rounded-xl border border-[#F1F3F5] hover:border-black overflow-hidden transition-all hover:shadow-sm"
+                        className="group rounded-xl border border-[#E9ECEF] hover:border-black overflow-hidden transition-all hover:shadow-sm"
                       >
                         <div className="flex gap-0">
                           {/* Thumbnail */}
@@ -253,7 +254,7 @@ export default async function DashboardOverviewPage() {
                               />
                             ) : (
                               <div className="w-full h-full flex items-center justify-center min-h-[100px]">
-                                <Home size={22} className="text-[#ADB5BD]" />
+                                <Home size={ICON_SIZES.xl} className="text-[#ADB5BD]" />
                               </div>
                             )}
                             {/* Listing type badge on image */}
@@ -286,16 +287,16 @@ export default async function DashboardOverviewPage() {
                                   // Determine display label, colors, icon
                                   if (vs === 'rejected') {
                                     return (
-                                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold flex-shrink-0 bg-[#FF6B6B]/10 text-[#F03E3E]">
-                                        <ShieldX size={11} />
+                                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold flex-shrink-0 bg-[#FF6B6B]/10 text-[#FF6B6B]">
+                                        <ShieldX size={ICON_SIZES.xs} />
                                         Rejected
                                       </span>
                                     )
                                   }
                                   if (vs === 'pending') {
                                     return (
-                                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold flex-shrink-0 bg-amber-50 text-amber-600">
-                                        <ShieldAlert size={11} />
+                                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold flex-shrink-0 bg-[#495057]/10 text-[#495057]">
+                                        <ShieldAlert size={ICON_SIZES.xs} />
                                         Pending
                                       </span>
                                     )
@@ -303,8 +304,8 @@ export default async function DashboardOverviewPage() {
                                   // vs === 'approved' — show listing status
                                   if (st === 'rented' || st === 'sold') {
                                     return (
-                                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold flex-shrink-0 bg-blue-50 text-blue-600">
-                                        <span className="w-1.5 h-1.5 rounded-full bg-blue-500" />
+                                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold flex-shrink-0 bg-[#212529]/10 text-[#212529]">
+                                        <span className="w-1.5 h-1.5 rounded-full bg-[#212529]" />
                                         {st === 'rented' ? 'Rented' : 'Sold'}
                                       </span>
                                     )
@@ -319,8 +320,8 @@ export default async function DashboardOverviewPage() {
                                   }
                                   // active + approved
                                   return (
-                                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold flex-shrink-0 bg-[#51CF66]/10 text-[#37B24D]">
-                                      <ShieldCheck size={11} />
+                                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold flex-shrink-0 bg-[#51CF66]/10 text-[#51CF66]">
+                                      <ShieldCheck size={ICON_SIZES.xs} />
                                       Live
                                     </span>
                                   )
@@ -328,7 +329,7 @@ export default async function DashboardOverviewPage() {
                               </div>
                               {location && (
                                 <p className="text-xs text-[#ADB5BD] flex items-center gap-1 mb-2">
-                                  <MapPin size={11} />
+                                <MapPin size={ICON_SIZES.xs} />
                                   {location}
                                 </p>
                               )}
@@ -363,7 +364,7 @@ export default async function DashboardOverviewPage() {
             {isLandlord && (!userProperties || userProperties.length === 0) && (
               <div className="bg-white rounded-xl border border-[#E9ECEF] p-8 text-center">
                 <div className="w-14 h-14 bg-[#F8F9FA] rounded-2xl flex items-center justify-center mx-auto mb-4">
-                  <Building2 size={24} className="text-[#ADB5BD]" />
+                  <Building2 size={ICON_SIZES.xl} className="text-[#ADB5BD]" />
                 </div>
                 <h3 className="text-base font-semibold text-black mb-1">No properties yet</h3>
                 <p className="text-sm text-[#495057] mb-5 max-w-xs mx-auto">
@@ -374,7 +375,7 @@ export default async function DashboardOverviewPage() {
                   className="inline-flex items-center gap-2 bg-black text-white px-5 py-2.5 rounded-lg text-sm font-semibold hover:bg-black transition-colors"
                 >
                   Create listing
-                  <ArrowRight size={15} />
+                  <ArrowRight size={ICON_SIZES.sm} />
                 </Link>
               </div>
             )}
@@ -385,7 +386,7 @@ export default async function DashboardOverviewPage() {
                 <div className="flex items-center justify-between px-5 py-4 border-b border-[#F1F3F5]">
                   <h2 className="text-sm font-semibold text-black">Recently Added</h2>
                   <Link href="/search" className="text-xs text-[#495057] hover:text-black font-medium flex items-center gap-1 transition-colors">
-                    View all <ChevronRight size={13} />
+                    View all <ChevronRight size={ICON_SIZES.xs} />
                   </Link>
                 </div>
                 <div className="grid grid-cols-2 gap-3 p-4">
@@ -400,7 +401,7 @@ export default async function DashboardOverviewPage() {
                       <Link
                         key={property.id}
                         href={`/property/${property.slug || property.id}`}
-                        className="group rounded-lg overflow-hidden border border-[#F1F3F5] hover:border-black hover:shadow-sm transition-all"
+                        className="group rounded-lg overflow-hidden border border-[#E9ECEF] hover:border-black hover:shadow-sm transition-all"
                       >
                         <div className="relative h-28 bg-[#F8F9FA]">
                           {primaryImage?.url ? (
@@ -413,7 +414,7 @@ export default async function DashboardOverviewPage() {
                             />
                           ) : (
                             <div className="w-full h-full flex items-center justify-center">
-                              <Home size={20} className="text-[#ADB5BD]" />
+                              <Home size={ICON_SIZES.lg} className="text-[#ADB5BD]" />
                             </div>
                           )}
                           <div className="absolute bottom-2 left-2 bg-white/95 backdrop-blur-sm px-2 py-1 rounded text-xs font-bold text-[#212529]">
@@ -428,7 +429,7 @@ export default async function DashboardOverviewPage() {
                         <div className="p-3">
                           <p className="text-xs font-medium text-[#212529] truncate group-hover:underline underline-offset-2">{property.title}</p>
                           <p className="text-[10px] text-[#ADB5BD] mt-0.5 flex items-center gap-1">
-                            <MapPin size={10} />
+                            <MapPin size={ICON_SIZES.xs} />
                             {property.neighborhood ? `${property.neighborhood}, ` : ''}{property.city}
                           </p>
                         </div>
@@ -444,7 +445,7 @@ export default async function DashboardOverviewPage() {
               <div className="bg-[#212529] rounded-xl p-6 text-white">
                 <div className="flex items-start gap-4">
                   <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center flex-shrink-0">
-                    <Sparkles size={20} />
+                    <Sparkles size={ICON_SIZES.lg} />
                   </div>
                   <div className="flex-1">
                     <h3 className="text-base font-semibold text-white mb-1">Start saving favorites</h3>
@@ -453,9 +454,9 @@ export default async function DashboardOverviewPage() {
                     </p>
                     <Link 
                       href="/search" 
-                      className="inline-flex items-center gap-1.5 bg-white text-[#212529] px-4 py-2 rounded-lg text-sm font-semibold hover:bg-[#F8F9FA] transition-colors"
+                      className="btn btn-primary inline-flex items-center gap-1.5"
                     >
-                      <Search size={14} />
+                      <Search size={ICON_SIZES.sm} />
                       Browse properties
                     </Link>
                   </div>
@@ -472,11 +473,11 @@ export default async function DashboardOverviewPage() {
               <div className="flex items-center justify-between px-5 py-4 border-b border-[#F1F3F5]">
                 <h2 className="text-sm font-semibold text-black">Recent Messages</h2>
                 <OpenChatButton className="text-xs text-[#495057] hover:text-black font-medium flex items-center gap-1 transition-colors">
-                  All <ChevronRight size={13} />
+                  All <ChevronRight size={ICON_SIZES.xs} />
                 </OpenChatButton>
               </div>
               {recentConversations && recentConversations.length > 0 ? (
-                <div className="divide-y divide-[#F1F3F5]">
+                <div className="divide-y divide-[#E9ECEF]">
                   {recentConversations.map((convo: any) => {
                     const otherPerson = convo.profiles
                     const property = convo.properties
@@ -484,7 +485,7 @@ export default async function DashboardOverviewPage() {
                       <OpenChatConversation
                         key={convo.id}
                         conversationId={convo.id}
-                        className="flex items-center gap-3 px-5 py-3.5 hover:bg-[#FAFAFA] transition-colors group w-full text-left"
+                        className="flex items-center gap-3 px-5 py-3.5 hover:bg-[#F8F9FA] transition-colors group w-full text-left"
                       >
                         <div className="w-9 h-9 rounded-full bg-[#F8F9FA] flex items-center justify-center flex-shrink-0 text-xs font-bold text-[#495057]">
                           {otherPerson?.avatar_url ? (
@@ -516,7 +517,7 @@ export default async function DashboardOverviewPage() {
                 </div>
               ) : (
                 <div className="py-8 text-center">
-                  <MessageSquare size={20} className="mx-auto text-[#E9ECEF] mb-2" />
+                  <MessageSquare size={ICON_SIZES.lg} className="mx-auto text-[#E9ECEF] mb-2" />
                   <p className="text-xs text-[#ADB5BD]">No conversations yet</p>
                 </div>
               )}
@@ -545,13 +546,13 @@ export default async function DashboardOverviewPage() {
                     className="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-[#F8F9FA] transition-colors group"
                   >
                     <div className="w-8 h-8 bg-[#F8F9FA] rounded-lg flex items-center justify-center group-hover:bg-black transition-colors flex-shrink-0">
-                      <Icon size={14} className="text-[#495057] group-hover:text-white transition-colors" />
+                      <Icon size={ICON_SIZES.sm} className="text-[#495057] group-hover:text-white transition-colors" />
                     </div>
                     <div className="flex-1 min-w-0">
                       <p className="text-sm font-medium text-[#212529]">{label}</p>
                       <p className="text-[10px] text-[#ADB5BD]">{desc}</p>
                     </div>
-                    <ChevronRight size={14} className="text-[#E9ECEF] group-hover:text-[#ADB5BD] transition-colors flex-shrink-0" />
+                    <ChevronRight size={ICON_SIZES.sm} className="text-[#E9ECEF] group-hover:text-[#ADB5BD] transition-colors flex-shrink-0" />
                   </Link>
                 ))}
               </div>
@@ -561,7 +562,7 @@ export default async function DashboardOverviewPage() {
             {isLandlord && (propertyCount || 0) > 0 && (
               <div className="bg-[#212529] rounded-xl p-5 text-white">
                 <div className="flex items-center gap-2 mb-4">
-                  <BarChart3 size={16} className="text-white/60" />
+                  <BarChart3 size={ICON_SIZES.md} className="text-white/60" />
                   <h3 className="text-sm font-semibold">Performance</h3>
                 </div>
                 <div className="grid grid-cols-2 gap-3">

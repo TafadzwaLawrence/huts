@@ -3,6 +3,7 @@
 import { Building2, Calendar, MapPin, Square, Car, Home as HomeIcon, Ruler } from 'lucide-react'
 import { PropertyWithImages } from '@/types'
 import { formatSalePrice, formatPrice } from '@/lib/utils'
+import { ICON_SIZES } from '@/lib/constants'
 import { MortgageCalculator } from './MortgageCalculator'
 
 interface SalePropertyDetailsProps {
@@ -61,14 +62,14 @@ export function SalePropertyDetails({ property }: SalePropertyDetailsProps) {
       {/* Property Details */}
       <div className="border-2 border-[#E9ECEF] rounded-lg p-6">
         <h3 className="text-xl font-semibold text-[#212529] mb-4 flex items-center gap-2">
-          <Building2 size={24} />
+          <Building2 size={ICON_SIZES.xl} />
           Property Details
         </h3>
         
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
           <div className="flex items-center gap-3">
             <div className="p-2 bg-[#F8F9FA] rounded">
-              <HomeIcon size={20} className="text-[#495057]" />
+              <HomeIcon size={ICON_SIZES.lg} className="text-[#495057]" />
             </div>
             <div>
               <p className="text-xs text-[#ADB5BD]">Type</p>
@@ -79,7 +80,7 @@ export function SalePropertyDetails({ property }: SalePropertyDetailsProps) {
           {property.year_built && (
             <div className="flex items-center gap-3">
               <div className="p-2 bg-[#F8F9FA] rounded">
-                <Calendar size={20} className="text-[#495057]" />
+                <Calendar size={ICON_SIZES.lg} className="text-[#495057]" />
               </div>
               <div>
                 <p className="text-xs text-[#ADB5BD]">Year Built</p>
@@ -91,7 +92,7 @@ export function SalePropertyDetails({ property }: SalePropertyDetailsProps) {
           {property.sqft && (
             <div className="flex items-center gap-3">
               <div className="p-2 bg-[#F8F9FA] rounded">
-                <Square size={20} className="text-[#495057]" />
+                <Square size={ICON_SIZES.lg} className="text-[#495057]" />
               </div>
               <div>
                 <p className="text-xs text-[#ADB5BD]">Interior</p>

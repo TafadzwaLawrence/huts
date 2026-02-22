@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { Heart, Share2 } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import { toast } from 'sonner'
+import { ICON_SIZES } from '@/lib/constants'
 
 interface PropertyActionsProps {
   propertyId: string
@@ -83,7 +84,7 @@ export default function PropertyActions({ propertyId, propertyTitle, initialSave
         className="bg-white p-2 rounded-full shadow-lg hover:bg-[#F8F9FA] transition-colors"
         aria-label="Share property"
       >
-        <Share2 size={20} className="text-black" />
+        <Share2 size={ICON_SIZES.lg} className="text-black" />
       </button>
       <button
         onClick={handleSave}
@@ -93,7 +94,7 @@ export default function PropertyActions({ propertyId, propertyTitle, initialSave
         } ${isLoading ? 'opacity-50' : ''}`}
         aria-label={isSaved ? 'Remove from saved' : 'Save property'}
       >
-        <Heart size={20} className={isSaved ? '' : 'text-black'} fill={isSaved ? 'currentColor' : 'none'} />
+        <Heart size={ICON_SIZES.lg} className={isSaved ? '' : 'text-black'} fill={isSaved ? 'currentColor' : 'none'} />
       </button>
     </div>
   )

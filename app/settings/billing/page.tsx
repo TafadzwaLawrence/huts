@@ -120,7 +120,7 @@ export default function BillingPage() {
         </button>
         <span className={`text-sm font-medium ${billingCycle === 'yearly' ? 'text-[#212529]' : 'text-[#ADB5BD]'}`}>
           Yearly
-          <span className="ml-1 text-green-600 text-xs">Save 20%</span>
+          <span className="ml-1 text-[#51CF66] text-xs">Save 20%</span>
         </span>
       </div>
 
@@ -167,7 +167,7 @@ export default function BillingPage() {
               <ul className="space-y-3 mb-6">
                 {plan.features.map((feature, i) => (
                   <li key={i} className="flex items-center gap-2 text-sm text-[#495057]">
-                    <Check className="h-4 w-4 text-green-500 flex-shrink-0" />
+                    <Check className="h-4 w-4 text-[#51CF66] flex-shrink-0" />
                     {feature}
                   </li>
                 ))}

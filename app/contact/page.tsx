@@ -1,5 +1,6 @@
 import { Metadata } from 'next'
 import { Mail, Phone, MapPin, Send, MessageSquare } from 'lucide-react'
+import { ICON_SIZES } from '@/lib/brand'
 
 export const metadata: Metadata = {
   title: 'Contact Us - Huts',
@@ -134,7 +135,7 @@ export default function ContactPage() {
                   className="w-full inline-flex items-center justify-center gap-2 bg-[#212529] text-white px-6 py-4 rounded-lg font-semibold hover:bg-black hover:shadow-xl transition-all"
                 >
                   Send Message
-                  <Send size={18} />
+                  <Send size={ICON_SIZES.lg} />
                 </button>
               </form>
             </div>
@@ -150,7 +151,7 @@ export default function ContactPage() {
                 {/* Email */}
                 <div className="flex items-start gap-4">
                   <div className="w-12 h-12 bg-[#F8F9FA] rounded-lg flex items-center justify-center flex-shrink-0">
-                    <Mail size={24} className="text-[#212529]" />
+                    <Mail size={ICON_SIZES.xl} className="text-[#212529]" />
                   </div>
                   <div>
                     <h3 className="text-card-title-sm mb-1">Email</h3>
@@ -167,7 +168,7 @@ export default function ContactPage() {
                 {/* Phone */}
                 <div className="flex items-start gap-4">
                   <div className="w-12 h-12 bg-[#F8F9FA] rounded-lg flex items-center justify-center flex-shrink-0">
-                    <Phone size={24} className="text-[#212529]" />
+                    <Phone size={ICON_SIZES.xl} className="text-[#212529]" />
                   </div>
                   <div>
                     <h3 className="text-card-title-sm mb-1">Phone</h3>
@@ -184,7 +185,7 @@ export default function ContactPage() {
                 {/* Office */}
                 <div className="flex items-start gap-4">
                   <div className="w-12 h-12 bg-[#F8F9FA] rounded-lg flex items-center justify-center flex-shrink-0">
-                    <MapPin size={24} className="text-[#212529]" />
+                    <MapPin size={ICON_SIZES.xl} className="text-[#212529]" />
                   </div>
                   <div>
                     <h3 className="text-card-title-sm mb-1">Office</h3>
@@ -198,7 +199,7 @@ export default function ContactPage() {
                 {/* WhatsApp */}
                 <div className="flex items-start gap-4">
                   <div className="w-12 h-12 bg-[#F8F9FA] rounded-lg flex items-center justify-center flex-shrink-0">
-                    <MessageSquare size={24} className="text-[#212529]" />
+                    <MessageSquare size={ICON_SIZES.xl} className="text-[#212529]" />
                   </div>
                   <div>
                     <h3 className="text-card-title-sm mb-1">WhatsApp</h3>
@@ -226,7 +227,7 @@ export default function ContactPage() {
                   className="text-sm text-[#212529] font-medium hover:underline inline-flex items-center gap-2"
                 >
                   Visit Help Center
-                  <Send size={14} />
+                  <Send size={ICON_SIZES.sm} />
                 </a>
               </div>
             </div>

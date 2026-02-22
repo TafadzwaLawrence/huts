@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { MapPin, Bed, Bath, Square, Heart, Home, Car, GraduationCap, Sofa, Users, Zap } from 'lucide-react'
 import { PropertyWithImages, isRentalProperty, isSaleProperty, isStudentProperty } from '@/types'
 import { formatPrice, formatSalePrice } from '@/lib/utils'
+import { ICON_SIZES } from '@/lib/constants'
 
 interface PropertyCardProps {
   property: PropertyWithImages
@@ -34,7 +35,7 @@ export function PropertyCard({ property }: PropertyCardProps) {
             </>
           ) : (
             <div className="w-full h-full bg-[#F8F9FA] flex items-center justify-center">
-              <Home className="text-[#ADB5BD]" size={48} />
+              <Home className="text-[#ADB5BD]" size={ICON_SIZES['3xl']} />
             </div>
           )}
           
@@ -58,18 +59,18 @@ export function PropertyCard({ property }: PropertyCardProps) {
           {isStudentProperty(property) && (
             <div className="absolute top-3 left-3 flex flex-wrap gap-1.5 max-w-[140px]">
               {property.furnished && (
-                <div className="bg-blue-500/90 backdrop-blur-sm text-white px-2 py-1 rounded text-xs font-semibold flex items-center gap-1 shadow-md hover:bg-blue-600 transition-colors" title="Furnished">
-                  <Sofa size={12} /> Furnished
+                <div className="bg-[#212529]/90 backdrop-blur-sm text-white px-2 py-1 rounded text-xs font-semibold flex items-center gap-1 shadow-md hover:bg-[#212529] transition-colors" title="Furnished">
+                  <Sofa size={ICON_SIZES.xs} /> Furnished
                 </div>
               )}
               {property.shared_rooms && (
-                <div className="bg-green-500/90 backdrop-blur-sm text-white px-2 py-1 rounded text-xs font-semibold flex items-center gap-1 shadow-md hover:bg-green-600 transition-colors" title="Shared Rooms Available">
-                  <Users size={12} /> Shared
+                <div className="bg-[#212529]/90 backdrop-blur-sm text-white px-2 py-1 rounded text-xs font-semibold flex items-center gap-1 shadow-md hover:bg-[#212529] transition-colors" title="Shared Rooms Available">
+                  <Users size={ICON_SIZES.xs} /> Shared
                 </div>
               )}
               {property.utilities_included && (
-                <div className="bg-amber-500/90 backdrop-blur-sm text-white px-2 py-1 rounded text-xs font-semibold flex items-center gap-1 shadow-md hover:bg-amber-600 transition-colors" title="Utilities Included">
-                  <Zap size={12} /> Utilities
+                <div className="bg-[#212529]/90 backdrop-blur-sm text-white px-2 py-1 rounded text-xs font-semibold flex items-center gap-1 shadow-md hover:bg-[#212529] transition-colors" title="Utilities Included">
+                  <Zap size={ICON_SIZES.xs} /> Utilities
                 </div>
               )}
             </div>
@@ -84,7 +85,7 @@ export function PropertyCard({ property }: PropertyCardProps) {
             className="absolute top-3 right-3 p-2.5 bg-white/95 backdrop-blur-sm rounded-full hover:bg-white hover:scale-110 transition-all duration-200 shadow-md hover:shadow-lg min-w-[44px] min-h-[44px] flex items-center justify-center group/save z-10"
             aria-label="Save property"
           >
-            <Heart size={20} className="text-[#212529] group-hover/save:fill-red-500 group-hover/save:text-red-500 transition-colors" />
+            <Heart size={ICON_SIZES.lg} className="text-[#212529] group-hover/save:fill-[#FF6B6B] group-hover/save:text-[#FF6B6B] transition-colors" />
           </button>
         </div>
 
@@ -95,7 +96,7 @@ export function PropertyCard({ property }: PropertyCardProps) {
           </h3>
           
           <div className="flex items-center text-muted-foreground text-sm mb-4">
-            <MapPin size={14} className="mr-1.5 flex-shrink-0 text-[#ADB5BD]" />
+            <MapPin size={ICON_SIZES.sm} className="mr-1.5 flex-shrink-0 text-[#ADB5BD]" />
             <span className="line-clamp-1">
               {property.neighborhood ? `${property.neighborhood}, ` : ''}
               {property.city}
@@ -105,22 +106,22 @@ export function PropertyCard({ property }: PropertyCardProps) {
           {/* Features */}
           <div className="property-card-features text-[#495057]">
             <div className="flex items-center gap-1.5">
-              <Bed size={16} className="text-[#ADB5BD]" />
+              <Bed size={ICON_SIZES.md} className="text-[#ADB5BD]" />
               <span className="font-medium">{property.beds}</span>
             </div>
             {isSaleProperty(property) && property.parking_spaces && property.parking_spaces > 0 && (
               <div className="flex items-center gap-1.5">
-                <Car size={16} className="text-[#ADB5BD]" />
+                <Car size={ICON_SIZES.md} className="text-[#ADB5BD]" />
                 <span className="font-medium">{property.parking_spaces}</span>
               </div>
             )}
             <div className="flex items-center gap-1.5">
-              <Bath size={16} className="text-[#ADB5BD]" />
+              <Bath size={ICON_SIZES.md} className="text-[#ADB5BD]" />
               <span className="font-medium">{property.baths}</span>
             </div>
             {property.sqft && (
               <div className="flex items-center gap-1.5">
-                <Square size={16} className="text-[#ADB5BD]" />
+                <Square size={ICON_SIZES.md} className="text-[#ADB5BD]" />
                 <span className="font-medium">{property.sqft}</span>
               </div>
             )}

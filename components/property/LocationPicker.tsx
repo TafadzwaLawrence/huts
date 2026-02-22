@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react'
 import { MapPin, Search, Loader2, X, Navigation } from 'lucide-react'
+import { ICON_SIZES } from '@/lib/constants'
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 
@@ -202,7 +203,7 @@ export default function LocationPicker({ lat, lng, onLocationChange, className }
                 }}
                 className="absolute right-3 top-1/2 -translate-y-1/2 text-[#ADB5BD] hover:text-[#495057]"
               >
-                <X size={16} />
+                <X size={ICON_SIZES.md} />
               </button>
             )}
           </div>
@@ -274,7 +275,7 @@ export default function LocationPicker({ lat, lng, onLocationChange, className }
           {mounted && !position && (
             <div className="absolute bottom-4 left-4 right-4 bg-white/95 backdrop-blur-sm rounded-lg px-4 py-3 shadow-lg z-[1000]">
               <p className="text-sm text-[#212529] flex items-center gap-2 font-medium">
-                <MapPin size={15} className="text-[#495057]" />
+                <MapPin size={ICON_SIZES.sm} className="text-[#495057]" />
                 Click anywhere on the map to set location
               </p>
             </div>

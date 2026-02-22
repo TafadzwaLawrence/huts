@@ -7,15 +7,12 @@ import {
   Building2, 
   MapPin, 
   Home,
-  ShieldCheck,
-  ShieldAlert,
-  ShieldX,
   ExternalLink,
-  ChevronLeft,
-  ChevronRight,
-  Search,
 } from 'lucide-react'
 import { formatPrice, formatSalePrice } from '@/lib/utils'
+import { AdminPageHeader, AdminEmptyState, AdminPagination, AdminExportButton } from '@/components/admin'
+import { Badge } from '@/components/ui'
+import { ICON_SIZES } from '@/lib/constants'
 
 interface Property {
   id: string
@@ -71,56 +68,37 @@ export default function AdminPropertiesPage() {
     fetchProperties()
   }, [page, statusFilter])
 
-  const statusIcon = (vs: string) => {
-    if (vs === 'approved') return <ShieldCheck size={13} className="text-[#51CF66]" />
-    if (vs === 'rejected') return <ShieldX size={13} className="text-[#FF6B6B]" />
-    return <ShieldAlert size={13} className="text-amber-500" />
-  }
-
-  const statusBadge = (vs: string) => {
-    const styles: Record<string, string> = {
-      approved: 'bg-[#51CF66]/10 text-[#37B24D]',
-      rejected: 'bg-[#FF6B6B]/10 text-[#F03E3E]',
-      pending: 'bg-amber-50 text-amber-600',
-    }
-    return (
-      <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold ${styles[vs] || styles.pending}`}>
-        {statusIcon(vs)}
-        {vs.charAt(0).toUpperCase() + vs.slice(1)}
-      </span>
-    )
-  }
-
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
-        <div>
-          <h1 className="text-xl font-bold text-[#212529]">All Properties</h1>
-          <p className="text-sm text-[#ADB5BD] mt-1">{total} total</p>
-        </div>
-
-        {/* Status Filter */}
-        <div className="flex items-center gap-0.5 bg-[#F8F9FA] p-0.5 rounded-full border border-[#E9ECEF]">
-          {['all', 'approved', 'pending', 'rejected'].map((s) => (
-            <button
-              key={s}
-              onClick={() => setStatusFilter(s)}
-              className={`px-4 py-1.5 text-xs font-semibold rounded-full transition-all ${
-                statusFilter === s
-                  ? 'bg-[#212529] text-white shadow-sm'
-                  : 'text-[#495057] hover:text-[#212529]'
-              }`}
-            >
-              {s.charAt(0).toUpperCase() + s.slice(1)}
-            </button>
-          ))}
-        </div>
-      </div>
+      <AdminPageHeader
+        title="All Properties"
+        description={`${total} total properties`}
+        action={
+          <div className="flex items-center gap-3">
+            <AdminExportButton type="properties" />
+            <div className="flex items-center gap-0.5 bg-[#F8F9FA] p-0.5 rounded-full border border-[#E9ECEF]">
+              {['all', 'approved', 'pending', 'rejected'].map((s) => (
+              <button
+                key={s}
+                onClick={() => setStatusFilter(s)}
+                className={`px-4 py-1.5 text-xs font-semibold rounded-full transition-all ${
+                  statusFilter === s
+                    ? 'bg-[#212529] text-white shadow-sm'
+                    : 'text-[#495057] hover:text-[#212529]'
+                }`}
+              >
+                {s.charAt(0).toUpperCase() + s.slice(1)}
+              </button>
+            ))}
+          </div>
+          </div>
+        }
+      />
 
       {loading ? (
         <div className="bg-white rounded-xl border border-[#E9ECEF] overflow-hidden">
           {[...Array(5)].map((_, i) => (
-            <div key={i} className="flex items-center gap-4 px-5 py-4 border-b border-[#F1F3F5]">
+            <div key={i} className="flex items-center gap-4 px-5 py-4 border-b border-[#E9ECEF]">
               <div className="w-14 h-14 bg-[#E9ECEF] rounded-lg animate-pulse flex-shrink-0" />
               <div className="flex-1 space-y-2">
                 <div className="h-4 bg-[#E9ECEF] rounded animate-pulse w-1/2" />
@@ -130,13 +108,11 @@ export default function AdminPropertiesPage() {
           ))}
         </div>
       ) : properties.length === 0 ? (
-        <div className="bg-white rounded-xl border border-[#E9ECEF] py-20 text-center">
-          <Building2 size={40} className="mx-auto text-[#E9ECEF] mb-3" />
-          <h3 className="font-semibold text-[#212529] mb-1">No properties found</h3>
-          <p className="text-sm text-[#ADB5BD]">
-            {statusFilter !== 'all' ? `No ${statusFilter} properties` : 'No properties in the system'}
-          </p>
-        </div>
+        <AdminEmptyState
+          icon={Building2}
+          title="No properties found"
+          description={statusFilter !== 'all' ? `No ${statusFilter} properties` : 'No properties in the system'}
+        />
       ) : (
         <>
           <div className="bg-white rounded-xl border border-[#E9ECEF] overflow-hidden">
@@ -151,7 +127,7 @@ export default function AdminPropertiesPage() {
               <div className="col-span-1"></div>
             </div>
 
-            <div className="divide-y divide-[#F1F3F5]">
+            <div className="divide-y divide-[#E9ECEF]">
               {properties.map((property) => {
                 const primaryImage = property.property_images?.find(img => img.is_primary) || property.property_images?.[0]
                 const listingType = property.listing_type || 'rent'
@@ -164,7 +140,7 @@ export default function AdminPropertiesPage() {
                 const owner = property.profiles
 
                 return (
-                  <div key={property.id} className="grid grid-cols-1 md:grid-cols-12 gap-2 md:gap-4 items-center px-5 py-3.5 hover:bg-[#FAFAFA] transition-colors">
+                  <div key={property.id} className="grid grid-cols-1 md:grid-cols-12 gap-2 md:gap-4 items-center px-5 py-3.5 hover:bg-[#F8F9FA] transition-colors">
                     {/* Property */}
                     <div className="md:col-span-5 flex items-center gap-3">
                       <div className="relative w-12 h-12 rounded-lg overflow-hidden bg-[#F8F9FA] flex-shrink-0">
@@ -172,14 +148,14 @@ export default function AdminPropertiesPage() {
                           <Image src={primaryImage.url} alt="" fill className="object-cover" sizes="48px" />
                         ) : (
                           <div className="w-full h-full flex items-center justify-center">
-                            <Home size={16} className="text-[#ADB5BD]" />
+                            <Home size={ICON_SIZES.md} className="text-[#ADB5BD]" />
                           </div>
                         )}
                       </div>
                       <div className="min-w-0">
                         <p className="text-sm font-medium text-[#212529] truncate">{property.title}</p>
                         <p className="text-xs text-[#ADB5BD] flex items-center gap-1 truncate">
-                          <MapPin size={10} />
+                          <MapPin size={ICON_SIZES.xs} />
                           {property.neighborhood ? `${property.neighborhood}, ` : ''}{property.city}
                         </p>
                       </div>
@@ -193,11 +169,9 @@ export default function AdminPropertiesPage() {
 
                     {/* Type */}
                     <div className="md:col-span-1 hidden md:block">
-                      <span className={`px-1.5 py-0.5 rounded text-[10px] font-bold uppercase ${
-                        isForSale ? 'bg-[#212529] text-white' : 'bg-[#F8F9FA] text-[#495057]'
-                      }`}>
+                      <Badge variant="default" size="sm">
                         {isForSale ? 'Sale' : 'Rent'}
-                      </span>
+                      </Badge>
                     </div>
 
                     {/* Price */}
@@ -207,7 +181,12 @@ export default function AdminPropertiesPage() {
 
                     {/* Status */}
                     <div className="md:col-span-1">
-                      {statusBadge(property.verification_status)}
+                      <Badge 
+                        variant="default" 
+                        size="sm"
+                      >
+                        {property.verification_status}
+                      </Badge>
                     </div>
 
                     {/* Date */}
@@ -224,7 +203,7 @@ export default function AdminPropertiesPage() {
                         target="_blank"
                         className="p-2 text-[#ADB5BD] hover:text-[#212529] transition-colors"
                       >
-                        <ExternalLink size={14} />
+                        <ExternalLink size={ICON_SIZES.sm} />
                       </Link>
                     </div>
                   </div>
@@ -234,27 +213,11 @@ export default function AdminPropertiesPage() {
           </div>
 
           {/* Pagination */}
-          {totalPages > 1 && (
-            <div className="flex items-center justify-center gap-2 pt-6">
-              <button
-                onClick={() => setPage(p => Math.max(1, p - 1))}
-                disabled={page === 1}
-                className="p-2 rounded-lg border border-[#E9ECEF] text-[#495057] hover:border-[#212529] disabled:opacity-30 transition-colors"
-              >
-                <ChevronLeft size={16} />
-              </button>
-              <span className="text-sm text-[#495057] px-3">
-                Page {page} of {totalPages}
-              </span>
-              <button
-                onClick={() => setPage(p => Math.min(totalPages, p + 1))}
-                disabled={page === totalPages}
-                className="p-2 rounded-lg border border-[#E9ECEF] text-[#495057] hover:border-[#212529] disabled:opacity-30 transition-colors"
-              >
-                <ChevronRight size={16} />
-              </button>
-            </div>
-          )}
+          <AdminPagination
+            currentPage={page}
+            totalPages={totalPages}
+            onPageChange={setPage}
+          />
         </>
       )}
     </div>

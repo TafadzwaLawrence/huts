@@ -1,6 +1,7 @@
 'use client'
 
 import { Heart } from 'lucide-react'
+import { ICON_SIZES } from '@/lib/constants'
 
 export default function SaveButton({ className }: { className?: string }) {
   return (
@@ -9,7 +10,7 @@ export default function SaveButton({ className }: { className?: string }) {
       className={className || "absolute top-3 right-3 p-2 bg-white/90 rounded-full hover:bg-white transition-colors z-10"}
       aria-label="Save property"
     >
-      <Heart size={18} className="text-[#495057]" />
+      <Heart size={ICON_SIZES.lg} className="text-[#495057]" />
     </button>
   )
 }

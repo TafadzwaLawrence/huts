@@ -8,6 +8,7 @@ import { createClient } from '@/lib/supabase/client'
 import { uploadFiles } from '@/lib/uploadthing'
 import { compressImages } from '@/lib/image-compression'
 import { toast } from 'sonner'
+import { ICON_SIZES } from '@/lib/constants'
 import {
   Home,
   DollarSign,
@@ -381,7 +382,7 @@ export default function NewPropertyPage() {
               className="flex items-center gap-2 text-[#495057] hover:text-[#212529] transition-colors text-sm font-medium"
               title="Back to Dashboard"
             >
-              <ArrowLeft size={18} />
+              <ArrowLeft size={ICON_SIZES.lg} />
               <span className="hidden sm:inline">Dashboard</span>
             </Link>
             <h1 className="text-sm font-semibold text-[#212529] tracking-wide uppercase">New Listing</h1>
@@ -437,20 +438,20 @@ export default function NewPropertyPage() {
                   <div className={`w-11 h-11 rounded-xl flex items-center justify-center mb-5 ${
                     formData.listingType === 'rent' ? 'bg-white/15' : 'bg-[#F8F9FA]'
                   }`}>
-                    <Home size={22} className={formData.listingType === 'rent' ? 'text-white' : 'text-[#212529]'} />
+                    <Home size={ICON_SIZES.xl} className={formData.listingType === 'rent' ? 'text-white' : 'text-[#212529]'} />
                   </div>
                   <h3 className="text-lg font-bold mb-1.5">Rent Out</h3>
                   <p className={`text-sm leading-relaxed mb-4 ${formData.listingType === 'rent' ? 'text-white/70' : 'text-[#495057]'}`}>
                     List your property for monthly rental income
                   </p>
                   <ul className={`space-y-2 text-xs ${formData.listingType === 'rent' ? 'text-white/60' : 'text-[#ADB5BD]'}`}>
-                    <li className="flex items-center gap-2"><Check size={12} /> Set monthly rent price</li>
-                    <li className="flex items-center gap-2"><Check size={12} /> Add security deposit</li>
-                    <li className="flex items-center gap-2"><Check size={12} /> Choose lease terms</li>
+                    <li className="flex items-center gap-2"><Check size={ICON_SIZES.xs} /> Set monthly rent price</li>
+                    <li className="flex items-center gap-2"><Check size={ICON_SIZES.xs} /> Add security deposit</li>
+                    <li className="flex items-center gap-2"><Check size={ICON_SIZES.xs} /> Choose lease terms</li>
                   </ul>
                   {formData.listingType === 'rent' && (
                     <div className="absolute top-5 right-5 w-6 h-6 bg-white rounded-full flex items-center justify-center">
-                      <Check size={14} className="text-[#212529]" />
+                      <Check size={ICON_SIZES.sm} className="text-[#212529]" />
                     </div>
                   )}
                 </button>
@@ -468,20 +469,20 @@ export default function NewPropertyPage() {
                   <div className={`w-11 h-11 rounded-xl flex items-center justify-center mb-5 ${
                     formData.listingType === 'sale' ? 'bg-white/15' : 'bg-[#F8F9FA]'
                   }`}>
-                    <DollarSign size={22} className={formData.listingType === 'sale' ? 'text-white' : 'text-[#212529]'} />
+                    <DollarSign size={ICON_SIZES.xl} className={formData.listingType === 'sale' ? 'text-white' : 'text-[#212529]'} />
                   </div>
                   <h3 className="text-lg font-bold mb-1.5">Sell</h3>
                   <p className={`text-sm leading-relaxed mb-4 ${formData.listingType === 'sale' ? 'text-white/70' : 'text-[#495057]'}`}>
                     Put your property on the market for sale
                   </p>
                   <ul className={`space-y-2 text-xs ${formData.listingType === 'sale' ? 'text-white/60' : 'text-[#ADB5BD]'}`}>
-                    <li className="flex items-center gap-2"><Check size={12} /> Set your sale price</li>
-                    <li className="flex items-center gap-2"><Check size={12} /> Add property details</li>
-                    <li className="flex items-center gap-2"><Check size={12} /> Reach buyers directly</li>
+                    <li className="flex items-center gap-2"><Check size={ICON_SIZES.xs} /> Set your sale price</li>
+                    <li className="flex items-center gap-2"><Check size={ICON_SIZES.xs} /> Add property details</li>
+                    <li className="flex items-center gap-2"><Check size={ICON_SIZES.xs} /> Reach buyers directly</li>
                   </ul>
                   {formData.listingType === 'sale' && (
                     <div className="absolute top-5 right-5 w-6 h-6 bg-white rounded-full flex items-center justify-center">
-                      <Check size={14} className="text-[#212529]" />
+                      <Check size={ICON_SIZES.sm} className="text-[#212529]" />
                     </div>
                   )}
                 </button>
@@ -520,7 +521,7 @@ export default function NewPropertyPage() {
                   />
                   {errors.title ? (
                     <p className="mt-2 text-sm text-[#FF6B6B] flex items-center gap-1">
-                      <AlertCircle size={14} /> {errors.title}
+                      <AlertCircle size={ICON_SIZES.sm} /> {errors.title}
                     </p>
                   ) : (
                     <p className="mt-2 text-xs text-[#ADB5BD]">
@@ -574,7 +575,7 @@ export default function NewPropertyPage() {
                             : 'border-[#E9ECEF] text-[#212529] hover:border-[#495057] bg-white'
                         }`}
                       >
-                        <Icon size={16} />
+                        <Icon size={ICON_SIZES.md} />
                         {label}
                       </button>
                     ))}
@@ -621,7 +622,7 @@ export default function NewPropertyPage() {
                   </div>
                   {errors.price && (
                     <p className="mt-2 text-sm text-[#FF6B6B] flex items-center gap-1">
-                      <AlertCircle size={14} /> {errors.price}
+                      <AlertCircle size={ICON_SIZES.sm} /> {errors.price}
                     </p>
                   )}
                 </div>
@@ -656,7 +657,7 @@ export default function NewPropertyPage() {
                   <div className="grid grid-cols-3 gap-3">
                     <div>
                       <label htmlFor="beds" className="block text-xs font-medium text-[#495057] mb-2 flex items-center gap-1.5">
-                        <Bed size={13} /> Beds <span className="text-[#FF6B6B]">*</span>
+                        <Bed size={ICON_SIZES.xs} /> Beds <span className="text-[#FF6B6B]">*</span>
                       </label>
                       <input
                         id="beds"
@@ -673,7 +674,7 @@ export default function NewPropertyPage() {
                     </div>
                     <div>
                       <label htmlFor="baths" className="block text-xs font-medium text-[#495057] mb-2 flex items-center gap-1.5">
-                        <Bath size={13} /> Baths <span className="text-[#FF6B6B]">*</span>
+                        <Bath size={ICON_SIZES.xs} /> Baths <span className="text-[#FF6B6B]">*</span>
                       </label>
                       <input
                         id="baths"
@@ -691,7 +692,7 @@ export default function NewPropertyPage() {
                     </div>
                     <div>
                       <label htmlFor="sqft" className="block text-xs font-medium text-[#495057] mb-2 flex items-center gap-1.5">
-                        <Square size={13} /> Sqft
+                        <Square size={ICON_SIZES.xs} /> Sqft
                       </label>
                       <input
                         id="sqft"
@@ -818,7 +819,7 @@ export default function NewPropertyPage() {
                     <div className="grid grid-cols-2 gap-3">
                       <div>
                         <label htmlFor="yearBuilt" className="block text-xs font-medium text-[#495057] mb-2 flex items-center gap-1.5">
-                          <Calendar size={13} /> Year Built
+                          <Calendar size={ICON_SIZES.xs} /> Year Built
                         </label>
                         <input
                           id="yearBuilt"
@@ -834,7 +835,7 @@ export default function NewPropertyPage() {
                       </div>
                       <div>
                         <label htmlFor="lotSize" className="block text-xs font-medium text-[#495057] mb-2 flex items-center gap-1.5">
-                          <TreePine size={13} /> Lot Size (sqft)
+                          <TreePine size={ICON_SIZES.xs} /> Lot Size (sqft)
                         </label>
                         <input
                           id="lotSize"
@@ -849,7 +850,7 @@ export default function NewPropertyPage() {
                       </div>
                       <div>
                         <label htmlFor="parkingSpaces" className="block text-xs font-medium text-[#495057] mb-2 flex items-center gap-1.5">
-                          <Car size={13} /> Parking Spaces
+                          <Car size={ICON_SIZES.xs} /> Parking Spaces
                         </label>
                         <input
                           id="parkingSpaces"
@@ -864,7 +865,7 @@ export default function NewPropertyPage() {
                       </div>
                       <div>
                         <label htmlFor="garageSpaces" className="block text-xs font-medium text-[#495057] mb-2 flex items-center gap-1.5">
-                          <Car size={13} /> Garage Spaces
+                          <Car size={ICON_SIZES.xs} /> Garage Spaces
                         </label>
                         <input
                           id="garageSpaces"
@@ -952,7 +953,7 @@ export default function NewPropertyPage() {
                   />
                   {errors.address && (
                     <p className="mt-2 text-sm text-[#FF6B6B] flex items-center gap-1">
-                      <AlertCircle size={14} /> {errors.address}
+                      <AlertCircle size={ICON_SIZES.sm} /> {errors.address}
                     </p>
                   )}
                 </div>
@@ -1031,7 +1032,7 @@ export default function NewPropertyPage() {
                   </p>
                   {errors.location && (
                     <p className="mb-3 text-sm text-[#FF6B6B] flex items-center gap-1">
-                      <AlertCircle size={14} /> {errors.location}
+                      <AlertCircle size={ICON_SIZES.sm} /> {errors.location}
                     </p>
                   )}
                   <div className="rounded-xl overflow-hidden border-2 border-[#E9ECEF]">
@@ -1051,7 +1052,7 @@ export default function NewPropertyPage() {
                   </div>
                   {formData.lat && formData.lng && (
                     <p className="mt-3 text-xs text-[#51CF66] flex items-center gap-1.5 font-medium">
-                      <Check size={14} /> Location set: {formData.lat.toFixed(4)}, {formData.lng.toFixed(4)}
+                      <Check size={ICON_SIZES.sm} /> Location set: {formData.lat.toFixed(4)}, {formData.lng.toFixed(4)}
                     </p>
                   )}
                 </div>
@@ -1079,7 +1080,7 @@ export default function NewPropertyPage() {
                   
                   {errors.images && (
                     <div className="mb-4 px-4 py-3 bg-[#FF6B6B]/5 border border-[#FF6B6B]/20 rounded-xl flex items-center gap-2 text-sm text-[#FF6B6B]">
-                      <AlertCircle size={15} />
+                      <AlertCircle size={ICON_SIZES.sm} />
                       {errors.images}
                     </div>
                   )}
@@ -1093,7 +1094,7 @@ export default function NewPropertyPage() {
                       className="hidden"
                     />
                     <div className="w-12 h-12 rounded-full bg-[#E9ECEF] flex items-center justify-center mx-auto mb-3 group-hover:bg-[#212529] transition-colors">
-                      <Upload size={20} className="text-[#495057] group-hover:text-white transition-colors" />
+                      <Upload size={ICON_SIZES.lg} className="text-[#495057] group-hover:text-white transition-colors" />
                     </div>
                     <p className="text-[#212529] font-semibold text-sm mb-1">Click to upload or drag & drop</p>
                     <p className="text-xs text-[#ADB5BD]">PNG, JPG, WEBP up to 10MB each</p>
@@ -1113,7 +1114,7 @@ export default function NewPropertyPage() {
                             onClick={() => removeImage(index)}
                             className="absolute top-2 right-2 p-1.5 bg-black/60 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity hover:bg-black/80"
                           >
-                            <X size={12} />
+                            <X size={ICON_SIZES.xs} />
                           </button>
                           {index === 0 && (
                             <div className="absolute bottom-2 left-2 bg-[#212529] text-white text-[10px] font-semibold px-2 py-0.5 rounded-md tracking-wide uppercase">
@@ -1142,7 +1143,7 @@ export default function NewPropertyPage() {
                             : 'border-[#E9ECEF] text-[#212529] hover:border-[#495057] bg-white'
                         }`}
                       >
-                        {formData.amenities.includes(amenity) && <Check size={14} />}
+                        {formData.amenities.includes(amenity) && <Check size={ICON_SIZES.sm} />}
                         {amenity}
                       </button>
                     ))}
@@ -1160,7 +1161,7 @@ export default function NewPropertyPage() {
                 onClick={prevStep}
                 className="flex items-center justify-center gap-2 px-5 py-3.5 border-2 border-[#E9ECEF] text-[#212529] rounded-xl text-sm font-semibold hover:border-[#212529] transition-all"
               >
-                <ArrowLeft size={16} />
+                <ArrowLeft size={ICON_SIZES.md} />
                 Back
               </button>
             )}
@@ -1172,7 +1173,7 @@ export default function NewPropertyPage() {
                 className="flex-1 flex items-center justify-center gap-2 bg-[#212529] text-white px-6 py-3.5 rounded-xl text-sm font-semibold hover:bg-black transition-all"
               >
                 Continue
-                <ArrowRight size={16} />
+                <ArrowRight size={ICON_SIZES.md} />
               </button>
             ) : (
               <button
@@ -1188,7 +1189,7 @@ export default function NewPropertyPage() {
                 ) : (
                   <>
                     Submit for Verification
-                    <ArrowRight size={16} />
+                    <ArrowRight size={ICON_SIZES.md} />
                   </>
                 )}
               </button>

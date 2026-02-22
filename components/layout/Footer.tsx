@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { Mail, MapPin, Phone, ArrowUpRight } from 'lucide-react'
+import { ICON_SIZES } from '@/lib/constants'
 
 export function Footer() {
   const currentYear = new Date().getFullYear()
@@ -34,7 +35,7 @@ export function Footer() {
                 href="mailto:hello@huts.co.zw"
                 className="inline-flex items-center gap-2 bg-white/[0.08] hover:bg-white/[0.12] border border-white/[0.08] rounded-lg px-4 py-2.5 text-sm text-white/80 hover:text-white transition-all"
               >
-                <Mail size={15} />
+                <Mail size={ICON_SIZES.sm} />
                 hello@huts.co.zw
               </a>
             </div>
@@ -49,25 +50,25 @@ export function Footer() {
                 <li>
                   <Link href="/search?type=rent" className="text-sm text-[#ADB5BD] hover:text-white transition-colors inline-flex items-center gap-1 group">
                     Rentals
-                    <ArrowUpRight size={13} className="opacity-0 -translate-y-0.5 group-hover:opacity-60 group-hover:translate-y-0 transition-all" />
+                    <ArrowUpRight size={ICON_SIZES.xs} className="opacity-0 -translate-y-0.5 group-hover:opacity-60 group-hover:translate-y-0 transition-all" />
                   </Link>
                 </li>
                 <li>
                   <Link href="/search?type=sale" className="text-sm text-[#ADB5BD] hover:text-white transition-colors inline-flex items-center gap-1 group">
                     For Sale
-                    <ArrowUpRight size={13} className="opacity-0 -translate-y-0.5 group-hover:opacity-60 group-hover:translate-y-0 transition-all" />
+                    <ArrowUpRight size={ICON_SIZES.xs} className="opacity-0 -translate-y-0.5 group-hover:opacity-60 group-hover:translate-y-0 transition-all" />
                   </Link>
                 </li>
                 <li>
                   <Link href="/areas" className="text-sm text-[#ADB5BD] hover:text-white transition-colors inline-flex items-center gap-1 group">
                     Area Guides
-                    <ArrowUpRight size={13} className="opacity-0 -translate-y-0.5 group-hover:opacity-60 group-hover:translate-y-0 transition-all" />
+                    <ArrowUpRight size={ICON_SIZES.xs} className="opacity-0 -translate-y-0.5 group-hover:opacity-60 group-hover:translate-y-0 transition-all" />
                   </Link>
                 </li>
                 <li>
                   <Link href="/search" className="text-sm text-[#ADB5BD] hover:text-white transition-colors inline-flex items-center gap-1 group">
                     Browse All
-                    <ArrowUpRight size={13} className="opacity-0 -translate-y-0.5 group-hover:opacity-60 group-hover:translate-y-0 transition-all" />
+                    <ArrowUpRight size={ICON_SIZES.xs} className="opacity-0 -translate-y-0.5 group-hover:opacity-60 group-hover:translate-y-0 transition-all" />
                   </Link>
                 </li>
               </ul>
@@ -80,19 +81,19 @@ export function Footer() {
                 <li>
                   <Link href="/dashboard/new-property" className="text-sm text-[#ADB5BD] hover:text-white transition-colors inline-flex items-center gap-1 group">
                     Post a Property
-                    <ArrowUpRight size={13} className="opacity-0 -translate-y-0.5 group-hover:opacity-60 group-hover:translate-y-0 transition-all" />
+                    <ArrowUpRight size={ICON_SIZES.xs} className="opacity-0 -translate-y-0.5 group-hover:opacity-60 group-hover:translate-y-0 transition-all" />
                   </Link>
                 </li>
                 <li>
                   <Link href="/pricing" className="text-sm text-[#ADB5BD] hover:text-white transition-colors inline-flex items-center gap-1 group">
                     Pricing
-                    <ArrowUpRight size={13} className="opacity-0 -translate-y-0.5 group-hover:opacity-60 group-hover:translate-y-0 transition-all" />
+                    <ArrowUpRight size={ICON_SIZES.xs} className="opacity-0 -translate-y-0.5 group-hover:opacity-60 group-hover:translate-y-0 transition-all" />
                   </Link>
                 </li>
                 <li>
                   <Link href="/dashboard" className="text-sm text-[#ADB5BD] hover:text-white transition-colors inline-flex items-center gap-1 group">
                     Dashboard
-                    <ArrowUpRight size={13} className="opacity-0 -translate-y-0.5 group-hover:opacity-60 group-hover:translate-y-0 transition-all" />
+                    <ArrowUpRight size={ICON_SIZES.xs} className="opacity-0 -translate-y-0.5 group-hover:opacity-60 group-hover:translate-y-0 transition-all" />
                   </Link>
                 </li>
               </ul>
@@ -105,24 +106,24 @@ export function Footer() {
                 <li>
                   <Link href="/help" className="text-sm text-[#ADB5BD] hover:text-white transition-colors inline-flex items-center gap-1 group">
                     Help Center
-                    <ArrowUpRight size={13} className="opacity-0 -translate-y-0.5 group-hover:opacity-60 group-hover:translate-y-0 transition-all" />
+                    <ArrowUpRight size={ICON_SIZES.xs} className="opacity-0 -translate-y-0.5 group-hover:opacity-60 group-hover:translate-y-0 transition-all" />
                   </Link>
                 </li>
                 <li>
                   <Link href="/contact" className="text-sm text-[#ADB5BD] hover:text-white transition-colors inline-flex items-center gap-1 group">
                     Contact Us
-                    <ArrowUpRight size={13} className="opacity-0 -translate-y-0.5 group-hover:opacity-60 group-hover:translate-y-0 transition-all" />
+                    <ArrowUpRight size={ICON_SIZES.xs} className="opacity-0 -translate-y-0.5 group-hover:opacity-60 group-hover:translate-y-0 transition-all" />
                   </Link>
                 </li>
                 <li>
                   <a href="mailto:support@huts.co.zw" className="text-sm text-[#ADB5BD] hover:text-white transition-colors flex items-center gap-2">
-                    <Mail size={14} className="shrink-0" />
+                    <Mail size={ICON_SIZES.sm} className="shrink-0" />
                     support@huts.co.zw
                   </a>
                 </li>
                 <li>
                   <a href="tel:+263786470999" className="text-sm text-[#ADB5BD] hover:text-white transition-colors flex items-center gap-2">
-                    <Phone size={14} className="shrink-0" />
+                    <Phone size={ICON_SIZES.sm} className="shrink-0" />
                     +263 78 647 0999
                   </a>
                 </li>
@@ -157,7 +158,7 @@ export function Footer() {
         {/* Bottom bar */}
         <div className="pt-7 pb-2 flex flex-col sm:flex-row justify-between items-center gap-4">
           <div className="flex items-center gap-2 text-sm text-white/30">
-            <MapPin size={13} />
+            <MapPin size={ICON_SIZES.xs} />
             <span>Harare, Zimbabwe</span>
             <span className="text-white/15 mx-1">·</span>
             <span>&copy; {currentYear} Huts</span>

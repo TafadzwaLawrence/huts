@@ -21,6 +21,9 @@ import {
 } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import { formatPrice, formatSalePrice } from '@/lib/utils'
+import { AdminEmptyState, AdminPageHeader, AdminPagination, BulkActionToolbar, useAdminSelection } from '@/components/admin'
+import { Button } from '@/components/ui'
+import { ICON_SIZES } from '@/lib/constants'
 
 interface Property {
   id: string
@@ -54,6 +57,18 @@ export default function AdminVerificationPage() {
   const [rejectingId, setRejectingId] = useState<string | null>(null)
   const [rejectReason, setRejectReason] = useState('')
 
+  // Bulk selection state
+  const {
+    selectedIds,
+    selectedCount,
+    toggleSelection,
+    toggleAll,
+    clearSelection,
+    isSelected,
+    isAllSelected,
+    isSomeSelected,
+  } = useAdminSelection(properties)
+
   const fetchProperties = async () => {
     setLoading(true)
     try {
@@ -63,6 +78,7 @@ export default function AdminVerificationPage() {
       setProperties(data.properties)
       setTotalPages(data.totalPages)
       setTotal(data.total)
+      clearSelection()
     } catch (error) {
       console.error('Error fetching properties:', error)
     } finally {
@@ -98,14 +114,20 @@ export default function AdminVerificationPage() {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <div className="flex items-center justify-between mb-6">
-        <div>
-          <h1 className="text-xl font-bold text-[#212529]">Verification Queue</h1>
-          <p className="text-sm text-[#ADB5BD] mt-1">
-            {total} {total === 1 ? 'property' : 'properties'} pending review
-          </p>
-        </div>
-      </div>
+      <AdminPageHeader
+        title="Verification Queue"
+        description={`${total} ${total === 1 ? 'property' : 'properties'} pending review`}
+        action={
+          properties.length > 0 && (
+            <button
+              onClick={toggleAll}
+              className="text-sm px-3 py-1.5 border border-[#E9ECEF] rounded-lg hover:bg-[#F8F9FA] transition-colors"
+            >
+              {isAllSelected ? 'Deselect All' : 'Select All'}
+            </button>
+          )
+        }
+      />
 
       {loading ? (
         <div className="space-y-4">
@@ -123,11 +145,11 @@ export default function AdminVerificationPage() {
           ))}
         </div>
       ) : properties.length === 0 ? (
-        <div className="bg-white rounded-xl border border-[#E9ECEF] py-20 text-center">
-          <ShieldCheck size={48} className="mx-auto text-[#51CF66] mb-4" />
-          <h3 className="text-lg font-semibold text-[#212529] mb-1">All caught up!</h3>
-          <p className="text-sm text-[#ADB5BD]">No properties pending verification</p>
-        </div>
+        <AdminEmptyState
+          icon={ShieldCheck}
+          title="All caught up!"
+          description="No properties pending verification"
+        />
       ) : (
         <div className="space-y-4">
           {properties.map((property) => {
@@ -146,6 +168,16 @@ export default function AdminVerificationPage() {
             return (
               <div key={property.id} className="bg-white rounded-xl border border-[#E9ECEF] overflow-hidden hover:border-[#ADB5BD] transition-colors">
                 <div className="flex flex-col sm:flex-row">
+                  {/* Checkbox */}
+                  <div className="flex items-start p-4 sm:items-center sm:p-3">
+                    <input
+                      type="checkbox"
+                      checked={isSelected(property.id)}
+                      onChange={() => toggleSelection(property.id)}
+                      className="w-4 h-4 border-[#E9ECEF] rounded focus:ring-[#212529] cursor-pointer"
+                    />
+                  </div>
+
                   {/* Image */}
                   <div className="relative w-full sm:w-48 h-40 sm:h-auto flex-shrink-0 bg-[#F8F9FA]">
                     {primaryImage?.url ? (
@@ -158,7 +190,7 @@ export default function AdminVerificationPage() {
                       />
                     ) : (
                       <div className="w-full h-full flex items-center justify-center min-h-[140px]">
-                        <Home size={32} className="text-[#ADB5BD]" />
+                        <Home size={ICON_SIZES['2xl']} className="text-[#ADB5BD]" />
                       </div>
                     )}
                     <div className="absolute top-2 left-2">
@@ -176,7 +208,7 @@ export default function AdminVerificationPage() {
                       <div>
                         <h3 className="text-base font-semibold text-[#212529]">{property.title}</h3>
                         <p className="text-sm text-[#ADB5BD] flex items-center gap-1 mt-0.5">
-                          <MapPin size={13} />
+                          <MapPin size={ICON_SIZES.sm} />
                           {property.neighborhood ? `${property.neighborhood}, ` : ''}{property.city}
                         </p>
                       </div>
@@ -190,10 +222,10 @@ export default function AdminVerificationPage() {
                       {property.property_type && (
                         <span className="capitalize">{property.property_type}</span>
                       )}
-                      <span className="flex items-center gap-1"><Bed size={14} /> {property.beds} bed</span>
-                      <span className="flex items-center gap-1"><Bath size={14} /> {property.baths} bath</span>
+                      <span className="flex items-center gap-1"><Bed size={ICON_SIZES.sm} /> {property.beds} bed</span>
+                      <span className="flex items-center gap-1"><Bath size={ICON_SIZES.sm} /> {property.baths} bath</span>
                       {property.sqft && property.sqft > 0 && (
-                        <span className="flex items-center gap-1"><Square size={14} /> {property.sqft.toLocaleString()} sqft</span>
+                        <span className="flex items-center gap-1"><Square size={ICON_SIZES.sm} /> {property.sqft.toLocaleString()} sqft</span>
                       )}
                     </div>
 
@@ -224,9 +256,9 @@ export default function AdminVerificationPage() {
                           <button
                             onClick={() => handleAction(property.id, 'reject', rejectReason)}
                             disabled={isLoading}
-                            className="flex items-center gap-1.5 px-3 py-1.5 bg-[#FF6B6B] text-white text-xs font-semibold rounded-lg hover:bg-[#F03E3E] disabled:opacity-50 transition-colors"
+                            className="flex items-center gap-1.5 px-3 py-1.5 bg-[#FF6B6B] text-white text-xs font-semibold rounded-lg hover:bg-[#FF6B6B]/90 disabled:opacity-50 transition-colors"
                           >
-                            {isLoading ? <Loader2 size={12} className="animate-spin" /> : <ShieldX size={12} />}
+                            {isLoading ? <Loader2 size={ICON_SIZES.xs} className="animate-spin" /> : <ShieldX size={ICON_SIZES.xs} />}
                             Confirm Reject
                           </button>
                           <button
@@ -242,20 +274,21 @@ export default function AdminVerificationPage() {
                     {/* Action buttons */}
                     {!isRejecting && (
                       <div className="flex items-center gap-2">
-                        <button
+                        <Button
                           onClick={() => handleAction(property.id, 'approve')}
                           disabled={isLoading}
-                          className="flex items-center gap-1.5 px-4 py-2 bg-[#212529] text-white text-sm font-semibold rounded-lg hover:bg-black disabled:opacity-50 transition-colors"
+                          variant="primary"
+                          size="md"
                         >
-                          {isLoading ? <Loader2 size={14} className="animate-spin" /> : <Check size={14} />}
+                          {isLoading ? <Loader2 size={ICON_SIZES.sm} className="animate-spin" /> : <Check size={ICON_SIZES.sm} />}
                           Approve
-                        </button>
+                        </Button>
                         <button
                           onClick={() => setRejectingId(property.id)}
                           disabled={isLoading}
                           className="flex items-center gap-1.5 px-4 py-2 border-2 border-[#FF6B6B] text-[#FF6B6B] text-sm font-semibold rounded-lg hover:bg-[#FFF5F5] disabled:opacity-50 transition-colors"
                         >
-                          <X size={14} />
+                          <X size={ICON_SIZES.sm} />
                           Reject
                         </button>
                         <Link
@@ -263,7 +296,7 @@ export default function AdminVerificationPage() {
                           target="_blank"
                           className="flex items-center gap-1.5 px-3 py-2 text-sm text-[#495057] hover:text-[#212529] transition-colors ml-auto"
                         >
-                          <ExternalLink size={14} />
+                          <ExternalLink size={ICON_SIZES.sm} />
                           View
                         </Link>
                       </div>
@@ -275,29 +308,22 @@ export default function AdminVerificationPage() {
           })}
 
           {/* Pagination */}
-          {totalPages > 1 && (
-            <div className="flex items-center justify-center gap-2 pt-4">
-              <button
-                onClick={() => setPage(p => Math.max(1, p - 1))}
-                disabled={page === 1}
-                className="p-2 rounded-lg border border-[#E9ECEF] text-[#495057] hover:border-[#212529] disabled:opacity-30 disabled:hover:border-[#E9ECEF] transition-colors"
-              >
-                <ChevronLeft size={16} />
-              </button>
-              <span className="text-sm text-[#495057] px-3">
-                Page {page} of {totalPages}
-              </span>
-              <button
-                onClick={() => setPage(p => Math.min(totalPages, p + 1))}
-                disabled={page === totalPages}
-                className="p-2 rounded-lg border border-[#E9ECEF] text-[#495057] hover:border-[#212529] disabled:opacity-30 disabled:hover:border-[#E9ECEF] transition-colors"
-              >
-                <ChevronRight size={16} />
-              </button>
-            </div>
-          )}
+          <AdminPagination
+            currentPage={page}
+            totalPages={totalPages}
+            onPageChange={setPage}
+          />
         </div>
       )}
+
+      {/* Bulk Action Toolbar */}
+      <BulkActionToolbar
+        selectedCount={selectedCount}
+        resourceType="property"
+        selectedIds={selectedIds}
+        onActionComplete={fetchProperties}
+        onClearSelection={clearSelection}
+      />
     </div>
   )
 }

@@ -59,9 +59,9 @@ export default function SecurityPage() {
     if (/[0-9]/.test(password)) strength++
     if (/[^A-Za-z0-9]/.test(password)) strength++
     
-    if (strength <= 2) return { strength: 33, label: 'Weak', color: 'bg-red-500' }
-    if (strength <= 3) return { strength: 66, label: 'Medium', color: 'bg-yellow-500' }
-    return { strength: 100, label: 'Strong', color: 'bg-green-500' }
+    if (strength <= 2) return { strength: 33, label: 'Weak', color: 'bg-[#E9ECEF]' }
+    if (strength <= 3) return { strength: 66, label: 'Medium', color: 'bg-[#ADB5BD]' }
+    return { strength: 100, label: 'Strong', color: 'bg-[#212529]' }
   }
 
   const passwordStrength = getPasswordStrength(newPassword)
@@ -138,9 +138,9 @@ export default function SecurityPage() {
                 <div className="flex items-center justify-between mb-1">
                   <span className="text-xs text-[#495057]">Password strength</span>
                   <span className={`text-xs font-medium ${
-                    passwordStrength.label === 'Strong' ? 'text-green-600' :
-                    passwordStrength.label === 'Medium' ? 'text-yellow-600' :
-                    'text-red-600'
+                    passwordStrength.label === 'Strong' ? 'text-[#212529]' :
+                    passwordStrength.label === 'Medium' ? 'text-[#495057]' :
+                    'text-[#ADB5BD]'
                   }`}>
                     {passwordStrength.label}
                   </span>
@@ -172,7 +172,7 @@ export default function SecurityPage() {
               placeholder="Confirm new password"
             />
             {confirmPassword && confirmPassword !== newPassword && (
-              <p className="mt-1 text-sm text-red-500">Passwords do not match</p>
+              <p className="mt-1 text-sm text-[#FF6B6B]">Passwords do not match</p>
             )}
           </div>
 
@@ -226,13 +226,13 @@ export default function SecurityPage() {
         <div className="space-y-3">
           <div className="flex items-center justify-between p-4 bg-[#F8F9FA] rounded-xl">
             <div className="flex items-center gap-3">
-              <CheckCircle className="h-5 w-5 text-green-500" />
+              <CheckCircle className="h-5 w-5 text-[#212529]" />
               <div>
                 <p className="font-medium text-[#212529]">Current Device</p>
                 <p className="text-sm text-[#495057]">This browser session</p>
               </div>
             </div>
-            <span className="text-xs text-green-600 font-medium">Active Now</span>
+            <span className="text-xs text-[#212529] font-medium">Active Now</span>
           </div>
         </div>
 
@@ -242,18 +242,18 @@ export default function SecurityPage() {
       </div>
 
       {/* Danger Zone */}
-      <div className="bg-white rounded-xl border-2 border-red-200 p-6">
+      <div className="bg-white rounded-xl border-2 border-[#FF6B6B] p-6">
         <div className="flex items-center gap-3 mb-4">
-          <div className="h-10 w-10 rounded-full bg-red-50 flex items-center justify-center">
-            <AlertTriangle className="h-5 w-5 text-red-500" />
+          <div className="h-10 w-10 rounded-full bg-[#FF6B6B]/10 flex items-center justify-center">
+            <AlertTriangle className="h-5 w-5 text-[#FF6B6B]" />
           </div>
           <div>
-            <h2 className="font-semibold text-red-600">Danger Zone</h2>
+            <h2 className="font-semibold text-[#FF6B6B]">Danger Zone</h2>
             <p className="text-sm text-[#495057]">Irreversible actions</p>
           </div>
         </div>
 
-        <button className="w-full py-3 border-2 border-red-200 text-red-600 rounded-xl font-medium hover:bg-red-50 transition-colors">
+        <button className="w-full py-3 border-2 border-[#FF6B6B] text-[#FF6B6B] rounded-xl font-medium hover:bg-[#FF6B6B]/10 transition-colors">
           Delete Account
         </button>
         <p className="mt-2 text-xs text-[#495057] text-center">

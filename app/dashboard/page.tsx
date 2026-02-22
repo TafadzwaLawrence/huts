@@ -145,7 +145,7 @@ export default function DashboardPage() {
           <div className="my-auto max-w-lg">
             {/* Badge */}
             <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/10 rounded-full px-4 py-2 mb-8">
-              <Sparkles size={14} className="text-yellow-400" />
+              <Sparkles size={14} className="text-white" />
               <span className="text-sm text-white/80 font-medium">Trusted by 2,000+ users in Zimbabwe</span>
             </div>
             
@@ -185,7 +185,7 @@ export default function DashboardPage() {
               
               <div className="flex items-start gap-1 mb-4">
                 {[...Array(5)].map((_, i) => (
-                  <Star key={i} size={14} className="fill-yellow-400 text-yellow-400" />
+                  <Star key={i} size={14} className="fill-white text-white" />
                 ))}
               </div>
               

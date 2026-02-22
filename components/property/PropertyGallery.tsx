@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from 'react'
 import Image from 'next/image'
 import { ChevronLeft, ChevronRight, X, Home, Grid3X3, Images, ZoomIn } from 'lucide-react'
+import { ICON_SIZES } from '@/lib/constants'
 
 interface PropertyImage {
   id: string
@@ -53,7 +54,7 @@ export default function PropertyGallery({ images, title }: PropertyGalleryProps)
   if (imageCount === 0) {
     return (
       <div className="w-full h-[300px] md:h-[450px] bg-gradient-to-br from-[#E9ECEF] to-[#DEE2E6] flex flex-col items-center justify-center">
-        <Home size={64} className="text-[#ADB5BD] mb-4" />
+        <Home size={ICON_SIZES['3xl']} className="text-[#ADB5BD] mb-4" />
         <p className="text-[#495057]">No photos available</p>
       </div>
     )
@@ -77,7 +78,7 @@ export default function PropertyGallery({ images, title }: PropertyGalleryProps)
           />
           <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors" />
           <button className="absolute bottom-4 right-4 bg-white/95 backdrop-blur-sm px-4 py-2.5 rounded-lg shadow-lg text-sm font-medium text-black hover:bg-white transition-all flex items-center gap-2">
-            <ZoomIn size={18} className="text-black" />
+            <ZoomIn size={ICON_SIZES.lg} className="text-black" />
             View photo
           </button>
         </div>
@@ -116,7 +117,7 @@ export default function PropertyGallery({ images, title }: PropertyGalleryProps)
           onClick={() => setShowGallery(true)}
           className="absolute bottom-4 right-4 bg-white/95 backdrop-blur-sm px-4 py-2.5 rounded-lg shadow-lg text-sm font-medium text-black hover:bg-white transition-all flex items-center gap-2"
         >
-          <Images size={18} className="text-black" />
+          <Images size={ICON_SIZES.lg} className="text-black" />
           View all {imageCount} photos
         </button>
         {renderGalleryModal()}
@@ -172,7 +173,7 @@ export default function PropertyGallery({ images, title }: PropertyGalleryProps)
           onClick={() => setShowGallery(true)}
           className="absolute bottom-4 right-4 bg-white/95 backdrop-blur-sm px-4 py-2.5 rounded-lg shadow-lg text-sm font-medium text-black hover:bg-white transition-all flex items-center gap-2"
         >
-          <Images size={18} className="text-black" />
+          <Images size={ICON_SIZES.lg} className="text-black" />
           View all {imageCount} photos
         </button>
         {renderGalleryModal()}
@@ -230,7 +231,7 @@ export default function PropertyGallery({ images, title }: PropertyGalleryProps)
           onClick={() => setShowGallery(true)}
           className="absolute bottom-4 right-4 bg-white/95 backdrop-blur-sm px-4 py-2.5 rounded-lg shadow-lg text-sm font-medium text-black hover:bg-white transition-all flex items-center gap-2"
         >
-          <Grid3X3 size={18} className="text-black" />
+          <Grid3X3 size={ICON_SIZES.lg} className="text-black" />
           View all {imageCount} photos
         </button>
         {renderGalleryModal()}
@@ -258,7 +259,7 @@ export default function PropertyGallery({ images, title }: PropertyGalleryProps)
             className="p-2 bg-white/10 rounded-full text-white hover:bg-white/20 transition-colors"
             aria-label="Close gallery"
           >
-            <X size={24} />
+            <X size={ICON_SIZES.xl} />
           </button>
         </div>
 
@@ -270,7 +271,7 @@ export default function PropertyGallery({ images, title }: PropertyGalleryProps)
             className="absolute left-4 md:left-8 p-3 bg-white/10 rounded-full text-white hover:bg-white/20 transition-colors z-10"
             aria-label="Previous image"
           >
-            <ChevronLeft size={28} />
+            <ChevronLeft size={ICON_SIZES['2xl']} />
           </button>
 
           {/* Image */}
@@ -293,7 +294,7 @@ export default function PropertyGallery({ images, title }: PropertyGalleryProps)
             className="absolute right-4 md:right-8 p-3 bg-white/10 rounded-full text-white hover:bg-white/20 transition-colors z-10"
             aria-label="Next image"
           >
-            <ChevronRight size={28} />
+            <ChevronRight size={ICON_SIZES['2xl']} />
           </button>
         </div>
 
@@ -389,7 +390,7 @@ export default function PropertyGallery({ images, title }: PropertyGalleryProps)
         onClick={() => setShowGallery(true)}
         className="absolute bottom-4 right-4 bg-white/95 backdrop-blur-sm px-4 py-2.5 rounded-lg shadow-lg text-sm font-medium text-black hover:bg-white transition-all flex items-center gap-2 border border-[#E9ECEF]"
       >
-        <Grid3X3 size={18} className="text-black" />
+        <Grid3X3 size={ICON_SIZES.lg} className="text-black" />
         Show all {imageCount} photos
       </button>
 

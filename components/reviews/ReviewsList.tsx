@@ -5,6 +5,7 @@ import { ReviewWithAuthor, ReviewSortOption } from '@/types/reviews'
 import ReviewCard from './ReviewCard'
 import { ChevronDown, Loader2 } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { ICON_SIZES } from '@/lib/constants'
 
 interface ReviewsListProps {
   propertyId: string
@@ -124,7 +125,7 @@ export default function ReviewsList({
             <span className="text-sm">
               {sortOptions.find((opt) => opt.value === sortBy)?.label}
             </span>
-            <ChevronDown size={16} className="text-[#495057]" />
+            <ChevronDown size={ICON_SIZES.md} className="text-[#495057]" />
           </button>
 
           {showSortMenu && (

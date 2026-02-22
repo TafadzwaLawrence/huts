@@ -1,19 +1,16 @@
 import { createClient, createAdminClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
 import Link from 'next/link'
-import type { LucideIcon } from 'lucide-react'
 import { 
   Building2, 
   Users, 
   ShieldCheck, 
   ShieldAlert,
   ShieldX,
-  MessageSquare,
   Star,
   ArrowUpRight,
-  Clock,
-  TrendingUp,
 } from 'lucide-react'
+import { AdminStatCard, AdminBadge } from '@/components/admin'
 
 const ADMIN_EMAILS = (process.env.ADMIN_EMAILS || 'chitangalawrence03@gmail.com').split(',').map(e => e.trim())
 
@@ -73,43 +70,43 @@ export default async function AdminOverviewPage() {
       {(pendingProperties || 0) > 0 && (
         <Link
           href="/admin/verification"
-          className="flex items-center gap-4 bg-amber-50 border border-amber-200 rounded-xl p-4 mb-6 group hover:border-amber-300 transition-colors"
+          className="flex items-center gap-4 bg-[#F8F9FA] border border-[#E9ECEF] rounded-xl p-4 mb-6 group hover:border-[#212529] transition-colors"
         >
-          <div className="w-10 h-10 bg-amber-100 rounded-xl flex items-center justify-center flex-shrink-0">
-            <ShieldAlert size={20} className="text-amber-600" />
+          <div className="w-10 h-10 bg-[#E9ECEF] rounded-xl flex items-center justify-center flex-shrink-0">
+            <ShieldAlert size={20} className="text-[#495057]" />
           </div>
           <div className="flex-1">
             <p className="text-sm font-semibold text-[#212529]">
               {pendingProperties} {pendingProperties === 1 ? 'property' : 'properties'} awaiting verification
             </p>
-            <p className="text-xs text-amber-700/70">Review and approve or reject pending listings</p>
+            <p className="text-xs text-[#495057]">Review and approve or reject pending listings</p>
           </div>
-          <ArrowUpRight size={16} className="text-amber-600 opacity-0 group-hover:opacity-100 transition-opacity" />
+          <ArrowUpRight size={16} className="text-[#495057] opacity-0 group-hover:opacity-100 transition-opacity" />
         </Link>
       )}
 
       {/* Stats Grid */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-8">
-        <StatCard
+        <AdminStatCard
           label="Total Properties"
           value={totalProperties || 0}
           icon={Building2}
           href="/admin/properties"
         />
-        <StatCard
+        <AdminStatCard
           label="Pending Review"
           value={pendingProperties || 0}
           icon={ShieldAlert}
           href="/admin/verification"
           highlight={!!pendingProperties}
         />
-        <StatCard
+        <AdminStatCard
           label="Total Users"
           value={totalUsers || 0}
           icon={Users}
           href="/admin/users"
         />
-        <StatCard
+        <AdminStatCard
           label="Reviews"
           value={totalReviews || 0}
           icon={Star}
@@ -130,7 +127,7 @@ export default async function AdminOverviewPage() {
         <div className="bg-white rounded-xl border border-[#E9ECEF] overflow-hidden">
           <div className="flex items-center justify-between px-5 py-4 border-b border-[#F1F3F5]">
             <h2 className="text-sm font-semibold text-[#212529] flex items-center gap-2">
-              <ShieldAlert size={15} className="text-amber-500" />
+              <ShieldAlert size={15} className="text-[#495057]" />
               Pending Verification
             </h2>
             <Link href="/admin/verification" className="text-xs text-[#495057] hover:text-[#212529] font-medium transition-colors">
@@ -148,13 +145,12 @@ export default async function AdminOverviewPage() {
                     </p>
                   </div>
                   <div className="flex items-center gap-2 flex-shrink-0">
-                    <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase ${
-                      property.listing_type === 'sale' 
-                        ? 'bg-[#212529] text-white' 
-                        : 'bg-[#F8F9FA] text-[#495057]'
-                    }`}>
-                      {property.listing_type === 'sale' ? 'Sale' : 'Rent'}
-                    </span>
+                    <AdminBadge 
+                      variant="warning" 
+                      label={property.listing_type === 'sale' ? 'Sale' : 'Rent'}
+                      showIcon={false}
+                      size="sm"
+                    />
                     <Link
                       href={`/admin/verification`}
                       className="text-[11px] font-medium text-[#495057] hover:text-[#212529] border border-[#E9ECEF] hover:border-[#212529] px-2.5 py-1 rounded-md transition-colors"
@@ -216,43 +212,6 @@ export default async function AdminOverviewPage() {
       </div>
     </div>
   )
-}
-
-function StatCard({ 
-  label, value, icon: Icon, href, highlight 
-}: { 
-  label: string
-  value: number
-  icon: LucideIcon
-  href?: string
-  highlight?: boolean
-}) {
-  const content = (
-    <div className={`group bg-white rounded-xl border p-5 transition-all ${
-      highlight 
-        ? 'border-amber-200 hover:border-amber-400' 
-        : 'border-[#E9ECEF] hover:border-[#212529]'
-    } ${href ? 'hover:shadow-md cursor-pointer' : ''}`}>
-      <div className="flex items-center justify-between mb-3">
-        <div className={`w-9 h-9 rounded-lg flex items-center justify-center transition-colors ${
-          highlight 
-            ? 'bg-amber-50 group-hover:bg-amber-500' 
-            : 'bg-[#F8F9FA] group-hover:bg-[#212529]'
-        }`}>
-          <Icon size={17} className={`transition-colors ${
-            highlight
-              ? 'text-amber-600 group-hover:text-white'
-              : 'text-[#495057] group-hover:text-white'
-          }`} />
-        </div>
-        {href && <ArrowUpRight size={14} className="text-[#ADB5BD] opacity-0 group-hover:opacity-100 transition-opacity" />}
-      </div>
-      <p className="text-2xl font-bold text-[#212529] tabular-nums">{value}</p>
-      <p className="text-xs text-[#ADB5BD] font-medium mt-0.5">{label}</p>
-    </div>
-  )
-
-  return href ? <Link href={href}>{content}</Link> : content
 }
 
 function MiniStat({ label, value }: { label: string; value: number }) {

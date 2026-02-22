@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { toast } from 'sonner'
 import { Send, MessageSquare, Calendar, Home, DollarSign } from 'lucide-react'
+import { ICON_SIZES } from '@/lib/constants'
 import Link from 'next/link'
 
 interface InquiryFormProps {
@@ -93,7 +94,7 @@ export default function InquiryForm({ propertyId }: InquiryFormProps) {
                     : 'bg-[#F8F9FA] text-[#495057] hover:bg-[#E9ECEF] border border-[#E9ECEF]'
                 }`}
               >
-                <msg.icon size={12} />
+                <msg.icon size={ICON_SIZES.xs} />
                 {msg.label}
               </button>
             ))}
@@ -123,7 +124,7 @@ export default function InquiryForm({ propertyId }: InquiryFormProps) {
             disabled={sending || !message.trim()}
             className="group w-full py-4 bg-[#212529] text-white rounded-xl font-semibold hover:bg-black hover:-translate-y-0.5 hover:shadow-lg transition-all mt-3 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-none flex items-center justify-center gap-2"
           >
-            <Send size={16} className={sending ? 'animate-pulse' : 'group-hover:translate-x-1 transition-transform'} />
+            <Send size={ICON_SIZES.md} className={sending ? 'animate-pulse' : 'group-hover:translate-x-1 transition-transform'} />
             {sending ? 'Sending...' : 'Send Message'}
           </button>
         ) : (
@@ -139,7 +140,7 @@ export default function InquiryForm({ propertyId }: InquiryFormProps) {
       {/* Trust badges */}
       <div className="flex items-center justify-center gap-4 mt-5 pt-5 border-t border-[#E9ECEF]">
         <div className="flex items-center gap-1.5 text-xs text-[#ADB5BD]">
-          <MessageSquare size={12} />
+          <MessageSquare size={ICON_SIZES.xs} />
           <span>Free to message</span>
         </div>
         <div className="flex items-center gap-1.5 text-xs text-[#ADB5BD]">

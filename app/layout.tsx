@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { Suspense } from 'react'
+import { headers } from 'next/headers'
 import './globals.css'
 import { Navbar } from '@/components/layout/Navbar'
 import { NavbarSkeleton } from '@/components/layout/NavbarSkeleton'
@@ -22,7 +23,26 @@ export const metadata: Metadata = {
     default: 'Huts — Find Your Perfect Rental in Zimbabwe',
   },
   description: 'Find apartments, houses, and rooms for rent or sale across Zimbabwe. Browse verified properties in Harare, Bulawayo, and beyond. Your home is waiting.',
-  keywords: ['Zimbabwe rentals', 'Harare apartments', 'Bulawayo houses', 'property rental Zimbabwe', 'find accommodation Zimbabwe', 'rent house Zimbabwe', 'apartments for rent Harare', 'homes for sale Zimbabwe', 'buy property Zimbabwe', 'Zimbabwe real estate'],
+  keywords: [
+    'Zimbabwe rentals',
+    'properties for rent in Zimbabwe',
+    'Harare apartments',
+    'Bulawayo houses',
+    'property rental Zimbabwe',
+    'find accommodation Zimbabwe',
+    'rent house Zimbabwe',
+    'apartments for rent Harare',
+    'houses for rent Harare',
+    'rooms for rent Zimbabwe',
+    'rental properties Zimbabwe',
+    'Zimbabwe property listings',
+    'rent property Harare',
+    'homes for sale Zimbabwe',
+    'buy property Zimbabwe',
+    'Zimbabwe real estate',
+    'properties for rental in zim',
+    'accommodation in Zimbabwe',
+  ],
   icons: {
     icon: [
       { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
@@ -59,22 +79,31 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+  // Check if current route is admin route
+  const headersList = headers()
+  const pathname = headersList.get('x-pathname') || ''
+  const isAdminRoute = pathname.startsWith('/admin')
+
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className} suppressHydrationWarning>
         <Suspense fallback={null}>
             <NProgressProvider>
-              <a href="#main-content" className="skip-link">
-                Skip to main content
-              </a>
-              <Suspense fallback={<NavbarSkeleton />}>
-                <Navbar />
-              </Suspense>
+              {!isAdminRoute && (
+                <a href="#main-content" className="skip-link">
+                  Skip to main content
+                </a>
+              )}
+              {!isAdminRoute && (
+                <Suspense fallback={<NavbarSkeleton />}>
+                  <Navbar />
+                </Suspense>
+              )}
               <main id="main-content" className="min-h-screen">
                 {children}
               </main>
-              <Footer />
-              <FloatingChatWidget />
+              {!isAdminRoute && <Footer />}
+              {!isAdminRoute && <FloatingChatWidget />}
               <Toaster position="top-center" />
             </NProgressProvider>
           </Suspense>

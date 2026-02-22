@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient, createAdminClient } from '@/lib/supabase/server'
+import { logAdminActivity } from '@/lib/admin'
 
 export const dynamic = 'force-dynamic'
 
@@ -92,6 +93,18 @@ export async function PATCH(request: NextRequest) {
       .eq('id', propertyId)
 
     if (error) throw error
+
+    // Log the admin action
+    await logAdminActivity({
+      adminId: user.id,
+      action: action === 'approve' ? 'property_approved' : 'property_rejected',
+      resourceType: 'property',
+      resourceId: propertyId,
+      metadata: {
+        reason: reason || null,
+        verificationStatus: updateData.verification_status,
+      },
+    })
 
     return NextResponse.json({ success: true })
   } catch (error) {

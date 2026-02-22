@@ -8,6 +8,7 @@ import {
 } from 'lucide-react'
 import { createClient } from '@/lib/supabase/server'
 import { formatPrice } from '@/lib/utils'
+import { ICON_SIZES } from '@/lib/brand'
 
 export const metadata: Metadata = {
   title: 'Student Housing Near Universities in Zimbabwe | Huts',
@@ -125,7 +126,7 @@ export default async function StudentHousingPage() {
           <div className="max-w-3xl">
             {/* Badge */}
             <div className="inline-flex items-center gap-2 bg-white/[0.08] backdrop-blur-sm border border-white/[0.1] rounded-full px-4 py-2 mb-8">
-              <GraduationCap size={16} className="text-white/70" />
+              <GraduationCap size={ICON_SIZES.md} className="text-white/70" />
               <span className="text-xs font-bold uppercase tracking-widest text-white/80">Student Accommodation</span>
             </div>
 
@@ -145,16 +146,16 @@ export default async function StudentHousingPage() {
                 href="/search?type=rent&studentHousingOnly=true"
                 className="group inline-flex items-center justify-center gap-2.5 bg-white text-[#212529] px-8 py-4 rounded-xl font-bold text-base hover:-translate-y-0.5 hover:shadow-2xl transition-all"
               >
-                <Search size={18} />
+                <Search size={ICON_SIZES.lg} />
                 Browse Student Housing
-                <ArrowRight size={18} className="group-hover:translate-x-0.5 transition-transform" />
+                <ArrowRight size={ICON_SIZES.lg} className="group-hover:translate-x-0.5 transition-transform" />
               </Link>
               <a
                 href="#universities"
                 className="inline-flex items-center justify-center gap-2 bg-white/[0.08] border border-white/[0.12] text-white px-8 py-4 rounded-xl font-semibold hover:bg-white/[0.12] transition-all"
               >
                 Find by University
-                <ChevronDown size={16} />
+                <ChevronDown size={ICON_SIZES.md} />
               </a>
             </div>
 
@@ -184,7 +185,7 @@ export default async function StudentHousingPage() {
         <div className="container-main relative">
           <div className="text-center mb-14">
             <div className="inline-flex items-center gap-2 bg-white border border-[#E9ECEF] rounded-full px-4 py-1.5 mb-4">
-              <Sofa size={13} className="text-[#495057]" />
+              <Sofa size={ICON_SIZES.xs} className="text-[#495057]" />
               <span className="text-[10px] font-bold text-[#495057] uppercase tracking-widest">Student Features</span>
             </div>
             <h2 className="text-3xl md:text-4xl font-bold text-[#212529] tracking-tight mb-4">
@@ -215,7 +216,7 @@ export default async function StudentHousingPage() {
             ].map(({ icon: Icon, title, description }, idx) => (
               <div key={idx} className="group bg-white p-8 rounded-2xl border-2 border-[#E9ECEF] hover:border-[#212529] hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
                 <div className="w-14 h-14 bg-[#F8F9FA] group-hover:bg-[#212529] rounded-xl flex items-center justify-center mb-6 transition-colors duration-300">
-                  <Icon size={24} className="text-[#495057] group-hover:text-white transition-colors" />
+                  <Icon size={ICON_SIZES.xl} className="text-[#495057] group-hover:text-white transition-colors" />
                 </div>
                 <h3 className="text-xl font-bold text-[#212529] mb-3">{title}</h3>
                 <p className="text-[#495057] leading-relaxed">{description}</p>
@@ -230,7 +231,7 @@ export default async function StudentHousingPage() {
         <div className="container-main">
           <div className="text-center mb-14">
             <div className="inline-flex items-center gap-2 bg-[#212529] rounded-full px-5 py-2.5 mb-6">
-              <MapPin size={14} className="text-white" />
+              <MapPin size={ICON_SIZES.sm} className="text-white" />
               <span className="text-xs font-semibold tracking-widest uppercase text-white">By Campus</span>
             </div>
             <h2 className="text-3xl md:text-4xl font-bold text-[#212529] tracking-tight mb-4">
@@ -254,7 +255,7 @@ export default async function StudentHousingPage() {
 
                 <div className="relative flex items-start gap-4">
                   <div className="w-11 h-11 bg-[#F8F9FA] group-hover:bg-[#212529] rounded-xl flex items-center justify-center flex-shrink-0 transition-colors duration-300">
-                    <Icon size={20} className="text-[#495057] group-hover:text-white transition-colors" />
+                    <Icon size={ICON_SIZES.lg} className="text-[#495057] group-hover:text-white transition-colors" />
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-0.5">
@@ -262,12 +263,12 @@ export default async function StudentHousingPage() {
                       <span className="text-[10px] font-bold text-[#ADB5BD] bg-[#F8F9FA] px-1.5 py-0.5 rounded flex-shrink-0">{short}</span>
                     </div>
                     <div className="flex items-center gap-1.5 text-sm text-[#495057]">
-                      <MapPin size={12} className="text-[#ADB5BD] flex-shrink-0" />
+                      <MapPin size={ICON_SIZES.xs} className="text-[#ADB5BD] flex-shrink-0" />
                       <span className="truncate">{area !== city ? `${area}, ${city}` : city}</span>
                     </div>
                     <div className="mt-2.5 pt-2.5 border-t border-[#E9ECEF] flex items-center justify-between opacity-60 group-hover:opacity-100 transition-opacity">
                       <span className="text-[11px] font-semibold text-[#495057]">Browse rentals nearby</span>
-                      <ArrowRight size={13} className="text-[#212529] group-hover:translate-x-1 transition-transform" />
+                      <ArrowRight size={ICON_SIZES.xs} className="text-[#212529] group-hover:translate-x-1 transition-transform" />
                     </div>
                   </div>
                 </div>
@@ -284,7 +285,7 @@ export default async function StudentHousingPage() {
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-6 mb-10 md:mb-14">
             <div>
               <div className="inline-flex items-center gap-2 bg-white border border-[#E9ECEF] rounded-full px-4 py-1.5 mb-4">
-                <GraduationCap size={13} className="text-[#495057]" />
+                <GraduationCap size={ICON_SIZES.xs} className="text-[#495057]" />
                 <span className="text-[10px] font-bold text-[#495057] uppercase tracking-widest">
                   {isShowingFallback ? 'Affordable Rentals' : 'Student Housing'}
                 </span>
@@ -303,7 +304,7 @@ export default async function StudentHousingPage() {
               className="group inline-flex items-center gap-2.5 text-sm font-semibold text-[#212529] border-2 border-[#E9ECEF] px-5 py-2.5 rounded-full hover:border-[#212529] hover:bg-[#212529] hover:text-white transition-all duration-200"
             >
               <span>View all</span>
-              <ArrowRight size={15} className="group-hover:translate-x-0.5 transition-transform" />
+              <ArrowRight size={ICON_SIZES.sm} className="group-hover:translate-x-0.5 transition-transform" />
             </Link>
           </div>
 
@@ -335,7 +336,7 @@ export default async function StudentHousingPage() {
                           </>
                         ) : (
                           <div className="w-full h-full flex items-center justify-center">
-                            <Home className="text-[#ADB5BD]" size={48} />
+                            <Home className="text-[#ADB5BD]" size={ICON_SIZES['3xl']} />
                           </div>
                         )}
 
@@ -352,17 +353,17 @@ export default async function StudentHousingPage() {
                           <div className="absolute top-3 left-3 flex flex-wrap gap-1.5">
                             {property.furnished && (
                               <div className="bg-[#212529]/90 backdrop-blur-sm text-white px-2 py-1 rounded text-[10px] font-bold flex items-center gap-1">
-                                <Sofa size={10} /> Furnished
+                                <Sofa size={ICON_SIZES.xs} /> Furnished
                               </div>
                             )}
                             {property.shared_rooms && (
                               <div className="bg-[#212529]/90 backdrop-blur-sm text-white px-2 py-1 rounded text-[10px] font-bold flex items-center gap-1">
-                                <Users size={10} /> Shared
+                                <Users size={ICON_SIZES.xs} /> Shared
                               </div>
                             )}
                             {property.utilities_included && (
                               <div className="bg-[#212529]/90 backdrop-blur-sm text-white px-2 py-1 rounded text-[10px] font-bold flex items-center gap-1">
-                                <Zap size={10} /> Utilities
+                                <Zap size={ICON_SIZES.xs} /> Utilities
                               </div>
                             )}
                           </div>
@@ -375,21 +376,21 @@ export default async function StudentHousingPage() {
                           {property.title}
                         </h3>
                         <div className="flex items-center text-[#495057] text-sm mb-4">
-                          <MapPin size={14} className="mr-1.5 flex-shrink-0 text-[#ADB5BD]" />
+                          <MapPin size={ICON_SIZES.sm} className="mr-1.5 flex-shrink-0 text-[#ADB5BD]" />
                           <span className="truncate">{property.neighborhood ? `${property.neighborhood}, ` : ''}{property.city}</span>
                         </div>
                         <div className="flex items-center gap-4 text-sm text-[#495057] pt-4 border-t border-[#F1F3F5]">
                           <span className="flex items-center gap-1.5">
-                            <Bed size={15} className="text-[#ADB5BD]" />
+                            <Bed size={ICON_SIZES.sm} className="text-[#ADB5BD]" />
                             <span className="font-semibold text-[#212529]">{property.beds}</span>
                           </span>
                           <span className="flex items-center gap-1.5">
-                            <Bath size={15} className="text-[#ADB5BD]" />
+                            <Bath size={ICON_SIZES.sm} className="text-[#ADB5BD]" />
                             <span className="font-semibold text-[#212529]">{property.baths}</span>
                           </span>
                           {property.sqft && (
                             <span className="flex items-center gap-1.5">
-                              <Square size={15} className="text-[#ADB5BD]" />
+                              <Square size={ICON_SIZES.sm} className="text-[#ADB5BD]" />
                               <span className="font-semibold text-[#212529]">{property.sqft}</span>
                             </span>
                           )}
@@ -405,13 +406,13 @@ export default async function StudentHousingPage() {
               <div className="bg-white border-2 border-dashed border-[#E9ECEF] rounded-2xl p-12 md:p-16 text-center">
                 <div className="flex justify-center items-center gap-4 mb-8">
                   <div className="w-16 h-16 bg-[#F8F9FA] rounded-2xl flex items-center justify-center border border-[#E9ECEF] rotate-[-6deg]">
-                    <GraduationCap size={28} className="text-[#ADB5BD]" />
+                    <GraduationCap size={ICON_SIZES['2xl']} className="text-[#ADB5BD]" />
                   </div>
                   <div className="w-20 h-20 bg-[#212529] rounded-2xl flex items-center justify-center shadow-xl">
-                    <Home size={36} className="text-white" />
+                    <Home size={ICON_SIZES['3xl']} className="text-white" />
                   </div>
                   <div className="w-16 h-16 bg-[#F8F9FA] rounded-2xl flex items-center justify-center border border-[#E9ECEF] rotate-[6deg]">
-                    <MapPin size={28} className="text-[#ADB5BD]" />
+                    <MapPin size={ICON_SIZES['2xl']} className="text-[#ADB5BD]" />
                   </div>
                 </div>
                 <h3 className="text-2xl md:text-3xl font-bold text-[#212529] mb-3">No student housing listed yet</h3>
@@ -424,13 +425,13 @@ export default async function StudentHousingPage() {
                     className="group inline-flex items-center justify-center gap-2 bg-[#212529] text-white px-8 py-4 rounded-xl font-semibold hover:bg-black hover:shadow-xl hover:-translate-y-0.5 transition-all"
                   >
                     List Student Housing
-                    <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+                    <ArrowRight size={ICON_SIZES.lg} className="group-hover:translate-x-1 transition-transform" />
                   </Link>
                   <Link
                     href="/search?type=rent"
                     className="inline-flex items-center justify-center gap-2 bg-white text-[#212529] border-2 border-[#E9ECEF] px-8 py-4 rounded-xl font-semibold hover:border-[#212529] hover:shadow-md transition-all"
                   >
-                    <Search size={18} />
+                    <Search size={ICON_SIZES.lg} />
                     Browse All Rentals
                   </Link>
                 </div>
@@ -463,7 +464,7 @@ export default async function StudentHousingPage() {
             ].map(({ icon: Icon, title, desc }, idx) => (
               <div key={idx} className="group flex items-start gap-4 p-5 rounded-xl border border-[#E9ECEF] hover:border-[#212529] hover:shadow-lg transition-all duration-300">
                 <div className="w-10 h-10 bg-[#F8F9FA] group-hover:bg-[#212529] rounded-lg flex items-center justify-center flex-shrink-0 transition-colors duration-300">
-                  <Icon size={18} className="text-[#495057] group-hover:text-white transition-colors" />
+                  <Icon size={ICON_SIZES.lg} className="text-[#495057] group-hover:text-white transition-colors" />
                 </div>
                 <div>
                   <h3 className="font-bold text-[#212529] mb-1">{title}</h3>
@@ -514,7 +515,7 @@ export default async function StudentHousingPage() {
                 <details key={idx} className="group bg-white border-2 border-[#E9ECEF] rounded-xl hover:border-[#212529] transition-colors">
                   <summary className="flex items-center justify-between cursor-pointer p-6 font-bold text-[#212529] list-none">
                     <span className="pr-4">{q}</span>
-                    <ChevronDown size={18} className="text-[#ADB5BD] group-open:rotate-180 transition-transform flex-shrink-0" />
+                    <ChevronDown size={ICON_SIZES.lg} className="text-[#ADB5BD] group-open:rotate-180 transition-transform flex-shrink-0" />
                   </summary>
                   <div className="px-6 pb-6 pt-0">
                     <p className="text-[#495057] leading-relaxed">{a}</p>
@@ -533,7 +534,7 @@ export default async function StudentHousingPage() {
 
         <div className="container-main relative">
           <div className="max-w-3xl mx-auto text-center">
-            <GraduationCap size={40} className="mx-auto mb-6 text-white/30" />
+            <GraduationCap size={ICON_SIZES['3xl']} className="mx-auto mb-6 text-white/30" />
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-6">
               Ready to find your
               <br />
@@ -549,7 +550,7 @@ export default async function StudentHousingPage() {
                 className="group inline-flex items-center justify-center gap-2.5 bg-white text-[#212529] px-10 py-4 rounded-xl font-bold text-base hover:-translate-y-0.5 hover:shadow-2xl transition-all"
               >
                 Start Searching
-                <ArrowRight size={18} className="group-hover:translate-x-0.5 transition-transform" />
+                <ArrowRight size={ICON_SIZES.lg} className="group-hover:translate-x-0.5 transition-transform" />
               </Link>
               <Link
                 href="/dashboard/new-property"
@@ -567,7 +568,7 @@ export default async function StudentHousingPage() {
                 { icon: GraduationCap, text: 'Campus-Nearby' },
               ].map(({ icon: Icon, text }) => (
                 <div key={text} className="flex items-center gap-1.5 text-white/30">
-                  <Icon size={13} />
+                  <Icon size={ICON_SIZES.xs} />
                   <span>{text}</span>
                 </div>
               ))}

@@ -20,6 +20,7 @@ import {
 import dynamic from 'next/dynamic'
 import { createClient } from '@/lib/supabase/client'
 import { formatPrice, formatSalePrice } from '@/lib/utils'
+import { ICON_SIZES } from '@/lib/constants'
 
 interface Property {
   id: string
@@ -331,7 +332,7 @@ export default function SearchPage() {
           <div className="flex-1 flex flex-col sm:flex-row items-stretch rounded-full bg-[#F8F9FA] border border-[#E9ECEF] hover:bg-[#F1F3F5] focus-within:bg-white focus-within:border-[#212529] focus-within:ring-4 focus-within:ring-black/[0.04] transition-all duration-200 overflow-hidden">
             {/* Location Input */}
             <div className="flex-1 flex items-center gap-3 pl-4 sm:pl-5 pr-3 py-3 sm:py-3.5 group">
-              <MapPin size={18} className="text-[#ADB5BD] group-focus-within:text-[#212529] transition-colors flex-shrink-0" />
+              <MapPin size={ICON_SIZES.lg} className="text-[#ADB5BD] group-focus-within:text-[#212529] transition-colors flex-shrink-0" />
               <input
                 type="text"
                 placeholder="City, neighborhood, or address..."
@@ -344,7 +345,7 @@ export default function SearchPage() {
                   onClick={() => setSearchQuery('')}
                   className="p-1 hover:bg-[#E9ECEF] rounded-full transition-colors flex-shrink-0"
                 >
-                  <X size={14} className="text-[#495057]" />
+                  <X size={ICON_SIZES.sm} className="text-[#495057]" />
                 </button>
               )}
             </div>
@@ -356,7 +357,7 @@ export default function SearchPage() {
 
             {/* Type Selector */}
             <div className="relative flex items-center sm:min-w-[170px] px-4 py-3 sm:py-3.5 border-t sm:border-t-0 border-[#E9ECEF] sm:border-none">
-              <Home size={18} className="text-[#ADB5BD] flex-shrink-0 mr-3" />
+              <Home size={ICON_SIZES.lg} className="text-[#ADB5BD] flex-shrink-0 mr-3" />
               <select
                 value={filters.propertyType}
                 onChange={(e) => setFilters({ ...filters, propertyType: e.target.value })}
@@ -371,7 +372,7 @@ export default function SearchPage() {
                 <option value="room">Room</option>
                 <option value="student">Student Housing</option>
               </select>
-              <ChevronDown size={14} className="text-[#ADB5BD] flex-shrink-0 pointer-events-none absolute right-4" />
+              <ChevronDown size={ICON_SIZES.sm} className="text-[#ADB5BD] flex-shrink-0 pointer-events-none absolute right-4" />
             </div>
 
             {/* Search Button - integrated pill */}
@@ -381,7 +382,7 @@ export default function SearchPage() {
                 onClick={() => {/* Search triggers reactively */}}
                 className="flex items-center justify-center gap-2 px-5 py-2.5 bg-[#212529] text-white font-semibold text-sm rounded-full hover:bg-black active:scale-[0.97] transition-all shadow-sm"
               >
-                <Search size={15} />
+                <Search size={ICON_SIZES.sm} />
                 Search
               </button>
             </div>
@@ -399,7 +400,7 @@ export default function SearchPage() {
                     : 'bg-[#F8F9FA] text-[#495057] border border-[#E9ECEF] hover:border-[#ADB5BD] hover:text-[#212529]'
               }`}
             >
-              <SlidersHorizontal size={15} />
+              <SlidersHorizontal size={ICON_SIZES.sm} />
               <span className="hidden sm:inline">Filters</span>
               {activeFilterCount > 0 && (
                 <span className={`inline-flex items-center justify-center min-w-[20px] h-5 rounded-full text-[10px] font-bold px-1 ${
@@ -417,7 +418,7 @@ export default function SearchPage() {
                   : 'bg-[#F8F9FA] text-[#495057] border border-[#E9ECEF] hover:border-[#ADB5BD] hover:text-[#212529]'
               }`}
             >
-              {showMap ? <Grid3x3 size={15} /> : <MapIcon size={15} />}
+              {showMap ? <Grid3x3 size={ICON_SIZES.sm} /> : <MapIcon size={ICON_SIZES.sm} />}
               <span className="hidden sm:inline">{showMap ? 'List' : 'Map'}</span>
             </button>
           </div>
@@ -525,7 +526,7 @@ export default function SearchPage() {
                 })}
                 className="mt-4 flex items-center gap-1.5 text-sm text-[#495057] hover:text-[#212529] font-medium transition-colors group"
               >
-                <X size={14} className="group-hover:rotate-90 transition-transform" />
+                <X size={ICON_SIZES.sm} className="group-hover:rotate-90 transition-transform" />
                 Clear all filters
               </button>
             )}
@@ -574,7 +575,7 @@ export default function SearchPage() {
               <div className="flex flex-col items-center justify-center py-32 px-4">
                 <div className="flex items-center justify-center">
                   <div className="w-20 h-20 bg-[#F8F9FA] rounded-2xl flex items-center justify-center border-2 border-[#E9ECEF] shadow-sm">
-                    <Home size={40} className="text-[#495057]" />
+                    <Home size={ICON_SIZES['3xl']} className="text-[#495057]" />
                   </div>
                 </div>
                 
@@ -675,7 +676,7 @@ function PropertyListCard({ property }: { property: Property }) {
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center">
-            <Home className="text-[#ADB5BD]" size={48} />
+            <Home className="text-[#ADB5BD]" size={ICON_SIZES['3xl']} />
           </div>
         )}
         
@@ -703,7 +704,7 @@ function PropertyListCard({ property }: { property: Property }) {
           className="absolute top-3 right-3 p-2 bg-white/95 rounded-full hover:bg-white hover:scale-110 transition-all duration-200 min-w-[40px] min-h-[40px] flex items-center justify-center shadow-sm"
           aria-label="Save property"
         >
-          <Heart size={18} className="text-[#212529]" />
+          <Heart size={ICON_SIZES.lg} className="text-[#212529]" />
         </button>
 
         {/* Property Type Badge */}
@@ -723,7 +724,7 @@ function PropertyListCard({ property }: { property: Property }) {
         
         {/* Location */}
         <div className="flex items-center text-[#495057] text-sm mb-4">
-          <MapPin size={14} className="mr-1.5 flex-shrink-0" />
+          <MapPin size={ICON_SIZES.sm} className="mr-1.5 flex-shrink-0" />
           <span className="line-clamp-1">
             {property.neighborhood ? `${property.neighborhood}, ` : ''}{property.city}
           </span>
@@ -732,18 +733,18 @@ function PropertyListCard({ property }: { property: Property }) {
         {/* Features */}
         <div className="flex items-center gap-4 text-sm text-[#495057] pt-3 border-t border-[#E9ECEF]">
           <div className="flex items-center gap-1.5">
-            <Bed size={16} className="text-[#495057]" />
+            <Bed size={ICON_SIZES.md} className="text-[#495057]" />
             <span className="font-medium">{property.beds}</span>
             <span className="text-[#ADB5BD]">bed</span>
           </div>
           <div className="flex items-center gap-1.5">
-            <Bath size={16} className="text-[#495057]" />
+            <Bath size={ICON_SIZES.md} className="text-[#495057]" />
             <span className="font-medium">{property.baths}</span>
             <span className="text-[#ADB5BD]">bath</span>
           </div>
           {property.sqft && property.sqft > 0 && (
             <div className="flex items-center gap-1.5">
-              <Square size={16} className="text-[#495057]" />
+              <Square size={ICON_SIZES.md} className="text-[#495057]" />
               <span className="font-medium">{property.sqft.toLocaleString()}</span>
               <span className="text-[#ADB5BD]">sqft</span>
             </div>

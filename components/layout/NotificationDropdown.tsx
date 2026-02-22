@@ -39,13 +39,13 @@ function timeAgo(dateString: string): string {
 function getNotificationIcon(type: string) {
   switch (type) {
     case 'message':
-      return <MessageSquare size={16} className="text-blue-500" />
+      return <MessageSquare size={16} className="text-[#212529]" />
     case 'inquiry':
-      return <FileQuestion size={16} className="text-amber-500" />
+      return <FileQuestion size={16} className="text-[#212529]" />
     case 'review':
-      return <Star size={16} className="text-yellow-500" />
+      return <Star size={16} className="text-[#212529]" />
     case 'property_update':
-      return <Home size={16} className="text-green-500" />
+      return <Home size={16} className="text-[#212529]" />
     default:
       return <Bell size={16} className="text-[#495057]" />
   }
@@ -238,7 +238,7 @@ export function NotificationDropdown() {
                     key={notification.id}
                     onClick={() => handleNotificationClick(notification)}
                     className={`w-full flex items-start gap-3 px-4 py-3 hover:bg-[#F8F9FA] transition-colors border-b border-[#E9ECEF] last:border-b-0 text-left ${
-                      !notification.read_at ? 'bg-blue-50/50' : ''
+                      !notification.read_at ? 'bg-[#F8F9FA]/50' : ''
                     }`}
                   >
                     <div className="w-8 h-8 rounded-full bg-[#F8F9FA] flex items-center justify-center flex-shrink-0 mt-0.5">

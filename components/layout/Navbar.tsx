@@ -6,6 +6,7 @@ import { MobileMenu } from './MobileMenu'
 import { NotificationDropdown } from './NotificationDropdown'
 import { UserMenu } from './UserMenu'
 import { ScrollHeader, NavLinks } from './NavbarClient'
+import { ICON_SIZES } from '@/lib/constants'
 
 export async function Navbar() {
   const supabase = await createClient()
@@ -67,13 +68,12 @@ export async function Navbar() {
           {/* Right Actions - Desktop */}
           <div className="hidden md:flex items-center gap-1.5">
             {user ? (
-              <>
-                <Link
+              <>                <Link
                   href="/search"
                   className="p-2 rounded-lg text-[#495057] hover:text-[#212529] hover:bg-[#F8F9FA] transition-colors"
                   aria-label="Search properties"
                 >
-                  <Search size={18} />
+                  <Search size={ICON_SIZES.lg} />
                 </Link>
 
                 <NotificationDropdown />
@@ -83,7 +83,7 @@ export async function Navbar() {
                     href="/dashboard/new-property"
                     className="inline-flex items-center gap-1.5 text-sm font-semibold text-white bg-[#212529] ml-1 px-3.5 py-2 rounded-lg hover:bg-black transition-colors"
                   >
-                    <Plus size={16} strokeWidth={2.5} />
+                    <Plus size={ICON_SIZES.md} strokeWidth={2.5} />
                     <span>New</span>
                   </Link>
                 )}
@@ -110,7 +110,7 @@ export async function Navbar() {
                   href="/dashboard/new-property"
                   className="inline-flex items-center gap-1.5 text-sm font-semibold text-white bg-[#212529] px-4 py-2 rounded-lg hover:bg-black transition-colors"
                 >
-                  <Plus size={16} strokeWidth={2.5} />
+                  <Plus size={ICON_SIZES.md} strokeWidth={2.5} />
                   List Property
                 </Link>
               </>
@@ -124,7 +124,7 @@ export async function Navbar() {
               className="p-2.5 text-[#495057] hover:text-[#212529] transition-colors"
               aria-label="Search"
             >
-              <Search size={20} />
+              <Search size={ICON_SIZES.lg} />
             </Link>
             {user && (
               <Link
@@ -132,7 +132,7 @@ export async function Navbar() {
                 className="p-2.5 text-[#495057] hover:text-[#212529] transition-colors"
                 aria-label="Saved properties"
               >
-                <Heart size={20} />
+                <Heart size={ICON_SIZES.lg} />
               </Link>
             )}
             <MobileMenu

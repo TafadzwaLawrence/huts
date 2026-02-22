@@ -7,6 +7,7 @@ import RatingDistribution from './RatingDistribution'
 import ReviewsList from './ReviewsList'
 import ReviewForm from './ReviewForm'
 import { cn } from '@/lib/utils'
+import { ICON_SIZES } from '@/lib/constants'
 
 interface ReviewsSectionProps {
   propertyId: string
@@ -80,7 +81,7 @@ export default function ReviewsSection({
                   </span>
                   <RatingStars
                     rating={stats.averageRating}
-                    size={24}
+                    size={ICON_SIZES.xl}
                     showNumber={false}
                     className="mb-2"
                   />

@@ -321,16 +321,12 @@ export function DashboardNavbar({ user, profile }: DashboardNavbarProps) {
                                   !notification.read_at ? 'bg-[#F8F9FA]/50' : ''
                                 }`}
                               >
-                                <div className={`w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0 ${
-                                  notification.type === 'message' ? 'bg-blue-100' :
-                                  notification.type === 'inquiry' ? 'bg-green-100' :
-                                  notification.type === 'review' ? 'bg-yellow-100' : 'bg-[#F8F9FA]'
-                                }`}>
-                                  {notification.type === 'message' && <MessageSquare size={16} className="text-blue-600" />}
-                                  {notification.type === 'inquiry' && <Building2 size={16} className="text-green-600" />}
-                                  {notification.type === 'review' && <Star size={16} className="text-yellow-600" />}
-                                  {notification.type === 'property_update' && <Building2 size={16} className="text-purple-600" />}
-                                  {notification.type === 'system' && <Bell size={16} className="text-gray-600" />}
+                                <div className="w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0 bg-[#F8F9FA]">
+                                  {notification.type === 'message' && <MessageSquare size={16} className="text-[#212529]" />}
+                                  {notification.type === 'inquiry' && <Building2 size={16} className="text-[#212529]" />}
+                                  {notification.type === 'review' && <Star size={16} className="text-[#212529]" />}
+                                  {notification.type === 'property_update' && <Building2 size={16} className="text-[#212529]" />}
+                                  {notification.type === 'system' && <Bell size={16} className="text-[#212529]" />}
                                 </div>
                                 <div className="flex-1 min-w-0">
                                   <div className="flex items-center gap-2">

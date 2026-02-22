@@ -3,6 +3,7 @@ import { redirect } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Heart, MapPin, Bed, Bath, Square, Trash2, Home } from 'lucide-react'
+import { ICON_SIZES } from '@/lib/constants'
 
 export const metadata = {
   title: 'Saved Properties - Huts',
@@ -68,7 +69,7 @@ export default async function SavedPropertiesPage() {
         {/* Content */}
         {validSavedProperties.length === 0 ? (
           <div className="bg-white border-2 border-[#E9ECEF] rounded-xl p-12 text-center">
-            <Heart size={64} className="mx-auto text-[#ADB5BD] mb-6" />
+            <Heart size={ICON_SIZES['3xl']} className="mx-auto text-[#ADB5BD] mb-6" />
             <h2 className="text-2xl font-bold text-[#212529] mb-3">
               No saved properties yet
             </h2>
@@ -79,7 +80,7 @@ export default async function SavedPropertiesPage() {
               href="/search"
               className="inline-flex items-center gap-2 bg-[#212529] text-white px-6 py-3 rounded-lg font-semibold hover:bg-black hover:shadow-xl transition-all"
             >
-              <Home size={18} />
+              <Home size={ICON_SIZES.lg} />
               Browse Properties
             </Link>
           </div>
@@ -126,7 +127,7 @@ export default async function SavedPropertiesPage() {
                       </h3>
                       
                       <div className="flex items-center text-[#495057] text-xs mb-3">
-                        <MapPin size={12} className="mr-1 flex-shrink-0" />
+                        <MapPin size={ICON_SIZES.xs} className="mr-1 flex-shrink-0" />
                         <span className="truncate">
                           {property.neighborhood ? `${property.neighborhood}, ` : ''}{property.city}
                         </span>
@@ -135,16 +136,16 @@ export default async function SavedPropertiesPage() {
                       {/* Features */}
                       <div className="flex items-center gap-4 text-xs text-[#495057] pt-3 border-t border-[#E9ECEF]">
                         <span className="flex items-center gap-1">
-                          <Bed size={14} />
+                          <Bed size={ICON_SIZES.sm} />
                           {property.beds}
                         </span>
                         <span className="flex items-center gap-1">
-                          <Bath size={14} />
+                          <Bath size={ICON_SIZES.sm} />
                           {property.baths}
                         </span>
                         {property.sqft && (
                           <span className="flex items-center gap-1">
-                            <Square size={14} />
+                            <Square size={ICON_SIZES.sm} />
                             {property.sqft}
                           </span>
                         )}
@@ -171,7 +172,7 @@ export default async function SavedPropertiesPage() {
                       className="absolute top-3 right-3 z-10 p-2 bg-white/95 backdrop-blur-sm rounded-full hover:bg-[#FF6B6B] hover:text-white transition-all shadow-md group/btn"
                       title="Remove from saved"
                     >
-                      <Heart size={18} className="fill-current text-[#FF6B6B] group-hover/btn:text-white" />
+                      <Heart size={ICON_SIZES.lg} className="fill-current text-[#FF6B6B] group-hover/btn:text-white" />
                     </button>
                   </form>
                 </div>

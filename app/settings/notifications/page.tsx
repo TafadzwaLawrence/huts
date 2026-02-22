@@ -310,7 +310,7 @@ export default function NotificationsPage() {
         <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-[#E9ECEF] p-4 z-50">
           <div className="max-w-6xl mx-auto flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <span className="h-2 w-2 bg-yellow-500 rounded-full animate-pulse" />
+              <span className="h-2 w-2 bg-[#212529] rounded-full animate-pulse" />
               <span className="text-sm text-[#495057]">You have unsaved changes</span>
             </div>
             <div className="flex items-center gap-3">

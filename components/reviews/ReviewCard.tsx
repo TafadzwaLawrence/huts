@@ -5,6 +5,7 @@ import { ThumbsUp, ThumbsDown, MessageCircle, Edit, Trash2, Flag } from 'lucide-
 import { ReviewWithAuthor } from '@/types/reviews'
 import RatingStars from './RatingStars'
 import { cn } from '@/lib/utils'
+import { ICON_SIZES } from '@/lib/constants'
 
 // Simple time ago formatter
 function timeAgo(date: string) {
@@ -117,7 +118,7 @@ export default function ReviewCard({
               )}
             </div>
             <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <RatingStars rating={review.rating} size={14} showNumber={false} />
+              <RatingStars rating={review.rating} size={ICON_SIZES.sm} showNumber={false} />
               <span>·</span>
               <span>{review.created_at ? timeAgo(review.created_at) : 'Recently'}</span>
               {review.edited && <span className="text-xs">(edited)</span>}
@@ -133,7 +134,7 @@ export default function ReviewCard({
               className="p-2 hover:bg-[#E9ECEF] rounded transition-colors"
               title="Edit review"
             >
-              <Edit size={16} className="text-[#495057]" />
+              <Edit size={ICON_SIZES.md} className="text-[#495057]" />
             </button>
           )}
           {isAuthor && onDelete && (
@@ -142,7 +143,7 @@ export default function ReviewCard({
               className="p-2 hover:bg-[#E9ECEF] rounded transition-colors"
               title="Delete review"
             >
-              <Trash2 size={16} className="text-[#495057]" />
+              <Trash2 size={ICON_SIZES.md} className="text-[#495057]" />
             </button>
           )}
           {!isAuthor && onFlag && (
@@ -151,7 +152,7 @@ export default function ReviewCard({
               className="p-2 hover:bg-[#E9ECEF] rounded transition-colors"
               title="Flag review"
             >
-              <Flag size={16} className="text-[#495057]" />
+              <Flag size={ICON_SIZES.md} className="text-[#495057]" />
             </button>
           )}
         </div>
@@ -175,7 +176,7 @@ export default function ReviewCard({
               : 'border-[#E9ECEF] hover:border-[#495057]'
           )}
         >
-          <ThumbsUp size={14} />
+          <ThumbsUp size={ICON_SIZES.sm} />
           <span className="text-sm">{review._count?.helpful_votes || 0}</span>
         </button>
         <button
@@ -187,7 +188,7 @@ export default function ReviewCard({
               : 'border-[#E9ECEF] hover:border-[#495057]'
           )}
         >
-          <ThumbsDown size={14} />
+          <ThumbsDown size={ICON_SIZES.sm} />
           <span className="text-sm">{review._count?.not_helpful_votes || 0}</span>
         </button>
       </div>
@@ -196,7 +197,7 @@ export default function ReviewCard({
       {review.review_responses && (
         <div className="ml-8 pl-4 border-l-2 border-[#E9ECEF] space-y-2">
           <div className="flex items-center gap-2">
-            <MessageCircle size={14} className="text-[#495057]" />
+            <MessageCircle size={ICON_SIZES.sm} className="text-[#495057]" />
             <span className="text-label">
               Response from {review.review_responses.profiles?.name || 'Property Owner'}
             </span>
@@ -216,7 +217,7 @@ export default function ReviewCard({
               onClick={() => setShowResponse(true)}
               className="flex items-center gap-2 text-secondary hover:text-foreground transition-colors"
             >
-              <MessageCircle size={14} />
+              <MessageCircle size={ICON_SIZES.sm} />
               Respond to this review
             </button>
           ) : (

@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { Star, Loader2 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { ReviewFormData } from '@/types/reviews'
+import { ICON_SIZES } from '@/lib/constants'
 
 interface ReviewFormProps {
   propertyId: string
@@ -99,7 +100,7 @@ export default function ReviewForm({
           {[1, 2, 3, 4, 5].map((star) => (
             <Star
               key={star}
-              size={32}
+              size={ICON_SIZES['2xl']}
               className={cn(
                 'cursor-pointer transition-colors',
                 star <= (hoverRating || formData.rating)

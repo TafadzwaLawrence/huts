@@ -67,6 +67,19 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: 'hourly',
       priority: 0.85,
     },
+    // SEO Landing Pages - High Priority
+    {
+      url: `${baseUrl}/properties-for-rent-zimbabwe`,
+      lastModified: new Date(),
+      changeFrequency: 'daily',
+      priority: 0.95,
+    },
+    {
+      url: `${baseUrl}/rentals-in-harare`,
+      lastModified: new Date(),
+      changeFrequency: 'daily',
+      priority: 0.95,
+    },
     {
       url: `${baseUrl}/areas`,
       lastModified: new Date(),

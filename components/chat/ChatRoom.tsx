@@ -55,7 +55,7 @@ export default function ChatRoom({ conversationId, currentUserId, onBack }: Chat
   const [typingTimeout, setTypingTimeout] = useState<NodeJS.Timeout | null>(null)
   
   const messagesEndRef = useRef<HTMLDivElement>(null)
-  const inputRef = useRef<HTMLInputElement>(null)
+  const inputRef = useRef<HTMLTextAreaElement>(null)
   const supabase = createClient()
 
   // Get the other participant's info
@@ -377,14 +377,25 @@ export default function ChatRoom({ conversationId, currentUserId, onBack }: Chat
 
       {/* Messages area */}
       <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-[#F8F9FA]">
-
-        {/* Messages grouped by date */}
-        {Object.entries(groupedMessages).map(([date, dateMessages]) => (
-          <div key={date}>
+        {/* Empty state */}
+        {messages.length === 0 ? (
+          <div className=\"flex flex-col items-center justify-center h-full text-center py-12\">
+            <div className=\"w-16 h-16 bg-white rounded-2xl border-2 border-[#E9ECEF] flex items-center justify-center mb-4 shadow-sm\">
+              <Send size={28} className=\"text-[#ADB5BD]\" />
+            </div>
+            <h3 className=\"text-base font-semibold text-[#212529] mb-1\">Start the conversation</h3>
+            <p className=\"text-sm text-[#495057] max-w-xs\">
+              Send a message to begin chatting about {conversation?.property?.title || 'this property'}
+            </p>
+          </div>
+        ) : (
+          /* Messages grouped by date */
+          Object.entries(groupedMessages).map(([date, dateMessages]) => (
+            <div key={date}>
             {/* Date divider */}
-            <div className="flex items-center gap-4 my-4">
+            <div className="flex items-center gap-4 my-6 first:mt-2">
               <div className="flex-1 h-px bg-[#E9ECEF]" />
-              <span className="text-xs text-[#ADB5BD] font-medium">
+              <span className="text-xs text-[#495057] font-semibold px-3 py-1 bg-white rounded-full border border-[#E9ECEF] shadow-sm">
                 {formatDate(dateMessages[0].created_at)}
               </span>
               <div className="flex-1 h-px bg-[#E9ECEF]" />
@@ -415,42 +426,58 @@ export default function ChatRoom({ conversationId, currentUserId, onBack }: Chat
               />
             ))}
           </div>
-        ))}
+        ))
+        )}
 
         {/* Typing indicator */}
         {otherUserTyping && (
-          <TypingIndicator name={otherUser?.name || 'User'} />
+          <TypingIndicator 
+            name={otherUser?.name || 'User'} 
+            avatarUrl={otherUser?.avatar_url || undefined}
+          />
         )}
 
         <div ref={messagesEndRef} />
       </div>
 
       {/* Input area */}
-      <form onSubmit={sendMessage} className="border-t border-[#E9ECEF] p-4 bg-white">
-        <div className="flex items-center gap-3">
+      <form onSubmit={sendMessage} className="border-t-2 border-[#E9ECEF] p-4 bg-white">
+        <div className="flex items-end gap-3">
           <button
             type="button"
-            className="p-2 hover:bg-[#F8F9FA] rounded-full transition-colors"
+            className="p-2.5 hover:bg-[#F8F9FA] rounded-xl transition-colors group mb-1"
+            title="Attach image"
           >
-            <ImageIcon size={20} className="text-[#495057]" />
+            <ImageIcon size={20} className="text-[#ADB5BD] group-hover:text-[#495057] transition-colors" />
           </button>
 
-          <input
-            ref={inputRef}
-            type="text"
-            value={newMessage}
-            onChange={(e) => {
-              setNewMessage(e.target.value)
-              handleTyping()
-            }}
-            placeholder="Type a message..."
-            className="flex-1 px-4 py-3 bg-[#F8F9FA] rounded-full text-[#212529] placeholder:text-[#ADB5BD] focus:outline-none focus:ring-2 focus:ring-[#212529]"
-          />
+          <div className="flex-1">
+            <textarea
+              ref={inputRef as any}
+              value={newMessage}
+              onChange={(e) => {
+                setNewMessage(e.target.value)
+                handleTyping()
+              }}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                  e.preventDefault()
+                  if (newMessage.trim() && !sending) {
+                    sendMessage(e as any)
+                  }
+                }
+              }}
+              placeholder="Type a message..."
+              rows={1}
+              className="w-full px-5 py-3.5 bg-[#F8F9FA] rounded-2xl text-[#212529] placeholder:text-[#ADB5BD] focus:outline-none focus:ring-2 focus:ring-[#212529] focus:bg-white transition-all resize-none max-h-32 border-2 border-transparent"
+              style={{ minHeight: '52px' }}
+            />
+          </div>
 
           <button
             type="submit"
             disabled={!newMessage.trim() || sending}
-            className="p-3 bg-[#212529] text-white rounded-full hover:bg-black transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            className="p-3.5 bg-[#212529] text-white rounded-xl hover:bg-black hover:scale-105 active:scale-95 transition-all disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100 mb-1 shadow-lg shadow-black/10"
           >
             {sending ? (
               <Loader2 size={20} className="animate-spin" />
@@ -459,6 +486,7 @@ export default function ChatRoom({ conversationId, currentUserId, onBack }: Chat
             )}
           </button>
         </div>
+        <p className="text-[10px] text-[#ADB5BD] mt-2 px-1">Press Enter to send, Shift+Enter for new line</p>
       </form>
     </div>
   )

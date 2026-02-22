@@ -215,7 +215,7 @@ export default function DashboardMapPage() {
                       </div>
                       <span className={`inline-block mt-2 px-2 py-0.5 text-xs rounded-full ${
                         property.status === 'active'
-                          ? 'bg-green-100 text-green-700'
+                          ? 'bg-[#212529]/10 text-[#212529]'
                           : 'bg-[#E9ECEF] text-[#495057]'
                       }`}>
                         {property.status}
