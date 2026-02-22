@@ -95,66 +95,66 @@ export default async function AreaGuidePage({ params }: PageProps) {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <section className="bg-[#F8F9FA] border-b border-[#E9ECEF] py-16 md:py-24">
+      <section className="bg-muted border-b border-border py-16 md:py-24">
         <div className="container-main max-w-6xl">
           <div className="max-w-3xl">
-            <div className="flex items-center text-sm text-[#495057] mb-4">
+            <div className="flex items-center text-sm text-foreground mb-4">
               <Link href="/" className="hover:underline">Home</Link>
               <span className="mx-2">/</span>
               <Link href="/areas" className="hover:underline">Areas</Link>
               <span className="mx-2">/</span>
-              <span className="text-[#212529]">{area.name}</span>
+              <span className="text-foreground">{area.name}</span>
             </div>
 
-            <h1 className="text-4xl md:text-5xl font-bold text-[#212529] mb-6 tracking-tight">
+            <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6 tracking-tight">
               {area.name}
             </h1>
 
             {area.description && (
-              <p className="text-lg text-[#495057] mb-8 leading-relaxed">
+              <p className="text-lg text-foreground mb-8 leading-relaxed">
                 {area.description}
               </p>
             )}
 
             {/* Stats */}
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-8">
-              <div className="bg-white border-2 border-[#E9ECEF] rounded-lg p-4">
+              <div className="bg-white border-2 border-border rounded-lg p-4">
                 <div className="flex items-center gap-2 mb-2">
-                  <Home size={20} className="text-[#212529]" />
-                  <span className="text-2xl font-bold text-[#212529]">
+                  <Home size={20} className="text-foreground" />
+                  <span className="text-2xl font-bold text-foreground">
                     {area.property_count}
                   </span>
                 </div>
-                <p className="text-xs text-[#ADB5BD]">Available Properties</p>
+                <p className="text-xs text-foreground">Available Properties</p>
               </div>
 
               {area.avg_rent && (
-                <div className="bg-white border-2 border-[#E9ECEF] rounded-lg p-4">
+                <div className="bg-white border-2 border-border rounded-lg p-4">
                   <div className="flex items-center gap-2 mb-2">
-                    <DollarSign size={20} className="text-[#212529]" />
-                    <span className="text-2xl font-bold text-[#212529]">
+                    <DollarSign size={20} className="text-foreground" />
+                    <span className="text-2xl font-bold text-foreground">
                       ${Math.round(area.avg_rent / 100).toLocaleString()}
                     </span>
                   </div>
-                  <p className="text-xs text-[#ADB5BD]">Average Rent/Month</p>
+                  <p className="text-xs text-foreground">Average Rent/Month</p>
                 </div>
               )}
 
-              <div className="bg-white border-2 border-[#E9ECEF] rounded-lg p-4">
+              <div className="bg-white border-2 border-border rounded-lg p-4">
                 <div className="flex items-center gap-2 mb-2">
-                  <MapPin size={20} className="text-[#212529]" />
-                  <span className="text-2xl font-bold text-[#212529]">
+                  <MapPin size={20} className="text-foreground" />
+                  <span className="text-2xl font-bold text-foreground">
                     {area.neighborhood || area.city}
                   </span>
                 </div>
-                <p className="text-xs text-[#ADB5BD]">Location</p>
+                <p className="text-xs text-foreground">Location</p>
               </div>
             </div>
 
             {/* CTA */}
             <Link
               href={`/search?city=${encodeURIComponent(area.city)}${area.neighborhood ? `&neighborhood=${encodeURIComponent(area.neighborhood)}` : ''}`}
-              className="inline-flex items-center gap-2 bg-[#212529] text-white px-8 py-4 rounded-lg font-semibold hover:bg-black hover:shadow-xl transition-all"
+              className="inline-flex items-center gap-2 bg-muted text-white px-8 py-4 rounded-lg font-semibold hover:bg-black hover:shadow-xl transition-all"
             >
               <Search size={20} />
               Search Properties in {area.neighborhood || area.city}
@@ -165,11 +165,11 @@ export default async function AreaGuidePage({ params }: PageProps) {
 
       {/* Content Section */}
       {area.content && (
-        <section className="py-16 md:py-20 border-b border-[#E9ECEF]">
+        <section className="py-16 md:py-20 border-b border-border">
           <div className="container-main max-w-4xl">
             <div className="prose prose-lg max-w-none">
               <div
-                className="text-[#495057] leading-relaxed"
+                className="text-foreground leading-relaxed"
                 style={{ whiteSpace: 'pre-line' }}
               >
                 {area.content}
@@ -181,9 +181,9 @@ export default async function AreaGuidePage({ params }: PageProps) {
 
       {/* Properties Section */}
       {properties && properties.length > 0 && (
-        <section className="py-16 md:py-20 bg-[#F8F9FA]">
+        <section className="py-16 md:py-20 bg-muted">
           <div className="container-main">
-            <h2 className="text-3xl font-bold text-[#212529] mb-8">
+            <h2 className="text-3xl font-bold text-foreground mb-8">
               Available Properties
             </h2>
 
@@ -196,9 +196,9 @@ export default async function AreaGuidePage({ params }: PageProps) {
                   <Link
                     key={property.id}
                     href={`/property/${property.slug || property.id}`}
-                    className="group block bg-white border-2 border-[#E9ECEF] rounded-lg overflow-hidden hover:border-[#212529] hover:shadow-lg transition-all duration-300"
+                    className="group block bg-white border-2 border-border rounded-lg overflow-hidden hover:border-border hover:shadow-lg transition-all duration-300"
                   >
-                    <div className="relative h-48 bg-[#E9ECEF]">
+                    <div className="relative h-48 bg-muted">
                       <img
                         src={imageUrl}
                         alt={property.title}
@@ -209,22 +209,22 @@ export default async function AreaGuidePage({ params }: PageProps) {
 
                     <div className="p-4">
                       <div className="flex items-baseline justify-between mb-2">
-                        <span className="text-xl font-bold text-[#212529]">
+                        <span className="text-xl font-bold text-foreground">
                           ${(property.price / 100).toLocaleString()}
                         </span>
-                        <span className="text-xs text-[#ADB5BD]">/mo</span>
+                        <span className="text-xs text-foreground">/mo</span>
                       </div>
 
-                      <h3 className="font-semibold text-[#212529] text-sm mb-2 line-clamp-2 min-h-[2.5rem]">
+                      <h3 className="font-semibold text-foreground text-sm mb-2 line-clamp-2 min-h-[2.5rem]">
                         {property.title}
                       </h3>
 
-                      <div className="flex items-center text-xs text-[#495057] mb-3">
+                      <div className="flex items-center text-xs text-foreground mb-3">
                         <MapPin size={12} className="mr-1" />
                         {property.neighborhood ? `${property.neighborhood}, ` : ''}{property.city}
                       </div>
 
-                      <div className="flex items-center gap-3 text-xs text-[#495057] pt-3 border-t border-[#F8F9FA]">
+                      <div className="flex items-center gap-3 text-xs text-foreground pt-3 border-t border-border">
                         <span className="flex items-center gap-1">
                           <Bed size={14} />
                           {property.beds}
@@ -250,7 +250,7 @@ export default async function AreaGuidePage({ params }: PageProps) {
               <div className="text-center mt-12">
                 <Link
                   href={`/search?city=${encodeURIComponent(area.city)}${area.neighborhood ? `&neighborhood=${encodeURIComponent(area.neighborhood)}` : ''}`}
-                  className="inline-flex items-center gap-2 bg-[#212529] text-white px-8 py-4 rounded-lg font-semibold hover:bg-black hover:shadow-xl transition-all"
+                  className="inline-flex items-center gap-2 bg-muted text-white px-8 py-4 rounded-lg font-semibold hover:bg-black hover:shadow-xl transition-all"
                 >
                   View All Properties
                   <TrendingUp size={18} />
@@ -262,25 +262,25 @@ export default async function AreaGuidePage({ params }: PageProps) {
       )}
 
       {/* CTA Section */}
-      <section className="py-16 md:py-20 bg-[#212529] text-white">
+      <section className="py-16 md:py-20 bg-muted text-white">
         <div className="container-main text-center max-w-3xl">
           <h2 className="text-3xl font-bold mb-4">
             Looking for something else?
           </h2>
-          <p className="text-lg text-[#ADB5BD] mb-8">
+          <p className="text-lg text-foreground mb-8">
             Browse properties in other neighborhoods or search across the entire city
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/search"
-              className="inline-flex items-center gap-2 bg-white text-[#212529] px-8 py-4 rounded-lg font-semibold hover:shadow-xl transition-all"
+              className="inline-flex items-center gap-2 bg-white text-foreground px-8 py-4 rounded-lg font-semibold hover:shadow-xl transition-all"
             >
               <Search size={20} />
               Search All Properties
             </Link>
             <Link
               href="/areas"
-              className="inline-flex items-center gap-2 border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-[#212529] transition-all"
+              className="inline-flex items-center gap-2 border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-foreground transition-all"
             >
               <MapPin size={20} />
               Browse Areas

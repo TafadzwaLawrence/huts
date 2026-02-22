@@ -41,8 +41,8 @@ import {
 const LocationPicker = dynamic(() => import('@/components/property/LocationPicker'), {
   ssr: false,
   loading: () => (
-    <div className="h-[400px] w-full bg-[#F8F9FA] rounded-xl border-2 border-[#E9ECEF] flex items-center justify-center">
-      <Loader2 className="h-8 w-8 animate-spin text-[#ADB5BD]" />
+    <div className="h-[400px] w-full bg-muted rounded-xl border-2 border-border flex items-center justify-center">
+      <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
     </div>
   ),
 })
@@ -56,16 +56,16 @@ interface PropertyImage {
 
 const STATUS_OPTIONS = {
   rent: [
-    { value: 'active', label: 'Active', description: 'Visible to renters', icon: Eye, color: 'text-[#51CF66]' },
-    { value: 'draft', label: 'Draft', description: 'Hidden from search', icon: EyeOff, color: 'text-[#ADB5BD]' },
-    { value: 'rented', label: 'Rented', description: 'Marked as taken', icon: CheckCircle2, color: 'text-[#212529]' },
-    { value: 'inactive', label: 'Inactive', description: 'Temporarily hidden', icon: XCircle, color: 'text-[#FF6B6B]' },
+    { value: 'active', label: 'Active', description: 'Visible to renters', icon: Eye, color: 'text-success' },
+    { value: 'draft', label: 'Draft', description: 'Hidden from search', icon: EyeOff, color: 'text-muted-foreground' },
+    { value: 'rented', label: 'Rented', description: 'Marked as taken', icon: CheckCircle2, color: 'text-foreground' },
+    { value: 'inactive', label: 'Inactive', description: 'Temporarily hidden', icon: XCircle, color: 'text-warning' },
   ],
   sale: [
-    { value: 'active', label: 'Active', description: 'Visible to buyers', icon: Eye, color: 'text-[#51CF66]' },
-    { value: 'draft', label: 'Draft', description: 'Hidden from search', icon: EyeOff, color: 'text-[#ADB5BD]' },
-    { value: 'sold', label: 'Sold', description: 'Marked as sold', icon: CheckCircle2, color: 'text-[#212529]' },
-    { value: 'inactive', label: 'Inactive', description: 'Temporarily hidden', icon: XCircle, color: 'text-[#FF6B6B]' },
+    { value: 'active', label: 'Active', description: 'Visible to buyers', icon: Eye, color: 'text-success' },
+    { value: 'draft', label: 'Draft', description: 'Hidden from search', icon: EyeOff, color: 'text-muted-foreground' },
+    { value: 'sold', label: 'Sold', description: 'Marked as sold', icon: CheckCircle2, color: 'text-foreground' },
+    { value: 'inactive', label: 'Inactive', description: 'Temporarily hidden', icon: XCircle, color: 'text-warning' },
   ],
 } as const
 
@@ -603,8 +603,8 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
     return (
       <div className="min-h-screen bg-white flex items-center justify-center">
         <div className="text-center">
-          <Loader2 className="w-8 h-8 animate-spin mx-auto text-[#212529] mb-4" />
-          <p className="text-[#495057] text-sm">Loading property...</p>
+          <Loader2 className="w-8 h-8 animate-spin mx-auto text-foreground mb-4" />
+          <p className="text-muted-foreground text-sm">Loading property...</p>
         </div>
       </div>
     )
@@ -613,40 +613,40 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
   return (
     <div className="min-h-screen bg-white">
       {/* Sticky Header */}
-      <div className="bg-white/95 backdrop-blur-sm border-b border-[#E9ECEF] sticky top-0 z-10">
+      <div className="bg-white/95 backdrop-blur-sm border-b border-border sticky top-0 z-10">
         <div className="max-w-3xl mx-auto px-4 py-3 sm:py-4">
           <div className="flex items-center justify-between">
             <Link
               href="/dashboard/my-properties"
-              className="flex items-center gap-2 text-[#495057] hover:text-[#212529] transition-colors text-sm font-medium"
+              className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors text-sm font-medium"
             >
               <ArrowLeft size={18} />
               <span className="hidden sm:inline">My Properties</span>
             </Link>
-            <h1 className="text-sm font-semibold text-[#212529] tracking-wide uppercase">Edit Listing</h1>
+            <h1 className="text-sm font-semibold text-foreground tracking-wide uppercase">Edit Listing</h1>
             <div className="flex items-center gap-3">
               {/* Completion indicator */}
               <div className="hidden sm:flex items-center gap-2">
-                <div className="w-16 h-1.5 bg-[#E9ECEF] rounded-full overflow-hidden">
+                <div className="w-16 h-1.5 bg-gray-200 rounded-full overflow-hidden">
                   <div
-                    className={`h-full rounded-full transition-all duration-500 ${completion === 100 ? 'bg-[#51CF66]' : 'bg-[#212529]'}`}
+                    className={`h-full rounded-full transition-all duration-500 ${completion === 100 ? 'bg-success' : 'bg-foreground'}`}
                     style={{ width: `${completion}%` }}
                   />
                 </div>
-                <span className="text-[10px] text-[#ADB5BD] tabular-nums font-medium">{completion}%</span>
+                <span className="text-[10px] text-muted-foreground tabular-nums font-medium">{completion}%</span>
               </div>
               {propertySlug && (
                 <Link
                   href={`/property/${propertySlug}`}
                   target="_blank"
-                  className="text-xs text-[#495057] hover:text-[#212529] font-medium hidden sm:flex items-center gap-1"
+                  className="text-xs text-muted-foreground hover:text-foreground font-medium hidden sm:flex items-center gap-1"
                 >
                   <Eye size={14} />
                   View
                 </Link>
               )}
               {hasChanges && (
-                <span className="flex items-center gap-1 text-xs text-[#FF6B6B] font-medium">
+                <span className="flex items-center gap-1 text-xs text-warning font-medium">
                   <Clock size={12} />
                   Unsaved
                 </span>
@@ -670,8 +670,8 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
                 onClick={() => scrollToSection(section.id)}
                 className={`text-[11px] px-2.5 py-1 rounded-full whitespace-nowrap transition-all font-medium ${
                   activeSection === section.id
-                    ? 'bg-[#212529] text-white'
-                    : 'text-[#ADB5BD] hover:text-[#212529] hover:bg-[#F8F9FA]'
+                    ? 'bg-foreground text-white'
+                    : 'text-muted-foreground hover:text-foreground hover:bg-muted'
                 }`}
               >
                 {section.label}
@@ -686,7 +686,7 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
 
           {/* ===== STATUS ===== */}
           <section id="status" className="mb-10 scroll-mt-24">
-            <h2 className="text-sm font-semibold text-[#212529] mb-4 uppercase tracking-wider">Status</h2>
+            <h2 className="text-sm font-semibold text-foreground mb-4 uppercase tracking-wider">Status</h2>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-2.5">
               {statusOptions.map(opt => {
                 const Icon = opt.icon
@@ -701,13 +701,13 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
                     }}
                     className={`relative flex flex-col items-center gap-1.5 px-4 py-4 rounded-xl border-2 transition-all text-center ${
                       isActive
-                        ? 'border-[#212529] bg-[#212529] text-white'
-                        : 'border-[#E9ECEF] text-[#495057] hover:border-[#495057] bg-white'
+                        ? 'border-foreground bg-foreground text-white'
+                        : 'border-border text-muted-foreground hover:border-border bg-white'
                     }`}
                   >
                     <Icon size={18} className={isActive ? 'text-white' : opt.color} />
                     <span className="text-xs font-semibold">{opt.label}</span>
-                    <span className={`text-[10px] ${isActive ? 'text-white/60' : 'text-[#ADB5BD]'}`}>
+                    <span className={`text-[10px] ${isActive ? 'text-white/60' : 'text-muted-foreground'}`}>
                       {opt.description}
                     </span>
                   </button>
@@ -716,11 +716,11 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
             </div>
           </section>
 
-          <div className="h-px bg-[#E9ECEF] mb-10" />
+          <div className="h-px bg-gray-200 mb-10" />
 
           {/* ===== LISTING TYPE ===== */}
           <section id="type" className="mb-10 scroll-mt-24">
-            <h2 className="text-sm font-semibold text-[#212529] mb-4 uppercase tracking-wider">Listing Type</h2>
+            <h2 className="text-sm font-semibold text-foreground mb-4 uppercase tracking-wider">Listing Type</h2>
             <div className="grid grid-cols-2 gap-3">
               <button
                 type="button"
@@ -730,18 +730,18 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
                 }}
                 className={`relative p-5 rounded-xl border-2 text-left transition-all ${
                   formData.listingType === 'rent'
-                    ? 'border-[#212529] bg-[#212529] text-white shadow-lg shadow-black/5'
-                    : 'border-[#E9ECEF] bg-white hover:border-[#212529]'
+                    ? 'border-foreground bg-foreground text-white shadow-lg shadow-black/5'
+                    : 'border-border bg-white hover:border-foreground'
                 }`}
               >
-                <Home size={20} className={formData.listingType === 'rent' ? 'text-white mb-2' : 'text-[#212529] mb-2'} />
+                <Home size={20} className={formData.listingType === 'rent' ? 'text-white mb-2' : 'text-foreground mb-2'} />
                 <p className="font-bold text-sm">For Rent</p>
-                <p className={`text-xs mt-0.5 ${formData.listingType === 'rent' ? 'text-white/60' : 'text-[#ADB5BD]'}`}>
+                <p className={`text-xs mt-0.5 ${formData.listingType === 'rent' ? 'text-white/60' : 'text-muted-foreground'}`}>
                   Monthly rental income
                 </p>
                 {formData.listingType === 'rent' && (
                   <div className="absolute top-3 right-3 w-5 h-5 bg-white rounded-full flex items-center justify-center">
-                    <Check size={12} className="text-[#212529]" />
+                    <Check size={12} className="text-foreground" />
                   </div>
                 )}
               </button>
@@ -754,41 +754,41 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
                 }}
                 className={`relative p-5 rounded-xl border-2 text-left transition-all ${
                   formData.listingType === 'sale'
-                    ? 'border-[#212529] bg-[#212529] text-white shadow-lg shadow-black/5'
-                    : 'border-[#E9ECEF] bg-white hover:border-[#212529]'
+                    ? 'border-foreground bg-foreground text-white shadow-lg shadow-black/5'
+                    : 'border-border bg-white hover:border-foreground'
                 }`}
               >
-                <DollarSign size={20} className={formData.listingType === 'sale' ? 'text-white mb-2' : 'text-[#212529] mb-2'} />
+                <DollarSign size={20} className={formData.listingType === 'sale' ? 'text-white mb-2' : 'text-foreground mb-2'} />
                 <p className="font-bold text-sm">For Sale</p>
-                <p className={`text-xs mt-0.5 ${formData.listingType === 'sale' ? 'text-white/60' : 'text-[#ADB5BD]'}`}>
+                <p className={`text-xs mt-0.5 ${formData.listingType === 'sale' ? 'text-white/60' : 'text-muted-foreground'}`}>
                   One-time purchase
                 </p>
                 {formData.listingType === 'sale' && (
                   <div className="absolute top-3 right-3 w-5 h-5 bg-white rounded-full flex items-center justify-center">
-                    <Check size={12} className="text-[#212529]" />
+                    <Check size={12} className="text-foreground" />
                   </div>
                 )}
               </button>
             </div>
             {formData.listingType !== originalListingTypeRef.current && (
-              <p className="mt-3 text-xs text-[#495057] flex items-center gap-1.5 bg-[#F8F9FA] px-3 py-2 rounded-lg">
+              <p className="mt-3 text-xs text-muted-foreground flex items-center gap-1.5 bg-muted px-3 py-2 rounded-lg">
                 <AlertCircle size={14} />
                 Switching type will adjust pricing fields on save
               </p>
             )}
           </section>
 
-          <div className="h-px bg-[#E9ECEF] mb-10" />
+          <div className="h-px bg-gray-200 mb-10" />
 
           {/* ===== BASIC INFORMATION ===== */}
           <section id="basic" className="mb-10 scroll-mt-24">
-            <h2 className="text-sm font-semibold text-[#212529] mb-6 uppercase tracking-wider">Basic Information</h2>
+            <h2 className="text-sm font-semibold text-foreground mb-6 uppercase tracking-wider">Basic Information</h2>
 
             <div className="space-y-6">
               {/* Title */}
               <div data-error={!!errors.title || undefined}>
-                <label htmlFor="title" className="block text-sm font-semibold text-[#212529] mb-2">
-                  Property Title <span className="text-[#FF6B6B]">*</span>
+                <label htmlFor="title" className="block text-sm font-semibold text-foreground mb-2">
+                  Property Title <span className="text-warning">*</span>
                 </label>
                 <input
                   id="title"
@@ -797,13 +797,13 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
                   required
                   value={formData.title}
                   onChange={handleInputChange}
-                  className={`w-full px-4 py-3.5 border-2 rounded-xl text-[#212529] bg-white placeholder:text-[#ADB5BD] focus:outline-none transition-colors ${
-                    errors.title ? 'border-[#FF6B6B]' : 'border-[#E9ECEF] focus:border-[#212529]'
+                  className={`w-full px-4 py-3.5 border-2 rounded-xl text-foreground bg-white placeholder:text-muted-foreground focus:outline-none transition-colors ${
+                    errors.title ? 'border-warning' : 'border-border focus:border-foreground'
                   }`}
                   placeholder="e.g., Modern 2BR Apartment in Avondale"
                 />
                 {errors.title && (
-                  <p className="mt-2 text-sm text-[#FF6B6B] flex items-center gap-1">
+                  <p className="mt-2 text-sm text-warning flex items-center gap-1">
                     <AlertCircle size={14} /> {errors.title}
                   </p>
                 )}
@@ -811,7 +811,7 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
 
               {/* Description */}
               <div>
-                <label htmlFor="description" className="block text-sm font-semibold text-[#212529] mb-2">
+                <label htmlFor="description" className="block text-sm font-semibold text-foreground mb-2">
                   Description
                 </label>
                 <textarea
@@ -821,33 +821,33 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
                   maxLength={2000}
                   value={formData.description}
                   onChange={handleInputChange}
-                  className={`w-full px-4 py-3.5 border-2 rounded-xl text-[#212529] bg-white placeholder:text-[#ADB5BD] focus:outline-none transition-colors resize-none ${
+                  className={`w-full px-4 py-3.5 border-2 rounded-xl text-foreground bg-white placeholder:text-muted-foreground focus:outline-none transition-colors resize-none ${
                     formData.description.length > 2000
-                      ? 'border-[#FF6B6B]'
+                      ? 'border-warning'
                       : formData.description.length > 1800
                       ? 'border-amber-500'
-                      : 'border-[#E9ECEF] focus:border-[#212529]'
+                      : 'border-border focus:border-foreground'
                   }`}
                   placeholder="Describe the property, its features, nearby amenities..."
                 />
                 <div className="flex justify-between mt-2">
                   {formData.description.length > 2000 ? (
-                    <p className="text-xs text-[#FF6B6B] flex items-center gap-1">
+                    <p className="text-xs text-warning flex items-center gap-1">
                       <AlertCircle size={12} /> Description is too long
                     </p>
                   ) : formData.description.length > 1800 ? (
-                    <p className="text-xs text-[#495057] flex items-center gap-1">
+                    <p className="text-xs text-muted-foreground flex items-center gap-1">
                       <AlertCircle size={12} /> Approaching character limit
                     </p>
                   ) : (
-                    <p className="text-xs text-[#ADB5BD]">Optional but recommended</p>
+                    <p className="text-xs text-muted-foreground">Optional but recommended</p>
                   )}
                   <p className={`text-xs tabular-nums ${
                     formData.description.length > 2000
-                      ? 'text-[#FF6B6B] font-semibold'
+                      ? 'text-warning font-semibold'
                       : formData.description.length > 1800
-                      ? 'text-[#495057] font-medium'
-                      : 'text-[#ADB5BD]'
+                      ? 'text-muted-foreground font-medium'
+                      : 'text-muted-foreground'
                   }`}>
                     {formData.description.length}/2000
                   </p>
@@ -856,8 +856,8 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
 
               {/* Property Type */}
               <div>
-                <label className="block text-sm font-semibold text-[#212529] mb-3">
-                  Property Type <span className="text-[#FF6B6B]">*</span>
+                <label className="block text-sm font-semibold text-foreground mb-3">
+                  Property Type <span className="text-warning">*</span>
                 </label>
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-2.5">
                   {PROPERTY_TYPES.map(({ value, label, icon: Icon }) => (
@@ -870,8 +870,8 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
                       }}
                       className={`flex items-center gap-2.5 px-4 py-3 rounded-xl border-2 transition-all text-sm font-medium ${
                         formData.propertyType === value
-                          ? 'border-[#212529] bg-[#212529] text-white'
-                          : 'border-[#E9ECEF] text-[#212529] hover:border-[#495057] bg-white'
+                          ? 'border-foreground bg-foreground text-white'
+                          : 'border-border text-foreground hover:border-border bg-white'
                       }`}
                     >
                       <Icon size={16} />
@@ -883,20 +883,20 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
             </div>
           </section>
 
-          <div className="h-px bg-[#E9ECEF] mb-10" />
+          <div className="h-px bg-gray-200 mb-10" />
 
           {/* ===== PRICING ===== */}
           <section id="pricing" className="mb-10 scroll-mt-24">
-            <h2 className="text-sm font-semibold text-[#212529] mb-6 uppercase tracking-wider">Pricing</h2>
+            <h2 className="text-sm font-semibold text-foreground mb-6 uppercase tracking-wider">Pricing</h2>
 
             <div className="space-y-6">
               {/* Price */}
               <div data-error={!!errors.price || undefined}>
-                <label htmlFor="price" className="block text-sm font-semibold text-[#212529] mb-2">
-                  {formData.listingType === 'rent' ? 'Monthly Rent' : 'Sale Price'} <span className="text-[#FF6B6B]">*</span>
+                <label htmlFor="price" className="block text-sm font-semibold text-foreground mb-2">
+                  {formData.listingType === 'rent' ? 'Monthly Rent' : 'Sale Price'} <span className="text-warning">*</span>
                 </label>
                 <div className="relative">
-                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-[#495057] font-semibold text-lg">$</span>
+                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground font-semibold text-lg">$</span>
                   <input
                     id="price"
                     name="price"
@@ -906,17 +906,17 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
                     step="0.01"
                     value={formData.price}
                     onChange={handleInputChange}
-                    className={`w-full pl-10 pr-4 py-4 border-2 rounded-xl text-[#212529] text-2xl font-bold bg-white placeholder:text-[#ADB5BD] placeholder:font-normal focus:outline-none transition-colors ${
-                      errors.price ? 'border-[#FF6B6B]' : 'border-[#E9ECEF] focus:border-[#212529]'
+                    className={`w-full pl-10 pr-4 py-4 border-2 rounded-xl text-foreground text-2xl font-bold bg-white placeholder:text-muted-foreground placeholder:font-normal focus:outline-none transition-colors ${
+                      errors.price ? 'border-warning' : 'border-border focus:border-foreground'
                     }`}
                     placeholder={formData.listingType === 'rent' ? '1,200' : '250,000'}
                   />
                   {formData.listingType === 'rent' && (
-                    <span className="absolute right-4 top-1/2 -translate-y-1/2 text-sm text-[#ADB5BD] font-medium">/month</span>
+                    <span className="absolute right-4 top-1/2 -translate-y-1/2 text-sm text-muted-foreground font-medium">/month</span>
                   )}
                 </div>
                 {errors.price && (
-                  <p className="mt-2 text-sm text-[#FF6B6B] flex items-center gap-1">
+                  <p className="mt-2 text-sm text-warning flex items-center gap-1">
                     <AlertCircle size={14} /> {errors.price}
                   </p>
                 )}
@@ -925,11 +925,11 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
               {/* Security Deposit (Rent only) */}
               {formData.listingType === 'rent' && (
                 <div>
-                  <label htmlFor="deposit" className="block text-sm font-semibold text-[#212529] mb-2">
+                  <label htmlFor="deposit" className="block text-sm font-semibold text-foreground mb-2">
                     Security Deposit
                   </label>
                   <div className="relative">
-                    <span className="absolute left-4 top-1/2 -translate-y-1/2 text-[#495057] font-medium">$</span>
+                    <span className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground font-medium">$</span>
                     <input
                       id="deposit"
                       name="deposit"
@@ -938,11 +938,11 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
                       step="0.01"
                       value={formData.deposit}
                       onChange={handleInputChange}
-                      className="w-full pl-10 pr-4 py-3.5 border-2 border-[#E9ECEF] rounded-xl text-[#212529] bg-white placeholder:text-[#ADB5BD] focus:outline-none focus:border-[#212529] transition-colors"
+                      className="w-full pl-10 pr-4 py-3.5 border-2 border-border rounded-xl text-foreground bg-white placeholder:text-muted-foreground focus:outline-none focus:border-foreground transition-colors"
                       placeholder="1,200"
                     />
                   </div>
-                  <p className="mt-2 text-xs text-[#ADB5BD]">Optional — usually equal to one month&apos;s rent</p>
+                  <p className="mt-2 text-xs text-muted-foreground">Optional — usually equal to one month&apos;s rent</p>
                 </div>
               )}
 
@@ -950,7 +950,7 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
               {formData.listingType === 'sale' && (
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <label htmlFor="propertyTax" className="block text-xs font-medium text-[#495057] mb-2">
+                    <label htmlFor="propertyTax" className="block text-xs font-medium text-muted-foreground mb-2">
                       Annual Property Tax ($)
                     </label>
                     <input
@@ -961,12 +961,12 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
                       step="0.01"
                       value={formData.propertyTax}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-3.5 border-2 border-[#E9ECEF] rounded-xl text-[#212529] bg-white placeholder:text-[#ADB5BD] focus:outline-none focus:border-[#212529] transition-colors"
+                      className="w-full px-4 py-3.5 border-2 border-border rounded-xl text-foreground bg-white placeholder:text-muted-foreground focus:outline-none focus:border-foreground transition-colors"
                       placeholder="2,400"
                     />
                   </div>
                   <div>
-                    <label htmlFor="hoaFee" className="block text-xs font-medium text-[#495057] mb-2">
+                    <label htmlFor="hoaFee" className="block text-xs font-medium text-muted-foreground mb-2">
                       Monthly HOA Fee ($)
                     </label>
                     <input
@@ -977,7 +977,7 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
                       step="0.01"
                       value={formData.hoaFee}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-3.5 border-2 border-[#E9ECEF] rounded-xl text-[#212529] bg-white placeholder:text-[#ADB5BD] focus:outline-none focus:border-[#212529] transition-colors"
+                      className="w-full px-4 py-3.5 border-2 border-border rounded-xl text-foreground bg-white placeholder:text-muted-foreground focus:outline-none focus:border-foreground transition-colors"
                       placeholder="350"
                     />
                   </div>
@@ -986,16 +986,16 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
             </div>
           </section>
 
-          <div className="h-px bg-[#E9ECEF] mb-10" />
+          <div className="h-px bg-gray-200 mb-10" />
 
           {/* ===== PROPERTY DETAILS ===== */}
           <section id="specs" className="mb-10 scroll-mt-24">
-            <h2 className="text-sm font-semibold text-[#212529] mb-6 uppercase tracking-wider">Property Specifications</h2>
+            <h2 className="text-sm font-semibold text-foreground mb-6 uppercase tracking-wider">Property Specifications</h2>
 
             <div className="grid grid-cols-3 gap-3 mb-6">
               <div data-error={!!errors.beds || undefined}>
-                <label htmlFor="beds" className="block text-xs font-medium text-[#495057] mb-2 flex items-center gap-1.5">
-                  <Bed size={13} /> Beds <span className="text-[#FF6B6B]">*</span>
+                <label htmlFor="beds" className="block text-xs font-medium text-muted-foreground mb-2 flex items-center gap-1.5">
+                  <Bed size={13} /> Beds <span className="text-warning">*</span>
                 </label>
                 <input
                   id="beds"
@@ -1005,15 +1005,15 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
                   min="0"
                   value={formData.beds}
                   onChange={handleInputChange}
-                  className={`w-full px-3 py-3.5 border-2 rounded-xl text-[#212529] text-center text-lg font-bold bg-white placeholder:text-[#ADB5BD] placeholder:font-normal ${
-                    errors.beds ? 'border-[#FF6B6B]' : 'border-[#E9ECEF] focus:border-[#212529]'
+                  className={`w-full px-3 py-3.5 border-2 rounded-xl text-foreground text-center text-lg font-bold bg-white placeholder:text-muted-foreground placeholder:font-normal ${
+                    errors.beds ? 'border-warning' : 'border-border focus:border-foreground'
                   } focus:outline-none transition-colors`}
                   placeholder="2"
                 />
               </div>
               <div data-error={!!errors.baths || undefined}>
-                <label htmlFor="baths" className="block text-xs font-medium text-[#495057] mb-2 flex items-center gap-1.5">
-                  <Bath size={13} /> Baths <span className="text-[#FF6B6B]">*</span>
+                <label htmlFor="baths" className="block text-xs font-medium text-muted-foreground mb-2 flex items-center gap-1.5">
+                  <Bath size={13} /> Baths <span className="text-warning">*</span>
                 </label>
                 <input
                   id="baths"
@@ -1024,14 +1024,14 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
                   step="0.5"
                   value={formData.baths}
                   onChange={handleInputChange}
-                  className={`w-full px-3 py-3.5 border-2 rounded-xl text-[#212529] text-center text-lg font-bold bg-white placeholder:text-[#ADB5BD] placeholder:font-normal ${
-                    errors.baths ? 'border-[#FF6B6B]' : 'border-[#E9ECEF] focus:border-[#212529]'
+                  className={`w-full px-3 py-3.5 border-2 rounded-xl text-foreground text-center text-lg font-bold bg-white placeholder:text-muted-foreground placeholder:font-normal ${
+                    errors.baths ? 'border-warning' : 'border-border focus:border-foreground'
                   } focus:outline-none transition-colors`}
                   placeholder="1"
                 />
               </div>
               <div>
-                <label htmlFor="sqft" className="block text-xs font-medium text-[#495057] mb-2 flex items-center gap-1.5">
+                <label htmlFor="sqft" className="block text-xs font-medium text-muted-foreground mb-2 flex items-center gap-1.5">
                   <Square size={13} /> Sqft
                 </label>
                 <input
@@ -1041,7 +1041,7 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
                   min="0"
                   value={formData.sqft}
                   onChange={handleInputChange}
-                  className="w-full px-3 py-3.5 border-2 border-[#E9ECEF] rounded-xl text-[#212529] text-center text-lg font-bold bg-white placeholder:text-[#ADB5BD] placeholder:font-normal focus:outline-none focus:border-[#212529] transition-colors"
+                  className="w-full px-3 py-3.5 border-2 border-border rounded-xl text-foreground text-center text-lg font-bold bg-white placeholder:text-muted-foreground placeholder:font-normal focus:outline-none focus:border-foreground transition-colors"
                   placeholder="850"
                 />
               </div>
@@ -1050,10 +1050,10 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
             {/* Sale-specific details */}
             {formData.listingType === 'sale' && (
               <div>
-                <h3 className="text-xs font-medium text-[#495057] mb-3">Additional Details</h3>
+                <h3 className="text-xs font-medium text-muted-foreground mb-3">Additional Details</h3>
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <label htmlFor="yearBuilt" className="block text-xs font-medium text-[#495057] mb-2 flex items-center gap-1.5">
+                    <label htmlFor="yearBuilt" className="block text-xs font-medium text-muted-foreground mb-2 flex items-center gap-1.5">
                       <Calendar size={13} /> Year Built
                     </label>
                     <input
@@ -1064,12 +1064,12 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
                       max="2030"
                       value={formData.yearBuilt}
                       onChange={handleInputChange}
-                      className="w-full px-3 py-3.5 border-2 border-[#E9ECEF] rounded-xl text-[#212529] text-center bg-white placeholder:text-[#ADB5BD] focus:outline-none focus:border-[#212529] transition-colors"
+                      className="w-full px-3 py-3.5 border-2 border-border rounded-xl text-foreground text-center bg-white placeholder:text-muted-foreground focus:outline-none focus:border-foreground transition-colors"
                       placeholder="2020"
                     />
                   </div>
                   <div>
-                    <label htmlFor="lotSize" className="block text-xs font-medium text-[#495057] mb-2 flex items-center gap-1.5">
+                    <label htmlFor="lotSize" className="block text-xs font-medium text-muted-foreground mb-2 flex items-center gap-1.5">
                       <TreePine size={13} /> Lot Size (sqft)
                     </label>
                     <input
@@ -1079,12 +1079,12 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
                       min="0"
                       value={formData.lotSize}
                       onChange={handleInputChange}
-                      className="w-full px-3 py-3.5 border-2 border-[#E9ECEF] rounded-xl text-[#212529] text-center bg-white placeholder:text-[#ADB5BD] focus:outline-none focus:border-[#212529] transition-colors"
+                      className="w-full px-3 py-3.5 border-2 border-border rounded-xl text-foreground text-center bg-white placeholder:text-muted-foreground focus:outline-none focus:border-foreground transition-colors"
                       placeholder="5000"
                     />
                   </div>
                   <div>
-                    <label htmlFor="parkingSpaces" className="block text-xs font-medium text-[#495057] mb-2 flex items-center gap-1.5">
+                    <label htmlFor="parkingSpaces" className="block text-xs font-medium text-muted-foreground mb-2 flex items-center gap-1.5">
                       <Car size={13} /> Parking Spaces
                     </label>
                     <input
@@ -1094,12 +1094,12 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
                       min="0"
                       value={formData.parkingSpaces}
                       onChange={handleInputChange}
-                      className="w-full px-3 py-3.5 border-2 border-[#E9ECEF] rounded-xl text-[#212529] text-center bg-white placeholder:text-[#ADB5BD] focus:outline-none focus:border-[#212529] transition-colors"
+                      className="w-full px-3 py-3.5 border-2 border-border rounded-xl text-foreground text-center bg-white placeholder:text-muted-foreground focus:outline-none focus:border-foreground transition-colors"
                       placeholder="2"
                     />
                   </div>
                   <div>
-                    <label htmlFor="garageSpaces" className="block text-xs font-medium text-[#495057] mb-2 flex items-center gap-1.5">
+                    <label htmlFor="garageSpaces" className="block text-xs font-medium text-muted-foreground mb-2 flex items-center gap-1.5">
                       <Car size={13} /> Garage Spaces
                     </label>
                     <input
@@ -1109,7 +1109,7 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
                       min="0"
                       value={formData.garageSpaces}
                       onChange={handleInputChange}
-                      className="w-full px-3 py-3.5 border-2 border-[#E9ECEF] rounded-xl text-[#212529] text-center bg-white placeholder:text-[#ADB5BD] focus:outline-none focus:border-[#212529] transition-colors"
+                      className="w-full px-3 py-3.5 border-2 border-border rounded-xl text-foreground text-center bg-white placeholder:text-muted-foreground focus:outline-none focus:border-foreground transition-colors"
                       placeholder="1"
                     />
                   </div>
@@ -1121,7 +1121,7 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
             {formData.listingType === 'rent' && (
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label htmlFor="parkingSpaces" className="block text-xs font-medium text-[#495057] mb-2 flex items-center gap-1.5">
+                  <label htmlFor="parkingSpaces" className="block text-xs font-medium text-muted-foreground mb-2 flex items-center gap-1.5">
                     <Car size={13} /> Parking Spaces
                   </label>
                   <input
@@ -1131,7 +1131,7 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
                     min="0"
                     value={formData.parkingSpaces}
                     onChange={handleInputChange}
-                    className="w-full px-3 py-3.5 border-2 border-[#E9ECEF] rounded-xl text-[#212529] text-center bg-white placeholder:text-[#ADB5BD] focus:outline-none focus:border-[#212529] transition-colors"
+                    className="w-full px-3 py-3.5 border-2 border-border rounded-xl text-foreground text-center bg-white placeholder:text-muted-foreground focus:outline-none focus:border-foreground transition-colors"
                     placeholder="1"
                   />
                 </div>
@@ -1139,16 +1139,16 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
             )}
           </section>
 
-          <div className="h-px bg-[#E9ECEF] mb-10" />
+          <div className="h-px bg-gray-200 mb-10" />
 
           {/* ===== LOCATION ===== */}
           <section id="location" className="mb-10 scroll-mt-24">
-            <h2 className="text-sm font-semibold text-[#212529] mb-6 uppercase tracking-wider">Location</h2>
+            <h2 className="text-sm font-semibold text-foreground mb-6 uppercase tracking-wider">Location</h2>
 
             <div className="space-y-6">
               <div data-error={!!errors.address || undefined}>
-                <label htmlFor="address" className="block text-sm font-semibold text-[#212529] mb-2">
-                  Street Address <span className="text-[#FF6B6B]">*</span>
+                <label htmlFor="address" className="block text-sm font-semibold text-foreground mb-2">
+                  Street Address <span className="text-warning">*</span>
                 </label>
                 <input
                   id="address"
@@ -1157,13 +1157,13 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
                   required
                   value={formData.address}
                   onChange={handleInputChange}
-                  className={`w-full px-4 py-3.5 border-2 rounded-xl text-[#212529] bg-white placeholder:text-[#ADB5BD] focus:outline-none transition-colors ${
-                    errors.address ? 'border-[#FF6B6B]' : 'border-[#E9ECEF] focus:border-[#212529]'
+                  className={`w-full px-4 py-3.5 border-2 rounded-xl text-foreground bg-white placeholder:text-muted-foreground focus:outline-none transition-colors ${
+                    errors.address ? 'border-warning' : 'border-border focus:border-foreground'
                   }`}
                   placeholder="123 Main Street"
                 />
                 {errors.address && (
-                  <p className="mt-2 text-sm text-[#FF6B6B] flex items-center gap-1">
+                  <p className="mt-2 text-sm text-warning flex items-center gap-1">
                     <AlertCircle size={14} /> {errors.address}
                   </p>
                 )}
@@ -1171,8 +1171,8 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
 
               <div className="grid grid-cols-2 gap-3">
                 <div data-error={!!errors.city || undefined}>
-                  <label htmlFor="city" className="block text-sm font-semibold text-[#212529] mb-2">
-                    City <span className="text-[#FF6B6B]">*</span>
+                  <label htmlFor="city" className="block text-sm font-semibold text-foreground mb-2">
+                    City <span className="text-warning">*</span>
                   </label>
                   <input
                     id="city"
@@ -1181,14 +1181,14 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
                     required
                     value={formData.city}
                     onChange={handleInputChange}
-                    className={`w-full px-4 py-3.5 border-2 rounded-xl text-[#212529] bg-white placeholder:text-[#ADB5BD] focus:outline-none transition-colors ${
-                      errors.city ? 'border-[#FF6B6B]' : 'border-[#E9ECEF] focus:border-[#212529]'
+                    className={`w-full px-4 py-3.5 border-2 rounded-xl text-foreground bg-white placeholder:text-muted-foreground focus:outline-none transition-colors ${
+                      errors.city ? 'border-warning' : 'border-border focus:border-foreground'
                     }`}
                     placeholder="Harare"
                   />
                 </div>
                 <div>
-                  <label htmlFor="neighborhood" className="block text-sm font-semibold text-[#212529] mb-2">
+                  <label htmlFor="neighborhood" className="block text-sm font-semibold text-foreground mb-2">
                     Neighborhood
                   </label>
                   <input
@@ -1197,7 +1197,7 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
                     type="text"
                     value={formData.neighborhood}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-3.5 border-2 border-[#E9ECEF] rounded-xl text-[#212529] bg-white placeholder:text-[#ADB5BD] focus:outline-none focus:border-[#212529] transition-colors"
+                    className="w-full px-4 py-3.5 border-2 border-border rounded-xl text-foreground bg-white placeholder:text-muted-foreground focus:outline-none focus:border-foreground transition-colors"
                     placeholder="Avondale"
                   />
                 </div>
@@ -1205,7 +1205,7 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label htmlFor="stateProvince" className="block text-sm font-semibold text-[#212529] mb-2">
+                  <label htmlFor="stateProvince" className="block text-sm font-semibold text-foreground mb-2">
                     State/Province
                   </label>
                   <input
@@ -1214,12 +1214,12 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
                     type="text"
                     value={formData.stateProvince}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-3.5 border-2 border-[#E9ECEF] rounded-xl text-[#212529] bg-white placeholder:text-[#ADB5BD] focus:outline-none focus:border-[#212529] transition-colors"
+                    className="w-full px-4 py-3.5 border-2 border-border rounded-xl text-foreground bg-white placeholder:text-muted-foreground focus:outline-none focus:border-foreground transition-colors"
                     placeholder="Harare Province"
                   />
                 </div>
                 <div>
-                  <label htmlFor="zipCode" className="block text-sm font-semibold text-[#212529] mb-2">
+                  <label htmlFor="zipCode" className="block text-sm font-semibold text-foreground mb-2">
                     Zip/Postal Code
                   </label>
                   <input
@@ -1228,7 +1228,7 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
                     type="text"
                     value={formData.zipCode}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-3.5 border-2 border-[#E9ECEF] rounded-xl text-[#212529] bg-white placeholder:text-[#ADB5BD] focus:outline-none focus:border-[#212529] transition-colors"
+                    className="w-full px-4 py-3.5 border-2 border-border rounded-xl text-foreground bg-white placeholder:text-muted-foreground focus:outline-none focus:border-foreground transition-colors"
                     placeholder="00263"
                   />
                 </div>
@@ -1236,13 +1236,13 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
 
               {/* Map */}
               <div>
-                <label className="block text-sm font-semibold text-[#212529] mb-2">
+                <label className="block text-sm font-semibold text-foreground mb-2">
                   Pin Location on Map
                 </label>
-                <p className="text-xs text-[#ADB5BD] mb-3">
+                <p className="text-xs text-muted-foreground mb-3">
                   Search or click on the map to update the location
                 </p>
-                <div className="rounded-xl overflow-hidden border-2 border-[#E9ECEF]">
+                <div className="rounded-xl overflow-hidden border-2 border-border">
                   <LocationPicker
                     lat={formData.lat || undefined}
                     lng={formData.lng || undefined}
@@ -1253,7 +1253,7 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
                   />
                 </div>
                 {formData.lat !== 0 && formData.lng !== 0 && (
-                  <p className="mt-3 text-xs text-[#51CF66] flex items-center gap-1.5 font-medium">
+                  <p className="mt-3 text-xs text-success flex items-center gap-1.5 font-medium">
                     <Check size={14} /> Location set: {formData.lat.toFixed(4)}, {formData.lng.toFixed(4)}
                   </p>
                 )}
@@ -1261,14 +1261,14 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
             </div>
           </section>
 
-          <div className="h-px bg-[#E9ECEF] mb-10" />
+          <div className="h-px bg-gray-200 mb-10" />
 
           {/* ===== STUDENT HOUSING ===== */}
           {formData.propertyType === 'student' && (
             <>
               <section id="student" className="mb-10 scroll-mt-24">
-                <h2 className="text-sm font-semibold text-[#212529] mb-1 uppercase tracking-wider">Student Housing Details</h2>
-                <p className="text-xs text-[#ADB5BD] mb-6">Additional information specific to student housing</p>
+                <h2 className="text-sm font-semibold text-foreground mb-1 uppercase tracking-wider">Student Housing Details</h2>
+                <p className="text-xs text-muted-foreground mb-6">Additional information specific to student housing</p>
 
                 <div className="space-y-6">
                   {/* Toggle Options */}
@@ -1278,8 +1278,8 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
                       onClick={() => toggleStudentField('furnished')}
                       className={`w-full flex items-center justify-between px-5 py-4 rounded-xl border-2 transition-all ${
                         formData.furnished
-                          ? 'border-[#212529] bg-[#212529] text-white'
-                          : 'border-[#E9ECEF] bg-white text-[#212529] hover:border-[#495057]'
+                          ? 'border-foreground bg-foreground text-white'
+                          : 'border-border bg-white text-foreground hover:border-border'
                       }`}
                     >
                       <span className="flex items-center gap-3">
@@ -1287,9 +1287,9 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
                         <span className="font-semibold text-sm">Furnished</span>
                       </span>
                       <div className={`w-5 h-5 rounded border-2 flex items-center justify-center ${
-                        formData.furnished ? 'border-white bg-white' : 'border-[#ADB5BD]'
+                        formData.furnished ? 'border-white bg-white' : 'border-muted-foreground'
                       }`}>
-                        {formData.furnished && <Check size={14} className="text-[#212529]" />}
+                        {formData.furnished && <Check size={14} className="text-foreground" />}
                       </div>
                     </button>
 
@@ -1298,8 +1298,8 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
                       onClick={() => toggleStudentField('sharedRooms')}
                       className={`w-full flex items-center justify-between px-5 py-4 rounded-xl border-2 transition-all ${
                         formData.sharedRooms
-                          ? 'border-[#212529] bg-[#212529] text-white'
-                          : 'border-[#E9ECEF] bg-white text-[#212529] hover:border-[#495057]'
+                          ? 'border-foreground bg-foreground text-white'
+                          : 'border-border bg-white text-foreground hover:border-border'
                       }`}
                     >
                       <span className="flex items-center gap-3">
@@ -1307,9 +1307,9 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
                         <span className="font-semibold text-sm">Shared Rooms Available</span>
                       </span>
                       <div className={`w-5 h-5 rounded border-2 flex items-center justify-center ${
-                        formData.sharedRooms ? 'border-white bg-white' : 'border-[#ADB5BD]'
+                        formData.sharedRooms ? 'border-white bg-white' : 'border-muted-foreground'
                       }`}>
-                        {formData.sharedRooms && <Check size={14} className="text-[#212529]" />}
+                        {formData.sharedRooms && <Check size={14} className="text-foreground" />}
                       </div>
                     </button>
 
@@ -1318,8 +1318,8 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
                       onClick={() => toggleStudentField('utilitiesIncluded')}
                       className={`w-full flex items-center justify-between px-5 py-4 rounded-xl border-2 transition-all ${
                         formData.utilitiesIncluded
-                          ? 'border-[#212529] bg-[#212529] text-white'
-                          : 'border-[#E9ECEF] bg-white text-[#212529] hover:border-[#495057]'
+                          ? 'border-foreground bg-foreground text-white'
+                          : 'border-border bg-white text-foreground hover:border-border'
                       }`}
                     >
                       <span className="flex items-center gap-3">
@@ -1327,16 +1327,16 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
                         <span className="font-semibold text-sm">Utilities Included in Rent</span>
                       </span>
                       <div className={`w-5 h-5 rounded border-2 flex items-center justify-center ${
-                        formData.utilitiesIncluded ? 'border-white bg-white' : 'border-[#ADB5BD]'
+                        formData.utilitiesIncluded ? 'border-white bg-white' : 'border-muted-foreground'
                       }`}>
-                        {formData.utilitiesIncluded && <Check size={14} className="text-[#212529]" />}
+                        {formData.utilitiesIncluded && <Check size={14} className="text-foreground" />}
                       </div>
                     </button>
                   </div>
 
                   {/* Nearby Universities */}
                   <div>
-                    <label htmlFor="nearbyUniversities" className="block text-sm font-semibold text-[#212529] mb-2">
+                    <label htmlFor="nearbyUniversities" className="block text-sm font-semibold text-foreground mb-2">
                       Nearby Universities
                     </label>
                     <input
@@ -1345,15 +1345,15 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
                       type="text"
                       value={formData.nearbyUniversities}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-3.5 border-2 border-[#E9ECEF] rounded-xl text-[#212529] bg-white placeholder:text-[#ADB5BD] focus:outline-none focus:border-[#212529] transition-colors"
+                      className="w-full px-4 py-3.5 border-2 border-border rounded-xl text-foreground bg-white placeholder:text-muted-foreground focus:outline-none focus:border-foreground transition-colors"
                       placeholder="e.g., University of Zimbabwe, NUST, Midlands State University"
                     />
-                    <p className="mt-2 text-xs text-[#ADB5BD]">Separate multiple universities with commas</p>
+                    <p className="mt-2 text-xs text-muted-foreground">Separate multiple universities with commas</p>
                   </div>
 
                   {/* Student Lease Terms */}
                   <div>
-                    <label htmlFor="studentLeaseTerms" className="block text-sm font-semibold text-[#212529] mb-2">
+                    <label htmlFor="studentLeaseTerms" className="block text-sm font-semibold text-foreground mb-2">
                       Student Lease Terms
                     </label>
                     <textarea
@@ -1362,22 +1362,22 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
                       rows={3}
                       value={formData.studentLeaseTerms}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-3.5 border-2 border-[#E9ECEF] rounded-xl text-[#212529] bg-white placeholder:text-[#ADB5BD] focus:outline-none focus:border-[#212529] transition-colors resize-none"
+                      className="w-full px-4 py-3.5 border-2 border-border rounded-xl text-foreground bg-white placeholder:text-muted-foreground focus:outline-none focus:border-foreground transition-colors resize-none"
                       placeholder="e.g., Academic year lease (September - June), Summer subletting allowed, Parental guarantee required"
                     />
-                    <p className="mt-2 text-xs text-[#ADB5BD]">Special lease conditions for student tenants</p>
+                    <p className="mt-2 text-xs text-muted-foreground">Special lease conditions for student tenants</p>
                   </div>
                 </div>
               </section>
 
-              <div className="h-px bg-[#E9ECEF] mb-10" />
+              <div className="h-px bg-gray-200 mb-10" />
             </>
           )}
 
           {/* ===== AMENITIES ===== */}
           <section id="amenities" className="mb-10 scroll-mt-24">
-            <h2 className="text-sm font-semibold text-[#212529] mb-1 uppercase tracking-wider">Amenities</h2>
-            <p className="text-xs text-[#ADB5BD] mb-4">Select all that apply</p>
+            <h2 className="text-sm font-semibold text-foreground mb-1 uppercase tracking-wider">Amenities</h2>
+            <p className="text-xs text-muted-foreground mb-4">Select all that apply</p>
 
             <div className="grid grid-cols-2 md:grid-cols-3 gap-2.5">
               {AMENITIES.map(amenity => (
@@ -1387,8 +1387,8 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
                   onClick={() => toggleAmenity(amenity)}
                   className={`flex items-center gap-2 px-4 py-3 rounded-xl border-2 transition-all text-sm font-medium ${
                     formData.amenities.includes(amenity)
-                      ? 'border-[#212529] bg-[#212529] text-white'
-                      : 'border-[#E9ECEF] text-[#212529] hover:border-[#495057] bg-white'
+                      ? 'border-foreground bg-foreground text-white'
+                      : 'border-border text-foreground hover:border-border bg-white'
                   }`}
                 >
                   {formData.amenities.includes(amenity) && <Check size={14} />}
@@ -1398,15 +1398,15 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
             </div>
           </section>
 
-          <div className="h-px bg-[#E9ECEF] mb-10" />
+          <div className="h-px bg-gray-200 mb-10" />
 
           {/* ===== PHOTOS ===== */}
           <section id="photos" className="mb-10 scroll-mt-24">
             <div className="flex items-center justify-between mb-1">
-              <h2 className="text-sm font-semibold text-[#212529] uppercase tracking-wider">Photos</h2>
-              <span className="text-xs text-[#ADB5BD] font-medium tabular-nums">{totalImageCount}/10</span>
+              <h2 className="text-sm font-semibold text-foreground uppercase tracking-wider">Photos</h2>
+              <span className="text-xs text-muted-foreground font-medium tabular-nums">{totalImageCount}/10</span>
             </div>
-            <p className="text-xs text-[#ADB5BD] mb-4">Click the star to set a cover photo. First image is used by default.</p>
+            <p className="text-xs text-muted-foreground mb-4">Click the star to set a cover photo. First image is used by default.</p>
 
             {/* Existing Images */}
             {existingImages.length > 0 && (
@@ -1420,7 +1420,7 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
                         <img
                           src={image.url}
                           alt="Property"
-                          className="w-full h-full object-cover rounded-xl border border-[#E9ECEF]"
+                          className="w-full h-full object-cover rounded-xl border border-border"
                         />
                         {isMarkedForDeletion ? (
                           <button
@@ -1448,7 +1448,7 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
                               }}
                               className={`absolute top-2 left-2 p-1.5 rounded-full transition-opacity ${
                                 isPrimary
-                                  ? 'bg-[#212529] text-white opacity-100'
+                                  ? 'bg-foreground text-white opacity-100'
                                   : 'bg-black/60 text-white/70 opacity-0 group-hover:opacity-100 hover:text-white'
                               }`}
                               title={isPrimary ? 'Cover photo' : 'Set as cover'}
@@ -1456,7 +1456,7 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
                               <Star size={12} fill={isPrimary ? 'currentColor' : 'none'} />
                             </button>
                             {isPrimary && (
-                              <div className="absolute bottom-2 left-2 bg-[#212529] text-white text-[10px] font-semibold px-2 py-0.5 rounded-md tracking-wide uppercase">
+                              <div className="absolute bottom-2 left-2 bg-foreground text-white text-[10px] font-semibold px-2 py-0.5 rounded-md tracking-wide uppercase">
                                 Cover
                               </div>
                             )}
@@ -1495,7 +1495,7 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
 
             {/* Upload Area */}
             {totalImageCount < 10 && (
-              <label className="block w-full border-2 border-dashed border-[#E9ECEF] rounded-xl p-8 text-center hover:border-[#212529] transition-colors cursor-pointer bg-[#FAFAFA] hover:bg-white group">
+              <label className="block w-full border-2 border-dashed border-border rounded-xl p-8 text-center hover:border-foreground transition-colors cursor-pointer bg-muted hover:bg-white group">
                 <input
                   type="file"
                   accept="image/*"
@@ -1503,19 +1503,19 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
                   onChange={handleImageSelect}
                   className="hidden"
                 />
-                <div className="w-12 h-12 rounded-full bg-[#E9ECEF] flex items-center justify-center mx-auto mb-3 group-hover:bg-[#212529] transition-colors">
-                  <Upload size={20} className="text-[#495057] group-hover:text-white transition-colors" />
+                <div className="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center mx-auto mb-3 group-hover:bg-foreground transition-colors">
+                  <Upload size={20} className="text-muted-foreground group-hover:text-white transition-colors" />
                 </div>
-                <p className="text-[#212529] font-semibold text-sm mb-1">Click to upload or drag & drop</p>
-                <p className="text-xs text-[#ADB5BD]">PNG, JPG, WEBP up to 10MB each</p>
+                <p className="text-foreground font-semibold text-sm mb-1">Click to upload or drag & drop</p>
+                <p className="text-xs text-muted-foreground">PNG, JPG, WEBP up to 10MB each</p>
               </label>
             )}
 
             {/* New Image Previews */}
             {newImagePreviews.length > 0 && (
               <div className="mt-4">
-                <p className="text-xs font-medium text-[#495057] mb-2 flex items-center gap-1.5">
-                  <span className="w-2 h-2 rounded-full bg-[#51CF66]" />
+                <p className="text-xs font-medium text-muted-foreground mb-2 flex items-center gap-1.5">
+                  <span className="w-2 h-2 rounded-full bg-success" />
                   New images to upload
                 </p>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-2.5">
@@ -1524,7 +1524,7 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
                       <img
                         src={preview}
                         alt={`New ${index + 1}`}
-                        className="w-full h-full object-cover rounded-xl border-2 border-[#51CF66]/30"
+                        className="w-full h-full object-cover rounded-xl border-2 border-success/30"
                       />
                       <button
                         type="button"
@@ -1540,15 +1540,15 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
             )}
           </section>
 
-          <div className="h-px bg-[#E9ECEF] mb-10" />
+          <div className="h-px bg-gray-200 mb-10" />
 
           {/* ===== AVAILABILITY ===== */}
           <section id="availability" className="mb-10 scroll-mt-24">
-            <h2 className="text-sm font-semibold text-[#212529] mb-6 uppercase tracking-wider">Availability</h2>
+            <h2 className="text-sm font-semibold text-foreground mb-6 uppercase tracking-wider">Availability</h2>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               <div>
-                <label htmlFor="availableFrom" className="block text-xs font-medium text-[#495057] mb-2">
+                <label htmlFor="availableFrom" className="block text-xs font-medium text-muted-foreground mb-2">
                   {formData.listingType === 'rent' ? 'Available From' : 'Move-in Ready'}
                 </label>
                 <input
@@ -1557,13 +1557,13 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
                   type="date"
                   value={formData.availableFrom}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3.5 border-2 border-[#E9ECEF] rounded-xl text-[#212529] bg-white focus:outline-none focus:border-[#212529] transition-colors"
+                  className="w-full px-4 py-3.5 border-2 border-border rounded-xl text-foreground bg-white focus:outline-none focus:border-foreground transition-colors"
                 />
               </div>
 
               {formData.listingType === 'rent' && (
                 <div>
-                  <label htmlFor="leaseTerm" className="block text-xs font-medium text-[#495057] mb-2">
+                  <label htmlFor="leaseTerm" className="block text-xs font-medium text-muted-foreground mb-2">
                     Lease Term
                   </label>
                   <select
@@ -1571,7 +1571,7 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
                     name="leaseTerm"
                     value={formData.leaseTerm}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-3.5 border-2 border-[#E9ECEF] rounded-xl text-[#212529] bg-white focus:outline-none focus:border-[#212529] transition-colors"
+                    className="w-full px-4 py-3.5 border-2 border-border rounded-xl text-foreground bg-white focus:outline-none focus:border-foreground transition-colors"
                   >
                     <option value="month-to-month">Month-to-month</option>
                     <option value="6-months">6 months</option>
@@ -1584,17 +1584,17 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
           </section>
 
           {/* ===== SUBMIT ===== */}
-          <div ref={submitAreaRef} className="flex gap-3 pt-6 border-t border-[#E9ECEF]">
+          <div ref={submitAreaRef} className="flex gap-3 pt-6 border-t border-border">
             <Link
               href="/dashboard/my-properties"
-              className="flex items-center justify-center gap-2 px-5 py-3.5 border-2 border-[#E9ECEF] text-[#212529] rounded-xl text-sm font-semibold hover:border-[#212529] transition-all"
+              className="flex items-center justify-center gap-2 px-5 py-3.5 border-2 border-border text-foreground rounded-xl text-sm font-semibold hover:border-foreground transition-all"
             >
               Cancel
             </Link>
             <button
               type="submit"
               disabled={saving}
-              className="flex-1 flex items-center justify-center gap-2 bg-[#212529] text-white px-6 py-3.5 rounded-xl text-sm font-semibold hover:bg-black transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+              className="flex-1 flex items-center justify-center gap-2 bg-foreground text-white px-6 py-3.5 rounded-xl text-sm font-semibold hover:bg-black transition-all disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {saving ? (
                 <>
@@ -1614,20 +1614,20 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
 
       {/* Sticky Bottom Save Bar */}
       {showStickyBar && (
-        <div className="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-sm border-t border-[#E9ECEF] z-20 py-3">
+        <div className="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-sm border-t border-border z-20 py-3">
           <div className="max-w-2xl mx-auto px-4 flex items-center justify-between gap-3">
             <div className="flex items-center gap-3">
               <div className="hidden sm:flex items-center gap-2">
-                <div className="w-20 h-1.5 bg-[#E9ECEF] rounded-full overflow-hidden">
+                <div className="w-20 h-1.5 bg-gray-200 rounded-full overflow-hidden">
                   <div
-                    className={`h-full rounded-full transition-all duration-500 ${completion === 100 ? 'bg-[#51CF66]' : 'bg-[#212529]'}`}
+                    className={`h-full rounded-full transition-all duration-500 ${completion === 100 ? 'bg-success' : 'bg-foreground'}`}
                     style={{ width: `${completion}%` }}
                   />
                 </div>
-                <span className="text-xs text-[#ADB5BD] tabular-nums">{completion}%</span>
+                <span className="text-xs text-muted-foreground tabular-nums">{completion}%</span>
               </div>
               {hasChanges && (
-                <span className="text-xs text-[#FF6B6B] font-medium flex items-center gap-1">
+                <span className="text-xs text-warning font-medium flex items-center gap-1">
                   <Clock size={12} /> Unsaved changes
                 </span>
               )}
@@ -1636,7 +1636,7 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
               <button
                 type="button"
                 onClick={() => setShowDeleteConfirm(true)}
-                className="p-2.5 text-[#ADB5BD] hover:text-[#FF6B6B] rounded-xl transition-colors"
+                className="p-2.5 text-muted-foreground hover:text-warning rounded-xl transition-colors"
                 title="Delete property"
               >
                 <Trash2 size={16} />
@@ -1645,7 +1645,7 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
                 type="button"
                 onClick={() => formRef.current?.requestSubmit()}
                 disabled={saving}
-                className="flex items-center gap-2 bg-[#212529] text-white px-5 py-2.5 rounded-xl text-sm font-semibold hover:bg-black transition-all disabled:opacity-50"
+                className="flex items-center gap-2 bg-foreground text-white px-5 py-2.5 rounded-xl text-sm font-semibold hover:bg-black transition-all disabled:opacity-50"
               >
                 {saving ? <Loader2 className="animate-spin" size={16} /> : <Check size={16} />}
                 {saving ? 'Saving...' : 'Save'}
@@ -1659,18 +1659,18 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
       {showDeleteConfirm && (
         <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4" onClick={() => setShowDeleteConfirm(false)}>
           <div className="bg-white rounded-2xl p-6 max-w-sm w-full shadow-xl" onClick={e => e.stopPropagation()}>
-            <div className="w-12 h-12 rounded-full bg-[#FF6B6B]/10 flex items-center justify-center mx-auto mb-4">
-              <Trash2 size={20} className="text-[#FF6B6B]" />
+            <div className="w-12 h-12 rounded-full bg-warning/10 flex items-center justify-center mx-auto mb-4">
+              <Trash2 size={20} className="text-warning" />
             </div>
-            <h3 className="text-lg font-bold text-[#212529] text-center mb-2">Delete this property?</h3>
-            <p className="text-sm text-[#495057] text-center mb-6">
+            <h3 className="text-lg font-bold text-foreground text-center mb-2">Delete this property?</h3>
+            <p className="text-sm text-muted-foreground text-center mb-6">
               This will permanently remove the listing, images, reviews, and analytics. This cannot be undone.
             </p>
             <div className="flex gap-3">
               <button
                 type="button"
                 onClick={() => setShowDeleteConfirm(false)}
-                className="flex-1 px-4 py-2.5 border-2 border-[#E9ECEF] text-[#212529] rounded-xl text-sm font-semibold hover:border-[#212529] transition-colors"
+                className="flex-1 px-4 py-2.5 border-2 border-border text-foreground rounded-xl text-sm font-semibold hover:border-foreground transition-colors"
               >
                 Cancel
               </button>
@@ -1678,7 +1678,7 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
                 type="button"
                 onClick={handleDelete}
                 disabled={deleting}
-                className="flex-1 px-4 py-2.5 bg-[#FF6B6B] text-white rounded-xl text-sm font-semibold hover:bg-red-500 transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
+                className="flex-1 px-4 py-2.5 bg-warning text-white rounded-xl text-sm font-semibold hover:bg-red-500 transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
               >
                 {deleting ? <Loader2 size={16} className="animate-spin" /> : <Trash2 size={16} />}
                 {deleting ? 'Deleting...' : 'Delete'}

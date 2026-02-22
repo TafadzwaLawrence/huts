@@ -113,7 +113,7 @@ export default async function StudentHousingPage() {
   return (
     <div className="min-h-screen bg-white">
       {/* HERO */}
-      <section className="relative bg-[#212529] text-white overflow-hidden">
+      <section className="relative bg-foreground text-white overflow-hidden">
         {/* Background texture */}
         <div className="absolute inset-0 opacity-[0.04]" style={{
           backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
@@ -144,7 +144,7 @@ export default async function StudentHousingPage() {
             <div className="flex flex-col sm:flex-row gap-4">
               <Link
                 href="/search?type=rent&studentHousingOnly=true"
-                className="group inline-flex items-center justify-center gap-2.5 bg-white text-[#212529] px-8 py-4 rounded-xl font-bold text-base hover:-translate-y-0.5 hover:shadow-2xl transition-all"
+                className="group inline-flex items-center justify-center gap-2.5 bg-white text-foreground px-8 py-4 rounded-xl font-bold text-base hover:-translate-y-0.5 hover:shadow-2xl transition-all"
               >
                 <Search size={ICON_SIZES.lg} />
                 Browse Student Housing
@@ -177,21 +177,21 @@ export default async function StudentHousingPage() {
       </section>
 
       {/* KEY FEATURES */}
-      <section className="py-16 md:py-24 bg-[#F8F9FA] relative overflow-hidden">
+      <section className="py-16 md:py-24 bg-muted relative overflow-hidden">
         <div className="absolute inset-0 opacity-[0.015]" style={{
           backgroundImage: `radial-gradient(circle at 1px 1px, #212529 1px, transparent 0)`,
           backgroundSize: '32px 32px'
         }} />
         <div className="container-main relative">
           <div className="text-center mb-14">
-            <div className="inline-flex items-center gap-2 bg-white border border-[#E9ECEF] rounded-full px-4 py-1.5 mb-4">
-              <Sofa size={ICON_SIZES.xs} className="text-[#495057]" />
-              <span className="text-[10px] font-bold text-[#495057] uppercase tracking-widest">Student Features</span>
+            <div className="inline-flex items-center gap-2 bg-white border border-border rounded-full px-4 py-1.5 mb-4">
+              <Sofa size={ICON_SIZES.xs} className="text-muted-foreground" />
+              <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">Student Features</span>
             </div>
-            <h2 className="text-3xl md:text-4xl font-bold text-[#212529] tracking-tight mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground tracking-tight mb-4">
               Made for student life
             </h2>
-            <p className="text-[#495057] text-lg max-w-lg mx-auto">
+            <p className="text-muted-foreground text-lg max-w-lg mx-auto">
               Every listing is tailored for university students in Zimbabwe
             </p>
           </div>
@@ -214,12 +214,12 @@ export default async function StudentHousingPage() {
                 description: 'Water, electricity, and Wi-Fi bundled into one monthly payment. No surprise bills at end of month.',
               },
             ].map(({ icon: Icon, title, description }, idx) => (
-              <div key={idx} className="group bg-white p-8 rounded-2xl border-2 border-[#E9ECEF] hover:border-[#212529] hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-                <div className="w-14 h-14 bg-[#F8F9FA] group-hover:bg-[#212529] rounded-xl flex items-center justify-center mb-6 transition-colors duration-300">
-                  <Icon size={ICON_SIZES.xl} className="text-[#495057] group-hover:text-white transition-colors" />
+              <div key={idx} className="group bg-white p-8 rounded-2xl border-2 border-border hover:border-foreground hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                <div className="w-14 h-14 bg-muted group-hover:bg-foreground rounded-xl flex items-center justify-center mb-6 transition-colors duration-300">
+                  <Icon size={ICON_SIZES.xl} className="text-muted-foreground group-hover:text-white transition-colors" />
                 </div>
-                <h3 className="text-xl font-bold text-[#212529] mb-3">{title}</h3>
-                <p className="text-[#495057] leading-relaxed">{description}</p>
+                <h3 className="text-xl font-bold text-foreground mb-3">{title}</h3>
+                <p className="text-muted-foreground leading-relaxed">{description}</p>
               </div>
             ))}
           </div>
@@ -230,14 +230,14 @@ export default async function StudentHousingPage() {
       <section id="universities" className="py-16 md:py-24 bg-white scroll-mt-20">
         <div className="container-main">
           <div className="text-center mb-14">
-            <div className="inline-flex items-center gap-2 bg-[#212529] rounded-full px-5 py-2.5 mb-6">
+            <div className="inline-flex items-center gap-2 bg-foreground rounded-full px-5 py-2.5 mb-6">
               <MapPin size={ICON_SIZES.sm} className="text-white" />
               <span className="text-xs font-semibold tracking-widest uppercase text-white">By Campus</span>
             </div>
-            <h2 className="text-3xl md:text-4xl font-bold text-[#212529] tracking-tight mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground tracking-tight mb-4">
               Find housing near your university
             </h2>
-            <p className="text-[#495057] text-lg max-w-lg mx-auto">
+            <p className="text-muted-foreground text-lg max-w-lg mx-auto">
               Browse student-friendly rentals close to all {UNIVERSITIES.length} Zimbabwean universities
             </p>
           </div>
@@ -248,27 +248,27 @@ export default async function StudentHousingPage() {
               <Link
                 key={short}
                 href={`/search?type=rent&city=${encodeURIComponent(city)}`}
-                className="group relative bg-white border-2 border-[#E9ECEF] rounded-2xl p-5 hover:border-[#212529] hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden"
+                className="group relative bg-white border-2 border-border rounded-2xl p-5 hover:border-foreground hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden"
               >
                 {/* Hover gradient */}
-                <div className="absolute inset-0 bg-gradient-to-br from-[#F8F9FA] to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                <div className="absolute inset-0 bg-gradient-to-br from-muted to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
 
                 <div className="relative flex items-start gap-4">
-                  <div className="w-11 h-11 bg-[#F8F9FA] group-hover:bg-[#212529] rounded-xl flex items-center justify-center flex-shrink-0 transition-colors duration-300">
-                    <Icon size={ICON_SIZES.lg} className="text-[#495057] group-hover:text-white transition-colors" />
+                  <div className="w-11 h-11 bg-muted group-hover:bg-foreground rounded-xl flex items-center justify-center flex-shrink-0 transition-colors duration-300">
+                    <Icon size={ICON_SIZES.lg} className="text-muted-foreground group-hover:text-white transition-colors" />
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-0.5">
-                      <h3 className="font-bold text-[#212529] text-sm line-clamp-1">{name}</h3>
-                      <span className="text-[10px] font-bold text-[#ADB5BD] bg-[#F8F9FA] px-1.5 py-0.5 rounded flex-shrink-0">{short}</span>
+                      <h3 className="font-bold text-foreground text-sm line-clamp-1">{name}</h3>
+                      <span className="text-[10px] font-bold text-muted-foreground bg-muted px-1.5 py-0.5 rounded flex-shrink-0">{short}</span>
                     </div>
-                    <div className="flex items-center gap-1.5 text-sm text-[#495057]">
-                      <MapPin size={ICON_SIZES.xs} className="text-[#ADB5BD] flex-shrink-0" />
+                    <div className="flex items-center gap-1.5 text-sm text-muted-foreground">
+                      <MapPin size={ICON_SIZES.xs} className="text-muted-foreground flex-shrink-0" />
                       <span className="truncate">{area !== city ? `${area}, ${city}` : city}</span>
                     </div>
-                    <div className="mt-2.5 pt-2.5 border-t border-[#E9ECEF] flex items-center justify-between opacity-60 group-hover:opacity-100 transition-opacity">
-                      <span className="text-[11px] font-semibold text-[#495057]">Browse rentals nearby</span>
-                      <ArrowRight size={ICON_SIZES.xs} className="text-[#212529] group-hover:translate-x-1 transition-transform" />
+                    <div className="mt-2.5 pt-2.5 border-t border-border flex items-center justify-between opacity-60 group-hover:opacity-100 transition-opacity">
+                      <span className="text-[11px] font-semibold text-muted-foreground">Browse rentals nearby</span>
+                      <ArrowRight size={ICON_SIZES.xs} className="text-foreground group-hover:translate-x-1 transition-transform" />
                     </div>
                   </div>
                 </div>
@@ -279,21 +279,21 @@ export default async function StudentHousingPage() {
       </section>
 
       {/* FEATURED PROPERTIES */}
-      <section className="py-16 md:py-24 bg-[#F8F9FA] relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-[#212529]/5 rounded-full blur-3xl" />
+      <section className="py-16 md:py-24 bg-muted relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-96 h-96 bg-foreground/5 rounded-full blur-3xl" />
         <div className="container-main relative">
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-6 mb-10 md:mb-14">
             <div>
-              <div className="inline-flex items-center gap-2 bg-white border border-[#E9ECEF] rounded-full px-4 py-1.5 mb-4">
-                <GraduationCap size={ICON_SIZES.xs} className="text-[#495057]" />
-                <span className="text-[10px] font-bold text-[#495057] uppercase tracking-widest">
+              <div className="inline-flex items-center gap-2 bg-white border border-border rounded-full px-4 py-1.5 mb-4">
+                <GraduationCap size={ICON_SIZES.xs} className="text-muted-foreground" />
+                <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">
                   {isShowingFallback ? 'Affordable Rentals' : 'Student Housing'}
                 </span>
               </div>
-              <h2 className="text-3xl md:text-4xl font-bold text-[#212529] tracking-tight mb-2">
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground tracking-tight mb-2">
                 {isShowingFallback ? 'Budget-Friendly Rentals' : 'Featured Student Housing'}
               </h2>
-              <p className="text-[#495057]">
+              <p className="text-muted-foreground">
                 {isShowingFallback
                   ? 'Affordable rooms and apartments perfect for students'
                   : `${studentProperties.length} student ${studentProperties.length === 1 ? 'property' : 'properties'} available`}
@@ -301,7 +301,7 @@ export default async function StudentHousingPage() {
             </div>
             <Link
               href="/search?type=rent&studentHousingOnly=true"
-              className="group inline-flex items-center gap-2.5 text-sm font-semibold text-[#212529] border-2 border-[#E9ECEF] px-5 py-2.5 rounded-full hover:border-[#212529] hover:bg-[#212529] hover:text-white transition-all duration-200"
+              className="group inline-flex items-center gap-2.5 text-sm font-semibold text-foreground border-2 border-border px-5 py-2.5 rounded-full hover:border-foreground hover:bg-foreground hover:text-white transition-all duration-200"
             >
               <span>View all</span>
               <ArrowRight size={ICON_SIZES.sm} className="group-hover:translate-x-0.5 transition-transform" />
@@ -320,9 +320,9 @@ export default async function StudentHousingPage() {
                     href={`/property/${property.slug || property.id}`}
                     className="group"
                   >
-                    <article className="relative border-2 border-[#E9ECEF] rounded-2xl overflow-hidden bg-white hover:border-[#212529] hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                    <article className="relative border-2 border-border rounded-2xl overflow-hidden bg-white hover:border-foreground hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
                       {/* Image */}
-                      <div className="relative h-52 overflow-hidden bg-[#F8F9FA]">
+                      <div className="relative h-52 overflow-hidden bg-muted">
                         {imageUrl ? (
                           <>
                             <Image
@@ -336,15 +336,15 @@ export default async function StudentHousingPage() {
                           </>
                         ) : (
                           <div className="w-full h-full flex items-center justify-center">
-                            <Home className="text-[#ADB5BD]" size={ICON_SIZES['3xl']} />
+                            <Home className="text-muted-foreground" size={ICON_SIZES['3xl']} />
                           </div>
                         )}
 
                         {/* Price */}
                         {property.price && (
                           <div className="absolute bottom-3 left-3 bg-white/95 backdrop-blur-sm px-3 py-1.5 rounded-lg shadow-lg">
-                            <span className="text-base font-bold text-[#212529]">{formatPrice(property.price)}</span>
-                            <span className="text-xs text-[#495057]">/mo</span>
+                            <span className="text-base font-bold text-foreground">{formatPrice(property.price)}</span>
+                            <span className="text-xs text-muted-foreground">/mo</span>
                           </div>
                         )}
 
@@ -352,17 +352,17 @@ export default async function StudentHousingPage() {
                         {property.property_type === 'student' && (
                           <div className="absolute top-3 left-3 flex flex-wrap gap-1.5">
                             {property.furnished && (
-                              <div className="bg-[#212529]/90 backdrop-blur-sm text-white px-2 py-1 rounded text-[10px] font-bold flex items-center gap-1">
+                              <div className="bg-foreground/90 backdrop-blur-sm text-white px-2 py-1 rounded text-[10px] font-bold flex items-center gap-1">
                                 <Sofa size={ICON_SIZES.xs} /> Furnished
                               </div>
                             )}
                             {property.shared_rooms && (
-                              <div className="bg-[#212529]/90 backdrop-blur-sm text-white px-2 py-1 rounded text-[10px] font-bold flex items-center gap-1">
+                              <div className="bg-foreground/90 backdrop-blur-sm text-white px-2 py-1 rounded text-[10px] font-bold flex items-center gap-1">
                                 <Users size={ICON_SIZES.xs} /> Shared
                               </div>
                             )}
                             {property.utilities_included && (
-                              <div className="bg-[#212529]/90 backdrop-blur-sm text-white px-2 py-1 rounded text-[10px] font-bold flex items-center gap-1">
+                              <div className="bg-foreground/90 backdrop-blur-sm text-white px-2 py-1 rounded text-[10px] font-bold flex items-center gap-1">
                                 <Zap size={ICON_SIZES.xs} /> Utilities
                               </div>
                             )}
@@ -372,26 +372,26 @@ export default async function StudentHousingPage() {
 
                       {/* Content */}
                       <div className="p-5">
-                        <h3 className="font-semibold text-[#212529] text-base mb-2 line-clamp-1 group-hover:underline underline-offset-2 decoration-[#212529]/30">
+                        <h3 className="font-semibold text-foreground text-base mb-2 line-clamp-1 group-hover:underline underline-offset-2 decoration-foreground/30">
                           {property.title}
                         </h3>
-                        <div className="flex items-center text-[#495057] text-sm mb-4">
-                          <MapPin size={ICON_SIZES.sm} className="mr-1.5 flex-shrink-0 text-[#ADB5BD]" />
+                        <div className="flex items-center text-muted-foreground text-sm mb-4">
+                          <MapPin size={ICON_SIZES.sm} className="mr-1.5 flex-shrink-0 text-muted-foreground" />
                           <span className="truncate">{property.neighborhood ? `${property.neighborhood}, ` : ''}{property.city}</span>
                         </div>
-                        <div className="flex items-center gap-4 text-sm text-[#495057] pt-4 border-t border-[#F1F3F5]">
+                        <div className="flex items-center gap-4 text-sm text-muted-foreground pt-4 border-t border-gray-100">
                           <span className="flex items-center gap-1.5">
-                            <Bed size={ICON_SIZES.sm} className="text-[#ADB5BD]" />
-                            <span className="font-semibold text-[#212529]">{property.beds}</span>
+                            <Bed size={ICON_SIZES.sm} className="text-muted-foreground" />
+                            <span className="font-semibold text-foreground">{property.beds}</span>
                           </span>
                           <span className="flex items-center gap-1.5">
-                            <Bath size={ICON_SIZES.sm} className="text-[#ADB5BD]" />
-                            <span className="font-semibold text-[#212529]">{property.baths}</span>
+                            <Bath size={ICON_SIZES.sm} className="text-muted-foreground" />
+                            <span className="font-semibold text-foreground">{property.baths}</span>
                           </span>
                           {property.sqft && (
                             <span className="flex items-center gap-1.5">
-                              <Square size={ICON_SIZES.sm} className="text-[#ADB5BD]" />
-                              <span className="font-semibold text-[#212529]">{property.sqft}</span>
+                              <Square size={ICON_SIZES.sm} className="text-muted-foreground" />
+                              <span className="font-semibold text-foreground">{property.sqft}</span>
                             </span>
                           )}
                         </div>
@@ -403,33 +403,33 @@ export default async function StudentHousingPage() {
             </div>
           ) : (
             <div className="max-w-2xl mx-auto">
-              <div className="bg-white border-2 border-dashed border-[#E9ECEF] rounded-2xl p-12 md:p-16 text-center">
+              <div className="bg-white border-2 border-dashed border-border rounded-2xl p-12 md:p-16 text-center">
                 <div className="flex justify-center items-center gap-4 mb-8">
-                  <div className="w-16 h-16 bg-[#F8F9FA] rounded-2xl flex items-center justify-center border border-[#E9ECEF] rotate-[-6deg]">
-                    <GraduationCap size={ICON_SIZES['2xl']} className="text-[#ADB5BD]" />
+                  <div className="w-16 h-16 bg-muted rounded-2xl flex items-center justify-center border border-border rotate-[-6deg]">
+                    <GraduationCap size={ICON_SIZES['2xl']} className="text-muted-foreground" />
                   </div>
-                  <div className="w-20 h-20 bg-[#212529] rounded-2xl flex items-center justify-center shadow-xl">
+                  <div className="w-20 h-20 bg-foreground rounded-2xl flex items-center justify-center shadow-xl">
                     <Home size={ICON_SIZES['3xl']} className="text-white" />
                   </div>
-                  <div className="w-16 h-16 bg-[#F8F9FA] rounded-2xl flex items-center justify-center border border-[#E9ECEF] rotate-[6deg]">
-                    <MapPin size={ICON_SIZES['2xl']} className="text-[#ADB5BD]" />
+                  <div className="w-16 h-16 bg-muted rounded-2xl flex items-center justify-center border border-border rotate-[6deg]">
+                    <MapPin size={ICON_SIZES['2xl']} className="text-muted-foreground" />
                   </div>
                 </div>
-                <h3 className="text-2xl md:text-3xl font-bold text-[#212529] mb-3">No student housing listed yet</h3>
-                <p className="text-[#495057] text-lg mb-8 max-w-md mx-auto">
+                <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-3">No student housing listed yet</h3>
+                <p className="text-muted-foreground text-lg mb-8 max-w-md mx-auto">
                   Be the first to list student accommodation and help thousands of students find a home near campus.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <Link
                     href="/dashboard/new-property"
-                    className="group inline-flex items-center justify-center gap-2 bg-[#212529] text-white px-8 py-4 rounded-xl font-semibold hover:bg-black hover:shadow-xl hover:-translate-y-0.5 transition-all"
+                    className="group inline-flex items-center justify-center gap-2 bg-foreground text-white px-8 py-4 rounded-xl font-semibold hover:bg-black hover:shadow-xl hover:-translate-y-0.5 transition-all"
                   >
                     List Student Housing
                     <ArrowRight size={ICON_SIZES.lg} className="group-hover:translate-x-1 transition-transform" />
                   </Link>
                   <Link
                     href="/search?type=rent"
-                    className="inline-flex items-center justify-center gap-2 bg-white text-[#212529] border-2 border-[#E9ECEF] px-8 py-4 rounded-xl font-semibold hover:border-[#212529] hover:shadow-md transition-all"
+                    className="inline-flex items-center justify-center gap-2 bg-white text-foreground border-2 border-border px-8 py-4 rounded-xl font-semibold hover:border-foreground hover:shadow-md transition-all"
                   >
                     <Search size={ICON_SIZES.lg} />
                     Browse All Rentals
@@ -445,10 +445,10 @@ export default async function StudentHousingPage() {
       <section className="py-16 md:py-24 bg-white">
         <div className="container-main">
           <div className="text-center mb-14">
-            <h2 className="text-3xl md:text-4xl font-bold text-[#212529] tracking-tight mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground tracking-tight mb-4">
               What to look for in student housing
             </h2>
-            <p className="text-[#495057] text-lg max-w-lg mx-auto">
+            <p className="text-muted-foreground text-lg max-w-lg mx-auto">
               A quick guide for students searching for their perfect digs
             </p>
           </div>
@@ -462,13 +462,13 @@ export default async function StudentHousingPage() {
               { icon: Coffee, title: 'Nearby amenities', desc: 'Shops, restaurants, and study spots within walking distance make student life much easier.' },
               { icon: CheckCircle, title: 'Flexible lease terms', desc: 'Semester-based or month-to-month leases work best for students who travel during breaks.' },
             ].map(({ icon: Icon, title, desc }, idx) => (
-              <div key={idx} className="group flex items-start gap-4 p-5 rounded-xl border border-[#E9ECEF] hover:border-[#212529] hover:shadow-lg transition-all duration-300">
-                <div className="w-10 h-10 bg-[#F8F9FA] group-hover:bg-[#212529] rounded-lg flex items-center justify-center flex-shrink-0 transition-colors duration-300">
-                  <Icon size={ICON_SIZES.lg} className="text-[#495057] group-hover:text-white transition-colors" />
+              <div key={idx} className="group flex items-start gap-4 p-5 rounded-xl border border-border hover:border-foreground hover:shadow-lg transition-all duration-300">
+                <div className="w-10 h-10 bg-muted group-hover:bg-foreground rounded-lg flex items-center justify-center flex-shrink-0 transition-colors duration-300">
+                  <Icon size={ICON_SIZES.lg} className="text-muted-foreground group-hover:text-white transition-colors" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-[#212529] mb-1">{title}</h3>
-                  <p className="text-sm text-[#495057] leading-relaxed">{desc}</p>
+                  <h3 className="font-bold text-foreground mb-1">{title}</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{desc}</p>
                 </div>
               </div>
             ))}
@@ -477,14 +477,14 @@ export default async function StudentHousingPage() {
       </section>
 
       {/* FAQ */}
-      <section className="py-16 md:py-24 bg-[#F8F9FA]">
+      <section className="py-16 md:py-24 bg-muted">
         <div className="container-main">
           <div className="max-w-3xl mx-auto">
             <div className="text-center mb-14">
-              <h2 className="text-3xl md:text-4xl font-bold text-[#212529] tracking-tight mb-4">
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground tracking-tight mb-4">
                 Common questions
               </h2>
-              <p className="text-[#495057] text-lg">
+              <p className="text-muted-foreground text-lg">
                 Everything students ask about renting in Zimbabwe
               </p>
             </div>
@@ -512,13 +512,13 @@ export default async function StudentHousingPage() {
                   a: 'Every property on Huts goes through our verification process before being published. Look for the verified badge and always use our in-app messaging to communicate with landlords — never pay outside the platform.'
                 },
               ].map(({ q, a }, idx) => (
-                <details key={idx} className="group bg-white border-2 border-[#E9ECEF] rounded-xl hover:border-[#212529] transition-colors">
-                  <summary className="flex items-center justify-between cursor-pointer p-6 font-bold text-[#212529] list-none">
+                <details key={idx} className="group bg-white border-2 border-border rounded-xl hover:border-foreground transition-colors">
+                  <summary className="flex items-center justify-between cursor-pointer p-6 font-bold text-foreground list-none">
                     <span className="pr-4">{q}</span>
-                    <ChevronDown size={ICON_SIZES.lg} className="text-[#ADB5BD] group-open:rotate-180 transition-transform flex-shrink-0" />
+                    <ChevronDown size={ICON_SIZES.lg} className="text-muted-foreground group-open:rotate-180 transition-transform flex-shrink-0" />
                   </summary>
                   <div className="px-6 pb-6 pt-0">
-                    <p className="text-[#495057] leading-relaxed">{a}</p>
+                    <p className="text-muted-foreground leading-relaxed">{a}</p>
                   </div>
                 </details>
               ))}
@@ -528,7 +528,7 @@ export default async function StudentHousingPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-20 md:py-28 bg-[#212529] text-white relative overflow-hidden">
+      <section className="py-20 md:py-28 bg-foreground text-white relative overflow-hidden">
         <div className="absolute -top-40 -right-40 w-[500px] h-[500px] bg-white/[0.03] rounded-full blur-[120px]" />
         <div className="absolute -bottom-40 -left-40 w-[400px] h-[400px] bg-white/[0.02] rounded-full blur-[100px]" />
 
@@ -547,7 +547,7 @@ export default async function StudentHousingPage() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 href="/search?type=rent&studentHousingOnly=true"
-                className="group inline-flex items-center justify-center gap-2.5 bg-white text-[#212529] px-10 py-4 rounded-xl font-bold text-base hover:-translate-y-0.5 hover:shadow-2xl transition-all"
+                className="group inline-flex items-center justify-center gap-2.5 bg-white text-foreground px-10 py-4 rounded-xl font-bold text-base hover:-translate-y-0.5 hover:shadow-2xl transition-all"
               >
                 Start Searching
                 <ArrowRight size={ICON_SIZES.lg} className="group-hover:translate-x-0.5 transition-transform" />

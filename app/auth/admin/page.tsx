@@ -71,9 +71,9 @@ export default function AdminSignInPage() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-b from-[#212529] to-[#2a2e34]">
+    <div className="min-h-screen flex flex-col bg-gradient-to-b from-foreground to-foreground">
       {/* Header Bar */}
-      <div className="bg-[#212529] border-b border-white/10">
+      <div className="bg-muted border-b border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2 group">
             <Image src="/logo.png" alt="Huts" width={32} height={32} className="invert group-hover:opacity-80 transition-opacity" />
@@ -105,8 +105,8 @@ export default function AdminSignInPage() {
           <div className="bg-white/5 border border-white/10 rounded-2xl p-8 backdrop-blur-lg space-y-6">
             {/* Error */}
             {error && (
-              <div className="p-4 bg-[#FF6B6B]/10 border border-[#FF6B6B]/30 rounded-xl flex items-start gap-3 animate-pulse">
-                <AlertCircle size={18} className="text-[#FF6B6B] flex-shrink-0 mt-0.5" />
+              <div className="p-4 bg-muted/10 border border-border/30 rounded-xl flex items-start gap-3 animate-pulse">
+                <AlertCircle size={18} className="text-foreground flex-shrink-0 mt-0.5" />
                 <div className="flex-1">
                   <p className="text-sm font-semibold text-white">Sign in failed</p>
                   <p className="text-xs text-white/60 mt-1">{error}</p>
@@ -202,11 +202,11 @@ export default function AdminSignInPage() {
               <button
                 type="submit"
                 disabled={loading}
-                className="relative w-full flex items-center justify-center gap-2 bg-white text-[#212529] py-3 px-4 rounded-xl font-semibold hover:bg-white/90 hover:-translate-y-0.5 transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0 mt-2 overflow-hidden group"
+                className="relative w-full flex items-center justify-center gap-2 bg-white text-foreground py-3 px-4 rounded-xl font-semibold hover:bg-white/90 hover:-translate-y-0.5 transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0 mt-2 overflow-hidden group"
               >
                 {loading ? (
                   <div className="flex items-center gap-2">
-                    <div className="w-4 h-4 border-2 border-[#212529]/30 border-t-[#212529] rounded-full animate-spin" />
+                    <div className="w-4 h-4 border-2 border-border/30 border-t-foreground rounded-full animate-spin" />
                     Signing in...
                   </div>
                 ) : (

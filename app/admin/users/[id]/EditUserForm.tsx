@@ -136,7 +136,7 @@ export default function EditUserForm({ user }: EditUserFormProps) {
       </div>
 
       {/* Admin Checkbox */}
-      <div className="flex items-start gap-3 p-4 bg-[#F8F9FA] border border-[#E9ECEF] rounded-lg">
+      <div className="flex items-start gap-3 p-4 bg-muted border border-border rounded-lg">
         <input
           type="checkbox"
           id="is_admin"
@@ -145,11 +145,11 @@ export default function EditUserForm({ user }: EditUserFormProps) {
           className="mt-1 h-4 w-4 border-amber-300 rounded focus:ring-amber-500"
         />
         <div className="flex-1">
-          <label htmlFor="is_admin" className="text-sm font-medium text-[#495057] cursor-pointer flex items-center gap-2">
+          <label htmlFor="is_admin" className="text-sm font-medium text-foreground cursor-pointer flex items-center gap-2">
             <Shield size={16} />
             Admin Access
           </label>
-          <p className="text-xs text-[#495057] mt-1">
+          <p className="text-xs text-foreground mt-1">
             Admin users have full access to the admin panel and can manage all users and properties
           </p>
         </div>
@@ -160,7 +160,7 @@ export default function EditUserForm({ user }: EditUserFormProps) {
         <button
           type="submit"
           disabled={loading}
-          className="flex items-center gap-1.5 px-4 py-2 text-sm font-semibold rounded-lg bg-[#212529] text-white hover:bg-black disabled:opacity-50 transition-colors"
+          className="flex items-center gap-1.5 px-4 py-2 text-sm font-semibold rounded-lg bg-muted text-white hover:bg-black disabled:opacity-50 transition-colors"
         >
           {loading && <span className="animate-spin">⏳</span>}
           Save Changes

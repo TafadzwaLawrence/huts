@@ -282,8 +282,8 @@ export default function ChatRoom({ conversationId, currentUserId, onBack }: Chat
 
   if (loading) {
     return (
-      <div className="flex-1 flex items-center justify-center bg-[#F8F9FA]">
-        <Loader2 className="h-8 w-8 animate-spin text-[#ADB5BD]" />
+      <div className="flex-1 flex items-center justify-center bg-muted">
+        <Loader2 className="h-8 w-8 animate-spin text-foreground" />
       </div>
     )
   }
@@ -291,19 +291,19 @@ export default function ChatRoom({ conversationId, currentUserId, onBack }: Chat
   return (
     <div className="flex flex-col h-full bg-white">
       {/* Header */}
-      <div className="border-b border-[#E9ECEF] px-4 py-3 flex items-center gap-4">
+      <div className="border-b border-border px-4 py-3 flex items-center gap-4">
         {onBack && (
           <button
             onClick={onBack}
-            className="p-2 hover:bg-[#F8F9FA] rounded-full transition-colors md:hidden"
+            className="p-2 hover:bg-muted rounded-full transition-colors md:hidden"
           >
-            <ArrowLeft size={20} className="text-[#495057]" />
+            <ArrowLeft size={20} className="text-foreground" />
           </button>
         )}
 
         {/* Other user info */}
         <div className="flex items-center gap-3 flex-1">
-          <div className="h-10 w-10 rounded-full bg-[#E9ECEF] overflow-hidden">
+          <div className="h-10 w-10 rounded-full bg-muted overflow-hidden">
             {otherUser?.avatar_url ? (
               <img
                 src={otherUser.avatar_url}
@@ -311,19 +311,19 @@ export default function ChatRoom({ conversationId, currentUserId, onBack }: Chat
                 className="w-full h-full object-cover"
               />
             ) : (
-              <div className="w-full h-full flex items-center justify-center text-[#495057] font-semibold">
+              <div className="w-full h-full flex items-center justify-center text-foreground font-semibold">
                 {otherUser?.name?.[0]?.toUpperCase() || '?'}
               </div>
             )}
           </div>
           <div className="flex-1 min-w-0">
-            <h2 className="font-semibold text-[#212529] truncate">
+            <h2 className="font-semibold text-foreground truncate">
               {otherUser?.name || 'Unknown User'}
             </h2>
             {conversation?.property && (
               <Link
                 href={`/property/${conversation.property.id}`}
-                className="text-xs text-[#495057] hover:text-[#212529] truncate block"
+                className="text-xs text-foreground hover:text-foreground truncate block"
               >
                 Re: {conversation.property.title}
               </Link>
@@ -333,23 +333,23 @@ export default function ChatRoom({ conversationId, currentUserId, onBack }: Chat
 
         {/* Actions */}
         <div className="flex items-center gap-2">
-          <button className="p-2 hover:bg-[#F8F9FA] rounded-full transition-colors">
-            <Phone size={20} className="text-[#495057]" />
+          <button className="p-2 hover:bg-muted rounded-full transition-colors">
+            <Phone size={20} className="text-foreground" />
           </button>
-          <button className="p-2 hover:bg-[#F8F9FA] rounded-full transition-colors">
-            <MoreVertical size={20} className="text-[#495057]" />
+          <button className="p-2 hover:bg-muted rounded-full transition-colors">
+            <MoreVertical size={20} className="text-foreground" />
           </button>
         </div>
       </div>
 
       {/* Property Banner - Sticky at top */}
       {conversation?.property && (
-        <div className="bg-[#212529] border-b border-[#495057] px-4 py-3">
+        <div className="bg-muted border-b border-border px-4 py-3">
           <Link
             href={`/property/${conversation.property.id}`}
             className="flex items-center gap-3 group"
           >
-            <div className="w-12 h-12 rounded-lg overflow-hidden bg-[#495057] flex-shrink-0 border-2 border-white/10">
+            <div className="w-12 h-12 rounded-lg overflow-hidden bg-muted flex-shrink-0 border-2 border-white/10">
               {conversation.property.property_images?.[0]?.url ? (
                 <img
                   src={conversation.property.property_images[0].url}
@@ -376,15 +376,15 @@ export default function ChatRoom({ conversationId, currentUserId, onBack }: Chat
       )}
 
       {/* Messages area */}
-      <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-[#F8F9FA]">
+      <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-muted">
         {/* Empty state */}
         {messages.length === 0 ? (
           <div className="flex flex-col items-center justify-center h-full text-center py-12">
-            <div className="w-16 h-16 bg-white rounded-2xl border-2 border-[#E9ECEF] flex items-center justify-center mb-4 shadow-sm">
-              <Send size={28} className="text-[#ADB5BD]" />
+            <div className="w-16 h-16 bg-white rounded-2xl border-2 border-border flex items-center justify-center mb-4 shadow-sm">
+              <Send size={28} className="text-foreground" />
             </div>
-            <h3 className="text-base font-semibold text-[#212529] mb-1">Start the conversation</h3>
-            <p className="text-sm text-[#495057] max-w-xs">
+            <h3 className="text-base font-semibold text-foreground mb-1">Start the conversation</h3>
+            <p className="text-sm text-foreground max-w-xs">
               Send a message to begin chatting about {conversation?.property?.title || 'this property'}
             </p>
           </div>
@@ -394,11 +394,11 @@ export default function ChatRoom({ conversationId, currentUserId, onBack }: Chat
             <div key={date}>
             {/* Date divider */}
             <div className="flex items-center gap-4 my-6 first:mt-2">
-              <div className="flex-1 h-px bg-[#E9ECEF]" />
-              <span className="text-xs text-[#495057] font-semibold px-3 py-1 bg-white rounded-full border border-[#E9ECEF] shadow-sm">
+              <div className="flex-1 h-px bg-muted" />
+              <span className="text-xs text-foreground font-semibold px-3 py-1 bg-white rounded-full border border-border shadow-sm">
                 {formatDate(dateMessages[0].created_at)}
               </span>
-              <div className="flex-1 h-px bg-[#E9ECEF]" />
+              <div className="flex-1 h-px bg-muted" />
             </div>
 
             {/* Messages */}
@@ -441,14 +441,14 @@ export default function ChatRoom({ conversationId, currentUserId, onBack }: Chat
       </div>
 
       {/* Input area */}
-      <form onSubmit={sendMessage} className="border-t-2 border-[#E9ECEF] p-4 bg-white">
+      <form onSubmit={sendMessage} className="border-t-2 border-border p-4 bg-white">
         <div className="flex items-end gap-3">
           <button
             type="button"
-            className="p-2.5 hover:bg-[#F8F9FA] rounded-xl transition-colors group mb-1"
+            className="p-2.5 hover:bg-muted rounded-xl transition-colors group mb-1"
             title="Attach image"
           >
-            <ImageIcon size={20} className="text-[#ADB5BD] group-hover:text-[#495057] transition-colors" />
+            <ImageIcon size={20} className="text-foreground group-hover:text-foreground transition-colors" />
           </button>
 
           <div className="flex-1">
@@ -469,7 +469,7 @@ export default function ChatRoom({ conversationId, currentUserId, onBack }: Chat
               }}
               placeholder="Type a message..."
               rows={1}
-              className="w-full px-5 py-3.5 bg-[#F8F9FA] rounded-2xl text-[#212529] placeholder:text-[#ADB5BD] focus:outline-none focus:ring-2 focus:ring-[#212529] focus:bg-white transition-all resize-none max-h-32 border-2 border-transparent"
+              className="w-full px-5 py-3.5 bg-muted rounded-2xl text-foreground placeholder:text-foreground focus:outline-none focus:ring-2 focus:ring-foreground focus:bg-white transition-all resize-none max-h-32 border-2 border-transparent"
               style={{ minHeight: '52px' }}
             />
           </div>
@@ -477,7 +477,7 @@ export default function ChatRoom({ conversationId, currentUserId, onBack }: Chat
           <button
             type="submit"
             disabled={!newMessage.trim() || sending}
-            className="p-3.5 bg-[#212529] text-white rounded-xl hover:bg-black hover:scale-105 active:scale-95 transition-all disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100 mb-1 shadow-lg shadow-black/10"
+            className="p-3.5 bg-muted text-white rounded-xl hover:bg-black hover:scale-105 active:scale-95 transition-all disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100 mb-1 shadow-lg shadow-black/10"
           >
             {sending ? (
               <Loader2 size={20} className="animate-spin" />
@@ -486,7 +486,7 @@ export default function ChatRoom({ conversationId, currentUserId, onBack }: Chat
             )}
           </button>
         </div>
-        <p className="text-[10px] text-[#ADB5BD] mt-2 px-1">Press Enter to send, Shift+Enter for new line</p>
+        <p className="text-[10px] text-foreground mt-2 px-1">Press Enter to send, Shift+Enter for new line</p>
       </form>
     </div>
   )

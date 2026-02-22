@@ -21,7 +21,7 @@ export function ScrollHeader({ children }: { children: React.ReactNode }) {
       className={`sticky top-0 z-50 transition-[background-color,box-shadow,border-color] duration-300 ${
         scrolled
           ? 'bg-white/80 backdrop-blur-xl shadow-[0_1px_3px_rgba(0,0,0,0.05)] border-b border-transparent'
-          : 'bg-white border-b border-[#E9ECEF]'
+          : 'bg-white border-b border-border'
       }`}
     >
       {children}
@@ -56,8 +56,8 @@ export function NavLinks({ links }: { links: NavLink[] }) {
           href={href}
           className={`relative px-3 py-1.5 text-sm font-medium rounded-lg transition-colors duration-200 ${
             isActive(href)
-              ? 'text-[#212529] bg-[#F8F9FA]'
-              : 'text-[#495057] hover:text-[#212529] hover:bg-[#F8F9FA]/60'
+              ? 'text-foreground bg-muted'
+              : 'text-foreground hover:text-foreground hover:bg-muted/60'
           }`}
         >
           {label}

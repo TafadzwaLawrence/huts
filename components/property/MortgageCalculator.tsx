@@ -63,14 +63,14 @@ export function MortgageCalculator({
   }, [salePrice, downPaymentPercent, interestRate, loanTerm, propertyTaxAnnual, hoaFeeMonthly])
 
   return (
-    <div className={cn('border-2 border-[#E9ECEF] rounded-lg p-6 space-y-6', className)}>
-      <div className="flex items-center gap-3 border-b-2 border-[#E9ECEF] pb-4">
-        <div className="p-2 bg-[#F8F9FA] rounded">
-          <Calculator size={24} className="text-[#212529]" />
+    <div className={cn('border-2 border-border rounded-lg p-6 space-y-6', className)}>
+      <div className="flex items-center gap-3 border-b-2 border-border pb-4">
+        <div className="p-2 bg-muted rounded">
+          <Calculator size={24} className="text-foreground" />
         </div>
         <div>
-          <h3 className="text-xl font-semibold text-[#212529]">Mortgage Calculator</h3>
-          <p className="text-sm text-[#495057]">Estimate your monthly payment</p>
+          <h3 className="text-xl font-semibold text-foreground">Mortgage Calculator</h3>
+          <p className="text-sm text-foreground">Estimate your monthly payment</p>
         </div>
       </div>
 
@@ -79,10 +79,10 @@ export function MortgageCalculator({
         {/* Down Payment */}
         <div className="space-y-2">
           <div className="flex items-center justify-between">
-            <label className="text-sm font-medium text-[#212529]">
+            <label className="text-sm font-medium text-foreground">
               Down Payment
             </label>
-            <span className="text-sm font-semibold text-[#212529]">
+            <span className="text-sm font-semibold text-foreground">
               {downPaymentPercent}% ({formatPrice(calculations.downPayment)})
             </span>
           </div>
@@ -93,9 +93,9 @@ export function MortgageCalculator({
             step="5"
             value={downPaymentPercent}
             onChange={(e) => setDownPaymentPercent(Number(e.target.value))}
-            className="w-full h-2 bg-[#E9ECEF] rounded-lg appearance-none cursor-pointer slider"
+            className="w-full h-2 bg-muted rounded-lg appearance-none cursor-pointer slider"
           />
-          <div className="flex justify-between text-xs text-[#ADB5BD]">
+          <div className="flex justify-between text-xs text-foreground">
             <span>0%</span>
             <span>50%</span>
           </div>
@@ -104,10 +104,10 @@ export function MortgageCalculator({
         {/* Interest Rate */}
         <div className="space-y-2">
           <div className="flex items-center justify-between">
-            <label className="text-sm font-medium text-[#212529]">
+            <label className="text-sm font-medium text-foreground">
               Interest Rate
             </label>
-            <span className="text-sm font-semibold text-[#212529]">
+            <span className="text-sm font-semibold text-foreground">
               {interestRate.toFixed(2)}%
             </span>
           </div>
@@ -118,9 +118,9 @@ export function MortgageCalculator({
             step="0.25"
             value={interestRate}
             onChange={(e) => setInterestRate(Number(e.target.value))}
-            className="w-full h-2 bg-[#E9ECEF] rounded-lg appearance-none cursor-pointer slider"
+            className="w-full h-2 bg-muted rounded-lg appearance-none cursor-pointer slider"
           />
-          <div className="flex justify-between text-xs text-[#ADB5BD]">
+          <div className="flex justify-between text-xs text-foreground">
             <span>3%</span>
             <span>10%</span>
           </div>
@@ -129,10 +129,10 @@ export function MortgageCalculator({
         {/* Loan Term */}
         <div className="space-y-2">
           <div className="flex items-center justify-between">
-            <label className="text-sm font-medium text-[#212529]">
+            <label className="text-sm font-medium text-foreground">
               Loan Term
             </label>
-            <span className="text-sm font-semibold text-[#212529]">
+            <span className="text-sm font-semibold text-foreground">
               {loanTerm} years
             </span>
           </div>
@@ -144,8 +144,8 @@ export function MortgageCalculator({
                 className={cn(
                   'flex-1 py-2 text-sm font-medium border-2 rounded transition-all',
                   loanTerm === term
-                    ? 'bg-[#212529] text-white border-[#212529]'
-                    : 'bg-white text-[#495057] border-[#E9ECEF] hover:border-[#495057]'
+                    ? 'bg-muted text-white border-border'
+                    : 'bg-white text-foreground border-border hover:border-border'
                 )}
               >
                 {term}yr
@@ -156,21 +156,21 @@ export function MortgageCalculator({
       </div>
 
       {/* Results */}
-      <div className="bg-[#F8F9FA] border-2 border-[#E9ECEF] rounded-lg p-4 space-y-3">
+      <div className="bg-muted border-2 border-border rounded-lg p-4 space-y-3">
         <div className="flex items-center justify-between text-sm">
-          <span className="text-[#495057] flex items-center gap-2">
+          <span className="text-foreground flex items-center gap-2">
             <Home size={16} />
             Principal & Interest
           </span>
-          <span className="font-semibold text-[#212529]">
+          <span className="font-semibold text-foreground">
             {formatPrice(calculations.monthlyMortgage)}
           </span>
         </div>
 
         {propertyTaxAnnual && (
           <div className="flex items-center justify-between text-sm">
-            <span className="text-[#495057]">Property Tax</span>
-            <span className="font-semibold text-[#212529]">
+            <span className="text-foreground">Property Tax</span>
+            <span className="font-semibold text-foreground">
               {formatPrice(calculations.propertyTaxMonthly)}
             </span>
           </div>
@@ -178,27 +178,27 @@ export function MortgageCalculator({
 
         {hoaFeeMonthly && (
           <div className="flex items-center justify-between text-sm">
-            <span className="text-[#495057]">HOA Fees</span>
-            <span className="font-semibold text-[#212529]">
+            <span className="text-foreground">HOA Fees</span>
+            <span className="font-semibold text-foreground">
               {formatPrice(calculations.hoaFeeMonthly)}
             </span>
           </div>
         )}
 
         <div className="flex items-center justify-between text-sm">
-          <span className="text-[#495057]">Insurance (est.)</span>
-          <span className="font-semibold text-[#212529]">
+          <span className="text-foreground">Insurance (est.)</span>
+          <span className="font-semibold text-foreground">
             {formatPrice(calculations.insuranceEstimate)}
           </span>
         </div>
 
-        <div className="border-t-2 border-[#E9ECEF] pt-3 mt-3">
+        <div className="border-t-2 border-border pt-3 mt-3">
           <div className="flex items-center justify-between">
-            <span className="text-base font-semibold text-[#212529] flex items-center gap-2">
+            <span className="text-base font-semibold text-foreground flex items-center gap-2">
               <TrendingUp size={18} />
               Total Monthly
             </span>
-            <span className="text-2xl font-bold text-[#212529]">
+            <span className="text-2xl font-bold text-foreground">
               {formatPrice(calculations.totalMonthly)}
             </span>
           </div>
@@ -206,7 +206,7 @@ export function MortgageCalculator({
       </div>
 
       {/* Info */}
-      <p className="text-xs text-[#ADB5BD]">
+      <p className="text-xs text-foreground">
         * This calculator provides estimates only. Actual payments may vary based on your credit score, 
         lender fees, and other factors. Consult with a mortgage professional for accurate quotes.
       </p>

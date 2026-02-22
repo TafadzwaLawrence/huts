@@ -40,8 +40,8 @@ export default function RatingStars({
             size={size}
             className={cn(
               'transition-colors',
-              isFilled ? 'fill-black text-black' : 'text-[#ADB5BD]',
-              interactive && 'cursor-pointer hover:fill-[#495057] hover:text-[#495057]'
+              isFilled ? 'fill-black text-black' : 'text-foreground',
+              interactive && 'cursor-pointer hover:fill-foreground hover:text-foreground'
             )}
             onClick={() => handleClick(starValue)}
           />

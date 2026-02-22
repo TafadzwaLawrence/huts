@@ -53,9 +53,9 @@ export default function PropertyGallery({ images, title }: PropertyGalleryProps)
 
   if (imageCount === 0) {
     return (
-      <div className="w-full h-[300px] md:h-[450px] bg-gradient-to-br from-[#E9ECEF] to-[#DEE2E6] flex flex-col items-center justify-center">
-        <Home size={ICON_SIZES['3xl']} className="text-[#ADB5BD] mb-4" />
-        <p className="text-[#495057]">No photos available</p>
+      <div className="w-full h-[300px] md:h-[450px] bg-gradient-to-br from-foreground to-foreground flex flex-col items-center justify-center">
+        <Home size={ICON_SIZES['3xl']} className="text-foreground mb-4" />
+        <p className="text-foreground">No photos available</p>
       </div>
     )
   }
@@ -388,7 +388,7 @@ export default function PropertyGallery({ images, title }: PropertyGalleryProps)
       {/* Show All Photos Button */}
       <button
         onClick={() => setShowGallery(true)}
-        className="absolute bottom-4 right-4 bg-white/95 backdrop-blur-sm px-4 py-2.5 rounded-lg shadow-lg text-sm font-medium text-black hover:bg-white transition-all flex items-center gap-2 border border-[#E9ECEF]"
+        className="absolute bottom-4 right-4 bg-white/95 backdrop-blur-sm px-4 py-2.5 rounded-lg shadow-lg text-sm font-medium text-black hover:bg-white transition-all flex items-center gap-2 border border-border"
       >
         <Grid3X3 size={ICON_SIZES.lg} className="text-black" />
         Show all {imageCount} photos

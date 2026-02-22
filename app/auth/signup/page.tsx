@@ -85,7 +85,7 @@ export default function SignUpPage() {
   return (
     <div className="min-h-[calc(100vh-4rem)] flex bg-white">
       {/* Left Panel - Branding */}
-      <div className="hidden lg:flex lg:w-[45%] bg-[#212529] relative overflow-hidden">
+      <div className="hidden lg:flex lg:w-[45%] bg-muted relative overflow-hidden">
         {/* Background pattern */}
         <div className="absolute inset-0 opacity-[0.03]" style={{
           backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
@@ -147,8 +147,8 @@ export default function SignUpPage() {
 
           {/* Header */}
           <div className="mb-8">
-            <h1 className="text-2xl font-bold text-[#212529] tracking-tight">Create your account</h1>
-            <p className="text-sm text-[#ADB5BD] mt-1">Start your property journey today</p>
+            <h1 className="text-2xl font-bold text-foreground tracking-tight">Create your account</h1>
+            <p className="text-sm text-foreground mt-1">Start your property journey today</p>
           </div>
 
           {/* Google Sign Up - First */}
@@ -156,7 +156,7 @@ export default function SignUpPage() {
             type="button"
             onClick={handleGoogleSignUp}
             disabled={loading}
-            className="w-full flex items-center justify-center gap-3 bg-white border-2 border-[#E9ECEF] text-[#212529] py-3 px-4 rounded-xl text-sm font-semibold hover:border-[#212529] hover:shadow-md transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full flex items-center justify-center gap-3 bg-white border-2 border-border text-foreground py-3 px-4 rounded-xl text-sm font-semibold hover:border-border hover:shadow-md transition-all disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <svg className="w-5 h-5" viewBox="0 0 24 24">
               <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
@@ -170,25 +170,25 @@ export default function SignUpPage() {
           {/* Divider */}
           <div className="relative my-6">
             <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-[#E9ECEF]"></div>
+              <div className="w-full border-t border-border"></div>
             </div>
             <div className="relative flex justify-center">
-              <span className="px-3 bg-white text-[#ADB5BD] text-xs">or</span>
+              <span className="px-3 bg-white text-foreground text-xs">or</span>
             </div>
           </div>
 
           {/* Error */}
           {error && (
-            <div className="mb-5 p-3 bg-[#FF6B6B]/5 border border-[#FF6B6B]/20 rounded-xl flex items-start gap-2.5">
-              <AlertCircle size={16} className="text-[#FF6B6B] flex-shrink-0 mt-0.5" />
-              <p className="text-sm text-[#212529]">{error}</p>
+            <div className="mb-5 p-3 bg-muted/5 border border-border/20 rounded-xl flex items-start gap-2.5">
+              <AlertCircle size={16} className="text-foreground flex-shrink-0 mt-0.5" />
+              <p className="text-sm text-foreground">{error}</p>
             </div>
           )}
 
           <form onSubmit={handleSignUp} className="space-y-4">
             {/* Name */}
             <div>
-              <label htmlFor="name" className="block text-xs font-semibold text-[#212529] mb-1.5 uppercase tracking-wider">
+              <label htmlFor="name" className="block text-xs font-semibold text-foreground mb-1.5 uppercase tracking-wider">
                 Full name
               </label>
               <input
@@ -197,14 +197,14 @@ export default function SignUpPage() {
                 required
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="block w-full px-4 py-3 border-2 border-[#E9ECEF] rounded-xl text-sm text-[#212529] placeholder-[#ADB5BD] focus:outline-none focus:border-[#212529] transition-colors"
+                className="block w-full px-4 py-3 border-2 border-border rounded-xl text-sm text-foreground placeholder-muted-foreground focus:outline-none focus:border-border transition-colors"
                 placeholder="John Doe"
               />
             </div>
 
             {/* Email */}
             <div>
-              <label htmlFor="email" className="block text-xs font-semibold text-[#212529] mb-1.5 uppercase tracking-wider">
+              <label htmlFor="email" className="block text-xs font-semibold text-foreground mb-1.5 uppercase tracking-wider">
                 Email
               </label>
               <input
@@ -213,14 +213,14 @@ export default function SignUpPage() {
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="block w-full px-4 py-3 border-2 border-[#E9ECEF] rounded-xl text-sm text-[#212529] placeholder-[#ADB5BD] focus:outline-none focus:border-[#212529] transition-colors"
+                className="block w-full px-4 py-3 border-2 border-border rounded-xl text-sm text-foreground placeholder-muted-foreground focus:outline-none focus:border-border transition-colors"
                 placeholder="you@example.com"
               />
             </div>
 
             {/* Password */}
             <div>
-              <label htmlFor="password" className="block text-xs font-semibold text-[#212529] mb-1.5 uppercase tracking-wider">
+              <label htmlFor="password" className="block text-xs font-semibold text-foreground mb-1.5 uppercase tracking-wider">
                 Password
               </label>
               <input
@@ -229,7 +229,7 @@ export default function SignUpPage() {
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="block w-full px-4 py-3 border-2 border-[#E9ECEF] rounded-xl text-sm text-[#212529] placeholder-[#ADB5BD] focus:outline-none focus:border-[#212529] transition-colors"
+                className="block w-full px-4 py-3 border-2 border-border rounded-xl text-sm text-foreground placeholder-muted-foreground focus:outline-none focus:border-border transition-colors"
                 placeholder="Min. 6 characters"
                 minLength={6}
               />
@@ -237,7 +237,7 @@ export default function SignUpPage() {
 
             {/* Role Selection */}
             <div>
-              <label className="block text-xs font-semibold text-[#212529] mb-2 uppercase tracking-wider">
+              <label className="block text-xs font-semibold text-foreground mb-2 uppercase tracking-wider">
                 I am a
               </label>
               <div className="grid grid-cols-2 gap-3">
@@ -246,18 +246,18 @@ export default function SignUpPage() {
                   onClick={() => setRole('renter')}
                   className={`relative p-4 border-2 rounded-xl transition-all text-left ${
                     role === 'renter'
-                      ? 'border-[#212529] bg-[#212529]'
-                      : 'border-[#E9ECEF] hover:border-[#212529]'
+                      ? 'border-border bg-muted'
+                      : 'border-border hover:border-border'
                   }`}
                 >
                   {role === 'renter' && (
                     <div className="absolute top-2.5 right-2.5 w-5 h-5 bg-white rounded-full flex items-center justify-center">
-                      <Check size={12} className="text-[#212529]" />
+                      <Check size={12} className="text-foreground" />
                     </div>
                   )}
-                  <Search size={20} className={`mb-2 ${role === 'renter' ? 'text-white' : 'text-[#212529]'}`} />
-                  <p className={`text-sm font-semibold ${role === 'renter' ? 'text-white' : 'text-[#212529]'}`}>Renter</p>
-                  <p className={`text-xs mt-0.5 ${role === 'renter' ? 'text-white/60' : 'text-[#ADB5BD]'}`}>
+                  <Search size={20} className={`mb-2 ${role === 'renter' ? 'text-white' : 'text-foreground'}`} />
+                  <p className={`text-sm font-semibold ${role === 'renter' ? 'text-white' : 'text-foreground'}`}>Renter</p>
+                  <p className={`text-xs mt-0.5 ${role === 'renter' ? 'text-white/60' : 'text-foreground'}`}>
                     Looking for a home
                   </p>
                 </button>
@@ -266,18 +266,18 @@ export default function SignUpPage() {
                   onClick={() => setRole('landlord')}
                   className={`relative p-4 border-2 rounded-xl transition-all text-left ${
                     role === 'landlord'
-                      ? 'border-[#212529] bg-[#212529]'
-                      : 'border-[#E9ECEF] hover:border-[#212529]'
+                      ? 'border-border bg-muted'
+                      : 'border-border hover:border-border'
                   }`}
                 >
                   {role === 'landlord' && (
                     <div className="absolute top-2.5 right-2.5 w-5 h-5 bg-white rounded-full flex items-center justify-center">
-                      <Check size={12} className="text-[#212529]" />
+                      <Check size={12} className="text-foreground" />
                     </div>
                   )}
-                  <Building2 size={20} className={`mb-2 ${role === 'landlord' ? 'text-white' : 'text-[#212529]'}`} />
-                  <p className={`text-sm font-semibold ${role === 'landlord' ? 'text-white' : 'text-[#212529]'}`}>Landlord</p>
-                  <p className={`text-xs mt-0.5 ${role === 'landlord' ? 'text-white/60' : 'text-[#ADB5BD]'}`}>
+                  <Building2 size={20} className={`mb-2 ${role === 'landlord' ? 'text-white' : 'text-foreground'}`} />
+                  <p className={`text-sm font-semibold ${role === 'landlord' ? 'text-white' : 'text-foreground'}`}>Landlord</p>
+                  <p className={`text-xs mt-0.5 ${role === 'landlord' ? 'text-white/60' : 'text-foreground'}`}>
                     Listing properties
                   </p>
                 </button>
@@ -288,7 +288,7 @@ export default function SignUpPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full flex items-center justify-center gap-2 bg-[#212529] text-white py-3 px-4 rounded-xl text-sm font-semibold hover:bg-black hover:-translate-y-0.5 transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0 mt-2"
+              className="w-full flex items-center justify-center gap-2 bg-muted text-white py-3 px-4 rounded-xl text-sm font-semibold hover:bg-black hover:-translate-y-0.5 transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0 mt-2"
             >
               {loading ? 'Creating account...' : 'Create account'}
               {!loading && <ArrowRight size={16} />}
@@ -296,18 +296,18 @@ export default function SignUpPage() {
           </form>
 
           {/* Terms */}
-          <p className="text-[10px] text-[#ADB5BD] text-center mt-4 leading-relaxed">
+          <p className="text-[10px] text-foreground text-center mt-4 leading-relaxed">
             By creating an account, you agree to our{' '}
-            <Link href="/terms" className="text-[#212529] hover:underline">Terms</Link>
+            <Link href="/terms" className="text-foreground hover:underline">Terms</Link>
             {' '}and{' '}
-            <Link href="/privacy" className="text-[#212529] hover:underline">Privacy Policy</Link>
+            <Link href="/privacy" className="text-foreground hover:underline">Privacy Policy</Link>
           </p>
 
           {/* Sign In Link */}
-          <div className="mt-8 pt-6 border-t border-[#E9ECEF] text-center">
-            <p className="text-sm text-[#495057]">
+          <div className="mt-8 pt-6 border-t border-border text-center">
+            <p className="text-sm text-foreground">
               Already have an account?{' '}
-              <Link href="/dashboard" className="font-semibold text-[#212529] hover:underline underline-offset-2">
+              <Link href="/dashboard" className="font-semibold text-foreground hover:underline underline-offset-2">
                 Sign in
               </Link>
             </p>

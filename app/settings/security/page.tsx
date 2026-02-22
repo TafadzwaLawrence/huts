@@ -59,9 +59,9 @@ export default function SecurityPage() {
     if (/[0-9]/.test(password)) strength++
     if (/[^A-Za-z0-9]/.test(password)) strength++
     
-    if (strength <= 2) return { strength: 33, label: 'Weak', color: 'bg-[#E9ECEF]' }
-    if (strength <= 3) return { strength: 66, label: 'Medium', color: 'bg-[#ADB5BD]' }
-    return { strength: 100, label: 'Strong', color: 'bg-[#212529]' }
+    if (strength <= 2) return { strength: 33, label: 'Weak', color: 'bg-muted' }
+    if (strength <= 3) return { strength: 66, label: 'Medium', color: 'bg-muted' }
+    return { strength: 100, label: 'Strong', color: 'bg-muted' }
   }
 
   const passwordStrength = getPasswordStrength(newPassword)
@@ -70,26 +70,26 @@ export default function SecurityPage() {
     <div className="space-y-8">
       {/* Header */}
       <div>
-        <h1 className="text-2xl font-bold text-[#212529]">Security</h1>
-        <p className="text-[#495057]">Manage your account security settings</p>
+        <h1 className="text-2xl font-bold text-foreground">Security</h1>
+        <p className="text-foreground">Manage your account security settings</p>
       </div>
 
       {/* Change Password */}
-      <div className="bg-white rounded-xl border-2 border-[#E9ECEF] p-6">
+      <div className="bg-white rounded-xl border-2 border-border p-6">
         <div className="flex items-center gap-3 mb-6">
-          <div className="h-10 w-10 rounded-full bg-[#F8F9FA] flex items-center justify-center">
-            <Key className="h-5 w-5 text-[#495057]" />
+          <div className="h-10 w-10 rounded-full bg-muted flex items-center justify-center">
+            <Key className="h-5 w-5 text-foreground" />
           </div>
           <div>
-            <h2 className="font-semibold text-[#212529]">Change Password</h2>
-            <p className="text-sm text-[#495057]">Update your password regularly for security</p>
+            <h2 className="font-semibold text-foreground">Change Password</h2>
+            <p className="text-sm text-foreground">Update your password regularly for security</p>
           </div>
         </div>
 
         <form onSubmit={handlePasswordChange} className="space-y-4">
           {/* Current Password */}
           <div>
-            <label className="block text-sm font-medium text-[#212529] mb-2">
+            <label className="block text-sm font-medium text-foreground mb-2">
               Current Password
             </label>
             <div className="relative">
@@ -97,13 +97,13 @@ export default function SecurityPage() {
                 type={showCurrentPassword ? 'text' : 'password'}
                 value={currentPassword}
                 onChange={(e) => setCurrentPassword(e.target.value)}
-                className="w-full px-4 py-3 pr-12 border-2 border-[#E9ECEF] rounded-xl focus:border-[#212529] focus:outline-none transition-colors"
+                className="w-full px-4 py-3 pr-12 border-2 border-border rounded-xl focus:border-border focus:outline-none transition-colors"
                 placeholder="Enter current password"
               />
               <button
                 type="button"
                 onClick={() => setShowCurrentPassword(!showCurrentPassword)}
-                className="absolute right-4 top-1/2 -translate-y-1/2 text-[#ADB5BD] hover:text-[#495057]"
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-foreground hover:text-foreground"
               >
                 {showCurrentPassword ? <EyeOff size={20} /> : <Eye size={20} />}
               </button>
@@ -112,7 +112,7 @@ export default function SecurityPage() {
 
           {/* New Password */}
           <div>
-            <label className="block text-sm font-medium text-[#212529] mb-2">
+            <label className="block text-sm font-medium text-foreground mb-2">
               New Password
             </label>
             <div className="relative">
@@ -120,13 +120,13 @@ export default function SecurityPage() {
                 type={showNewPassword ? 'text' : 'password'}
                 value={newPassword}
                 onChange={(e) => setNewPassword(e.target.value)}
-                className="w-full px-4 py-3 pr-12 border-2 border-[#E9ECEF] rounded-xl focus:border-[#212529] focus:outline-none transition-colors"
+                className="w-full px-4 py-3 pr-12 border-2 border-border rounded-xl focus:border-border focus:outline-none transition-colors"
                 placeholder="Enter new password"
               />
               <button
                 type="button"
                 onClick={() => setShowNewPassword(!showNewPassword)}
-                className="absolute right-4 top-1/2 -translate-y-1/2 text-[#ADB5BD] hover:text-[#495057]"
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-foreground hover:text-foreground"
               >
                 {showNewPassword ? <EyeOff size={20} /> : <Eye size={20} />}
               </button>
@@ -136,16 +136,16 @@ export default function SecurityPage() {
             {newPassword && (
               <div className="mt-2">
                 <div className="flex items-center justify-between mb-1">
-                  <span className="text-xs text-[#495057]">Password strength</span>
+                  <span className="text-xs text-foreground">Password strength</span>
                   <span className={`text-xs font-medium ${
-                    passwordStrength.label === 'Strong' ? 'text-[#212529]' :
-                    passwordStrength.label === 'Medium' ? 'text-[#495057]' :
-                    'text-[#ADB5BD]'
+                    passwordStrength.label === 'Strong' ? 'text-foreground' :
+                    passwordStrength.label === 'Medium' ? 'text-foreground' :
+                    'text-foreground'
                   }`}>
                     {passwordStrength.label}
                   </span>
                 </div>
-                <div className="h-1.5 bg-[#E9ECEF] rounded-full overflow-hidden">
+                <div className="h-1.5 bg-muted rounded-full overflow-hidden">
                   <div 
                     className={`h-full ${passwordStrength.color} transition-all duration-300`}
                     style={{ width: `${passwordStrength.strength}%` }}
@@ -157,7 +157,7 @@ export default function SecurityPage() {
 
           {/* Confirm Password */}
           <div>
-            <label className="block text-sm font-medium text-[#212529] mb-2">
+            <label className="block text-sm font-medium text-foreground mb-2">
               Confirm New Password
             </label>
             <input
@@ -167,19 +167,19 @@ export default function SecurityPage() {
               className={`w-full px-4 py-3 border-2 rounded-xl focus:outline-none transition-colors ${
                 confirmPassword && confirmPassword !== newPassword
                   ? 'border-red-300 focus:border-red-500'
-                  : 'border-[#E9ECEF] focus:border-[#212529]'
+                  : 'border-border focus:border-border'
               }`}
               placeholder="Confirm new password"
             />
             {confirmPassword && confirmPassword !== newPassword && (
-              <p className="mt-1 text-sm text-[#FF6B6B]">Passwords do not match</p>
+              <p className="mt-1 text-sm text-foreground">Passwords do not match</p>
             )}
           </div>
 
           <button
             type="submit"
             disabled={loading || !currentPassword || !newPassword || !confirmPassword}
-            className="w-full bg-[#212529] text-white py-3 rounded-xl font-medium hover:bg-black transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+            className="w-full bg-muted text-white py-3 rounded-xl font-medium hover:bg-black transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
           >
             {loading ? (
               <>
@@ -194,69 +194,69 @@ export default function SecurityPage() {
       </div>
 
       {/* Two-Factor Authentication */}
-      <div className="bg-white rounded-xl border-2 border-[#E9ECEF] p-6">
+      <div className="bg-white rounded-xl border-2 border-border p-6">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="h-10 w-10 rounded-full bg-[#F8F9FA] flex items-center justify-center">
-              <Smartphone className="h-5 w-5 text-[#495057]" />
+            <div className="h-10 w-10 rounded-full bg-muted flex items-center justify-center">
+              <Smartphone className="h-5 w-5 text-foreground" />
             </div>
             <div>
-              <h2 className="font-semibold text-[#212529]">Two-Factor Authentication</h2>
-              <p className="text-sm text-[#495057]">Add an extra layer of security</p>
+              <h2 className="font-semibold text-foreground">Two-Factor Authentication</h2>
+              <p className="text-sm text-foreground">Add an extra layer of security</p>
             </div>
           </div>
-          <span className="px-3 py-1 bg-[#F8F9FA] text-[#495057] text-sm font-medium rounded-full">
+          <span className="px-3 py-1 bg-muted text-foreground text-sm font-medium rounded-full">
             Coming Soon
           </span>
         </div>
       </div>
 
       {/* Active Sessions */}
-      <div className="bg-white rounded-xl border-2 border-[#E9ECEF] p-6">
+      <div className="bg-white rounded-xl border-2 border-border p-6">
         <div className="flex items-center gap-3 mb-6">
-          <div className="h-10 w-10 rounded-full bg-[#F8F9FA] flex items-center justify-center">
-            <Shield className="h-5 w-5 text-[#495057]" />
+          <div className="h-10 w-10 rounded-full bg-muted flex items-center justify-center">
+            <Shield className="h-5 w-5 text-foreground" />
           </div>
           <div>
-            <h2 className="font-semibold text-[#212529]">Active Sessions</h2>
-            <p className="text-sm text-[#495057]">Manage your logged-in devices</p>
+            <h2 className="font-semibold text-foreground">Active Sessions</h2>
+            <p className="text-sm text-foreground">Manage your logged-in devices</p>
           </div>
         </div>
 
         <div className="space-y-3">
-          <div className="flex items-center justify-between p-4 bg-[#F8F9FA] rounded-xl">
+          <div className="flex items-center justify-between p-4 bg-muted rounded-xl">
             <div className="flex items-center gap-3">
-              <CheckCircle className="h-5 w-5 text-[#212529]" />
+              <CheckCircle className="h-5 w-5 text-foreground" />
               <div>
-                <p className="font-medium text-[#212529]">Current Device</p>
-                <p className="text-sm text-[#495057]">This browser session</p>
+                <p className="font-medium text-foreground">Current Device</p>
+                <p className="text-sm text-foreground">This browser session</p>
               </div>
             </div>
-            <span className="text-xs text-[#212529] font-medium">Active Now</span>
+            <span className="text-xs text-foreground font-medium">Active Now</span>
           </div>
         </div>
 
-        <button className="mt-4 w-full py-3 border-2 border-[#E9ECEF] text-[#495057] rounded-xl font-medium hover:border-[#212529] hover:text-[#212529] transition-colors">
+        <button className="mt-4 w-full py-3 border-2 border-border text-foreground rounded-xl font-medium hover:border-border hover:text-foreground transition-colors">
           Sign Out All Other Devices
         </button>
       </div>
 
       {/* Danger Zone */}
-      <div className="bg-white rounded-xl border-2 border-[#FF6B6B] p-6">
+      <div className="bg-white rounded-xl border-2 border-border p-6">
         <div className="flex items-center gap-3 mb-4">
-          <div className="h-10 w-10 rounded-full bg-[#FF6B6B]/10 flex items-center justify-center">
-            <AlertTriangle className="h-5 w-5 text-[#FF6B6B]" />
+          <div className="h-10 w-10 rounded-full bg-muted/10 flex items-center justify-center">
+            <AlertTriangle className="h-5 w-5 text-foreground" />
           </div>
           <div>
-            <h2 className="font-semibold text-[#FF6B6B]">Danger Zone</h2>
-            <p className="text-sm text-[#495057]">Irreversible actions</p>
+            <h2 className="font-semibold text-foreground">Danger Zone</h2>
+            <p className="text-sm text-foreground">Irreversible actions</p>
           </div>
         </div>
 
-        <button className="w-full py-3 border-2 border-[#FF6B6B] text-[#FF6B6B] rounded-xl font-medium hover:bg-[#FF6B6B]/10 transition-colors">
+        <button className="w-full py-3 border-2 border-border text-foreground rounded-xl font-medium hover:bg-muted/10 transition-colors">
           Delete Account
         </button>
-        <p className="mt-2 text-xs text-[#495057] text-center">
+        <p className="mt-2 text-xs text-foreground text-center">
           This will permanently delete your account and all associated data.
         </p>
       </div>

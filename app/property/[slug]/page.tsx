@@ -198,9 +198,9 @@ export default async function PropertyPage({ params }: { params: Promise<{ slug:
         {/* Back Button */}
         <Link
           href="/search"
-          className="absolute top-4 left-4 bg-white/95 backdrop-blur-sm p-2.5 rounded-xl shadow-lg hover:bg-white hover:scale-105 transition-all z-10 border border-[#E9ECEF]"
+          className="absolute top-4 left-4 bg-white/95 backdrop-blur-sm p-2.5 rounded-xl shadow-lg hover:bg-white hover:scale-105 transition-all z-10 border border-border"
         >
-          <ChevronLeft size={22} className="text-[#212529]" />
+          <ChevronLeft size={22} className="text-foreground" />
         </Link>
 
         {/* Actions */}
@@ -221,27 +221,27 @@ export default async function PropertyPage({ params }: { params: Promise<{ slug:
             <div className="mb-8">
               {/* Badges */}
               <div className="flex flex-wrap items-center gap-2 mb-4">
-                <span className="inline-flex items-center gap-1.5 bg-[#212529] text-white px-3 py-1 rounded-lg text-xs font-semibold tracking-wide uppercase">
+                <span className="inline-flex items-center gap-1.5 bg-foreground text-white px-3 py-1 rounded-lg text-xs font-semibold tracking-wide uppercase">
                   {propertyTypeDisplay}
                 </span>
                 {isSale && (
-                  <span className="bg-[#212529] text-white px-3 py-1 rounded-lg text-xs font-semibold tracking-wide uppercase">
+                  <span className="bg-foreground text-white px-3 py-1 rounded-lg text-xs font-semibold tracking-wide uppercase">
                     For Sale
                   </span>
                 )}
                 {isRental && !isSale && (
-                  <span className="bg-[#212529] text-white px-3 py-1 rounded-lg text-xs font-semibold tracking-wide uppercase">
+                  <span className="bg-foreground text-white px-3 py-1 rounded-lg text-xs font-semibold tracking-wide uppercase">
                     For Rent
                   </span>
                 )}
               </div>
 
               {/* Title */}
-              <h1 className="text-3xl md:text-4xl font-bold text-[#212529] tracking-tight mb-3">{property.title}</h1>
+              <h1 className="text-3xl md:text-4xl font-bold text-foreground tracking-tight mb-3">{property.title}</h1>
               
               {/* Location */}
-              <div className="flex items-center gap-2 text-[#495057]">
-                <MapPin size={16} className="flex-shrink-0 text-[#ADB5BD]" />
+              <div className="flex items-center gap-2 text-muted-foreground">
+                <MapPin size={16} className="flex-shrink-0 text-muted-foreground" />
                 <span className="text-base">{locationString}</span>
               </div>
             </div>
@@ -249,7 +249,7 @@ export default async function PropertyPage({ params }: { params: Promise<{ slug:
             {/* Price + Key Stats Row */}
             <div className="flex flex-col sm:flex-row gap-4 mb-10">
               {/* Price */}
-              <div className="flex-1 bg-[#212529] rounded-2xl p-6">
+              <div className="flex-1 bg-foreground rounded-2xl p-6">
                 <p className="text-xs font-semibold text-white/60 uppercase tracking-wider mb-1">
                   {isSale ? 'Asking Price' : 'Monthly Rent'}
                 </p>
@@ -268,35 +268,35 @@ export default async function PropertyPage({ params }: { params: Promise<{ slug:
 
               {/* Quick Stats */}
               <div className="flex sm:flex-col gap-3 sm:gap-2">
-                <div className="flex-1 flex items-center gap-3 px-5 py-3 border-2 border-[#E9ECEF] rounded-xl">
-                  <Bed size={20} className="text-[#212529] flex-shrink-0" />
+                <div className="flex-1 flex items-center gap-3 px-5 py-3 border-2 border-border rounded-xl">
+                  <Bed size={20} className="text-foreground flex-shrink-0" />
                   <div>
-                    <p className="text-lg font-bold text-[#212529] leading-none">{property.beds}</p>
-                    <p className="text-xs text-[#ADB5BD]">{property.beds === 1 ? 'Bed' : 'Beds'}</p>
+                    <p className="text-lg font-bold text-foreground leading-none">{property.beds}</p>
+                    <p className="text-xs text-muted-foreground">{property.beds === 1 ? 'Bed' : 'Beds'}</p>
                   </div>
                 </div>
-                <div className="flex-1 flex items-center gap-3 px-5 py-3 border-2 border-[#E9ECEF] rounded-xl">
-                  <Bath size={20} className="text-[#212529] flex-shrink-0" />
+                <div className="flex-1 flex items-center gap-3 px-5 py-3 border-2 border-border rounded-xl">
+                  <Bath size={20} className="text-foreground flex-shrink-0" />
                   <div>
-                    <p className="text-lg font-bold text-[#212529] leading-none">{property.baths}</p>
-                    <p className="text-xs text-[#ADB5BD]">{property.baths === 1 ? 'Bath' : 'Baths'}</p>
+                    <p className="text-lg font-bold text-foreground leading-none">{property.baths}</p>
+                    <p className="text-xs text-muted-foreground">{property.baths === 1 ? 'Bath' : 'Baths'}</p>
                   </div>
                 </div>
-                <div className="flex-1 flex items-center gap-3 px-5 py-3 border-2 border-[#E9ECEF] rounded-xl">
+                <div className="flex-1 flex items-center gap-3 px-5 py-3 border-2 border-border rounded-xl">
                   {property.sqft ? (
                     <>
-                      <Square size={20} className="text-[#212529] flex-shrink-0" />
+                      <Square size={20} className="text-foreground flex-shrink-0" />
                       <div>
-                        <p className="text-lg font-bold text-[#212529] leading-none">{property.sqft.toLocaleString()}</p>
-                        <p className="text-xs text-[#ADB5BD]">Sq Ft</p>
+                        <p className="text-lg font-bold text-foreground leading-none">{property.sqft.toLocaleString()}</p>
+                        <p className="text-xs text-muted-foreground">Sq Ft</p>
                       </div>
                     </>
                   ) : (
                     <>
-                      <Car size={20} className="text-[#212529] flex-shrink-0" />
+                      <Car size={20} className="text-foreground flex-shrink-0" />
                       <div>
-                        <p className="text-lg font-bold text-[#212529] leading-none">{property.parking_spaces || 0}</p>
-                        <p className="text-xs text-[#ADB5BD]">Parking</p>
+                        <p className="text-lg font-bold text-foreground leading-none">{property.parking_spaces || 0}</p>
+                        <p className="text-xs text-muted-foreground">Parking</p>
                       </div>
                     </>
                   )}
@@ -306,12 +306,12 @@ export default async function PropertyPage({ params }: { params: Promise<{ slug:
 
             {/* Description */}
             <div className="mb-10">
-              <h2 className="text-lg font-bold text-[#212529] mb-4">About this property</h2>
+              <h2 className="text-lg font-bold text-foreground mb-4">About this property</h2>
               {property.description ? (
-                <p className="text-[#495057] whitespace-pre-line leading-7">{property.description}</p>
+                <p className="text-muted-foreground whitespace-pre-line leading-7">{property.description}</p>
               ) : (
-                <div className="p-6 bg-[#F8F9FA] rounded-xl border border-[#E9ECEF]">
-                  <p className="text-[#495057] text-sm">Contact the landlord for more details about this property.</p>
+                <div className="p-6 bg-muted rounded-xl border border-border">
+                  <p className="text-muted-foreground text-sm">Contact the landlord for more details about this property.</p>
                 </div>
               )}
             </div>
@@ -319,16 +319,16 @@ export default async function PropertyPage({ params }: { params: Promise<{ slug:
             {/* Amenities */}
             {property.amenities && property.amenities.length > 0 && (
               <div className="mb-10">
-                <h2 className="text-lg font-bold text-[#212529] mb-4">Amenities</h2>
+                <h2 className="text-lg font-bold text-foreground mb-4">Amenities</h2>
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                   {property.amenities.map((amenity: string) => {
                     const Icon = AMENITY_ICONS[amenity] || Check
                     return (
-                      <div key={amenity} className="flex items-center gap-3 p-3 rounded-xl border border-[#E9ECEF] hover:border-[#212529] transition-colors">
-                        <div className="w-9 h-9 bg-[#F8F9FA] rounded-lg flex items-center justify-center flex-shrink-0">
-                          <Icon size={16} className="text-[#212529]" />
+                      <div key={amenity} className="flex items-center gap-3 p-3 rounded-xl border border-border hover:border-foreground transition-colors">
+                        <div className="w-9 h-9 bg-muted rounded-lg flex items-center justify-center flex-shrink-0">
+                          <Icon size={16} className="text-foreground" />
                         </div>
-                        <span className="text-sm font-medium text-[#212529]">{amenity}</span>
+                        <span className="text-sm font-medium text-foreground">{amenity}</span>
                       </div>
                     )
                   })}
@@ -339,20 +339,20 @@ export default async function PropertyPage({ params }: { params: Promise<{ slug:
             {/* Availability */}
             {(property.available_from || property.lease_term) && (
               <div className="mb-10">
-                <h2 className="text-lg font-bold text-[#212529] mb-4">Availability</h2>
+                <h2 className="text-lg font-bold text-foreground mb-4">Availability</h2>
                 <div className="flex flex-wrap gap-3">
                   {property.available_from && (
-                    <div className="flex items-center gap-3 px-4 py-3 bg-[#F8F9FA] border border-[#E9ECEF] rounded-xl">
-                      <Calendar size={18} className="text-[#212529]" />
-                      <span className="text-sm font-medium text-[#212529]">
+                    <div className="flex items-center gap-3 px-4 py-3 bg-muted border border-border rounded-xl">
+                      <Calendar size={18} className="text-foreground" />
+                      <span className="text-sm font-medium text-foreground">
                         Available {new Date(property.available_from).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
                       </span>
                     </div>
                   )}
                   {property.lease_term && (
-                    <div className="flex items-center gap-3 px-4 py-3 bg-[#F8F9FA] border border-[#E9ECEF] rounded-xl">
-                      <Clock size={18} className="text-[#212529]" />
-                      <span className="text-sm font-medium text-[#212529]">{property.lease_term} lease</span>
+                    <div className="flex items-center gap-3 px-4 py-3 bg-muted border border-border rounded-xl">
+                      <Clock size={18} className="text-foreground" />
+                      <span className="text-sm font-medium text-foreground">{property.lease_term} lease</span>
                     </div>
                   )}
                 </div>
@@ -362,9 +362,9 @@ export default async function PropertyPage({ params }: { params: Promise<{ slug:
 
           {/* Sidebar - Contact Card */}
           <div className="lg:col-span-1">
-            <div className="sticky top-24 border-2 border-[#E9ECEF] rounded-2xl overflow-hidden">
+            <div className="sticky top-24 border-2 border-border rounded-2xl overflow-hidden">
               {/* Header */}
-              <div className="bg-[#212529] text-white px-6 py-5">
+              <div className="bg-foreground text-white px-6 py-5">
                 <p className="font-bold text-lg">Get in Touch</p>
                 <p className="text-sm text-white/60 mt-0.5">Typically responds within 24 hours</p>
               </div>
@@ -372,9 +372,9 @@ export default async function PropertyPage({ params }: { params: Promise<{ slug:
               <div className="p-6">
                 {/* Landlord Info */}
                 {property.profiles && (
-                  <div className="flex items-center gap-4 pb-5 border-b border-[#E9ECEF] mb-5">
+                  <div className="flex items-center gap-4 pb-5 border-b border-border mb-5">
                     <div className="relative flex-shrink-0">
-                      <div className="relative w-14 h-14 rounded-full overflow-hidden bg-[#F8F9FA] border-2 border-[#E9ECEF] flex items-center justify-center">
+                      <div className="relative w-14 h-14 rounded-full overflow-hidden bg-muted border-2 border-border flex items-center justify-center">
                         {property.profiles.avatar_url ? (
                           <Image
                             src={property.profiles.avatar_url}
@@ -383,16 +383,16 @@ export default async function PropertyPage({ params }: { params: Promise<{ slug:
                             className="object-cover"
                           />
                         ) : (
-                          <span className="text-xl font-bold text-[#495057]">
+                          <span className="text-xl font-bold text-muted-foreground">
                             {property.profiles.name?.[0]?.toUpperCase() || 'L'}
                           </span>
                         )}
                       </div>
-                      <div className="absolute -bottom-0.5 -right-0.5 w-4 h-4 bg-[#51CF66] rounded-full border-2 border-white"></div>
+                      <div className="absolute -bottom-0.5 -right-0.5 w-4 h-4 bg-success rounded-full border-2 border-white"></div>
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="font-bold text-[#212529] truncate">{property.profiles.name || 'Property Owner'}</p>
-                      <p className="text-xs text-[#ADB5BD]">Property Owner</p>
+                      <p className="font-bold text-foreground truncate">{property.profiles.name || 'Property Owner'}</p>
+                      <p className="text-xs text-muted-foreground">Property Owner</p>
                     </div>
                   </div>
                 )}
@@ -402,7 +402,7 @@ export default async function PropertyPage({ params }: { params: Promise<{ slug:
                   {property.profiles?.phone && (
                     <a
                       href={`tel:${property.profiles.phone}`}
-                      className="flex items-center justify-center gap-2 w-full py-3 bg-[#212529] text-white rounded-xl text-sm font-semibold hover:bg-black hover:-translate-y-0.5 hover:shadow-lg transition-all"
+                      className="flex items-center justify-center gap-2 w-full py-3 bg-foreground text-white rounded-xl text-sm font-semibold hover:bg-black hover:-translate-y-0.5 hover:shadow-lg transition-all"
                     >
                       <Phone size={16} />
                       Call Now
@@ -411,7 +411,7 @@ export default async function PropertyPage({ params }: { params: Promise<{ slug:
 
                   <a
                     href={`mailto:${property.profiles?.email}?subject=Inquiry about ${property.title}`}
-                    className="flex items-center justify-center gap-2 w-full py-3 border-2 border-[#E9ECEF] text-[#212529] rounded-xl text-sm font-semibold hover:border-[#212529] transition-all"
+                    className="flex items-center justify-center gap-2 w-full py-3 border-2 border-border text-foreground rounded-xl text-sm font-semibold hover:border-foreground transition-all"
                   >
                     <Mail size={16} />
                     Send Email
@@ -421,15 +421,15 @@ export default async function PropertyPage({ params }: { params: Promise<{ slug:
                 {/* Divider */}
                 <div className="relative my-6">
                   <div className="absolute inset-0 flex items-center">
-                    <div className="w-full border-t border-[#E9ECEF]"></div>
+                    <div className="w-full border-t border-border"></div>
                   </div>
                   <div className="relative flex justify-center">
-                    <span className="px-3 bg-white text-[#ADB5BD] text-xs">or send a message</span>
+                    <span className="px-3 bg-white text-muted-foreground text-xs">or send a message</span>
                   </div>
                 </div>
 
                 {/* Inquiry Form */}
-                <Suspense fallback={<div className="h-48 bg-[#F8F9FA] rounded-xl animate-pulse" />}>
+                <Suspense fallback={<div className="h-48 bg-muted rounded-xl animate-pulse" />}>
                   <InquiryForm propertyId={property.id} />
                 </Suspense>
               </div>

@@ -70,7 +70,7 @@ export async function Navbar() {
             {user ? (
               <>                <Link
                   href="/search"
-                  className="p-2 rounded-lg text-[#495057] hover:text-[#212529] hover:bg-[#F8F9FA] transition-colors"
+                  className="p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
                   aria-label="Search properties"
                 >
                   <Search size={ICON_SIZES.lg} />
@@ -81,14 +81,14 @@ export async function Navbar() {
                 {isLandlord && (
                   <Link
                     href="/dashboard/new-property"
-                    className="inline-flex items-center gap-1.5 text-sm font-semibold text-white bg-[#212529] ml-1 px-3.5 py-2 rounded-lg hover:bg-black transition-colors"
+                    className="inline-flex items-center gap-1.5 text-sm font-semibold text-white bg-foreground ml-1 px-3.5 py-2 rounded-lg hover:bg-black transition-colors"
                   >
                     <Plus size={ICON_SIZES.md} strokeWidth={2.5} />
                     <span>New</span>
                   </Link>
                 )}
 
-                <div className="w-px h-6 bg-[#E9ECEF] mx-1.5" />
+                <div className="w-px h-6 bg-border mx-1.5" />
 
                 <UserMenu
                   userName={userName || 'User'}
@@ -102,13 +102,13 @@ export async function Navbar() {
               <>
                 <Link
                   href="/auth/signup"
-                  className="text-sm font-medium text-[#495057] px-4 py-2 rounded-lg hover:text-[#212529] hover:bg-[#F8F9FA] transition-colors"
+                  className="text-sm font-medium text-muted-foreground px-4 py-2 rounded-lg hover:text-foreground hover:bg-muted transition-colors"
                 >
                   Sign in
                 </Link>
                 <Link
                   href="/dashboard/new-property"
-                  className="inline-flex items-center gap-1.5 text-sm font-semibold text-white bg-[#212529] px-4 py-2 rounded-lg hover:bg-black transition-colors"
+                  className="inline-flex items-center gap-1.5 text-sm font-semibold text-white bg-foreground px-4 py-2 rounded-lg hover:bg-black transition-colors"
                 >
                   <Plus size={ICON_SIZES.md} strokeWidth={2.5} />
                   List Property
@@ -121,7 +121,7 @@ export async function Navbar() {
           <div className="md:hidden flex items-center gap-0.5 ml-auto">
             <Link
               href="/search"
-              className="p-2.5 text-[#495057] hover:text-[#212529] transition-colors"
+              className="p-2.5 text-muted-foreground hover:text-foreground transition-colors"
               aria-label="Search"
             >
               <Search size={ICON_SIZES.lg} />
@@ -129,7 +129,7 @@ export async function Navbar() {
             {user && (
               <Link
                 href="/dashboard/saved"
-                className="p-2.5 text-[#495057] hover:text-[#212529] transition-colors"
+                className="p-2.5 text-muted-foreground hover:text-foreground transition-colors"
                 aria-label="Saved properties"
               >
                 <Heart size={ICON_SIZES.lg} />

@@ -544,11 +544,11 @@ export default function FloatingChatWidget() {
       {!isOpen && (
         <button
           onClick={() => setIsOpen(true)}
-          className="fixed bottom-6 right-6 z-50 w-16 h-16 bg-[#212529] text-white rounded-full shadow-2xl hover:bg-black hover:scale-110 transition-all flex items-center justify-center group"
+          className="fixed bottom-6 right-6 z-50 w-16 h-16 bg-muted text-white rounded-full shadow-2xl hover:bg-black hover:scale-110 transition-all flex items-center justify-center group"
         >
           <MessageSquare size={28} className="group-hover:rotate-12 transition-transform" />
           {unreadCount > 0 && (
-            <span className="absolute -top-1 -right-1 w-7 h-7 bg-[#FF6B6B] text-white text-xs font-bold rounded-full flex items-center justify-center animate-pulse">
+            <span className="absolute -top-1 -right-1 w-7 h-7 bg-muted text-white text-xs font-bold rounded-full flex items-center justify-center animate-pulse">
               {unreadCount > 9 ? '9+' : unreadCount}
             </span>
           )}
@@ -558,12 +558,12 @@ export default function FloatingChatWidget() {
       {/* Chat Widget */}
       {isOpen && (
         <div
-          className={`fixed bottom-6 right-6 z-50 bg-white rounded-2xl shadow-2xl border-2 border-[#E9ECEF] transition-all ${
+          className={`fixed bottom-6 right-6 z-50 bg-white rounded-2xl shadow-2xl border-2 border-border transition-all ${
             isMinimized ? 'h-16 w-80' : 'h-[600px] w-96'
           }`}
         >
           {/* Header */}
-          <div className="bg-[#212529] text-white p-4 rounded-t-2xl flex items-center justify-between">
+          <div className="bg-muted text-white p-4 rounded-t-2xl flex items-center justify-between">
             {selectedConversation ? (
               <>
                 <button
@@ -599,7 +599,7 @@ export default function FloatingChatWidget() {
                 <MessageSquare size={20} />
                 <span className="font-bold">Messages</span>
                 {unreadCount > 0 && (
-                  <span className="px-2 py-0.5 bg-[#FF6B6B] text-xs font-bold rounded-full">
+                  <span className="px-2 py-0.5 bg-muted text-xs font-bold rounded-full">
                     {unreadCount}
                   </span>
                 )}
@@ -633,9 +633,9 @@ export default function FloatingChatWidget() {
                   {/* Property Info Banner */}
                   <Link
                     href={`/property/${selectedConversation.property?.slug}`}
-                    className="p-3 bg-[#212529] hover:bg-black transition-colors flex items-center gap-3 group"
+                    className="p-3 bg-muted hover:bg-black transition-colors flex items-center gap-3 group"
                   >
-                    <div className="w-12 h-12 bg-[#495057] rounded-lg overflow-hidden flex-shrink-0 border-2 border-white/10">
+                    <div className="w-12 h-12 bg-muted rounded-lg overflow-hidden flex-shrink-0 border-2 border-white/10">
                       {selectedConversation.property?.property_images?.[0]?.url ? (
                         <Image
                           src={selectedConversation.property.property_images[0].url}
@@ -662,17 +662,17 @@ export default function FloatingChatWidget() {
                   </Link>
 
                   {/* Messages */}
-                  <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-[#F8F9FA]">
+                  <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-muted">
                     {loading ? (
                       <div className="flex items-center justify-center h-full">
-                        <Loader2 className="animate-spin text-[#ADB5BD]" size={32} />
+                        <Loader2 className="animate-spin text-foreground" size={32} />
                       </div>
                     ) : messages.length === 0 ? (
                       <div className="flex items-center justify-center h-full text-center">
                         <div>
-                          <MessageSquare size={48} className="text-[#ADB5BD] mx-auto mb-4" />
-                          <p className="text-[#495057]">No messages yet</p>
-                          <p className="text-xs text-[#ADB5BD] mt-1">Start the conversation!</p>
+                          <MessageSquare size={48} className="text-foreground mx-auto mb-4" />
+                          <p className="text-foreground">No messages yet</p>
+                          <p className="text-xs text-foreground mt-1">Start the conversation!</p>
                         </div>
                       </div>
                     ) : (
@@ -685,13 +685,13 @@ export default function FloatingChatWidget() {
                           return (
                             <div key={message.id} className="space-y-2">
                               {/* Inquiry divider */}
-                              <div className="flex items-center justify-center gap-2 text-xs text-[#ADB5BD]">
-                                <div className="h-px flex-1 bg-[#E9ECEF]" />
-                                <span className="flex items-center gap-1 px-2.5 py-1 bg-white rounded-full border border-[#E9ECEF] font-medium">
+                              <div className="flex items-center justify-center gap-2 text-xs text-foreground">
+                                <div className="h-px flex-1 bg-muted" />
+                                <span className="flex items-center gap-1 px-2.5 py-1 bg-white rounded-full border border-border font-medium">
                                   <Mail size={10} />
                                   Inquiry
                                 </span>
-                                <div className="h-px flex-1 bg-[#E9ECEF]" />
+                                <div className="h-px flex-1 bg-muted" />
                               </div>
 
                               {/* Inquiry message card */}
@@ -699,19 +699,19 @@ export default function FloatingChatWidget() {
                                 <div
                                   className={`max-w-[85%] rounded-2xl overflow-hidden border-2 ${
                                     isMine
-                                      ? 'bg-[#212529] text-white border-[#212529]'
-                                      : 'bg-white text-[#212529] border-[#E9ECEF]'
+                                      ? 'bg-muted text-white border-border'
+                                      : 'bg-white text-foreground border-border'
                                   }`}
                                 >
                                   <div className={`px-3 py-1.5 text-xs font-medium flex items-center gap-1.5 ${
-                                    isMine ? 'bg-white/10 text-white/80' : 'bg-[#F8F9FA] text-[#495057]'
+                                    isMine ? 'bg-white/10 text-white/80' : 'bg-muted text-foreground'
                                   }`}>
                                     <Mail size={12} />
                                     Property Inquiry
                                   </div>
                                   <div className="px-4 py-3">
                                     <p className="text-sm break-words whitespace-pre-wrap">{message.content}</p>
-                                    <p className={`text-xs mt-2 ${isMine ? 'text-white/50' : 'text-[#ADB5BD]'}`}>
+                                    <p className={`text-xs mt-2 ${isMine ? 'text-white/50' : 'text-foreground'}`}>
                                       {new Date(message.created_at).toLocaleTimeString([], {
                                         hour: '2-digit',
                                         minute: '2-digit',
@@ -733,12 +733,12 @@ export default function FloatingChatWidget() {
                             <div
                               className={`max-w-[75%] rounded-2xl px-4 py-2 ${
                                 isMine
-                                  ? 'bg-[#212529] text-white rounded-br-sm'
-                                  : 'bg-white text-[#212529] rounded-bl-sm'
+                                  ? 'bg-muted text-white rounded-br-sm'
+                                  : 'bg-white text-foreground rounded-bl-sm'
                               }`}
                             >
                               <p className="text-sm break-words">{message.content}</p>
-                              <p className={`text-xs mt-1 ${isMine ? 'text-white/60' : 'text-[#ADB5BD]'}`}>
+                              <p className={`text-xs mt-1 ${isMine ? 'text-white/60' : 'text-foreground'}`}>
                                 {new Date(message.created_at).toLocaleTimeString([], {
                                   hour: '2-digit',
                                   minute: '2-digit',
@@ -754,20 +754,20 @@ export default function FloatingChatWidget() {
                   </div>
 
                   {/* Message Input */}
-                  <form onSubmit={sendMessage} className="p-3 border-t border-[#E9ECEF] bg-white">
+                  <form onSubmit={sendMessage} className="p-3 border-t border-border bg-white">
                     <div className="flex items-center gap-2">
                       <input
                         type="text"
                         value={newMessage}
                         onChange={(e) => setNewMessage(e.target.value)}
                         placeholder="Type a message..."
-                        className="flex-1 px-4 py-2.5 bg-[#F8F9FA] rounded-xl text-sm text-[#212529] placeholder:text-[#ADB5BD] focus:outline-none focus:ring-2 focus:ring-[#212529]"
+                        className="flex-1 px-4 py-2.5 bg-muted rounded-xl text-sm text-foreground placeholder:text-foreground focus:outline-none focus:ring-2 focus:ring-foreground"
                         disabled={sending}
                       />
                       <button
                         type="submit"
                         disabled={!newMessage.trim() || sending}
-                        className="p-2.5 bg-[#212529] text-white rounded-xl hover:bg-black disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                        className="p-2.5 bg-muted text-white rounded-xl hover:bg-black disabled:opacity-50 disabled:cursor-not-allowed transition-all"
                       >
                         {sending ? (
                           <Loader2 size={20} className="animate-spin" />
@@ -782,15 +782,15 @@ export default function FloatingChatWidget() {
                 /* ===== Chat List View ===== */
                 <div className="flex flex-col h-[calc(600px-64px)]">
                   {/* Search */}
-                  <div className="p-3 border-b border-[#E9ECEF]">
+                  <div className="p-3 border-b border-border">
                     <div className="relative">
-                      <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#ADB5BD]" />
+                      <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-foreground" />
                       <input
                         type="text"
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
                         placeholder="Search messages & inquiries..."
-                        className="w-full pl-10 pr-3 py-2 bg-[#F8F9FA] rounded-lg text-sm text-[#212529] placeholder:text-[#ADB5BD] focus:outline-none focus:ring-2 focus:ring-[#212529]"
+                        className="w-full pl-10 pr-3 py-2 bg-muted rounded-lg text-sm text-foreground placeholder:text-foreground focus:outline-none focus:ring-2 focus:ring-foreground"
                       />
                     </div>
                   </div>
@@ -800,9 +800,9 @@ export default function FloatingChatWidget() {
                     {chatList.length === 0 ? (
                       <div className="flex items-center justify-center h-full text-center p-6">
                         <div>
-                          <Inbox size={48} className="text-[#ADB5BD] mx-auto mb-4" />
-                          <p className="font-semibold text-[#212529] mb-1">No messages yet</p>
-                          <p className="text-sm text-[#495057]">
+                          <Inbox size={48} className="text-foreground mx-auto mb-4" />
+                          <p className="font-semibold text-foreground mb-1">No messages yet</p>
+                          <p className="text-sm text-foreground">
                             {searchQuery ? 'No results found' : 'Inquiries and conversations will appear here'}
                           </p>
                         </div>
@@ -821,12 +821,12 @@ export default function FloatingChatWidget() {
                               key={`inq-${inq.id}`}
                               onClick={() => startConversationFromInquiry(inq)}
                               disabled={startingConversation}
-                              className="w-full p-4 hover:bg-[#FFFBF0] transition-colors border-b border-[#E9ECEF] text-left group bg-[#FFFDF7]"
+                              className="w-full p-4 hover:bg-muted transition-colors border-b border-border text-left group bg-muted"
                             >
                               <div className="flex items-start gap-3">
                                 {/* Avatar with inquiry ring */}
                                 <div className="relative flex-shrink-0">
-                                  <div className="w-12 h-12 rounded-full overflow-hidden bg-gradient-to-br from-[#212529] to-[#495057] flex items-center justify-center text-white text-lg font-bold ring-2 ring-[#FF6B6B] ring-offset-2">
+                                  <div className="w-12 h-12 rounded-full overflow-hidden bg-gradient-to-br from-foreground to-foreground flex items-center justify-center text-white text-lg font-bold ring-2 ring-foreground ring-offset-2">
                                     {otherPerson?.avatar_url ? (
                                       <img src={otherPerson.avatar_url} alt="" className="w-full h-full object-cover" />
                                     ) : (
@@ -837,27 +837,27 @@ export default function FloatingChatWidget() {
 
                                 <div className="flex-1 min-w-0">
                                   <div className="flex items-center justify-between mb-0.5">
-                                    <p className="font-bold text-[#212529] truncate text-sm">
+                                    <p className="font-bold text-foreground truncate text-sm">
                                       {displayName}
                                     </p>
-                                    <span className="ml-2 px-2 py-0.5 bg-[#FF6B6B] text-white text-[10px] font-bold rounded-full flex-shrink-0 flex items-center gap-1">
+                                    <span className="ml-2 px-2 py-0.5 bg-muted text-white text-[10px] font-bold rounded-full flex-shrink-0 flex items-center gap-1">
                                       <Mail size={9} />
                                       New Inquiry
                                     </span>
                                   </div>
-                                  <p className="text-xs text-[#495057] truncate mb-1 flex items-center gap-1">
+                                  <p className="text-xs text-foreground truncate mb-1 flex items-center gap-1">
                                     <Building2 size={11} />
                                     {inq.property?.title}
                                   </p>
-                                  <p className="text-xs text-[#6C757D] line-clamp-2">
+                                  <p className="text-xs text-foreground line-clamp-2">
                                     &ldquo;{inq.message}&rdquo;
                                   </p>
                                   <div className="flex items-center justify-between mt-1.5">
-                                    <p className="text-[10px] text-[#ADB5BD]">
+                                    <p className="text-[10px] text-foreground">
                                       {formatTime(inq.created_at)}
                                     </p>
                                     {isRecipient && (
-                                      <span className="text-[10px] text-[#212529] font-semibold group-hover:underline">
+                                      <span className="text-[10px] text-foreground font-semibold group-hover:underline">
                                         {startingConversation ? 'Starting...' : 'Click to reply →'}
                                       </span>
                                     )}
@@ -877,14 +877,14 @@ export default function FloatingChatWidget() {
                           <button
                             key={`conv-${conv.id}`}
                             onClick={() => openConversation(conv)}
-                            className="w-full p-4 hover:bg-[#F8F9FA] transition-colors border-b border-[#E9ECEF] text-left"
+                            className="w-full p-4 hover:bg-muted transition-colors border-b border-border text-left"
                           >
                             <div className="flex items-start gap-3">
                               <div className="relative flex-shrink-0">
                                 <div className={`w-12 h-12 rounded-full overflow-hidden flex items-center justify-center text-lg font-bold ${
                                   hasUnread
-                                    ? 'ring-2 ring-[#212529] ring-offset-2 bg-gradient-to-br from-[#212529] to-[#495057] text-white'
-                                    : 'bg-[#F8F9FA] text-[#212529]'
+                                    ? 'ring-2 ring-foreground ring-offset-2 bg-gradient-to-br from-foreground to-foreground text-white'
+                                    : 'bg-muted text-foreground'
                                 }`}>
                                   {otherUser?.avatar_url ? (
                                     <img src={otherUser.avatar_url} alt="" className="w-full h-full object-cover" />
@@ -893,7 +893,7 @@ export default function FloatingChatWidget() {
                                   )}
                                 </div>
                                 {hasUnread && (
-                                  <span className="absolute -top-1 -right-1 w-5 h-5 bg-[#212529] text-white text-[10px] font-bold rounded-full flex items-center justify-center">
+                                  <span className="absolute -top-1 -right-1 w-5 h-5 bg-muted text-white text-[10px] font-bold rounded-full flex items-center justify-center">
                                     {conv.unread_count}
                                   </span>
                                 )}
@@ -901,18 +901,18 @@ export default function FloatingChatWidget() {
 
                               <div className="flex-1 min-w-0">
                                 <div className="flex items-center justify-between mb-0.5">
-                                  <p className={`truncate text-sm ${hasUnread ? 'font-bold text-[#212529]' : 'font-semibold text-[#495057]'}`}>
+                                  <p className={`truncate text-sm ${hasUnread ? 'font-bold text-foreground' : 'font-semibold text-foreground'}`}>
                                     {otherUser?.name || 'Unknown'}
                                   </p>
-                                  <span className={`text-[10px] flex-shrink-0 ml-2 ${hasUnread ? 'text-[#212529] font-semibold' : 'text-[#ADB5BD]'}`}>
+                                  <span className={`text-[10px] flex-shrink-0 ml-2 ${hasUnread ? 'text-foreground font-semibold' : 'text-foreground'}`}>
                                     {formatTime(conv.last_message_at)}
                                   </span>
                                 </div>
-                                <p className="text-xs text-[#495057] truncate mb-1 flex items-center gap-1">
+                                <p className="text-xs text-foreground truncate mb-1 flex items-center gap-1">
                                   <Building2 size={11} />
                                   {conv.property?.title}
                                 </p>
-                                <p className={`text-xs line-clamp-1 ${hasUnread ? 'text-[#212529] font-medium' : 'text-[#ADB5BD]'}`}>
+                                <p className={`text-xs line-clamp-1 ${hasUnread ? 'text-foreground font-medium' : 'text-foreground'}`}>
                                   {conv.last_message_preview || 'No messages yet'}
                                 </p>
                               </div>

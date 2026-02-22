@@ -92,8 +92,8 @@ export default function MapView({ properties, selectedProperty, onPropertySelect
         html: `
           <div class="relative">
             <div class="${
-              isSelected ? 'bg-[#212529]' : 'bg-white'
-            } border-2 border-[#212529] rounded-full w-10 h-10 flex items-center justify-center shadow-lg transform transition-transform hover:scale-110">
+              isSelected ? 'bg-muted' : 'bg-white'
+            } border-2 border-border rounded-full w-10 h-10 flex items-center justify-center shadow-lg transform transition-transform hover:scale-110">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="${
                 isSelected ? '#FFFFFF' : '#212529'
               }" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -135,20 +135,20 @@ export default function MapView({ properties, selectedProperty, onPropertySelect
             class="w-full h-32 object-cover rounded-md mb-2"
           />
           <div class="mb-1">
-            <span class="font-bold text-[#212529]">${formattedPrice}</span>
-            <span class="text-xs text-[#495057]">${isForSale ? '' : '/mo'}</span>
-            ${isForSale ? '<span class="ml-2 text-xs font-semibold bg-white text-black px-2 py-0.5 rounded border border-[#E9ECEF]">FOR SALE</span>' : ''}
+            <span class="font-bold text-foreground">${formattedPrice}</span>
+            <span class="text-xs text-foreground">${isForSale ? '' : '/mo'}</span>
+            ${isForSale ? '<span class="ml-2 text-xs font-semibold bg-white text-black px-2 py-0.5 rounded border border-border">FOR SALE</span>' : ''}
           </div>
-          <h4 class="font-semibold text-sm text-[#212529] mb-1">${property.title}</h4>
-          <p class="text-xs text-[#495057] mb-2">${property.neighborhood ? property.neighborhood + ', ' : ''}${property.city}</p>
-          <div class="flex gap-3 text-xs text-[#495057] mb-3">
+          <h4 class="font-semibold text-sm text-foreground mb-1">${property.title}</h4>
+          <p class="text-xs text-foreground mb-2">${property.neighborhood ? property.neighborhood + ', ' : ''}${property.city}</p>
+          <div class="flex gap-3 text-xs text-foreground mb-3">
             <span>${property.beds} bed</span>
             <span>${property.baths} bath</span>
             ${property.sqft ? `<span>${property.sqft} sqft</span>` : ''}
           </div>
           <a 
             href="/property/${property.slug || property.id}"
-            class="block w-full text-center bg-[#212529] text-white py-2 rounded-md text-sm font-medium hover:bg-black transition-colors"
+            class="block w-full text-center bg-muted text-white py-2 rounded-md text-sm font-medium hover:bg-black transition-colors"
           >
             View Details
           </a>

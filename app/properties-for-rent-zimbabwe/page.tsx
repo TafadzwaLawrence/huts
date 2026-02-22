@@ -95,44 +95,44 @@ export default async function ZimbabweRentalsPage() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero */}
-      <section className="relative bg-gradient-to-b from-white via-[#F8F9FA] to-white py-20 md:py-32 overflow-hidden">
+      <section className="relative bg-gradient-to-b from-white via-muted to-white py-20 md:py-32 overflow-hidden">
         <div className="absolute inset-0 opacity-[0.02]" style={{
           backgroundImage: `radial-gradient(circle at 1px 1px, #212529 1px, transparent 0)`,
           backgroundSize: '32px 32px'
         }} />
         
         <div className="container-main max-w-7xl relative">
-          <nav className="mb-8 flex items-center gap-2 text-sm text-[#495057]">
-            <Link href="/" className="hover:text-[#212529]">Home</Link>
+          <nav className="mb-8 flex items-center gap-2 text-sm text-muted-foreground">
+            <Link href="/" className="hover:text-foreground">Home</Link>
             <span>/</span>
-            <span className="text-[#212529] font-medium">Rentals in Zimbabwe</span>
+            <span className="text-foreground font-medium">Rentals in Zimbabwe</span>
           </nav>
 
           <div className="text-center max-w-4xl mx-auto">
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-[#212529] mb-8 tracking-tight leading-tight">
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-foreground mb-8 tracking-tight leading-tight">
               Find Properties for Rent<br className="hidden md:block" /> in Zimbabwe
             </h1>
-            <p className="text-xl md:text-2xl text-[#495057] mb-10 leading-relaxed max-w-3xl mx-auto">
+            <p className="text-xl md:text-2xl text-muted-foreground mb-10 leading-relaxed max-w-3xl mx-auto">
               Browse <strong>{totalCount || '100+'} verified rental properties</strong> across Zimbabwe. Apartments, houses, and rooms in Harare, Bulawayo, Gweru, Mutare, and every major city. Connect directly with landlords. Zero fees.
             </p>
 
             {/* Search */}
             <div className="max-w-2xl mx-auto mb-12">
               <div className="relative group">
-                <div className="absolute -inset-1 bg-gradient-to-r from-[#212529]/20 to-[#495057]/20 rounded-2xl blur-lg opacity-50 group-hover:opacity-75 transition-opacity" />
-                <div className="relative bg-white rounded-2xl shadow-2xl border-2 border-[#E9ECEF] p-2">
+                <div className="absolute -inset-1 bg-gradient-to-r from-foreground/20 to-muted-foreground/20 rounded-2xl blur-lg opacity-50 group-hover:opacity-75 transition-opacity" />
+                <div className="relative bg-white rounded-2xl shadow-2xl border-2 border-border p-2">
                   <div className="flex flex-col md:flex-row gap-2">
-                    <div className="flex-1 flex items-center gap-3 px-4 py-3 bg-[#F8F9FA] rounded-xl">
-                      <Search size={ICON_SIZES.lg} className="text-[#495057]" />
+                    <div className="flex-1 flex items-center gap-3 px-4 py-3 bg-muted rounded-xl">
+                      <Search size={ICON_SIZES.lg} className="text-muted-foreground" />
                       <input
                         type="text"
                         placeholder="Search by city or neighborhood..."
-                        className="w-full bg-transparent outline-none text-[#212529] placeholder:text-[#ADB5BD] font-medium"
+                        className="w-full bg-transparent outline-none text-foreground placeholder:text-muted-foreground font-medium"
                       />
                     </div>
                     <Link
                       href="/search?type=rent"
-                      className="flex items-center justify-center gap-2 bg-[#212529] text-white px-8 py-4 rounded-xl font-bold hover:bg-black transition-all hover:shadow-2xl"
+                      className="flex items-center justify-center gap-2 bg-foreground text-white px-8 py-4 rounded-xl font-bold hover:bg-black transition-all hover:shadow-2xl"
                     >
                       Search Rentals
                       <ArrowRight size={ICON_SIZES.lg} />
@@ -150,8 +150,8 @@ export default async function ZimbabweRentalsPage() {
                 { value: '100%', label: 'Verified' },
               ].map((stat) => (
                 <div key={stat.label}>
-                  <div className="text-4xl md:text-5xl font-bold text-[#212529] mb-2">{stat.value}</div>
-                  <div className="text-sm text-[#ADB5BD]">{stat.label}</div>
+                  <div className="text-4xl md:text-5xl font-bold text-foreground mb-2">{stat.value}</div>
+                  <div className="text-sm text-muted-foreground">{stat.label}</div>
                 </div>
               ))}
             </div>
@@ -160,9 +160,9 @@ export default async function ZimbabweRentalsPage() {
       </section>
 
       {/* Cities */}
-      <section className="py-16 md:py-20 bg-[#F8F9FA] border-y border-[#E9ECEF]">
+      <section className="py-16 md:py-20 bg-muted border-y border-border">
         <div className="container-main">
-          <h2 className="text-3xl md:text-4xl font-bold text-[#212529] mb-10 text-center">
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-10 text-center">
             Browse Rentals by City
           </h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-5xl mx-auto">
@@ -170,14 +170,14 @@ export default async function ZimbabweRentalsPage() {
               <Link
                 key={name}
                 href={`/search?city=${encodeURIComponent(name)}&type=rent`}
-                className="group bg-white border-2 border-[#E9ECEF] rounded-2xl p-6 text-center hover:border-[#212529] hover:shadow-xl hover:-translate-y-1 transition-all"
+                className="group bg-white border-2 border-border rounded-2xl p-6 text-center hover:border-foreground hover:shadow-xl hover:-translate-y-1 transition-all"
               >
-                <div className="w-14 h-14 bg-[#F8F9FA] group-hover:bg-[#212529] rounded-xl flex items-center justify-center mx-auto mb-4 transition-colors">
-                  <MapPin size={ICON_SIZES.xl} className="text-[#495057] group-hover:text-white transition-colors" />
+                <div className="w-14 h-14 bg-muted group-hover:bg-foreground rounded-xl flex items-center justify-center mx-auto mb-4 transition-colors">
+                  <MapPin size={ICON_SIZES.xl} className="text-muted-foreground group-hover:text-white transition-colors" />
                 </div>
-                <div className="text-3xl font-bold text-[#212529] mb-2">{count}</div>
-                <div className="font-semibold text-[#495057] mb-1">{name}</div>
-                <div className="text-xs text-[#ADB5BD]">properties</div>
+                <div className="text-3xl font-bold text-foreground mb-2">{count}</div>
+                <div className="font-semibold text-muted-foreground mb-1">{name}</div>
+                <div className="text-xs text-muted-foreground">properties</div>
               </Link>
             ))}
           </div>
@@ -189,14 +189,14 @@ export default async function ZimbabweRentalsPage() {
         <div className="container-main">
           <div className="flex items-center justify-between mb-12">
             <div>
-              <h2 className="text-3xl md:text-4xl font-bold text-[#212529] mb-2">
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-2">
                 Latest Rental Properties
               </h2>
-              <p className="text-[#495057]">Recently listed across Zimbabwe</p>
+              <p className="text-muted-foreground">Recently listed across Zimbabwe</p>
             </div>
             <Link
               href="/search?type=rent"
-              className="hidden md:inline-flex items-center gap-2 text-sm font-semibold text-[#212529] border-2 border-[#E9ECEF] px-6 py-3 rounded-full hover:border-[#212529] hover:bg-[#212529] hover:text-white transition-all"
+              className="hidden md:inline-flex items-center gap-2 text-sm font-semibold text-foreground border-2 border-border px-6 py-3 rounded-full hover:border-foreground hover:bg-foreground hover:text-white transition-all"
             >
               View all <ArrowRight size={ICON_SIZES.md} />
             </Link>
@@ -214,8 +214,8 @@ export default async function ZimbabweRentalsPage() {
                     href={`/property/${property.slug || property.id}`}
                     className="group"
                   >
-                    <article className="border border-[#E9ECEF] rounded-2xl overflow-hidden bg-white hover:border-[#212529] hover:shadow-xl transition-all duration-300">
-                      <div className="relative h-52 overflow-hidden bg-[#F8F9FA]">
+                    <article className="border border-border rounded-2xl overflow-hidden bg-white hover:border-foreground hover:shadow-xl transition-all duration-300">
+                      <div className="relative h-52 overflow-hidden bg-muted">
                         <Image
                           src={imageUrl}
                           alt={property.title}
@@ -225,36 +225,36 @@ export default async function ZimbabweRentalsPage() {
                         />
                         <div className="absolute bottom-3 left-3">
                           <div className="bg-white/95 backdrop-blur-sm px-3 py-1.5 rounded-lg shadow-lg">
-                            <span className="text-lg font-bold text-[#212529]">
+                            <span className="text-lg font-bold text-foreground">
                               {formatPrice(property.price)}
                             </span>
-                            <span className="text-xs text-[#495057] ml-0.5">/mo</span>
+                            <span className="text-xs text-muted-foreground ml-0.5">/mo</span>
                           </div>
                         </div>
                         <SaveButton className="absolute top-3 right-3 p-2 bg-white/90 rounded-full hover:bg-white hover:scale-110 transition-all min-w-[36px] min-h-[36px] flex items-center justify-center shadow-sm" />
                       </div>
 
                       <div className="p-4">
-                        <h3 className="font-semibold text-[#212529] mb-2 line-clamp-1 group-hover:underline">
+                        <h3 className="font-semibold text-foreground mb-2 line-clamp-1 group-hover:underline">
                           {property.title}
                         </h3>
-                        <div className="flex items-center text-[#495057] text-sm mb-3">
-                          <MapPin size={ICON_SIZES.sm} className="mr-1.5 text-[#ADB5BD]" />
+                        <div className="flex items-center text-muted-foreground text-sm mb-3">
+                          <MapPin size={ICON_SIZES.sm} className="mr-1.5 text-muted-foreground" />
                           <span className="truncate">{property.neighborhood ? `${property.neighborhood}, ` : ''}{property.city}</span>
                         </div>
-                        <div className="flex items-center gap-4 text-sm pt-3 border-t border-[#E9ECEF]">
+                        <div className="flex items-center gap-4 text-sm pt-3 border-t border-border">
                           <span className="flex items-center gap-1">
-                            <Bed size={ICON_SIZES.sm} className="text-[#ADB5BD]" />
-                            <span className="font-semibold text-[#212529]">{property.beds}</span>
+                            <Bed size={ICON_SIZES.sm} className="text-muted-foreground" />
+                            <span className="font-semibold text-foreground">{property.beds}</span>
                           </span>
                           <span className="flex items-center gap-1">
-                            <Bath size={ICON_SIZES.sm} className="text-[#ADB5BD]" />
-                            <span className="font-semibold text-[#212529]">{property.baths}</span>
+                            <Bath size={ICON_SIZES.sm} className="text-muted-foreground" />
+                            <span className="font-semibold text-foreground">{property.baths}</span>
                           </span>
                           {property.sqft && (
                             <span className="flex items-center gap-1">
-                              <Square size={ICON_SIZES.sm} className="text-[#ADB5BD]" />
-                              <span className="font-semibold text-[#212529]">{property.sqft}</span>
+                              <Square size={ICON_SIZES.sm} className="text-muted-foreground" />
+                              <span className="font-semibold text-foreground">{property.sqft}</span>
                             </span>
                           )}
                         </div>
@@ -269,18 +269,18 @@ export default async function ZimbabweRentalsPage() {
       </section>
 
       {/* SEO Content */}
-      <section className="py-16 md:py-20 bg-[#F8F9FA] border-t border-[#E9ECEF]">
+      <section className="py-16 md:py-20 bg-muted border-t border-border">
         <div className="container-main max-w-4xl">
-          <h2 className="text-3xl md:text-4xl font-bold text-[#212529] mb-8">
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-8">
             Your Guide to Renting Property in Zimbabwe
           </h2>
           
           <div className="prose prose-lg max-w-none">
-            <p className="text-lg text-[#495057] leading-relaxed mb-8">
+            <p className="text-lg text-muted-foreground leading-relaxed mb-8">
               Finding quality rental accommodation in Zimbabwe has never been easier. Huts connects renters directly with verified landlords across all major cities and towns. Whether you're moving to Harare for work, studying in Gweru, or relocating to Bulawayo, our platform offers transparent pricing, instant messaging, and a streamlined rental process.
             </p>
 
-            <h3 className="text-2xl font-bold text-[#212529] mb-4 mt-10">
+            <h3 className="text-2xl font-bold text-foreground mb-4 mt-10">
               Popular Cities for Rentals in Zimbabwe
             </h3>
             <div className="grid md:grid-cols-2 gap-6 mb-10">
@@ -290,15 +290,15 @@ export default async function ZimbabweRentalsPage() {
                 { city: 'Gweru', desc: 'Central location with student-friendly accommodation near Midlands State University.' },
                 { city: 'Mutare', desc: 'Eastern highlands city with scenic properties and growing rental market.' },
               ].map((item) => (
-                <div key={item.city} className="bg-white border-2 border-[#E9ECEF] rounded-xl p-6">
-                  <h4 className="font-bold text-[#212529] text-xl mb-3 flex items-center gap-2">
-                    <MapPin size={ICON_SIZES.lg} className="text-[#495057]" />
+                <div key={item.city} className="bg-white border-2 border-border rounded-xl p-6">
+                  <h4 className="font-bold text-foreground text-xl mb-3 flex items-center gap-2">
+                    <MapPin size={ICON_SIZES.lg} className="text-muted-foreground" />
                     {item.city}
                   </h4>
-                  <p className="text-[#495057] leading-relaxed mb-4">{item.desc}</p>
+                  <p className="text-muted-foreground leading-relaxed mb-4">{item.desc}</p>
                   <Link
                     href={`/search?city=${encodeURIComponent(item.city)}&type=rent`}
-                    className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#212529] hover:underline"
+                    className="inline-flex items-center gap-1.5 text-sm font-semibold text-foreground hover:underline"
                   >
                     View {item.city} rentals <ArrowRight size={ICON_SIZES.sm} />
                   </Link>
@@ -306,7 +306,7 @@ export default async function ZimbabweRentalsPage() {
               ))}
             </div>
 
-            <h3 className="text-2xl font-bold text-[#212529] mb-6 mt-12">
+            <h3 className="text-2xl font-bold text-foreground mb-6 mt-12">
               Types of Rental Properties Available
             </h3>
             <div className="space-y-4 mb-10">
@@ -316,46 +316,46 @@ export default async function ZimbabweRentalsPage() {
                 { type: 'Rooms', desc: 'Affordable single rooms in shared houses, ideal for students and young professionals.' },
                 { type: 'Cottages', desc: 'Self-contained units on larger properties, offering privacy and independence.' },
               ].map((item) => (
-                <div key={item.type} className="flex items-start gap-4 bg-white border border-[#E9ECEF] rounded-xl p-5">
-                  <div className="w-10 h-10 bg-[#F8F9FA] rounded-lg flex items-center justify-center flex-shrink-0">
-                    <Home size={ICON_SIZES.lg} className="text-[#212529]" />
+                <div key={item.type} className="flex items-start gap-4 bg-white border border-border rounded-xl p-5">
+                  <div className="w-10 h-10 bg-muted rounded-lg flex items-center justify-center flex-shrink-0">
+                    <Home size={ICON_SIZES.lg} className="text-foreground" />
                   </div>
                   <div>
-                    <h4 className="font-bold text-[#212529] mb-1">{item.type}</h4>
-                    <p className="text-sm text-[#495057] leading-relaxed">{item.desc}</p>
+                    <h4 className="font-bold text-foreground mb-1">{item.type}</h4>
+                    <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
                   </div>
                 </div>
               ))}
             </div>
 
-            <h3 className="text-2xl font-bold text-[#212529] mb-6 mt-12">
+            <h3 className="text-2xl font-bold text-foreground mb-6 mt-12">
               Average Rental Costs Across Zimbabwe
             </h3>
-            <div className="bg-white border-2 border-[#E9ECEF] rounded-2xl p-6 md:p-8 mb-10">
+            <div className="bg-white border-2 border-border rounded-2xl p-6 md:p-8 mb-10">
               <div className="space-y-3">
-                <div className="flex items-center justify-between pb-3 border-b border-[#F1F3F5]">
-                  <span className="font-medium text-[#495057]">1-bedroom apartment</span>
-                  <span className="font-bold text-[#212529]">$200–$600/month</span>
+                <div className="flex items-center justify-between pb-3 border-b border-gray-100">
+                  <span className="font-medium text-muted-foreground">1-bedroom apartment</span>
+                  <span className="font-bold text-foreground">$200–$600/month</span>
                 </div>
-                <div className="flex items-center justify-between pb-3 border-b border-[#F1F3F5]">
-                  <span className="font-medium text-[#495057]">2-bedroom apartment</span>
-                  <span className="font-bold text-[#212529]">$400–$1,000/month</span>
+                <div className="flex items-center justify-between pb-3 border-b border-gray-100">
+                  <span className="font-medium text-muted-foreground">2-bedroom apartment</span>
+                  <span className="font-bold text-foreground">$400–$1,000/month</span>
                 </div>
-                <div className="flex items-center justify-between pb-3 border-b border-[#F1F3F5]">
-                  <span className="font-medium text-[#495057]">3-bedroom house</span>
-                  <span className="font-bold text-[#212529]">$600–$1,500/month</span>
+                <div className="flex items-center justify-between pb-3 border-b border-gray-100">
+                  <span className="font-medium text-muted-foreground">3-bedroom house</span>
+                  <span className="font-bold text-foreground">$600–$1,500/month</span>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="font-medium text-[#495057]">Room in shared house</span>
-                  <span className="font-bold text-[#212529]">$150–$400/month</span>
+                  <span className="font-medium text-muted-foreground">Room in shared house</span>
+                  <span className="font-bold text-foreground">$150–$400/month</span>
                 </div>
               </div>
-              <p className="text-sm text-[#ADB5BD] mt-6">
+              <p className="text-sm text-muted-foreground mt-6">
                 * Prices vary by location, amenities, and property condition. Premium areas like Borrowdale and Chisipite command higher rates.
               </p>
             </div>
 
-            <div className="bg-[#212529] text-white rounded-2xl p-8 md:p-10">
+            <div className="bg-foreground text-white rounded-2xl p-8 md:p-10">
               <h3 className="text-2xl md:text-3xl font-bold mb-4">
                 Start Your Property Search Today
               </h3>
@@ -364,7 +364,7 @@ export default async function ZimbabweRentalsPage() {
               </p>
               <Link
                 href="/search?type=rent"
-                className="inline-flex items-center gap-3 bg-white text-[#212529] px-8 py-4 rounded-xl font-bold hover:bg-[#F8F9FA] transition-all text-lg"
+                className="inline-flex items-center gap-3 bg-white text-foreground px-8 py-4 rounded-xl font-bold hover:bg-muted transition-all text-lg"
               >
                 <Search size={ICON_SIZES.xl} />
                 Browse All Rentals

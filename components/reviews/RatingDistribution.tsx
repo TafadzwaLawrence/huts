@@ -31,7 +31,7 @@ export default function RatingDistribution({
               {rating} star
             </span>
             
-            <div className="flex-1 h-2 bg-[#E9ECEF] rounded-full overflow-hidden">
+            <div className="flex-1 h-2 bg-muted rounded-full overflow-hidden">
               <div
                 className="h-full bg-black transition-all duration-300"
                 style={{ width: `${percentage}%` }}

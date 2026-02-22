@@ -104,7 +104,7 @@ export default function NotificationsPage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center py-20">
-        <Loader2 className="h-8 w-8 animate-spin text-[#495057]" />
+        <Loader2 className="h-8 w-8 animate-spin text-foreground" />
       </div>
     )
   }
@@ -113,31 +113,31 @@ export default function NotificationsPage() {
     <div className="space-y-8">
       {/* Header */}
       <div>
-        <h1 className="text-2xl font-bold text-[#212529]">Notifications</h1>
-        <p className="text-[#495057]">Choose how you want to be notified</p>
+        <h1 className="text-2xl font-bold text-foreground">Notifications</h1>
+        <p className="text-foreground">Choose how you want to be notified</p>
       </div>
 
       {/* Email Notifications */}
-      <div className="bg-white rounded-xl border-2 border-[#E9ECEF] overflow-hidden">
-        <div className="p-6 border-b border-[#E9ECEF] flex items-center justify-between">
+      <div className="bg-white rounded-xl border-2 border-border overflow-hidden">
+        <div className="p-6 border-b border-border flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="h-10 w-10 rounded-full bg-[#F8F9FA] flex items-center justify-center">
-              <Mail className="h-5 w-5 text-[#495057]" />
+            <div className="h-10 w-10 rounded-full bg-muted flex items-center justify-center">
+              <Mail className="h-5 w-5 text-foreground" />
             </div>
             <div>
-              <h2 className="font-semibold text-[#212529]">Email Notifications</h2>
-              <p className="text-sm text-[#495057]">Receive updates via email</p>
+              <h2 className="font-semibold text-foreground">Email Notifications</h2>
+              <p className="text-sm text-foreground">Receive updates via email</p>
             </div>
           </div>
           <button
             onClick={() => toggleAllInCategory('email', !settings.email_new_messages)}
-            className="text-sm text-[#495057] hover:text-[#212529] transition-colors"
+            className="text-sm text-foreground hover:text-foreground transition-colors"
           >
             Toggle all
           </button>
         </div>
         
-        <div className="divide-y divide-[#E9ECEF]">
+        <div className="divide-y divide-border">
           <NotificationToggle
             icon={MessageSquare}
             title="New Messages"
@@ -184,26 +184,26 @@ export default function NotificationsPage() {
       </div>
 
       {/* Push Notifications */}
-      <div className="bg-white rounded-xl border-2 border-[#E9ECEF] overflow-hidden">
-        <div className="p-6 border-b border-[#E9ECEF] flex items-center justify-between">
+      <div className="bg-white rounded-xl border-2 border-border overflow-hidden">
+        <div className="p-6 border-b border-border flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="h-10 w-10 rounded-full bg-[#F8F9FA] flex items-center justify-center">
-              <Smartphone className="h-5 w-5 text-[#495057]" />
+            <div className="h-10 w-10 rounded-full bg-muted flex items-center justify-center">
+              <Smartphone className="h-5 w-5 text-foreground" />
             </div>
             <div>
-              <h2 className="font-semibold text-[#212529]">Push Notifications</h2>
-              <p className="text-sm text-[#495057]">Receive push notifications on your devices</p>
+              <h2 className="font-semibold text-foreground">Push Notifications</h2>
+              <p className="text-sm text-foreground">Receive push notifications on your devices</p>
             </div>
           </div>
           <button
             onClick={() => toggleAllInCategory('push', !settings.push_new_messages)}
-            className="text-sm text-[#495057] hover:text-[#212529] transition-colors"
+            className="text-sm text-foreground hover:text-foreground transition-colors"
           >
             Toggle all
           </button>
         </div>
         
-        <div className="divide-y divide-[#E9ECEF]">
+        <div className="divide-y divide-border">
           <NotificationToggle
             icon={MessageSquare}
             title="New Messages"
@@ -236,26 +236,26 @@ export default function NotificationsPage() {
       </div>
 
       {/* In-App Notifications */}
-      <div className="bg-white rounded-xl border-2 border-[#E9ECEF] overflow-hidden">
-        <div className="p-6 border-b border-[#E9ECEF] flex items-center justify-between">
+      <div className="bg-white rounded-xl border-2 border-border overflow-hidden">
+        <div className="p-6 border-b border-border flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="h-10 w-10 rounded-full bg-[#F8F9FA] flex items-center justify-center">
-              <Globe className="h-5 w-5 text-[#495057]" />
+            <div className="h-10 w-10 rounded-full bg-muted flex items-center justify-center">
+              <Globe className="h-5 w-5 text-foreground" />
             </div>
             <div>
-              <h2 className="font-semibold text-[#212529]">In-App Notifications</h2>
-              <p className="text-sm text-[#495057]">Notifications shown while using Huts</p>
+              <h2 className="font-semibold text-foreground">In-App Notifications</h2>
+              <p className="text-sm text-foreground">Notifications shown while using Huts</p>
             </div>
           </div>
           <button
             onClick={() => toggleAllInCategory('inapp', !settings.inapp_new_messages)}
-            className="text-sm text-[#495057] hover:text-[#212529] transition-colors"
+            className="text-sm text-foreground hover:text-foreground transition-colors"
           >
             Toggle all
           </button>
         </div>
         
-        <div className="divide-y divide-[#E9ECEF]">
+        <div className="divide-y divide-border">
           <NotificationToggle
             icon={MessageSquare}
             title="New Messages"
@@ -288,18 +288,18 @@ export default function NotificationsPage() {
       </div>
 
       {/* Quiet Hours - Coming Soon */}
-      <div className="bg-white rounded-xl border-2 border-[#E9ECEF] p-6">
+      <div className="bg-white rounded-xl border-2 border-border p-6">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="h-10 w-10 rounded-full bg-[#F8F9FA] flex items-center justify-center">
-              <Clock className="h-5 w-5 text-[#495057]" />
+            <div className="h-10 w-10 rounded-full bg-muted flex items-center justify-center">
+              <Clock className="h-5 w-5 text-foreground" />
             </div>
             <div>
-              <h2 className="font-semibold text-[#212529]">Quiet Hours</h2>
-              <p className="text-sm text-[#495057]">Pause notifications during specific hours</p>
+              <h2 className="font-semibold text-foreground">Quiet Hours</h2>
+              <p className="text-sm text-foreground">Pause notifications during specific hours</p>
             </div>
           </div>
-          <span className="px-3 py-1 bg-[#F8F9FA] text-[#495057] text-sm font-medium rounded-full">
+          <span className="px-3 py-1 bg-muted text-foreground text-sm font-medium rounded-full">
             Coming Soon
           </span>
         </div>
@@ -307,11 +307,11 @@ export default function NotificationsPage() {
 
       {/* Save Button */}
       {hasChanges && (
-        <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-[#E9ECEF] p-4 z-50">
+        <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-border p-4 z-50">
           <div className="max-w-6xl mx-auto flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <span className="h-2 w-2 bg-[#212529] rounded-full animate-pulse" />
-              <span className="text-sm text-[#495057]">You have unsaved changes</span>
+              <span className="h-2 w-2 bg-muted rounded-full animate-pulse" />
+              <span className="text-sm text-foreground">You have unsaved changes</span>
             </div>
             <div className="flex items-center gap-3">
               <button
@@ -321,14 +321,14 @@ export default function NotificationsPage() {
                   else setSettings(defaultSettings)
                   setHasChanges(false)
                 }}
-                className="px-4 py-2 text-[#495057] hover:text-[#212529] transition-colors"
+                className="px-4 py-2 text-foreground hover:text-foreground transition-colors"
               >
                 Cancel
               </button>
               <button
                 onClick={handleSave}
                 disabled={saving}
-                className="bg-[#212529] text-white px-6 py-2 rounded-xl font-medium hover:bg-black transition-colors disabled:opacity-50 flex items-center gap-2"
+                className="bg-muted text-white px-6 py-2 rounded-xl font-medium hover:bg-black transition-colors disabled:opacity-50 flex items-center gap-2"
               >
                 {saving ? (
                   <>
@@ -362,18 +362,18 @@ function NotificationToggle({
   onChange: (value: boolean) => void
 }) {
   return (
-    <div className="flex items-center justify-between p-4 hover:bg-[#F8F9FA] transition-colors">
+    <div className="flex items-center justify-between p-4 hover:bg-muted transition-colors">
       <div className="flex items-center gap-3">
-        <Icon className="h-5 w-5 text-[#ADB5BD]" />
+        <Icon className="h-5 w-5 text-foreground" />
         <div>
-          <p className="font-medium text-[#212529]">{title}</p>
-          <p className="text-sm text-[#495057]">{description}</p>
+          <p className="font-medium text-foreground">{title}</p>
+          <p className="text-sm text-foreground">{description}</p>
         </div>
       </div>
       <button
         onClick={() => onChange(!checked)}
         className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-          checked ? 'bg-[#212529]' : 'bg-[#E9ECEF]'
+          checked ? 'bg-muted' : 'bg-muted'
         }`}
       >
         <span

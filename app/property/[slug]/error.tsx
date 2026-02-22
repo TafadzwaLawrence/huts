@@ -18,25 +18,25 @@ export default function PropertyError({
   return (
     <div className="min-h-screen bg-white flex items-center justify-center px-4">
       <div className="max-w-md w-full text-center">
-        <div className="w-16 h-16 bg-[#F8F9FA] rounded-full flex items-center justify-center mx-auto mb-6">
-          <AlertTriangle className="w-8 h-8 text-[#495057]" />
+        <div className="w-16 h-16 bg-muted rounded-full flex items-center justify-center mx-auto mb-6">
+          <AlertTriangle className="w-8 h-8 text-foreground" />
         </div>
-        <h1 className="text-2xl font-bold text-[#212529] mb-2">
+        <h1 className="text-2xl font-bold text-foreground mb-2">
           Property not available
         </h1>
-        <p className="text-[#495057] mb-8">
+        <p className="text-foreground mb-8">
           This property may have been removed or is temporarily unavailable.
         </p>
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
           <button
             onClick={() => reset()}
-            className="px-6 py-3 bg-[#212529] text-white font-medium rounded-lg hover:bg-[#495057] transition-colors"
+            className="px-6 py-3 bg-muted text-white font-medium rounded-lg hover:bg-muted transition-colors"
           >
             Try Again
           </button>
           <Link
             href="/search"
-            className="inline-flex items-center justify-center gap-2 px-6 py-3 border-2 border-[#212529] text-[#212529] font-medium rounded-lg hover:bg-[#212529] hover:text-white transition-colors"
+            className="inline-flex items-center justify-center gap-2 px-6 py-3 border-2 border-border text-foreground font-medium rounded-lg hover:bg-muted hover:text-white transition-colors"
           >
             <Home className="w-4 h-4" />
             Browse Properties

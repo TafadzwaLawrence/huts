@@ -66,12 +66,12 @@ export default async function SearchLayout({
       {children}
 
       {/* Server-rendered SEO content — crawlable by search engines */}
-      <section className="bg-[#F8F9FA] border-t border-[#E9ECEF] py-12 md:py-16">
+      <section className="bg-muted border-t border-border py-12 md:py-16">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-2xl md:text-3xl font-bold text-[#212529] mb-4">
+          <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
             Browse {totalCount || 0}+ Properties Across Zimbabwe
           </h2>
-          <p className="text-[#495057] mb-8 max-w-2xl">
+          <p className="text-foreground mb-8 max-w-2xl">
             Discover verified rental properties and homes for sale in Zimbabwe&apos;s most popular neighborhoods. 
             Filter by location, price, bedrooms, and property type to find your perfect home.
           </p>
@@ -79,16 +79,16 @@ export default async function SearchLayout({
           {/* Popular neighborhoods with crawlable links */}
           {(neighborhoods as any[]).length > 0 && (
             <div className="mb-10">
-              <h3 className="text-lg font-semibold text-[#212529] mb-4">Popular Neighborhoods</h3>
+              <h3 className="text-lg font-semibold text-foreground mb-4">Popular Neighborhoods</h3>
               <div className="flex flex-wrap gap-2">
                 {(neighborhoods as any[]).map((n: any) => (
                   <Link
                     key={`${n.name}-${n.city}`}
                     href={`/search?neighborhood=${encodeURIComponent(n.name)}&city=${encodeURIComponent(n.city)}`}
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white border border-[#E9ECEF] rounded-full text-sm text-[#495057] hover:border-[#212529] hover:text-[#212529] transition-colors"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white border border-border rounded-full text-sm text-foreground hover:border-border hover:text-foreground transition-colors"
                   >
                     {n.name}, {n.city}
-                    <span className="text-xs text-[#ADB5BD]">({n.count})</span>
+                    <span className="text-xs text-foreground">({n.count})</span>
                   </Link>
                 ))}
               </div>
@@ -97,24 +97,24 @@ export default async function SearchLayout({
 
           {/* Quick filter links — crawlable by Google */}
           <div className="mb-10">
-            <h3 className="text-lg font-semibold text-[#212529] mb-4">Browse by Type</h3>
+            <h3 className="text-lg font-semibold text-foreground mb-4">Browse by Type</h3>
             <div className="flex flex-wrap gap-3">
-              <Link href="/search?type=rent" className="px-4 py-2 bg-white border border-[#E9ECEF] rounded-lg text-sm font-medium text-[#212529] hover:border-[#212529] transition-colors">
+              <Link href="/search?type=rent" className="px-4 py-2 bg-white border border-border rounded-lg text-sm font-medium text-foreground hover:border-border transition-colors">
                 All Rentals
               </Link>
-              <Link href="/search?type=sale" className="px-4 py-2 bg-white border border-[#E9ECEF] rounded-lg text-sm font-medium text-[#212529] hover:border-[#212529] transition-colors">
+              <Link href="/search?type=sale" className="px-4 py-2 bg-white border border-border rounded-lg text-sm font-medium text-foreground hover:border-border transition-colors">
                 All Homes for Sale
               </Link>
-              <Link href="/search?beds=1&type=rent" className="px-4 py-2 bg-white border border-[#E9ECEF] rounded-lg text-sm font-medium text-[#495057] hover:border-[#212529] transition-colors">
+              <Link href="/search?beds=1&type=rent" className="px-4 py-2 bg-white border border-border rounded-lg text-sm font-medium text-foreground hover:border-border transition-colors">
                 1 Bedroom Rentals
               </Link>
-              <Link href="/search?beds=2&type=rent" className="px-4 py-2 bg-white border border-[#E9ECEF] rounded-lg text-sm font-medium text-[#495057] hover:border-[#212529] transition-colors">
+              <Link href="/search?beds=2&type=rent" className="px-4 py-2 bg-white border border-border rounded-lg text-sm font-medium text-foreground hover:border-border transition-colors">
                 2 Bedroom Rentals
               </Link>
-              <Link href="/search?beds=3&type=rent" className="px-4 py-2 bg-white border border-[#E9ECEF] rounded-lg text-sm font-medium text-[#495057] hover:border-[#212529] transition-colors">
+              <Link href="/search?beds=3&type=rent" className="px-4 py-2 bg-white border border-border rounded-lg text-sm font-medium text-foreground hover:border-border transition-colors">
                 3+ Bedroom Rentals
               </Link>
-              <Link href="/student-housing" className="px-4 py-2 bg-white border border-[#E9ECEF] rounded-lg text-sm font-medium text-[#495057] hover:border-[#212529] transition-colors">
+              <Link href="/student-housing" className="px-4 py-2 bg-white border border-border rounded-lg text-sm font-medium text-foreground hover:border-border transition-colors">
                 Student Housing
               </Link>
             </div>
@@ -123,16 +123,16 @@ export default async function SearchLayout({
           {/* Recent property listings — crawlable links */}
           {recentProperties && recentProperties.length > 0 && (
             <div>
-              <h3 className="text-lg font-semibold text-[#212529] mb-4">Recently Listed Properties</h3>
+              <h3 className="text-lg font-semibold text-foreground mb-4">Recently Listed Properties</h3>
               <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                 {recentProperties.map((p: any) => (
                   <li key={p.id}>
                     <Link
                       href={`/property/${p.slug || p.id}`}
-                      className="block p-3 bg-white border border-[#E9ECEF] rounded-lg hover:border-[#212529] hover:shadow-sm transition-all"
+                      className="block p-3 bg-white border border-border rounded-lg hover:border-border hover:shadow-sm transition-all"
                     >
-                      <span className="block text-sm font-medium text-[#212529] line-clamp-1">{p.title}</span>
-                      <span className="block text-xs text-[#495057] mt-1">
+                      <span className="block text-sm font-medium text-foreground line-clamp-1">{p.title}</span>
+                      <span className="block text-xs text-foreground mt-1">
                         {p.neighborhood ? `${p.neighborhood}, ` : ''}{p.city} · {p.beds} bed · {p.baths} bath
                         {p.listing_type === 'sale' ? ' · For Sale' : ' · For Rent'}
                       </span>
@@ -144,12 +144,12 @@ export default async function SearchLayout({
           )}
 
           {/* More internal links */}
-          <div className="mt-10 pt-8 border-t border-[#E9ECEF] flex flex-wrap gap-4 text-sm">
-            <Link href="/areas" className="text-[#495057] hover:text-[#212529] hover:underline">Browse by Area</Link>
-            <Link href="/student-housing" className="text-[#495057] hover:text-[#212529] hover:underline">Student Housing</Link>
-            <Link href="/pricing" className="text-[#495057] hover:text-[#212529] hover:underline">List Your Property Free</Link>
-            <Link href="/help" className="text-[#495057] hover:text-[#212529] hover:underline">Help Center</Link>
-            <Link href="/contact" className="text-[#495057] hover:text-[#212529] hover:underline">Contact Us</Link>
+          <div className="mt-10 pt-8 border-t border-border flex flex-wrap gap-4 text-sm">
+            <Link href="/areas" className="text-foreground hover:text-foreground hover:underline">Browse by Area</Link>
+            <Link href="/student-housing" className="text-foreground hover:text-foreground hover:underline">Student Housing</Link>
+            <Link href="/pricing" className="text-foreground hover:text-foreground hover:underline">List Your Property Free</Link>
+            <Link href="/help" className="text-foreground hover:text-foreground hover:underline">Help Center</Link>
+            <Link href="/contact" className="text-foreground hover:text-foreground hover:underline">Contact Us</Link>
           </div>
         </div>
       </section>

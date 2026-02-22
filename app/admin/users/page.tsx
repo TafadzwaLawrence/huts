@@ -79,15 +79,15 @@ export default function AdminUsersPage() {
         action={
           <div className="flex items-center gap-3">
             <AdminExportButton type="users" />
-            <div className="flex items-center gap-0.5 bg-[#F8F9FA] p-0.5 rounded-full border border-[#E9ECEF]">
+            <div className="flex items-center gap-0.5 bg-muted p-0.5 rounded-full border border-border">
               {['all', 'landlord', 'renter'].map((r) => (
                 <button
                   key={r}
                   onClick={() => setRoleFilter(r)}
                   className={`px-4 py-1.5 text-xs font-semibold rounded-full transition-all ${
                     roleFilter === r
-                      ? 'bg-[#212529] text-white shadow-sm'
-                      : 'text-[#495057] hover:text-[#212529]'
+                      ? 'bg-muted text-white shadow-sm'
+                      : 'text-foreground hover:text-foreground'
                   }`}
                 >
                   {r === 'all' ? 'All' : r.charAt(0).toUpperCase() + r.slice(1) + 's'}
@@ -99,13 +99,13 @@ export default function AdminUsersPage() {
       />
 
       {loading ? (
-        <div className="bg-white rounded-xl border border-[#E9ECEF] overflow-hidden">
+        <div className="bg-white rounded-xl border border-border overflow-hidden">
           {[...Array(5)].map((_, i) => (
-            <div key={i} className="flex items-center gap-4 px-5 py-4 border-b border-[#E9ECEF]">
-              <div className="w-10 h-10 bg-[#E9ECEF] rounded-full animate-pulse flex-shrink-0" />
+            <div key={i} className="flex items-center gap-4 px-5 py-4 border-b border-border">
+              <div className="w-10 h-10 bg-muted rounded-full animate-pulse flex-shrink-0" />
               <div className="flex-1 space-y-2">
-                <div className="h-4 bg-[#E9ECEF] rounded animate-pulse w-1/3" />
-                <div className="h-3 bg-[#E9ECEF] rounded animate-pulse w-1/4" />
+                <div className="h-4 bg-muted rounded animate-pulse w-1/3" />
+                <div className="h-3 bg-muted rounded animate-pulse w-1/4" />
               </div>
             </div>
           ))}
@@ -118,9 +118,9 @@ export default function AdminUsersPage() {
         />
       ) : (
         <>
-          <div className="bg-white rounded-xl border border-[#E9ECEF] overflow-hidden">
+          <div className="bg-white rounded-xl border border-border overflow-hidden">
             {/* Table Header */}
-            <div className="hidden md:grid grid-cols-12 gap-4 px-5 py-3 bg-[#F8F9FA] text-[10px] font-semibold text-[#ADB5BD] uppercase tracking-wider border-b border-[#E9ECEF]">
+            <div className="hidden md:grid grid-cols-12 gap-4 px-5 py-3 bg-muted text-[10px] font-semibold text-foreground uppercase tracking-wider border-b border-border">
               <div className="col-span-1 flex items-center">
                 <input
                   type="checkbox"
@@ -137,9 +137,9 @@ export default function AdminUsersPage() {
               <div className="col-span-1">Actions</div>
             </div>
 
-            <div className="divide-y divide-[#E9ECEF]">
+            <div className="divide-y divide-border">
               {users.map((u) => (
-                <div key={u.id} className="grid grid-cols-1 md:grid-cols-12 gap-2 md:gap-4 items-center px-5 py-3.5 hover:bg-[#F8F9FA] transition-colors">
+                <div key={u.id} className="grid grid-cols-1 md:grid-cols-12 gap-2 md:gap-4 items-center px-5 py-3.5 hover:bg-muted transition-colors">
                   {/* Checkbox */}
                   <div className="md:col-span-1 flex items-center">
                     <input
@@ -152,22 +152,22 @@ export default function AdminUsersPage() {
                   
                   {/* User */}
                   <div className="md:col-span-2 flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-[#F8F9FA] flex items-center justify-center text-sm font-bold text-[#495057] flex-shrink-0 border border-[#E9ECEF]">
+                    <div className="w-10 h-10 rounded-full bg-muted flex items-center justify-center text-sm font-bold text-foreground flex-shrink-0 border border-border">
                       {(u.name || u.email || '?')[0].toUpperCase()}
                     </div>
                     <div className="min-w-0">
-                      <p className="text-sm font-medium text-[#212529] truncate">{u.name || 'No name'}</p>
-                      <p className="text-xs text-[#ADB5BD] truncate md:hidden">{u.email}</p>
+                      <p className="text-sm font-medium text-foreground truncate">{u.name || 'No name'}</p>
+                      <p className="text-xs text-foreground truncate md:hidden">{u.email}</p>
                     </div>
                   </div>
 
                   {/* Contact */}
                   <div className="md:col-span-3 hidden md:block min-w-0">
-                    <p className="text-xs text-[#495057] truncate flex items-center gap-1">
+                    <p className="text-xs text-foreground truncate flex items-center gap-1">
                       <Mail size={ICON_SIZES.xs} className="flex-shrink-0" /> {u.email}
                     </p>
                     {u.phone && (
-                      <p className="text-xs text-[#ADB5BD] truncate flex items-center gap-1 mt-0.5">
+                      <p className="text-xs text-foreground truncate flex items-center gap-1 mt-0.5">
                         <Phone size={ICON_SIZES.xs} className="flex-shrink-0" /> {u.phone}
                       </p>
                     )}
@@ -186,7 +186,7 @@ export default function AdminUsersPage() {
 
                   {/* Joined */}
                   <div className="md:col-span-2 hidden md:block">
-                    <p className="text-xs text-[#ADB5BD] flex items-center gap-1">
+                    <p className="text-xs text-foreground flex items-center gap-1">
                       <Calendar size={ICON_SIZES.xs} />
                       {u.created_at 
                         ? new Date(u.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
@@ -197,14 +197,14 @@ export default function AdminUsersPage() {
 
                   {/* Verified */}
                   <div className="md:col-span-1 hidden md:block">
-                    <span className={`w-2 h-2 rounded-full inline-block ${u.verified ? 'bg-[#51CF66]' : 'bg-[#E9ECEF]'}`} />
+                    <span className={`w-2 h-2 rounded-full inline-block ${u.verified ? 'bg-muted' : 'bg-muted'}`} />
                   </div>
 
                   {/* Actions */}
                   <div className="md:col-span-1">
                     <Link
                       href={`/admin/users/${u.id}`}
-                      className="text-xs text-[#212529] hover:text-[#495057] font-medium underline"
+                      className="text-xs text-foreground hover:text-foreground font-medium underline"
                     >
                       Edit
                     </Link>

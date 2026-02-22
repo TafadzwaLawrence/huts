@@ -90,7 +90,7 @@ export default function DashboardPage() {
   return (
     <div className="min-h-[calc(100vh-4rem)] flex bg-white">
       {/* Left side - Branding (hidden on mobile) */}
-      <div className="hidden lg:flex lg:w-[55%] bg-[#212529] relative overflow-hidden">
+      <div className="hidden lg:flex lg:w-[55%] bg-muted relative overflow-hidden">
         {/* Animated gradient orbs */}
         <div className="absolute top-20 right-20 w-[500px] h-[500px] bg-gradient-to-br from-white/10 to-transparent rounded-full blur-3xl animate-pulse" style={{ animationDuration: '4s' }} />
         <div className="absolute bottom-20 left-20 w-[400px] h-[400px] bg-gradient-to-tr from-white/10 to-transparent rounded-full blur-3xl animate-pulse" style={{ animationDuration: '6s' }} />
@@ -168,8 +168,8 @@ export default function DashboardPage() {
                 { text: 'Save and compare properties', highlight: false },
               ].map(({ text, highlight }) => (
                 <div key={text} className={`flex items-center gap-3 ${highlight ? 'text-white' : 'text-white/70'}`}>
-                  <div className={`w-7 h-7 rounded-lg flex items-center justify-center ${highlight ? 'bg-[#212529]' : 'bg-white/10'}`}>
-                    <CheckCircle2 size={16} className={highlight ? 'text-white' : 'text-[#212529]'} />
+                  <div className={`w-7 h-7 rounded-lg flex items-center justify-center ${highlight ? 'bg-muted' : 'bg-white/10'}`}>
+                    <CheckCircle2 size={16} className={highlight ? 'text-white' : 'text-foreground'} />
                   </div>
                   <span className="font-medium">{text}</span>
                 </div>
@@ -207,20 +207,20 @@ export default function DashboardPage() {
             {/* Trust indicators */}
             <div className="flex items-center justify-between px-2">
               <div className="flex items-center gap-2 text-white/40 text-xs">
-                <Shield size={14} className="text-[#212529]" />
+                <Shield size={14} className="text-foreground" />
                 <span>Verified Reviews</span>
               </div>
               <div className="flex -space-x-2">
                 {['TM', 'SK', 'JN', 'LM'].map((initials, i) => (
                   <div
                     key={initials}
-                    className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center text-white text-xs font-semibold ring-2 ring-[#212529]"
+                    className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center text-white text-xs font-semibold ring-2 ring-foreground"
                     style={{ zIndex: 4 - i }}
                   >
                     {initials}
                   </div>
                 ))}
-                <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-white/60 text-xs font-semibold ring-2 ring-[#212529]">
+                <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-white/60 text-xs font-semibold ring-2 ring-foreground">
                   +99
                 </div>
               </div>
@@ -230,7 +230,7 @@ export default function DashboardPage() {
       </div>
       
       {/* Right side - Sign in form */}
-      <div className="w-full lg:w-[45%] flex items-center justify-center py-8 px-4 sm:px-6 lg:px-12 bg-gradient-to-b from-white to-[#F8F9FA]">
+      <div className="w-full lg:w-[45%] flex items-center justify-center py-8 px-4 sm:px-6 lg:px-12 bg-gradient-to-b from-white to-foreground">
         <div className="max-w-[400px] w-full">
           {/* Mobile logo */}
           <div className="lg:hidden flex justify-center mb-10">
@@ -243,37 +243,37 @@ export default function DashboardPage() {
                 className="w-12 h-12 object-contain"
               />
               <div>
-                <span className="text-2xl font-bold text-[#212529]">Huts</span>
-                <p className="text-xs text-[#ADB5BD]">Find your home</p>
+                <span className="text-2xl font-bold text-foreground">Huts</span>
+                <p className="text-xs text-foreground">Find your home</p>
               </div>
             </Link>
           </div>
           
           {/* Header */}
           <div className="text-center mb-8">
-            <div className="inline-flex items-center gap-2 bg-[#212529]/10 text-[#212529] rounded-full px-3 py-1 text-xs font-semibold mb-4">
+            <div className="inline-flex items-center gap-2 bg-muted/10 text-foreground rounded-full px-3 py-1 text-xs font-semibold mb-4">
               <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#212529] opacity-75" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#212529]" />
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-muted opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-muted" />
               </span>
               Secure login
             </div>
-            <h1 className="text-3xl md:text-4xl font-bold text-[#212529] mb-2 tracking-tight">Welcome back</h1>
-            <p className="text-[#495057]">Enter your credentials to access your account</p>
+            <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-2 tracking-tight">Welcome back</h1>
+            <p className="text-foreground">Enter your credentials to access your account</p>
           </div>
 
-          <div className="bg-white rounded-3xl border border-[#E9ECEF] p-8 shadow-2xl shadow-black/5 relative overflow-hidden">
+          <div className="bg-white rounded-3xl border border-border p-8 shadow-2xl shadow-black/5 relative overflow-hidden">
             {/* Decorative corner */}
-            <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-[#F8F9FA] to-transparent rounded-bl-[100px]" />
+            <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-foreground to-transparent rounded-bl-[100px]" />
             
             {error && (
-              <div className="relative mb-6 p-4 bg-[#FF6B6B]/10 border border-[#FF6B6B]/30 rounded-2xl flex items-start gap-3 animate-shake">
-                <div className="w-8 h-8 rounded-full bg-[#FF6B6B]/20 flex items-center justify-center flex-shrink-0">
-                  <AlertCircle size={16} className="text-[#FF6B6B]" />
+              <div className="relative mb-6 p-4 bg-muted/10 border border-border/30 rounded-2xl flex items-start gap-3 animate-shake">
+                <div className="w-8 h-8 rounded-full bg-muted/20 flex items-center justify-center flex-shrink-0">
+                  <AlertCircle size={16} className="text-foreground" />
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-[#212529]">Sign in failed</p>
-                  <p className="text-xs text-[#495057] mt-0.5">{error}</p>
+                  <p className="text-sm font-medium text-foreground">Sign in failed</p>
+                  <p className="text-xs text-foreground mt-0.5">{error}</p>
                 </div>
               </div>
             )}
@@ -281,11 +281,11 @@ export default function DashboardPage() {
             <form onSubmit={handleSignIn} className="space-y-5 relative">
               {/* Email */}
               <div>
-                <label htmlFor="email" className="block text-sm font-semibold text-[#212529] mb-2">
+                <label htmlFor="email" className="block text-sm font-semibold text-foreground mb-2">
                   Email address
                 </label>
                 <div className={`relative group transition-all duration-300 ${focusedField === 'email' ? 'scale-[1.02]' : ''}`}>
-                  <div className={`absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none transition-colors ${focusedField === 'email' ? 'text-[#212529]' : 'text-[#ADB5BD]'}`}>
+                  <div className={`absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none transition-colors ${focusedField === 'email' ? 'text-foreground' : 'text-foreground'}`}>
                     <Mail size={18} />
                   </div>
                   <input
@@ -296,7 +296,7 @@ export default function DashboardPage() {
                     onChange={(e) => setEmail(e.target.value)}
                     onFocus={() => setFocusedField('email')}
                     onBlur={() => setFocusedField(null)}
-                    className="block w-full pl-12 pr-4 py-4 border-2 border-[#E9ECEF] rounded-2xl text-[#212529] placeholder-[#ADB5BD] focus:outline-none focus:border-[#212529] focus:shadow-lg focus:shadow-[#212529]/5 transition-all bg-[#F8F9FA] focus:bg-white"
+                    className="block w-full pl-12 pr-4 py-4 border-2 border-border rounded-2xl text-foreground placeholder-muted-foreground focus:outline-none focus:border-border focus:shadow-lg focus:shadow-foreground/5 transition-all bg-muted focus:bg-white"
                     placeholder="you@example.com"
                   />
                 </div>
@@ -304,11 +304,11 @@ export default function DashboardPage() {
 
               {/* Password */}
               <div>
-                <label htmlFor="password" className="block text-sm font-semibold text-[#212529] mb-2">
+                <label htmlFor="password" className="block text-sm font-semibold text-foreground mb-2">
                   Password
                 </label>
                 <div className={`relative group transition-all duration-300 ${focusedField === 'password' ? 'scale-[1.02]' : ''}`}>
-                  <div className={`absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none transition-colors ${focusedField === 'password' ? 'text-[#212529]' : 'text-[#ADB5BD]'}`}>
+                  <div className={`absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none transition-colors ${focusedField === 'password' ? 'text-foreground' : 'text-foreground'}`}>
                     <Lock size={18} />
                   </div>
                   <input
@@ -319,13 +319,13 @@ export default function DashboardPage() {
                     onChange={(e) => setPassword(e.target.value)}
                     onFocus={() => setFocusedField('password')}
                     onBlur={() => setFocusedField(null)}
-                    className="block w-full pl-12 pr-14 py-4 border-2 border-[#E9ECEF] rounded-2xl text-[#212529] placeholder-[#ADB5BD] focus:outline-none focus:border-[#212529] focus:shadow-lg focus:shadow-[#212529]/5 transition-all bg-[#F8F9FA] focus:bg-white"
+                    className="block w-full pl-12 pr-14 py-4 border-2 border-border rounded-2xl text-foreground placeholder-muted-foreground focus:outline-none focus:border-border focus:shadow-lg focus:shadow-foreground/5 transition-all bg-muted focus:bg-white"
                     placeholder="••••••••"
                   />
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute inset-y-0 right-0 pr-4 flex items-center text-[#ADB5BD] hover:text-[#212529] transition-colors"
+                    className="absolute inset-y-0 right-0 pr-4 flex items-center text-foreground hover:text-foreground transition-colors"
                   >
                     {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                   </button>
@@ -340,13 +340,13 @@ export default function DashboardPage() {
                       type="checkbox"
                       className="peer sr-only"
                     />
-                    <div className="w-5 h-5 rounded-md border-2 border-[#E9ECEF] peer-checked:border-[#212529] peer-checked:bg-[#212529] transition-all flex items-center justify-center">
+                    <div className="w-5 h-5 rounded-md border-2 border-border peer-checked:border-border peer-checked:bg-muted transition-all flex items-center justify-center">
                       <CheckCircle2 size={12} className="text-white opacity-0 peer-checked:opacity-100 transition-opacity" />
                     </div>
                   </div>
-                  <span className="text-sm text-[#495057] group-hover:text-[#212529] transition-colors">Remember me</span>
+                  <span className="text-sm text-foreground group-hover:text-foreground transition-colors">Remember me</span>
                 </label>
-                <Link href="/auth/reset-password" className="text-sm font-semibold text-[#212529] hover:underline underline-offset-2 hover:text-black transition-colors">
+                <Link href="/auth/reset-password" className="text-sm font-semibold text-foreground hover:underline underline-offset-2 hover:text-black transition-colors">
                   Forgot password?
                 </Link>
               </div>
@@ -355,7 +355,7 @@ export default function DashboardPage() {
               <button
                 type="submit"
                 disabled={loading}
-                className="relative w-full flex items-center justify-center gap-2 bg-[#212529] text-white py-4 px-4 rounded-2xl font-semibold text-base hover:bg-black hover:-translate-y-1 transition-all shadow-xl shadow-[#212529]/30 hover:shadow-2xl hover:shadow-[#212529]/40 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-xl overflow-hidden group"
+                className="relative w-full flex items-center justify-center gap-2 bg-muted text-white py-4 px-4 rounded-2xl font-semibold text-base hover:bg-black hover:-translate-y-1 transition-all shadow-xl shadow-foreground/30 hover:shadow-2xl hover:shadow-foreground/40 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-xl overflow-hidden group"
               >
                 {/* Shimmer effect */}
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
@@ -377,10 +377,10 @@ export default function DashboardPage() {
             {/* Divider */}
             <div className="relative my-8">
               <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t-2 border-[#E9ECEF]"></div>
+                <div className="w-full border-t-2 border-border"></div>
               </div>
               <div className="relative flex justify-center text-sm">
-                <span className="px-4 bg-white text-[#ADB5BD] font-medium">or continue with</span>
+                <span className="px-4 bg-white text-foreground font-medium">or continue with</span>
               </div>
             </div>
 
@@ -389,7 +389,7 @@ export default function DashboardPage() {
               type="button"
               onClick={handleGoogleSignIn}
               disabled={loading}
-              className="group w-full flex items-center justify-center gap-3 bg-white border-2 border-[#E9ECEF] text-[#212529] py-4 px-4 rounded-2xl font-semibold hover:border-[#212529] hover:shadow-lg hover:-translate-y-1 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+              className="group w-full flex items-center justify-center gap-3 bg-white border-2 border-border text-foreground py-4 px-4 rounded-2xl font-semibold hover:border-border hover:shadow-lg hover:-translate-y-1 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <div className="w-6 h-6 relative group-hover:scale-110 transition-transform">
                 <svg className="w-full h-full" viewBox="0 0 24 24">
@@ -417,9 +417,9 @@ export default function DashboardPage() {
           
           {/* Sign Up Link */}
           <div className="mt-8 text-center">
-            <p className="text-[#495057]">
+            <p className="text-foreground">
               Don't have an account?{' '}
-              <Link href="/auth/signup" className="font-bold text-[#212529] hover:underline underline-offset-2 inline-flex items-center gap-1 group">
+              <Link href="/auth/signup" className="font-bold text-foreground hover:underline underline-offset-2 inline-flex items-center gap-1 group">
                 Create one now
                 <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
               </Link>
@@ -427,14 +427,14 @@ export default function DashboardPage() {
           </div>
           
           {/* Security note */}
-          <div className="mt-6 flex items-center justify-center gap-3 text-xs text-[#ADB5BD]">
+          <div className="mt-6 flex items-center justify-center gap-3 text-xs text-foreground">
             <div className="flex items-center gap-1.5">
-              <Shield size={14} className="text-[#212529]" />
+              <Shield size={14} className="text-foreground" />
               <span>256-bit SSL</span>
             </div>
-            <span className="text-[#E9ECEF]">•</span>
+            <span className="text-foreground">•</span>
             <span>GDPR Compliant</span>
-            <span className="text-[#E9ECEF]">•</span>
+            <span className="text-foreground">•</span>
             <span>Secure by default</span>
           </div>
         </div>

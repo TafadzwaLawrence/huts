@@ -16,7 +16,7 @@ export function SettingsSidebar() {
 
   return (
     <aside className="lg:w-64 flex-shrink-0">
-      <div className="bg-white border border-[#E9ECEF] rounded-2xl p-2 shadow-sm">
+      <div className="bg-white border border-border rounded-2xl p-2 shadow-sm">
         <nav className="space-y-1">
           {navItems.map(({ href, label, icon: Icon, description }) => {
             const isActive = pathname === href;
@@ -27,18 +27,18 @@ export function SettingsSidebar() {
                 href={href}
                 className={`flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-all ${
                   isActive
-                    ? 'bg-[#212529] text-white shadow-md'
-                    : 'text-[#495057] hover:bg-[#F8F9FA] hover:text-[#212529]'
+                    ? 'bg-muted text-white shadow-md'
+                    : 'text-foreground hover:bg-muted hover:text-foreground'
                 }`}
               >
                 <div className={`h-9 w-9 rounded-lg flex items-center justify-center ${
-                  isActive ? 'bg-white/20' : 'bg-[#F8F9FA]'
+                  isActive ? 'bg-white/20' : 'bg-muted'
                 }`}>
-                  <Icon size={18} className={isActive ? 'text-white' : 'text-[#495057]'} />
+                  <Icon size={18} className={isActive ? 'text-white' : 'text-foreground'} />
                 </div>
                 <div className="flex-1 min-w-0">
                   <span className="block">{label}</span>
-                  <span className={`text-xs ${isActive ? 'text-white/70' : 'text-[#ADB5BD]'}`}>
+                  <span className={`text-xs ${isActive ? 'text-white/70' : 'text-foreground'}`}>
                     {description}
                   </span>
                 </div>

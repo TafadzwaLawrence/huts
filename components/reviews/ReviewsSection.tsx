@@ -56,8 +56,8 @@ export default function ReviewsSection({
   if (loading) {
     return (
       <div className={cn('animate-pulse space-y-4', className)}>
-        <div className="h-32 bg-[#E9ECEF] rounded-lg" />
-        <div className="h-64 bg-[#E9ECEF] rounded-lg" />
+        <div className="h-32 bg-muted rounded-lg" />
+        <div className="h-64 bg-muted rounded-lg" />
       </div>
     )
   }
@@ -65,7 +65,7 @@ export default function ReviewsSection({
   return (
     <section className={cn('space-y-8', className)}>
       {/* Stats Header */}
-      <div className="border border-[#E9ECEF] rounded-lg p-6">
+      <div className="border border-border rounded-lg p-6">
         <div className="grid md:grid-cols-2 gap-8">
           {/* Average Rating */}
           <div className="space-y-4">
@@ -98,7 +98,7 @@ export default function ReviewsSection({
             {canReview && !showReviewForm && (
               <button
                 onClick={() => setShowReviewForm(true)}
-                className="mt-4 bg-black text-white px-6 py-2 rounded border-2 border-black hover:bg-[#212529] hover:-translate-y-0.5 transition-all"
+                className="mt-4 bg-black text-white px-6 py-2 rounded border-2 border-black hover:bg-muted hover:-translate-y-0.5 transition-all"
               >
                 Write a Review
               </button>

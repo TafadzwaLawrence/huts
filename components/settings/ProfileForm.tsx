@@ -87,7 +87,7 @@ export default function ProfileForm({ profile, userEmail, createdAt }: ProfileFo
   return (
     <form onSubmit={handleSubmit} className="space-y-8">
       {/* Profile Header Card */}
-      <div className="bg-gradient-to-br from-[#212529] to-[#495057] rounded-2xl p-8 text-white relative overflow-hidden">
+      <div className="bg-gradient-to-br from-foreground to-muted-foreground rounded-2xl p-8 text-white relative overflow-hidden">
         {/* Background pattern */}
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-0 right-0 w-64 h-64 bg-white rounded-full -translate-y-1/2 translate-x-1/2" />
@@ -121,7 +121,7 @@ export default function ProfileForm({ profile, userEmail, createdAt }: ProfileFo
                   toast.error(`Upload failed: ${error.message}`);
                 }}
                 appearance={{
-                  button: 'h-10 w-10 rounded-full bg-white text-[#212529] hover:bg-gray-100 shadow-lg flex items-center justify-center p-0 ut-ready:bg-white ut-uploading:bg-gray-200',
+                  button: 'h-10 w-10 rounded-full bg-white text-foreground hover:bg-gray-100 shadow-lg flex items-center justify-center p-0 ut-ready:bg-white ut-uploading:bg-gray-200',
                   allowedContent: 'hidden',
                 }}
                 content={{
@@ -194,7 +194,7 @@ export default function ProfileForm({ profile, userEmail, createdAt }: ProfileFo
                 key={label}
                 className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium transition-colors ${
                   completed
-                    ? 'bg-[#212529]/20 text-[#212529]'
+                    ? 'bg-foreground/20 text-foreground'
                     : 'bg-white/10 text-white/50'
                 }`}
               >
@@ -207,13 +207,13 @@ export default function ProfileForm({ profile, userEmail, createdAt }: ProfileFo
       </div>
 
       {/* Account Type */}
-      <div className="bg-white border border-[#E9ECEF] rounded-2xl p-6 shadow-sm">
+      <div className="bg-white border border-border rounded-2xl p-6 shadow-sm">
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-2">
-            <Shield size={18} className="text-[#495057]" />
-            <h3 className="font-semibold text-[#212529]">Account Type</h3>
+            <Shield size={18} className="text-muted-foreground" />
+            <h3 className="font-semibold text-foreground">Account Type</h3>
           </div>
-          <span className="text-xs text-[#ADB5BD] bg-[#F8F9FA] px-3 py-1 rounded-full">
+          <span className="text-xs text-muted-foreground bg-muted px-3 py-1 rounded-full">
             You can switch anytime
           </span>
         </div>
@@ -224,52 +224,52 @@ export default function ProfileForm({ profile, userEmail, createdAt }: ProfileFo
             onClick={() => setFormData({ ...formData, role: 'renter' })}
             className={`relative border-2 rounded-2xl p-6 transition-all text-left group overflow-hidden ${
               formData.role === 'renter'
-                ? 'border-[#212529] bg-[#F8F9FA] shadow-xl scale-[1.02]'
-                : 'border-[#E9ECEF] hover:border-[#ADB5BD] hover:shadow-md bg-white'
+                ? 'border-foreground bg-muted shadow-xl scale-[1.02]'
+                : 'border-border hover:border-muted-foreground hover:shadow-md bg-white'
             }`}
           >
             {/* Background decoration */}
             {formData.role === 'renter' && (
-              <div className="absolute top-0 right-0 w-32 h-32 bg-[#212529]/5 rounded-full -translate-y-1/2 translate-x-1/2" />
+              <div className="absolute top-0 right-0 w-32 h-32 bg-foreground/5 rounded-full -translate-y-1/2 translate-x-1/2" />
             )}
             
             <div className="relative">
               <div className="flex items-start justify-between mb-4">
                 <div className={`h-14 w-14 rounded-2xl flex items-center justify-center ${
-                  formData.role === 'renter' ? 'bg-[#212529]' : 'bg-[#F8F9FA]'
+                  formData.role === 'renter' ? 'bg-foreground' : 'bg-muted'
                 }`}>
-                  <Home className={`h-7 w-7 ${formData.role === 'renter' ? 'text-white' : 'text-[#495057]'}`} />
+                  <Home className={`h-7 w-7 ${formData.role === 'renter' ? 'text-white' : 'text-muted-foreground'}`} />
                 </div>
                 <div className={`h-6 w-6 rounded-full border-2 flex items-center justify-center transition-all ${
                   formData.role === 'renter' 
-                    ? 'border-[#212529] bg-[#212529]' 
-                    : 'border-[#E9ECEF] group-hover:border-[#ADB5BD]'
+                    ? 'border-foreground bg-foreground' 
+                    : 'border-border group-hover:border-muted-foreground'
                 }`}>
                   {formData.role === 'renter' && <Check size={14} className="text-white" />}
                 </div>
               </div>
               
-              <h4 className="font-bold text-xl mb-1 text-[#212529]">Renter</h4>
-              <p className="text-sm mb-4 text-[#495057]">
+              <h4 className="font-bold text-xl mb-1 text-foreground">Renter</h4>
+              <p className="text-sm mb-4 text-muted-foreground">
                 Find your perfect home
               </p>
               
               {/* Features */}
-              <ul className="space-y-2 text-sm text-[#495057]">
+              <ul className="space-y-2 text-sm text-muted-foreground">
                 <li className="flex items-center gap-2">
-                  <Check size={14} className="text-[#212529]" />
+                  <Check size={14} className="text-foreground" />
                   Search & filter properties
                 </li>
                 <li className="flex items-center gap-2">
-                  <Check size={14} className="text-[#212529]" />
+                  <Check size={14} className="text-foreground" />
                   Save favorites
                 </li>
                 <li className="flex items-center gap-2">
-                  <Check size={14} className="text-[#212529]" />
+                  <Check size={14} className="text-foreground" />
                   Message landlords directly
                 </li>
                 <li className="flex items-center gap-2">
-                  <Check size={14} className="text-[#212529]" />
+                  <Check size={14} className="text-foreground" />
                   Get new listing alerts
                 </li>
               </ul>
@@ -282,52 +282,52 @@ export default function ProfileForm({ profile, userEmail, createdAt }: ProfileFo
             onClick={() => setFormData({ ...formData, role: 'landlord' })}
             className={`relative border-2 rounded-2xl p-6 transition-all text-left group overflow-hidden ${
               formData.role === 'landlord'
-                ? 'border-[#212529] bg-[#F8F9FA] shadow-xl scale-[1.02]'
-                : 'border-[#E9ECEF] hover:border-[#ADB5BD] hover:shadow-md bg-white'
+                ? 'border-foreground bg-muted shadow-xl scale-[1.02]'
+                : 'border-border hover:border-muted-foreground hover:shadow-md bg-white'
             }`}
           >
             {/* Background decoration */}
             {formData.role === 'landlord' && (
-              <div className="absolute top-0 right-0 w-32 h-32 bg-[#212529]/5 rounded-full -translate-y-1/2 translate-x-1/2" />
+              <div className="absolute top-0 right-0 w-32 h-32 bg-foreground/5 rounded-full -translate-y-1/2 translate-x-1/2" />
             )}
             
             <div className="relative">
               <div className="flex items-start justify-between mb-4">
                 <div className={`h-14 w-14 rounded-2xl flex items-center justify-center ${
-                  formData.role === 'landlord' ? 'bg-[#212529]' : 'bg-[#F8F9FA]'
+                  formData.role === 'landlord' ? 'bg-foreground' : 'bg-muted'
                 }`}>
-                  <Briefcase className={`h-7 w-7 ${formData.role === 'landlord' ? 'text-white' : 'text-[#495057]'}`} />
+                  <Briefcase className={`h-7 w-7 ${formData.role === 'landlord' ? 'text-white' : 'text-muted-foreground'}`} />
                 </div>
                 <div className={`h-6 w-6 rounded-full border-2 flex items-center justify-center transition-all ${
                   formData.role === 'landlord' 
-                    ? 'border-[#212529] bg-[#212529]' 
-                    : 'border-[#E9ECEF] group-hover:border-[#ADB5BD]'
+                    ? 'border-foreground bg-foreground' 
+                    : 'border-border group-hover:border-muted-foreground'
                 }`}>
                   {formData.role === 'landlord' && <Check size={14} className="text-white" />}
                 </div>
               </div>
               
-              <h4 className="font-bold text-xl mb-1 text-[#212529]">Landlord</h4>
-              <p className="text-sm mb-4 text-[#495057]">
+              <h4 className="font-bold text-xl mb-1 text-foreground">Landlord</h4>
+              <p className="text-sm mb-4 text-muted-foreground">
                 List and grow your portfolio
               </p>
               
               {/* Features */}
-              <ul className="space-y-2 text-sm text-[#495057]">
+              <ul className="space-y-2 text-sm text-muted-foreground">
                 <li className="flex items-center gap-2">
-                  <Check size={14} className="text-[#212529]" />
+                  <Check size={14} className="text-foreground" />
                   List unlimited properties
                 </li>
                 <li className="flex items-center gap-2">
-                  <Check size={14} className="text-[#212529]" />
+                  <Check size={14} className="text-foreground" />
                   Manage inquiries & messages
                 </li>
                 <li className="flex items-center gap-2">
-                  <Check size={14} className="text-[#212529]" />
+                  <Check size={14} className="text-foreground" />
                   Analytics & insights
                 </li>
                 <li className="flex items-center gap-2">
-                  <Check size={14} className="text-[#212529]" />
+                  <Check size={14} className="text-foreground" />
                   Verified landlord badge
                 </li>
               </ul>
@@ -336,25 +336,25 @@ export default function ProfileForm({ profile, userEmail, createdAt }: ProfileFo
         </div>
         
         {/* Role switch note */}
-        <div className="mt-4 p-3 bg-[#F8F9FA] rounded-xl flex items-start gap-3">
-          <Sparkles size={16} className="text-[#495057] mt-0.5 shrink-0" />
-          <p className="text-xs text-[#495057]">
+        <div className="mt-4 p-3 bg-muted rounded-xl flex items-start gap-3">
+          <Sparkles size={16} className="text-muted-foreground mt-0.5 shrink-0" />
+          <p className="text-xs text-muted-foreground">
             <strong>Tip:</strong> You can be both! Switch between roles anytime. As a landlord, you can still browse and save properties.
           </p>
         </div>
       </div>
 
       {/* Personal Information */}
-      <div className="bg-white border border-[#E9ECEF] rounded-2xl p-6 shadow-sm">
+      <div className="bg-white border border-border rounded-2xl p-6 shadow-sm">
         <div className="flex items-center gap-2 mb-6">
-          <User size={18} className="text-[#495057]" />
-          <h3 className="font-semibold text-[#212529]">Personal Information</h3>
+          <User size={18} className="text-muted-foreground" />
+          <h3 className="font-semibold text-foreground">Personal Information</h3>
         </div>
         
         <div className="space-y-5">
           {/* Name */}
           <div>
-            <label htmlFor="name" className="block text-sm font-medium text-[#495057] mb-2">
+            <label htmlFor="name" className="block text-sm font-medium text-muted-foreground mb-2">
               Full Name
             </label>
             <input
@@ -362,14 +362,14 @@ export default function ProfileForm({ profile, userEmail, createdAt }: ProfileFo
               id="name"
               value={formData.name}
               onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-              className="w-full px-4 py-3 border-2 border-[#E9ECEF] rounded-xl focus:border-[#212529] focus:outline-none transition-colors text-[#212529] placeholder:text-[#ADB5BD]"
+              className="w-full px-4 py-3 border-2 border-border rounded-xl focus:border-foreground focus:outline-none transition-colors text-foreground placeholder:text-muted-foreground"
               placeholder="Enter your full name"
             />
           </div>
 
           {/* Email (read-only) */}
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-[#495057] mb-2">
+            <label htmlFor="email" className="block text-sm font-medium text-muted-foreground mb-2">
               Email Address
             </label>
             <div className="relative">
@@ -378,9 +378,9 @@ export default function ProfileForm({ profile, userEmail, createdAt }: ProfileFo
                 id="email"
                 value={userEmail}
                 disabled
-                className="w-full px-4 py-3 border-2 border-[#E9ECEF] rounded-xl bg-[#F8F9FA] text-[#495057] cursor-not-allowed pr-24"
+                className="w-full px-4 py-3 border-2 border-border rounded-xl bg-muted text-muted-foreground cursor-not-allowed pr-24"
               />
-              <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-[#ADB5BD] bg-[#E9ECEF] px-2.5 py-1 rounded-full">
+              <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-muted-foreground bg-gray-200 px-2.5 py-1 rounded-full">
                 Cannot change
               </span>
             </div>
@@ -388,7 +388,7 @@ export default function ProfileForm({ profile, userEmail, createdAt }: ProfileFo
 
           {/* Phone */}
           <div>
-            <label htmlFor="phone" className="block text-sm font-medium text-[#495057] mb-2">
+            <label htmlFor="phone" className="block text-sm font-medium text-muted-foreground mb-2">
               Phone Number
             </label>
             <input
@@ -396,7 +396,7 @@ export default function ProfileForm({ profile, userEmail, createdAt }: ProfileFo
               id="phone"
               value={formData.phone}
               onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-              className="w-full px-4 py-3 border-2 border-[#E9ECEF] rounded-xl focus:border-[#212529] focus:outline-none transition-colors text-[#212529] placeholder:text-[#ADB5BD]"
+              className="w-full px-4 py-3 border-2 border-border rounded-xl focus:border-foreground focus:outline-none transition-colors text-foreground placeholder:text-muted-foreground"
               placeholder="+1 (555) 000-0000"
             />
           </div>
@@ -404,11 +404,11 @@ export default function ProfileForm({ profile, userEmail, createdAt }: ProfileFo
           {/* Bio */}
           <div>
             <div className="flex items-center justify-between mb-2">
-              <label htmlFor="bio" className="block text-sm font-medium text-[#495057]">
+              <label htmlFor="bio" className="block text-sm font-medium text-muted-foreground">
                 Bio
               </label>
               <span className={`text-xs font-medium ${
-                formData.bio.length > 450 ? 'text-[#FF6B6B]' : 'text-[#ADB5BD]'
+                formData.bio.length > 450 ? 'text-warning' : 'text-muted-foreground'
               }`}>
                 {formData.bio.length}/500
               </span>
@@ -423,11 +423,11 @@ export default function ProfileForm({ profile, userEmail, createdAt }: ProfileFo
                 }
               }}
               maxLength={500}
-              className="w-full px-4 py-3 border-2 border-[#E9ECEF] rounded-xl focus:border-[#212529] focus:outline-none transition-colors resize-none text-[#212529] placeholder:text-[#ADB5BD]"
+              className="w-full px-4 py-3 border-2 border-border rounded-xl focus:border-foreground focus:outline-none transition-colors resize-none text-foreground placeholder:text-muted-foreground"
               placeholder="Tell potential landlords or renters about yourself..."
             />
             {formData.bio.length > 450 && (
-              <p className="text-xs text-[#FF6B6B] mt-1 flex items-center gap-1">
+              <p className="text-xs text-warning mt-1 flex items-center gap-1">
                 <Sparkles size={12} />
                 Almost at the character limit!
               </p>
@@ -437,16 +437,16 @@ export default function ProfileForm({ profile, userEmail, createdAt }: ProfileFo
       </div>
 
       {/* Submit Button - Fixed at bottom on mobile */}
-      <div className="sticky bottom-4 bg-white/80 backdrop-blur-sm border border-[#E9ECEF] rounded-2xl p-4 shadow-lg">
+      <div className="sticky bottom-4 bg-white/80 backdrop-blur-sm border border-border rounded-2xl p-4 shadow-lg">
         <div className="flex items-center justify-between gap-4">
           <div className="hidden sm:block">
             {hasChanges ? (
-              <p className="text-sm text-[#495057] flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-[#FF6B6B] animate-pulse" />
+              <p className="text-sm text-muted-foreground flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-warning animate-pulse" />
                 You have unsaved changes
               </p>
             ) : (
-              <p className="text-sm text-[#212529] flex items-center gap-2">
+              <p className="text-sm text-foreground flex items-center gap-2">
                 <Check size={14} />
                 All changes saved
               </p>
@@ -456,14 +456,14 @@ export default function ProfileForm({ profile, userEmail, createdAt }: ProfileFo
             <button
               type="button"
               onClick={() => router.push('/dashboard/overview')}
-              className="flex-1 sm:flex-initial px-6 py-3 border-2 border-[#E9ECEF] text-[#495057] rounded-xl hover:border-[#ADB5BD] transition-colors font-medium"
+              className="flex-1 sm:flex-initial px-6 py-3 border-2 border-border text-muted-foreground rounded-xl hover:border-muted-foreground transition-colors font-medium"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={isLoading || !hasChanges}
-              className="flex-1 sm:flex-initial px-8 py-3 bg-[#212529] text-white rounded-xl hover:bg-black transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              className="flex-1 sm:flex-initial px-8 py-3 bg-foreground text-white rounded-xl hover:bg-black transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
             >
               {isLoading ? (
                 <>

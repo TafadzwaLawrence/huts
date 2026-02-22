@@ -42,7 +42,7 @@ export function PropertyAnalytics({ propertyId, compact = false }: PropertyAnaly
   }, [propertyId])
 
   if (loading) return <AnalyticsSkeleton compact={compact} />
-  if (error) return <div className="text-sm text-[#FF6B6B]">{error}</div>
+  if (error) return <div className="text-sm text-foreground">{error}</div>
   if (!data) return null
 
   const { engagement, quality, market } = data
@@ -51,27 +51,27 @@ export function PropertyAnalytics({ propertyId, compact = false }: PropertyAnaly
   const TrendIcon = engagement.views.trend === 'up' ? TrendingUp 
     : engagement.views.trend === 'down' ? TrendingDown 
     : Minus
-  const trendColor = engagement.views.trend === 'up' ? 'text-[#212529]' 
-    : engagement.views.trend === 'down' ? 'text-[#495057]' 
-    : 'text-[#ADB5BD]'
+  const trendColor = engagement.views.trend === 'up' ? 'text-foreground' 
+    : engagement.views.trend === 'down' ? 'text-foreground' 
+    : 'text-foreground'
 
   if (compact) {
     return (
       <div className="flex items-center gap-6 text-sm">
         <div className="flex items-center gap-1.5">
-          <Eye size={ICON_SIZES.sm} className="text-[#6C757D]" />
+          <Eye size={ICON_SIZES.sm} className="text-foreground" />
           <span className="font-medium">{engagement.views.total}</span>
           <TrendIcon size={ICON_SIZES.xs} className={trendColor} />
         </div>
         <div className="flex items-center gap-1.5">
-          <MessageSquare size={ICON_SIZES.sm} className="text-[#6C757D]" />
+          <MessageSquare size={ICON_SIZES.sm} className="text-foreground" />
           <span className="font-medium">{engagement.inquiries.total}</span>
         </div>
         <div className="flex items-center gap-1.5">
-          <Heart size={ICON_SIZES.sm} className="text-[#6C757D]" />
+          <Heart size={ICON_SIZES.sm} className="text-foreground" />
           <span className="font-medium">{engagement.saves}</span>
         </div>
-        <div className="flex items-center gap-1.5 px-2 py-0.5 bg-[#F8F9FA] rounded">
+        <div className="flex items-center gap-1.5 px-2 py-0.5 bg-muted rounded">
           <span className="font-semibold">{quality.grade}</span>
         </div>
       </div>
@@ -82,35 +82,35 @@ export function PropertyAnalytics({ propertyId, compact = false }: PropertyAnaly
     <div className="space-y-6">
       {/* Engagement Stats */}
       <div>
-        <h4 className="text-sm font-medium text-[#495057] mb-3">Performance</h4>
+        <h4 className="text-sm font-medium text-foreground mb-3">Performance</h4>
         <div className="flex items-center gap-8">
           <div className="flex items-center gap-2">
-            <Eye size={ICON_SIZES.md} className="text-[#6C757D]" />
+            <Eye size={ICON_SIZES.md} className="text-foreground" />
             <span className="font-semibold">{engagement.views.total}</span>
-            <span className="text-[#6C757D] text-sm">views</span>
+            <span className="text-foreground text-sm">views</span>
             <TrendIcon size={ICON_SIZES.sm} className={trendColor} />
           </div>
-          <div className="w-px h-4 bg-[#E9ECEF]" />
+          <div className="w-px h-4 bg-muted" />
           <div className="flex items-center gap-2">
-            <MessageSquare size={ICON_SIZES.md} className="text-[#6C757D]" />
+            <MessageSquare size={ICON_SIZES.md} className="text-foreground" />
             <span className="font-semibold">{engagement.inquiries.total}</span>
-            <span className="text-[#6C757D] text-sm">inquiries</span>
+            <span className="text-foreground text-sm">inquiries</span>
             {engagement.inquiries.unread > 0 && (
-              <span className="px-1.5 py-0.5 bg-[#212529] text-white text-xs rounded-full">
+              <span className="px-1.5 py-0.5 bg-muted text-white text-xs rounded-full">
                 {engagement.inquiries.unread} new
               </span>
             )}
           </div>
-          <div className="w-px h-4 bg-[#E9ECEF]" />
+          <div className="w-px h-4 bg-muted" />
           <div className="flex items-center gap-2">
-            <Heart size={ICON_SIZES.md} className="text-[#6C757D]" />
+            <Heart size={ICON_SIZES.md} className="text-foreground" />
             <span className="font-semibold">{engagement.saves}</span>
-            <span className="text-[#6C757D] text-sm">saves</span>
+            <span className="text-foreground text-sm">saves</span>
           </div>
         </div>
         {engagement.views.total > 0 && (
-          <p className="text-xs text-[#6C757D] mt-2">
-            <span className="font-medium text-[#212529]">
+          <p className="text-xs text-foreground mt-2">
+            <span className="font-medium text-foreground">
               {engagement.inquiries.conversionRate.toFixed(1)}%
             </span>
             {' '}conversion rate (inquiries ÷ views)
@@ -121,23 +121,23 @@ export function PropertyAnalytics({ propertyId, compact = false }: PropertyAnaly
       {/* Quality Score */}
       <div>
         <div className="flex items-center justify-between mb-2">
-          <h4 className="text-sm font-medium text-[#495057]">Listing Quality</h4>
+          <h4 className="text-sm font-medium text-foreground">Listing Quality</h4>
           <div className="flex items-center gap-2">
             <span className="text-xl font-bold">{quality.overall}</span>
-            <span className="text-sm text-[#6C757D]">/100</span>
+            <span className="text-sm text-foreground">/100</span>
             <span className={`px-2 py-0.5 rounded text-sm font-semibold ${
-              quality.grade === 'A' ? 'bg-[#212529] text-white' :
-              quality.grade === 'B' ? 'bg-[#495057] text-white' :
-              quality.grade === 'C' ? 'bg-[#ADB5BD] text-white' :
-              'bg-[#E9ECEF] text-[#495057]'
+              quality.grade === 'A' ? 'bg-muted text-white' :
+              quality.grade === 'B' ? 'bg-muted text-white' :
+              quality.grade === 'C' ? 'bg-muted text-white' :
+              'bg-muted text-foreground'
             }`}>
               {quality.grade}
             </span>
           </div>
         </div>
-        <div className="w-full bg-[#E9ECEF] rounded-full h-2">
+        <div className="w-full bg-muted rounded-full h-2">
           <div 
-            className="bg-[#212529] h-2 rounded-full transition-all duration-500"
+            className="bg-muted h-2 rounded-full transition-all duration-500"
             style={{ width: `${quality.overall}%` }}
           />
         </div>
@@ -146,7 +146,7 @@ export function PropertyAnalytics({ propertyId, compact = false }: PropertyAnaly
         <div className="grid grid-cols-5 gap-3 mt-3">
           {Object.entries(quality.breakdown).map(([key, value]) => (
             <div key={key} className="text-center">
-              <div className="text-xs text-[#6C757D] capitalize">{key}</div>
+              <div className="text-xs text-foreground capitalize">{key}</div>
               <div className="text-sm font-medium">{value.score}/{value.max}</div>
             </div>
           ))}
@@ -155,17 +155,17 @@ export function PropertyAnalytics({ propertyId, compact = false }: PropertyAnaly
         {/* Improvements */}
         {quality.improvements.length > 0 && (
           <div className="mt-4 space-y-2">
-            <h5 className="text-xs font-medium text-[#6C757D] uppercase">Suggested Improvements</h5>
+            <h5 className="text-xs font-medium text-foreground uppercase">Suggested Improvements</h5>
             {quality.improvements.slice(0, 3).map((tip, i) => (
               <div key={i} className="flex items-start gap-2 text-sm">
                 <Star size={ICON_SIZES.sm} className={
-                  tip.priority === 'high' ? 'text-[#212529]' :
-                  tip.priority === 'medium' ? 'text-[#495057]' :
-                  'text-[#ADB5BD]'
+                  tip.priority === 'high' ? 'text-foreground' :
+                  tip.priority === 'medium' ? 'text-foreground' :
+                  'text-foreground'
                 } />
                 <div>
-                  <span className="text-[#212529]">{tip.suggestion}</span>
-                  <span className="text-[#6C757D] text-xs block">{tip.impact}</span>
+                  <span className="text-foreground">{tip.suggestion}</span>
+                  <span className="text-foreground text-xs block">{tip.impact}</span>
                 </div>
               </div>
             ))}
@@ -175,19 +175,19 @@ export function PropertyAnalytics({ propertyId, compact = false }: PropertyAnaly
 
       {/* Market Position */}
       <div>
-        <h4 className="text-sm font-medium text-[#495057] mb-3">Market Position</h4>
+        <h4 className="text-sm font-medium text-foreground mb-3">Market Position</h4>
         <div className="flex items-center gap-4">
           <div className={`px-3 py-1.5 rounded border ${
-            market.marketPosition === 'below' ? 'border-[#212529] bg-[#F8F9FA] text-[#212529]' :
-            market.marketPosition === 'average' ? 'border-[#495057] bg-white text-[#495057]' :
-            market.marketPosition === 'above' ? 'border-[#ADB5BD] bg-white text-[#ADB5BD]' :
-            'border-[#E9ECEF] bg-[#F8F9FA] text-[#ADB5BD]'
+            market.marketPosition === 'below' ? 'border-border bg-muted text-foreground' :
+            market.marketPosition === 'average' ? 'border-border bg-white text-foreground' :
+            market.marketPosition === 'above' ? 'border-border bg-white text-foreground' :
+            'border-border bg-muted text-foreground'
           }`}>
             <span className="text-sm font-medium capitalize">{market.marketPosition} market</span>
           </div>
-          <ArrowRight size={ICON_SIZES.md} className="text-[#6C757D]" />
+          <ArrowRight size={ICON_SIZES.md} className="text-foreground" />
           <div className="text-sm">
-            <span className="text-[#6C757D]">Suggested:</span>
+            <span className="text-foreground">Suggested:</span>
             <span className="font-semibold ml-1">
               ${(market.suggestedPrice.optimal / 100).toLocaleString()}
               {market.listingType === 'rent' && '/mo'}
@@ -196,7 +196,7 @@ export function PropertyAnalytics({ propertyId, compact = false }: PropertyAnaly
         </div>
         
         {market.comparables.length > 0 && (
-          <p className="text-xs text-[#6C757D] mt-2">
+          <p className="text-xs text-foreground mt-2">
             Based on {market.comparables.length} similar listings in your area
           </p>
         )}
@@ -210,7 +210,7 @@ function AnalyticsSkeleton({ compact }: { compact?: boolean }) {
     return (
       <div className="flex items-center gap-6">
         {[1, 2, 3, 4].map(i => (
-          <div key={i} className="h-4 w-12 bg-[#E9ECEF] rounded animate-pulse" />
+          <div key={i} className="h-4 w-12 bg-muted rounded animate-pulse" />
         ))}
       </div>
     )
@@ -219,16 +219,16 @@ function AnalyticsSkeleton({ compact }: { compact?: boolean }) {
   return (
     <div className="space-y-6">
       <div className="space-y-3">
-        <div className="h-4 w-24 bg-[#E9ECEF] rounded animate-pulse" />
+        <div className="h-4 w-24 bg-muted rounded animate-pulse" />
         <div className="flex gap-8">
           {[1, 2, 3].map(i => (
-            <div key={i} className="h-6 w-20 bg-[#E9ECEF] rounded animate-pulse" />
+            <div key={i} className="h-6 w-20 bg-muted rounded animate-pulse" />
           ))}
         </div>
       </div>
       <div className="space-y-2">
-        <div className="h-4 w-32 bg-[#E9ECEF] rounded animate-pulse" />
-        <div className="h-2 w-full bg-[#E9ECEF] rounded animate-pulse" />
+        <div className="h-4 w-32 bg-muted rounded animate-pulse" />
+        <div className="h-2 w-full bg-muted rounded animate-pulse" />
       </div>
     </div>
   )
