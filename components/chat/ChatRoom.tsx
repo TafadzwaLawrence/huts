@@ -342,33 +342,41 @@ export default function ChatRoom({ conversationId, currentUserId, onBack }: Chat
         </div>
       </div>
 
-      {/* Messages area */}
-      <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-[#F8F9FA]">
-        {/* Property card at top */}
-        {conversation?.property && (
+      {/* Property Banner - Sticky at top */}
+      {conversation?.property && (
+        <div className="bg-[#212529] border-b border-[#495057] px-4 py-3">
           <Link
             href={`/property/${conversation.property.id}`}
-            className="block bg-white rounded-xl p-3 shadow-sm border border-[#E9ECEF] hover:shadow-md transition-shadow mb-4"
+            className="flex items-center gap-3 group"
           >
-            <div className="flex gap-3">
-              <div className="w-16 h-16 rounded-lg overflow-hidden bg-[#E9ECEF]">
-                {conversation.property.property_images?.[0]?.url && (
-                  <img
-                    src={conversation.property.property_images[0].url}
-                    alt={conversation.property.title}
-                    className="w-full h-full object-cover"
-                  />
-                )}
-              </div>
-              <div className="flex-1">
-                <p className="text-xs text-[#ADB5BD] mb-1">Conversation about</p>
-                <p className="font-medium text-[#212529] line-clamp-2">
-                  {conversation.property.title}
-                </p>
-              </div>
+            <div className="w-12 h-12 rounded-lg overflow-hidden bg-[#495057] flex-shrink-0 border-2 border-white/10">
+              {conversation.property.property_images?.[0]?.url ? (
+                <img
+                  src={conversation.property.property_images[0].url}
+                  alt={conversation.property.title}
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                />
+              ) : (
+                <div className="w-full h-full flex items-center justify-center">
+                  <ImageIcon size={20} className="text-white/30" />
+                </div>
+              )}
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="text-[10px] text-white/50 font-semibold uppercase tracking-wider mb-0.5">Property Inquiry</p>
+              <p className="font-semibold text-white group-hover:underline underline-offset-2 line-clamp-1">
+                {conversation.property.title}
+              </p>
+            </div>
+            <div className="flex items-center gap-1 text-xs text-white/70 font-medium group-hover:text-white transition-colors">
+              View property →
             </div>
           </Link>
-        )}
+        </div>
+      )}
+
+      {/* Messages area */}
+      <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-[#F8F9FA]">
 
         {/* Messages grouped by date */}
         {Object.entries(groupedMessages).map(([date, dateMessages]) => (

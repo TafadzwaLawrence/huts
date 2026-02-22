@@ -630,31 +630,34 @@ export default function FloatingChatWidget() {
               {selectedConversation ? (
                 /* ===== Chat View ===== */
                 <div className="flex flex-col h-[calc(600px-64px)]">
-                  {/* Property Info */}
+                  {/* Property Info Banner */}
                   <Link
                     href={`/property/${selectedConversation.property?.slug}`}
-                    className="p-3 border-b border-[#E9ECEF] hover:bg-[#F8F9FA] transition-colors flex items-center gap-3"
+                    className="p-3 bg-[#212529] hover:bg-black transition-colors flex items-center gap-3 group"
                   >
-                    <div className="w-12 h-12 bg-[#F8F9FA] rounded-lg overflow-hidden flex-shrink-0">
+                    <div className="w-12 h-12 bg-[#495057] rounded-lg overflow-hidden flex-shrink-0 border-2 border-white/10">
                       {selectedConversation.property?.property_images?.[0]?.url ? (
                         <Image
                           src={selectedConversation.property.property_images[0].url}
                           alt={selectedConversation.property.title}
                           width={48}
                           height={48}
-                          className="w-full h-full object-cover"
+                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                         />
                       ) : (
                         <div className="w-full h-full flex items-center justify-center">
-                          <Building2 size={20} className="text-[#ADB5BD]" />
+                          <Building2 size={20} className="text-white/30" />
                         </div>
                       )}
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm font-semibold text-[#212529] truncate">
+                      <p className="text-[9px] text-white/50 font-semibold uppercase tracking-wider mb-0.5">Property Inquiry</p>
+                      <p className="text-sm font-semibold text-white group-hover:underline underline-offset-2 truncate">
                         {selectedConversation.property?.title}
                       </p>
-                      <p className="text-xs text-[#495057]">View property →</p>
+                    </div>
+                    <div className="text-xs text-white/70 font-medium group-hover:text-white transition-colors flex-shrink-0">
+                      View →
                     </div>
                   </Link>
 
