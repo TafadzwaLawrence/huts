@@ -379,12 +379,12 @@ export default function ChatRoom({ conversationId, currentUserId, onBack }: Chat
       <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-[#F8F9FA]">
         {/* Empty state */}
         {messages.length === 0 ? (
-          <div className=\"flex flex-col items-center justify-center h-full text-center py-12\">
-            <div className=\"w-16 h-16 bg-white rounded-2xl border-2 border-[#E9ECEF] flex items-center justify-center mb-4 shadow-sm\">
-              <Send size={28} className=\"text-[#ADB5BD]\" />
+          <div className="flex flex-col items-center justify-center h-full text-center py-12">
+            <div className="w-16 h-16 bg-white rounded-2xl border-2 border-[#E9ECEF] flex items-center justify-center mb-4 shadow-sm">
+              <Send size={28} className="text-[#ADB5BD]" />
             </div>
-            <h3 className=\"text-base font-semibold text-[#212529] mb-1\">Start the conversation</h3>
-            <p className=\"text-sm text-[#495057] max-w-xs\">
+            <h3 className="text-base font-semibold text-[#212529] mb-1">Start the conversation</h3>
+            <p className="text-sm text-[#495057] max-w-xs">
               Send a message to begin chatting about {conversation?.property?.title || 'this property'}
             </p>
           </div>
