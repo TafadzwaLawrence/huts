@@ -73,11 +73,15 @@ export function NavLinks({ links }: { links: NavLink[] }) {
 interface MegaNavItem {
   label: string
   sections: MegaDropdownSection[]
-  activeCheck?: (pathname: string) => boolean
+  activePatterns?: string[]
 }
 
 export function MegaNav({ items }: { items: MegaNavItem[] }) {
   const pathname = usePathname()
+  const fullUrl = pathname + (typeof window !== 'undefined' ? window.location.search : '')
+
+  const isActive = (patterns?: string[]) =>
+    patterns?.some(p => fullUrl.includes(p)) ?? false
 
   return (
     <nav className="hidden md:flex items-center gap-0.5" aria-label="Main navigation">
@@ -86,7 +90,7 @@ export function MegaNav({ items }: { items: MegaNavItem[] }) {
           key={item.label}
           label={item.label}
           sections={item.sections}
-          isActive={item.activeCheck?.(pathname) ?? false}
+          isActive={isActive(item.activePatterns)}
         />
       ))}
     </nav>

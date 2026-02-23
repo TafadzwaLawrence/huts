@@ -97,17 +97,17 @@ export async function Navbar() {
     {
       label: 'Buy',
       sections: buyMenuSections,
-      activeCheck: (p: string) => p.includes('type=sale'),
+      activePatterns: ['type=sale'],
     },
     {
       label: 'Rent',
       sections: rentMenuSections,
-      activeCheck: (p: string) => p.includes('type=rent') || p.startsWith('/student'),
+      activePatterns: ['type=rent', '/student'],
     },
     {
       label: 'Sell',
       sections: sellMenuSections,
-      activeCheck: (p: string) => p.startsWith('/dashboard/new-property'),
+      activePatterns: ['/dashboard/new-property'],
     },
   ]
 
