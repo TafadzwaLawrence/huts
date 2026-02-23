@@ -81,3 +81,10 @@ export const BREAKPOINTS = {
   xl: 1280,
   '2xl': 1536,
 } as const
+
+/**
+ * Tiny 1x1 pixel gray base64 image for blur-up placeholder.
+ * Use with Next.js Image: placeholder="blur" blurDataURL={BLUR_PLACEHOLDER}
+ */
+export const BLUR_PLACEHOLDER =
+  'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mN88P7DfwAJhAPk0x1VwQAAAABJRU5ErkJggg=='

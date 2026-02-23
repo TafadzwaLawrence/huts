@@ -612,71 +612,87 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Sticky Header */}
-      <div className="bg-white/95 backdrop-blur-sm border-b border-[#E9ECEF] sticky top-0 z-10">
-        <div className="max-w-3xl mx-auto px-4 py-3 sm:py-4">
-          <div className="flex items-center justify-between">
+      {/* Sticky Header - Enhanced */}
+      <div className="bg-white/98 backdrop-blur-sm border-b-2 border-[#E9ECEF] sticky top-0 z-20 shadow-sm">
+        <div className="max-w-3xl mx-auto px-4 py-4">
+          <div className="flex items-center justify-between mb-3">
             <Link
               href="/dashboard/my-properties"
-              className="flex items-center gap-2 text-[#495057] hover:text-[#212529] transition-colors text-sm font-medium"
+              className="flex items-center gap-2 text-[#495057] hover:text-[#212529] transition-colors text-sm font-semibold group"
             >
-              <ArrowLeft size={18} />
-              <span className="hidden sm:inline">My Properties</span>
-            </Link>
-            <h1 className="text-sm font-semibold text-[#212529] tracking-wide uppercase">Edit Listing</h1>
-            <div className="flex items-center gap-3">
-              {/* Completion indicator */}
-              <div className="hidden sm:flex items-center gap-2">
-                <div className="w-16 h-1.5 bg-[#E9ECEF] rounded-full overflow-hidden">
-                  <div
-                    className={`h-full rounded-full transition-all duration-500 ${completion === 100 ? 'bg-[#51CF66]' : 'bg-[#212529]'}`}
-                    style={{ width: `${completion}%` }}
-                  />
-                </div>
-                <span className="text-[10px] text-[#ADB5BD] tabular-nums font-medium">{completion}%</span>
+              <div className="p-1 rounded-lg group-hover:bg-[#F8F9FA] transition-colors">
+                <ArrowLeft size={16} />
               </div>
+              <span>My Properties</span>
+            </Link>
+            <div className="flex items-center gap-3">
               {propertySlug && (
                 <Link
                   href={`/property/${propertySlug}`}
                   target="_blank"
-                  className="text-xs text-[#495057] hover:text-[#212529] font-medium hidden sm:flex items-center gap-1"
+                  className="flex items-center gap-1.5 px-3 py-1.5 text-xs text-[#212529] hover:bg-[#F8F9FA] font-semibold rounded-lg border border-[#E9ECEF] transition-all hover:border-[#212529]"
                 >
-                  <Eye size={14} />
-                  View
+                  <Eye size={13} />
+                  <span className="hidden sm:inline">Preview</span>
                 </Link>
               )}
               {hasChanges && (
-                <span className="flex items-center gap-1 text-xs text-[#FF6B6B] font-medium">
-                  <Clock size={12} />
+                <div className="flex items-center gap-1.5 px-2.5 py-1 bg-[#FF6B6B]/10 text-[#FF6B6B] rounded-lg text-xs font-semibold">
+                  <div className="w-1.5 h-1.5 rounded-full bg-[#FF6B6B] animate-pulse" />
                   Unsaved
-                </span>
+                </div>
               )}
             </div>
           </div>
-        </div>
-        {/* Section Navigation */}
-        <div className="max-w-3xl mx-auto px-4 pb-2 -mt-1">
-          <div className="flex gap-1 overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-            {SECTIONS.filter(section => {
-              // Only show Student tab when property type is student housing
-              if (section.id === 'student') {
-                return formData.propertyType === 'student'
-              }
-              return true
-            }).map(section => (
-              <button
-                key={section.id}
-                type="button"
-                onClick={() => scrollToSection(section.id)}
-                className={`text-[11px] px-2.5 py-1 rounded-full whitespace-nowrap transition-all font-medium ${
-                  activeSection === section.id
-                    ? 'bg-[#212529] text-white'
-                    : 'text-[#ADB5BD] hover:text-[#212529] hover:bg-[#F8F9FA]'
+
+          {/* Progress Bar - Enhanced */}
+          <div className="mb-3">
+            <div className="flex items-center justify-between mb-2">
+              <h1 className="text-base font-bold text-[#212529]">Edit Listing</h1>
+              <span className={`text-sm tabular-nums font-bold ${completion === 100 ? 'text-[#51CF66]' : 'text-[#212529]'}`}>
+                {completion}% Complete
+              </span>
+            </div>
+            <div className="relative w-full h-2 bg-[#E9ECEF] rounded-full overflow-hidden">
+              <div
+                className={`absolute top-0 left-0 h-full rounded-full transition-all duration-700 ease-out ${
+                  completion === 100 ? 'bg-[#51CF66]' : 'bg-[#212529]'
                 }`}
-              >
-                {section.label}
-              </button>
-            ))}
+                style={{ width: `${completion}%` }}
+              />
+              {completion === 100 && (
+                <div className="absolute top-0 right-0 h-full w-1/3 bg-gradient-to-r from-transparent to-white/30 animate-pulse" />
+              )}
+            </div>
+          </div>
+
+          {/* Section Navigation - Enhanced */}
+          <div className="relative">
+            <div className="flex gap-1.5 overflow-x-auto pb-1 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+              {SECTIONS.filter(section => {
+                if (section.id === 'student') {
+                  return formData.propertyType === 'student'
+                }
+                return true
+              }).map(section => (
+                <button
+                  key={section.id}
+                  type="button"
+                  onClick={() => scrollToSection(section.id)}
+                  className={`relative flex items-center gap-1.5 text-xs px-3.5 py-2 rounded-lg whitespace-nowrap transition-all font-semibold ${
+                    activeSection === section.id
+                      ? 'bg-[#212529] text-white shadow-md shadow-black/10'
+                      : 'text-[#495057] hover:text-[#212529] hover:bg-[#F8F9FA] border border-transparent hover:border-[#E9ECEF]'
+                  }`}
+                >
+                  {section.label}
+                  {activeSection === section.id && (
+                    <div className="w-1 h-1 rounded-full bg-white" />
+                  )}
+                </button>
+              ))}
+            </div>
+            <div className="absolute top-0 right-0 w-8 h-full bg-gradient-to-l from-white to-transparent pointer-events-none md:hidden" />
           </div>
         </div>
       </div>
@@ -685,9 +701,14 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
         <form ref={formRef} onSubmit={handleSubmit}>
 
           {/* ===== STATUS ===== */}
-          <section id="status" className="mb-10 scroll-mt-24">
-            <h2 className="text-sm font-semibold text-[#212529] mb-4 uppercase tracking-wider">Status</h2>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-2.5">
+          <section id="status" className="mb-12 scroll-mt-24">
+            <div className="mb-6">
+              <h2 className="text-lg font-bold text-[#212529] mb-1.5">Listing Status</h2>
+              <p className="text-sm text-[#495057]">
+                Control your listing visibility. Active listings appear in search results. 
+              </p>
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
               {statusOptions.map(opt => {
                 const Icon = opt.icon
                 const isActive = formData.status === opt.value
@@ -699,49 +720,67 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
                       setFormData(prev => ({ ...prev, status: opt.value }))
                       setHasChanges(true)
                     }}
-                    className={`relative flex flex-col items-center gap-1.5 px-4 py-4 rounded-xl border-2 transition-all text-center ${
+                    className={`relative flex flex-col items-center gap-2 px-4 py-5 rounded-xl border-2 transition-all text-center group ${
                       isActive
-                        ? 'border-[#212529] bg-[#212529] text-white'
-                        : 'border-[#E9ECEF] text-[#495057] hover:border-[#495057] bg-white'
+                        ? 'border-[#212529] bg-[#212529] text-white shadow-lg shadow-black/5'
+                        : 'border-[#E9ECEF] text-[#495057] hover:border-[#212529] bg-white hover:shadow-md'
                     }`}
                   >
-                    <Icon size={18} className={isActive ? 'text-white' : opt.color} />
-                    <span className="text-xs font-semibold">{opt.label}</span>
-                    <span className={`text-[10px] ${isActive ? 'text-white/60' : 'text-[#ADB5BD]'}`}>
-                      {opt.description}
-                    </span>
+                    <div className={`p-2 rounded-lg ${isActive ? 'bg-white/10' : 'bg-[#F8F9FA] group-hover:bg-[#E9ECEF]'} transition-colors`}>
+                      <Icon size={20} className={isActive ? 'text-white' : opt.color} />
+                    </div>
+                    <div>
+                      <span className="text-sm font-bold block">{opt.label}</span>
+                      <span className={`text-[10px] block mt-0.5 ${isActive ? 'text-white/70' : 'text-[#ADB5BD]'}`}>
+                        {opt.description}
+                      </span>
+                    </div>
+                    {isActive && (
+                      <div className="absolute -top-1 -right-1 w-5 h-5 bg-[#51CF66] rounded-full flex items-center justify-center border-2 border-white shadow-sm">
+                        <Check size={12} className="text-white" />
+                      </div>
+                    )}
                   </button>
                 )
               })}
             </div>
           </section>
 
-          <div className="h-px bg-[#E9ECEF] mb-10" />
+          <div className="h-px bg-gradient-to-r from-transparent via-[#E9ECEF] to-transparent mb-12" />
 
           {/* ===== LISTING TYPE ===== */}
-          <section id="type" className="mb-10 scroll-mt-24">
-            <h2 className="text-sm font-semibold text-[#212529] mb-4 uppercase tracking-wider">Listing Type</h2>
-            <div className="grid grid-cols-2 gap-3">
+          <section id="type" className="mb-12 scroll-mt-24">
+            <div className="mb-6">
+              <h2 className="text-lg font-bold text-[#212529] mb-1.5">Listing Type</h2>
+              <p className="text-sm text-[#495057]">
+                Select whether this property is for rent or sale. This determines pricing fields.
+              </p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <button
                 type="button"
                 onClick={() => {
                   setFormData(prev => ({ ...prev, listingType: 'rent' }))
                   setHasChanges(true)
                 }}
-                className={`relative p-5 rounded-xl border-2 text-left transition-all ${
+                className={`relative p-6 rounded-xl border-2 text-left transition-all group ${
                   formData.listingType === 'rent'
                     ? 'border-[#212529] bg-[#212529] text-white shadow-lg shadow-black/5'
-                    : 'border-[#E9ECEF] bg-white hover:border-[#212529]'
+                    : 'border-[#E9ECEF] bg-white hover:border-[#212529] hover:shadow-md'
                 }`}
               >
-                <Home size={20} className={formData.listingType === 'rent' ? 'text-white mb-2' : 'text-[#212529] mb-2'} />
-                <p className="font-bold text-sm">For Rent</p>
-                <p className={`text-xs mt-0.5 ${formData.listingType === 'rent' ? 'text-white/60' : 'text-[#ADB5BD]'}`}>
-                  Monthly rental income
+                <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-3 ${
+                  formData.listingType === 'rent' ? 'bg-white/10' : 'bg-[#F8F9FA] group-hover:bg-[#E9ECEF]'
+                } transition-colors`}>
+                  <Home size={24} className={formData.listingType === 'rent' ? 'text-white' : 'text-[#212529]'} />
+                </div>
+                <p className="font-bold text-base mb-1">For Rent</p>
+                <p className={`text-sm ${formData.listingType === 'rent' ? 'text-white/70' : 'text-[#ADB5BD]'}`}>
+                  Generate monthly rental income
                 </p>
                 {formData.listingType === 'rent' && (
-                  <div className="absolute top-3 right-3 w-5 h-5 bg-white rounded-full flex items-center justify-center">
-                    <Check size={12} className="text-[#212529]" />
+                  <div className="absolute -top-2 -right-2 w-6 h-6 bg-[#51CF66] rounded-full flex items-center justify-center border-2 border-white shadow-md">
+                    <Check size={14} className="text-white" />
                   </div>
                 )}
               </button>
@@ -752,37 +791,50 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
                   setFormData(prev => ({ ...prev, listingType: 'sale' }))
                   setHasChanges(true)
                 }}
-                className={`relative p-5 rounded-xl border-2 text-left transition-all ${
+                className={`relative p-6 rounded-xl border-2 text-left transition-all group ${
                   formData.listingType === 'sale'
                     ? 'border-[#212529] bg-[#212529] text-white shadow-lg shadow-black/5'
-                    : 'border-[#E9ECEF] bg-white hover:border-[#212529]'
+                    : 'border-[#E9ECEF] bg-white hover:border-[#212529] hover:shadow-md'
                 }`}
               >
-                <DollarSign size={20} className={formData.listingType === 'sale' ? 'text-white mb-2' : 'text-[#212529] mb-2'} />
-                <p className="font-bold text-sm">For Sale</p>
-                <p className={`text-xs mt-0.5 ${formData.listingType === 'sale' ? 'text-white/60' : 'text-[#ADB5BD]'}`}>
-                  One-time purchase
+                <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-3 ${
+                  formData.listingType === 'sale' ? 'bg-white/10' : 'bg-[#F8F9FA] group-hover:bg-[#E9ECEF]'
+                } transition-colors`}>
+                  <DollarSign size={24} className={formData.listingType === 'sale' ? 'text-white' : 'text-[#212529]'} />
+                </div>
+                <p className="font-bold text-base mb-1">For Sale</p>
+                <p className={`text-sm ${formData.listingType === 'sale' ? 'text-white/70' : 'text-[#ADB5BD]'}`}>
+                  One-time purchase listing
                 </p>
                 {formData.listingType === 'sale' && (
-                  <div className="absolute top-3 right-3 w-5 h-5 bg-white rounded-full flex items-center justify-center">
-                    <Check size={12} className="text-[#212529]" />
+                  <div className="absolute -top-2 -right-2 w-6 h-6 bg-[#51CF66] rounded-full flex items-center justify-center border-2 border-white shadow-md">
+                    <Check size={14} className="text-white" />
                   </div>
                 )}
               </button>
             </div>
             {formData.listingType !== originalListingTypeRef.current && (
-              <p className="mt-3 text-xs text-[#495057] flex items-center gap-1.5 bg-[#F8F9FA] px-3 py-2 rounded-lg">
-                <AlertCircle size={14} />
-                Switching type will adjust pricing fields on save
-              </p>
+              <div className="mt-4 p-4 bg-[#F8F9FA] rounded-xl border border-[#E9ECEF]">
+                <p className="text-sm text-[#495057] flex items-start gap-2">
+                  <AlertCircle size={16} className="mt-0.5 flex-shrink-0" />
+                  <span>
+                    <strong className="text-[#212529]">Note:</strong> Switching from {originalListingTypeRef.current === 'rent' ? 'rent to sale' : 'sale to rent'} will adjust pricing fields when you save.
+                  </span>
+                </p>
+              </div>
             )}
           </section>
 
-          <div className="h-px bg-[#E9ECEF] mb-10" />
+          <div className="h-px bg-gradient-to-r from-transparent via-[#E9ECEF] to-transparent mb-12" />
 
           {/* ===== BASIC INFORMATION ===== */}
-          <section id="basic" className="mb-10 scroll-mt-24">
-            <h2 className="text-sm font-semibold text-[#212529] mb-6 uppercase tracking-wider">Basic Information</h2>
+          <section id="basic" className="mb-12 scroll-mt-24">
+            <div className="mb-6">
+              <h2 className="text-lg font-bold text-[#212529] mb-1.5">Basic Information</h2>
+              <p className="text-sm text-[#495057]">
+                Provide a clear title and description to help renters/buyers find your property.
+              </p>
+            </div>
 
             <div className="space-y-6">
               {/* Title */}
@@ -883,11 +935,16 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
             </div>
           </section>
 
-          <div className="h-px bg-[#E9ECEF] mb-10" />
+          <div className="h-px bg-gradient-to-r from-transparent via-[#E9ECEF] to-transparent mb-12" />
 
           {/* ===== PRICING ===== */}
-          <section id="pricing" className="mb-10 scroll-mt-24">
-            <h2 className="text-sm font-semibold text-[#212529] mb-6 uppercase tracking-wider">Pricing</h2>
+          <section id="pricing" className="mb-12 scroll-mt-24">
+            <div className="mb-6">
+              <h2 className="text-lg font-bold text-[#212529] mb-1.5">Pricing</h2>
+              <p className="text-sm text-[#495057]">
+                Set your {formData.listingType === 'rent' ? 'monthly rent and deposit' : 'sale price and associated costs'}.
+              </p>
+            </div>
 
             <div className="space-y-6">
               {/* Price */}
@@ -986,11 +1043,16 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
             </div>
           </section>
 
-          <div className="h-px bg-[#E9ECEF] mb-10" />
+          <div className="h-px bg-gradient-to-r from-transparent via-[#E9ECEF] to-transparent mb-12" />
 
           {/* ===== PROPERTY DETAILS ===== */}
-          <section id="specs" className="mb-10 scroll-mt-24">
-            <h2 className="text-sm font-semibold text-[#212529] mb-6 uppercase tracking-wider">Property Specifications</h2>
+          <section id="specs" className="mb-12 scroll-mt-24">
+            <div className="mb-6">
+              <h2 className="text-lg font-bold text-[#212529] mb-1.5">Property Specifications</h2>
+              <p className="text-sm text-[#495057]">
+                Add details about bedrooms, bathrooms, size, and other specifications.
+              </p>
+            </div>
 
             <div className="grid grid-cols-3 gap-3 mb-6">
               <div data-error={!!errors.beds || undefined}>
@@ -1139,11 +1201,16 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
             )}
           </section>
 
-          <div className="h-px bg-[#E9ECEF] mb-10" />
+          <div className="h-px bg-gradient-to-r from-transparent via-[#E9ECEF] to-transparent mb-12" />
 
           {/* ===== LOCATION ===== */}
-          <section id="location" className="mb-10 scroll-mt-24">
-            <h2 className="text-sm font-semibold text-[#212529] mb-6 uppercase tracking-wider">Location</h2>
+          <section id="location" className="mb-12 scroll-mt-24">
+            <div className="mb-6">
+              <h2 className="text-lg font-bold text-[#212529] mb-1.5">Location</h2>
+              <p className="text-sm text-[#495057]">
+                Provide the property address and pin the exact location on the map.
+              </p>
+            </div>
 
             <div className="space-y-6">
               <div data-error={!!errors.address || undefined}>
@@ -1261,14 +1328,18 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
             </div>
           </section>
 
-          <div className="h-px bg-[#E9ECEF] mb-10" />
+          <div className="h-px bg-gradient-to-r from-transparent via-[#E9ECEF] to-transparent mb-12" />
 
           {/* ===== STUDENT HOUSING ===== */}
           {formData.propertyType === 'student' && (
             <>
-              <section id="student" className="mb-10 scroll-mt-24">
-                <h2 className="text-sm font-semibold text-[#212529] mb-1 uppercase tracking-wider">Student Housing Details</h2>
-                <p className="text-xs text-[#ADB5BD] mb-6">Additional information specific to student housing</p>
+              <section id="student" className="mb-12 scroll-mt-24">
+                <div className="mb-6">
+                  <h2 className="text-lg font-bold text-[#212529] mb-1.5">Student Housing Details</h2>
+                  <p className="text-sm text-[#495057]">
+                    Additional information specific to student housing rentals.
+                  </p>
+                </div>
 
                 <div className="space-y-6">
                   {/* Toggle Options */}
@@ -1370,14 +1441,18 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
                 </div>
               </section>
 
-              <div className="h-px bg-[#E9ECEF] mb-10" />
+              <div className="h-px bg-gradient-to-r from-transparent via-[#E9ECEF] to-transparent mb-12" />
             </>
           )}
 
           {/* ===== AMENITIES ===== */}
-          <section id="amenities" className="mb-10 scroll-mt-24">
-            <h2 className="text-sm font-semibold text-[#212529] mb-1 uppercase tracking-wider">Amenities</h2>
-            <p className="text-xs text-[#ADB5BD] mb-4">Select all that apply</p>
+          <section id="amenities" className="mb-12 scroll-mt-24">
+            <div className="mb-6">
+              <h2 className="text-lg font-bold text-[#212529] mb-1.5">Amenities</h2>
+              <p className="text-sm text-[#495057]">
+                Select all amenities available at this property.
+              </p>
+            </div>
 
             <div className="grid grid-cols-2 md:grid-cols-3 gap-2.5">
               {AMENITIES.map(amenity => (
@@ -1398,15 +1473,19 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
             </div>
           </section>
 
-          <div className="h-px bg-[#E9ECEF] mb-10" />
+          <div className="h-px bg-gradient-to-r from-transparent via-[#E9ECEF] to-transparent mb-12" />
 
           {/* ===== PHOTOS ===== */}
-          <section id="photos" className="mb-10 scroll-mt-24">
-            <div className="flex items-center justify-between mb-1">
-              <h2 className="text-sm font-semibold text-[#212529] uppercase tracking-wider">Photos</h2>
-              <span className="text-xs text-[#ADB5BD] font-medium tabular-nums">{totalImageCount}/10</span>
+          <section id="photos" className="mb-12 scroll-mt-24">
+            <div className="mb-6">
+              <div className="flex items-center justify-between mb-1.5">
+                <h2 className="text-lg font-bold text-[#212529]">Photos</h2>
+                <span className="text-sm text-[#495057] font-bold tabular-nums bg-[#F8F9FA] px-3 py-1 rounded-lg">{totalImageCount}/10</span>
+              </div>
+              <p className="text-sm text-[#495057]">
+                Add up to 10 high-quality photos. Click the star to set a cover photo.
+              </p>
             </div>
-            <p className="text-xs text-[#ADB5BD] mb-4">Click the star to set a cover photo. First image is used by default.</p>
 
             {/* Existing Images */}
             {existingImages.length > 0 && (
@@ -1540,11 +1619,16 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
             )}
           </section>
 
-          <div className="h-px bg-[#E9ECEF] mb-10" />
+          <div className="h-px bg-gradient-to-r from-transparent via-[#E9ECEF] to-transparent mb-12" />
 
           {/* ===== AVAILABILITY ===== */}
-          <section id="availability" className="mb-10 scroll-mt-24">
-            <h2 className="text-sm font-semibold text-[#212529] mb-6 uppercase tracking-wider">Availability</h2>
+          <section id="availability" className="mb-12 scroll-mt-24">
+            <div className="mb-6">
+              <h2 className="text-lg font-bold text-[#212529] mb-1.5">Availability</h2>
+              <p className="text-sm text-[#495057]">
+                Set when the property will be available {formData.listingType === 'rent' ? 'for move-in' : 'for sale'}.
+              </p>
+            </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               <div>
@@ -1584,59 +1668,82 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
           </section>
 
           {/* ===== SUBMIT ===== */}
-          <div ref={submitAreaRef} className="flex gap-3 pt-6 border-t border-[#E9ECEF]">
-            <Link
-              href="/dashboard/my-properties"
-              className="flex items-center justify-center gap-2 px-5 py-3.5 border-2 border-[#E9ECEF] text-[#212529] rounded-xl text-sm font-semibold hover:border-[#212529] transition-all"
-            >
-              Cancel
-            </Link>
-            <button
-              type="submit"
-              disabled={saving}
-              className="flex-1 flex items-center justify-center gap-2 bg-[#212529] text-white px-6 py-3.5 rounded-xl text-sm font-semibold hover:bg-black transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              {saving ? (
-                <>
-                  <Loader2 className="animate-spin" size={18} />
-                  Saving...
-                </>
-              ) : (
-                <>
-                  Save Changes
-                  <ArrowRight size={16} />
-                </>
-              )}
-            </button>
+          <div ref={submitAreaRef} className="sticky bottom-0 bg-white pt-8 pb-6 border-t-2 border-[#E9ECEF] mt-12">
+            <div className="flex flex-col sm:flex-row gap-3">
+              <button
+                type="button"
+                onClick={() => setShowDeleteConfirm(true)}
+                className="flex items-center justify-center gap-2 px-5 py-3.5 border-2 border-[#FF6B6B] text-[#FF6B6B] rounded-xl text-sm font-semibold hover:bg-[#FF6B6B] hover:text-white transition-all group"
+              >
+                <Trash2 size={16} className="group-hover:scale-110 transition-transform" />
+                Delete
+              </button>
+              <div className="flex-1 flex gap-3">
+                <Link
+                  href="/dashboard/my-properties"
+                  className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-6 py-3.5 border-2 border-[#E9ECEF] text-[#212529] rounded-xl text-sm font-semibold hover:border-[#212529] hover:shadow-md transition-all"
+                >
+                  Cancel
+                </Link>
+                <button
+                  type="submit"
+                  disabled={saving || !hasChanges}
+                  className="flex-1 flex items-center justify-center gap-2 bg-[#212529] text-white px-6 py-3.5 rounded-xl text-sm font-bold hover:bg-black transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-md hover:shadow-lg disabled:shadow-none group"
+                >
+                  {saving ? (
+                    <>
+                      <Loader2 className="animate-spin" size={18} />
+                      Saving changes...
+                    </>
+                  ) : (
+                    <>
+                      <Check size={18} />
+                      Save Changes
+                      <span className="hidden lg:inline text-xs opacity-70 ml-1">(Ctrl+S)</span>
+                    </>
+                  )}
+                </button>
+              </div>
+            </div>
+            {hasChanges && (
+              <p className="mt-3 text-xs text-center text-[#495057] flex items-center justify-center gap-1.5">
+                <AlertCircle size={12} />
+                You have unsaved changes. Press <kbd className="px-1.5 py-0.5 bg-[#F8F9FA] border border-[#E9ECEF] rounded text-[10px] font-mono">Ctrl+S</kbd> to save quickly.
+              </p>
+            )}
           </div>
         </form>
       </div>
 
-      {/* Sticky Bottom Save Bar */}
+      {/* Sticky Bottom Save Bar - Appears when scrolling */}
       {showStickyBar && (
-        <div className="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-sm border-t border-[#E9ECEF] z-20 py-3">
-          <div className="max-w-2xl mx-auto px-4 flex items-center justify-between gap-3">
-            <div className="flex items-center gap-3">
-              <div className="hidden sm:flex items-center gap-2">
-                <div className="w-20 h-1.5 bg-[#E9ECEF] rounded-full overflow-hidden">
+        <div className="fixed bottom-0 left-0 right-0 bg-white/98 backdrop-blur-sm border-t-2 border-[#E9ECEF] z-20 py-4 shadow-xl">
+          <div className="max-w-2xl mx-auto px-4 flex items-center justify-between gap-4">
+            <div className="flex items-center gap-4">
+              <div className="hidden sm:flex items-center gap-2.5">
+                <div className="w-24 h-2 bg-[#E9ECEF] rounded-full overflow-hidden">
                   <div
-                    className={`h-full rounded-full transition-all duration-500 ${completion === 100 ? 'bg-[#51CF66]' : 'bg-[#212529]'}`}
+                    className={`h-full rounded-full transition-all duration-700 ${completion === 100 ? 'bg-[#51CF66]' : 'bg-[#212529]'}`}
                     style={{ width: `${completion}%` }}
                   />
                 </div>
-                <span className="text-xs text-[#ADB5BD] tabular-nums">{completion}%</span>
+                <span className={`text-xs tabular-nums font-bold ${completion === 100 ? 'text-[#51CF66]' : 'text-[#212529]'}`}>
+                  {completion}%
+                </span>
               </div>
               {hasChanges && (
-                <span className="text-xs text-[#FF6B6B] font-medium flex items-center gap-1">
-                  <Clock size={12} /> Unsaved changes
-                </span>
+                <div className="flex items-center gap-1.5 px-2.5 py-1 bg-[#FF6B6B]/10 text-[#FF6B6B] rounded-lg text-xs font-semibold">
+                  <div className="w-1.5 h-1.5 rounded-full bg-[#FF6B6B] animate-pulse" />
+                  <span className="hidden sm:inline">Unsaved changes</span>
+                  <span className="sm:hidden">Unsaved</span>
+                </div>
               )}
             </div>
             <div className="flex items-center gap-2">
               <button
                 type="button"
                 onClick={() => setShowDeleteConfirm(true)}
-                className="p-2.5 text-[#ADB5BD] hover:text-[#FF6B6B] rounded-xl transition-colors"
+                className="p-2.5 text-[#ADB5BD] hover:text-[#FF6B6B] hover:bg-[#FF6B6B]/5 rounded-lg transition-all"
                 title="Delete property"
               >
                 <Trash2 size={16} />
@@ -1644,11 +1751,20 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
               <button
                 type="button"
                 onClick={() => formRef.current?.requestSubmit()}
-                disabled={saving}
-                className="flex items-center gap-2 bg-[#212529] text-white px-5 py-2.5 rounded-xl text-sm font-semibold hover:bg-black transition-all disabled:opacity-50"
+                disabled={saving || !hasChanges}
+                className="flex items-center gap-2 bg-[#212529] text-white px-5 py-2.5 rounded-xl text-sm font-bold hover:bg-black transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-md hover:shadow-lg"
               >
-                {saving ? <Loader2 className="animate-spin" size={16} /> : <Check size={16} />}
-                {saving ? 'Saving...' : 'Save'}
+                {saving ? (
+                  <>
+                    <Loader2 className="animate-spin" size={16} />
+                    <span className="hidden sm:inline">Saving...</span>
+                  </>
+                ) : (
+                  <>
+                    <Check size={16} />
+                    <span>Save</span>
+                  </>
+                )}
               </button>
             </div>
           </div>
@@ -1657,20 +1773,21 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
 
       {/* Delete Confirmation Modal */}
       {showDeleteConfirm && (
-        <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4" onClick={() => setShowDeleteConfirm(false)}>
-          <div className="bg-white rounded-2xl p-6 max-w-sm w-full shadow-xl" onClick={e => e.stopPropagation()}>
-            <div className="w-12 h-12 rounded-full bg-[#FF6B6B]/10 flex items-center justify-center mx-auto mb-4">
-              <Trash2 size={20} className="text-[#FF6B6B]" />
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-in fade-in duration-200" onClick={() => setShowDeleteConfirm(false)}>
+          <div className="bg-white rounded-2xl p-8 max-w-md w-full shadow-2xl animate-in zoom-in-95 duration-200" onClick={e => e.stopPropagation()}>
+            <div className="w-16 h-16 rounded-2xl bg-[#FF6B6B]/10 flex items-center justify-center mx-auto mb-5">
+              <Trash2 size={28} className="text-[#FF6B6B]" />
             </div>
-            <h3 className="text-lg font-bold text-[#212529] text-center mb-2">Delete this property?</h3>
-            <p className="text-sm text-[#495057] text-center mb-6">
-              This will permanently remove the listing, images, reviews, and analytics. This cannot be undone.
+            <h3 className="text-xl font-bold text-[#212529] text-center mb-3">Delete this property?</h3>
+            <p className="text-sm text-[#495057] text-center mb-8 leading-relaxed">
+              This will permanently remove the listing, all images, reviews, and analytics data. <strong className="text-[#212529]">This action cannot be undone.</strong>
             </p>
             <div className="flex gap-3">
               <button
                 type="button"
                 onClick={() => setShowDeleteConfirm(false)}
-                className="flex-1 px-4 py-2.5 border-2 border-[#E9ECEF] text-[#212529] rounded-xl text-sm font-semibold hover:border-[#212529] transition-colors"
+                disabled={deleting}
+                className="flex-1 px-5 py-3.5 border-2 border-[#E9ECEF] text-[#212529] rounded-xl text-sm font-semibold hover:border-[#212529] hover:shadow-md transition-all disabled:opacity-50"
               >
                 Cancel
               </button>
@@ -1678,10 +1795,19 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
                 type="button"
                 onClick={handleDelete}
                 disabled={deleting}
-                className="flex-1 px-4 py-2.5 bg-[#FF6B6B] text-white rounded-xl text-sm font-semibold hover:bg-red-500 transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
+                className="flex-1 px-5 py-3.5 bg-[#FF6B6B] text-white rounded-xl text-sm font-bold hover:bg-red-600 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-md hover:shadow-lg"
               >
-                {deleting ? <Loader2 size={16} className="animate-spin" /> : <Trash2 size={16} />}
-                {deleting ? 'Deleting...' : 'Delete'}
+                {deleting ? (
+                  <>
+                    <Loader2 size={16} className="animate-spin" />
+                    Deleting...
+                  </>
+                ) : (
+                  <>
+                    <Trash2 size={16} />
+                    Delete Forever
+                  </>
+                )}
               </button>
             </div>
           </div>

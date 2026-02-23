@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { MegaDropdown, type MegaDropdownSection } from './MegaDropdown'
 
 /**
  * Scroll-aware header wrapper. Adds backdrop blur + shadow on scroll.
@@ -42,7 +43,6 @@ export function NavLinks({ links }: { links: NavLink[] }) {
 
   const isActive = (href: string) => {
     const [path] = href.split('?')
-    // Skip query-param variants (e.g. /search?type=rent)
     if (href.includes('?')) return false
     if (path === '/') return pathname === '/'
     return pathname === path || pathname.startsWith(path + '/')
@@ -62,6 +62,32 @@ export function NavLinks({ links }: { links: NavLink[] }) {
         >
           {label}
         </Link>
+      ))}
+    </nav>
+  )
+}
+
+/**
+ * Mega-navigation with Zillow-style dropdowns for Buy/Rent/Sell tabs.
+ */
+interface MegaNavItem {
+  label: string
+  sections: MegaDropdownSection[]
+  activeCheck?: (pathname: string) => boolean
+}
+
+export function MegaNav({ items }: { items: MegaNavItem[] }) {
+  const pathname = usePathname()
+
+  return (
+    <nav className="hidden md:flex items-center gap-0.5" aria-label="Main navigation">
+      {items.map((item) => (
+        <MegaDropdown
+          key={item.label}
+          label={item.label}
+          sections={item.sections}
+          isActive={item.activeCheck?.(pathname) ?? false}
+        />
       ))}
     </nav>
   )

@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from 'react'
 import Image from 'next/image'
 import { ChevronLeft, ChevronRight, X, Home, Grid3X3, Images, ZoomIn } from 'lucide-react'
-import { ICON_SIZES } from '@/lib/constants'
+import { ICON_SIZES, BLUR_PLACEHOLDER } from '@/lib/constants'
 
 interface PropertyImage {
   id: string

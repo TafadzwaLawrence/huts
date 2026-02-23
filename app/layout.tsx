@@ -6,10 +6,12 @@ import './globals.css'
 import { Navbar } from '@/components/layout/Navbar'
 import { NavbarSkeleton } from '@/components/layout/NavbarSkeleton'
 import { Footer } from '@/components/layout/Footer'
+import { BottomTabBar } from '@/components/layout/BottomTabBar'
 import OrganizationStructuredData from '@/components/layout/OrganizationStructuredData'
 import FloatingChatWidget from '@/components/chat/FloatingChatWidget'
 import { Toaster } from 'sonner'
 import { NProgressProvider } from '@/components/providers/NProgressProvider'
+import { createClient } from '@/lib/supabase/server'
 
 const inter = Inter({ 
   subsets: ['latin'],
@@ -98,6 +100,16 @@ export default async function RootLayout({
   const pathname = headersList.get('x-pathname') || ''
   const isAdminRoute = pathname.startsWith('/admin')
 
+  // Check auth for BottomTabBar
+  let isLoggedIn = false
+  try {
+    const supabase = await createClient()
+    const { data: { user } } = await supabase.auth.getUser()
+    isLoggedIn = !!user
+  } catch {
+    // Ignore auth errors in layout
+  }
+
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className} suppressHydrationWarning>
@@ -116,10 +128,11 @@ export default async function RootLayout({
                   <Navbar />
                 </Suspense>
               )}
-              <main id="main-content" className="min-h-screen">
+              <main id="main-content" className="min-h-screen pb-14 md:pb-0">
                 {children}
               </main>
               {!isAdminRoute && <Footer />}
+              {!isAdminRoute && <BottomTabBar isLoggedIn={isLoggedIn} />}
               {!isAdminRoute && <FloatingChatWidget />}
               <Toaster position="top-center" />
             </NProgressProvider>

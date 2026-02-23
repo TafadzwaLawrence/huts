@@ -667,6 +667,34 @@
   .dark .glass {
     @apply bg-gray-900/80 border-gray-700/20;
   }
+
+  /* Map marker bounce */
+  .marker-bounce {
+    animation: markerBounce 0.5s ease-out;
+  }
+
+  /* Staggered fade in for lists */
+  .stagger-fade > * {
+    animation: fadeIn 0.3s ease-in both;
+  }
+  .stagger-fade > *:nth-child(1) { animation-delay: 0ms; }
+  .stagger-fade > *:nth-child(2) { animation-delay: 50ms; }
+  .stagger-fade > *:nth-child(3) { animation-delay: 100ms; }
+  .stagger-fade > *:nth-child(4) { animation-delay: 150ms; }
+  .stagger-fade > *:nth-child(5) { animation-delay: 200ms; }
+  .stagger-fade > *:nth-child(6) { animation-delay: 250ms; }
+
+  /* Pulse dot for unread indicators */
+  .pulse-dot {
+    animation: pulseDot 2s ease-in-out infinite;
+  }
+
+  /* Shimmer loading effect (alternative to plain pulse) */
+  .shimmer {
+    background: linear-gradient(90deg, #E9ECEF 25%, #F8F9FA 50%, #E9ECEF 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+  }
 }
 
 @keyframes fadeIn {
@@ -687,6 +715,22 @@
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+@keyframes markerBounce {
+  0%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-12px); }
+  60% { transform: translateY(-4px); }
+}
+
+@keyframes pulseDot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.2); }
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
 }
 
 /* ============================================

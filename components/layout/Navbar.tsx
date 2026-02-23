@@ -5,8 +5,65 @@ import { createClient } from '@/lib/supabase/server'
 import { MobileMenu } from './MobileMenu'
 import { NotificationDropdown } from './NotificationDropdown'
 import { UserMenu } from './UserMenu'
-import { ScrollHeader, NavLinks } from './NavbarClient'
+import { ScrollHeader, NavLinks, MegaNav } from './NavbarClient'
+import { ThemeToggle } from './ThemeToggle'
 import { ICON_SIZES } from '@/lib/constants'
+
+// Zillow-style mega-nav configurations
+const buyMenuSections = [
+  {
+    items: [
+      { label: 'Search Homes for Sale', href: '/search?type=sale', description: 'Browse all homes for sale' },
+      { label: 'New Listings', href: '/search?type=sale&sort=newest', description: 'See just-listed properties' },
+      { label: 'Price Drops', href: '/search?type=sale&sort=price_asc', description: 'Properties with recent cuts' },
+      { label: 'Home Value', href: '/home-value', description: 'Estimate your home\'s worth' },
+    ]
+  },
+  {
+    title: 'Resources',
+    items: [
+      { label: 'Mortgage Calculator', href: '/rent-vs-buy', description: 'Calculate monthly payments' },
+      { label: 'Area Guides', href: '/areas', description: 'Explore neighborhoods' },
+      { label: 'Buying Guide', href: '/help', description: 'Tips for first-time buyers' },
+    ]
+  }
+]
+
+const rentMenuSections = [
+  {
+    items: [
+      { label: 'Search Rentals', href: '/search?type=rent', description: 'Browse all rentals' },
+      { label: 'Apartments', href: '/search?type=rent&propertyType=apartment', description: 'Find apartments for rent' },
+      { label: 'Houses', href: '/search?type=rent&propertyType=house', description: 'Find houses for rent' },
+      { label: 'Student Housing', href: '/student-housing', description: 'Accommodation near universities' },
+    ]
+  },
+  {
+    title: 'Popular Cities',
+    items: [
+      { label: 'Harare Rentals', href: '/search?type=rent&city=Harare' },
+      { label: 'Bulawayo Rentals', href: '/search?type=rent&city=Bulawayo' },
+      { label: 'All Areas', href: '/areas' },
+    ]
+  }
+]
+
+const sellMenuSections = [
+  {
+    items: [
+      { label: 'List Your Property', href: '/dashboard/new-property', description: 'Post a listing for free' },
+      { label: 'My Listings', href: '/dashboard/my-properties', description: 'Manage your properties' },
+      { label: 'Pricing', href: '/pricing', description: "It's 100% free" },
+    ]
+  },
+  {
+    title: 'Tools',
+    items: [
+      { label: 'Home Value', href: '/home-value', description: 'See what your home is worth' },
+      { label: 'Analytics', href: '/dashboard/overview', description: 'Track listing performance' },
+    ]
+  }
+]
 
 export async function Navbar() {
   const supabase = await createClient()
@@ -28,23 +85,35 @@ export async function Navbar() {
   const userInitial = userName?.charAt(0).toUpperCase() || 'U'
   const userAvatar = profile?.avatar_url || user?.user_metadata?.avatar_url
 
-  const navLinks = user && isLandlord
-    ? [
-        { href: '/dashboard/overview', label: 'Dashboard' },
-        { href: '/dashboard/my-properties', label: 'Properties' },
-        { href: '/dashboard/reviews', label: 'Reviews' },
-      ]
-    : [
-        { href: '/search', label: 'Browse' },
-        { href: '/search?type=rent', label: 'Rent' },
-        { href: '/search?type=sale', label: 'Buy' },
-        { href: '/student-housing', label: 'Student' },
-        { href: '/areas', label: 'Areas' },
-      ]
+  // Landlord sees direct nav links (no dropdowns needed for dashboard)
+  const landlordLinks = [
+    { href: '/dashboard/overview', label: 'Dashboard' },
+    { href: '/dashboard/my-properties', label: 'Properties' },
+    { href: '/dashboard/reviews', label: 'Reviews' },
+  ]
+
+  // Public/renter sees Zillow-style mega-nav
+  const megaNavItems = [
+    {
+      label: 'Buy',
+      sections: buyMenuSections,
+      activeCheck: (p: string) => p.includes('type=sale'),
+    },
+    {
+      label: 'Rent',
+      sections: rentMenuSections,
+      activeCheck: (p: string) => p.includes('type=rent') || p.startsWith('/student'),
+    },
+    {
+      label: 'Sell',
+      sections: sellMenuSections,
+      activeCheck: (p: string) => p.startsWith('/dashboard/new-property'),
+    },
+  ]
 
   return (
     <ScrollHeader>
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center h-16">
           {/* Logo */}
           <div className="flex items-center shrink-0">
@@ -62,7 +131,11 @@ export async function Navbar() {
 
           {/* Center Navigation - Desktop */}
           <div className="flex-1 flex justify-center mx-6">
-            <NavLinks links={navLinks} />
+            {user && isLandlord ? (
+              <NavLinks links={landlordLinks} />
+            ) : (
+              <MegaNav items={megaNavItems} />
+            )}
           </div>
 
           {/* Right Actions - Desktop */}
@@ -89,6 +162,8 @@ export async function Navbar() {
                 )}
 
                 <div className="w-px h-6 bg-[#E9ECEF] mx-1.5" />
+
+                <ThemeToggle />
 
                 <UserMenu
                   userName={userName || 'User'}
