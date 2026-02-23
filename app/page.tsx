@@ -210,16 +210,16 @@ export default async function HomePage() {
                 Find your
                 <span className="relative mx-3">
                   <span className="relative z-10">perfect</span>
-                  <svg className="absolute -bottom-2 left-0 w-full h-3 text-[#212529]/10" viewBox="0 0 200 12" preserveAspectRatio="none">
+                  <svg className="absolute -bottom-2 left-0 w-full h-3 text-[#212529]/30" viewBox="0 0 200 12" preserveAspectRatio="none">
                     <path d="M0,8 Q50,0 100,8 T200,8" fill="none" stroke="currentColor" strokeWidth="8" strokeLinecap="round" />
                   </svg>
                 </span>
                 home
               </h1>
-              <p className="text-lg md:text-xl lg:text-2xl text-[#495057] max-w-2xl mx-auto leading-relaxed">
+              <p className="text-lg md:text-xl lg:text-2xl text-[#212529] max-w-2xl mx-auto leading-relaxed">
                 The simplest way to discover rental properties or homes for sale.
                 <span className="hidden sm:inline"><br /></span>
-                <span className="text-[#ADB5BD]">No clutter, no noise — just homes.</span>
+                <span className="text-[#495057]">No clutter, no noise — just homes.</span>
               </p>
             </div>
             
@@ -339,7 +339,7 @@ export default async function HomePage() {
               <h2 className="text-section-title mb-3">
                 Featured Rentals
               </h2>
-              <p className="text-[#495057] text-base md:text-lg max-w-md">
+              <p className="text-[#212529] text-base md:text-lg max-w-md">
                 Hand-picked listings reviewed and updated daily
               </p>
             </div>
@@ -508,7 +508,7 @@ export default async function HomePage() {
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6 mb-12">
             <div>
               <h2 className="text-section-title mb-2">Homes for Sale</h2>
-              <p className="text-[#495057] text-base md:text-lg">Find your dream home and make it yours</p>
+              <p className="text-[#212529] text-base md:text-lg">Find your dream home and make it yours</p>
             </div>
             <Link
               href="/search?type=sale"
@@ -1261,118 +1261,6 @@ export default async function HomePage() {
                   </p>
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* SEO FOOTER LINKS - Internal Linking for Google */}
-      <section className="py-12 bg-white border-t border-[#E9ECEF]">
-        <div className="container-main max-w-6xl">
-          <div className="grid md:grid-cols-3 gap-8">
-            {/* Rentals by City */}
-            <div>
-              <h3 className="font-bold text-[#212529] mb-4 text-sm uppercase tracking-wider flex items-center gap-2">
-                <MapPin size={ICON_SIZES.md} />
-                Rentals by City
-              </h3>
-              <ul className="space-y-2 text-sm">
-                <li>
-                  <Link href="/rentals-in-harare" className="text-[#495057] hover:text-[#212529] hover:underline transition-colors">
-                    Properties for Rent in Harare
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/search?city=Bulawayo&type=rent" className="text-[#495057] hover:text-[#212529] hover:underline transition-colors">
-                    Rentals in Bulawayo
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/search?city=Gweru&type=rent" className="text-[#495057] hover:text-[#212529] hover:underline transition-colors">
-                    Properties in Gweru
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/search?city=Mutare&type=rent" className="text-[#495057] hover:text-[#212529] hover:underline transition-colors">
-                    Mutare Rentals
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/properties-for-rent-zimbabwe" className="text-[#212529] font-semibold hover:underline transition-colors">
-                    All Zimbabwe Rentals →
-                  </Link>
-                </li>
-              </ul>
-            </div>
-
-            {/* Property Types */}
-            <div>
-              <h3 className="font-bold text-[#212529] mb-4 text-sm uppercase tracking-wider flex items-center gap-2">
-                <Home size={ICON_SIZES.md} />
-                Property Types
-              </h3>
-              <ul className="space-y-2 text-sm">
-                <li>
-                  <Link href="/search?property_type=apartment&type=rent" className="text-[#495057] hover:text-[#212529] hover:underline transition-colors">
-                    Apartments for Rent
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/search?property_type=house&type=rent" className="text-[#495057] hover:text-[#212529] hover:underline transition-colors">
-                    Houses for Rent
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/search?property_type=room&type=rent" className="text-[#495057] hover:text-[#212529] hover:underline transition-colors">
-                    Rooms for Rent
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/search?type=sale" className="text-[#495057] hover:text-[#212529] hover:underline transition-colors">
-                    Homes for Sale
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/student-housing" className="text-[#495057] hover:text-[#212529] hover:underline transition-colors">
-                    Student Housing
-                  </Link>
-                </li>
-              </ul>
-            </div>
-
-            {/* Popular Searches */}
-            <div>
-              <h3 className="font-bold text-[#212529] mb-4 text-sm uppercase tracking-wider flex items-center gap-2">
-                <Search size={ICON_SIZES.md} />
-                Popular Searches
-              </h3>
-              <ul className="space-y-2 text-sm">
-                <li>
-                  <Link href="/search?neighborhood=Borrowdale&city=Harare&type=rent" className="text-[#495057] hover:text-[#212529] hover:underline transition-colors">
-                    Borrowdale Apartments
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/search?neighborhood=Avondale&city=Harare&type=rent" className="text-[#495057] hover:text-[#212529] hover:underline transition-colors">
-                    Avondale Rentals
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/search?neighborhood=Mount Pleasant&city=Harare&type=rent" className="text-[#495057] hover:text-[#212529] hover:underline transition-colors">
-                    Mount Pleasant Houses
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/search?min_price=0&max_price=30000&type=rent" className="text-[#495057] hover:text-[#212529] hover:underline transition-colors">
-                    Affordable Rentals
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/areas" className="text-[#212529] font-semibold hover:underline transition-colors">
-                    All Neighborhoods →
-                  </Link>
-                </li>
-              </ul>
             </div>
           </div>
         </div>
