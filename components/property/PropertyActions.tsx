@@ -1,18 +1,25 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { Heart, Share2 } from 'lucide-react'
+import { Heart } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import { toast } from 'sonner'
 import { ICON_SIZES } from '@/lib/constants'
+import SocialShareButtons from './SocialShareButtons'
 
 interface PropertyActionsProps {
   propertyId: string
   propertyTitle: string
+  propertyDescription?: string
   initialSaved?: boolean
 }
 
-export default function PropertyActions({ propertyId, propertyTitle, initialSaved = false }: PropertyActionsProps) {
+export default function PropertyActions({ 
+  propertyId, 
+  propertyTitle, 
+  propertyDescription,
+  initialSaved = false 
+}: PropertyActionsProps) {
   const [isSaved, setIsSaved] = useState(initialSaved)
   const [isLoading, setIsLoading] = useState(false)
   const supabase = createClient()
@@ -58,34 +65,13 @@ export default function PropertyActions({ propertyId, propertyTitle, initialSave
     }
   }
 
-  const handleShare = async () => {
-    const url = window.location.href
-    
-    if (navigator.share) {
-      try {
-        await navigator.share({
-          title: propertyTitle,
-          text: `Check out this property: ${propertyTitle}`,
-          url,
-        })
-      } catch (error) {
-        // User cancelled share
-      }
-    } else {
-      await navigator.clipboard.writeText(url)
-      toast.success('Link copied to clipboard!')
-    }
-  }
-
   return (
-    <div className="flex gap-2">
-      <button
-        onClick={handleShare}
-        className="bg-white p-2 rounded-full shadow-lg hover:bg-[#F8F9FA] transition-colors"
-        aria-label="Share property"
-      >
-        <Share2 size={ICON_SIZES.lg} className="text-black" />
-      </button>
+    <div className="flex gap-2 items-center">
+      <SocialShareButtons 
+        title={propertyTitle}
+        url={typeof window !== 'undefined' ? window.location.href : ''}
+        description={propertyDescription}
+      />
       <button
         onClick={handleSave}
         disabled={isLoading}

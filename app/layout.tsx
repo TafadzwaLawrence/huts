@@ -6,6 +6,7 @@ import './globals.css'
 import { Navbar } from '@/components/layout/Navbar'
 import { NavbarSkeleton } from '@/components/layout/NavbarSkeleton'
 import { Footer } from '@/components/layout/Footer'
+import OrganizationStructuredData from '@/components/layout/OrganizationStructuredData'
 import FloatingChatWidget from '@/components/chat/FloatingChatWidget'
 import { Toaster } from 'sonner'
 import { NProgressProvider } from '@/components/providers/NProgressProvider'
@@ -57,10 +58,23 @@ export const metadata: Metadata = {
     type: 'website',
     title: 'Huts — Find Your Perfect Rental in Zimbabwe',
     description: 'Find apartments, houses, and rooms for rent or sale across Zimbabwe. Browse verified properties in Harare, Bulawayo, and beyond. Your home is waiting.',
+    url: 'https://www.huts.co.zw',
+    images: [
+      {
+        url: 'https://www.huts.co.zw/opengraph-image',
+        width: 1200,
+        height: 630,
+        alt: 'Huts - Zimbabwe\'s Property Marketplace',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
     site: '@huts',
+    title: 'Huts — Find Your Perfect Rental in Zimbabwe',
+    description: 'Find apartments, houses, and rooms for rent or sale across Zimbabwe. Browse verified properties in Harare, Bulawayo, and beyond.',
+    creator: '@huts',
+    images: ['https://www.huts.co.zw/opengraph-image'],
   },
   verification: {
     google: '07HgtmO-cprVsWu7EANqo69fkJRo85EndexJLMzznlQ',
@@ -87,6 +101,9 @@ export default async function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className} suppressHydrationWarning>
+        {/* JSON-LD Structured Data for Organization */}
+        <OrganizationStructuredData />
+        
         <Suspense fallback={null}>
             <NProgressProvider>
               {!isAdminRoute && (

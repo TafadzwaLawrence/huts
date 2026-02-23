@@ -375,6 +375,7 @@ export interface PropertyCardProps {
   city: string
   beds: number
   baths: number
+  sqft?: number | null
   imageUrl?: string
   listingType?: 'rent' | 'sale'
   logoSrc?: string
@@ -391,6 +392,7 @@ export function propertyCard({
   city,
   beds,
   baths,
+  sqft,
   imageUrl,
   listingType,
   logoSrc,
@@ -499,6 +501,12 @@ export function propertyCard({
           <span style={{ display: 'flex' }}>•</span>
           <span style={{ display: 'flex' }}>{beds} bed</span>
           <span style={{ display: 'flex' }}>•</span>
+          {sqft && (
+            <>
+              <span style={{ display: 'flex' }}>•</span>
+              <span style={{ display: 'flex' }}>{sqft.toLocaleString()} sqft</span>
+            </>
+          )}
           <span style={{ display: 'flex' }}>{baths} bath</span>
         </div>
       </div>

@@ -13,6 +13,8 @@ import { formatPrice, formatSalePrice } from '@/lib/utils'
 import PropertyGallery from '@/components/property/PropertyGallery'
 import PropertyActions from '@/components/property/PropertyActions'
 import InquiryForm from '@/components/property/InquiryForm'
+import PropertyStructuredData from '@/components/property/PropertyStructuredData'
+import BreadcrumbStructuredData from '@/components/property/BreadcrumbStructuredData'
 
 // ISR - Revalidate every 60 seconds for fresh data
 export const revalidate = 60
@@ -57,7 +59,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     // First try by slug
     let { data: property } = await supabase
       .from('properties')
-      .select('title, description, city, price, sale_price, listing_type, beds, baths, property_type, property_images(url)')
+      .select('title, description, city, price, sale_price, listing_type, beds, baths, property_type, property_images(url), created_at, updated_at, published_at')
       .eq('slug', slug)
       .single()
 
@@ -65,7 +67,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     if (!property) {
       const result = await supabase
         .from('properties')
-        .select('title, description, city, price, sale_price, listing_type, beds, baths, property_type, property_images(url)')
+        .select('title, description, city, price, sale_price, listing_type, beds, baths, property_type, property_images(url), created_at, updated_at, published_at')
         .eq('id', slug)
         .single()
       property = result.data
@@ -85,6 +87,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       : formatPrice(property.price) + '/month'
     const listingType = isSale ? 'For Sale' : 'For Rent'
 
+    // Build compelling description for social sharing
     const descriptionParts = [
       `${listingType}: ${property.beds} bed, ${property.baths} bath ${property.property_type || 'property'} in ${property.city}, Zimbabwe.`,
       priceDisplay + '.',
@@ -94,26 +97,62 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     }
     const description = descriptionParts.join(' ')
 
+    // Shorter description for Twitter (200 char limit)
+    const twitterDescription = `${listingType}: ${property.beds} bed, ${property.baths} bath in ${property.city}. ${priceDisplay}`
+
+    // Property type for better categorization
+    const propertyTypeDisplay = property.property_type
+      ? property.property_type.charAt(0).toUpperCase() + property.property_type.slice(1)
+      : 'Property'
+
     return {
       title: `${property.title}`,
       description,
       openGraph: {
         title: `${property.title} | Huts`,
-        description: `${listingType}: ${property.beds} bed, ${property.baths} bath in ${property.city}. ${priceDisplay}`,
+        description,
         type: 'article',
         url: `https://www.huts.co.zw/property/${slug}`,
-        images: property.property_images?.[0]?.url ? [{
-          url: property.property_images[0].url,
-          width: 1200,
-          height: 630,
-          alt: property.title,
-        }] : [],
+        siteName: 'Huts',
+        locale: 'en_ZW',
+        images: [
+          {
+            url: `https://www.huts.co.zw/property/${slug}/opengraph-image`,
+            width: 1200,
+            height: 630,
+            alt: `${property.title} - ${property.city}, Zimbabwe`,
+          },
+        ],
+        // Article-specific tags for Facebook
+        publishedTime: property.published_at || property.created_at,
+        modifiedTime: property.updated_at,
+        authors: ['Huts Zimbabwe'],
+        section: isSale ? 'Properties for Sale' : 'Properties for Rent',
+        tags: [
+          property.city,
+          `${property.beds} bedroom`,
+          propertyTypeDisplay,
+          isSale ? 'For Sale' : 'For Rent',
+          'Zimbabwe Real Estate',
+          'Property Listing',
+        ],
       },
       twitter: {
         card: 'summary_large_image',
         title: `${property.title} | Huts`,
-        description: `${listingType}: ${property.beds} bed, ${property.baths} bath in ${property.city}. ${priceDisplay}`,
-        ...(property.property_images?.[0]?.url && { images: [property.property_images[0].url] }),
+        description: twitterDescription,
+        site: '@huts',
+        creator: '@huts',
+        images: [`https://www.huts.co.zw/property/${slug}/opengraph-image`],
+      },
+      // Additional metadata for other platforms
+      other: {
+        // Pinterest-specific
+        'pinterest:description': description,
+        'pinterest:media': `https://www.huts.co.zw/property/${slug}/opengraph-image`,
+        // WhatsApp uses OG tags but we can add extra context
+        'al:android:url': `huts://property/${slug}`, // Deep link for future app
+        'al:ios:url': `huts://property/${slug}`,
       },
       alternates: {
         canonical: `https://www.huts.co.zw/property/${slug}`,
@@ -191,6 +230,23 @@ export default async function PropertyPage({ params }: { params: Promise<{ slug:
 
   return (
     <div className="min-h-screen bg-white">
+      {/* JSON-LD Structured Data for SEO */}
+      <PropertyStructuredData property={property} slug={slug} />
+      <BreadcrumbStructuredData
+        items={[
+          { name: 'Home', url: 'https://www.huts.co.zw' },
+          { name: 'Search', url: 'https://www.huts.co.zw/search' },
+          {
+            name: property.city,
+            url: `https://www.huts.co.zw/search?city=${encodeURIComponent(property.city)}`,
+          },
+          {
+            name: property.title,
+            url: `https://www.huts.co.zw/property/${slug}`,
+          },
+        ]}
+      />
+
       {/* Image Gallery */}
       <div className="relative">
         <PropertyGallery images={images} title={property.title} />
@@ -208,6 +264,7 @@ export default async function PropertyPage({ params }: { params: Promise<{ slug:
           <PropertyActions 
             propertyId={property.id} 
             propertyTitle={property.title}
+            propertyDescription={property.description || `${property.beds} bed, ${property.baths} bath ${propertyTypeDisplay} in ${property.city}, Zimbabwe`}
           />
         </div>
       </div>

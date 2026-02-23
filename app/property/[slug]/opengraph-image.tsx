@@ -15,14 +15,14 @@ export default async function Image({ params }: { params: Promise<{ slug: string
   // Fetch property by slug then ID
   let { data: property } = await supabase
     .from('properties')
-    .select('title, price, sale_price, listing_type, city, beds, baths, property_images(url)')
+    .select('title, price, sale_price, listing_type, city, beds, baths, sqft, property_images(url)')
     .eq('slug', slug)
     .single()
 
   if (!property) {
     const result = await supabase
       .from('properties')
-      .select('title, price, sale_price, listing_type, city, beds, baths, property_images(url)')
+      .select('title, price, sale_price, listing_type, city, beds, baths, sqft, property_images(url)')
       .eq('id', slug)
       .single()
     property = result.data
@@ -53,6 +53,7 @@ export default async function Image({ params }: { params: Promise<{ slug: string
       city: property.city,
       beds: property.beds,
       baths: property.baths,
+      sqft: property.sqft,
       imageUrl: property.property_images?.[0]?.url,
       listingType: property.listing_type as 'rent' | 'sale',
       logoSrc,
