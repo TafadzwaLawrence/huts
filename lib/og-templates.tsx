@@ -407,7 +407,7 @@ export function propertyCard({
         fontFamily: f.family,
       }}
     >
-      {/* Background image or fallback */}
+      {/* Background image or beautiful fallback */}
       {imageUrl ? (
         <img
           src={imageUrl}
@@ -415,12 +415,56 @@ export function propertyCard({
           alt=""
         />
       ) : (
+        /* Beautiful branded background when no image */
         <div
-          style={{ background: c.lightGray, width: '100%', height: '100%', display: 'flex' }}
-        />
+          style={{
+            background: `linear-gradient(135deg, ${c.charcoal} 0%, ${c.pureBlack} 100%)`,
+            width: '100%',
+            height: '100%',
+            display: 'flex',
+            position: 'relative',
+          }}
+        >
+          {/* Decorative radial gradients */}
+          <div
+            style={{
+              position: 'absolute',
+              top: 0,
+              right: 0,
+              width: '50%',
+              height: '50%',
+              background:
+                'radial-gradient(circle at 100% 0%, rgba(255,255,255,0.08) 0%, transparent 60%)',
+              display: 'flex',
+            }}
+          />
+          <div
+            style={{
+              position: 'absolute',
+              bottom: 0,
+              left: 0,
+              width: '50%',
+              height: '50%',
+              background:
+                'radial-gradient(circle at 0% 100%, rgba(255,255,255,0.08) 0%, transparent 60%)',
+              display: 'flex',
+            }}
+          />
+          {/* Subtle grid pattern */}
+          <div
+            style={{
+              position: 'absolute',
+              inset: 0,
+              backgroundImage: `linear-gradient(${c.lightGray}33 1px, transparent 1px), linear-gradient(90deg, ${c.lightGray}33 1px, transparent 1px)`,
+              backgroundSize: '100px 100px',
+              opacity: 0.05,
+              display: 'flex',
+            }}
+          />
+        </div>
       )}
 
-      <BottomGradient />
+      <BottomGradient height={imageUrl ? '60%' : '40%'} />
 
       {/* Content overlay */}
       <div
@@ -432,7 +476,7 @@ export function propertyCard({
           padding: BRAND.spacing['2xl'],
           display: 'flex',
           flexDirection: 'column',
-          justifyContent: 'flex-end',
+          justifyContent: imageUrl ? 'flex-end' : 'center',
         }}
       >
         {/* Listing type badge */}
@@ -441,14 +485,15 @@ export function propertyCard({
             style={{
               background: listingType === 'rent' ? c.charcoal : c.pureBlack,
               color: c.pureWhite,
-              fontSize: 18,
+              fontSize: imageUrl ? 18 : 22,
               fontWeight: f.weights.semibold,
-              padding: '6px 16px',
+              padding: imageUrl ? '6px 16px' : '10px 24px',
               borderRadius: BRAND.radius.sm,
               alignSelf: 'flex-start',
-              marginBottom: 12,
+              marginBottom: imageUrl ? 12 : 20,
               letterSpacing: '0.05em',
               display: 'flex',
+              border: imageUrl ? 'none' : `2px solid ${c.pureWhite}33`,
             }}
           >
             FOR {listingType === 'rent' ? 'RENT' : 'SALE'}
@@ -458,15 +503,16 @@ export function propertyCard({
         {/* Price badge — matches homepage card price pill */}
         <div
           style={{
-            background: 'rgba(255, 255, 255, 0.95)',
+            background: imageUrl ? 'rgba(255, 255, 255, 0.95)' : c.pureWhite,
             color: c.charcoal,
-            fontSize: 42,
+            fontSize: imageUrl ? 42 : 56,
             fontWeight: f.weights.bold,
-            padding: '16px 24px',
+            padding: imageUrl ? '16px 24px' : '20px 32px',
             borderRadius: BRAND.radius.lg,
             alignSelf: 'flex-start',
-            marginBottom: 16,
+            marginBottom: imageUrl ? 16 : 24,
             display: 'flex',
+            boxShadow: imageUrl ? 'none' : '0 4px 20px rgba(0,0,0,0.1)',
           }}
         >
           {price}
@@ -475,14 +521,15 @@ export function propertyCard({
         {/* Title */}
         <div
           style={{
-            fontSize: 48,
+            fontSize: imageUrl ? 48 : 52,
             fontWeight: f.weights.bold,
             color: c.pureWhite,
-            marginBottom: 12,
+            marginBottom: imageUrl ? 12 : 20,
             lineHeight: 1.2,
             maxWidth: '90%',
             overflow: 'hidden',
             display: 'flex',
+            textShadow: imageUrl ? '0 2px 12px rgba(0,0,0,0.3)' : 'none',
           }}
         >
           {title}
@@ -491,23 +538,24 @@ export function propertyCard({
         {/* Location + specs — matches homepage property card details row */}
         <div
           style={{
-            fontSize: 28,
-            color: c.lightGray,
+            fontSize: imageUrl ? 28 : 32,
+            color: imageUrl ? c.lightGray : c.offWhite,
             display: 'flex',
             gap: 24,
+            flexWrap: 'wrap',
           }}
         >
           <span style={{ display: 'flex' }}>{city}, Zimbabwe</span>
           <span style={{ display: 'flex' }}>•</span>
           <span style={{ display: 'flex' }}>{beds} bed</span>
           <span style={{ display: 'flex' }}>•</span>
+          <span style={{ display: 'flex' }}>{baths} bath</span>
           {sqft && (
             <>
               <span style={{ display: 'flex' }}>•</span>
               <span style={{ display: 'flex' }}>{sqft.toLocaleString()} sqft</span>
             </>
           )}
-          <span style={{ display: 'flex' }}>{baths} bath</span>
         </div>
       </div>
 

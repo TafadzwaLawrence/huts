@@ -2,7 +2,9 @@
 
 import { useState, useMemo } from 'react'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
+import { createClient } from '@/lib/supabase/client'
 import { 
   Building2, 
   Eye, 
@@ -28,6 +30,7 @@ import {
   BarChart3,
   Search,
   Filter,
+  Trash2,
 } from 'lucide-react'
 import { ICON_SIZES } from '@/lib/constants'
 
@@ -39,12 +42,15 @@ type TypeFilter = 'all' | 'rent' | 'sale'
 type VerificationFilter = 'all' | 'pending' | 'approved' | 'rejected'
 
 export default function MyPropertiesList({ properties }: { properties: PropertyWithStats[] }) {
+  const router = useRouter()
   const [statusFilter, setStatusFilter] = useState<StatusFilter>('all')
   const [typeFilter, setTypeFilter] = useState<TypeFilter>('all')
   const [verificationFilter, setVerificationFilter] = useState<VerificationFilter>('all')
   const [sortBy, setSortBy] = useState<SortOption>('newest')
   const [searchQuery, setSearchQuery] = useState('')
   const [resendingId, setResendingId] = useState<string | null>(null)
+  const [deleteConfirm, setDeleteConfirm] = useState<{ id: string; title: string } | null>(null)
+  const [deleting, setDeleting] = useState(false)
 
   const resendVerification = async (propertyId: string) => {
     setResendingId(propertyId)
@@ -66,6 +72,29 @@ export default function MyPropertiesList({ properties }: { properties: PropertyW
       toast.error('Failed to resend verification email')
     } finally {
       setResendingId(null)
+    }
+  }
+
+  const handleDelete = async (propertyId: string) => {
+    setDeleting(true)
+    try {
+      const supabase = createClient()
+      const { error } = await supabase
+        .from('properties')
+        .delete()
+        .eq('id', propertyId)
+      
+      if (error) throw error
+      
+      toast.success('Property deleted successfully')
+      setDeleteConfirm(null)
+      // Refresh the page to show updated list
+      router.refresh()
+    } catch (error: any) {
+      console.error('[Delete] Error:', error)
+      toast.error(error.message || 'Failed to delete property')
+    } finally {
+      setDeleting(false)
     }
   }
 
@@ -536,6 +565,13 @@ export default function MyPropertiesList({ properties }: { properties: PropertyW
                         >
                           <ExternalLink size={ICON_SIZES.sm} />
                         </Link>
+                        <button
+                          onClick={() => setDeleteConfirm({ id: property.id, title: property.title })}
+                          className="p-2 text-[#495057] hover:text-[#FF6B6B] hover:bg-[#FF6B6B]/10 rounded-lg transition-all border border-[#E9ECEF] hover:border-[#FF6B6B]/30"
+                          title="Delete property"
+                        >
+                          <Trash2 size={ICON_SIZES.sm} />
+                        </button>
                         <Link
                           href={`/dashboard/edit-property/${property.id}`}
                           className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-semibold text-white bg-[#212529] hover:bg-black rounded-lg transition-all"
@@ -550,6 +586,49 @@ export default function MyPropertiesList({ properties }: { properties: PropertyW
               </div>
             )
           })}
+        </div>
+      )}
+
+      {/* Delete Confirmation Modal */}
+      {deleteConfirm && (
+        <div 
+          className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4" 
+          onClick={() => setDeleteConfirm(null)}
+        >
+          <div 
+            className="bg-white rounded-2xl p-6 max-w-sm w-full shadow-xl animate-in fade-in zoom-in-95 duration-200" 
+            onClick={e => e.stopPropagation()}
+          >
+            <div className="w-12 h-12 rounded-full bg-[#FF6B6B]/10 flex items-center justify-center mx-auto mb-4">
+              <Trash2 size={20} className="text-[#FF6B6B]" />
+            </div>
+            <h3 className="text-lg font-bold text-[#212529] text-center mb-2">Delete this property?</h3>
+            <p className="text-sm text-[#495057] text-center mb-1 font-semibold">
+              {deleteConfirm.title}
+            </p>
+            <p className="text-xs text-[#ADB5BD] text-center mb-6">
+              This will permanently remove the listing, images, reviews, and analytics. This cannot be undone.
+            </p>
+            <div className="flex gap-3">
+              <button
+                type="button"
+                onClick={() => setDeleteConfirm(null)}
+                disabled={deleting}
+                className="flex-1 px-4 py-2.5 border-2 border-[#E9ECEF] text-[#212529] rounded-xl text-sm font-semibold hover:border-[#212529] transition-colors disabled:opacity-50"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                onClick={() => handleDelete(deleteConfirm.id)}
+                disabled={deleting}
+                className="flex-1 px-4 py-2.5 bg-[#FF6B6B] text-white rounded-xl text-sm font-semibold hover:bg-red-500 transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
+              >
+                {deleting ? <Loader2 size={16} className="animate-spin" /> : <Trash2 size={16} />}
+                {deleting ? 'Deleting...' : 'Delete'}
+              </button>
+            </div>
+          </div>
         </div>
       )}
     </div>

@@ -12,18 +12,22 @@ export default async function Image({ params }: { params: Promise<{ slug: string
   const { slug } = await params
   const supabase = createStaticClient()
 
-  // Fetch property by slug then ID
+  // Fetch property by slug then ID (with properly ordered images)
   let { data: property } = await supabase
     .from('properties')
-    .select('title, price, sale_price, listing_type, city, beds, baths, sqft, property_images(url)')
+    .select('title, price, sale_price, listing_type, city, beds, baths, sqft, property_images(url, is_primary, order)')
     .eq('slug', slug)
+    .order('is_primary', { ascending: false, referencedTable: 'property_images' })
+    .order('order', { ascending: true, referencedTable: 'property_images' })
     .single()
 
   if (!property) {
     const result = await supabase
       .from('properties')
-      .select('title, price, sale_price, listing_type, city, beds, baths, sqft, property_images(url)')
+      .select('title, price, sale_price, listing_type, city, beds, baths, sqft, property_images(url, is_primary, order)')
       .eq('id', slug)
+      .order('is_primary', { ascending: false, referencedTable: 'property_images' })
+      .order('order', { ascending: true, referencedTable: 'property_images' })
       .single()
     property = result.data
   }
@@ -46,6 +50,11 @@ export default async function Image({ params }: { params: Promise<{ slug: string
     ? `${formatPrice(property.price)}/mo`
     : formatSalePrice(property.sale_price)
 
+  // Get the primary image or first ordered image
+  const primaryImage = Array.isArray(property.property_images) && property.property_images.length > 0
+    ? property.property_images.find((img: any) => img.is_primary)?.url || property.property_images[0]?.url
+    : null
+
   return new ImageResponse(
     propertyCard({
       title: property.title,
@@ -54,7 +63,7 @@ export default async function Image({ params }: { params: Promise<{ slug: string
       beds: property.beds,
       baths: property.baths,
       sqft: property.sqft,
-      imageUrl: property.property_images?.[0]?.url,
+      imageUrl: primaryImage,
       listingType: property.listing_type as 'rent' | 'sale',
       logoSrc,
     }),

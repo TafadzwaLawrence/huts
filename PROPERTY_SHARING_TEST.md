@@ -7,6 +7,7 @@ https://www.huts.co.zw/property/the-sterling-ridge-estate-66a44a26
 
 ### 1. Enhanced Social Metadata
 - ✅ **Explicit OG Image**: Custom-generated image (1200×630) instead of raw property photo
+- ✅ **Beautiful Fallback**: Properties WITHOUT photos now show a stunning branded design (gradient background, professional typography)
 - ✅ **Platform-Specific Tags**: Pinterest, WhatsApp, and article metadata
 - ✅ **Better Descriptions**: Optimized for each platform's character limits
 - ✅ **Article Tags**: Published time, modified time, tags for Facebook
@@ -83,6 +84,54 @@ https://www.huts.co.zw/property/the-sterling-ridge-estate-66a44a26
 - ✅ Native share sheet opens (if supported)
 - ✅ Fallback to dropdown if not supported
 - ✅ All major apps appear in share options
+
+---
+
+## 🎨 Share Preview Examples
+
+### Property WITH Photo
+When a property has images, the share preview shows:
+```
+┌─────────────────────────────────────────┐
+│ [Beautiful Property Photo]               │
+│ + Price Badge: "$800/mo"                 │
+│ + "HUTS" Logo (top-right)               │
+├─────────────────────────────────────────┤
+│ The Sterling Ridge Estate | Huts        │
+│ For Rent: 3 bed, 2 bath house in       │
+│ Harare, Zimbabwe. $800/month.           │
+└─────────────────────────────────────────┘
+```
+
+### Property WITHOUT Photo (NEW IMPROVEMENT!)
+**No more ugly gray boxes!** Properties without photos get a stunning branded design:
+```
+┌─────────────────────────────────────────┐
+│ [Gradient: Charcoal → Black]            │
+│ + Subtle Patterns & Radial Highlights   │
+│ + "HUTS" Logo (top-right)               │
+│                                         │
+│   FOR RENT                              │
+│   ┌──────────────┐                      │
+│   │  $1.2K/mo    │  ← Large Price      │
+│   └──────────────┘                      │
+│                                         │
+│   15 Roomed Lodge  ← Bold Title        │
+│   Harare, Zimbabwe • 15 bed • 10 bath  │
+└─────────────────────────────────────────┘
+```
+
+**Features of the fallback design:**
+- ✅ Professional gradient background (charcoal to black)
+- ✅ Subtle decorative patterns and radial glows
+- ✅ Extra-large price display with shadow
+- ✅ Prominent property title (52px instead of 48px)
+- ✅ All details in crisp white text
+- ✅ Huts branding always visible
+- ✅ Share-worthy design landlords will be proud of!
+
+**Test this design:**
+- https://www.huts.co.zw/property/15-roomed-lodge-075cfda8
 
 ---
 
