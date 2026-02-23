@@ -206,7 +206,7 @@ export default async function HomePage() {
           <div className="max-w-5xl mx-auto">
             {/* Headline */}
             <div className="text-center mb-12">
-              <h1 className="text-hero mb-6">
+              <h1 className="text-hero mb-6 text-black">
                 Find your
                 <span className="relative mx-3">
                   <span className="relative z-10">perfect</span>
