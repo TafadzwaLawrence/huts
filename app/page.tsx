@@ -216,10 +216,10 @@ export default async function HomePage() {
                 </span>
                 home
               </h1>
-              <p className="text-lg md:text-xl lg:text-2xl text-[#212529] max-w-2xl mx-auto leading-relaxed">
+              <p className="text-lg md:text-xl lg:text-2xl text-[#495057] max-w-2xl mx-auto leading-relaxed">
                 The simplest way to discover rental properties or homes for sale.
                 <span className="hidden sm:inline"><br /></span>
-                <span className="text-[#495057]">No clutter, no noise — just homes.</span>
+                <span className="text-[#ADB5BD]">No clutter, no noise — just homes.</span>
               </p>
             </div>
             
@@ -336,10 +336,10 @@ export default async function HomePage() {
                 <Home size={ICON_SIZES.sm} className="text-[#495057]" />
                 <span className="text-[10px] font-bold text-[#495057] uppercase tracking-widest">For Rent</span>
               </div>
-              <h2 className="text-section-title mb-3">
+              <h2 className="text-section-title mb-3 text-black">
                 Featured Rentals
               </h2>
-              <p className="text-[#212529] text-base md:text-lg max-w-md">
+              <p className="text-[#495057] text-base md:text-lg max-w-md">
                 Hand-picked listings reviewed and updated daily
               </p>
             </div>
@@ -507,8 +507,8 @@ export default async function HomePage() {
           {/* Section Header */}
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6 mb-12">
             <div>
-              <h2 className="text-section-title mb-2">Homes for Sale</h2>
-              <p className="text-[#212529] text-base md:text-lg">Find your dream home and make it yours</p>
+              <h2 className="text-section-title mb-2 text-black">Homes for Sale</h2>
+              <p className="text-[#495057] text-base md:text-lg">Find your dream home and make it yours</p>
             </div>
             <Link
               href="/search?type=sale"
