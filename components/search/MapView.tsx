@@ -35,8 +35,12 @@ function formatMarkerPrice(cents: number, isSale: boolean): string {
   const dollars = cents / 100
   if (isSale) {
     if (dollars >= 1_000_000) return `$${(dollars / 1_000_000).toFixed(1)}M`
-    if (dollars >= 1_000) return `$${Math.round(dollars / 1_000)}K`
+    if (dollars >= 100_000) return `$${Math.round(dollars / 1_000)}K`
+    if (dollars >= 1_000) return `$${(dollars / 1_000).toFixed(0)}K`
+    return `$${Math.round(dollars)}`
   }
+  // For rent
+  if (dollars >= 10_000) return `$${(dollars / 1_000).toFixed(1)}K`
   if (dollars >= 1_000) return `$${(dollars / 1_000).toFixed(1)}K`
   return `$${Math.round(dollars)}`
 }
@@ -61,6 +65,9 @@ export default function MapView({ properties, selectedProperty, onPropertySelect
       center: [-17.8252, 31.0335],
       zoom: 12,
       zoomControl: true,
+      zoomAnimation: true,
+      fadeAnimation: true,
+      markerZoomAnimation: true,
     })
 
     L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
@@ -74,6 +81,8 @@ export default function MapView({ properties, selectedProperty, onPropertySelect
       maxClusterRadius: 60,
       spiderfyOnMaxZoom: true,
       disableClusteringAtZoom: 16,
+      animate: true,
+      animateAddingMarkers: true,
       iconCreateFunction: (cluster) => {
         const count = cluster.getChildCount()
         const size = count < 10 ? 'small' : count < 50 ? 'medium' : 'large'
@@ -96,7 +105,8 @@ export default function MapView({ properties, selectedProperty, onPropertySelect
     checkZoom()
     map.on('zoomend', checkZoom)
 
-    map.on('moveend', () => {
+    // Send initial bounds immediately
+    const sendBounds = () => {
       const cb = onBoundsChangeRef.current
       if (!cb) return
       const bounds = map.getBounds()
@@ -106,9 +116,29 @@ export default function MapView({ properties, selectedProperty, onPropertySelect
         east: bounds.getEast(),
         west: bounds.getWest(),
       })
+    }
+
+    // Send bounds on map move with slight delay for performance
+    let boundsTimeout: NodeJS.Timeout
+    map.on('movestart', () => {
+      clearTimeout(boundsTimeout)
+    })
+    map.on('moveend', () => {
+      clearTimeout(boundsTimeout)
+      boundsTimeout = setTimeout(sendBounds, 100)
+    })
+    map.on('zoomend', () => {
+      clearTimeout(boundsTimeout)
+      boundsTimeout = setTimeout(sendBounds, 100)
+    })
+
+    // Send initial bounds after map is ready
+    map.whenReady(() => {
+      setTimeout(() => sendBounds(), 200)
     })
 
     return () => {
+      clearTimeout(boundsTimeout)
       map.off()
       map.remove()
       mapRef.current = null
@@ -137,7 +167,7 @@ export default function MapView({ properties, selectedProperty, onPropertySelect
 
       const icon = L.divIcon({
         className: 'price-marker',
-        html: `<div class="pm ${isSelected ? 'pm-active' : ''}">${priceLabel}</div>`,
+        html: `<div class="pm ${isSelected ? 'pm-active' : ''} ${isSale ? 'pm-sale' : 'pm-rent'}">${priceLabel}</div>`,
         iconSize: [0, 0],
         iconAnchor: [0, 0],
       })
@@ -191,34 +221,85 @@ export default function MapView({ properties, selectedProperty, onPropertySelect
       )}
 
       <style jsx global>{`
-        .price-marker { background: transparent; border: none; }
+        /* Price markers */
+        .price-marker { 
+          background: transparent; 
+          border: none;
+        }
         .pm {
           background: #fff;
           color: #212529;
-          font-size: 12px;
+          font-size: 13px;
           font-weight: 700;
-          padding: 4px 8px;
-          border-radius: 8px;
-          border: 1.5px solid #E9ECEF;
+          padding: 6px 12px;
+          border-radius: 20px;
+          border: 2px solid #212529;
           white-space: nowrap;
-          box-shadow: 0 1px 4px rgba(0,0,0,0.12);
+          box-shadow: 0 2px 8px rgba(33, 37, 41, 0.15), 0 1px 3px rgba(33, 37, 41, 0.1);
           cursor: pointer;
-          transition: all 0.15s;
+          transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
           transform: translate(-50%, -100%);
+          position: relative;
         }
-        .pm:hover, .pm-active {
+        .pm::after {
+          content: '';
+          position: absolute;
+          bottom: -6px;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 0;
+          height: 0;
+          border-left: 6px solid transparent;
+          border-right: 6px solid transparent;
+          border-top: 6px solid #212529;
+          transition: border-color 0.2s;
+        }
+        .pm:hover {
           background: #212529;
           color: #fff;
-          border-color: #212529;
+          border-color: #000;
           z-index: 1000 !important;
-          transform: translate(-50%, -100%) scale(1.1);
+          transform: translate(-50%, -100%) scale(1.15);
+          box-shadow: 0 4px 16px rgba(33, 37, 41, 0.25), 0 2px 8px rgba(33, 37, 41, 0.15);
+        }
+        .pm:hover::after {
+          border-top-color: #000;
+        }
+        .pm-active {
+          background: #212529;
+          color: #fff;
+          border-color: #000;
+          z-index: 1001 !important;
+          transform: translate(-50%, -100%) scale(1.15);
+          box-shadow: 0 4px 16px rgba(33, 37, 41, 0.3), 0 2px 8px rgba(33, 37, 41, 0.2);
+        }
+        .pm-active::after {
+          border-top-color: #000;
+        }
+        .pm-sale {
+          border-color: #0066FF;
+        }
+        .pm-sale::after {
+          border-top-color: #0066FF;
+        }
+        .pm-sale:hover,
+        .pm-sale.pm-active {
+          background: #0066FF;
+          border-color: #0052CC;
+        }
+        .pm-sale:hover::after,
+        .pm-sale.pm-active::after {
+          border-top-color: #0052CC;
         }
         
         /* Cluster markers */
-        .custom-cluster-icon { background: transparent; border: none; }
+        .custom-cluster-icon { 
+          background: transparent; 
+          border: none;
+        }
         .cluster-marker {
-          background: #fff;
-          border: 2px solid #212529;
+          background: linear-gradient(135deg, #212529 0%, #495057 100%);
+          border: 3px solid #fff;
           border-radius: 50%;
           width: 40px;
           height: 40px;
@@ -226,24 +307,60 @@ export default function MapView({ properties, selectedProperty, onPropertySelect
           align-items: center;
           justify-content: center;
           font-size: 13px;
-          font-weight: 700;
-          color: #212529;
-          box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+          font-weight: 800;
+          color: #fff;
+          box-shadow: 0 3px 12px rgba(33, 37, 41, 0.25), 0 1px 4px rgba(0, 0, 0, 0.15);
           cursor: pointer;
-          transition: all 0.2s;
+          transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .cluster-marker:hover {
-          transform: scale(1.15);
-          box-shadow: 0 3px 12px rgba(0,0,0,0.25);
+          transform: scale(1.2);
+          box-shadow: 0 5px 20px rgba(33, 37, 41, 0.35), 0 2px 8px rgba(0, 0, 0, 0.2);
+          border-width: 3.5px;
         }
-        .cluster-small { width: 36px; height: 36px; font-size: 12px; }
-        .cluster-medium { width: 44px; height: 44px; font-size: 14px; }
-        .cluster-large { width: 52px; height: 52px; font-size: 15px; border-width: 2.5px; }
+        .cluster-small { 
+          width: 36px; 
+          height: 36px; 
+          font-size: 12px;
+          border-width: 2.5px;
+        }
+        .cluster-medium { 
+          width: 48px; 
+          height: 48px; 
+          font-size: 15px;
+        }
+        .cluster-large { 
+          width: 56px; 
+          height: 56px; 
+          font-size: 17px;
+          border-width: 3.5px;
+        }
         
-        .leaflet-popup-content-wrapper { padding: 0; border-radius: 10px; overflow: hidden; }
-        .leaflet-popup-content { margin: 0; width: auto !important; }
-        .leaflet-popup-tip-container { display: none; }
-        .leaflet-container { font-family: inherit; }
+        /* Popup styling */
+        .leaflet-popup-content-wrapper { 
+          padding: 0; 
+          border-radius: 12px; 
+          overflow: hidden;
+          box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15), 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        .leaflet-popup-content { 
+          margin: 0; 
+          width: auto !important; 
+        }
+        .leaflet-popup-tip-container { 
+          display: none; 
+        }
+        .leaflet-container { 
+          font-family: inherit; 
+        }
+        .leaflet-popup-close-button {
+          color: #495057 !important;
+          font-size: 20px !important;
+          padding: 8px 10px !important;
+        }
+        .leaflet-popup-close-button:hover {
+          color: #212529 !important;
+        }
       `}</style>
     </>
   )

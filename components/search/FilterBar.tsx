@@ -26,32 +26,19 @@ interface FilterBarProps {
 function Dropdown({ label, active, children, onApply }: { label: string; active?: boolean; children: React.ReactNode; onApply?: () => void }) {
   const [open, setOpen] = useState(false)
   const ref = useRef<HTMLDivElement>(null)
-  const buttonRef = useRef<HTMLButtonElement>(null)
+  const dropdownRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const handleClick = (e: MouseEvent) => {
+      // Only close if click is outside both the button and dropdown content
       if (ref.current && !ref.current.contains(e.target as Node)) {
         setOpen(false)
       }
     }
-    document.addEventListener('mousedown', handleClick)
-    return () => document.removeEventListener('mousedown', handleClick)
-  }, [])
-
-  // Prevent body scroll when dropdown is open
-  useEffect(() => {
     if (open) {
-      const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth
-      document.body.style.paddingRight = `${scrollbarWidth}px`
-      document.body.style.overflow = 'hidden'
-    } else {
-      document.body.style.paddingRight = ''
-      document.body.style.overflow = ''
+      document.addEventListener('mousedown', handleClick)
     }
-    return () => {
-      document.body.style.paddingRight = ''
-      document.body.style.overflow = ''
-    }
+    return () => document.removeEventListener('mousedown', handleClick)
   }, [open])
 
   const handleDone = () => {
@@ -60,46 +47,48 @@ function Dropdown({ label, active, children, onApply }: { label: string; active?
   }
 
   return (
-    <>
-      {/* Backdrop */}
+    <div ref={ref} className="relative">
+      {/* Backdrop - positioned behind dropdown but above other content */}
       {open && (
         <div
-          className="fixed inset-0 bg-black/20 z-[100]"
-          onClick={() => setOpen(false)}
+          className="fixed inset-0 bg-black/20 z-[998]"
+          style={{ pointerEvents: 'none' }}
         />
       )}
       
-      <div ref={ref} className="relative">
-        <button
-          ref={buttonRef}
-          onClick={() => setOpen(!open)}
-          className={`inline-flex items-center gap-1 px-3 py-1.5 text-xs font-semibold rounded-lg border transition-all ${
-            active
-              ? 'bg-[#212529] text-white border-[#212529]'
-              : 'bg-white text-[#212529] border-[#E9ECEF] hover:border-[#212529]'
-          }`}
+      <button
+        onClick={() => setOpen(!open)}
+        className={`inline-flex items-center gap-1 px-3 py-1.5 text-xs font-semibold rounded-lg border transition-all ${
+          active
+            ? 'bg-[#212529] text-white border-[#212529]'
+            : 'bg-white text-[#212529] border-[#E9ECEF] hover:border-[#212529]'
+        }`}
+      >
+        {label}
+        <ChevronDown size={ICON_SIZES.sm} className={`transition-transform ${open ? 'rotate-180' : ''}`} />
+      </button>
+      
+      {open && (
+        <div 
+          ref={dropdownRef}
+          className="absolute top-full left-0 mt-2 bg-white rounded-xl border border-[#E9ECEF] shadow-2xl z-[999] min-w-[280px] animate-fade-in"
+          style={{ pointerEvents: 'auto' }}
         >
-          {label}
-          <ChevronDown size={ICON_SIZES.sm} className={`transition-transform ${open ? 'rotate-180' : ''}`} />
-        </button>
-        {open && (
-          <div className="absolute top-full left-0 mt-2 bg-white rounded-xl border border-[#E9ECEF] shadow-2xl z-[101] min-w-[280px] animate-fade-in">
-            <div className="p-4">
-              {children}
-            </div>
-            {/* Done button */}
-            <div className="px-4 pb-4 pt-0">
-              <button
-                onClick={handleDone}
-                className="w-full py-2.5 bg-[#212529] text-white text-sm font-semibold rounded-lg hover:bg-black transition-colors"
-              >
-                Done
-              </button>
-            </div>
+          <div className="p-4">
+            {children}
           </div>
-        )}
-      </div>
-    </>
+          {/* Done button */}
+          <div className="px-4 pb-4 pt-0">
+            <button
+              onClick={handleDone}
+              className="w-full py-2.5 bg-[#212529] text-white text-sm font-semibold rounded-lg hover:bg-black transition-colors"
+            >
+              Done
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
   )
 }
 

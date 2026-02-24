@@ -1,9 +1,12 @@
+'use client'
+
 import Link from 'next/link'
 import { MapPin, Heart, Home, Camera, Sofa, Users, Zap } from 'lucide-react'
 import { PropertyWithImages, isRentalProperty, isSaleProperty, isStudentProperty } from '@/types'
 import { formatPrice, formatSalePrice } from '@/lib/utils'
 import { ICON_SIZES } from '@/lib/constants'
 import { ImageCarousel } from './ImageCarousel'
+import { useState } from 'react'
 
 interface PropertyCardProps {
   property: PropertyWithImages
@@ -11,6 +14,7 @@ interface PropertyCardProps {
 }
 
 export function PropertyCard({ property, compact = false }: PropertyCardProps) {
+  const [isNavigating, setIsNavigating] = useState(false)
   const images = property.property_images
   const sortedImages = [
     ...images.filter((img: any) => img.is_primary),
@@ -30,7 +34,22 @@ export function PropertyCard({ property, compact = false }: PropertyCardProps) {
     : null
 
   return (
-    <Link href={`/property/${property.slug || property.id}`} className="block group">
+    <Link 
+      href={`/property/${property.slug || property.id}`} 
+      className="block group relative"
+      prefetch={true}
+      onClick={() => setIsNavigating(true)}
+    >
+      {/* Loading overlay */}
+      {isNavigating && (
+        <div className="absolute inset-0 bg-white/60 backdrop-blur-[2px] z-50 flex items-center justify-center rounded-xl">
+          <div className="flex flex-col items-center gap-2">
+            <div className="w-8 h-8 border-3 border-[#212529] border-t-transparent rounded-full animate-spin" />
+            <span className="text-xs font-medium text-[#212529]">Loading...</span>
+          </div>
+        </div>
+      )}
+      
       <article className="property-card">
         {/* Image */}
         <div className={`property-card-image ${compact ? 'h-40' : ''}`}>

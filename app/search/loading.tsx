@@ -11,36 +11,57 @@ export default function SearchLoading() {
         </div>
       </div>
 
-      {/* Split screen */}
+      {/* Split screen - Map LEFT, List RIGHT (matches actual layout) */}
       <div className="flex-1 flex overflow-hidden">
-        {/* Listings panel */}
-        <div className="w-full lg:w-1/2 overflow-y-auto p-4 space-y-4">
-          {/* Results count */}
-          <div className="flex items-center justify-between mb-2">
-            <div className="h-5 w-36 bg-[#E9ECEF] rounded animate-pulse" />
-            <div className="h-8 w-28 bg-[#E9ECEF] rounded-lg animate-pulse" />
+        {/* Map skeleton - LEFT SIDE */}
+        <div className="hidden lg:block lg:w-1/2 border-r border-[#E9ECEF] bg-[#E9ECEF] animate-pulse relative">
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="text-[#ADB5BD] text-sm font-medium">Loading map...</div>
           </div>
-
-          {/* Property cards */}
-          {[1, 2, 3, 4, 5, 6].map(i => (
-            <div key={i} className="flex bg-white rounded-lg border border-[#E9ECEF] overflow-hidden">
-              <div className="w-72 h-48 bg-[#E9ECEF] animate-pulse flex-shrink-0" />
-              <div className="flex-1 p-4">
-                <div className="h-6 w-28 bg-[#E9ECEF] rounded animate-pulse mb-2" />
-                <div className="h-4 w-48 bg-[#E9ECEF] rounded animate-pulse mb-1" />
-                <div className="h-4 w-32 bg-[#E9ECEF] rounded animate-pulse mb-4" />
-                <div className="flex gap-4 pt-3 border-t border-[#F8F9FA]">
-                  <div className="h-4 w-14 bg-[#E9ECEF] rounded animate-pulse" />
-                  <div className="h-4 w-14 bg-[#E9ECEF] rounded animate-pulse" />
-                  <div className="h-4 w-14 bg-[#E9ECEF] rounded animate-pulse" />
-                </div>
-              </div>
-            </div>
-          ))}
         </div>
 
-        {/* Map skeleton */}
-        <div className="hidden lg:block lg:w-1/2 bg-[#E9ECEF] animate-pulse" />
+        {/* Listings panel - RIGHT SIDE */}
+        <div className="w-full lg:w-1/2 overflow-y-auto bg-white">
+          {/* Search as map moves toggle skeleton */}
+          <div className="px-4 py-1.5 border-b border-[#E9ECEF] bg-[#F8F9FA]/50">
+            <div className="h-3.5 w-40 bg-[#E9ECEF] rounded animate-pulse" />
+          </div>
+
+          {/* Header with sort */}
+          <div className="px-4 pt-4 pb-2 flex items-start justify-between">
+            <div>
+              <div className="h-6 w-48 bg-[#E9ECEF] rounded animate-pulse mb-1" />
+              <div className="h-4 w-24 bg-[#F8F9FA] rounded animate-pulse" />
+            </div>
+            <div className="h-8 w-32 bg-[#E9ECEF] rounded animate-pulse" />
+          </div>
+
+          {/* Property cards grid */}
+          <div className="p-4">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+              {[1, 2, 3, 4, 5, 6].map(i => (
+                <div key={i} className="animate-pulse rounded-xl overflow-hidden border border-[#E9ECEF]">
+                  {/* Image skeleton */}
+                  <div className="bg-[#E9ECEF] h-44 relative">
+                    <div className="absolute top-3 left-3 h-6 w-20 bg-white/80 rounded animate-pulse" />
+                    <div className="absolute top-3 right-3 h-9 w-9 bg-white/80 rounded-full animate-pulse" />
+                  </div>
+                  {/* Content skeleton */}
+                  <div className="p-3 space-y-2">
+                    <div className="h-5 w-24 bg-[#E9ECEF] rounded" />
+                    <div className="h-3 w-32 bg-[#F8F9FA] rounded" />
+                    <div className="h-3 w-40 bg-[#F8F9FA] rounded" />
+                    <div className="flex gap-3 pt-2 border-t border-[#F8F9FA]">
+                      <div className="h-4 w-12 bg-[#E9ECEF] rounded" />
+                      <div className="h-4 w-12 bg-[#E9ECEF] rounded" />
+                      <div className="h-4 w-12 bg-[#E9ECEF] rounded" />
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   )
