@@ -3,26 +3,24 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { MegaDropdown, type MegaDropdownSection } from './MegaDropdown'
+import { MegaDropdown, type MegaMenuItem } from './MegaDropdown'
 
 /**
- * Scroll-aware header wrapper. Adds backdrop blur + shadow on scroll.
+ * Scroll-aware header wrapper.
  */
 export function ScrollHeader({ children }: { children: React.ReactNode }) {
   const [scrolled, setScrolled] = useState(false)
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 8)
+    const handleScroll = () => setScrolled(window.scrollY > 4)
     window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
   return (
     <header
-      className={`sticky top-0 z-50 transition-[background-color,box-shadow] duration-200 bg-white ${
-        scrolled
-          ? 'shadow-[0_1px_3px_rgba(0,0,0,0.08)]'
-          : 'border-b border-[#E9ECEF]'
+      className={`sticky top-0 z-50 bg-white transition-shadow duration-200 ${
+        scrolled ? 'shadow-[0_2px_4px_rgba(0,0,0,0.1)]' : 'shadow-[0_1px_0_#e5e7eb]'
       }`}
     >
       {children}
@@ -31,7 +29,7 @@ export function ScrollHeader({ children }: { children: React.ReactNode }) {
 }
 
 /**
- * Navigation links with Zillow-style bottom-border active state.
+ * Plain navigation links with Zillow-style bottom-border active state.
  */
 interface NavLink {
   href: string
@@ -49,50 +47,50 @@ export function NavLinks({ links }: { links: NavLink[] }) {
   }
 
   return (
-    <nav className="hidden md:flex items-center h-[60px]" aria-label="Main navigation">
+    <>
       {links.map(({ href, label }) => (
         <Link
           key={href + label}
           href={href}
-          className={`relative h-full flex items-center px-3 text-sm font-semibold transition-colors duration-150 ${
+          className={`relative h-[60px] inline-flex items-center px-3 text-sm font-bold transition-colors ${
             isActive(href)
-              ? 'text-[#212529] after:absolute after:bottom-0 after:left-2 after:right-2 after:h-[3px] after:bg-[#212529] after:rounded-full'
-              : 'text-[#6B7280] hover:text-[#212529]'
+              ? 'text-[#212529] after:absolute after:bottom-0 after:inset-x-1 after:h-[3px] after:bg-[#212529] after:rounded-t'
+              : 'text-[#585858] hover:text-[#212529] hover:after:absolute hover:after:bottom-0 hover:after:inset-x-1 hover:after:h-[3px] hover:after:bg-[#E5E7EB] hover:after:rounded-t'
           }`}
         >
           {label}
         </Link>
       ))}
-    </nav>
+    </>
   )
 }
 
 /**
- * Mega-navigation with Zillow-style dropdowns and bottom-border active state.
+ * Mega-navigation with Zillow-style dropdowns.
  */
 interface MegaNavItem {
   label: string
-  sections: MegaDropdownSection[]
+  items: MegaMenuItem[]
   activePatterns?: string[]
 }
 
 export function MegaNav({ items }: { items: MegaNavItem[] }) {
   const pathname = usePathname()
-  const fullUrl = pathname + (typeof window !== 'undefined' ? window.location.search : '')
+  const fullUrl = typeof window !== 'undefined' ? pathname + window.location.search : pathname
 
   const isActive = (patterns?: string[]) =>
     patterns?.some(p => fullUrl.includes(p)) ?? false
 
   return (
-    <nav className="hidden md:flex items-center h-[60px]" aria-label="Main navigation">
+    <>
       {items.map((item) => (
         <MegaDropdown
           key={item.label}
           label={item.label}
-          sections={item.sections}
+          items={item.items}
           isActive={isActive(item.activePatterns)}
         />
       ))}
-    </nav>
+    </>
   )
 }

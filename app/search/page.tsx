@@ -205,7 +205,7 @@ export default function SearchPage() {
   const effectiveView = isMobile ? (viewMode === 'split' ? 'list' : viewMode) : viewMode
 
   return (
-    <div className="flex flex-col h-[calc(100vh-64px)]">
+    <div className="flex flex-col h-[calc(100vh-60px)]">
       {/* Filter Bar */}
       <div className="bg-white border-b border-[#E9ECEF] px-4 py-2 flex-shrink-0 relative z-[1000]">
         <div className="flex items-center gap-2">
