@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { MapPin, Bed, Bath, Square, Heart, Home, Camera, Sofa, Users, Zap } from 'lucide-react'
+import { MapPin, Heart, Home, Camera, Sofa, Users, Zap } from 'lucide-react'
 import { PropertyWithImages, isRentalProperty, isSaleProperty, isStudentProperty } from '@/types'
 import { formatPrice, formatSalePrice } from '@/lib/utils'
 import { ICON_SIZES } from '@/lib/constants'
@@ -17,6 +17,18 @@ export function PropertyCard({ property, compact = false }: PropertyCardProps) {
     ...images.filter(img => !img.is_primary),
   ]
 
+  const priceDisplay = isRentalProperty(property) && property.price
+    ? `${formatPrice(property.price)}/mo`
+    : isSaleProperty(property) && property.sale_price
+    ? formatSalePrice(property.sale_price)
+    : null
+
+  const listingLabel = isSaleProperty(property)
+    ? 'House for sale'
+    : isRentalProperty(property)
+    ? 'For rent'
+    : null
+
   return (
     <Link href={`/property/${property.slug || property.id}`} className="block group">
       <article className="property-card">
@@ -29,22 +41,6 @@ export function PropertyCard({ property, compact = false }: PropertyCardProps) {
               <Home className="text-[#ADB5BD]" size={ICON_SIZES['3xl']} />
             </div>
           )}
-          
-          {/* Price Badge */}
-          {isRentalProperty(property) && property.price ? (
-            <div className="property-card-badge group-hover:scale-105 transition-transform duration-200">
-              {formatPrice(property.price)}/mo
-            </div>
-          ) : isSaleProperty(property) && property.sale_price ? (
-            <>
-              <div className="property-card-badge group-hover:scale-105 transition-transform duration-200">
-                {formatSalePrice(property.sale_price)}
-              </div>
-              <div className="absolute top-3 left-14 bg-white/95 backdrop-blur-sm text-[#212529] px-2.5 py-1 rounded-lg text-xs font-bold shadow-md group-hover:scale-105 transition-transform duration-200">
-                FOR SALE
-              </div>
-            </>
-          ) : null}
 
           {/* Student Housing Badges */}
           {isStudentProperty(property) && (
@@ -81,39 +77,46 @@ export function PropertyCard({ property, compact = false }: PropertyCardProps) {
               e.preventDefault()
               e.stopPropagation()
             }}
-            className="absolute top-3 right-3 p-2.5 bg-white/95 backdrop-blur-sm rounded-full hover:bg-white hover:scale-110 transition-all duration-200 shadow-md hover:shadow-lg min-w-[44px] min-h-[44px] flex items-center justify-center group/save z-10"
+            className="absolute top-3 right-3 p-2 bg-white/95 backdrop-blur-sm rounded-full hover:bg-white hover:scale-110 transition-all duration-200 shadow-md hover:shadow-lg min-w-[36px] min-h-[36px] flex items-center justify-center group/save z-10"
             aria-label="Save property"
           >
-            <Heart size={ICON_SIZES.lg} className="text-[#212529] group-hover/save:fill-[#FF6B6B] group-hover/save:text-[#FF6B6B] transition-colors" />
+            <Heart size={ICON_SIZES.md} className="text-[#212529] group-hover/save:fill-[#FF6B6B] group-hover/save:text-[#FF6B6B] transition-colors" />
           </button>
         </div>
 
         {/* Content */}
-        <div className="property-card-content">
-          {/* Price + features on same line — Zillow style */}
-          <div className="flex items-baseline gap-3 mb-1">
-            <div className="property-card-features text-[#495057]">
-              <span><strong>{property.beds}</strong> bd</span>
-              <span className="text-[#ADB5BD]">|</span>
-              <span><strong>{property.baths}</strong> ba</span>
-              {property.sqft && (
-                <>
-                  <span className="text-[#ADB5BD]">|</span>
-                  <span><strong>{property.sqft.toLocaleString()}</strong> sqft</span>
-                </>
-              )}
+        <div className={compact ? 'px-3 py-2.5' : 'px-4 py-3'}>
+          {/* Price — biggest element (Zillow style) */}
+          {priceDisplay && (
+            <div className="text-lg font-bold text-[#212529] tracking-tight leading-tight mb-0.5">
+              {priceDisplay}
             </div>
+          )}
+
+          {/* Beds / Baths / Sqft inline */}
+          <div className="flex items-center gap-1 text-sm text-[#495057] mb-1">
+            <span><strong className="text-[#212529]">{property.beds}</strong> bd</span>
+            <span className="text-[#ADB5BD]">|</span>
+            <span><strong className="text-[#212529]">{property.baths}</strong> ba</span>
+            {property.sqft && property.sqft > 0 && (
+              <>
+                <span className="text-[#ADB5BD]">|</span>
+                <span><strong className="text-[#212529]">{property.sqft.toLocaleString()}</strong> sqft</span>
+              </>
+            )}
+            {listingLabel && (
+              <>
+                <span className="text-[#ADB5BD] mx-0.5">-</span>
+                <span className="text-[#495057]">{listingLabel}</span>
+              </>
+            )}
           </div>
 
-          <h3 className="text-card-title mb-1 line-clamp-1 group-hover:text-[#000] transition-colors">
-            {property.title}
-          </h3>
-          
-          <div className="flex items-center text-muted-foreground text-sm">
-            <MapPin size={ICON_SIZES.sm} className="mr-1 flex-shrink-0 text-[#ADB5BD]" />
-            <span className="line-clamp-1 text-[#495057]">
-              {property.neighborhood ? `${property.neighborhood}, ` : ''}
-              {property.city}
+          {/* Address */}
+          <div className="flex items-center text-sm text-[#495057]">
+            <MapPin size={12} className="mr-1 flex-shrink-0 text-[#ADB5BD]" />
+            <span className="line-clamp-1">
+              {property.title}, {property.neighborhood ? `${property.neighborhood}, ` : ''}{property.city}
             </span>
           </div>
         </div>

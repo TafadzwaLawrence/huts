@@ -39,7 +39,7 @@ function Dropdown({ label, active, children }: { label: string; active?: boolean
     <div ref={ref} className="relative">
       <button
         onClick={() => setOpen(!open)}
-        className={`inline-flex items-center gap-1.5 px-4 py-2 text-sm font-medium rounded-full border transition-all ${
+        className={`inline-flex items-center gap-1 px-3 py-1.5 text-xs font-semibold rounded-lg border transition-all ${
           active
             ? 'bg-[#212529] text-white border-[#212529]'
             : 'bg-white text-[#212529] border-[#E9ECEF] hover:border-[#212529]'
@@ -75,12 +75,12 @@ export function FilterBar({
       {/* Desktop filters */}
       <div className="hidden md:flex items-center gap-2 flex-wrap">
       {/* Listing Type Toggle */}
-      <div className="inline-flex items-center bg-[#F8F9FA] rounded-full p-0.5 border border-[#E9ECEF]">
+      <div className="inline-flex items-center bg-[#F8F9FA] rounded-lg p-0.5 border border-[#E9ECEF]">
         {(['all', 'rent', 'sale'] as const).map((type) => (
           <button
             key={type}
             onClick={() => onListingTypeChange(type)}
-            className={`px-4 py-1.5 text-sm font-medium rounded-full transition-all ${
+            className={`px-3 py-1 text-xs font-semibold rounded-md transition-all ${
               listingType === type
                 ? 'bg-[#212529] text-white shadow-sm'
                 : 'text-[#495057] hover:text-[#212529]'
@@ -188,45 +188,17 @@ export function FilterBar({
       </Dropdown>
 
       {/* Sort */}
-      <Dropdown label="Sort">
-        <div className="space-y-1.5">
-          {[
-            { value: 'newest', label: 'Newest' },
-            { value: 'price_asc', label: 'Price: Low to High' },
-            { value: 'price_desc', label: 'Price: High to Low' },
-            { value: 'beds_desc', label: 'Bedrooms' },
-            { value: 'sqft_desc', label: 'Square Feet' },
-          ].map((opt) => (
-            <button
-              key={opt.value}
-              onClick={() => onSortChange(opt.value)}
-              className={`block w-full text-left px-3 py-2 text-sm rounded-lg transition-all ${
-                sort === opt.value
-                  ? 'bg-[#212529] text-white'
-                  : 'text-[#495057] hover:bg-[#F8F9FA]'
-              }`}
-            >
-              {opt.label}
-            </button>
-          ))}
-        </div>
-      </Dropdown>
 
       {/* Clear Filters */}
       {hasActiveFilters && (
         <button
           onClick={onClearFilters}
-          className="inline-flex items-center gap-1 px-3 py-2 text-sm text-[#495057] hover:text-[#212529] transition-colors"
+          className="inline-flex items-center gap-1 px-2.5 py-1.5 text-xs text-[#495057] hover:text-[#212529] transition-colors"
         >
-          <X size={ICON_SIZES.sm} />
+          <X size={12} />
           Clear
         </button>
       )}
-
-      {/* Result Count */}
-      <div className="ml-auto text-sm text-[#495057]">
-        <span className="font-semibold text-[#212529]">{resultCount.toLocaleString()}</span> results
-      </div>
     </div>
 
       {/* Mobile compact filter bar */}
