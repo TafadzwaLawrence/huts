@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useCallback } from 'react'
+import { useEffect, useRef } from 'react'
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 
@@ -42,19 +42,13 @@ export default function MapView({ properties, selectedProperty, onPropertySelect
   const mapRef = useRef<L.Map | null>(null)
   const mapContainerRef = useRef<HTMLDivElement>(null)
   const markersRef = useRef<{ [key: string]: L.Marker }>({})
+  // Store callbacks in refs so the map init effect never re-runs
+  const onBoundsChangeRef = useRef(onBoundsChange)
+  onBoundsChangeRef.current = onBoundsChange
+  const onPropertySelectRef = useRef(onPropertySelect)
+  onPropertySelectRef.current = onPropertySelect
 
-  const emitBounds = useCallback(() => {
-    if (!mapRef.current || !onBoundsChange) return
-    const bounds = mapRef.current.getBounds()
-    onBoundsChange({
-      north: bounds.getNorth(),
-      south: bounds.getSouth(),
-      east: bounds.getEast(),
-      west: bounds.getWest(),
-    })
-  }, [onBoundsChange])
-
-  // Initialize map
+  // Initialize map — runs once, never re-creates
   useEffect(() => {
     if (!mapContainerRef.current || mapRef.current) return
 
@@ -71,16 +65,25 @@ export default function MapView({ properties, selectedProperty, onPropertySelect
 
     mapRef.current = map
 
-    map.on('moveend', emitBounds)
+    map.on('moveend', () => {
+      const cb = onBoundsChangeRef.current
+      if (!cb) return
+      const bounds = map.getBounds()
+      cb({
+        north: bounds.getNorth(),
+        south: bounds.getSouth(),
+        east: bounds.getEast(),
+        west: bounds.getWest(),
+      })
+    })
 
     return () => {
-      if (mapRef.current) {
-        mapRef.current.off('moveend', emitBounds)
-        mapRef.current.remove()
-        mapRef.current = null
-      }
+      map.off()
+      map.remove()
+      mapRef.current = null
     }
-  }, [emitBounds])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   // Update markers when properties change
   useEffect(() => {
@@ -127,7 +130,7 @@ export default function MapView({ properties, selectedProperty, onPropertySelect
         </div>
       `, { maxWidth: 260, className: 'custom-popup' })
 
-      marker.on('click', () => onPropertySelect(property.id))
+      marker.on('click', () => onPropertySelectRef.current(property.id))
       if (isSelected) marker.openPopup()
 
       markersRef.current[property.id] = marker
@@ -138,7 +141,7 @@ export default function MapView({ properties, selectedProperty, onPropertySelect
       const bounds = L.latLngBounds(properties.map((p) => [p.lat, p.lng]))
       map.fitBounds(bounds, { padding: [40, 40], maxZoom: 15 })
     }
-  }, [properties, selectedProperty, onPropertySelect])
+  }, [properties, selectedProperty])
 
   return (
     <>
