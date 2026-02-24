@@ -19,10 +19,10 @@ export function ScrollHeader({ children }: { children: React.ReactNode }) {
 
   return (
     <header
-      className={`sticky top-0 z-50 transition-[background-color,box-shadow,border-color] duration-300 ${
+      className={`sticky top-0 z-50 transition-[background-color,box-shadow] duration-200 bg-white ${
         scrolled
-          ? 'bg-white/80 backdrop-blur-xl shadow-[0_1px_3px_rgba(0,0,0,0.05)] border-b border-transparent'
-          : 'bg-white border-b border-[#E9ECEF]'
+          ? 'shadow-[0_1px_3px_rgba(0,0,0,0.08)]'
+          : 'border-b border-[#E9ECEF]'
       }`}
     >
       {children}
@@ -31,7 +31,7 @@ export function ScrollHeader({ children }: { children: React.ReactNode }) {
 }
 
 /**
- * Navigation links with active state detection.
+ * Navigation links with Zillow-style bottom-border active state.
  */
 interface NavLink {
   href: string
@@ -49,15 +49,15 @@ export function NavLinks({ links }: { links: NavLink[] }) {
   }
 
   return (
-    <nav className="hidden md:flex items-center gap-0.5" aria-label="Main navigation">
+    <nav className="hidden md:flex items-center h-[60px]" aria-label="Main navigation">
       {links.map(({ href, label }) => (
         <Link
           key={href + label}
           href={href}
-          className={`relative px-3 py-1.5 text-sm font-medium rounded-lg transition-colors duration-200 ${
+          className={`relative h-full flex items-center px-3 text-sm font-semibold transition-colors duration-150 ${
             isActive(href)
-              ? 'text-[#212529] bg-[#F8F9FA]'
-              : 'text-[#495057] hover:text-[#212529] hover:bg-[#F8F9FA]/60'
+              ? 'text-[#212529] after:absolute after:bottom-0 after:left-2 after:right-2 after:h-[3px] after:bg-[#212529] after:rounded-full'
+              : 'text-[#6B7280] hover:text-[#212529]'
           }`}
         >
           {label}
@@ -68,7 +68,7 @@ export function NavLinks({ links }: { links: NavLink[] }) {
 }
 
 /**
- * Mega-navigation with Zillow-style dropdowns for Buy/Rent/Sell tabs.
+ * Mega-navigation with Zillow-style dropdowns and bottom-border active state.
  */
 interface MegaNavItem {
   label: string
@@ -84,7 +84,7 @@ export function MegaNav({ items }: { items: MegaNavItem[] }) {
     patterns?.some(p => fullUrl.includes(p)) ?? false
 
   return (
-    <nav className="hidden md:flex items-center gap-0.5" aria-label="Main navigation">
+    <nav className="hidden md:flex items-center h-[60px]" aria-label="Main navigation">
       {items.map((item) => (
         <MegaDropdown
           key={item.label}

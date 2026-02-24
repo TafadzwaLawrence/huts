@@ -1,12 +1,12 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import { Plus, Search, Heart } from 'lucide-react'
+import { Plus, Heart } from 'lucide-react'
 import { createClient } from '@/lib/supabase/server'
 import { MobileMenu } from './MobileMenu'
 import { NotificationDropdown } from './NotificationDropdown'
 import { UserMenu } from './UserMenu'
 import { ScrollHeader, NavLinks, MegaNav } from './NavbarClient'
-import { ThemeToggle } from './ThemeToggle'
+import { NavbarSearch } from './NavbarSearch'
 import { ICON_SIZES } from '@/lib/constants'
 
 // Zillow-style mega-nav configurations
@@ -113,24 +113,22 @@ export async function Navbar() {
 
   return (
     <ScrollHeader>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center h-16">
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-6">
+        <div className="flex items-center h-[60px] gap-6">
           {/* Logo */}
-          <div className="flex items-center shrink-0">
-            <Link href="/" className="flex items-center group">
-              <Image
-                src="/logo.png"
-                alt="Huts"
-                width={44}
-                height={44}
-                priority
-                className="h-10 w-10 object-contain transition-opacity group-hover:opacity-80"
-              />
-            </Link>
-          </div>
+          <Link href="/" className="flex items-center shrink-0 group">
+            <Image
+              src="/logo.png"
+              alt="Huts"
+              width={44}
+              height={44}
+              priority
+              className="h-9 w-9 object-contain transition-opacity group-hover:opacity-80"
+            />
+          </Link>
 
-          {/* Center Navigation - Desktop */}
-          <div className="flex-1 flex justify-center mx-6">
+          {/* Nav Links — left-aligned, Zillow style */}
+          <div className="hidden md:block">
             {user && isLandlord ? (
               <NavLinks links={landlordLinks} />
             ) : (
@@ -138,15 +136,21 @@ export async function Navbar() {
             )}
           </div>
 
-          {/* Right Actions - Desktop */}
-          <div className="hidden md:flex items-center gap-1.5">
+          {/* Search Bar — center fill */}
+          <div className="hidden md:block flex-1 max-w-md mx-auto">
+            <NavbarSearch />
+          </div>
+
+          {/* Right Actions — Desktop */}
+          <div className="hidden md:flex items-center gap-1 shrink-0">
             {user ? (
-              <>                <Link
-                  href="/search"
-                  className="p-2 rounded-lg text-[#495057] hover:text-[#212529] hover:bg-[#F8F9FA] transition-colors"
-                  aria-label="Search properties"
+              <>
+                <Link
+                  href="/dashboard/saved"
+                  className="p-2 rounded-full text-[#6B7280] hover:text-[#212529] hover:bg-[#F8F9FA] transition-colors"
+                  aria-label="Saved homes"
                 >
-                  <Search size={ICON_SIZES.lg} />
+                  <Heart size={ICON_SIZES.lg} />
                 </Link>
 
                 <NotificationDropdown />
@@ -154,16 +158,14 @@ export async function Navbar() {
                 {isLandlord && (
                   <Link
                     href="/dashboard/new-property"
-                    className="inline-flex items-center gap-1.5 text-sm font-semibold text-white bg-[#212529] ml-1 px-3.5 py-2 rounded-lg hover:bg-black transition-colors"
+                    className="inline-flex items-center gap-1.5 text-sm font-semibold text-white bg-[#212529] ml-2 px-4 py-2 rounded-full hover:bg-black transition-colors"
                   >
                     <Plus size={ICON_SIZES.md} strokeWidth={2.5} />
-                    <span>New</span>
+                    <span>List</span>
                   </Link>
                 )}
 
-                <div className="w-px h-6 bg-[#E9ECEF] mx-1.5" />
-
-                <ThemeToggle />
+                <div className="w-px h-5 bg-[#E9ECEF] mx-2" />
 
                 <UserMenu
                   userName={userName || 'User'}
@@ -177,13 +179,13 @@ export async function Navbar() {
               <>
                 <Link
                   href="/auth/signup"
-                  className="text-sm font-medium text-[#495057] px-4 py-2 rounded-lg hover:text-[#212529] hover:bg-[#F8F9FA] transition-colors"
+                  className="text-sm font-semibold text-[#212529] px-3 py-2 hover:underline underline-offset-4 transition-colors"
                 >
                   Sign in
                 </Link>
                 <Link
                   href="/dashboard/new-property"
-                  className="inline-flex items-center gap-1.5 text-sm font-semibold text-white bg-[#212529] px-4 py-2 rounded-lg hover:bg-black transition-colors"
+                  className="inline-flex items-center gap-1.5 text-sm font-semibold text-white bg-[#212529] px-4 py-2 rounded-full hover:bg-black transition-colors"
                 >
                   <Plus size={ICON_SIZES.md} strokeWidth={2.5} />
                   List Property
@@ -193,19 +195,12 @@ export async function Navbar() {
           </div>
 
           {/* Mobile */}
-          <div className="md:hidden flex items-center gap-0.5 ml-auto">
-            <Link
-              href="/search"
-              className="p-2.5 text-[#495057] hover:text-[#212529] transition-colors"
-              aria-label="Search"
-            >
-              <Search size={ICON_SIZES.lg} />
-            </Link>
+          <div className="md:hidden flex items-center gap-1 ml-auto">
             {user && (
               <Link
                 href="/dashboard/saved"
-                className="p-2.5 text-[#495057] hover:text-[#212529] transition-colors"
-                aria-label="Saved properties"
+                className="p-2.5 text-[#6B7280] hover:text-[#212529] transition-colors"
+                aria-label="Saved"
               >
                 <Heart size={ICON_SIZES.lg} />
               </Link>
