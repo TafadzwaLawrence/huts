@@ -34,6 +34,9 @@ const MapView = dynamic<{
   selectedProperty: string | null
   onPropertySelect: (id: string | null) => void
   onBoundsChange?: (bounds: { north: number; south: number; east: number; west: number }) => void
+  showSchools: boolean
+  schoolLevels: string
+  onSchoolFilterChange: (showSchools: boolean, schoolLevels: string) => void
 }>(() => import('@/components/search/MapView'), {
   ssr: false,
   loading: () => (
@@ -219,6 +222,10 @@ export default function SearchPage() {
     setFilters((prev) => ({ ...prev, [key]: value }))
   }
 
+  const handleSchoolFilterChange = (showSchools: boolean, schoolLevels: string) => {
+    setFilters((prev) => ({ ...prev, showSchools, schoolLevels }))
+  }
+
   const handleClearFilters = () => {
     setFilters({
       minPrice: '',
@@ -260,7 +267,14 @@ export default function SearchPage() {
             <FilterBar
               listingType={listingType}
               onListingTypeChange={setListingType}
-              filters={filters}
+              filters={{
+                minPrice: filters.minPrice,
+                maxPrice: filters.maxPrice,
+                beds: filters.beds,
+                baths: filters.baths,
+                propertyType: filters.propertyType,
+                studentHousingOnly: filters.studentHousingOnly,
+              }}
               onFilterChange={handleFilterChange}
               onClearFilters={handleClearFilters}
               resultCount={total}
@@ -316,6 +330,9 @@ export default function SearchPage() {
               selectedProperty={selectedProperty}
               onPropertySelect={setSelectedProperty}
               onBoundsChange={handleBoundsChange}
+              showSchools={filters.showSchools}
+              schoolLevels={filters.schoolLevels}
+              onSchoolFilterChange={handleSchoolFilterChange}
             />
           </div>
         )}

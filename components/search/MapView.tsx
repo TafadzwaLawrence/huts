@@ -30,6 +30,9 @@ interface MapViewProps {
   selectedProperty: string | null
   onPropertySelect: (id: string | null) => void
   onBoundsChange?: (bounds: { north: number; south: number; east: number; west: number }) => void
+  showSchools: boolean
+  schoolLevels: string
+  onSchoolFilterChange: (showSchools: boolean, schoolLevels: string) => void
 }
 
 function formatMarkerPrice(cents: number, isSale: boolean): string {
@@ -46,13 +49,14 @@ function formatMarkerPrice(cents: number, isSale: boolean): string {
   return `$${Math.round(dollars)}`
 }
 
-export default function MapView({ properties, schools = [], selectedProperty, onPropertySelect, onBoundsChange }: MapViewProps) {
+export default function MapView({ properties, schools = [], selectedProperty, onPropertySelect, onBoundsChange, showSchools, schoolLevels, onSchoolFilterChange }: MapViewProps) {
   const mapRef = useRef<L.Map | null>(null)
   const mapContainerRef = useRef<HTMLDivElement>(null)
   const markersRef = useRef<{ [key: string]: L.Marker }>({})
   const schoolMarkersRef = useRef<{ [key: string]: L.Marker }>({})
   const clusterGroupRef = useRef<L.MarkerClusterGroup | null>(null)
   const [showZoomHint, setShowZoomHint] = useState(false)
+  const [schoolsControlExpanded, setSchoolsControlExpanded] = useState(showSchools)
   const hasFittedBoundsRef = useRef(false)
   const isUserInteractingRef = useRef(false)
   // Store callbacks in refs so the map init effect never re-runs
@@ -274,6 +278,83 @@ export default function MapView({ properties, schools = [], selectedProperty, on
           <p className="text-xs text-[#495057] mt-1">Or adjust your filters</p>
         </div>
       )}
+
+      {/* Schools control overlay */}
+      <div className="absolute bottom-24 right-4 z-[400] pointer-events-auto">
+        <div className="bg-white rounded-lg shadow-lg border border-[#E9ECEF] overflow-hidden">
+          {/* Header */}
+          <button
+            onClick={() => setSchoolsControlExpanded(!schoolsControlExpanded)}
+            className="w-full px-4 py-3 flex items-center justify-between gap-3 hover:bg-[#F8F9FA] transition-colors"
+          >
+            <div className="flex items-center gap-2">
+              <span className="text-lg">🏫</span>
+              <span className="text-sm font-semibold text-[#212529]">Schools</span>
+            </div>
+            <svg
+              className={`w-4 h-4 text-[#495057] transition-transform ${schoolsControlExpanded ? 'rotate-180' : ''}`}
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+
+          {/* Expanded content */}
+          {schoolsControlExpanded && (
+            <div className="px-4 py-3 border-t border-[#E9ECEF] space-y-3">
+              {/* Main toggle */}
+              <label className="flex items-center gap-2.5 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={showSchools}
+                  onChange={(e) => {
+                    const newShowSchools = e.target.checked
+                    onSchoolFilterChange(newShowSchools, schoolLevels)
+                  }}
+                  className="w-4 h-4 rounded border-[#E9ECEF] text-[#212529] focus:ring-[#212529] focus:ring-offset-0 cursor-pointer"
+                />
+                <span className="text-sm text-[#212529] font-medium">Show on map</span>
+              </label>
+
+              {/* Level filters */}
+              {showSchools && (
+                <div className="pt-2 border-t border-[#E9ECEF] space-y-2">
+                  <p className="text-xs font-medium text-[#495057] mb-1.5">School Level</p>
+                  {[
+                    { value: 'primary', label: 'Primary', emoji: '🏫' },
+                    { value: 'secondary', label: 'Secondary', emoji: '🎓' },
+                    { value: 'tertiary', label: 'University', emoji: '🎓' },
+                    { value: 'combined', label: 'Combined', emoji: '🏫' },
+                  ].map((level) => {
+                    const currentLevels = schoolLevels.split(',').filter(Boolean)
+                    const isChecked = currentLevels.includes(level.value)
+                    return (
+                      <label key={level.value} className="flex items-center gap-2.5 cursor-pointer group">
+                        <input
+                          type="checkbox"
+                          checked={isChecked}
+                          onChange={(e) => {
+                            const levels = schoolLevels.split(',').filter(Boolean)
+                            const newLevels = e.target.checked
+                              ? [...levels, level.value]
+                              : levels.filter((l) => l !== level.value)
+                            onSchoolFilterChange(showSchools, newLevels.join(','))
+                          }}
+                          className="w-4 h-4 rounded border-[#E9ECEF] text-[#212529] focus:ring-[#212529] focus:ring-offset-0 cursor-pointer"
+                        />
+                        <span className="text-xs">{level.emoji}</span>
+                        <span className="text-sm text-[#495057] group-hover:text-[#212529] transition-colors">{level.label}</span>
+                      </label>
+                    )
+                  })}
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+      </div>
 
       <style jsx global>{`
         /* Price markers */
