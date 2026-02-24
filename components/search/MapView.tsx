@@ -57,6 +57,7 @@ export default function MapView({ properties, schools = [], selectedProperty, on
   const clusterGroupRef = useRef<L.MarkerClusterGroup | null>(null)
   const [showZoomHint, setShowZoomHint] = useState(false)
   const [schoolsControlExpanded, setSchoolsControlExpanded] = useState(showSchools)
+  const [isLoadingSchools, setIsLoadingSchools] = useState(false)
   const hasFittedBoundsRef = useRef(false)
   const isUserInteractingRef = useRef(false)
   // Store callbacks in refs so the map init effect never re-runs
@@ -215,9 +216,17 @@ export default function MapView({ properties, schools = [], selectedProperty, on
     Object.values(schoolMarkersRef.current).forEach(marker => marker.remove())
     schoolMarkersRef.current = {}
 
-    if (!schools || schools.length === 0) return
+    if (!schools || schools.length === 0) {
+      setIsLoadingSchools(false)
+      return
+    }
 
-    schools.forEach((school) => {
+    // Show loading state
+    setIsLoadingSchools(true)
+
+    // Use requestAnimationFrame to allow UI to update before rendering markers
+    requestAnimationFrame(() => {
+      schools.forEach((school) => {
       // School icon colors based on level
       const iconColors: Record<string, { bg: string; border: string; icon: string }> = {
         primary: { bg: '#3B82F6', border: '#1E40AF', icon: '🏫' }, // Blue
@@ -265,6 +274,10 @@ export default function MapView({ properties, schools = [], selectedProperty, on
       marker.addTo(map)
       schoolMarkersRef.current[school.id] = marker
     })
+
+      // Hide loading state after markers are rendered
+      setTimeout(() => setIsLoadingSchools(false), 300)
+    })
   }, [schools])
 
   return (
@@ -279,9 +292,9 @@ export default function MapView({ properties, schools = [], selectedProperty, on
         </div>
       )}
 
-      {/* Schools control overlay */}
-      <div className="absolute bottom-24 right-4 z-[400] pointer-events-auto">
-        <div className="bg-white rounded-lg shadow-lg border border-[#E9ECEF] overflow-hidden">
+      {/* Schools control overlay - positioned opposite zoom controls (top-right vs top-left zoom) */}
+      <div className="absolute top-4 right-4 z-[400] pointer-events-auto">
+        <div className="bg-white rounded-lg shadow-lg border border-[#E9ECEF] overflow-hidden min-w-[200px]">
           {/* Header */}
           <button
             onClick={() => setSchoolsControlExpanded(!schoolsControlExpanded)}
@@ -290,6 +303,12 @@ export default function MapView({ properties, schools = [], selectedProperty, on
             <div className="flex items-center gap-2">
               <span className="text-lg">🏫</span>
               <span className="text-sm font-semibold text-[#212529]">Schools</span>
+              {isLoadingSchools && showSchools && (
+                <svg className="animate-spin h-3.5 w-3.5 text-[#495057]" fill="none" viewBox="0 0 24 24">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+              )}
             </div>
             <svg
               className={`w-4 h-4 text-[#495057] transition-transform ${schoolsControlExpanded ? 'rotate-180' : ''}`}
