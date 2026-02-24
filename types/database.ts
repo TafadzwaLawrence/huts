@@ -53,12 +53,17 @@ export interface Database {
           user_id: string
           title: string
           description: string | null
-          property_type: 'apartment' | 'house' | 'studio' | 'room' | 'townhouse' | 'condo'
+          property_type: 'apartment' | 'house' | 'studio' | 'room' | 'townhouse' | 'condo' | 'student'
           status: 'draft' | 'active' | 'rented' | 'inactive' | 'sold'
           listing_type: 'rent' | 'sale' | null
           price: number | null
           sale_price: number | null
           deposit: number | null
+          furnished: boolean | null
+          shared_rooms: boolean | null
+          utilities_included: boolean | null
+          nearby_universities: Json | null
+          student_lease_terms: string | null
           beds: number
           baths: number
           sqft: number | null
@@ -81,6 +86,11 @@ export interface Database {
           stories: number | null
           slug: string
           meta_description: string | null
+          furnished: boolean | null
+          shared_rooms: boolean | null
+          utilities_included: boolean | null
+          nearby_universities: Json | null
+          student_lease_terms: string | null
           created_at: string
           updated_at: string
           published_at: string | null
@@ -90,7 +100,7 @@ export interface Database {
           user_id: string
           title: string
           description?: string | null
-          property_type?: 'apartment' | 'house' | 'studio' | 'room' | 'townhouse' | 'condo'
+          property_type: 'apartment' | 'house' | 'studio' | 'room' | 'townhouse' | 'condo' | 'student'
           status?: 'draft' | 'active' | 'rented' | 'inactive' | 'sold'
           listing_type?: 'rent' | 'sale' | null
           price?: number | null
@@ -118,6 +128,11 @@ export interface Database {
           stories?: number | null
           slug?: string
           meta_description?: string | null
+          furnished?: boolean | null
+          shared_rooms?: boolean | null
+          utilities_included?: boolean | null
+          nearby_universities?: Json | null
+          student_lease_terms?: string | null
           created_at?: string
           updated_at?: string
           published_at?: string | null
@@ -127,7 +142,7 @@ export interface Database {
           user_id?: string
           title?: string
           description?: string | null
-          property_type?: 'apartment' | 'house' | 'studio' | 'room' | 'townhouse' | 'condo'
+          property_type?: 'apartment' | 'house' | 'studio' | 'room' | 'townhouse' | 'condo' | 'student'
           status?: 'draft' | 'active' | 'rented' | 'inactive' | 'sold'
           listing_type?: 'rent' | 'sale' | null
           price?: number | null
@@ -155,6 +170,11 @@ export interface Database {
           stories?: number | null
           slug?: string
           meta_description?: string | null
+          furnished?: boolean | null
+          shared_rooms?: boolean | null
+          utilities_included?: boolean | null
+          nearby_universities?: Json | null
+          student_lease_terms?: string | null
           created_at?: string
           updated_at?: string
           published_at?: string | null
