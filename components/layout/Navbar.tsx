@@ -67,8 +67,19 @@ export async function Navbar() {
 
   return (
     <ScrollHeader>
-      <div className="max-w-[1440px] mx-auto px-4 sm:px-6">
-        <div className="flex items-center h-[60px]">
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 relative">
+        {/* Header background image (Gustavo Fring) */}
+        <div className="absolute inset-0 z-0 hidden md:block">
+          <Image
+            src="/pexels-gustavo-fring-7489107.jpg"
+            alt="Header background"
+            fill
+            className="object-cover w-full h-full grayscale contrast-125 opacity-20 select-none pointer-events-none"
+            priority
+            sizes="100vw"
+          />
+        </div>
+        <div className="flex items-center h-[60px] relative z-10">
           {/* Left: Logo + Nav */}
           <div className="flex items-center gap-1 shrink-0">
             <Link href="/" className="flex items-center shrink-0 mr-2 group">

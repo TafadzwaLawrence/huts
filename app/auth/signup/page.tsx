@@ -284,10 +284,19 @@ export default function SignUpPage() {
       </div>
 
       {/* Right — Image panel (hidden on mobile) */}
-      <div className="hidden lg:flex lg:w-1/2 relative bg-[#212529] items-center justify-center overflow-hidden">
-        {/* Decorative grid pattern */}
-        <div className="absolute inset-0 opacity-[0.04]" style={{
-          backgroundImage: `linear-gradient(rgba(255,255,255,.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.1) 1px, transparent 1px)`,
+      <div className="hidden lg:flex lg:w-1/2 relative items-center justify-center overflow-hidden bg-[#212529]">
+        {/* B&W property image (Curtis Adams) */}
+        <Image
+          src="/pexels-curtis-adams-1694007-4832510.jpg"
+          alt="Property exterior"
+          fill
+          className="object-cover w-full h-full grayscale contrast-125 opacity-60 select-none pointer-events-none"
+          priority
+          sizes="50vw"
+        />
+        {/* Decorative grid pattern overlay */}
+        <div className="absolute inset-0 opacity-[0.07]" style={{
+          backgroundImage: `linear-gradient(rgba(255,255,255,.12) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.12) 1px, transparent 1px)`,
           backgroundSize: '60px 60px',
         }} />
 
