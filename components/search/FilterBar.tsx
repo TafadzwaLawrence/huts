@@ -23,37 +23,83 @@ interface FilterBarProps {
   onSortChange: (sort: string) => void
 }
 
-function Dropdown({ label, active, children }: { label: string; active?: boolean; children: React.ReactNode }) {
+function Dropdown({ label, active, children, onApply }: { label: string; active?: boolean; children: React.ReactNode; onApply?: () => void }) {
   const [open, setOpen] = useState(false)
   const ref = useRef<HTMLDivElement>(null)
+  const buttonRef = useRef<HTMLButtonElement>(null)
 
   useEffect(() => {
     const handleClick = (e: MouseEvent) => {
-      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false)
+      if (ref.current && !ref.current.contains(e.target as Node)) {
+        setOpen(false)
+      }
     }
     document.addEventListener('mousedown', handleClick)
     return () => document.removeEventListener('mousedown', handleClick)
   }, [])
 
+  // Prevent body scroll when dropdown is open
+  useEffect(() => {
+    if (open) {
+      const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth
+      document.body.style.paddingRight = `${scrollbarWidth}px`
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.paddingRight = ''
+      document.body.style.overflow = ''
+    }
+    return () => {
+      document.body.style.paddingRight = ''
+      document.body.style.overflow = ''
+    }
+  }, [open])
+
+  const handleDone = () => {
+    if (onApply) onApply()
+    setOpen(false)
+  }
+
   return (
-    <div ref={ref} className="relative">
-      <button
-        onClick={() => setOpen(!open)}
-        className={`inline-flex items-center gap-1 px-3 py-1.5 text-xs font-semibold rounded-lg border transition-all ${
-          active
-            ? 'bg-[#212529] text-white border-[#212529]'
-            : 'bg-white text-[#212529] border-[#E9ECEF] hover:border-[#212529]'
-        }`}
-      >
-        {label}
-        <ChevronDown size={ICON_SIZES.sm} className={`transition-transform ${open ? 'rotate-180' : ''}`} />
-      </button>
+    <>
+      {/* Backdrop */}
       {open && (
-        <div className="absolute top-full left-0 mt-2 bg-white rounded-xl border border-[#E9ECEF] shadow-xl p-4 z-50 min-w-[240px]">
-          {children}
-        </div>
+        <div
+          className="fixed inset-0 bg-black/20 z-[100]"
+          onClick={() => setOpen(false)}
+        />
       )}
-    </div>
+      
+      <div ref={ref} className="relative">
+        <button
+          ref={buttonRef}
+          onClick={() => setOpen(!open)}
+          className={`inline-flex items-center gap-1 px-3 py-1.5 text-xs font-semibold rounded-lg border transition-all ${
+            active
+              ? 'bg-[#212529] text-white border-[#212529]'
+              : 'bg-white text-[#212529] border-[#E9ECEF] hover:border-[#212529]'
+          }`}
+        >
+          {label}
+          <ChevronDown size={ICON_SIZES.sm} className={`transition-transform ${open ? 'rotate-180' : ''}`} />
+        </button>
+        {open && (
+          <div className="absolute top-full left-0 mt-2 bg-white rounded-xl border border-[#E9ECEF] shadow-2xl z-[101] min-w-[280px] animate-fade-in">
+            <div className="p-4">
+              {children}
+            </div>
+            {/* Done button */}
+            <div className="px-4 pb-4 pt-0">
+              <button
+                onClick={handleDone}
+                className="w-full py-2.5 bg-[#212529] text-white text-sm font-semibold rounded-lg hover:bg-black transition-colors"
+              >
+                Done
+              </button>
+            </div>
+          </div>
+        )}
+      </div>
+    </>
   )
 }
 
@@ -95,24 +141,86 @@ export function FilterBar({
       <Dropdown label="Price" active={!!(filters.minPrice || filters.maxPrice)}>
         <div className="space-y-3">
           <div>
-            <label className="text-xs font-medium text-[#495057] block mb-1">Min Price</label>
+            <label className="text-xs font-medium text-[#495057] block mb-1.5">Minimum</label>
             <input
               type="number"
               value={filters.minPrice}
               onChange={(e) => onFilterChange('minPrice', e.target.value)}
               placeholder="No min"
-              className="w-full px-3 py-2 text-sm border border-[#E9ECEF] rounded-lg focus:border-[#212529] outline-none"
+              className="w-full px-3 py-2 text-sm border border-[#E9ECEF] rounded-lg focus:border-[#212529] focus:ring-1 focus:ring-[#212529] outline-none transition-all"
             />
           </div>
           <div>
-            <label className="text-xs font-medium text-[#495057] block mb-1">Max Price</label>
+            <label className="text-xs font-medium text-[#495057] block mb-1.5">Maximum</label>
             <input
               type="number"
               value={filters.maxPrice}
               onChange={(e) => onFilterChange('maxPrice', e.target.value)}
               placeholder="No max"
-              className="w-full px-3 py-2 text-sm border border-[#E9ECEF] rounded-lg focus:border-[#212529] outline-none"
+              className="w-full px-3 py-2 text-sm border border-[#E9ECEF] rounded-lg focus:border-[#212529] focus:ring-1 focus:ring-[#212529] outline-none transition-all"
             />
+          </div>
+          
+          {/* Quick select buttons */}
+          <div className="pt-2 border-t border-[#E9ECEF]">
+            <p className="text-xs text-[#ADB5BD] mb-2">Quick select</p>
+            <div className="grid grid-cols-2 gap-2">
+              {listingType === 'rent' ? (
+                <>
+                  <button
+                    onClick={() => { onFilterChange('minPrice', ''); onFilterChange('maxPrice', '50000') }}
+                    className="px-2.5 py-1.5 text-xs text-[#495057] bg-[#F8F9FA] rounded-md hover:bg-[#E9ECEF] transition-colors"
+                  >
+                    Up to $500
+                  </button>
+                  <button
+                    onClick={() => { onFilterChange('minPrice', ''); onFilterChange('maxPrice', '100000') }}
+                    className="px-2.5 py-1.5 text-xs text-[#495057] bg-[#F8F9FA] rounded-md hover:bg-[#E9ECEF] transition-colors"
+                  >
+                    Up to $1000
+                  </button>
+                  <button
+                    onClick={() => { onFilterChange('minPrice', '100000'); onFilterChange('maxPrice', '200000') }}
+                    className="px-2.5 py-1.5 text-xs text-[#495057] bg-[#F8F9FA] rounded-md hover:bg-[#E9ECEF] transition-colors"
+                  >
+                    $1000-$2000
+                  </button>
+                  <button
+                    onClick={() => { onFilterChange('minPrice', '200000'); onFilterChange('maxPrice', '') }}
+                    className="px-2.5 py-1.5 text-xs text-[#495057] bg-[#F8F9FA] rounded-md hover:bg-[#E9ECEF] transition-colors"
+                  >
+                    $2000+
+                  </button>
+                </>
+              ) : (
+                <>
+                  <button
+                    onClick={() => { onFilterChange('minPrice', ''); onFilterChange('maxPrice', '10000000') }}
+                    className="px-2.5 py-1.5 text-xs text-[#495057] bg-[#F8F9FA] rounded-md hover:bg-[#E9ECEF] transition-colors"
+                  >
+                    Up to $100K
+                  </button>
+                  <button
+                    onClick={() => { onFilterChange('minPrice', ''); onFilterChange('maxPrice', '25000000') }}
+                    className="px-2.5 py-1.5 text-xs text-[#495057] bg-[#F8F9FA] rounded-md hover:bg-[#E9ECEF] transition-colors"
+                  >
+                    Up to $250K
+                  </button>
+                  <button
+                    onClick={() => { onFilterChange('minPrice', '25000000'); onFilterChange('maxPrice', '50000000') }}
+                    className="px-2.5 py-1.5 text-xs text-[#495057] bg-[#F8F9FA] rounded-md hover:bg-[#E9ECEF] transition-colors"
+                  >
+                    $250K-$500K
+                  </button>
+                  <button
+                    onClick={() => { onFilterChange('minPrice', '50000000'); onFilterChange('maxPrice', '') }}
+                    className="px-2.5 py-1.5 text-xs text-[#495057] bg-[#F8F9FA] rounded-md hover:bg-[#E9ECEF] transition-colors"
+                  >
+                    $500K+
+                  </button>
+                </>
+              )}
+            </div>
           </div>
         </div>
       </Dropdown>
@@ -122,40 +230,44 @@ export function FilterBar({
         <div className="space-y-4">
           <div>
             <label className="text-xs font-medium text-[#495057] block mb-2">Bedrooms</label>
-            <div className="flex gap-1">
-              {['', '1', '2', '3', '4', '5'].map((val) => (
-                <button
-                  key={val}
-                  onClick={() => onFilterChange('beds', val)}
-                  className={`px-3 py-1.5 text-sm rounded-lg border transition-all ${
-                    filters.beds === val
-                      ? 'bg-[#212529] text-white border-[#212529]'
-                      : 'text-[#495057] border-[#E9ECEF] hover:border-[#212529]'
-                  }`}
-                >
-                  {val || 'Any'}
-                  {val && '+'}
-                </button>
-              ))}
+            <div className="grid grid-cols-3 gap-2">
+              {['', '1', '2', '3', '4', '5+'].map((val) => {
+                const filterVal = val === '5+' ? '5' : val
+                return (
+                  <button
+                    key={val}
+                    onClick={() => onFilterChange('beds', filterVal)}
+                    className={`px-3 py-2 text-sm font-medium rounded-lg border transition-all ${
+                      filters.beds === filterVal
+                        ? 'bg-[#212529] text-white border-[#212529]'
+                        : 'text-[#495057] border-[#E9ECEF] hover:border-[#212529] hover:bg-[#F8F9FA]'
+                    }`}
+                  >
+                    {val || 'Any'}
+                  </button>
+                )
+              })}
             </div>
           </div>
           <div>
             <label className="text-xs font-medium text-[#495057] block mb-2">Bathrooms</label>
-            <div className="flex gap-1">
-              {['', '1', '2', '3', '4'].map((val) => (
-                <button
-                  key={val}
-                  onClick={() => onFilterChange('baths', val)}
-                  className={`px-3 py-1.5 text-sm rounded-lg border transition-all ${
-                    filters.baths === val
-                      ? 'bg-[#212529] text-white border-[#212529]'
-                      : 'text-[#495057] border-[#E9ECEF] hover:border-[#212529]'
-                  }`}
-                >
-                  {val || 'Any'}
-                  {val && '+'}
-                </button>
-              ))}
+            <div className="grid grid-cols-3 gap-2">
+              {['', '1', '2', '3', '4+'].map((val) => {
+                const filterVal = val === '4+' ? '4' : val
+                return (
+                  <button
+                    key={val}
+                    onClick={() => onFilterChange('baths', filterVal)}
+                    className={`px-3 py-2 text-sm font-medium rounded-lg border transition-all ${
+                      filters.baths === filterVal
+                        ? 'bg-[#212529] text-white border-[#212529]'
+                        : 'text-[#495057] border-[#E9ECEF] hover:border-[#212529] hover:bg-[#F8F9FA]'
+                    }`}
+                  >
+                    {val || 'Any'}
+                  </button>
+                )
+              })}
             </div>
           </div>
         </div>
@@ -163,25 +275,30 @@ export function FilterBar({
 
       {/* Home Type */}
       <Dropdown label="Home Type" active={filters.propertyType !== 'all'}>
-        <div className="space-y-1.5">
+        <div className="space-y-1">
           {[
-            { value: 'all', label: 'Any' },
-            { value: 'apartment', label: 'Apartment' },
-            { value: 'house', label: 'House' },
-            { value: 'cottage', label: 'Cottage' },
-            { value: 'room', label: 'Room' },
-            { value: 'student', label: 'Student Housing' },
+            { value: 'all', label: 'All homes' },
+            { value: 'house', label: 'Houses' },
+            { value: 'apartment', label: 'Apartments' },
+            { value: 'cottage', label: 'Cottages' },
+            { value: 'room', label: 'Rooms' },
+            { value: 'student', label: 'Student housing' },
           ].map((opt) => (
             <button
               key={opt.value}
               onClick={() => onFilterChange('propertyType', opt.value)}
-              className={`block w-full text-left px-3 py-2 text-sm rounded-lg transition-all ${
+              className={`flex items-center justify-between w-full px-3 py-2.5 text-sm rounded-lg transition-all ${
                 filters.propertyType === opt.value
-                  ? 'bg-[#212529] text-white'
+                  ? 'bg-[#212529] text-white font-medium'
                   : 'text-[#495057] hover:bg-[#F8F9FA]'
               }`}
             >
-              {opt.label}
+              <span>{opt.label}</span>
+              {filters.propertyType === opt.value && (
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M13.3337 4L6.00033 11.3333L2.66699 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              )}
             </button>
           ))}
         </div>
