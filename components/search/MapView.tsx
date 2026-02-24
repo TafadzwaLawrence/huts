@@ -1,8 +1,11 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
+import 'leaflet.markercluster/dist/MarkerCluster.css'
+import 'leaflet.markercluster/dist/MarkerCluster.Default.css'
+import 'leaflet.markercluster'
 
 interface Property {
   id: string
@@ -42,6 +45,8 @@ export default function MapView({ properties, selectedProperty, onPropertySelect
   const mapRef = useRef<L.Map | null>(null)
   const mapContainerRef = useRef<HTMLDivElement>(null)
   const markersRef = useRef<{ [key: string]: L.Marker }>({})
+  const clusterGroupRef = useRef<L.MarkerClusterGroup | null>(null)
+  const [showZoomHint, setShowZoomHint] = useState(false)
   // Store callbacks in refs so the map init effect never re-runs
   const onBoundsChangeRef = useRef(onBoundsChange)
   onBoundsChangeRef.current = onBoundsChange
@@ -63,7 +68,33 @@ export default function MapView({ properties, selectedProperty, onPropertySelect
       maxZoom: 19,
     }).addTo(map)
 
+    // Initialize cluster group
+    const clusterGroup = L.markerClusterGroup({
+      showCoverageOnHover: false,
+      maxClusterRadius: 60,
+      spiderfyOnMaxZoom: true,
+      disableClusteringAtZoom: 16,
+      iconCreateFunction: (cluster) => {
+        const count = cluster.getChildCount()
+        const size = count < 10 ? 'small' : count < 50 ? 'medium' : 'large'
+        return L.divIcon({
+          html: `<div class="cluster-marker cluster-${size}"><span>${count}</span></div>`,
+          className: 'custom-cluster-icon',
+          iconSize: L.point(40, 40),
+        })
+      },
+    })
+    map.addLayer(clusterGroup)
+    clusterGroupRef.current = clusterGroup
+
     mapRef.current = map
+
+    // Check zoom level for hint
+    const checkZoom = () => {
+      setShowZoomHint(map.getZoom() < 10)
+    }
+    checkZoom()
+    map.on('zoomend', checkZoom)
 
     map.on('moveend', () => {
       const cb = onBoundsChangeRef.current
@@ -81,17 +112,19 @@ export default function MapView({ properties, selectedProperty, onPropertySelect
       map.off()
       map.remove()
       mapRef.current = null
+      clusterGroupRef.current = null
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   // Update markers when properties change
   useEffect(() => {
-    if (!mapRef.current) return
+    if (!mapRef.current || !clusterGroupRef.current) return
     const map = mapRef.current
+    const clusterGroup = clusterGroupRef.current
 
-    // Remove old markers
-    Object.values(markersRef.current).forEach((m) => m.remove())
+    // Clear cluster group
+    clusterGroup.clearLayers()
     markersRef.current = {}
 
     if (properties.length === 0) return
@@ -109,7 +142,7 @@ export default function MapView({ properties, selectedProperty, onPropertySelect
         iconAnchor: [0, 0],
       })
 
-      const marker = L.marker([property.lat, property.lng], { icon }).addTo(map)
+      const marker = L.marker([property.lat, property.lng], { icon })
 
       // Popup
       const primaryImage = property.property_images.find(img => img.is_primary) || property.property_images[0]
@@ -133,6 +166,8 @@ export default function MapView({ properties, selectedProperty, onPropertySelect
       marker.on('click', () => onPropertySelectRef.current(property.id))
       if (isSelected) marker.openPopup()
 
+      // Add to cluster group instead of directly to map
+      clusterGroup.addLayer(marker)
       markersRef.current[property.id] = marker
     })
 
@@ -146,6 +181,15 @@ export default function MapView({ properties, selectedProperty, onPropertySelect
   return (
     <>
       <div ref={mapContainerRef} className="h-full w-full" />
+      
+      {/* Zoom hint overlay */}
+      {showZoomHint && properties.length > 100 && (
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white/95 backdrop-blur-sm px-6 py-4 rounded-xl shadow-lg border border-[#E9ECEF] text-center pointer-events-none z-[400]">
+          <p className="text-sm font-semibold text-[#212529]">Zoom in to see homes</p>
+          <p className="text-xs text-[#495057] mt-1">Or adjust your filters</p>
+        </div>
+      )}
+
       <style jsx global>{`
         .price-marker { background: transparent; border: none; }
         .pm {
@@ -169,6 +213,33 @@ export default function MapView({ properties, selectedProperty, onPropertySelect
           z-index: 1000 !important;
           transform: translate(-50%, -100%) scale(1.1);
         }
+        
+        /* Cluster markers */
+        .custom-cluster-icon { background: transparent; border: none; }
+        .cluster-marker {
+          background: #fff;
+          border: 2px solid #212529;
+          border-radius: 50%;
+          width: 40px;
+          height: 40px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 13px;
+          font-weight: 700;
+          color: #212529;
+          box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+          cursor: pointer;
+          transition: all 0.2s;
+        }
+        .cluster-marker:hover {
+          transform: scale(1.15);
+          box-shadow: 0 3px 12px rgba(0,0,0,0.25);
+        }
+        .cluster-small { width: 36px; height: 36px; font-size: 12px; }
+        .cluster-medium { width: 44px; height: 44px; font-size: 14px; }
+        .cluster-large { width: 52px; height: 52px; font-size: 15px; border-width: 2.5px; }
+        
         .leaflet-popup-content-wrapper { padding: 0; border-radius: 10px; overflow: hidden; }
         .leaflet-popup-content { margin: 0; width: auto !important; }
         .leaflet-popup-tip-container { display: none; }

@@ -260,9 +260,21 @@ export default function SearchPage() {
 
       {/* Main Content */}
       <div className="flex-1 flex overflow-hidden">
-        {/* Listings Panel */}
+        {/* Map Panel - Zillow puts map on LEFT */}
+        {(effectiveView === 'split' || effectiveView === 'map') && (
+          <div className={`${effectiveView === 'split' ? 'w-1/2 border-r border-[#E9ECEF]' : 'w-full'} relative`}>
+            <MapView
+              properties={mappableProperties}
+              selectedProperty={selectedProperty}
+              onPropertySelect={setSelectedProperty}
+              onBoundsChange={handleBoundsChange}
+            />
+          </div>
+        )}
+
+        {/* Listings Panel - Zillow puts list on RIGHT */}
         {effectiveView !== 'map' && (
-          <div className={`overflow-y-auto ${effectiveView === 'split' ? 'w-1/2 border-r border-[#E9ECEF]' : 'w-full'}`}>
+          <div className={`overflow-y-auto bg-white ${effectiveView === 'split' ? 'w-1/2' : 'w-full'}`}>
             {/* Search as map moves toggle */}
             {effectiveView === 'split' && (
               <div className="px-4 py-1.5 border-b border-[#E9ECEF] bg-[#F8F9FA]/50 flex items-center gap-2 text-xs text-[#495057]">
@@ -417,18 +429,6 @@ export default function SearchPage() {
                 )}
               </div>
             )}
-          </div>
-        )}
-
-        {/* Map Panel */}
-        {(effectiveView === 'split' || effectiveView === 'map') && (
-          <div className={`${effectiveView === 'split' ? 'w-1/2' : 'w-full'} relative`}>
-            <MapView
-              properties={mappableProperties}
-              selectedProperty={selectedProperty}
-              onPropertySelect={setSelectedProperty}
-              onBoundsChange={handleBoundsChange}
-            />
           </div>
         )}
       </div>
