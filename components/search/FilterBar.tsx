@@ -15,6 +15,8 @@ interface FilterBarProps {
     baths: string
     propertyType: string
     studentHousingOnly: boolean
+    showSchools: boolean
+    schoolLevels: string // comma-separated: 'primary,secondary,tertiary,combined'
   }
   onFilterChange: (key: string, value: string | boolean) => void
   onClearFilters: () => void
@@ -114,7 +116,7 @@ export function FilterBar({
   sort,
   onSortChange,
 }: FilterBarProps) {
-  const hasActiveFilters = filters.minPrice || filters.maxPrice || filters.beds || filters.baths || filters.propertyType !== 'all' || filters.studentHousingOnly
+  const hasActiveFilters = filters.minPrice || filters.maxPrice || filters.beds || filters.baths || filters.propertyType !== 'all' || filters.studentHousingOnly || filters.showSchools
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
 
   return (
@@ -302,6 +304,53 @@ export function FilterBar({
               )}
             </button>
           ))}
+        </div>
+      </Dropdown>
+
+      {/* Schools */}
+      <Dropdown label="Schools" active={filters.showSchools}>
+        <div className="space-y-3">
+          <label className="flex items-center gap-2.5 cursor-pointer">
+            <input
+              type="checkbox"
+              checked={filters.showSchools}
+              onChange={(e) => onFilterChange('showSchools', e.target.checked)}
+              className="w-4 h-4 rounded border-[#E9ECEF] text-[#212529] focus:ring-[#212529] focus:ring-offset-0 cursor-pointer"
+            />
+            <span className="text-sm text-[#212529] font-medium">Show schools on map</span>
+          </label>
+
+          {filters.showSchools && (
+            <div className="pt-3 border-t border-[#E9ECEF] space-y-2">
+              <p className="text-xs font-medium text-[#495057] mb-2">School Level</p>
+              {[
+                { value: 'primary', label: 'Primary (Grades 1-7)' },
+                { value: 'secondary', label: 'Secondary (Form 1-6)' },
+                { value: 'tertiary', label: 'University/College' },
+                { value: 'combined', label: 'Combined Schools' },
+              ].map((level) => {
+                const currentLevels = filters.schoolLevels.split(',').filter(Boolean)
+                const isChecked = currentLevels.includes(level.value)
+                return (
+                  <label key={level.value} className="flex items-center gap-2.5 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={isChecked}
+                      onChange={(e) => {
+                        const levels = filters.schoolLevels.split(',').filter(Boolean)
+                        const newLevels = e.target.checked
+                          ? [...levels, level.value]
+                          : levels.filter((l) => l !== level.value)
+                        onFilterChange('schoolLevels', newLevels.join(','))
+                      }}
+                      className="w-4 h-4 rounded border-[#E9ECEF] text-[#212529] focus:ring-[#212529] focus:ring-offset-0 cursor-pointer"
+                    />
+                    <span className="text-sm text-[#495057]">{level.label}</span>
+                  </label>
+                )
+              })}
+            </div>
+          )}
         </div>
       </Dropdown>
 

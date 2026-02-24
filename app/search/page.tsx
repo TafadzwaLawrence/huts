@@ -30,6 +30,7 @@ interface Property {
 
 const MapView = dynamic<{
   properties: (Property & { lat: number; lng: number })[]
+  schools?: any[]
   selectedProperty: string | null
   onPropertySelect: (id: string | null) => void
   onBoundsChange?: (bounds: { north: number; south: number; east: number; west: number }) => void
@@ -68,9 +69,12 @@ export default function SearchPage() {
     baths: searchParams.get('baths') || '',
     propertyType: searchParams.get('propertyType') || 'all',
     studentHousingOnly: searchParams.get('student') === '1',
+    showSchools: searchParams.get('showSchools') === '1',
+    schoolLevels: searchParams.get('schoolLevels') || 'primary,secondary,tertiary,combined',
   })
   const [sort, setSort] = useState(searchParams.get('sort') || 'newest')
   const [properties, setProperties] = useState<Property[]>([])
+  const [schools, setSchools] = useState<any[]>([])
   const [total, setTotal] = useState(0)
   const [page, setPage] = useState(1)
   const [totalPages, setTotalPages] = useState(1)
@@ -95,6 +99,8 @@ export default function SearchPage() {
     if (filters.baths) params.set('baths', filters.baths)
     if (filters.propertyType !== 'all') params.set('propertyType', filters.propertyType)
     if (filters.studentHousingOnly) params.set('student', '1')
+    if (filters.showSchools) params.set('showSchools', '1')
+    if (filters.schoolLevels) params.set('schoolLevels', filters.schoolLevels)
     params.set('sort', sort)
     params.set('page', String(page))
     if (searchMoveMap && debouncedBounds) {
@@ -135,10 +141,42 @@ export default function SearchPage() {
     }
   }, [buildSearchParams])
 
+  // Fetch schools when enabled and bounds change
+  const fetchSchools = useCallback(async () => {
+    if (!filters.showSchools || !debouncedBounds) {
+      setSchools([])
+      return
+    }
+
+    try {
+      const params = new URLSearchParams()
+      params.set('north', String(debouncedBounds.north))
+      params.set('south', String(debouncedBounds.south))
+      params.set('east', String(debouncedBounds.east))
+      params.set('west', String(debouncedBounds.west))
+      if (filters.schoolLevels) params.set('level', filters.schoolLevels)
+      const city = searchParams.get('city')
+      if (city) params.set('city', city)
+
+      const res = await fetch(`/api/schools?${params.toString()}`)
+      if (!res.ok) throw new Error('Failed to fetch schools')
+      const data = await res.json()
+      setSchools(data.schools || [])
+    } catch (err) {
+      console.error('Schools fetch error:', err)
+      setSchools([])
+    }
+  }, [filters.showSchools, filters.schoolLevels, debouncedBounds, searchParams])
+
   // Fetch on filter/sort/page change
   useEffect(() => {
     fetchProperties()
   }, [fetchProperties])
+
+  // Fetch schools when enabled or bounds change
+  useEffect(() => {
+    fetchSchools()
+  }, [fetchSchools])
 
   // Sync state to URL
   useEffect(() => {
@@ -182,7 +220,16 @@ export default function SearchPage() {
   }
 
   const handleClearFilters = () => {
-    setFilters({ minPrice: '', maxPrice: '', beds: '', baths: '', propertyType: 'all', studentHousingOnly: false })
+    setFilters({
+      minPrice: '',
+      maxPrice: '',
+      beds: '',
+      baths: '',
+      propertyType: 'all',
+      studentHousingOnly: false,
+      showSchools: false,
+      schoolLevels: 'primary,secondary,tertiary,combined',
+    })
   }
 
   const handleBoundsChange = (bounds: { north: number; south: number; east: number; west: number }) => {
@@ -265,6 +312,7 @@ export default function SearchPage() {
           <div className={`${effectiveView === 'split' ? 'w-1/2 border-r border-[#E9ECEF]' : 'w-full'} relative`}>
             <MapView
               properties={mappableProperties}
+              schools={schools}
               selectedProperty={selectedProperty}
               onPropertySelect={setSelectedProperty}
               onBoundsChange={handleBoundsChange}

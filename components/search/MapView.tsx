@@ -26,6 +26,7 @@ interface Property {
 
 interface MapViewProps {
   properties: Property[]
+  schools?: any[]
   selectedProperty: string | null
   onPropertySelect: (id: string | null) => void
   onBoundsChange?: (bounds: { north: number; south: number; east: number; west: number }) => void
@@ -45,10 +46,11 @@ function formatMarkerPrice(cents: number, isSale: boolean): string {
   return `$${Math.round(dollars)}`
 }
 
-export default function MapView({ properties, selectedProperty, onPropertySelect, onBoundsChange }: MapViewProps) {
+export default function MapView({ properties, schools = [], selectedProperty, onPropertySelect, onBoundsChange }: MapViewProps) {
   const mapRef = useRef<L.Map | null>(null)
   const mapContainerRef = useRef<HTMLDivElement>(null)
   const markersRef = useRef<{ [key: string]: L.Marker }>({})
+  const schoolMarkersRef = useRef<{ [key: string]: L.Marker }>({})
   const clusterGroupRef = useRef<L.MarkerClusterGroup | null>(null)
   const [showZoomHint, setShowZoomHint] = useState(false)
   const hasFittedBoundsRef = useRef(false)
@@ -199,6 +201,67 @@ export default function MapView({ properties, selectedProperty, onPropertySelect
       hasFittedBoundsRef.current = true
     }
   }, [properties, selectedProperty])
+
+  // Update school markers when schools change
+  useEffect(() => {
+    if (!mapRef.current) return
+    const map = mapRef.current
+
+    // Clear previous school markers
+    Object.values(schoolMarkersRef.current).forEach(marker => marker.remove())
+    schoolMarkersRef.current = {}
+
+    if (!schools || schools.length === 0) return
+
+    schools.forEach((school) => {
+      // School icon colors based on level
+      const iconColors: Record<string, { bg: string; border: string; icon: string }> = {
+        primary: { bg: '#3B82F6', border: '#1E40AF', icon: '🏫' }, // Blue
+        secondary: { bg: '#10B981', border: '#047857', icon: '🎓' }, // Green
+        tertiary: { bg: '#8B5CF6', border: '#5B21B6', icon: '🎓' }, // Purple
+        combined: { bg: '#F59E0B', border: '#B45309', icon: '🏫' }, // Amber
+      }
+
+      const colors = iconColors[school.school_level] || iconColors.primary
+
+      const icon = L.divIcon({
+        className: 'school-marker',
+        html: `
+          <div class="sm sm-${school.school_level}" style="background: ${colors.bg}; border-color: ${colors.border};">
+            <span class="sm-icon">${colors.icon}</span>
+          </div>
+        `,
+        iconSize: [32, 32],
+        iconAnchor: [16, 32],
+      })
+
+      const marker = L.marker([school.lat, school.lng], { icon })
+
+      // Popup
+      const levelLabel: Record<string, string> = {
+        primary: 'Primary School',
+        secondary: 'Secondary School',
+        tertiary: 'University/College',
+        combined: 'Combined School',
+      }
+
+      marker.bindPopup(`
+        <div class="p-2 min-w-[200px]">
+          <div class="font-bold text-[#212529] mb-1">${school.name}</div>
+          <div class="text-xs text-[#495057] mb-2">${levelLabel[school.school_level] || 'School'}</div>
+          ${school.address ? `<div class="text-xs text-[#495057] mb-1">${school.address}</div>` : ''}
+          ${school.rating ? `<div class="text-xs text-[#495057] mb-2">Rating: ${school.rating}/10</div>` : ''}
+          ${school.phone || school.website ? '<div class="border-t border-[#E9ECEF] pt-2 mt-2">' : ''}
+          ${school.phone ? `<div class="text-xs text-[#495057] mb-1">📞 ${school.phone}</div>` : ''}
+          ${school.website ? `<a href="${school.website}" target="_blank" rel="noopener" class="text-xs text-[#006AFF] hover:underline">Visit website →</a>` : ''}
+          ${school.phone || school.website ? '</div>' : ''}
+        </div>
+      `, { maxWidth: 240, className: 'custom-popup' })
+
+      marker.addTo(map)
+      schoolMarkersRef.current[school.id] = marker
+    })
+  }, [schools])
 
   return (
     <>
@@ -353,6 +416,51 @@ export default function MapView({ properties, selectedProperty, onPropertySelect
         }
         .leaflet-popup-close-button:hover {
           color: #212529 !important;
+        }
+
+        /* School markers */
+        .school-marker {
+          background: transparent !important;
+          border: none !important;
+          display: flex;
+          align-items: flex-end;
+          justify-content: center;
+          overflow: visible;
+        }
+        .sm {
+          width: 32px;
+          height: 32px;
+          border-radius: 50%;
+          border: 2.5px solid;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          box-shadow: 0 3px 12px rgba(0, 0, 0, 0.2);
+          transition: all 0.2s ease;
+          position: relative;
+        }
+        .sm:hover {
+          transform: scale(1.15);
+          box-shadow: 0 5px 18px rgba(0, 0, 0, 0.3);
+          z-index: 1000 !important;
+        }
+        .sm::after {
+          content: '';
+          position: absolute;
+          bottom: -8px;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 0;
+          height: 0;
+          border-left: 6px solid transparent;
+          border-right: 6px solid transparent;
+          border-top: 8px solid;
+          border-top-color: inherit;
+        }
+        .sm-icon {
+          font-size: 16px;
+          line-height: 1;
         }
       `}</style>
     </>
