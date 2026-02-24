@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
+import Image from 'next/image'
 import Link from 'next/link'
-import { Search, MapPin, Home, ArrowRight, Building2, Key } from 'lucide-react'
+import { Search, MapPin, ArrowRight, User } from 'lucide-react'
 import { ICON_SIZES } from '@/lib/constants'
 
 export const metadata: Metadata = {
@@ -71,51 +72,104 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* ACTION CARDS */}
-      <section className="py-12 md:py-16 bg-[#F8F9FA]">
+      {/* GET HOME RECOMMENDATIONS */}
+      <section className="py-8 bg-white border-t border-[#E9ECEF]">
         <div className="container-main">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-            {/* Rent a home */}
-            <Link href="/search?type=rent" className="group">
-              <div className="bg-white border-2 border-[#E9ECEF] rounded-2xl p-8 hover:border-[#212529] hover:shadow-lg transition-all duration-300 h-full">
-                <div className="w-12 h-12 bg-[#F8F9FA] rounded-xl flex items-center justify-center mb-5 group-hover:bg-[#212529] transition-colors">
-                  <Home size={ICON_SIZES.xl} className="text-[#495057] group-hover:text-white transition-colors" />
-                </div>
-                <h3 className="text-lg font-bold text-[#212529] mb-2">Rent a home</h3>
-                <p className="text-sm text-[#495057] mb-4">Browse verified rental listings across Zimbabwe.</p>
-                <span className="inline-flex items-center gap-1 text-sm font-semibold text-[#212529]">
-                  Find rentals <ArrowRight size={ICON_SIZES.sm} className="group-hover:translate-x-1 transition-transform" />
-                </span>
+          <div className="max-w-2xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 bg-[#F8F9FA] rounded-xl px-6 py-5 border border-[#E9ECEF]">
+            <div className="flex items-center gap-4">
+              <div className="w-10 h-10 bg-[#212529] rounded-full flex items-center justify-center flex-shrink-0">
+                <User size={ICON_SIZES.lg} className="text-white" />
               </div>
+              <div>
+                <h2 className="text-sm font-bold text-[#212529]">Get home recommendations</h2>
+                <p className="text-xs text-[#495057]">Sign in for a more personalized experience.</p>
+              </div>
+            </div>
+            <Link
+              href="/auth/signup"
+              className="text-sm font-semibold text-[#212529] border-2 border-[#212529] px-5 py-2 rounded-lg hover:bg-[#212529] hover:text-white transition-colors whitespace-nowrap"
+            >
+              Sign in
             </Link>
+          </div>
+        </div>
+      </section>
 
+      {/* ACTION CARDS — Zillow style */}
+      <section className="py-12 md:py-16 bg-white">
+        <div className="container-main">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
             {/* Buy a home */}
-            <Link href="/search?type=sale" className="group">
-              <div className="bg-white border-2 border-[#E9ECEF] rounded-2xl p-8 hover:border-[#212529] hover:shadow-lg transition-all duration-300 h-full">
-                <div className="w-12 h-12 bg-[#F8F9FA] rounded-xl flex items-center justify-center mb-5 group-hover:bg-[#212529] transition-colors">
-                  <Building2 size={ICON_SIZES.xl} className="text-[#495057] group-hover:text-white transition-colors" />
-                </div>
-                <h3 className="text-lg font-bold text-[#212529] mb-2">Buy a home</h3>
-                <p className="text-sm text-[#495057] mb-4">Find homes for sale in your preferred neighborhood.</p>
-                <span className="inline-flex items-center gap-1 text-sm font-semibold text-[#212529]">
-                  Browse homes <ArrowRight size={ICON_SIZES.sm} className="group-hover:translate-x-1 transition-transform" />
-                </span>
+            <div className="group">
+              <div className="relative h-48 rounded-xl overflow-hidden mb-5 bg-[#E9ECEF]">
+                <Image
+                  src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=600&h=400&fit=crop"
+                  alt="Buy a home"
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-500"
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                />
               </div>
-            </Link>
+              <h3 className="text-xl font-bold text-[#212529] mb-2">Buy a home</h3>
+              <p className="text-sm text-[#495057] leading-relaxed mb-4">
+                Browse photos, check pricing and neighborhood details on homes for sale in Zimbabwe. Find a home you love.
+              </p>
+              <Link
+                href="/search?type=sale"
+                className="inline-flex items-center gap-1.5 text-sm font-bold text-[#212529] hover:underline"
+              >
+                Browse homes
+                <ArrowRight size={ICON_SIZES.sm} />
+              </Link>
+            </div>
 
-            {/* List a property */}
-            <Link href="/dashboard/new-property" className="group">
-              <div className="bg-white border-2 border-[#E9ECEF] rounded-2xl p-8 hover:border-[#212529] hover:shadow-lg transition-all duration-300 h-full">
-                <div className="w-12 h-12 bg-[#F8F9FA] rounded-xl flex items-center justify-center mb-5 group-hover:bg-[#212529] transition-colors">
-                  <Key size={ICON_SIZES.xl} className="text-[#495057] group-hover:text-white transition-colors" />
-                </div>
-                <h3 className="text-lg font-bold text-[#212529] mb-2">List a property</h3>
-                <p className="text-sm text-[#495057] mb-4">Post your rental or home for sale — free and easy.</p>
-                <span className="inline-flex items-center gap-1 text-sm font-semibold text-[#212529]">
-                  Get started <ArrowRight size={ICON_SIZES.sm} className="group-hover:translate-x-1 transition-transform" />
-                </span>
+            {/* Rent a home */}
+            <div className="group">
+              <div className="relative h-48 rounded-xl overflow-hidden mb-5 bg-[#E9ECEF]">
+                <Image
+                  src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=600&h=400&fit=crop"
+                  alt="Rent a home"
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-500"
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                />
               </div>
-            </Link>
+              <h3 className="text-xl font-bold text-[#212529] mb-2">Rent a home</h3>
+              <p className="text-sm text-[#495057] leading-relaxed mb-4">
+                We&apos;re creating a seamless online experience — from searching on the largest rental network, to messaging landlords, to moving in.
+              </p>
+              <Link
+                href="/search?type=rent"
+                className="inline-flex items-center gap-1.5 text-sm font-bold text-[#212529] hover:underline"
+              >
+                Find rentals
+                <ArrowRight size={ICON_SIZES.sm} />
+              </Link>
+            </div>
+
+            {/* Sell a home */}
+            <div className="group">
+              <div className="relative h-48 rounded-xl overflow-hidden mb-5 bg-[#E9ECEF]">
+                <Image
+                  src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600&h=400&fit=crop"
+                  alt="List a property"
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-500"
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                />
+              </div>
+              <h3 className="text-xl font-bold text-[#212529] mb-2">List a property</h3>
+              <p className="text-sm text-[#495057] leading-relaxed mb-4">
+                No matter what type of property you have, we can help you connect with quality renters and buyers. List free in minutes.
+              </p>
+              <Link
+                href="/dashboard/new-property"
+                className="inline-flex items-center gap-1.5 text-sm font-bold text-[#212529] hover:underline"
+              >
+                See your options
+                <ArrowRight size={ICON_SIZES.sm} />
+              </Link>
+            </div>
           </div>
         </div>
       </section>
