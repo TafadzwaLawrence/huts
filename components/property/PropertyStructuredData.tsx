@@ -42,7 +42,7 @@ export default function PropertyStructuredData({
           unitCode: 'FTK', // square feet
         }
       : undefined,
-    image: property.property_images?.map((img) => img.url) || [],
+    image: property.property_images?.map((img: any) => img.url) || [],
     url: `https://www.huts.co.zw/property/${slug}`,
   }
 
