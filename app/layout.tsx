@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { Suspense } from 'react'
-import { headers } from 'next/headers'
 import './globals.css'
+import { LayoutChrome } from '@/components/layout/LayoutChrome'
 import { Navbar } from '@/components/layout/Navbar'
 import { NavbarSkeleton } from '@/components/layout/NavbarSkeleton'
 import { Footer } from '@/components/layout/Footer'
@@ -95,13 +95,6 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  // Check if current route is admin or auth route (both hide chrome)
-  const headersList = headers()
-  const pathname = headersList.get('x-pathname') || ''
-  const isAdminRoute = pathname.startsWith('/admin')
-  const isAuthRoute = pathname.startsWith('/auth')
-  const hideChrome = isAdminRoute || isAuthRoute
-
   // Check auth for BottomTabBar
   let isLoggedIn = false
   try {
@@ -119,26 +112,22 @@ export default async function RootLayout({
         <OrganizationStructuredData />
         
         <Suspense fallback={null}>
-            <NProgressProvider>
-              {!hideChrome && (
-                <a href="#main-content" className="skip-link">
-                  Skip to main content
-                </a>
-              )}
-              {!hideChrome && (
+          <NProgressProvider>
+            <LayoutChrome
+              navbar={
                 <Suspense fallback={<NavbarSkeleton />}>
                   <Navbar />
                 </Suspense>
-              )}
-              <main id="main-content" className={hideChrome ? 'min-h-screen' : 'min-h-screen pb-14 md:pb-0'}>
-                {children}
-              </main>
-              {!hideChrome && <Footer />}
-              {!hideChrome && <BottomTabBar isLoggedIn={isLoggedIn} />}
-              {!hideChrome && <FloatingChatWidget />}
-              <Toaster position="top-center" />
-            </NProgressProvider>
-          </Suspense>
+              }
+              footer={<Footer />}
+              bottomTabBar={<BottomTabBar isLoggedIn={isLoggedIn} />}
+              chatWidget={<FloatingChatWidget />}
+            >
+              {children}
+            </LayoutChrome>
+            <Toaster position="top-center" />
+          </NProgressProvider>
+        </Suspense>
       </body>
     </html>
   )
