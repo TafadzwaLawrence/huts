@@ -6,9 +6,14 @@ import ContactSidebar from './ContactSidebar'
 import PropertyHeader from './PropertyHeader'
 import PropertyHighlights from './PropertyHighlights'
 import PropertyFacts from './PropertyFacts'
+import PropertyCriteria from './PropertyCriteria'
+import OfficeHours from './OfficeHours'
+import PetEssentials from './PetEssentials'
+import PropertyFAQs from './PropertyFAQs'
 import SimilarHomes from './SimilarHomes'
 import NeighborhoodSection from './NeighborhoodSection'
 import CostBreakdown from './CostBreakdown'
+import EnhancedCostBreakdown from './EnhancedCostBreakdown'
 import PriceHistory from './PriceHistory'
 import ReviewsSection from '@/components/reviews/ReviewsSection'
 import { Check } from 'lucide-react'
@@ -100,6 +105,38 @@ export default function PropertyDetailClient({ property, slug, currentUserId, ca
             {/* Facts & Features */}
             <PropertyFacts property={property} />
 
+            {/* Property Criteria - Zillow style */}
+            <PropertyCriteria
+              incomeRequirement={property.income_requirement || '3x rent'}
+              creditScoreMin={property.credit_score_min}
+              petsAllowed={property.pets_allowed}
+              petsSmallDogs={property.pets_small_dogs}
+              petsLargeDogs={property.pets_large_dogs}
+              petsCats={property.pets_cats}
+              petsMaxCount={property.pets_max_count || 0}
+            />
+
+            {/* Office Hours & Contact */}
+            <OfficeHours
+              propertyManagerName={property.property_manager_name}
+              propertyManagerCompany={property.property_manager_company}
+              propertyManagerPhone={property.property_manager_phone}
+              propertyManagerEmail={property.property_manager_email}
+              propertyManagerWebsite={property.property_manager_website}
+              officeHours={property.office_hours}
+            />
+
+            {/* Pet Essentials - visual icons */}
+            <PetEssentials
+              petsAllowed={property.pets_allowed}
+              petsSmallDogs={property.pets_small_dogs}
+              petsLargeDogs={property.pets_large_dogs}
+              petsCats={property.pets_cats}
+              petsMaxCount={property.pets_max_count || 0}
+              petDeposit={property.pet_deposit_cents}
+              petRentMonthly={property.pet_rent_monthly_cents}
+            />
+
             {/* Price History */}
             <PriceHistory
               propertyId={property.id}
@@ -127,6 +164,15 @@ export default function PropertyDetailClient({ property, slug, currentUserId, ca
               beds={property.beds}
             />
 
+            {/* FAQs - Zillow style */}
+            <PropertyFAQs
+              propertyName={property.title}
+              walkScore={property.walk_score}
+              petsAllowed={property.pets_allowed}
+              hasInUnitLaundry={amenities.some((a: string) => a.toLowerCase().includes('laundry'))}
+              virtualTourAvailable={!!property.virtual_tour_url}
+            />
+
             {/* Reviews */}
             <div className="mb-8">
               <ReviewsSection
@@ -149,13 +195,20 @@ export default function PropertyDetailClient({ property, slug, currentUserId, ca
               />
 
               {/* Cost breakdown / mortgage calculator */}
-              <CostBreakdown
+              <EnhancedCostBreakdown
                 price={property.price}
                 salePrice={property.sale_price}
                 listingType={property.listing_type}
                 propertyTaxAnnual={property.property_tax_annual}
                 hoaFeeMonthly={property.hoa_fee_monthly}
                 deposit={property.deposit}
+                securityDeposit={property.security_deposit_cents}
+                applicationFee={property.application_fee_cents}
+                adminFee={property.admin_fee_cents}
+                petDeposit={property.pet_deposit_cents}
+                petRentMonthly={property.pet_rent_monthly_cents}
+                parkingFeeMonthly={property.parking_fee_monthly_cents}
+                utilityFees={property.utility_fees || {}}
               />
             </div>
           </div>
