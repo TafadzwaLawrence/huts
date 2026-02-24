@@ -86,11 +86,6 @@ export interface Database {
           stories: number | null
           slug: string
           meta_description: string | null
-          furnished: boolean | null
-          shared_rooms: boolean | null
-          utilities_included: boolean | null
-          nearby_universities: Json | null
-          student_lease_terms: string | null
           created_at: string
           updated_at: string
           published_at: string | null
