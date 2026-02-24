@@ -300,38 +300,7 @@ export default function SignUpPage() {
           backgroundSize: '60px 60px',
         }} />
 
-        {/* Content */}
-        <div className="relative z-10 max-w-md px-12 text-center">
-          {/* Icon */}
-          <div className="mx-auto mb-8 w-20 h-20 rounded-2xl bg-white/10 flex items-center justify-center">
-            <Home size={36} className="text-white" />
-          </div>
-
-          <h2 className="text-3xl font-bold text-white mb-4 leading-tight">
-            Find your perfect<br />place to call home
-          </h2>
-          <p className="text-[#999] text-base leading-relaxed">
-            Browse thousands of rental and sale listings across Zimbabwe. Your next home is just a search away.
-          </p>
-
-          {/* Stats */}
-          <div className="flex justify-center gap-10 mt-10">
-            <div>
-              <p className="text-2xl font-bold text-white">1K+</p>
-              <p className="text-xs text-[#767676] mt-1">Listings</p>
-            </div>
-            <div className="w-px bg-white/10" />
-            <div>
-              <p className="text-2xl font-bold text-white">50+</p>
-              <p className="text-xs text-[#767676] mt-1">Areas</p>
-            </div>
-            <div className="w-px bg-white/10" />
-            <div>
-              <p className="text-2xl font-bold text-white">500+</p>
-              <p className="text-xs text-[#767676] mt-1">Landlords</p>
-            </div>
-          </div>
-        </div>
+        {/* No text or stats in image panel */}
 
         {/* Decorative circles */}
         <div className="absolute -top-24 -right-24 w-80 h-80 rounded-full border border-white/5" />

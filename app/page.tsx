@@ -25,8 +25,20 @@ export default async function HomePage() {
   return (
     <div>
       {/* HERO SECTION */}
-      <section className="relative bg-white overflow-hidden">
-        <div className="container-main relative py-20 md:py-32 lg:py-40">
+      <section className="relative overflow-hidden">
+        {/* Background Image (Gustavo Fring) */}
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="/pexels-gustavo-fring-7489107.jpg"
+            alt="Hero background"
+            fill
+            className="object-cover w-full h-full grayscale contrast-125 opacity-[0.15]"
+            priority
+            sizes="100vw"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-white/60 via-white/40 to-white/80" />
+        </div>
+        <div className="container-main relative z-10 py-20 md:py-32 lg:py-40">
           <div className="max-w-4xl mx-auto text-center">
             {/* Headline */}
             <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold text-black tracking-tight mb-6">
