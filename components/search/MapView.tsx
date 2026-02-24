@@ -51,6 +51,8 @@ export default function MapView({ properties, selectedProperty, onPropertySelect
   const markersRef = useRef<{ [key: string]: L.Marker }>({})
   const clusterGroupRef = useRef<L.MarkerClusterGroup | null>(null)
   const [showZoomHint, setShowZoomHint] = useState(false)
+  const hasFittedBoundsRef = useRef(false)
+  const isUserInteractingRef = useRef(false)
   // Store callbacks in refs so the map init effect never re-runs
   const onBoundsChangeRef = useRef(onBoundsChange)
   onBoundsChangeRef.current = onBoundsChange
@@ -65,9 +67,6 @@ export default function MapView({ properties, selectedProperty, onPropertySelect
       center: [-17.8252, 31.0335],
       zoom: 12,
       zoomControl: true,
-      zoomAnimation: true,
-      fadeAnimation: true,
-      markerZoomAnimation: true,
     })
 
     L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
@@ -81,8 +80,6 @@ export default function MapView({ properties, selectedProperty, onPropertySelect
       maxClusterRadius: 60,
       spiderfyOnMaxZoom: true,
       disableClusteringAtZoom: 16,
-      animate: true,
-      animateAddingMarkers: true,
       iconCreateFunction: (cluster) => {
         const count = cluster.getChildCount()
         const size = count < 10 ? 'small' : count < 50 ? 'medium' : 'large'
@@ -95,18 +92,19 @@ export default function MapView({ properties, selectedProperty, onPropertySelect
     })
     map.addLayer(clusterGroup)
     clusterGroupRef.current = clusterGroup
-
     mapRef.current = map
 
-    // Check zoom level for hint
-    const checkZoom = () => {
-      setShowZoomHint(map.getZoom() < 10)
-    }
+    // Zoom hint
+    const checkZoom = () => setShowZoomHint(map.getZoom() < 10)
     checkZoom()
     map.on('zoomend', checkZoom)
 
-    // Send initial bounds immediately
-    const sendBounds = () => {
+    // Track user interaction vs programmatic moves
+    map.on('mousedown', () => { isUserInteractingRef.current = true })
+    map.on('touchstart', () => { isUserInteractingRef.current = true })
+    map.on('dragstart', () => { isUserInteractingRef.current = true })
+
+    const emitBounds = () => {
       const cb = onBoundsChangeRef.current
       if (!cb) return
       const bounds = map.getBounds()
@@ -118,27 +116,20 @@ export default function MapView({ properties, selectedProperty, onPropertySelect
       })
     }
 
-    // Send bounds on map move with slight delay for performance
-    let boundsTimeout: NodeJS.Timeout
-    map.on('movestart', () => {
-      clearTimeout(boundsTimeout)
-    })
+    // Emit bounds after every user-initiated move/zoom
+    let boundsTimer: ReturnType<typeof setTimeout>
     map.on('moveend', () => {
-      clearTimeout(boundsTimeout)
-      boundsTimeout = setTimeout(sendBounds, 100)
-    })
-    map.on('zoomend', () => {
-      clearTimeout(boundsTimeout)
-      boundsTimeout = setTimeout(sendBounds, 100)
-    })
-
-    // Send initial bounds after map is ready
-    map.whenReady(() => {
-      setTimeout(() => sendBounds(), 200)
+      clearTimeout(boundsTimer)
+      if (isUserInteractingRef.current) {
+        boundsTimer = setTimeout(() => {
+          emitBounds()
+          isUserInteractingRef.current = false
+        }, 150)
+      }
     })
 
     return () => {
-      clearTimeout(boundsTimeout)
+      clearTimeout(boundsTimer)
       map.off()
       map.remove()
       mapRef.current = null
@@ -168,8 +159,8 @@ export default function MapView({ properties, selectedProperty, onPropertySelect
       const icon = L.divIcon({
         className: 'price-marker',
         html: `<div class="pm ${isSelected ? 'pm-active' : ''} ${isSale ? 'pm-sale' : 'pm-rent'}">${priceLabel}</div>`,
-        iconSize: [0, 0],
-        iconAnchor: [0, 0],
+        iconSize: [80, 36],
+        iconAnchor: [40, 36],
       })
 
       const marker = L.marker([property.lat, property.lng], { icon })
@@ -201,10 +192,11 @@ export default function MapView({ properties, selectedProperty, onPropertySelect
       markersRef.current[property.id] = marker
     })
 
-    // Fit bounds
-    if (properties.length > 0) {
+    // Only fit bounds on first load — don't fight with user panning
+    if (!hasFittedBoundsRef.current && properties.length > 0) {
       const bounds = L.latLngBounds(properties.map((p) => [p.lat, p.lng]))
       map.fitBounds(bounds, { padding: [40, 40], maxZoom: 15 })
+      hasFittedBoundsRef.current = true
     }
   }, [properties, selectedProperty])
 
@@ -223,23 +215,27 @@ export default function MapView({ properties, selectedProperty, onPropertySelect
       <style jsx global>{`
         /* Price markers */
         .price-marker { 
-          background: transparent; 
-          border: none;
+          background: transparent !important; 
+          border: none !important;
+          display: flex;
+          align-items: flex-end;
+          justify-content: center;
+          overflow: visible;
         }
         .pm {
           background: #fff;
           color: #212529;
-          font-size: 13px;
+          font-size: 12px;
           font-weight: 700;
-          padding: 6px 12px;
-          border-radius: 20px;
+          padding: 4px 8px;
+          border-radius: 8px;
           border: 2px solid #212529;
           white-space: nowrap;
-          box-shadow: 0 2px 8px rgba(33, 37, 41, 0.15), 0 1px 3px rgba(33, 37, 41, 0.1);
+          box-shadow: 0 2px 6px rgba(33, 37, 41, 0.18);
           cursor: pointer;
-          transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-          transform: translate(-50%, -100%);
+          transition: all 0.15s ease;
           position: relative;
+          line-height: 1;
         }
         .pm::after {
           content: '';
@@ -249,32 +245,29 @@ export default function MapView({ properties, selectedProperty, onPropertySelect
           transform: translateX(-50%);
           width: 0;
           height: 0;
-          border-left: 6px solid transparent;
-          border-right: 6px solid transparent;
-          border-top: 6px solid #212529;
-          transition: border-color 0.2s;
+          border-left: 5px solid transparent;
+          border-right: 5px solid transparent;
+          border-top: 5px solid #212529;
         }
         .pm:hover {
           background: #212529;
           color: #fff;
-          border-color: #000;
           z-index: 1000 !important;
-          transform: translate(-50%, -100%) scale(1.15);
-          box-shadow: 0 4px 16px rgba(33, 37, 41, 0.25), 0 2px 8px rgba(33, 37, 41, 0.15);
+          transform: scale(1.1);
+          box-shadow: 0 4px 12px rgba(33, 37, 41, 0.25);
         }
         .pm:hover::after {
-          border-top-color: #000;
+          border-top-color: #212529;
         }
         .pm-active {
           background: #212529;
           color: #fff;
-          border-color: #000;
           z-index: 1001 !important;
-          transform: translate(-50%, -100%) scale(1.15);
-          box-shadow: 0 4px 16px rgba(33, 37, 41, 0.3), 0 2px 8px rgba(33, 37, 41, 0.2);
+          transform: scale(1.1);
+          box-shadow: 0 4px 12px rgba(33, 37, 41, 0.3);
         }
         .pm-active::after {
-          border-top-color: #000;
+          border-top-color: #212529;
         }
         .pm-sale {
           border-color: #0066FF;

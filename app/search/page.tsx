@@ -207,9 +207,9 @@ export default function SearchPage() {
   return (
     <div className="flex flex-col h-[calc(100vh-64px)]">
       {/* Filter Bar */}
-      <div className="bg-white border-b border-[#E9ECEF] px-4 py-2 flex-shrink-0">
+      <div className="bg-white border-b border-[#E9ECEF] px-4 py-2 flex-shrink-0 relative z-[1000]">
         <div className="flex items-center gap-2">
-          <div className="flex-1 overflow-x-auto">
+          <div className="flex-1 min-w-0">
             <FilterBar
               listingType={listingType}
               onListingTypeChange={setListingType}

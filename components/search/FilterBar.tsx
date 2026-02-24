@@ -25,38 +25,45 @@ interface FilterBarProps {
 
 function Dropdown({ label, active, children, onApply }: { label: string; active?: boolean; children: React.ReactNode; onApply?: () => void }) {
   const [open, setOpen] = useState(false)
-  const ref = useRef<HTMLDivElement>(null)
-  const dropdownRef = useRef<HTMLDivElement>(null)
+  const buttonRef = useRef<HTMLButtonElement>(null)
+  const panelRef = useRef<HTMLDivElement>(null)
+  const [pos, setPos] = useState({ top: 0, left: 0 })
 
+  // Calculate fixed position from button
   useEffect(() => {
+    if (open && buttonRef.current) {
+      const rect = buttonRef.current.getBoundingClientRect()
+      setPos({ top: rect.bottom + 8, left: rect.left })
+    }
+  }, [open])
+
+  // Close on click outside
+  useEffect(() => {
+    if (!open) return
     const handleClick = (e: MouseEvent) => {
-      // Only close if click is outside both the button and dropdown content
-      if (ref.current && !ref.current.contains(e.target as Node)) {
-        setOpen(false)
-      }
+      const target = e.target as Node
+      if (
+        buttonRef.current?.contains(target) ||
+        panelRef.current?.contains(target)
+      ) return
+      setOpen(false)
     }
-    if (open) {
-      document.addEventListener('mousedown', handleClick)
-    }
+    document.addEventListener('mousedown', handleClick)
     return () => document.removeEventListener('mousedown', handleClick)
   }, [open])
 
-  const handleDone = () => {
-    if (onApply) onApply()
-    setOpen(false)
-  }
+  // Close on Escape
+  useEffect(() => {
+    if (!open) return
+    const handleKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setOpen(false) }
+    document.addEventListener('keydown', handleKey)
+    return () => document.removeEventListener('keydown', handleKey)
+  }, [open])
 
   return (
-    <div ref={ref} className="relative">
-      {/* Backdrop - positioned behind dropdown but above other content */}
-      {open && (
-        <div
-          className="fixed inset-0 bg-black/20 z-[998]"
-          style={{ pointerEvents: 'none' }}
-        />
-      )}
-      
+    <>
       <button
+        ref={buttonRef}
         onClick={() => setOpen(!open)}
         className={`inline-flex items-center gap-1 px-3 py-1.5 text-xs font-semibold rounded-lg border transition-all ${
           active
@@ -67,28 +74,33 @@ function Dropdown({ label, active, children, onApply }: { label: string; active?
         {label}
         <ChevronDown size={ICON_SIZES.sm} className={`transition-transform ${open ? 'rotate-180' : ''}`} />
       </button>
-      
+
       {open && (
-        <div 
-          ref={dropdownRef}
-          className="absolute top-full left-0 mt-2 bg-white rounded-xl border border-[#E9ECEF] shadow-2xl z-[999] min-w-[280px] animate-fade-in"
-          style={{ pointerEvents: 'auto' }}
-        >
-          <div className="p-4">
-            {children}
+        <>
+          {/* Backdrop */}
+          <div className="fixed inset-0 z-[999]" onClick={() => setOpen(false)} />
+
+          {/* Panel - fixed position to escape overflow clipping */}
+          <div
+            ref={panelRef}
+            className="fixed bg-white rounded-xl border border-[#E9ECEF] shadow-2xl z-[1000] min-w-[280px]"
+            style={{ top: pos.top, left: pos.left }}
+          >
+            <div className="p-4">
+              {children}
+            </div>
+            <div className="px-4 pb-4 pt-0">
+              <button
+                onClick={() => { onApply?.(); setOpen(false) }}
+                className="w-full py-2.5 bg-[#212529] text-white text-sm font-semibold rounded-lg hover:bg-black transition-colors"
+              >
+                Done
+              </button>
+            </div>
           </div>
-          {/* Done button */}
-          <div className="px-4 pb-4 pt-0">
-            <button
-              onClick={handleDone}
-              className="w-full py-2.5 bg-[#212529] text-white text-sm font-semibold rounded-lg hover:bg-black transition-colors"
-            >
-              Done
-            </button>
-          </div>
-        </div>
+        </>
       )}
-    </div>
+    </>
   )
 }
 
