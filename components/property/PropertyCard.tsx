@@ -13,8 +13,8 @@ interface PropertyCardProps {
 export function PropertyCard({ property, compact = false }: PropertyCardProps) {
   const images = property.property_images
   const sortedImages = [
-    ...images.filter(img => img.is_primary),
-    ...images.filter(img => !img.is_primary),
+    ...images.filter((img: any) => img.is_primary),
+    ...images.filter((img: any) => !img.is_primary),
   ]
 
   const priceDisplay = isRentalProperty(property) && property.price
