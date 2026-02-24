@@ -9,7 +9,10 @@
     "lint": "next lint",
     "test": "vitest",
     "test:e2e": "playwright test",
-    "test:coverage": "vitest run --coverage"
+    "test:coverage": "vitest run --coverage",
+    "generate-areas": "tsx scripts/generate-area-guides.ts",
+    "generate-sql-seeder": "tsx scripts/generate-sql-seeder.ts",
+    "generate-types": "supabase gen types typescript --project-id idhcvldxyhfjzytswomo > types/database.ts"
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.2.4",
@@ -23,6 +26,8 @@
     "ai": "^6.0.78",
     "browser-image-compression": "^2.0.2",
     "clsx": "^2.1.1",
+    "csv-parser": "^3.0.0",
+    "dotenv": "^16.4.5",
     "leaflet": "^1.9.4",
     "leaflet.markercluster": "^1.5.3",
     "lucide-react": "^0.344.0",
@@ -38,6 +43,7 @@
     "resend": "^6.9.1",
     "sonner": "^1.7.4",
     "tailwind-merge": "^3.4.0",
+    "tsx": "^4.19.2",
     "uploadthing": "^7.7.4"
   },
   "devDependencies": {
