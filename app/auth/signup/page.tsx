@@ -86,9 +86,8 @@ export default function SignUpPage() {
         <div className="w-full max-w-[440px] mx-auto">
           {/* Logo */}
           <div className="mb-10">
-            <Link href="/" className="inline-flex items-center gap-2">
-              <Image src="/logo.png" alt="Huts" width={36} height={36} priority />
-              <span className="text-xl font-bold tracking-tight text-[#212529]">HUTS</span>
+            <Link href="/">
+              <Image src="/logo.png" alt="Huts" width={48} height={48} priority />
             </Link>
           </div>
 
