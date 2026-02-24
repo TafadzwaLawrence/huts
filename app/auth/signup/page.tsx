@@ -4,7 +4,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import { AlertCircle, Search, Building2, Check } from 'lucide-react'
+import { AlertCircle, Search, Building2, Check, Home } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import { toast } from 'sonner'
 
@@ -80,24 +80,25 @@ export default function SignUpPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#f7f7f7] px-4 py-12">
-      <div className="w-full max-w-[440px]">
-        {/* Logo */}
-        <div className="flex justify-center mb-6">
-          <Link href="/">
-            <Image src="/logo.png" alt="Huts" width={48} height={48} priority />
-          </Link>
-        </div>
+    <div className="min-h-screen flex">
+      {/* Left — Form */}
+      <div className="w-full lg:w-1/2 flex flex-col justify-center px-6 sm:px-12 lg:px-16 xl:px-24 py-12 bg-white">
+        <div className="w-full max-w-[440px] mx-auto">
+          {/* Logo */}
+          <div className="mb-10">
+            <Link href="/" className="inline-flex items-center gap-2">
+              <Image src="/logo.png" alt="Huts" width={36} height={36} priority />
+              <span className="text-xl font-bold tracking-tight text-[#212529]">HUTS</span>
+            </Link>
+          </div>
 
-        {/* Card */}
-        <div className="bg-white rounded-lg shadow-[0_2px_8px_rgba(0,0,0,0.12)] p-8">
           {/* Title */}
-          <h1 className="text-2xl font-bold text-[#212529] text-center mb-1">
-            {mode === 'signin' ? 'Welcome to Huts' : 'Create your account'}
+          <h1 className="text-[28px] font-bold text-[#212529] mb-1">
+            {mode === 'signin' ? 'Welcome back' : 'Create your account'}
           </h1>
-          <p className="text-sm text-[#767676] text-center mb-6">
+          <p className="text-sm text-[#767676] mb-8">
             {mode === 'signin'
-              ? 'Sign in to save homes, track your search, and more.'
+              ? 'Sign in to continue to your dashboard.'
               : 'Join to start your property journey.'}
           </p>
 
@@ -264,7 +265,7 @@ export default function SignUpPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-[#006AFF] text-white py-3 px-4 rounded-md text-sm font-bold hover:bg-[#0059d6] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full bg-[#212529] text-white py-3 px-4 rounded-md text-sm font-bold hover:bg-[#000] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {loading
                 ? (mode === 'signin' ? 'Signing in...' : 'Creating account...')
@@ -273,13 +274,59 @@ export default function SignUpPage() {
           </form>
 
           {/* Terms */}
-          <p className="text-[11px] text-[#767676] text-center mt-4 leading-relaxed">
+          <p className="text-[11px] text-[#767676] text-center mt-5 leading-relaxed">
             By continuing, you agree to our{' '}
-            <Link href="/terms" className="text-[#006AFF] hover:underline">Terms of Use</Link>
+            <Link href="/terms" className="text-[#212529] underline hover:text-black">Terms of Use</Link>
             {' '}and{' '}
-            <Link href="/privacy" className="text-[#006AFF] hover:underline">Privacy Policy</Link>.
+            <Link href="/privacy" className="text-[#212529] underline hover:text-black">Privacy Policy</Link>.
           </p>
         </div>
+      </div>
+
+      {/* Right — Image panel (hidden on mobile) */}
+      <div className="hidden lg:flex lg:w-1/2 relative bg-[#212529] items-center justify-center overflow-hidden">
+        {/* Decorative grid pattern */}
+        <div className="absolute inset-0 opacity-[0.04]" style={{
+          backgroundImage: `linear-gradient(rgba(255,255,255,.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.1) 1px, transparent 1px)`,
+          backgroundSize: '60px 60px',
+        }} />
+
+        {/* Content */}
+        <div className="relative z-10 max-w-md px-12 text-center">
+          {/* Icon */}
+          <div className="mx-auto mb-8 w-20 h-20 rounded-2xl bg-white/10 flex items-center justify-center">
+            <Home size={36} className="text-white" />
+          </div>
+
+          <h2 className="text-3xl font-bold text-white mb-4 leading-tight">
+            Find your perfect<br />place to call home
+          </h2>
+          <p className="text-[#999] text-base leading-relaxed">
+            Browse thousands of rental and sale listings across Zimbabwe. Your next home is just a search away.
+          </p>
+
+          {/* Stats */}
+          <div className="flex justify-center gap-10 mt-10">
+            <div>
+              <p className="text-2xl font-bold text-white">1K+</p>
+              <p className="text-xs text-[#767676] mt-1">Listings</p>
+            </div>
+            <div className="w-px bg-white/10" />
+            <div>
+              <p className="text-2xl font-bold text-white">50+</p>
+              <p className="text-xs text-[#767676] mt-1">Areas</p>
+            </div>
+            <div className="w-px bg-white/10" />
+            <div>
+              <p className="text-2xl font-bold text-white">500+</p>
+              <p className="text-xs text-[#767676] mt-1">Landlords</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Decorative circles */}
+        <div className="absolute -top-24 -right-24 w-80 h-80 rounded-full border border-white/5" />
+        <div className="absolute -bottom-32 -left-32 w-96 h-96 rounded-full border border-white/5" />
       </div>
     </div>
   )
