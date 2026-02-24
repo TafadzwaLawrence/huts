@@ -80,7 +80,7 @@ export default function SignUpPage() {
   }
 
   return (
-    <div className="min-h-[calc(100vh-60px)] flex items-center justify-center bg-[#f7f7f7] px-4 py-12">
+    <div className="min-h-screen flex items-center justify-center bg-[#f7f7f7] px-4 py-12">
       <div className="w-full max-w-[440px]">
         {/* Logo */}
         <div className="flex justify-center mb-6">

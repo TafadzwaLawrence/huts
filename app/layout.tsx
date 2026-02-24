@@ -95,10 +95,12 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  // Check if current route is admin route
+  // Check if current route is admin or auth route (both hide chrome)
   const headersList = headers()
   const pathname = headersList.get('x-pathname') || ''
   const isAdminRoute = pathname.startsWith('/admin')
+  const isAuthRoute = pathname.startsWith('/auth')
+  const hideChrome = isAdminRoute || isAuthRoute
 
   // Check auth for BottomTabBar
   let isLoggedIn = false
@@ -118,22 +120,22 @@ export default async function RootLayout({
         
         <Suspense fallback={null}>
             <NProgressProvider>
-              {!isAdminRoute && (
+              {!hideChrome && (
                 <a href="#main-content" className="skip-link">
                   Skip to main content
                 </a>
               )}
-              {!isAdminRoute && (
+              {!hideChrome && (
                 <Suspense fallback={<NavbarSkeleton />}>
                   <Navbar />
                 </Suspense>
               )}
-              <main id="main-content" className="min-h-screen pb-14 md:pb-0">
+              <main id="main-content" className={hideChrome ? 'min-h-screen' : 'min-h-screen pb-14 md:pb-0'}>
                 {children}
               </main>
-              {!isAdminRoute && <Footer />}
-              {!isAdminRoute && <BottomTabBar isLoggedIn={isLoggedIn} />}
-              {!isAdminRoute && <FloatingChatWidget />}
+              {!hideChrome && <Footer />}
+              {!hideChrome && <BottomTabBar isLoggedIn={isLoggedIn} />}
+              {!hideChrome && <FloatingChatWidget />}
               <Toaster position="top-center" />
             </NProgressProvider>
           </Suspense>
