@@ -4,11 +4,12 @@ import { useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import { Mail, Lock, User, ArrowRight, AlertCircle, Home, Key, Search, Building2, Shield, Check } from 'lucide-react'
+import { AlertCircle, Search, Building2, Check } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import { toast } from 'sonner'
 
 export default function SignUpPage() {
+  const [mode, setMode] = useState<'signin' | 'signup'>('signin')
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -18,47 +19,47 @@ export default function SignUpPage() {
   const router = useRouter()
   const supabase = createClient()
 
-  const handleSignUp = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setLoading(true)
     setError('')
 
     try {
-      const { data, error } = await supabase.auth.signUp({
-        email,
-        password,
-        options: {
-          data: {
-            name,
-            role,
-          },
-        },
-      })
-
-      if (error) throw error
-
-      // Send welcome email
-      try {
-        await fetch('/api/emails/welcome', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email, name, role }),
+      if (mode === 'signup') {
+        const { error } = await supabase.auth.signUp({
+          email,
+          password,
+          options: { data: { name, role } },
         })
-      } catch (emailError) {
-        console.error('Failed to send welcome email:', emailError)
-      }
+        if (error) throw error
 
-      toast.success('Account created! Please check your email to verify.')
-      router.push('/dashboard')
+        try {
+          await fetch('/api/emails/welcome', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, name, role }),
+          })
+        } catch (emailError) {
+          console.error('Failed to send welcome email:', emailError)
+        }
+
+        toast.success('Account created! Check your email to verify.')
+        router.push('/dashboard')
+      } else {
+        const { error } = await supabase.auth.signInWithPassword({ email, password })
+        if (error) throw error
+        toast.success('Welcome back!')
+        router.push('/dashboard')
+      }
     } catch (error: any) {
-      setError(error.message || 'Failed to create account')
-      toast.error(error.message || 'Failed to create account')
+      setError(error.message || 'Something went wrong')
+      toast.error(error.message || 'Something went wrong')
     } finally {
       setLoading(false)
     }
   }
 
-  const handleGoogleSignUp = async () => {
+  const handleGoogleAuth = async () => {
     setLoading(true)
     setError('')
 
@@ -67,96 +68,79 @@ export default function SignUpPage() {
         provider: 'google',
         options: {
           redirectTo: `${window.location.origin}/auth/callback`,
-          queryParams: {
-            access_type: 'offline',
-            prompt: 'consent',
-          },
+          queryParams: { access_type: 'offline', prompt: 'consent' },
         },
       })
-
       if (error) throw error
     } catch (error: any) {
-      setError(error.message || 'Failed to sign up with Google')
-      toast.error(error.message || 'Failed to sign up with Google')
+      setError(error.message || 'Failed to continue with Google')
+      toast.error(error.message || 'Failed to continue with Google')
       setLoading(false)
     }
   }
 
   return (
-    <div className="min-h-[calc(100vh-4rem)] flex bg-white">
-      {/* Left Panel - Branding */}
-      <div className="hidden lg:flex lg:w-[45%] bg-[#212529] relative overflow-hidden">
-        {/* Background pattern */}
-        <div className="absolute inset-0 opacity-[0.03]" style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
-        }} />
-        
-        {/* Gradient orbs */}
-        <div className="absolute -top-32 -left-32 w-96 h-96 bg-white/5 rounded-full blur-3xl" />
-        <div className="absolute -bottom-32 -right-32 w-80 h-80 bg-white/5 rounded-full blur-3xl" />
-
-        <div className="relative flex flex-col justify-between p-12 w-full">
-          {/* Logo */}
-          <Link href="/" className="flex items-center gap-2">
-            <Image src="/logo.png" alt="Huts" width={36} height={36} className="invert" />
+    <div className="min-h-[calc(100vh-60px)] flex items-center justify-center bg-[#f7f7f7] px-4 py-12">
+      <div className="w-full max-w-[440px]">
+        {/* Logo */}
+        <div className="flex justify-center mb-6">
+          <Link href="/">
+            <Image src="/logo.png" alt="Huts" width={48} height={48} priority />
           </Link>
-
-          {/* Main content */}
-          <div>
-            <h2 className="text-4xl font-bold text-white tracking-tight mb-4 leading-tight">
-              Find your place,<br />
-              your way.
-            </h2>
-            <p className="text-white/50 text-lg mb-12 max-w-sm">
-              Whether you&apos;re looking for a home or listing one, Huts makes it simple.
-            </p>
-
-            {/* Feature list */}
-            <div className="space-y-5">
-              {[
-                { icon: Search, text: 'Search properties across Zimbabwe' },
-                { icon: Shield, text: '100% verified listings' },
-                { icon: Key, text: 'Direct messaging with landlords' },
-              ].map(({ icon: Icon, text }) => (
-                <div key={text} className="flex items-center gap-4">
-                  <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center flex-shrink-0">
-                    <Icon size={18} className="text-white" />
-                  </div>
-                  <span className="text-white/70 text-sm font-medium">{text}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Bottom */}
-          <p className="text-white/30 text-xs">
-            &copy; {new Date().getFullYear()} Huts. All rights reserved.
-          </p>
         </div>
-      </div>
 
-      {/* Right Panel - Form */}
-      <div className="flex-1 flex items-center justify-center px-6 py-12">
-        <div className="w-full max-w-[420px]">
-          {/* Mobile logo */}
-          <div className="lg:hidden flex justify-center mb-8">
-            <Link href="/">
-              <Image src="/logo.png" alt="Huts" width={40} height={40} />
-            </Link>
+        {/* Card */}
+        <div className="bg-white rounded-lg shadow-[0_2px_8px_rgba(0,0,0,0.12)] p-8">
+          {/* Title */}
+          <h1 className="text-2xl font-bold text-[#212529] text-center mb-1">
+            {mode === 'signin' ? 'Welcome to Huts' : 'Create your account'}
+          </h1>
+          <p className="text-sm text-[#767676] text-center mb-6">
+            {mode === 'signin'
+              ? 'Sign in to save homes, track your search, and more.'
+              : 'Join to start your property journey.'}
+          </p>
+
+          {/* Tabs */}
+          <div className="flex border-b border-[#e5e5e5] mb-6">
+            <button
+              type="button"
+              onClick={() => { setMode('signin'); setError('') }}
+              className={`flex-1 pb-3 text-sm font-bold text-center transition-colors relative ${
+                mode === 'signin'
+                  ? 'text-[#212529] after:absolute after:bottom-0 after:inset-x-0 after:h-[3px] after:bg-[#212529] after:rounded-t'
+                  : 'text-[#767676] hover:text-[#212529]'
+              }`}
+            >
+              Sign in
+            </button>
+            <button
+              type="button"
+              onClick={() => { setMode('signup'); setError('') }}
+              className={`flex-1 pb-3 text-sm font-bold text-center transition-colors relative ${
+                mode === 'signup'
+                  ? 'text-[#212529] after:absolute after:bottom-0 after:inset-x-0 after:h-[3px] after:bg-[#212529] after:rounded-t'
+                  : 'text-[#767676] hover:text-[#212529]'
+              }`}
+            >
+              New account
+            </button>
           </div>
 
-          {/* Header */}
-          <div className="mb-8">
-            <h1 className="text-2xl font-bold text-[#212529] tracking-tight">Create your account</h1>
-            <p className="text-sm text-[#ADB5BD] mt-1">Start your property journey today</p>
-          </div>
+          {/* Error */}
+          {error && (
+            <div className="mb-4 p-3 bg-[#fef2f2] border border-[#fecaca] rounded-md flex items-start gap-2">
+              <AlertCircle size={16} className="text-[#dc2626] flex-shrink-0 mt-0.5" />
+              <p className="text-sm text-[#991b1b]">{error}</p>
+            </div>
+          )}
 
-          {/* Google Sign Up - First */}
+          {/* Google */}
           <button
             type="button"
-            onClick={handleGoogleSignUp}
+            onClick={handleGoogleAuth}
             disabled={loading}
-            className="w-full flex items-center justify-center gap-3 bg-white border-2 border-[#E9ECEF] text-[#212529] py-3 px-4 rounded-xl text-sm font-semibold hover:border-[#212529] hover:shadow-md transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full flex items-center justify-center gap-3 bg-white border border-[#d1d1d1] text-[#212529] py-3 px-4 rounded-md text-sm font-semibold hover:bg-[#f7f7f7] hover:border-[#999] transition-all disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <svg className="w-5 h-5" viewBox="0 0 24 24">
               <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
@@ -168,43 +152,36 @@ export default function SignUpPage() {
           </button>
 
           {/* Divider */}
-          <div className="relative my-6">
+          <div className="relative my-5">
             <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-[#E9ECEF]"></div>
+              <div className="w-full border-t border-[#e5e5e5]" />
             </div>
             <div className="relative flex justify-center">
-              <span className="px-3 bg-white text-[#ADB5BD] text-xs">or</span>
+              <span className="px-3 bg-white text-[#767676] text-xs">or</span>
             </div>
           </div>
 
-          {/* Error */}
-          {error && (
-            <div className="mb-5 p-3 bg-[#FF6B6B]/5 border border-[#FF6B6B]/20 rounded-xl flex items-start gap-2.5">
-              <AlertCircle size={16} className="text-[#FF6B6B] flex-shrink-0 mt-0.5" />
-              <p className="text-sm text-[#212529]">{error}</p>
-            </div>
-          )}
+          {/* Form */}
+          <form onSubmit={handleSubmit} className="space-y-4">
+            {mode === 'signup' && (
+              <div>
+                <label htmlFor="name" className="block text-xs font-bold text-[#212529] mb-1">
+                  Full name
+                </label>
+                <input
+                  id="name"
+                  type="text"
+                  required
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  className="block w-full px-3 py-2.5 border border-[#d1d1d1] rounded-md text-sm text-[#212529] placeholder-[#999] focus:outline-none focus:border-[#212529] focus:ring-1 focus:ring-[#212529] transition-colors"
+                  placeholder="First Last"
+                />
+              </div>
+            )}
 
-          <form onSubmit={handleSignUp} className="space-y-4">
-            {/* Name */}
             <div>
-              <label htmlFor="name" className="block text-xs font-semibold text-[#212529] mb-1.5 uppercase tracking-wider">
-                Full name
-              </label>
-              <input
-                id="name"
-                type="text"
-                required
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                className="block w-full px-4 py-3 border-2 border-[#E9ECEF] rounded-xl text-sm text-[#212529] placeholder-[#ADB5BD] focus:outline-none focus:border-[#212529] transition-colors"
-                placeholder="John Doe"
-              />
-            </div>
-
-            {/* Email */}
-            <div>
-              <label htmlFor="email" className="block text-xs font-semibold text-[#212529] mb-1.5 uppercase tracking-wider">
+              <label htmlFor="email" className="block text-xs font-bold text-[#212529] mb-1">
                 Email
               </label>
               <input
@@ -213,14 +190,13 @@ export default function SignUpPage() {
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="block w-full px-4 py-3 border-2 border-[#E9ECEF] rounded-xl text-sm text-[#212529] placeholder-[#ADB5BD] focus:outline-none focus:border-[#212529] transition-colors"
-                placeholder="you@example.com"
+                className="block w-full px-3 py-2.5 border border-[#d1d1d1] rounded-md text-sm text-[#212529] placeholder-[#999] focus:outline-none focus:border-[#212529] focus:ring-1 focus:ring-[#212529] transition-colors"
+                placeholder="Enter email"
               />
             </div>
 
-            {/* Password */}
             <div>
-              <label htmlFor="password" className="block text-xs font-semibold text-[#212529] mb-1.5 uppercase tracking-wider">
+              <label htmlFor="password" className="block text-xs font-bold text-[#212529] mb-1">
                 Password
               </label>
               <input
@@ -229,89 +205,80 @@ export default function SignUpPage() {
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="block w-full px-4 py-3 border-2 border-[#E9ECEF] rounded-xl text-sm text-[#212529] placeholder-[#ADB5BD] focus:outline-none focus:border-[#212529] transition-colors"
-                placeholder="Min. 6 characters"
+                className="block w-full px-3 py-2.5 border border-[#d1d1d1] rounded-md text-sm text-[#212529] placeholder-[#999] focus:outline-none focus:border-[#212529] focus:ring-1 focus:ring-[#212529] transition-colors"
+                placeholder={mode === 'signup' ? 'Create password' : 'Enter password'}
                 minLength={6}
               />
             </div>
 
-            {/* Role Selection */}
-            <div>
-              <label className="block text-xs font-semibold text-[#212529] mb-2 uppercase tracking-wider">
-                I am a
-              </label>
-              <div className="grid grid-cols-2 gap-3">
-                <button
-                  type="button"
-                  onClick={() => setRole('renter')}
-                  className={`relative p-4 border-2 rounded-xl transition-all text-left ${
-                    role === 'renter'
-                      ? 'border-[#212529] bg-[#212529]'
-                      : 'border-[#E9ECEF] hover:border-[#212529]'
-                  }`}
-                >
-                  {role === 'renter' && (
-                    <div className="absolute top-2.5 right-2.5 w-5 h-5 bg-white rounded-full flex items-center justify-center">
-                      <Check size={12} className="text-[#212529]" />
+            {/* Role — sign up only */}
+            {mode === 'signup' && (
+              <div>
+                <label className="block text-xs font-bold text-[#212529] mb-2">
+                  I want to
+                </label>
+                <div className="grid grid-cols-2 gap-3">
+                  <button
+                    type="button"
+                    onClick={() => setRole('renter')}
+                    className={`relative flex items-center gap-2.5 p-3 border rounded-md transition-all text-left ${
+                      role === 'renter'
+                        ? 'border-[#212529] bg-[#f7f7f7] ring-1 ring-[#212529]'
+                        : 'border-[#d1d1d1] hover:border-[#999]'
+                    }`}
+                  >
+                    {role === 'renter' && (
+                      <div className="absolute top-2 right-2 w-4 h-4 bg-[#212529] rounded-full flex items-center justify-center">
+                        <Check size={10} className="text-white" />
+                      </div>
+                    )}
+                    <Search size={16} className="text-[#212529] shrink-0" />
+                    <div>
+                      <p className="text-sm font-bold text-[#212529]">Find a home</p>
                     </div>
-                  )}
-                  <Search size={20} className={`mb-2 ${role === 'renter' ? 'text-white' : 'text-[#212529]'}`} />
-                  <p className={`text-sm font-semibold ${role === 'renter' ? 'text-white' : 'text-[#212529]'}`}>Renter</p>
-                  <p className={`text-xs mt-0.5 ${role === 'renter' ? 'text-white/60' : 'text-[#ADB5BD]'}`}>
-                    Looking for a home
-                  </p>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setRole('landlord')}
-                  className={`relative p-4 border-2 rounded-xl transition-all text-left ${
-                    role === 'landlord'
-                      ? 'border-[#212529] bg-[#212529]'
-                      : 'border-[#E9ECEF] hover:border-[#212529]'
-                  }`}
-                >
-                  {role === 'landlord' && (
-                    <div className="absolute top-2.5 right-2.5 w-5 h-5 bg-white rounded-full flex items-center justify-center">
-                      <Check size={12} className="text-[#212529]" />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setRole('landlord')}
+                    className={`relative flex items-center gap-2.5 p-3 border rounded-md transition-all text-left ${
+                      role === 'landlord'
+                        ? 'border-[#212529] bg-[#f7f7f7] ring-1 ring-[#212529]'
+                        : 'border-[#d1d1d1] hover:border-[#999]'
+                    }`}
+                  >
+                    {role === 'landlord' && (
+                      <div className="absolute top-2 right-2 w-4 h-4 bg-[#212529] rounded-full flex items-center justify-center">
+                        <Check size={10} className="text-white" />
+                      </div>
+                    )}
+                    <Building2 size={16} className="text-[#212529] shrink-0" />
+                    <div>
+                      <p className="text-sm font-bold text-[#212529]">List property</p>
                     </div>
-                  )}
-                  <Building2 size={20} className={`mb-2 ${role === 'landlord' ? 'text-white' : 'text-[#212529]'}`} />
-                  <p className={`text-sm font-semibold ${role === 'landlord' ? 'text-white' : 'text-[#212529]'}`}>Landlord</p>
-                  <p className={`text-xs mt-0.5 ${role === 'landlord' ? 'text-white/60' : 'text-[#ADB5BD]'}`}>
-                    Listing properties
-                  </p>
-                </button>
+                  </button>
+                </div>
               </div>
-            </div>
+            )}
 
             {/* Submit */}
             <button
               type="submit"
               disabled={loading}
-              className="w-full flex items-center justify-center gap-2 bg-[#212529] text-white py-3 px-4 rounded-xl text-sm font-semibold hover:bg-black hover:-translate-y-0.5 transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0 mt-2"
+              className="w-full bg-[#006AFF] text-white py-3 px-4 rounded-md text-sm font-bold hover:bg-[#0059d6] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {loading ? 'Creating account...' : 'Create account'}
-              {!loading && <ArrowRight size={16} />}
+              {loading
+                ? (mode === 'signin' ? 'Signing in...' : 'Creating account...')
+                : (mode === 'signin' ? 'Sign in' : 'Create account')}
             </button>
           </form>
 
           {/* Terms */}
-          <p className="text-[10px] text-[#ADB5BD] text-center mt-4 leading-relaxed">
-            By creating an account, you agree to our{' '}
-            <Link href="/terms" className="text-[#212529] hover:underline">Terms</Link>
+          <p className="text-[11px] text-[#767676] text-center mt-4 leading-relaxed">
+            By continuing, you agree to our{' '}
+            <Link href="/terms" className="text-[#006AFF] hover:underline">Terms of Use</Link>
             {' '}and{' '}
-            <Link href="/privacy" className="text-[#212529] hover:underline">Privacy Policy</Link>
+            <Link href="/privacy" className="text-[#006AFF] hover:underline">Privacy Policy</Link>.
           </p>
-
-          {/* Sign In Link */}
-          <div className="mt-8 pt-6 border-t border-[#E9ECEF] text-center">
-            <p className="text-sm text-[#495057]">
-              Already have an account?{' '}
-              <Link href="/dashboard" className="font-semibold text-[#212529] hover:underline underline-offset-2">
-                Sign in
-              </Link>
-            </p>
-          </div>
         </div>
       </div>
     </div>
