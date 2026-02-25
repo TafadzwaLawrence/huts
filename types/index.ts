@@ -13,7 +13,9 @@ export type PropertyImageInsert = Database['public']['Tables']['property_images'
 
 export type SavedProperty = Database['public']['Tables']['saved_properties']['Row']
 
-// Agent types
+// Agent types - COMMENTED OUT until migration is run
+// Uncomment after running supabase/migrations/021_agents_system.sql and regenerating types
+/*
 export type AgentProfile = Database['public']['Tables']['agent_profiles']['Row']
 export type AgentProfileInsert = Database['public']['Tables']['agent_profiles']['Insert']
 export type AgentProfileUpdate = Database['public']['Tables']['agent_profiles']['Update']
@@ -27,17 +29,27 @@ export type AgentInquiry = Database['public']['Tables']['agent_inquiries']['Row'
 export type AgentInquiryInsert = Database['public']['Tables']['agent_inquiries']['Insert']
 export type AgentAchievement = Database['public']['Tables']['agent_achievements']['Row']
 export type AgentAdvertisement = Database['public']['Tables']['agent_advertisements']['Row']
+*/
+
+// Temporary placeholder types until migration runs
+export type AgentProfile = any
+export type AgentProfileInsert = any
+export type AgentProfileUpdate = any
+export type AgentReview = any
+export type AgentReviewInsert = any
+export type AgentReviewUpdate = any
+export type AgentServiceArea = any
+export type AgentInquiry = any
+export type AgentInquiryInsert = any
+export type AgentAchievement = any
+export type AgentAdvertisement = any
 
 export type PropertyWithImages = Property & {
   property_images: PropertyImage[]
   profiles: Pick<Profile, 'name' | 'avatar_url' | 'verified'>
 }
 
-export type AgentProfileWithDetails = AgentProfile & {
-  agent_service_areas: AgentServiceArea[]
-  agent_achievements: AgentAchievement[]
-  agent_reviews: AgentReview[]
-}
+export type AgentProfileWithDetails = any // AgentProfile & { agent_service_areas: AgentServiceArea[]; agent_achievements: AgentAchievement[]; agent_reviews: AgentReview[] }
 
 // Type guards for listing types
 export function isRentalProperty(property: Property | PropertyWithImages): boolean {
