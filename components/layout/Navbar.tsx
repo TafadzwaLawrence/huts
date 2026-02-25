@@ -28,6 +28,12 @@ const sellMenuItems = [
   { label: 'Home Value', href: '/home-value' },
 ]
 
+const agentMenuItems = [
+  { label: 'Find an Agent', href: '/find-agent' },
+  { label: 'Become an Agent', href: '/agents/signup' },
+  { label: 'Agent Resources', href: '/help' }, // Will be /resources when built
+]
+
 export async function Navbar() {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
@@ -58,10 +64,10 @@ export async function Navbar() {
     { label: 'Buy', items: buyMenuItems, activePatterns: ['type=sale'] },
     { label: 'Rent', items: rentMenuItems, activePatterns: ['type=rent', '/student'] },
     { label: 'Sell', items: sellMenuItems, activePatterns: ['/dashboard/new-property'] },
+    { label: 'Agents', items: agentMenuItems, activePatterns: ['/find-agent', '/agents/'] },
   ]
 
   const rightLinks = [
-    { href: '/find-agent', label: 'Find an Agent' },
     { href: '/areas', label: 'Areas' },
     { href: '/help', label: 'Help' },
   ]
@@ -131,20 +137,12 @@ export async function Navbar() {
                 />
               </div>
             ) : (
-              <div className="flex items-center">
-                <Link
-                  href="/auth/signup"
-                  className="px-3 py-1.5 text-sm font-semibold text-[#212529] hover:underline underline-offset-4"
-                >
-                  Sign in
-                </Link>
-                <Link
-                  href="/auth/signup"
-                  className="px-3 py-1.5 text-sm font-semibold text-[#212529] hover:underline underline-offset-4"
-                >
-                  Join
-                </Link>
-              </div>
+              <Link
+                href="/auth/signup"
+                className="px-3 py-1.5 text-sm font-semibold text-[#212529] hover:underline underline-offset-4"
+              >
+                Sign in
+              </Link>
             )}
           </div>
 

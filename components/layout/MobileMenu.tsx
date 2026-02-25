@@ -34,8 +34,13 @@ export function MobileMenu({ isLoggedIn, userName, userEmail, userAvatar, userIn
     { href: '/search', label: 'Browse All', icon: Search, desc: 'All properties' },
     { href: '/search?type=rent', label: 'For Rent', icon: Key, desc: 'Monthly rentals' },
     { href: '/search?type=sale', label: 'For Sale', icon: Building2, desc: 'Homes to buy' },
-    { href: '/find-agent', label: 'Find an Agent', icon: User, desc: 'Real estate pros' },
     { href: '/areas', label: 'Areas', icon: MapPin, desc: 'Neighborhoods' },
+  ]
+
+  const agentLinks = [
+    { href: '/find-agent', label: 'Find an Agent', icon: User },
+    { href: '/agents/signup', label: 'Become an Agent', icon: PlusCircle },
+    { href: '/help', label: 'Agent Resources', icon: HelpCircle },
   ]
 
   const userLinks = isLoggedIn
@@ -184,6 +189,32 @@ export function MobileMenu({ isLoggedIn, userName, userEmail, userAvatar, userIn
           {/* Divider */}
           <div className="mx-4 my-2 border-t border-[#E9ECEF]" />
 
+          {/* Agents Section */}
+          <div className="px-4 pb-4">
+            <p className="text-[10px] font-bold text-[#ADB5BD] uppercase tracking-widest mb-3 px-1">Agents</p>
+            <div className="space-y-0.5">
+              {agentLinks.map(({ href, label, icon: Icon }) => (
+                <Link
+                  key={href}
+                  href={href}
+                  onClick={() => setIsOpen(false)}
+                  className="flex items-center justify-between p-3 rounded-xl text-[#212529] hover:bg-[#F8F9FA] transition-colors group"
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="w-9 h-9 rounded-lg bg-[#F8F9FA] flex items-center justify-center group-hover:bg-[#E9ECEF] transition-colors">
+                      <Icon size={18} className="text-[#495057]" />
+                    </div>
+                    <span className="font-medium text-sm">{label}</span>
+                  </div>
+                  <ChevronRight size={16} className="text-[#ADB5BD] group-hover:text-[#212529] group-hover:translate-x-0.5 transition-all" />
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          {/* Divider */}
+          <div className="mx-4 my-2 border-t border-[#E9ECEF]" />
+
           {/* Account Section */}
           <div className="px-4 pb-4">
             <p className="text-[10px] font-bold text-[#ADB5BD] uppercase tracking-widest mb-3 px-1">Account</p>
@@ -223,34 +254,19 @@ export function MobileMenu({ isLoggedIn, userName, userEmail, userAvatar, userIn
                   </form>
                 </>
               ) : (
-                <>
-                  <Link
-                    href="/auth/signup"
-                    onClick={() => setIsOpen(false)}
-                    className="flex items-center justify-between p-3 rounded-xl text-[#212529] hover:bg-[#F8F9FA] transition-colors group"
-                  >
-                    <div className="flex items-center gap-3">
-                      <div className="w-9 h-9 rounded-lg bg-[#F8F9FA] flex items-center justify-center group-hover:bg-[#E9ECEF] transition-colors">
-                        <User size={18} className="text-[#495057]" />
-                      </div>
-                      <span className="font-medium text-sm">Sign In</span>
+                <Link
+                  href="/auth/signup"
+                  onClick={() => setIsOpen(false)}
+                  className="flex items-center justify-between p-3 rounded-xl text-[#212529] hover:bg-[#F8F9FA] transition-colors group"
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="w-9 h-9 rounded-lg bg-[#F8F9FA] flex items-center justify-center group-hover:bg-[#E9ECEF] transition-colors">
+                      <User size={18} className="text-[#495057]" />
                     </div>
-                    <ChevronRight size={16} className="text-[#ADB5BD] group-hover:text-[#212529] group-hover:translate-x-0.5 transition-all" />
-                  </Link>
-                  <Link
-                    href="/auth/signup"
-                    onClick={() => setIsOpen(false)}
-                    className="flex items-center justify-between p-3 rounded-xl text-[#212529] hover:bg-[#F8F9FA] transition-colors group"
-                  >
-                    <div className="flex items-center gap-3">
-                      <div className="w-9 h-9 rounded-lg bg-[#F8F9FA] border border-[#E9ECEF] flex items-center justify-center">
-                        <PlusCircle size={18} className="text-[#212529]" />
-                      </div>
-                      <span className="font-semibold text-sm">Create Account</span>
-                    </div>
-                    <ChevronRight size={16} className="text-[#ADB5BD] group-hover:text-[#212529] group-hover:translate-x-0.5 transition-all" />
-                  </Link>
-                </>
+                    <span className="font-medium text-sm">Sign In</span>
+                  </div>
+                  <ChevronRight size={16} className="text-[#ADB5BD] group-hover:text-[#212529] group-hover:translate-x-0.5 transition-all" />
+                </Link>
               )}
             </div>
           </div>

@@ -32,32 +32,40 @@ const CITIES = ['Harare', 'Bulawayo', 'Chitungwiza', 'Mutare', 'Gweru', 'Kwekwe'
 export default async function FindAgentPage({ searchParams }: { searchParams: SearchParams }) {
   const supabase = await createClient()
 
-  // Build query
-  let query = supabase
-    .from('agent_profiles')
-    .select(`
-      *,
-      agent_service_areas(city, is_primary),
-      agent_achievements(achievement_type),
-      profiles!agent_profiles_user_id_fkey(name, avatar_url)
-    `)
-    .eq('status', 'active')
+  // Try to query agents - if tables don't exist, show coming soon page
+  let agents: any[] = []
+  let totalAgents = 0
+  let verifiedCount = 0
+  let featuredCount = 0
+  let tablesExist = true
 
-  // Apply filters
-  if (searchParams.type) {
-    query = query.eq('agent_type', searchParams.type)
-  }
+  try {
+    // Build query
+    let query = supabase
+      .from('agent_profiles')
+      .select(`
+        *,
+        agent_service_areas(city, is_primary),
+        agent_achievements(achievement_type),
+        profiles!agent_profiles_user_id_fkey(name, avatar_url)
+      `)
+      .eq('status', 'active')
 
-  if (searchParams.city) {
-    // Filter by service area
-    query = query.contains('service_areas', [searchParams.city])
-  }
+    // Apply filters
+    if (searchParams.type) {
+      query = query.eq('agent_type', searchParams.type)
+    }
 
-  if (searchParams.specialization) {
-    query = query.contains('specializations', [searchParams.specialization])
-  }
+    if (searchParams.city) {
+      // Filter by service area
+      query = query.contains('service_areas', [searchParams.city])
+    }
 
-  if (searchParams.verified === 'true') {
+    if (searchParams.specialization) {
+      query = query.contains('specializations', [searchParams.specialization])
+    }
+
+    if (searchParams.verified === 'true') {
     query = query.eq('verified', true)
   }
 
@@ -86,11 +94,37 @@ export default async function FindAgentPage({ searchParams }: { searchParams: Se
         .order('avg_rating', { ascending: false, nullsFirst: false })
   }
 
-  const { data: agents } = await query.limit(50)
+    const { data } = await query.limit(50)
+    agents = data || []
+    totalAgents = agents.length
+    verifiedCount = agents.filter((a: any) => a.verified).length
+    featuredCount = agents.filter((a: any) => a.featured).length
+  } catch (error) {
+    // Tables don't exist yet
+    console.log('Agent tables not found:', error)
+    tablesExist = false
+  }
 
-  const totalAgents = agents?.length || 0
-  const verifiedCount = agents?.filter(a => a.verified).length || 0
-  const featuredCount = agents?.filter(a => a.featured).length || 0
+  // If tables don't exist, show coming soon page
+  if (!tablesExist) {
+    return (
+      <div className="min-h-screen bg-white flex items-center justify-center px-4">
+        <div className="max-w-md text-center">
+          <Building2 size={64} className="mx-auto text-[#ADB5BD] mb-4" />
+          <h1 className="text-2xl font-bold text-[#212529] mb-2">Agent Marketplace Coming Soon</h1>
+          <p className="text-[#495057] mb-6">
+            We're building an amazing marketplace for real estate professionals. Check back soon!
+          </p>
+          <Link
+            href="/"
+            className="inline-block bg-[#212529] text-white px-6 py-3 rounded-lg hover:bg-black transition-colors"
+          >
+            Back to Home
+          </Link>
+        </div>
+      </div>
+    )
+  }
 
   // Agent type icons
   const agentTypeIcons = {

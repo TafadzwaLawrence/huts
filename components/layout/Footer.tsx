@@ -19,8 +19,9 @@ const footerSections = [
     links: [
       { label: 'Find an Agent', href: '/find-agent' },
       { label: 'Become an Agent', href: '/agents/signup' },
-      { label: 'Agent Solutions', href: '/agent-solutions' },
-      { label: 'Agent Resources', href: '/resources' },
+      // Temporarily disabled until pages are created:
+      // { label: 'Agent Solutions', href: '/agent-solutions' },
+      // { label: 'Agent Resources', href: '/resources' },
     ],
   },
   {

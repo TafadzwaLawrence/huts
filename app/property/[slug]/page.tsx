@@ -183,16 +183,21 @@ export default async function PropertyPage({ params }: { params: Promise<{ slug:
   // Check if landlord is also an agent
   let agentProfile = null
   if (property.user_id) {
-    const { data } = await supabase
-      .from('agent_profiles')
-      .select(`
-        *,
-        agent_service_areas(city, is_primary)
-      `)
-      .eq('user_id', property.user_id)
-      .eq('status', 'active')
-      .single()
-    agentProfile = data
+    try {
+      const { data } = await supabase
+        .from('agent_profiles')
+        .select(`
+          *,
+          agent_service_areas(city, is_primary)
+        `)
+        .eq('user_id', property.user_id)
+        .eq('status', 'active')
+        .single()
+      agentProfile = data
+    } catch (error) {
+      // Agent tables don't exist yet - silently ignore
+      console.log('Agent profile query failed (tables may not exist yet)')
+    }
   }
 
   // Block public access to unverified properties (owners can still view their own)
