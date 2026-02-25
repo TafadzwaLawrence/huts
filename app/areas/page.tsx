@@ -47,7 +47,7 @@ export default async function AreasPage() {
               src="/pexels-davidmcbee-1546168.jpg"
               alt="Zimbabwe neighborhoods"
               fill
-              className="object-cover"
+              className="object-cover grayscale contrast-125 opacity-[0.15]"
               priority
             />
             {/* Dark Overlay for text readability */}
