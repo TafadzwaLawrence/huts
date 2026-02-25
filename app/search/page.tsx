@@ -441,7 +441,7 @@ export default function SearchPage() {
                       onMouseLeave={() => setSelectedProperty(null)}
                       className={`transition-shadow duration-150 rounded-xl ${selectedProperty === property.id ? 'ring-2 ring-[#212529]' : ''}`}
                     >
-                      <PropertyCard property={property as any} compact={effectiveView === 'split'} />
+                      <PropertyCard property={property as any} compact={effectiveView === 'split'} noGrayscale={true} />
                     </div>
                   ))}
                 </div>

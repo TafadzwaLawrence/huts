@@ -11,9 +11,10 @@ import { useState } from 'react'
 interface PropertyCardProps {
   property: PropertyWithImages
   compact?: boolean
+  noGrayscale?: boolean
 }
 
-export function PropertyCard({ property, compact = false }: PropertyCardProps) {
+export function PropertyCard({ property, compact = false, noGrayscale = false }: PropertyCardProps) {
   const [isNavigating, setIsNavigating] = useState(false)
   const images = property.property_images
   const sortedImages = [
@@ -54,7 +55,7 @@ export function PropertyCard({ property, compact = false }: PropertyCardProps) {
         {/* Image */}
         <div className={`property-card-image ${compact ? 'h-40' : ''}`}>
           {sortedImages.length > 0 ? (
-            <ImageCarousel images={sortedImages} title={property.title} />
+            <ImageCarousel images={sortedImages} title={property.title} noGrayscale={noGrayscale} />
           ) : (
             <div className="w-full h-full bg-[#F8F9FA] flex items-center justify-center">
               <Home className="text-[#ADB5BD]" size={ICON_SIZES['3xl']} />

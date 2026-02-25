@@ -8,9 +8,10 @@ import { ICON_SIZES } from '@/lib/constants'
 interface ImageCarouselProps {
   images: Array<{ url: string; is_primary?: boolean | null; alt_text?: string | null }>
   title: string
+  noGrayscale?: boolean
 }
 
-export function ImageCarousel({ images, title }: ImageCarouselProps) {
+export function ImageCarousel({ images, title, noGrayscale = false }: ImageCarouselProps) {
   const [currentIndex, setCurrentIndex] = useState(0)
   const touchStartX = useRef(0)
   const touchEndX = useRef(0)
@@ -64,7 +65,7 @@ export function ImageCarousel({ images, title }: ImageCarouselProps) {
         src={images[currentIndex].url}
         alt={images[currentIndex].alt_text || `${title} - Photo ${currentIndex + 1}`}
         fill
-        className="object-cover grayscale contrast-125 opacity-[0.35]"
+        className={noGrayscale ? "object-cover" : "object-cover grayscale contrast-125 opacity-[0.35]"}
         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         placeholder="blur"
         blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAMCAgMCAgMDAwMEAwMEBQgFBQQEBQoHBwYIDAoMCwsKCwsNDhIQDQ4RDgsLEBYQERMUFRUVDA8XGBYUGBIUFRT/2wBDAQMEBAUEBQkFBQkUDQsNFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBT/wAARCAAKAAoDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAABwgJ/8QAJRAAAgEDAwMFAQAAAAAAAAAAAQIDBAURBhIHIzExCBMUQVFx/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAeEQABAwQDAQAAAAAAAAAAAAABAAIDBBEhMQUSQf/aAAwDAQACEQMRAD8Av+u25ts1Pqe8agt2qLpQwXS4T3BYadIWjRpZGkKAuh48S2M4zjOR5Gg0S0d0T0Dt/piy2Ca+3a4U1qtsNvSonaNZJRFGsfNgqkBmxkgEDPjxo306Ah6W0m+6QP/Z"

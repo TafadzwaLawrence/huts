@@ -3,11 +3,24 @@
 import { useState, useEffect } from 'react'
 import dynamic from 'next/dynamic'
 import { MapPin, List, Map as MapIcon, Search } from 'lucide-react'
+import L from 'leaflet'
+import 'leaflet/dist/leaflet.css'
 
 const Map = dynamic(() => import('react-leaflet').then(mod => mod.MapContainer), { ssr: false })
 const TileLayer = dynamic(() => import('react-leaflet').then(mod => mod.TileLayer), { ssr: false })
 const Marker = dynamic(() => import('react-leaflet').then(mod => mod.Marker), { ssr: false })
 const Popup = dynamic(() => import('react-leaflet').then(mod => mod.Popup), { ssr: false })
+
+// Fix Leaflet default marker icon paths for Next.js
+// This must run on client side only
+if (typeof window !== 'undefined') {
+  delete (L.Icon.Default.prototype as any)._getIconUrl
+  L.Icon.Default.mergeOptions({
+    iconRetinaUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png',
+    iconUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png',
+    shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
+  })
+}
 
 interface HealthcareFacility {
   id: string
