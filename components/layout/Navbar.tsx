@@ -69,6 +69,7 @@ export async function Navbar() {
 
   const rightLinks = [
     { href: '/areas', label: 'Areas' },
+    { href: '/healthcare', label: 'Healthcare' },
     { href: '/help', label: 'Help' },
   ]
 

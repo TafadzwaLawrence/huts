@@ -12,7 +12,9 @@
     "test:coverage": "vitest run --coverage",
     "generate-areas": "tsx scripts/generate-area-guides.ts",
     "generate-sql-seeder": "tsx scripts/generate-sql-seeder.ts",
-    "generate-types": "supabase gen types typescript --project-id idhcvldxyhfjzytswomo > types/database.ts"
+    "generate-types": "supabase gen types typescript --project-id idhcvldxyhfjzytswomo > types/database.ts",
+    "import-healthcare": "node scripts/import-healthcare.js",
+    "generate-healthcare-seeder": "node scripts/generate-healthcare-seeder.js"
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.2.4",

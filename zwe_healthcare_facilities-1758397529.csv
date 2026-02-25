@@ -1,0 +1,1690 @@
+﻿ID1,ID,Province,DISTRICT,LONGITUDE,LATITUDE,ELEVATION,UPDATED,NAMEOFFACI,OWNERSHIP,YEARBUILT,TYPEOFFACI
+1,29,Matebeleland South,Beitbridge,29.98760986,-22.20458,0,1998,Beitbridge,2,0,District Hospital
+2,83,Matebeleland South,Beitbridge,29.60194016,-21.60719,0,1998,Chamunangana,5,0,Clinic
+3,93,Matebeleland South,Beitbridge,30.50114059,-22.05558,0,1998,Chasvingo,5,0,Clinic
+4,136,Matebeleland South,Beitbridge,31.09124947,-22.31725,0,1998,Chikwarakwara,4,0,Rural Health Centre
+5,218,Matebeleland South,Beitbridge,30.7875309,-22.20064,0,1998,Chituripasi,6,0,Rural Health Centre
+6,282,Matebeleland South,Beitbridge,30.39002991,-22.22214,0,1998,Dite,6,0,Rural Health Centre
+7,300,Matebeleland South,Beitbridge,29.98372078,-22.20681,0,1998,Dulibadzimu,5,0,Clinic
+8,566,Matebeleland South,Beitbridge,29.69067001,-21.50331,0,1998,Majini,6,0,Rural Health Centre
+9,568,Matebeleland South,Beitbridge,29.93680954,-22.13792,0,1998,Makakabule,6,0,Rural Health Centre
+10,1183,Matebeleland South,Beitbridge,29.50341988,-21.62461,0,1998,Zezane,5,0,Clinic
+11,1203,Matebeleland South,Beitbridge,30.0051899,-22.21992,0,1998,ZRP,5,0,Clinic
+12,620,Matebeleland South,Beitbridge,29.58650017,-21.93431,0,1998,Masera,5,0,Clinic
+13,861,Matebeleland South,Beitbridge,29.63697052,-22.12217,0,1998,Nottingham,6,0,Rural Health Centre
+14,863,Matebeleland South,Beitbridge,30.00781059,-22.22078,0,1998,NRZ,5,0,Clinic
+15,962,Matebeleland South,Beitbridge,29.98527908,-22.22269,0,1998,Prison,5,0,Clinic
+16,1037,Matebeleland South,Beitbridge,30.22278023,-22.10489,0,1998,Shabwe,6,0,Rural Health Centre
+17,1045,Matebeleland South,Beitbridge,29.32243919,-22.10292,0,1998,Shashe,5,0,Clinic
+18,1113,Matebeleland South,Beitbridge,29.40386009,-21.87125,0,1998,Swereki,5,0,Clinic
+19,1129,Matebeleland South,Beitbridge,30.04042053,-21.93567,0,1998,Tongwe,5,0,Clinic
+20,1261,Matebeleland South,Beitbridge,29.9283,-21.99529,513,2007,Mtetengwe,5,2006,Clinic
+21,1262,Matebeleland South,Beitbridge,29.86923,-21.7345,591,2007,Mazunga,5,0,Clinic(Not Open)
+22,1263,Matebeleland South,Beitbridge,30.5491,-21.90371,550,2007,Makombe,8,2006,Clinic (construction)
+23,40,Masvingo,Bikita,31.60647011,-20.06703,0,1998,Bikita,4,0,Rural Hospital
+24,131,Masvingo,Bikita,31.86856079,-20.0005,0,1998,Chikuku,5,0,Clinic
+25,190,Masvingo,Bikita,31.91802979,-19.88528,0,1998,Chirorwe,5,0,Clinic
+26,203,Masvingo,Bikita,31.85453033,-20.20817,0,1998,Chitasa,5,0,Clinic
+27,276,Masvingo,Bikita,32.12055969,-19.95322,0,1998,Devure 1,5,0,Clinic
+28,421,Masvingo,Bikita,31.53725052,-20.05172,0,1998,Hozvi,5,0,Clinic
+29,609,Masvingo,Bikita,31.52099991,-20.00053,0,1998,Marozva,5,0,Clinic
+30,623,Masvingo,Bikita,31.75057983,-20.50519,0,1998,Mashoko,4,0,Hospital
+31,690,Masvingo,Bikita,31.72113991,-20.43703,0,1998,Mkanga,4,0,Rural Hospital
+32,769,Masvingo,Bikita,31.65306091,-19.94133,0,1998,Murwira,5,0,Clinic
+33,842,Masvingo,Bikita,31.68431091,-20.28881,0,1998,Ngorima,5,0,Clinic
+34,931,Masvingo,Bikita,31.58885956,-20.00586,0,1998,Nyika,6,0,Rural Health Centre
+35,940,Masvingo,Bikita,31.85753059,-20.42022,0,1998,Odzi,5,0,Clinic
+36,955,Masvingo,Bikita,31.61775017,-20.18919,0,1998,Pfupajena,5,0,Clinic
+37,1068,Masvingo,Bikita,31.68678093,-20.02347,0,1998,Silveira,3,0,Mission Hospital
+38,1326,Masvingo,Bikita,31.84224,-20.14081,0,2007,Mukore,6,1993,Rural Health Centre
+39,1327,Masvingo,Bikita,31.71084,-20.20992,0,2007,Mutikizizi,6,1999,Rural Health Centre
+40,1378,Masvingo,Bikita,31.81698,-19.9153,0,2007,Gangare,6,1999,Rural Health Centre
+41,1320,Masvingo,Bikita,31.42301,-19.95815,0,2007,Masarasa,7,1963,Clinic
+42,1321,Masvingo,Bikita,31.52096,-19.91393,0,2007,Mungezi,5,1995,Rural Health Centre
+43,1340,Masvingo,Bikita,31.72709,-20.12917,0,2007,Negovano,6,2004,Rural Health Centre
+44,1341,Masvingo,Bikita,31.80962,-20.53792,0,2007,Gava,6,1999,Rural Health Centre
+45,41,Mashonaland Central,Bindura,31.32876968,-17.29005,0,1998,Bindura,1,0,Provincial Hospital
+46,42,Mashonaland Central,Bindura,31.33197975,-17.30967,0,1998,Bindura Polyclinic,5,0,Clinic
+47,171,Mashonaland Central,Bindura,31.35515022,-17.31758,0,1998,Chipadze,5,0,Clinic
+48,188,Mashonaland Central,Bindura,31.16135025,-17.45422,0,1998,Chiriseri,5,0,Clinic
+49,223,Mashonaland Central,Bindura,31.34956932,-17.46283,0,1998,Chiveso,5,0,Clinic
+50,230,Mashonaland Central,Bindura,31.3592205,-17.32222,0,1998,Chiwaridzo,5,0,Clinic
+51,318,Mashonaland Central,Bindura,31.35577965,-17.31998,0,1998,Farm H.Centre,5,0,Clinic
+52,326,Mashonaland Central,Bindura,31.27804947,-17.2132,0,1998,Foothills,5,0,Clinic
+53,328,Mashonaland Central,Bindura,31.33197975,-17.30967,0,1998,Freda Rebecca,7,0,Mine Clinic
+54,591,Mashonaland Central,Bindura,31.31217003,-17.39605,0,1998,Manhenga,5,0,Clinic
+55,1204,Mashonaland Central,Bindura,31.3288002,-17.29583,0,1998,ZRP Bindura,5,0,Clinic
+56,751,Mashonaland Central,Bindura,31.25351906,-17.52205,0,1998,Muonwe,5,0,Clinic
+57,927,Mashonaland Central,Bindura,31.36051941,-17.56392,0,1998,Nyava,5,0,Clinic
+58,996,Mashonaland Central,Bindura,31.28075027,-17.06137,0,1998,Rusununguko,5,0,Clinic
+59,1002,Mashonaland Central,Bindura,31.56554985,-17.55588,0,1998,Rutope,5,0,Clinic
+60,1136,Mashonaland Central,Bindura,31.28507996,-17.33128,0,1998,Trojan,7,0,Mine Clinic
+61,1399,Mashonaland Central,Bindura,31.32885,-17.29495,0,2007,ZRP,5,1992,Clinic Private Clinic
+62,1405,Mashonaland Central,Bindura,31.30719,-17.459816,0,2007,Mupandira,6,2006,Rural Health Centre
+63,1406,Mashonaland Central,Bindura,31.33509,-17.30905,0,2007,Ponai Medical Centre,7,1998,Private Hospital
+64,1407,Mashonaland Central,Bindura,31.32199,-17.30241,0,2007,PSMI Shashi,7,2004,Private Hospital
+65,1408,Mashonaland Central,Bindura,31.3334,-17.30767,0,2007,Premier Medical Centre,7,2004,Clinic
+66,1409,Mashonaland Central,Bindura,31.33429,-17.31039,0,2007,ZNFPC,7,1992,Family Planning
+67,1410,Mashonaland Central,Bindura,31.33306,-17.32484,0,2007,Bindura University,7,0,Clinic
+68,1411,Mashonaland Central,Bindura,31.3264,-17.29262,0,2007,Zimbabwe Prison Services,5,1995,Clinic
+69,1412,Mashonaland Central,Bindura,31.25575,-16.889,0,2007,Manga,5,2004,
+70,1413,Mashonaland Central,Bindura,31.38008,-16.8692,0,2007,Katanya,6,0,Rural Health Centre
+71,0,Mashonaland Central,Bindura,31.1522,-17.2316,0,2013,Takunda ,,0,Rural Health Centre
+72,0,Mashonaland Central,Bindura,31.333,-17.3249,0,2013,Busce ,7,1996,Clinic
+73,0,Mashonaland Central,Bindura,31.4236,-17.4394,0,2013,Glamorgan,,0,Clinic
+74,43,Matebeleland North,Binga,27.32666969,-17.63944,0,1998,Binga,2,0,District Hospital
+75,153,Matebeleland North,Binga,28.07500076,-17.19472,0,1998,Chinego,5,0,Clinic
+76,154,Matebeleland North,Binga,28.07500076,-17.19472,0,1998,Chinego,5,0,Clinic
+77,486,Matebeleland North,Binga,27.53499985,-17.96972,0,1998,Kariangwe,5,0,Clinic
+78,524,Matebeleland North,Binga,27.19194031,-17.94944,0,1998,Lubimbi,5,0,Clinic
+79,534,Matebeleland North,Binga,27.86222076,-18.06833,0,1998,Lusulu,6,0,Rural Health centre
+80,723,Matebeleland North,Binga,27.68917084,-17.94778,0,1998,Muchesu,5,0,Clinic
+81,950,Matebeleland North,Binga,27.40056038,-18.20806,0,1998,Pashu,6,0,Rural Health centre
+82,1058,Matebeleland North,Binga,28.04389,-17.47472,0,1998,Siabuwa,5,0,Clinic
+83,1060,Matebeleland North,Binga,27.21916962,-17.98333,0,1998,Siansundu,6,0,Rural Health centre
+84,1273,Matebeleland North,Binga,27.65647,-18.18549,975,2007,Sikomena,8,2006,Council Clinic(Construction)
+85,1274,Matebeleland North,Binga,27.18206,-18.26125,908,2007,Tinde,3,1999,Rural Health Centre
+86,1285,Matebeleland North,Binga,27.60401,-17.69109,616,2007,Sinakoma,5,2005,Council Clinic
+87,1286,Matebeleland North,Binga,27.4338,-17.69461,614,2007,Siabuwa Turn,5,2006,Council Clinic
+88,1287,Matebeleland North,Binga,27.25738,-17.78883,499,2007,Simatelele,5,2006,Clinic
+89,1288,Matebeleland North,Binga,27.71811,-18.17046,1022,2007,Chibila,8,2002,Council (Construction)
+90,0,Matebeleland North,Binga,27.4339,-17.6948,0,2013,Siabuzuba,0,200,clinic
+91,0,Matebeleland North,Binga,27.8232,-17.5689,0,2013,Sinasengwe,0,2002,Rural Health Centre
+92,436,Matebeleland North,Bubi,28.85610962,-19.685,0,1998,Inyathi,2,0,District Hospital
+93,440,Matebeleland North,Bubi,28.54944038,-19.46111,0,1998,Isabella Mine,7,0,Mine Clinic
+94,526,Matebeleland North,Bubi,28.41222,-19.26389,0,1998,Lukala,6,0,Rural Health Centre
+95,671,Matebeleland North,Bubi,28.40193939,-19.33056,0,1998,Mbembeswana,6,0,Rural Health Centre
+96,952,Matebeleland North,Bubi,28.75250053,-19.80333,0,1998,PEHO,,0,
+97,1061,Matebeleland North,Bubi,28.47528076,-19.33583,0,1998,Sicanda,6,0,Rural Health Centre
+98,1147,Matebeleland North,Bubi,28.79389,-19.71306,0,1998,Turk Mine,7,0,Mine Clinic
+99,1289,Matebeleland North,Bubi,28.63129,-19.47221,1208,2007,Mdutshane,5,2004,Clinic
+100,0,Matebeleland North,Bubi,28.5154,-19.4522,0,2013,Balanda,0,0,Rural Health Centre
+101,0,Matebeleland North,Bubi,28.3468,-19.3774,0,2013,Majiji,0,0,Clinic
+102,0,Matebeleland North,Bubi,28.6463,-19.8848,0,2013,Raafs,0,0,Rural Health Centre
+103,22,Manicaland,Buhera,31.77325058,-19.53564,0,1998,Bangure,5,0,Clinic
+104,35,Manicaland,Buhera,32.0012207,-19.37372,0,1998,Betera,6,0,Rural Health Centre
+105,45,Manicaland,Buhera,32.33853149,-19.97181,0,1998,Birchenough,4,0,Rural Hospital
+106,57,Manicaland,Buhera,31.43592072,-19.33897,0,1998,Buhera,4,0,Rural Hospital
+107,72,Manicaland,Buhera,32.15781021,-19.78603,0,1998,Chabata,5,0,Clinic
+108,85,Manicaland,Buhera,32.1689415,-19.68356,0,1998,Chapanduka,5,0,Clinic
+109,87,Manicaland,Buhera,31.35243988,-19.17197,0,1998,Chapwanya,5,0,Clinic
+110,143,Manicaland,Buhera,31.8042202,-19.47289,0,1998,Chimbudzi,5,0,Clinic
+111,191,Manicaland,Buhera,32.00093842,-19.45672,0,1998,Chirozva,5,0,Clinic
+112,232,Manicaland,Buhera,31.98941994,-19.23839,0,1998,Chiwenga,5,0,Clinic
+113,234,Manicaland,Buhera,31.88455963,-19.22269,0,1998,Chiweshe,5,0,Clinic
+114,295,Manicaland,Buhera,31.7682209,-19.05431,0,1998,Dorowa,5,0,Clinic
+115,334,Manicaland,Buhera,31.40218925,-19.20661,0,1998,Garamwera,5,0,Clinic
+116,348,Manicaland,Buhera,31.53335953,-19.23786,0,1998,Gombe,5,0,Clinic
+117,373,Manicaland,Buhera,32.30699921,-19.87439,0,1998,Gunura,5,0,Clinic
+118,551,Manicaland,Buhera,31.65630913,-19.43503,0,1998,Madzimbashuro,6,0,Rural Health Centre
+119,1160,Manicaland,Buhera,31.7562809,-19.40594,0,1998,Viriri,5,0,Clinic
+120,1180,Manicaland,Buhera,32.11957932,-19.56878,0,1998,Zangama,6,0,Rural Health Centre
+121,696,Manicaland,Buhera,31.60378075,-19.20428,0,1998,Mombeyarara,6,0,Rural Health Centre
+122,725,Manicaland,Buhera,31.71755981,-19.39111,0,1998,Mudanda,5,0,Clinic
+123,747,Manicaland,Buhera,31.7346096,-19.15669,0,1998,Munyanyi,5,0,Clinic
+124,756,Manicaland,Buhera,31.65555954,-19.26678,0,1998,Murambinda,2,0,District Hospital
+125,768,Manicaland,Buhera,31.83353043,-19.53361,0,1998,Murwira,6,0,Rural Health Centre
+126,794,Manicaland,Buhera,31.96869087,-19.76764,0,1998,Mutepfe,5,0,Clinic
+127,797,Manicaland,Buhera,32.06731033,-19.72489,0,1998,Mutiusinazita,5,0,Clinic
+128,806,Manicaland,Buhera,31.97167015,-19.58381,0,1998,Muzokomba,5,0,Clinic
+129,834,Manicaland,Buhera,31.35038948,-19.28703,0,1998,Nerutanga,5,0,Clinic
+130,922,Manicaland,Buhera,31.53828049,-19.28339,0,1998,Nyashanu,5,0,Clinic
+131,966,Manicaland,Buhera,31.65449905,-19.13994,0,1998,Rambanapasi,5,0,Clinic
+132,1427,Manicaland,Buhera,32.09959,-19.47415,0,2007,Mudawose,5,2002,Clinic
+133,1429,Manicaland,Buhera,31.7377,-19.05373,0,2007,Berenyazvidzi,5,2006,Clinic
+134,1430,Manicaland,Buhera,31.5992,-19.13214,0,2007,Chawatama,6,2006,Rural Health Centre
+135,1431,Manicaland,Buhera,31.87122,-19.28324,0,2007,Nyashanu,3,1934,Rural Hosp
+136,1437,Manicaland,Buhera,31.70484,-19.49465,0,2007,Ndyarima,5,2006,Clinic
+137,1438,Manicaland,Buhera,31.2485,-19.24951,0,2007,Maburutse,5,2006,Clinic
+138,0,Manicaland,Bulilima,27.5874,-20,0,2013,Lady Stanley,0,0,Mission Hospital
+139,0,Manicaland,Bulilima,27.3283,-19.94806,0,2013,Lady Barring,0,0,Mission Hospital
+140,56,Matebeleland South,Bulilimamangwe,28.03306007,-21.16944,0,1998,Brunapeg,3,0,Mission Hospital
+141,281,Matebeleland South,Bulilimamangwe,27.80888939,-20.5025,0,1998,Dingumuzi,5,0,Clinic
+142,285,Matebeleland South,Bulilimamangwe,27.62221909,-20.40417,0,1998,Dombodema,5,0,Clinic
+143,308,Matebeleland South,Bulilimamangwe,27.82110977,-20.77917,0,1998,Embakwe,3,0,Mission Hospital
+144,310,Matebeleland South,Bulilimamangwe,27.90278053,-20.70778,0,1998,Empandeni,5,0,Clinic
+145,408,Matebeleland South,Bulilimamangwe,27.30167007,-20.145,0,1998,Hingwe,5,0,Clinic
+146,425,Matebeleland South,Bulilimamangwe,27.46556091,-19.89528,0,1998,Huwana,5,0,Clinic
+147,433,Matebeleland South,Bulilimamangwe,27.87083054,-21.11917,0,1998,Ingwizi,5,0,Clinic
+148,543,Matebeleland South,Bulilimamangwe,27.75333023,-20.81444,0,1998,Madabe,5,0,Clinic
+149,549,Matebeleland South,Bulilimamangwe,27.44333076,-20.15111,0,1998,Madlambuzi,5,0,Clinic
+150,575,Matebeleland South,Bulilimamangwe,27.26861,-19.90611,0,1998,Makhuleka,5,0,Clinic
+151,585,Matebeleland South,Bulilimamangwe,28.28471947,-21.47833,0,1998,Mambale,5,0,Clinic
+152,611,Matebeleland South,Bulilimamangwe,28.09361076,-20.4725,0,1998,Marula,5,0,Clinic
+153,646,Matebeleland South,Bulilimamangwe,27.71916962,-20.21028,0,1998,Matshinge,6,0,Rural Health Centre
+154,660,Matebeleland South,Bulilimamangwe,28.15155,-21.3633,0,1998,Mayobodo,6,0,Rural Health Centre
+155,821,Matebeleland South,Bulilimamangwe,27.7508297,-20.36611,0,1998,Ndiweni,5,0,Clinic
+156,823,Matebeleland South,Bulilimamangwe,27.32832909,-19.94806,0,1998,Ndolwane,6,0,Rural Health Centre
+157,865,Matebeleland South,Bulilimamangwe,27.35250092,-20.39194,0,1998,Nswazwi,6,0,Rural Health Centre
+158,870,Matebeleland South,Bulilimamangwe,27.58749962,-20,0,1998,Ntoli,6,0,Rural Health Centre
+159,956,Matebeleland South,Bulilimamangwe,27.80888939,-20.49667,0,1998,Plumtree,2,0,District Hospital
+160,1064,Matebeleland South,Bulilimamangwe,27.89916992,-20.35278,0,1998,Sikhatini,5,0,Clinic
+161,1080,Matebeleland South,Bulilimamangwe,28.16028023,-20.19278,0,1998,Solusi,5,0,Clinic
+162,1140,Matebeleland South,Bulilimamangwe,27.74806023,-21.00333,0,1998,Tshitshi,5,0,Clinic
+163,1159,Matebeleland South,Bulilimamangwe,27.52388954,-20.39056,0,1998,Village 13,6,0,Rural Health Centre
+164,1248,Matebeleland South,Bulilimamangwe North,28.13474,-21.25769,940,2007,Bango,5,2001,Clinic
+165,1271,Matebeleland South,Bulilimamangwe North,27.53517,-20.13567,1181,2007,Masendu,5,2000,Clinic
+166,1272,Matebeleland South,Bulilimamangwe North,27.87091,-20.23436,1286,2007,Bezu,5,0,Clinic
+167,1258,Matebeleland South,Bulilimamangwe South,28.00213,-21.10654,980,2007,SANZUKWI,5,2005,Clinic
+168,74,Mashonaland Central,Centenary,31.20216942,-16.167,0,1998,Chadereka,5,0,Clinic
+169,97,Mashonaland Central,Centenary,31.11017036,-16.5185,0,1998,Chawarura,5,0,Clinic
+170,263,Mashonaland Central,Centenary,31.11667061,-16.7295,0,1998,David Nelson,5,0,Clinic
+171,418,Mashonaland Central,Centenary,31.30266953,-16.357,0,1998,Hoya,5,0,Clinic
+172,426,Mashonaland Central,Centenary,30.95999908,-16.32367,0,1998,Hwata,5,0,Clinic
+173,541,Mashonaland Central,Centenary,31.16200066,-16.35067,0,1998,Machaya,5,0,Clinic
+174,805,Mashonaland Central,Centenary,30.89249992,-16.3925,0,1998,Muzarabani,5,0,Clinic
+175,1084,Mashonaland Central,Centenary,31.26667023,-16.57083,0,1998,St Alberts,3,0,Mission Hospital
+176,1395,Mashonaland Central,Centenary,31.20588,-16.58268,0,2007,Chinyani,5,2006,Clinic
+177,1396,Mashonaland Central,Centenary,31.08856,-16.14613,0,2007,Dambakurima,6,2005,Rural Health Centre
+178,1394,Mashonaland Central,Centenary,30.96166,-16.80012,0,2007,Chidikamwedzi,5,2006,Clinic
+179,0,Mashonaland Central,Centenary,31.0023,-16.6736,0,2013,Always ,,2010,Clinic
+180,38,Mashonaland West,Chegutu,30.43416977,-18.03611,0,1998,BHP,7,0,Private Clinic
+181,101,Mashonaland West,Chegutu,30.14944077,-18.12861,0,1998,Chegutu,2,0,District Hospital
+182,103,Mashonaland West,Chegutu,30.14555931,-18.13611,0,1998,Chegutu DC,5,0,Council Clinic
+183,104,Mashonaland West,Chegutu,30.14193916,-18.12083,0,1998,Chegutu Urban,5,0,Municipality-clinic
+184,110,Mashonaland West,Chegutu,30.6613903,-18.09583,0,1998,Chibero,5,0,Clinic
+185,124,Mashonaland West,Chegutu,30.70000076,-18.47028,0,1998,Chikara,5,0,Council Clinic
+186,138,Mashonaland West,Chegutu,30.76972008,-18.45056,0,1998,Chikwava,7,0,Private Clinic
+187,222,Mashonaland West,Chegutu,30.60416985,-18.17944,0,1998,Chivero,5,0,Council Clinic
+188,264,Mashonaland West,Chegutu,30.12888908,-18.14167,0,1998,David Whitehead,7,0,Private Clinic
+189,294,Mashonaland West,Chegutu,30.28083038,-17.94361,0,1998,Doribwe,5,0,Council Clinic
+190,354,Mashonaland West,Chegutu,30.72999954,-18.42417,0,1998,Gora,6,0,Rural Health Centre
+191,404,Mashonaland West,Chegutu,30.67610931,-17.87361,0,1998,Helenadrof,5,0,Clinic
+192,423,Mashonaland West,Chegutu,30.70000076,-17.85778,0,1998,Hunyani,7,0,Private Clinic
+193,492,Mashonaland West,Chegutu,30.66832924,-17.8825,0,1998,Katangautano,5,0,Municipality
+194,1171,Mashonaland West,Chegutu,30.68638992,-18.32444,0,1998,Watyoka,5,0,Council Clinic
+195,677,Mashonaland West,Chegutu,30.21582985,-17.92139,0,1998,Mbuyanehanda,6,0,Rural Health Centre
+196,686,Mashonaland West,Chegutu,30.5886097,-18.31833,0,1998,Mhondoro,4,0,Rural Hospital
+197,687,Mashonaland West,Chegutu,30.69388962,-18.16944,0,1998,Mhondoro North,5,0,Council Clinic
+198,697,Mashonaland West,Chegutu,30.73193932,-18.11389,0,1998,Monera,5,0,Council Clinic
+199,705,Mashonaland West,Chegutu,30.10250092,-17.94944,0,1998,Msengezi,5,0,Council Clinic
+200,706,Mashonaland West,Chegutu,30.32305908,-17.94944,0,1998,Msengezi,3,0,Mission Hospital
+201,753,Mashonaland West,Chegutu,30.50250053,-18.48056,0,1998,Mupawose,5,0,Council Clinic
+202,777,Mashonaland West,Chegutu,30.49888992,-18.30306,0,1998,Musinami,6,0,Rural Health Centre
+203,860,Mashonaland West,Chegutu,30.6875,-17.88694,0,1998,Norton,5,0,Municipality
+204,954,Mashonaland West,Chegutu,30.13582993,-18.12444,0,1998,Pfupajena,5,0,Municipality-clinic
+205,1007,Mashonaland West,Chegutu,30.63055992,-18.44833,0,1998,Rwizi,5,0,Council Clinic
+206,1023,Mashonaland West,Chegutu,30.66167068,-18.08361,0,1998,Sandringham,3,0,Mission Clinic
+207,1030,Mashonaland West,Chegutu,30.44861031,-18.06861,0,1998,Selous,5,0,Council Clinic
+208,1106,Mashonaland West,Chegutu,29.97694016,-18.15806,0,1998,Suri-Suri,5,0,Airforce-clinic
+209,1237,Mashonaland West,Chegutu,30.04442,-18.22281,1220,2007,Brunswick,5,0,Clinic
+210,1238,Mashonaland West,Chegutu,30.48453,-18.1878,1210,2007,Homedale,5,0,Clinic
+211,1239,Mashonaland West,Chegutu,29.97025,-17.90262,1013,2007,Shamrock,8,0,Under Construction
+212,1240,Mashonaland West,Chegutu,29.96793,-18.02337,1105,2007,Lizmore,5,0,Clinic
+213,1241,Mashonaland West,Chegutu,30.13703,-18.02175,1199,2007,Elvington Clinic,7,0,Gold Mine Clinic
+214,68,Mashonaland East,Chikomba,31.27388954,-19.13572,0,1998,Bvumbura,5,0,Clinic
+215,81,Mashonaland East,Chikomba,31.00464058,-18.86886,0,1998,Chambara,5,0,Clinic
+216,225,Mashonaland East,Chikomba,30.9027195,-19.01814,0,1998,Chivhu,4,0,General Hospital
+217,226,Mashonaland East,Chikomba,30.90644073,-19.00511,0,1998,Chivhu,5,0,Clinic
+218,260,Mashonaland East,Chikomba,31.32369041,-19.10703,0,1998,Daramombe,3,0,Mission Clinic
+219,331,Mashonaland East,Chikomba,31.43643951,-19.10203,0,1998,Gandachibvuva,3,0,Mission Hospital
+220,332,Mashonaland East,Chikomba,31.26761055,-18.72261,0,1998,Gandami,5,0,Clinic
+221,344,Mashonaland East,Chikomba,31.35333061,-19.05353,0,1998,Gokomere,5,0,Clinic
+222,521,Mashonaland East,Chikomba,31.15356064,-19.18906,0,1998,Lancashire,5,0,Clinic
+223,544,Mashonaland East,Chikomba,31.10038948,-19.11844,0,1998,Madamombe,5,0,Clinic
+224,615,Mashonaland East,Chikomba,31.25441933,-18.9075,0,1998,Masasa,5,0,Clinic
+225,1172,Mashonaland East,Chikomba,31.23793983,-19.002,0,1998,Wazvaremaka,5,0,Clinic
+226,1177,Mashonaland East,Chikomba,31.17144012,-18.87272,0,1998,Wiltshire,5,0,Clinic
+227,674,Mashonaland East,Chikomba,31.20158005,-18.95808,0,1998,Mbiru,5,0,Clinic
+228,727,Mashonaland East,Chikomba,31.60444069,-18.8415,0,1998,Mufudziwakanaka,6,0,Rural Health Centre
+229,760,Mashonaland East,Chikomba,31.05356026,-19.20133,0,1998,Murezi,5,0,Clinic
+230,775,Mashonaland East,Chikomba,31.68363953,-19.02072,0,1998,Mushipe,5,0,Clinic
+231,782,Mashonaland East,Chikomba,31.51968956,-19.15311,0,1998,Musuma,5,0,Clinic
+232,800,Mashonaland East,Chikomba,31.08382988,-18.85592,0,1998,Mutoro,5,0,Clinic
+233,815,Mashonaland East,Chikomba,31.23664093,-19.05522,0,1998,Mwerahari,3,0,Mission Clinic
+234,847,Mashonaland East,Chikomba,31.50555992,-18.85081,0,1998,Nhangabwe,6,0,Rural Health Centre
+235,848,Mashonaland East,Chikomba,31.17119026,-19.07433,0,1998,Nharira,4,0,Rural Hospital
+236,899,Mashonaland East,Chikomba,31.00374985,-18.81919,0,1998,Nyamhere,5,0,Clinic
+237,959,Mashonaland East,Chikomba,31.52386093,-19.06781,0,1998,Popoteke,5,0,Clinic
+238,967,Mashonaland East,Chikomba,31.00064087,-19.02097,0,1998,Range,4,0,Rural Hospital
+239,999,Mashonaland East,Chikomba,31.41953087,-18.75014,0,1998,Rutanhira,5,0,Clinic
+240,1008,Mashonaland East,Chikomba,31.40797043,-18.83706,0,1998,Sadza,2,0,District Hospital
+241,1054,Mashonaland East,Chikomba,31.56767082,-18.92444,0,1998,Shumba,5,0,Clinic
+242,1150,Mashonaland East,Chikomba,31.30097008,-18.97331,0,1998,Unyetu,5,0,Clinic
+243,1463,Mashonaland East,Chikomba,31.11675,-19.10157,0,2007,St Francis of Assisi,3,2006,Clinic
+244,1464,Mashonaland East,Chikomba,30.89779,-19.01863,0,2007,Chivu Prison,7,1910,Clinic
+245,1465,Mashonaland East,Chikomba,30.71906,-18.80102,0,2007,Tavara,5,2006,Clinic
+246,1466,Mashonaland East,Chikomba,30.88971,-19.02226,0,2007,ZRP,5,0,Clinic
+247,0,Mashonaland East,Chikomba,30.9065,-19.00511,0,2013,Chivhu,,0,Clinic
+248,0,Mashonaland East,Chikomba,30.9954,-18.8642,0,2013,Manyene ,,0,Clinic
+249,13,Manicaland,Chimanimani,32.78583145,-20.03472,0,1998,ARDA Rusitu,5,0,Clinic
+250,46,Manicaland,Chimanimani,32.67343903,-19.79031,0,1998,Biriwiri,3,0,Mission Hospital
+251,58,Manicaland,Chimanimani,32.63581085,-19.65556,0,1998,Bumba,6,0,Rural Health Centre
+252,71,Manicaland,Chimanimani,32.7883606,-19.54161,0,1998,Cashel,5,0,Clinic
+253,77,Manicaland,Chimanimani,32.51755905,-19.55397,0,1998,Chakohwa,5,0,Clinic
+254,84,Manicaland,Chimanimani,32.47256088,-19.93394,0,1998,Changazi,6,0,Rural Health Centre
+255,91,Manicaland,Chimanimani,32.80675125,-19.83536,0,1998,Charter,5,0,Clinic
+256,98,Manicaland,Chimanimani,32.55456162,-19.66983,0,1998,Chayamiti,5,0,Clinic
+257,132,Manicaland,Chimanimani,32.93732834,-19.72056,0,1998,Chikukwa,6,0,Rural Health Centre
+258,135,Manicaland,Chimanimani,32.57313919,-19.85436,0,1998,Chikwakwa,5,0,Clinic
+259,193,Manicaland,Chimanimani,32.88586044,-19.90414,0,1998,Chisengu,5,0,Clinic
+260,363,Manicaland,Chimanimani,32.40428162,-19.86911,0,1998,Gudyanga,5,0,Clinic
+261,394,Manicaland,Chimanimani,32.65383148,-19.9385,0,1998,Gwindingwe,5,0,Clinic
+262,610,Manicaland,Chimanimani,32.93402863,-19.76719,0,1998,Martin,5,0,Clinic
+263,682,Manicaland,Chimanimani,32.63478088,-19.82197,0,1998,Mhakwe,5,0,Clinic
+264,721,Manicaland,Chimanimani,32.9486084,-20.01139,0,1998,Muchadziya,5,0,Clinic
+265,785,Manicaland,Chimanimani,32.68603134,-19.53492,0,1998,Mutambara,2,0,Acting District Hospital
+266,801,Manicaland,Chimanimani,32.91249847,-20.07528,0,1998,Mutsvangwa,5,0,Clinic
+267,841,Manicaland,Chimanimani,32.85749817,-20.05167,0,1998,Ngorima,5,0,Clinic
+268,877,Manicaland,Chimanimani,32.82271957,-19.94106,0,1998,Nyahode,5,0,Clinic
+269,917,Manicaland,Chimanimani,32.42192078,-19.78694,0,1998,Nyanyadzi,4,0,Rural Hospital
+270,980,Manicaland,Chimanimani,32.81055832,-20.02167,0,1998,Roscommon,5,0,Clinic
+271,995,Manicaland,Chimanimani,32.86471939,-20.03361,0,1998,Rusitu,3,0,Mission Clinic
+272,1051,Manicaland,Chimanimani,32.60668945,-19.75481,0,1998,Shinja,5,0,Clinic
+273,1121,Manicaland,Chimanimani,32.93761063,-19.97231,0,1998,Tarka,5,0,Clinic
+274,1123,Manicaland,Chimanimani,32.97296906,-19.90747,0,1998,Tilbury,5,0,Clinic
+275,1424,Manicaland,Chimanimani,32.8576,-19.81937,0,2007,Chimanimani Hospital,4,1970,Rural Hosp
+276,11,Manicaland,Chipinge,32.2322197,-20.87639,0,1998,ARDA Estates,5,0,Clinic
+277,12,Manicaland,Chipinge,32.37889099,-20.05167,0,1998,ARDA-Mid-Save,5,0,Clinic
+278,99,Manicaland,Chipinge,32.61000061,-20.03722,0,1998,Checheche,5,0,Clinic
+279,111,Manicaland,Chipinge,32.30083084,-20.46417,0,1998,Chibuwe,5,0,Clinic
+280,129,Manicaland,Chipinge,32.49777985,-20.43694,0,1998,Chikore,3,0,Mission Hospital
+281,165,Manicaland,Chipinge,32.3608284,-20.91722,0,1998,Chinyamukwaka,5,0,Clinic
+282,172,Manicaland,Chipinge,32.3533287,-20.26306,0,1998,Chipangayi,5,0,Clinic
+283,178,Manicaland,Chipinge,32.61917114,-20.19583,0,1998,Chipinge,2,0,District Hospital
+284,187,Manicaland,Chipinge,32.60749817,-20.27611,0,1998,Chiringa,5,0,Clinic
+285,197,Manicaland,Chipinge,32.36027908,-21.05306,0,1998,Chisuma,5,0,Clinic
+286,244,Manicaland,Chipinge,32.72721863,-20.10889,0,1998,Clear Water,5,0,Clinic
+287,339,Manicaland,Chipinge,32.63943863,-20.19194,0,1998,Gaza,5,0,Council Clinic
+288,366,Manicaland,Chipinge,32.28028107,-20.60333,0,1998,Gumuka,5,0,Clinic
+289,392,Manicaland,Chipinge,32.66249847,-20.53,0,1998,Gwenzi,5,0,Clinic
+290,424,Manicaland,Chipinge,32.48556137,-20.82556,0,1998,Hwakata,5,0,Clinic
+291,448,Manicaland,Chipinge,32.67972183,-20.52528,0,1998,Jersey,5,0,Clinic
+292,462,Manicaland,Chipinge,32.78416824,-20.16056,0,1998,Junction Gate,5,0,Clinic
+293,501,Manicaland,Chipinge,32.38528061,-20.39806,0,1998,Kondo,5,0,Clinic
+294,503,Manicaland,Chipinge,32.77000046,-20.32139,0,1998,Kopera,5,0,Clinic
+295,538,Manicaland,Chipinge,32.36027908,-20.90194,0,1998,Mabeye,5,0,Clinic
+296,548,Manicaland,Chipinge,32.36333084,-20.72111,0,1998,Madhuka,6,0,Rural Health Centre
+297,560,Manicaland,Chipinge,32.3927803,-21.25,0,1998,Mahenye,5,0,Clinic
+298,597,Manicaland,Chipinge,32.34027863,-20.77556,0,1998,Manzvire,5,0,Clinic
+299,1179,Manicaland,Chipinge,32.47750092,-20.69972,0,1998,Zamchiya,5,0,Clinic
+300,1199,Manicaland,Chipinge,32.73611069,-20.43722,0,1998,Zona,5,0,Clinic
+301,1205,Manicaland,Chipinge,32.62221909,-20.19917,0,1998,ZRP-Chipinge,5,0,Clinic
+302,713,Manicaland,Chipinge,32.70306015,-20.42389,0,1998,Mt. Selinda,3,0,Mission Hospital
+303,752,Manicaland,Chipinge,32.27666855,-21.07389,0,1998,Muparadze,5,0,Clinic
+304,770,Manicaland,Chipinge,32.40333176,-20.08361,0,1998,Musani,5,0,Clinic
+305,778,Manicaland,Chipinge,32.5802803,-20.46028,0,1998,Musirwizi,5,0,Clinic
+306,786,Manicaland,Chipinge,32.19499969,-21.01056,0,1998,Mutandahwe,5,0,Clinic
+307,791,Manicaland,Chipinge,32.36027908,-20.13417,0,1998,Mutema,5,0,Clinic
+308,837,Manicaland,Chipinge,32.57444,-20.09583,0,1998,New Year Gift,5,0,Clinic
+309,838,Manicaland,Chipinge,32.56972122,-19.98972,0,1998,Ngaome,5,0,Clinic
+310,946,Manicaland,Chipinge,32.80582809,-20.11056,0,1998,Paidamoyo,5,0,Clinic
+311,969,Manicaland,Chipinge,32.80611038,-20.24639,0,1998,Ratelshoek,5,0,Clinic
+312,974,Manicaland,Chipinge,32.39305878,-20.5475,0,1998,Rimbi,5,0,Clinic
+313,1069,Manicaland,Chipinge,32.68444061,-19.98972,0,1998,Silverstream,5,0,Clinic
+314,1083,Manicaland,Chipinge,32.82249832,-20.265,0,1998,Southern Hold.,5,0,Clinic
+315,1098,Manicaland,Chipinge,32.21527863,-20.77111,0,1998,St. Peters,3,0,Mission Hospital
+316,1119,Manicaland,Chipinge,32.35055923,-20.11056,0,1998,Tanganda,5,0,Clinic
+317,1127,Manicaland,Chipinge,32.30638886,-20.34806,0,1998,Tongogara,5,0,Clinic
+318,1157,Manicaland,Chipinge,32.1538887,-20.93722,0,1998,Vheneka,5,0,Clinic
+319,1420,Manicaland,Chipinge,32.37463,-19.96033,0,2007,ZRP Birchnough Bridge,5,2000,Clinic
+320,1421,Manicaland,Chipinge,32.39283,-21.25018,0,2007,Mahenye,6,1984,Rural Health Centre
+321,1422,Manicaland,Chipinge,32.62535,-20.19118,0,2007,Town Clinic,5,2004,Clinic
+322,1423,Manicaland,Chipinge,32.83279,-20.30563,0,2007,Tamandai,5,0,Clinic
+323,82,Masvingo,Chiredzi,31.80488968,-21.25369,0,1998,Chambuta,5,0,Clinic
+324,127,Masvingo,Chiredzi,31.33930969,-21.67494,0,1998,Chikombedzi,4,0,Hospital
+325,141,Masvingo,Chiredzi,31.6558609,-21.22336,0,1998,Chilonga,5,0,Clinic
+326,146,Masvingo,Chiredzi,31.79063988,-21.35144,0,1998,Chimbwedziva,5,0,Clinic
+327,157,Masvingo,Chiredzi,31.61894035,-21.41761,0,1998,Chingele,5,0,Clinic
+328,179,Masvingo,Chiredzi,31.79128075,-20.836,0,1998,Chipiwa,5,0,Clinic
+329,183,Masvingo,Chiredzi,31.67321968,-21.036,0,1998,Chiredzi,2,0,Hospital
+330,213,Masvingo,Chiredzi,32.15139008,-21.10053,0,1998,Chitsa,5,0,Clinic
+331,238,Masvingo,Chiredzi,32.01939011,-20.98369,0,1998,Chizvirizvi,5,0,Clinic
+332,239,Masvingo,Chiredzi,31.29052925,-21.53381,0,1998,Chomopani,5,0,Clinic
+333,253,Masvingo,Chiredzi,31.47324944,-21.33969,0,1998,Damarakanaka,5,0,Clinic
+334,262,Masvingo,Chiredzi,31.23349953,-22.26981,0,1998,Davata,5,0,Clinic
+335,302,Masvingo,Chiredzi,31.4039402,-22.21711,0,1998,Dumisa,5,0,Clinic
+336,341,Masvingo,Chiredzi,31.15553093,-22.10286,0,1998,Gezani,5,0,Clinic
+337,409,Masvingo,Chiredzi,31.6511097,-21.07347,0,1998,Hippo Valley,5,0,Clinic
+338,561,Masvingo,Chiredzi,31.50419044,-21.53764,0,1998,Mahlanguleni,5,0,Clinic
+339,569,Masvingo,Chiredzi,31.34011078,-21.45361,0,1998,Makambe,5,0,Clinic
+340,583,Masvingo,Chiredzi,31.42019081,-22.07142,0,1998,Malipati,6,0,Rural Health Centre
+341,1202,Masvingo,Chiredzi,31.67328072,-21.03814,0,1998,ZRP,5,0,Clinic
+342,1206,Masvingo,Chiredzi,31.61693954,-21.03806,0,1998,ZSA,5,0,Clinic
+343,742,Masvingo,Chiredzi,31.88460922,-20.83886,0,1998,Mkwasine,5,0,Clinic
+344,796,Masvingo,Chiredzi,32.12044144,-20.93611,0,1998,Muteyo,5,0,Clinic
+345,862,Masvingo,Chiredzi,31.46928024,-21.02481,0,1998,NRZ,5,0,Clinic
+346,913,Masvingo,Chiredzi,31.7523098,-20.68347,0,1998,Nyangambe,5,0,Clinic
+347,941,Masvingo,Chiredzi,31.45088959,-21.42189,0,1998,Old Boli,5,0,Clinic
+348,945,Masvingo,Chiredzi,31.35771942,-21.94103,0,1998,Pahlela,5,0,Clinic
+349,958,Masvingo,Chiredzi,30.83344078,-20.09081,0,1998,PMD Masvingo,9,0,PMD Offices
+350,960,Masvingo,Chiredzi,31.90518951,-20.78747,0,1998,Porepore,5,0,Clinic
+351,968,Masvingo,Chiredzi,32.15028,-21.00061,0,1998,Rapanguwana,5,0,Clinic
+352,998,Masvingo,Chiredzi,31.30443954,-22.10658,0,1998,Rutandare,5,0,Clinic
+353,1019,Masvingo,Chiredzi,31.37443924,-22.23522,0,1998,Samu,5,0,Clinic
+354,1088,Masvingo,Chiredzi,32.12078094,-20.82314,0,1998,St Joseph,5,0,Clinic
+355,1134,Masvingo,Chiredzi,31.47485924,-21.04056,0,1998,Triangle,4,0,Hospital
+356,1143,Masvingo,Chiredzi,31.68841934,-21.039,0,1998,Tsovani,5,0,Clinic
+357,1323,Masvingo,Chiredzi,31.35101,-20.68621,513,2007,Faversham,5,2005,Clinic
+358,75,Midlands,Chirumanzu,30.68914032,-19.53636,0,1998,Chaka,5,0,Clinic
+359,106,Midlands,Chirumanzu,30.55322075,-19.80483,0,1998,Chengwena,5,0,Clinic
+360,236,Midlands,Chirumanzu,30.50447083,-19.55183,0,1998,Chizhou,6,0,Rural Health Centre
+361,271,Midlands,Chirumanzu,30.51683044,-19.77036,0,1998,Denhere,6,0,Rural Health Centre
+362,299,Midlands,Chirumanzu,30.70710945,-19.41889,0,1998,Driefontein,3,0,T.B Hospital
+363,375,Midlands,Chirumanzu,30.48756027,-19.63519,0,1998,Guramatunhu,5,0,Clinic
+364,397,Midlands,Chirumanzu,30.62450027,-19.85431,0,1998,Hama,5,0,Clinic
+365,411,Midlands,Chirumanzu,30.59094048,-19.56742,0,1998,Holy Cross,6,0,Rural Health Centre
+366,519,Midlands,Chirumanzu,30.18531036,-19.33514,0,1998,Lalapanzi,5,0,Clinic
+367,535,Midlands,Chirumanzu,30.52421951,-19.40619,0,1998,Lynwood,6,0,Rural Health Centre
+368,715,Midlands,Chirumanzu,30.62038994,-19.3525,0,1998,Mtao,5,0,Clinic
+369,804,Midlands,Chirumanzu,30.70203018,-19.42233,0,1998,Muwonde,3,0,Mission Hospital
+370,808,Midlands,Chirumanzu,30.52086067,-19.29036,0,1998,Mvuma,2,0,District Hospital
+371,926,Midlands,Chirumanzu,30.68371964,-19.65475,0,1998,Nyautonga,6,0,Rural Health Centre
+372,933,Midlands,Chirumanzu,30.65077972,-18.97053,0,1998,Nyikavanhu,6,0,Rural Health Centre
+373,1077,Midlands,Chirumanzu,30.50431061,-19.68994,0,1998,Siyahokwe,6,0,Rural Health Centre
+374,1101,Midlands,Chirumanzu,30.63485909,-19.71856,0,1998,St. Theresa,3,0,Mission Hospital
+375,1125,Midlands,Chirumanzu,30.25167084,-19.47556,0,1998,Tokwe 4,5,0,Clinic
+376,1312,Midlands,Chirumanzu,30.46363,-19.2211,1333,2007,Central Estates,7,2001,Clinic
+377,0,Harare,Chitungwiza,31.0699,-18.0136,0,2013,CITIMED,Private,,Hospital
+378,0,Harare,Chitungwiza,31.0628,-18.0176,0,2013,Chitungwiza,govt,,Hospital
+379,0,Harare,Chitungwiza,31.0582,-18.0066,0,2013,Zengeza 3,council,,clinic
+380,0,Harare,Chitungwiza,31.0943,-18.0152,0,2013,Seke North,council,,clinic
+381,0,Harare,Chitungwiza,31.1103,-18.0169,0,2013,ZRP camp,ZRP,,clinic
+382,0,Harare,Chitungwiza,31.0763,-18.0314,0,2013,Seke South,council,,clinic
+383,0,Harare,Chitungwiza,31.0427,-17.9947,0,2013,St Mary's,council,,clinic
+384,0,Harare,Chitungwiza,31.0427,-17.9908,0,2013,Manyame 24Hr,Private,,Maternity clinic
+385,33,Masvingo,Chivi,30.58960915,-20.63389,0,1998,Berejena,3,0,Mission Clinic
+386,117,Masvingo,Chivi,30.55810928,-20.45081,0,1998,Chifedza,5,0,Clinic
+387,119,Masvingo,Chivi,30.20046997,-20.15394,0,1998,Chigwikwi,6,0,Rural Health Centre
+388,227,Masvingo,Chivi,30.50655937,-20.31897,0,1998,Chivi,2,0,District Hospital
+389,228,Masvingo,Chivi,30.55755997,-20.35531,0,1998,Chivi,3,0,Mission Clinic
+390,229,Masvingo,Chivi,30.68786049,-20.39058,0,1998,Chivi,4,0,Rural Hospital
+391,265,Masvingo,Chivi,30.43564034,-20.47203,0,1998,Davira,5,0,Clinic
+392,513,Masvingo,Chivi,30.25668907,-20.05147,0,1998,Kuranda,5,0,Clinic
+393,546,Masvingo,Chivi,30.32361031,-20.05228,0,1998,Madamombe,6,0,Rural Health Centre
+394,627,Masvingo,Chivi,30.37121964,-20.40044,0,1998,Masinire,5,0,Clinic
+395,683,Masvingo,Chivi,30.37161064,-20.11747,0,1998,Mhandamabwe,6,0,Rural Health Centre
+396,843,Masvingo,Chivi,30.80264091,-20.80253,0,1998,Ngundu,4,0,Rural Health Centre
+397,878,Masvingo,Chivi,30.98888969,-20.82406,0,1998,Nyahombe,5,0,Clinic
+398,970,Masvingo,Chivi,30.65422058,-20.71986,0,1998,Razi,6,0,Rural Health Centre
+399,1049,Masvingo,Chivi,30.85036087,-20.87186,0,1998,Shindi,5,0,Clinic
+400,1116,Masvingo,Chivi,30.3073101,-20.33397,0,1998,Takavarasha,6,0,Rural Health Centre
+401,1151,Masvingo,Chivi,30.20657921,-20.03928,0,1998,Utete,5,0,Clinic
+402,314,Matebeleland South,Esigodini,28.90357971,-20.40247,0,1998,Esibobvu,5,0,Clinic
+403,315,Matebeleland South,Esigodini,28.93678093,-20.28347,0,1998,Esigodini,2,0,District Hospital
+404,396,Matebeleland South,Esigodini,28.95606041,-20.32064,0,1998,Habani,5,0,Clinic
+405,416,Matebeleland South,Esigodini,28.78455925,-20.30364,0,1998,How Mine,7,0,Mine Clinic
+406,438,Matebeleland South,Esigodini,29.08530998,-20.52311,0,1998,Irisvale,6,0,Rural Health Centre
+407,511,Matebeleland South,Esigodini,28.90706062,-20.62233,0,1998,Kumbuzi,6,0,Rural Health Centre
+408,657,Matebeleland South,Esigodini,28.98513985,-20.40653,0,1998,Mawabeni,5,0,Clinic
+409,675,Matebeleland South,Esigodini,28.81893921,-20.40375,0,1998,Mbizingwe,6,0,Rural Health Centre
+410,685,Matebeleland South,Esigodini,28.78556061,-20.52142,0,1998,Mhlahlandlela,5,0,Clinic
+411,851,Matebeleland South,Esigodini,28.77243996,-20.20519,0,1998,Nhlangano,5,0,Clinic
+412,864,Matebeleland South,Esigodini,28.98477936,-20.55722,0,1998,Nswazi,5,0,Clinic
+413,871,Matebeleland South,Esigodini,28.79100037,-20.15072,0,1998,Ntshamathe,5,0,Clinic
+414,105,Midlands,Gokwe,29.11277962,-18.21611,0,1998,Chemahuro,5,0,Clinic
+415,184,Midlands,Gokwe,28.5988903,-17.54417,0,1998,Chireya,4,0,Rural Hospital
+416,205,Midlands,Gokwe,28.45111084,-18.19778,0,1998,Chitave,5,0,Clinic
+417,266,Midlands,Gokwe,28.9375,-18.55778,0,1998,Day & Night,7,0,Private Clinic
+418,267,Midlands,Gokwe,28.82028008,-17.78917,0,1998,Denda,5,0,Clinic
+419,338,Midlands,Gokwe,28.73389053,-18.26167,0,1998,Gawa,5,0,Clinic
+420,346,Midlands,Gokwe,28.92499924,-18.21139,0,1998,Gokwe,2,0,District Hospital
+421,355,Midlands,Gokwe,28.89694023,-17.85194,0,1998,Goredema,5,0,Clinic
+422,367,Midlands,Gokwe,28.90527916,-17.40972,0,1998,Gumunyu,5,0,Clinic
+423,385,Midlands,Gokwe,29.24167061,-18.26278,0,1998,Gwanyika,6,0,Rural Health Centre
+424,422,Midlands,Gokwe,28.53249931,-17.98611,0,1998,Huchu,5,0,Clinic
+425,442,Midlands,Gokwe,28.95332909,-18.01806,0,1998,Jahana,5,0,Clinic
+426,454,Midlands,Gokwe,28.25749969,-18.345,0,1998,Jiri,5,0,Clinic
+427,469,Midlands,Gokwe,28.9383297,-17.50028,0,1998,Kadzidirire,6,0,Rural Health Centre
+428,472,Midlands,Gokwe,28.76333046,-17.7375,0,1998,Kahobo,5,0,Clinic
+429,478,Midlands,Gokwe,28.51582909,-18.55583,0,1998,Kana,3,0,Mission Hospitals
+430,509,Midlands,Gokwe,29.37194061,-18.45028,0,1998,Krima,5,0,Clinic
+431,517,Midlands,Gokwe,29.03027916,-17.9075,0,1998,Kuwirirana,5,0,Clinic
+432,553,Midlands,Gokwe,28.50583076,-17.62972,0,1998,Madzivazu,5,0,Clinic
+433,589,Midlands,Gokwe,28.35582924,-18.12194,0,1998,Mangidi,5,0,Clinic
+434,592,Midlands,Gokwe,28.37944031,-18.45833,0,1998,Manoti,5,0,Clinic
+435,596,Midlands,Gokwe,28.60222054,-18.14722,0,1998,Manyoni,5,0,Clinic
+436,1184,Midlands,Gokwe,28.06110954,-18.225,0,1998,Zhamba,5,0,Clinic
+437,1185,Midlands,Gokwe,28.31306076,-17.44139,0,1998,Zhomba,5,0,Clinic
+438,622,Midlands,Gokwe,28.79750061,-17.2725,0,1998,Mashame,5,0,Rural Health Centre
+439,631,Midlands,Gokwe,28.40250015,-18.00333,0,1998,Masuka,5,0,Clinic
+440,642,Midlands,Gokwe,28.53306007,-18.3925,0,1998,Mateta,6,0,Rural Health Centre
+441,702,Midlands,Gokwe,28.04528046,-18.465,0,1998,Msala,5,0,Clinic
+442,717,Midlands,Gokwe,29.00694084,-17.72083,0,1998,Mtora,4,0,Rural Hospital
+443,780,Midlands,Gokwe,28.57860947,-17.84361,0,1998,Musita,5,0,Clinic
+444,787,Midlands,Gokwe,29.24028015,-18.20472,0,1998,Mutange,5,0,Clinic
+445,816,Midlands,Gokwe,29.05278015,-17.47944,0,1998,Mzadzi,6,0,Rural Health Centre
+446,832,Midlands,Gokwe,28.25305939,-17.44139,0,1998,Nenyunga,5,0,Clinic
+447,859,Midlands,Gokwe,29.16777992,-17.51306,0,1998,Norah,6,0,Rural Health Centre
+448,882,Midlands,Gokwe,28.79750061,-18.55222,0,1998,Nyaje,6,0,Rural Health Centre
+449,908,Midlands,Gokwe,29.46249962,-18.34667,0,1998,Nyamunga,5,0,Clinic
+450,982,Midlands,Gokwe,29.09388924,-17.77472,0,1998,Rubatsiro,5,0,Clinic
+451,1013,Midlands,Gokwe,28.32860947,-18.25861,0,1998,Sai,5,0,Clinic
+452,1036,Midlands,Gokwe,28.73500061,-17.95472,0,1998,Sesame,5,0,Clinic
+453,1073,Midlands,Gokwe,28.23969078,-17.68439,0,1998,Simchembu,5,0,Clinic
+454,1110,Midlands,Gokwe,28.77750015,-18.06028,0,1998,Svisvi,6,0,Rural Health Centre
+455,1130,Midlands,Gokwe,29.10388947,-18.08111,0,1998,Tongwe,5,0,Clinic
+456,1144,Midlands,Gokwe,29.14249992,-17.61306,0,1998,Tsungai,6,0,Rural Health Centre
+457,1350,Midlands,Gokwe North,28.18426,-17.76407,734,2007,Vumba,5,0,Clinic
+458,1352,Midlands,Gokwe North,29.01016,-17.72261,890,2007,Nembudziya,4,0,Hospital
+459,1353,Midlands,Gokwe North,29.05069,-17.81966,901,2007,Nyamazengwe,5,0,Clinic
+460,1354,Midlands,Gokwe North,28.85431,-17.59907,844,2007,Nyamhara,5,0,Clinic
+461,1294,Midlands,Gokwe South,28.92017,-18.5753,0,2007,Mateme,7,1998,Clinic
+462,2,Mashonaland East,Goromonzi,31.31681061,-17.788,0,1998,Acturus Mine,5,0,Clinic
+463,54,Mashonaland East,Goromonzi,31.55306053,-17.50075,0,1998,Bosha,6,0,Rural Health Centre
+464,134,Mashonaland East,Goromonzi,31.48586082,-17.55206,0,1998,Chikwaka,4,0,Rural Hospital
+465,150,Mashonaland East,Goromonzi,31.18456078,-17.57161,0,1998,Chinamhora,5,0,Clinic
+466,166,Mashonaland East,Goromonzi,31.35627937,-17.83503,0,1998,Chinyika,5,0,Clinic
+467,249,Mashonaland East,Goromonzi,31.20742035,-17.95506,0,1998,Cranborne Clinic,5,0,Clinic
+468,286,Mashonaland East,Goromonzi,31.13871956,-17.60214,0,1998,Domboshava,5,0,Clinic
+469,456,Mashonaland East,Goromonzi,31.38442039,-17.72214,0,1998,John Reimer,5,0,Clinic
+470,508,Mashonaland East,Goromonzi,31.48925018,-17.67219,0,1998,Kowoyo,5,0,Clinic
+471,510,Mashonaland East,Goromonzi,31.37047005,-17.82031,0,1998,Kubatsirana,5,0,Clinic
+472,579,Mashonaland East,Goromonzi,31.27318954,-17.54042,0,1998,Makumbe,2,0,District Hospital
+473,632,Mashonaland East,Goromonzi,31.15321922,-17.54042,0,1998,Masukandoro,5,0,Clinic
+474,811,Mashonaland East,Goromonzi,31.48681068,-17.76875,0,1998,Mwanza,6,0,Rural Health Centre
+475,924,Mashonaland East,Goromonzi,31.27144051,-17.62294,0,1998,Nyaure,5,0,Clinic
+476,961,Mashonaland East,Goromonzi,31.12093925,-17.57222,0,1998,Pote,5,0,Clinic
+477,993,Mashonaland East,Goromonzi,31.5182209,-17.87261,0,1998,Rusike,5,0,Clinic
+478,1003,Mashonaland East,Goromonzi,31.23760986,-17.89006,0,1998,Ruwa,5,0,Clinic
+479,1004,Mashonaland East,Goromonzi,31.23513985,-17.90167,0,1998,Ruwa Rehab.,4,0,Hospital
+480,0,Mashonaland East,Goromonzi,31.3238,-17.7404,0,2013,Gejo raRuby,,2008,RHC
+481,0,Mashonaland East,Goromonzi,31.3597,-17.8672,0,2013,Goromonzi High ,,1946,Clinic
+482,0,Mashonaland East,Goromonzi,31.3847,-17.7223,0,2013,Joan Rankini ,,1977,RHC
+483,0,Mashonaland East,Goromonzi,31.324,-17.9998,0,2013,Melfort ,,2004,RHC
+484,0,Mashonaland East,Goromonzi,31.4331,-17.9916,0,2013,Rusununguko ,,1981,RHC
+485,0,Mashonaland East,Goromonzi,31.2377,-17.8902,0,2013,Ruwa ,,1973,DayCare RHC
+486,0,Mashonaland East,Goromonzi,31.2418,-17.8966,0,2013,Ruwa ,,2011,PolyClinic
+487,0,Mashonaland East,Goromonzi,31.1964,-17.7514,0,2013,St Joseph's ,,1972,RHC
+488,0,Mashonaland East,Goromonzi,31.3164,-17.7786,0,2013,Arcturus, Mine ,0,Clinic
+489,6,Mashonaland Central,Guruve,30.30805969,-16.10195,0,1998,Angwa,5,0,Clinic
+490,18,Mashonaland Central,Guruve,30.69277954,-16.52667,0,1998,Bakasa,5,0,Clinic
+491,31,Mashonaland Central,Guruve,30.67250061,-16.85667,0,1998,Bepura,5,0,Clinic
+492,65,Mashonaland Central,Guruve,30.58551979,-16.57822,0,1998,Bvochora,5,0,Clinic
+493,86,Mashonaland Central,Guruve,30.39763069,-15.70058,0,1998,Chapoto,5,0,Clinic
+494,114,Mashonaland Central,Guruve,31.05616951,-16.02513,0,1998,Chidodo,5,0,Clinic
+495,121,Mashonaland Central,Guruve,30.56088066,-16.00798,0,1998,Chikafa,5,0,Clinic
+496,180,Mashonaland Central,Guruve,30.72571945,-16.77972,0,1998,Chipuriro,5,0,Clinic
+497,215,Mashonaland Central,Guruve,30.55571938,-16.27722,0,1998,Chitsungo,5,0,Clinic
+498,352,Mashonaland Central,Guruve,30.83333015,-16.08695,0,1998,Gonono,5,0,Clinic
+499,356,Mashonaland Central,Guruve,30.65777969,-16.58639,0,1998,Gota,5,0,Clinic
+500,376,Mashonaland Central,Guruve,30.70222092,-16.67111,0,1998,Guruve,2,0,District Hospital
+501,415,Mashonaland Central,Guruve,30.88666916,-16.70306,0,1998,Horseshoe,5,0,Clinic
+502,465,Mashonaland Central,Guruve,30.50264931,-16.63361,0,1998,Kachuta,5,0,Clinic
+503,563,Mashonaland Central,Guruve,30.73527908,-16.38389,0,1998,Mahuwe,5,0,Clinic
+504,625,Mashonaland Central,Guruve,30.55669975,-16.17507,0,1998,Mashumbi,5,0,Clinic
+505,629,Mashonaland Central,Guruve,30.16666985,-16.16667,0,1998,Masoka,5,0,Clinic
+506,630,Mashonaland Central,Guruve,30.89067078,-16.31323,0,1998,Masomo,5,0,Clinic
+507,652,Mashonaland Central,Guruve,30.61083031,-16.67278,0,1998,Matsvitsi,5,0,Clinic
+508,704,Mashonaland Central,Guruve,31.11824989,-16.11073,0,1998,Msengezi,5,0,Clinic
+509,827,Mashonaland Central,Guruve,30.75917053,-16.51056,0,1998,Negomo,5,0,Clinic
+510,884,Mashonaland Central,Guruve,30.62805939,-16.75167,0,1998,Nyakapupu,5,0,Clinic
+511,900,Mashonaland Central,Guruve,30.75778008,-16.85139,0,1998,Nyamhondoro,5,0,Clinic
+512,1006,Mashonaland Central,Guruve,30.79528046,-16.71917,0,1998,Ruyamuro,5,0,Clinic
+513,1052,Mashonaland Central,Guruve,30.72360992,-16.70667,0,1998,Shinje,5,0,Clinic
+514,1388,Mashonaland Central,Guruve,30.7189,-16.968966,0,2007,Birkdale,6,2006,Rural Health Centre
+515,1389,Mashonaland Central,Guruve,30.57957,-16.86427,0,2007,Mugarakamwe,6,2006,Rural Health Centre
+516,1390,Mashonaland Central,Guruve,30.44222,-16.63607,0,2007,Kemutamba,6,2006,Rural Health Centre
+517,1391,Mashonaland Central,Guruve,30.87209,-16.66756,0,2007,Kamusasa,5,2006,Clinic
+518,0,Mashonaland Central,Guruve,30.7032,-16.6628,0,2013,Guruve ,ZRP ,0,Clinic
+519,0,Mashonaland Central,Guruve,30.5841,-16.9699,0,2013,Brandon ,,0,Clinic
+520,0,Mashonaland Central,Guruve,30.7191,-16.969,0,2013,Birkdale,,0,Clinic
+521,108,Masvingo,Gutu,31.88508034,-19.80603,0,1998,Chepiri,5,0,Clinic
+522,148,Masvingo,Gutu,31.60614014,-19.67189,0,1998,Chimombe,4,0,Rural Hospital
+523,167,Masvingo,Gutu,31.48505974,-19.50567,0,1998,Chinyika,4,0,Rural Health Centre
+524,202,Masvingo,Gutu,31.20241928,-19.90722,0,1998,Chitando,6,0,Rural Health Centre
+525,214,Masvingo,Gutu,31.61733055,-19.50175,0,1998,Chitsa,6,0,Rural Health Centre
+526,235,Masvingo,Gutu,30.83930969,-19.63397,0,1998,Chiwore,5,0,Clinic
+527,254,Masvingo,Gutu,31.28635979,-19.37464,0,1998,Dambara,5,0,Clinic
+528,270,Masvingo,Gutu,31.18907928,-19.28422,0,1998,Denhere,5,0,Clinic
+529,275,Masvingo,Gutu,31.38666916,-19.66761,0,1998,Devure,3,0,Mission Clinic
+530,372,Masvingo,Gutu,31.14068985,-20.00739,0,1998,Guni,5,0,Clinic
+531,379,Masvingo,Gutu,31.15007973,-19.65761,0,1998,Gutu,2,0,Hospital
+532,380,Masvingo,Gutu,31.21805954,-19.65678,0,1998,Gutu,3,0,Mission Hospital
+533,557,Masvingo,Gutu,31.35021973,-19.75803,0,1998,Magombedze,5,0,Clinic
+534,565,Masvingo,Gutu,31.38452911,-19.83931,0,1998,Majarada,6,0,Rural Health Centre
+535,1196,Masvingo,Gutu,31.58646965,-19.81789,0,1998,Zinhata,5,0,Clinic
+536,637,Masvingo,Gutu,31.77186012,-19.61928,0,1998,Mataruse,5,0,Clinic
+537,645,Masvingo,Gutu,30.96875,-19.47356,0,1998,Matizha,5,0,Clinic
+538,670,Masvingo,Gutu,31.64043999,-19.60406,0,1998,Mazura,5,0,Clinic
+539,732,Masvingo,Gutu,31.15789032,-19.75686,0,1998,Mukaro,5,0,Clinic
+540,750,Masvingo,Gutu,31.80521965,-19.72236,0,1998,Munyikwa,6,0,Rural Health Centre
+541,773,Masvingo,Gutu,31.10091972,-19.72333,0,1998,Mushaviri,5,0,Clinic
+542,792,Masvingo,Gutu,30.98797035,-19.88822,0,1998,Mutema,5,0,Clinic
+543,795,Masvingo,Gutu,31.43803024,-19.63433,0,1998,Mutero,3,0,Mission Clinic
+544,829,Masvingo,Gutu,31.68405914,-19.83439,0,1998,Nemashakwe,5,0,Clinic
+545,833,Masvingo,Gutu,31.03528023,-19.85586,0,1998,Nerupiri,5,0,Clinic
+546,930,Masvingo,Gutu,31.36735916,-19.40494,0,1998,Nyazvidzi,5,0,Clinic
+547,1034,Masvingo,Gutu,30.88368988,-19.51861,0,1998,Serima,3,0,Mission Hospital
+548,1082,Masvingo,Gutu,31.20718956,-19.45097,0,1998,Soti Source,5,0,Clinic
+549,1124,Masvingo,Gutu,31.45027924,-19.75394,0,1998,Tirizi,5,0,Clinic
+550,1211,Masvingo,Gutu,31.35560989,-19.57472,0,1998,Zvavahera,5,0,Clinic
+551,47,Matebeleland South,Gwanda,28.90613937,-20.87447,0,1998,Blanket Mine,7,0,Mine Clinic
+552,63,Matebeleland South,Gwanda,29.20446968,-21.46747,0,1998,Buvuma,5,0,Clinic
+553,246,Matebeleland South,Gwanda,29.22178078,-21.0035,0,1998,Collen Bawn,7,0,Mine Clinic
+554,327,Matebeleland South,Gwanda,28.80032921,-20.97178,0,1998,Freda Mine,7,0,Mine Clinic
+555,371,Matebeleland South,Gwanda,28.88731003,-21.45617,0,1998,Gungwe,6,0,Rural Health Centre
+556,383,Matebeleland South,Gwanda,29.00653076,-20.95706,0,1998,Gwanda Prison,5,0,Clinic
+557,384,Matebeleland South,Gwanda,29.00005913,-20.95786,0,1998,Gwanda Prov. Hosp,1,0,Provincial Hospital
+558,449,Matebeleland South,Gwanda,29.32280922,-21.05517,0,1998,Jessie Mine,7,0,Mine Clinic
+559,463,Matebeleland South,Gwanda,29.37214088,-20.99019,0,1998,JZ Moyo,5,0,School Clinic
+560,471,Matebeleland South,Gwanda,28.77222061,-21.60386,0,1998,Kafusi,5,0,Clinic
+561,582,Matebeleland South,Gwanda,28.75638962,-20.96919,0,1998,Makwe,6,0,Rural Health Centre
+562,588,Matebeleland South,Gwanda,28.99114037,-21.57014,0,1998,Manama,3,0,Mission Hospital
+563,1163,Matebeleland South,Gwanda,28.92378044,-20.88653,0,1998,Vumba-Chingwe,5,0,Clinic
+564,1198,Matebeleland South,Gwanda,29.01849937,-20.94064,0,1998,ZNFPC,5,0,Clinic
+565,621,Matebeleland South,Gwanda,28.95038986,-21.66825,0,1998,Mashaba,5,0,Clinic
+566,718,Matebeleland South,Gwanda,28.90691948,-20.70111,0,1998,Mtshabezi,3,0,Mission Hospital
+567,817,Matebeleland South,Gwanda,29.13558006,-20.65025,0,1998,Mzimuni,5,0,Clinic
+568,854,Matebeleland South,Gwanda,29.20549965,-21.70358,0,1998,Nhwali,6,0,Rural Health Centre
+569,869,Matebeleland South,Gwanda,28.88607979,-21.35731,0,1998,Ntalale,5,0,Clinic
+570,947,Matebeleland South,Gwanda,29.02396965,-20.93975,0,1998,Pakama,5,0,Clinic
+571,1032,Matebeleland South,Gwanda,28.97450066,-21.37139,0,1998,Sengwezani,6,0,Rural Health Centre
+572,1067,Matebeleland South,Gwanda,29.17406082,-21.38333,0,1998,Silonga,5,0,Clinic
+573,1072,Matebeleland South,Gwanda,28.75761032,-20.75217,0,1998,Simbumbumbu,6,0,Rural Health Centre
+574,1102,Matebeleland South,Gwanda,29.03660965,-20.66992,0,1998,Stanmore,5,0,Clinic
+575,1259,Matebeleland South,Gwanda,29.71504,-21.08346,853,2007,Dwala,5,1980,Clinic
+576,1260,Matebeleland South,Gwanda,29.35371,-21.3652,725,2007,Oakley Block,8,0,Clinic(Not Open)
+577,1264,Matebeleland South,Gwanda,28.90015,-21.57018,752,2007,Mapate,5,2006,Cliniclinic
+578,1265,Matebeleland South,Gwanda,28.98773,-21.16676,891,2007,Garanyemba,5,2004,Clinic
+579,1266,Matebeleland South,Gwanda,29.0129,-20.95247,1008,2007,Joshua Mqabuko Nkomo,7,2000,School Clinic
+580,1267,Matebeleland South,Gwanda,28.78025,-21.01852,918,2007,Lushongwe,5,2001,Clinic
+581,0,Matebeleland South,Gwanda,29.0124,-20.9373,0,2013,ZRP,0,0,ZRP clinic
+582,0,Matebeleland South,Gwanda,29.3689,-21.0709,0,2013,West Nicolson,0,0,Clinic
+583,0,Matebeleland South,Gwanda,28.8005,-20.8209,0,2013,Sitezi,0,1999,clinic
+584,139,Midlands,Gweru,29.9564209,-19.5555,0,1998,Chikwingwizha,5,0,Clinic
+585,219,Midlands,Gweru,29.95261002,-19.23689,0,1998,Chiundura,5,0,Clinic
+586,248,Midlands,Gweru,29.81996918,-19.20722,0,1998,Connemara,5,0,Clinic
+587,368,Midlands,Gweru,30.00278091,-19.18781,0,1998,Gunde,5,0,Clinic
+588,393,Midlands,Gweru,29.83908081,-19.47222,0,1998,Gweru P.H,1,0,Provincial Hospital
+589,464,Midlands,Gweru,30.07344055,-19.1395,0,1998,Kabanga,5,0,Clinic
+590,523,Midlands,Gweru,29.54042053,-19.38747,0,1998,Lower Gweru,3,0,Mission Clinic
+591,539,Midlands,Gweru,29.43983078,-19.29136,0,1998,Maboleni,5,0,Clinic
+592,547,Midlands,Gweru,29.30513954,-19.27042,0,1998,Madhikani,5,0,Clinic
+593,573,Midlands,Gweru,29.56883049,-19.38919,0,1998,Makepesi,5,0,Clinic
+594,590,Midlands,Gweru,29.4228096,-19.37181,0,1998,Mangwande,5,0,Clinic
+595,1164,Midlands,Gweru,29.4722805,-19.40322,0,1998,Vungu,5,0,Clinic
+596,1176,Midlands,Gweru,30.02071953,-19.35661,0,1998,Whahwa,5,0,Prison Clinic
+597,634,Midlands,Gweru,30.05999947,-19.21278,0,1998,Masvori,5,0,Clinic
+598,692,Midlands,Gweru,29.92036057,-19.15614,0,1998,Mlezu,6,0,Rural Health Centre
+599,857,Midlands,Gweru,29.65280914,-19.20103,0,1998,Nkululeko,6,0,Rural Health Centre
+600,866,Midlands,Gweru,29.40489006,-19.17239,0,1998,Ntabamhlope,6,0,Rural Health Centre
+601,1081,Midlands,Gweru,29.66994095,-19.70069,0,1998,Somabula,5,0,Clinic
+602,1090,Midlands,Gweru,29.90280914,-19.22369,0,1998,St Patricks,3,0,Mission Clinic
+603,1328,Midlands,Gweru,29.78063,-19.52241,1393,2007,Dabuka,7,1980,Clinic
+604,1337,Midlands,Gweru,29.80665,-19.45662,1415,2007,Railways,7,1980,Clinic
+605,1338,Midlands,Gweru,29.78741,-19.46933,1425,2007,Kariba,7,1980,Clinic
+606,1371,Midlands,Gweru,29.8007,-19.49625,1410,2007,Ivene,5,1990,Clinic
+607,1372,Midlands,Gweru,29.82668,-19.42968,1411,2007,Totonga,5,1985,Clinic
+608,1373,Midlands,Gweru,29.80173,-19.44489,1411,2007,Monomutapa,5,1980,Clinic
+609,1374,Midlands,Gweru,29.83183,-19.46832,1428,2007,Child Welfare,5,0,Clinic
+610,1375,Midlands,Gweru,29.83814,-19.49622,1436,2007,Senga Poly,5,1984,Clinic
+611,1376,Midlands,Gweru,29.75082,-19.459,1425,2007,Mkoba Poly,5,1991,Clinic
+612,1313,Midlands,Gweru,30.0505,-19.4184,1395,2007,Sino Zimbabwe,7,2001,Clinic
+613,1314,Midlands,Gweru,29.34163,-19.21865,0,2007,Nyama,5,1999,Clinic
+614,1322,Midlands,Gweru,29.79211,-19.43009,1395,2007,Isolation,4,1977,Hospital
+615,1339,Midlands,Gweru,29.79629,-19.46333,1428,2007,Zim alloys,7,0,clinic
+616,1344,Midlands,Gweru,29.79629,-19.46333,1428,2007,Zim Alloys,7,1980,Clinic
+617,1345,Midlands,Gweru,29.79642,-19.45721,1415,2007,Zim Glass,7,1983,Clinic
+618,1346,Midlands,Gweru,29.83327,-19.46829,1417,2007,Claybank,7,1993,Hospital
+619,1347,Midlands,Gweru,29.79985,-19.46364,1416,2007,ZIMCAST,7,1980,Clinic
+620,1348,Midlands,Gweru,29.76658,-19.46726,1420,2007,Mkoba 1,5,1980,Clinic
+621,1349,Midlands,Gweru,29.79553,-19.47412,1432,2007,BATA,7,1960,Clinic
+622,0,Harare,Harare,31.0856,-17.8187,0,2013,Highlands ,council,,PC clinic
+623,0,Harare,Harare,31.0891,-17.7997,0,2013,Highlands ,council,,FHS
+624,0,Harare,Harare,31.1291,-17.8105,0,2013,Greendale,council,,FHS
+625,0,Harare,Harare,31.1971,-17.8357,0,2013,Mabvuku,council,,Poly clinic
+626,0,Harare,Harare,31.2135,-17.8316,0,2013,Tafara,council,,clinic
+627,0,Harare,Harare,31.2348,-17.8451,0,2013,Caledonia,council,,clinic
+628,0,Harare,Harare,31.1841,-17.8389,0,2013,Mabvuku,council,,FHS
+629,0,Harare,Harare,31.0864,-17.8787,0,2013,Hatfield,council,,clinic
+630,0,Harare,Harare,31.0427,-17.8589,0,2013,Matapi,council,,clinic
+631,0,Harare,Harare,31.0291,-17.7883,0,2013,Avondale,council,,clinic
+632,0,Harare,Harare,30.9987,-17.7914,0,2013,Mabelreign,council,,satellite clinic
+633,0,Harare,Harare,30.9981,-17.7568,0,2013,Malborough,council,,satellite clinic
+634,0,Harare,Harare,31.1075,-17.6974,0,2013,Hatcliffe ,council,,Poly clinic
+635,0,Harare,Harare,30.9297,-17.8669,0,2013,Mufakose,council,,Poly clinic
+636,0,Harare,Harare,30.9683,-17.8581,0,2013,Kambuzuma,council,,Poly clinic
+637,0,Harare,Harare,31.0089,-17.8663,0,2013,Southerton,council,,clinic
+638,0,Harare,Harare,31.0355,-17.8597,0,2013,Mbare ,council,,Poly clinic
+639,0,Harare,Harare,31.0393,-17.8666,0,2013,Mbare hostels,council,,clinic
+640,0,Harare,Harare,31.0308,-17.8903,0,2013,Waterfalls,council,,clinic
+641,0,Harare,Harare,30.969,-17.9058,0,2013,Glen norah,council,,Satellite clinic
+642,0,Harare,Harare,30.9804,-17.8949,0,2013,Western Triangle,council,,clinic
+643,0,Harare,Harare,30.9508,-17.908,0,2013,Glen view,council,,Poly clinic
+644,0,Harare,Harare,30.9354,-17.8912,0,2013,Budiriro,council,,Poly clinic
+645,0,Harare,Harare,30.99,-17.9249,0,2013,Hopley,council,,clinic
+646,0,Harare,Harare,30.9861,-17.9065,0,2013,Rutsanana,council,,clinic
+647,0,Harare,Harare,30.9945,-17.8846,0,2013,Highfield,council,,Poly clinic
+648,0,Harare,Harare,31.0282,-17.8601,0,2013,Beatrice Infectious,council,,Hospital
+649,0,Harare,Harare,31.0458,-17.7691,0,2013,Mt pleasant,council,,clinic
+650,0,Harare,Harare,31.0128,-17.8609,0,2013,Harare,govt,,Hospital
+651,0,Harare,Harare,30.0433,-17.8122,0,2013,Parirenyatwa,govt,,Hospital
+652,0,Harare,Harare,31.0243,-17.82,0,2013,Belvedere,council,,Poly clinic
+653,0,Harare,Harare,30.9285,-17.8323,0,2013,Kuwadzana ,council,,Poly clinic
+654,0,Harare,Harare,30.9782,-17.8338,0,2013,Warren Park,council,,Poly clinic
+655,0,Harare,Harare,31.0543,-17.8684,0,2013,Sunningdale,council,,satellite clinic
+656,0,Harare,Harare,31.0546,-17.8468,0,2013,Arcadia,council,,clinic
+657,0,Harare,Harare,31.0657,-17.8399,0,2013,Braeside,council,,clinic
+658,0,Harare,Harare,31.0861,-17.8256,0,2013,Eastly,council,,FHS
+659,112,Mashonaland West,Hurungwe,29.19194031,-17.14833,0,1998,Chidamoyo,3,0,Mission Hospital
+660,123,Mashonaland West,Hurungwe,29.69778061,-16.80722,0,1998,Chikanziwe,5,0,Council Clinic
+661,160,Mashonaland West,Hurungwe,29.43693924,-17.21556,0,1998,Chinhere,5,0,Council Clinic
+662,192,Mashonaland West,Hurungwe,28.86055946,-16.04389,0,1998,Chirundu,5,0,Gvt Clinic
+663,221,Mashonaland West,Hurungwe,29.34943962,-17.31583,0,1998,Chivende,5,0,Gvt Clinic
+664,241,Mashonaland West,Hurungwe,29.64249992,-16.39278,0,1998,Chundu,5,0,Council Clinic
+665,273,Mashonaland West,Hurungwe,29.94249916,-16.50056,0,1998,Dete,5,0,Council Clinic
+666,406,Mashonaland West,Hurungwe,29.53778076,-16.86944,0,1998,Hesketh,5,0,Council Clinic
+667,407,Mashonaland West,Hurungwe,29.67388916,-16.56972,0,1998,Hewiyai,5,0,Council Clinic
+668,483,Mashonaland West,Hurungwe,29.40833092,-17.06583,0,1998,Kapfunde,5,0,Council Clinic
+669,489,Mashonaland West,Hurungwe,29.68778038,-16.81528,0,1998,Karoi,2,0,District Hospital
+670,490,Mashonaland West,Hurungwe,29.6427803,-16.47806,0,1998,Karuru,8,0,Council (Construction)
+671,491,Mashonaland West,Hurungwe,29.87722015,-17.03111,0,1998,Kasimube,6,0,Rural Health Centre
+672,498,Mashonaland West,Hurungwe,29.83555985,-16.55917,0,1998,Kazangarare,5,0,Gvt Council
+673,536,Mashonaland West,Hurungwe,29.45083046,-16.59806,0,1998,Lynx,5,0,Clinic Private Clinic
+674,558,Mashonaland West,Hurungwe,29.41056061,-16.855,0,1998,Magunje,4,0,Rural Hospital
+675,559,Mashonaland West,Hurungwe,29.42333031,-16.86528,0,1998,Magunje Army,7,0,Army Clinic
+676,587,Mashonaland West,Hurungwe,29.36194038,-15.72139,0,1998,Mana Pools,7,0,National Park-clinic
+677,608,Mashonaland West,Hurungwe,29.16250038,-16.22889,0,1998,Marongora,7,0,National Park-clinic
+678,613,Mashonaland West,Hurungwe,29.22999954,-16.73611,0,1998,Masanga,5,0,Gvt Clinic
+679,624,Mashonaland West,Hurungwe,29.54166985,-16.44056,0,1998,Mashongwe,5,0,Council Clinic
+680,810,Mashonaland West,Hurungwe,29.7761097,-16.67167,0,1998,Mwami,5,0,clinic
+681,887,Mashonaland West,Hurungwe,29.76721954,-16.40694,0,1998,Nyama,5,0,Council
+682,889,Mashonaland West,Hurungwe,29.43638992,-16.40389,0,1998,Nyamakaze,5,0,Gvt Clinic
+683,901,Mashonaland West,Hurungwe,29.19528008,-16.885,0,1998,Nyamhunga,5,0,Council Clinic
+684,915,Mashonaland West,Hurungwe,29.92667007,-16.86639,0,1998,Nyangoma,5,0,Council Clinic
+685,1122,Mashonaland West,Hurungwe,29.61166954,-17.29056,0,1998,Tenewe,5,0,Council Clinic
+686,1214,Mashonaland West,Hurungwe,29.21027946,-16.98306,0,1998,Zvipani,5,0,Gvt Clinic
+687,1218,Mashonaland West,Hurungwe,29.03146,-17.02504,874,2007,Deve,5,2005,Clinic(Not Open)
+688,1219,Mashonaland West,Hurungwe,29.06433,-17.12012,850,2007,Chiedza,5,1997,Clinic(Not Open)
+689,1220,Mashonaland West,Hurungwe,29.46661,-16.75765,1229,2007,Lan lorry,5,0,Clinic
+690,1221,Mashonaland West,Hurungwe,29.35702,-16.71696,1034,2007,Doro,5,1999,Clinic
+691,162,Matebeleland North,Hwange,25.82583046,-17.94528,0,1998,Chinotimba,5,0,Clinic
+692,198,Matebeleland North,Hwange,25.95471954,-18.01361,0,1998,Chisuma,6,0,Rural Health Centre
+693,274,Matebeleland North,Hwange,26.86778069,-18.61583,0,1998,Dete,5,0,Clinic
+694,278,Matebeleland North,Hwange,26.73749924,-18.38,0,1998,Dinde,5,0,Clinic
+695,309,Matebeleland North,Hwange,26.5008297,-18.34972,0,1998,Empumalanga,5,0,Clinic
+696,389,Matebeleland North,Hwange,27.18638992,-18.61111,0,1998,Gwayi,5,0,Clinic
+697,443,Matebeleland North,Hwange,26.22750092,-18.05222,0,1998,Jambezi,6,0,Rural Health Centre
+698,474,Matebeleland North,Hwange,27.05971909,-18.315,0,1998,Kamative,4,0,Hospital
+699,481,Matebeleland North,Hwange,26.31110954,-18.01694,0,1998,Kanywambizi,6,0,Rural Health Centre
+700,527,Matebeleland North,Hwange,26.62778091,-18.36056,0,1998,Lukosi,4,0,Rural Hospital
+701,528,Matebeleland North,Hwange,26.22833061,-18.04444,0,1998,Lukunguni,3,0,Mission Hospital
+702,533,Matebeleland North,Hwange,26.96417046,-18.51278,0,1998,Lupote,5,0,Clinic
+703,564,Matebeleland North,Hwange,26.95222092,-18.73167,0,1998,Main Camp.,5,0,Clinic
+704,581,Matebeleland North,Hwange,27.20055962,-18.31722,0,1998,Makwandara,6,0,Rural Health Centre
+705,1169,Matebeleland North,Hwange,26.50056076,-18.35722,0,1998,Wankie,7,0,Private Hospital
+706,812,Matebeleland North,Hwange,26.56056023,-18.18333,0,1998,Mwemba,6,0,Rural Health Centre
+707,822,Matebeleland North,Hwange,25.98389053,-18.10083,0,1998,Ndlovu,6,0,Rural Health centre
+708,1010,Matebeleland North,Hwange,26.97443962,-18.65611,0,1998,Safari Lodge,5,0,Clinic
+709,1071,Matebeleland North,Hwange,26.72417068,-18.11028,0,1998,Simangani,6,0,Rural Health centre
+710,1158,Matebeleland North,Hwange,25.82611084,-17.94389,0,1998,Victoria Falls,2,0,District Hospital
+711,1298,Matebeleland North,Hwange,26.85831,-18.62354,0,2007,Dete,7,0,Railways-clinic
+712,1299,Matebeleland North,Hwange,26.57485,-18.34985,721,2007,Hwange District Hospital,2,2006,District Hospital
+713,1300,Matebeleland North,Hwange,26.49204,-18.35426,723,2007,No 1 Clinic,7,1950,Clinic
+714,1301,Matebeleland North,Hwange,26.47342,-18.33347,697,2007,No1 North,7,1950,Clinic
+715,1302,Matebeleland North,Hwange,26.44014,-18.37726,770,2007,No 5 Clinic,7,1950,Clinic
+716,1303,Matebeleland North,Hwange,26.43633,-18.36078,754,2007,No 2 Dressing Station,7,1959,Clinic
+717,1304,Matebeleland North,Hwange,26.42891,-18.36407,759,2007,No 2 Clinic,7,1950,Clinic
+718,1305,Matebeleland North,Hwange,26.46145,-18.38911,771,2007,Ingagula,7,1980,Clinic
+719,1306,Matebeleland North,Hwange,26.40722,-18.41659,759,2007,No 3 Clinic,7,1950,Clinic
+720,1307,Matebeleland North,Hwange,26.51302,-18.34558,775,2007,ZRP Hwange,5,1992,Clinic
+721,1275,Matebeleland North,Hwange,26.48723,-18.37115,754,2007,NRZ Surgery,7,1950,Railways-clinic
+722,1276,Matebeleland North,Hwange,26.49616,-18.37741,768,2007,Ngumija,7,0,Railways-clinic
+723,1277,Matebeleland North,Hwange,26.49264,-18.36288,768,2007,No 1 Dressing Station,7,0,Mine Clinic
+724,1278,Matebeleland North,Hwange,26.53142,-18.34919,763,2007,Zimbabwe Prison Services,5,1939,Clinic
+725,1279,Matebeleland North,Hwange,25.98653,-18.62904,0,2007,Robbins Camp,7,1986,Clinic
+726,1280,Matebeleland North,Hwange,25.82613,-17.91214,918,2007,Elephant Hills,7,1991,Hotel Clinic
+727,1281,Matebeleland North,Hwange,25.84274,-17.93138,896,2007,Victoria Falls Clinic,7,1989,Industrial Clinic
+728,1282,Matebeleland North,Hwange,25.8373,-17.92907,930,2007,ZRP Victoria Falls,5,2003,ZRP Clinic
+729,1283,Matebeleland North,Hwange,27.82312,-17.5687,595,2007,Meheni,8,2006,Conucil Not Open
+730,1284,Matebeleland North,Hwange,26.21412,-18.13872,873,2007,Milonga,8,2006,Clinic(Not Open)
+731,0,Matebeleland North,Hwange,27.0702,-18.5721,0,2013,Mabale,0,1994,Rural Health Centre
+732,0,Matebeleland North,Hwange,26.5141,-18.3306,0,2013,Zesa Chibondo,0,0,Clinic
+733,0,Matebeleland North,Hwange,26.5122,-18.3289,0,2013,St Patricks,0,1999,Mission Hospital
+734,0,Matebeleland North,Hwange,26.5022,-18.3582,0,2013,Hwange Colliery Hospital,0,0,Mine Hospital
+735,0,Matebeleland North,Hwange,26.4963,-18.3774,0,2013,Nguminja,0,0,Mine clinic
+736,0,Matebeleland North,Hwange,26.4874,-18.3713,0,2013,surgery,0,0,Mine Clinic
+737,0,Matebeleland North,Hwange,26.4927,-18.3629,0,2013,Dressing station,0,0,Mine Clinic
+738,118,Mashonaland East,Hwedza,31.71972084,-18.85983,0,1998,Chigondo,5,0,Clinic
+739,133,Mashonaland East,Hwedza,31.91749954,-19.04894,0,1998,Chikurumadziva,6,0,Rural Health Centre
+740,333,Mashonaland East,Hwedza,31.53463936,-18.7085,0,1998,Garaba,6,0,Rural Health Centre
+741,351,Mashonaland East,Hwedza,31.90127945,-18.89328,0,1998,Goneso,6,0,Rural Health Centre
+742,358,Mashonaland East,Hwedza,31.80672073,-18.72842,0,1998,Goto,5,0,Clinic
+743,571,Mashonaland East,Hwedza,31.83481026,-19.02697,0,1998,Makarara,5,0,Clinic
+744,1173,Mashonaland East,Hwedza,31.56722069,-18.62839,0,1998,Wedza,4,0,Rural Hospital
+745,711,Mashonaland East,Hwedza,31.6835804,-18.70842,0,1998,Mt St Mary's,4,0,Mission Hospital
+746,730,Mashonaland East,Hwedza,31.82132912,-18.87653,0,1998,Mukamba,5,0,Clinic
+747,1031,Mashonaland East,Hwedza,31.48711014,-18.74408,0,1998,Sengezi,5,0,Clinic
+748,1212,Mashonaland East,Hwedza,31.72294044,-18.96144,0,1998,Zvidhuri,5,0,Clinic
+749,1476,Mashonaland East,Hwedza,31.45557,-18.65151,0,2013,Gotora,6,2001,Rural Health Centre
+750,1477,Mashonaland East,Hwedza,31.52172,-18.50209,0,2013,Idube,5,2004,Clinic
+751,0,Mashonaland East,Hwedza,31.7505,-18.7824,0,2013,Sango ,,2001,Clinic
+752,16,Matebeleland South,Insiza,29.50555992,-20.83492,0,1998,Avoca,4,0,Rural Hospital
+753,311,Matebeleland South,Insiza,29.27046967,-20.43822,0,1998,Epoch,7,0,Mine Clinic
+754,321,Matebeleland South,Insiza,29.28667068,-20.54033,0,1998,Filabusi,2,0,District Hospital
+755,388,Matebeleland South,Insiza,29.69050026,-20.40542,0,1998,Gwatemba,6,0,Rural Health Centre
+756,540,Matebeleland South,Insiza,29.45292091,-20.93906,0,1998,Mabuze,6,0,Rural Health Centre
+757,1167,Matebeleland South,Insiza,29.58552933,-20.57447,0,1998,Wanezi,4,0,Rural Hospital
+758,1187,Matebeleland South,Insiza,29.29006004,-20.64019,0,1998,Zhulube,5,0,Clinic
+759,855,Matebeleland South,Insiza,29.42378044,-20.48781,0,1998,Nkankezi,6,0,Rural Health Centre
+760,904,Matebeleland South,Insiza,29.30438995,-20.90644,0,1998,Nyamime,6,0,Rural Health Centre
+761,951,Matebeleland South,Insiza,29.18581009,-20.13897,0,1998,PBS,5,0,Clinic
+762,1021,Matebeleland South,Insiza,29.55517006,-20.68947,0,1998,Sanale,6,0,Rural Health Centre
+763,1043,Matebeleland South,Insiza,29.22488976,-19.68997,0,1998,Shangani,7,0,Mine Clinic
+764,1044,Matebeleland South,Insiza,29.37375069,-19.78414,0,1998,Shangani,4,0,Rural Hospital
+765,1074,Matebeleland South,Insiza,29.31760979,-20.78678,0,1998,Singwango,5,0,Clinic
+766,1247,Matebeleland South,Insiza,29.04724,-19.85475,1354,2007,Kombo,5,2005,Clinic
+767,1250,Matebeleland South,Insiza,29.4942,-20.33999,1216,2007,Montrose 7,8,0,Under Construction
+768,1251,Matebeleland South,Insiza,29.70742,-20.10003,1219,2007,Lambamai,8,0,Under Construction
+769,1252,Matebeleland South,Insiza,29.78944,-20.04728,1180,2007,Mplalawami,8,0,(New Site)
+770,1253,Matebeleland South,Insiza,29.54654,-20.93315,970,2007,Singwambizi,5,2003,Clinic
+771,1254,Matebeleland South,Insiza,29.38517,-20.84809,936,2007,Saphila,8,2006,Council Clinic(Construction)
+772,7,Mashonaland West,Kadoma,29.88167,-18.35528,0,1998,Annex,5,0,Gvt Infections
+773,26,Mashonaland West,Kadoma,29.90583038,-18.62444,0,1998,Battlefields,7,0,Army Hospital
+774,59,Mashonaland West,Kadoma,30.41666985,-18.59389,0,1998,Bumbe,6,0,Rural Health Centre
+775,62,Mashonaland West,Kadoma,30.49056053,-18.69722,0,1998,Bururu,5,0,Council Clinic
+776,76,Mashonaland West,Kadoma,29.84527969,-18.07833,0,1998,Chakari,7,0,Private Mine Clinic
+777,102,Mashonaland West,Kadoma,29.75499916,-17.92028,0,1998,Chegutu 6,8,0,(New Site)
+778,107,Mashonaland West,Kadoma,29.40943909,-17.86083,0,1998,Chenjiri,5,0,Council Clinic
+779,185,Mashonaland West,Kadoma,29.42056084,-17.97611,0,1998,Chirikiti,5,0,Council Clinic
+780,289,Mashonaland West,Kadoma,29.62888908,-18.50778,0,1998,Donain,6,0,Rural Health Centre
+781,290,Mashonaland West,Kadoma,30.59693909,-18.68278,0,1998,Dondoshava,5,0,Gvt Clinic
+782,306,Mashonaland West,Kadoma,29.98110962,-18.31694,0,1998,Eiffel Flat,7,0,Mine Clinic
+783,340,Mashonaland West,Kadoma,29.32472038,-17.87056,0,1998,Gena 1,6,0,Rural Health Centre
+784,347,Mashonaland West,Kadoma,29.7930603,-18.22306,0,1998,Golden Valley,7,0,Private Mine Clinic
+785,431,Mashonaland West,Kadoma,29.85972023,-18.37889,0,1998,Ingezi,5,0,Municipality
+786,459,Mashonaland West,Kadoma,29.44861031,-18.06917,0,1998,Jompani,6,0,Rural Health Centre
+787,466,Mashonaland West,Kadoma,29.89833069,-18.34583,0,1998,Kadoma Clinic,5,0,Municipality
+788,467,Mashonaland West,Kadoma,29.91167068,-18.33083,0,1998,Kadora,2,0,District Hosp
+789,556,Mashonaland West,Kadoma,30.51416969,-18.74611,0,1998,Mafindifindi,5,0,Council Clinic
+790,593,Mashonaland West,Kadoma,30.52305985,-18.60722,0,1998,Manyewe,5,0,Council Clinic
+791,595,Mashonaland West,Kadoma,30.46833038,-18.8175,0,1998,Manyoni,5,0,Council Clinic
+792,731,Mashonaland West,Kadoma,30.48917007,-18.55667,0,1998,Mukarati,5,0,Council Clinic
+793,757,Mashonaland West,Kadoma,30.72167015,-18.58333,0,1998,Murambwa,5,0,Council clinic
+794,803,Mashonaland West,Kadoma,29.49193954,-17.94722,0,1998,Muuyu,5,0,Council Clinic
+795,807,Mashonaland West,Kadoma,30.58250046,-18.54444,0,1998,Muzvezve,5,0,Gvt Clinic
+796,840,Mashonaland West,Kadoma,30.63249969,-18.65417,0,1998,Ngezi,4,0,Rural Hosp
+797,872,Mashonaland West,Kadoma,29.52721977,-17.85306,0,1998,Nyabango,6,0,Rural Health Centre
+798,894,Mashonaland West,Kadoma,29.53471947,-18.19917,0,1998,Nyamatani,6,0,Rural Health Centre
+799,920,Mashonaland West,Kadoma,29.43693924,-17.73222,0,1998,Nyaonde,6,0,Rural Health Centre
+800,943,Mashonaland West,Kadoma,29.84749985,-18.28083,0,1998,Ordoff,5,0,Council Clinic
+801,963,Mashonaland West,Kadoma,29.87556076,-18.38917,0,1998,Prisons,5,0,Gvt Clinic
+802,997,Mashonaland West,Kadoma,29.41444016,-17.60833,0,1998,Rusvingo,8,0,Clinic (construction)
+803,1025,Mashonaland West,Kadoma,29.30916977,-17.95278,0,1998,Sanyati,3,0,Mission Hospital
+804,1026,Mashonaland West,Kadoma,29.24333,-17.99083,0,1998,Sanyati Area,5,0,Council Clinic
+805,1096,Mashonaland West,Kadoma,30.67889023,-18.56667,0,1998,St. Michaels,3,0,Mission Hospital
+806,1146,Mashonaland West,Kadoma,30.27693939,-18.67639,0,1998,Turf,5,0,Council Clinic
+807,1154,Mashonaland West,Kadoma,29.77249908,-18.50778,0,1998,Venice,7,0,Mine Clinic
+808,1155,Mashonaland West,Kadoma,29.77249908,-18.50778,0,1998,Venice,7,0,Mine Clinic
+809,1234,Mashonaland West,Kadoma,30.10364,-18.58832,1196,2007,Twin Tops,5,0,Clinic
+810,1235,Mashonaland West,Kadoma,29.87599,-17.94313,1034,2007,Black Movale,5,0,Clinic
+811,1236,Mashonaland West,Kadoma,30.5599,-18.72362,1289,2007,Gavhunga,8,0,Clinic(Not Open)
+812,1229,Mashonaland West,Kadoma,29.87825,-18.34778,0,2007,Jairos Jiri,5,1982,Clinic
+813,1230,Mashonaland West,Kadoma,29.88327,-18.34446,1133,2007,Kadoma Pop.,7,2006,Clinic
+814,1231,Mashonaland West,Kadoma,29.89131,-18.34622,1121,2007,PSI,7,0,Clinic
+815,1232,Mashonaland West,Kadoma,29.9191,-18.34768,1116,2007,Waverly,5,0,Clinic
+816,1233,Mashonaland West,Kadoma,30.35557,-18.44847,1213,2007,Chingondo,5,0,
+817,14,Mashonaland West,Kariba,28.82638931,-16.52639,0,1998,Army,5,0,Clinic
+818,79,Mashonaland West,Kariba,28.30027962,-16.84167,0,1998,Chalala,5,0,Council Clinic
+819,89,Mashonaland West,Kariba,28.9636097,-16.55167,0,1998,Charara,7,0,Farm Clinic
+820,335,Mashonaland West,Kariba,28.86027908,-16.78361,0,1998,Gatse Gatse,5,0,Gvt Clinic
+821,480,Mashonaland West,Kariba,28.99527931,-16.91528,0,1998,Kanyati,6,0,Rural Health Centre
+822,487,Mashonaland West,Kariba,28.79166985,-16.52028,0,1998,Kariba,2,0,District Hospital
+823,562,Mashonaland West,Kariba,28.75806046,-16.52611,0,1998,Mahombekombe,5,0,Council Clinic
+824,695,Mashonaland West,Kariba,28.29861069,-16.92611,0,1998,Mola,6,0,Rural Health Centre
+825,703,Mashonaland West,Kariba,28.7677803,-17.15861,0,1998,Msampakaruma,5,0,Council Clinic
+826,825,Mashonaland West,Kariba,28.24110985,-17.19278,0,1998,Negande,5,0,Gvt Clinic
+827,902,Mashonaland West,Kariba,28.84832954,-16.51806,0,1998,Nyamhunga,5,0,Council Clinic
+828,1059,Mashonaland West,Kariba,28.36417007,-17.13111,0,1998,Siakobvu,4,0,Rural Hospital
+829,1298,Mashonaland West,Kariba,28.50133,-17.22925,710,2007,Kasvisva,6,1993,Rural Health Centre
+830,1299,Mashonaland West,Kariba,28.18771,-17.02508,543,2007,Mayovhe,8,1993,Rural Health Centre(construction)
+831,256,Midlands,Kwekwe,29.12249947,-19.10328,0,1998,Cambridge,5,0,Clinic
+832,269,Midlands,Kwekwe,29.10292053,-18.70764,0,1998,Dendera,4,0,Rural Hospital
+833,288,Midlands,Kwekwe,29.50744057,-18.607,0,1998,Don Juan,5,0,Clinic
+834,292,Midlands,Kwekwe,28.90630913,-18.76897,0,1998,Donsa,5,0,Clinic
+835,349,Midlands,Kwekwe,29.45247078,-18.76839,0,1998,Gomola,5,0,Clinic
+836,441,Midlands,Kwekwe,29.25005913,-19.10408,0,1998,Jackson,5,0,Clinic
+837,518,Midlands,Kwekwe,29.82374954,-18.93572,0,1998,Kwekwe,2,0,District Hospital
+838,584,Midlands,Kwekwe,29.12324905,-19.00353,0,1998,Malisa Josefa,5,0,Clinic
+839,1186,Midlands,Kwekwe,29.38493919,-18.70336,0,1998,Zhombe,3,0,Mission clinic
+840,661,Midlands,Kwekwe,29.60128021,-18.77267,0,1998,Majorca,5,0,Clinic
+841,662,Midlands,Kwekwe,29.00630951,-18.93542,0,1998,Mazebe,6,0,Rural Health Centre
+842,680,Midlands,Kwekwe,29.78668976,-19.04047,0,1998,Medical Centre,5,0,Clinic
+843,681,Midlands,Kwekwe,30.24221992,-18.72167,0,1998,Melisa Zhombe,5,0,Clinic
+844,699,Midlands,Kwekwe,29.2516098,-19.15281,0,1998,Mpinda,5,0,Clinic
+845,707,Midlands,Kwekwe,29.15613937,-19.17339,0,1998,Msilahove,4,0,Rural Hospital
+846,749,Midlands,Kwekwe,29.78697014,-18.67142,0,1998,Munyati,5,0,Clinic
+847,868,Midlands,Kwekwe,29.33472061,-18.80214,0,1998,Ntabeni,5,0,Clinic
+848,934,Midlands,Kwekwe,29.33756065,-18.96747,0,1998,Nyoni,6,0,Rural Health Centre
+849,977,Midlands,Kwekwe,29.43556023,-18.46828,0,1998,Rio Tinto,7,0,Mine Clinic
+850,1016,Midlands,Kwekwe,29.45247078,-18.33406,0,1998,Samambwa,5,0,Clinic
+851,1027,Midlands,Kwekwe,30.1225605,-18.98881,0,1998,Sebakwe,5,0,Clinic
+852,1033,Midlands,Kwekwe,29.43572044,-18.58403,0,1998,Senkwasi,5,0,Clinic
+853,1048,Midlands,Kwekwe,29.8062191,-18.82453,0,1998,Sherwood,5,0,Clinic
+854,1062,Midlands,Kwekwe,29.46838951,-18.43989,0,1998,Sidakeni,5,0,Clinic
+855,1066,Midlands,Kwekwe,29.30458069,-19.00511,0,1998,Silobela,2,0,District Hospital
+856,1070,Midlands,Kwekwe,29.11927986,-18.92169,0,1998,Simana,5,0,Clinic
+857,1131,Midlands,Kwekwe,29.73644066,-19.02261,0,1998,Torwood,4,0,Hospital
+858,1329,Midlands,Kwekwe,29.78238,-19.0226,1216,2007,Redcliff,5,1989,Clinic
+859,1330,Midlands,Kwekwe,29.77346,-19.0084,1201,2007,Rutendo,5,1980,Clinic
+860,1331,Midlands,Kwekwe,29.75035,-19.01429,1203,2007,Zisco Works,7,1980,Clinic
+861,1332,Midlands,Kwekwe,29.82332,-18.91481,1197,2007,Lancashire,7,1980,Clinic
+862,1333,Midlands,Kwekwe,29.8246,-18.91316,1188,2007,Zim Wire and Rope,7,1973,Clinic
+863,1334,Midlands,Kwekwe,29.81286,-18.9364,1214,2007,Aldavis,5,1995,Clinic
+864,1335,Midlands,Kwekwe,29.78466,-18.92453,1208,2007,Amaveni,5,1971,clinic
+865,1336,Midlands,Kwekwe,29.7989,-18.8009,1202,2007,Sable,7,1969,Clinic
+866,1343,Midlands,Kwekwe,29.07592,-18.84766,1569,2007,Exchange,5,0,Clinic
+867,1351,Midlands,Kwekwe,29.83498,-18.90588,1194,2007,Mbizo 1,5,0,Clinic
+868,257,Matebeleland North,Lupane,27.86916924,-18.44889,0,1998,Dandanda,5,0,Clinic
+869,291,Matebeleland North,Lupane,27.44719,-18.40378,0,1998,Dongamuzi,5,0,Clinic
+870,350,Matebeleland North,Lupane,28.22360992,-18.84139,0,1998,Gomoza,6,0,Rural Health Centre
+871,461,Matebeleland North,Lupane,27.55833054,-18.73056,0,1998,Jotsholo,5,0,Clinic
+872,479,Matebeleland North,Lupane,27.97777939,-18.30444,0,1998,Kanyandavu,5,0,Clinic
+873,531,Matebeleland North,Lupane,27.90361023,-18.78333,0,1998,Lupaka,5,0,Clinic
+874,532,Matebeleland North,Lupane,27.77194023,-18.93528,0,1998,Lupane,6,0,Rural Health Centre
+875,679,Matebeleland North,Lupane,27.75193977,-18.49389,0,1998,Mdlankunzi,5,0,Clinic
+876,1095,Matebeleland North,Lupane,27.96861076,-19.10972,0,1998,St. Lukes,3,0,Mission Hospital
+877,1097,Matebeleland North,Lupane,28.11388969,-19.02028,0,1998,St. Pauls,3,0,Mission Hospital
+878,1296,Matebeleland North,Lupane,27.77305,-18.9308,1006,2007,Lupane Prov. Hospital,8,2007,Provincial Hospital
+879,1297,Matebeleland North,Lupane,27.414,-18.74072,963,2007,Fatima,5,2004,Clinic
+880,4,Mashonaland West,Makonde,30.06749916,-17.37389,0,1998,Alaska,5,0,Clinic
+881,128,Mashonaland West,Makonde,30.19444084,-17.39,0,1998,Chikonohono,5,0,Clinic
+882,161,Mashonaland West,Makonde,30.20889091,-17.36222,0,1998,Chinhoyi P.H,1,0,Provincial Hospital
+883,283,Mashonaland West,Makonde,30.24221992,-16.75889,0,1998,Doma,5,0,Clinic
+884,343,Mashonaland West,Makonde,29.52222061,-17.61778,0,1998,Godzi,5,0,Clinic
+885,412,Mashonaland West,Makonde,29.77916908,-17.69417,0,1998,Hombwe,5,0,Clinic
+886,476,Mashonaland West,Makonde,29.35861015,-17.47306,0,1998,Kamonde,5,0,Clinic
+887,499,Mashonaland West,Makonde,29.60499954,-17.47306,0,1998,Kenzamba,5,0,Clinic
+888,504,Mashonaland West,Makonde,30.21389008,-16.66722,0,1998,Kosana,5,0,Clinic
+889,1207,Mashonaland West,Makonde,29.88138962,-17.67361,0,1998,Zumbara,5,0,Clinic
+890,649,Mashonaland West,Makonde,30.11194038,-17.56833,0,1998,Matorangera,5,0,Clinic
+891,684,Mashonaland West,Makonde,30.16444016,-16.89194,0,1998,Mhangura,7,0,Private Hospital
+892,728,Mashonaland West,Makonde,30.05722046,-16.92889,0,1998,Muitubu,5,0,Clinic
+893,735,Mashonaland West,Makonde,29.81082916,-17.81028,0,1998,Mukohwe,5,0,Clinic
+894,758,Mashonaland West,Makonde,30.02639008,-17.27556,0,1998,Murereka,5,0,Clinic
+895,938,Mashonaland West,Makonde,29.50638962,-17.53444,0,1998,Obva,5,0,Clinic
+896,1005,Mashonaland West,Makonde,29.65638924,-17.68833,0,1998,Ruweni,8,0,Under Construction
+897,1100,Mashonaland West,Makonde,29.69277954,-17.76917,0,1998,St. Rupets,3,0,Mission Hospital
+898,1148,Mashonaland West,Makonde,30.18333054,-17.0475,0,1998,Umboe,5,0,Clinic
+899,1244,Mashonaland West,Makonde,30.15505,-16.68228,0,2007,Green Valley,5,0,Clinic
+900,1245,Mashonaland West,Makonde,30.25752,-17.13926,0,2007,Nyagombe,5,0,Clinic
+901,1246,Mashonaland West,Makonde,29.99041,-16.99737,1059,2007,River Ranch,5,0,Clinic
+902,1222,Mashonaland West,Makonde,30.20806,-17.34913,1147,2007,Chinhoyi University Clinic,5,2004,University clinic
+903,1223,Mashonaland West,Makonde,30.20319,-17.36414,1145,2007,PSI,5,2003,Clinic Private Clinic
+904,1224,Mashonaland West,Makonde,30.19744,-17.36109,1156,2007,Chinhoyi Prison Clinic,5,0,Clinic
+905,1225,Mashonaland West,Makonde,30.19376,-17.36,0,2007,Chinhoyi Health Center,7,0,Clinic Private Clinic
+906,1226,Mashonaland West,Makonde,30.17167,-17.35684,1161,2007,Chinhoyi ZRP Camp Clinic,5,0,Clinic
+907,1227,Mashonaland West,Makonde,30.19105,-17.36026,1151,2007,Premier Medical Centre,7,2003,Clinic
+908,1228,Mashonaland West,Makonde,30.19099,-17.36027,1156,2007,Chitambo,7,0,Clinic
+909,8,Manicaland,Makoni,32.20314026,-18.23539,0,1998,Anorldine,5,0,Clinic
+910,20,Manicaland,Makoni,32.30622101,-18.20478,0,1998,Bamba,6,0,Rural Health Centre
+911,44,Manicaland,Makoni,32.3889389,-18.22244,0,1998,Bingaguru,5,0,Clinic
+912,115,Manicaland,Makoni,31.9347496,-18.82058,0,1998,Chiduku,5,0,Clinic
+913,126,Manicaland,Makoni,32.15671921,-18.90203,0,1998,Chikobvore,6,0,Rural Health Centre
+914,130,Manicaland,Makoni,32.50703049,-17.72186,0,1998,Chikore,5,0,Clinic
+915,159,Manicaland,Makoni,32.50246811,-18.03619,0,1998,Chinhenga,6,0,Rural Health Centre
+916,164,Manicaland,Makoni,32.02244186,-18.67194,0,1998,Chinyadza,5,0,Clinic
+917,168,Manicaland,Makoni,32.20046997,-18.18653,0,1998,Chinyudze,4,0,Rural Health Centre
+918,169,Manicaland,Makoni,32.28916931,-18.14361,0,1998,Chiome,5,0,Clinic
+919,297,Manicaland,Makoni,31.80269051,-18.52369,0,1998,Dowa,5,0,Clinic
+920,301,Manicaland,Makoni,32.38531113,-18.42167,0,1998,Dumbamwe,5,0,Clinic
+921,312,Manicaland,Makoni,32.27172089,-18.23656,0,1998,Era Mine,7,0,Mine Clinic
+922,359,Manicaland,Makoni,32.33406067,-18.08644,0,1998,Gowakowa,6,0,Rural Health Centre
+923,403,Manicaland,Makoni,32.03989029,-18.28597,0,1998,Headlands,5,0,Clinic
+924,437,Manicaland,Makoni,32.25489044,-18.22197,0,1998,Inyati,5,0,Clinic
+925,495,Manicaland,Makoni,32.00347137,-18.72456,0,1998,Katsenga,6,0,Rural Health Centre
+926,576,Manicaland,Makoni,32.38877869,-18.61997,0,1998,Makoni,4,0,Rural Hospital
+927,601,Manicaland,Makoni,32.40510941,-18.00294,0,1998,Maparura,6,0,Rural Health Centre
+928,1175,Manicaland,Makoni,32.15196991,-18.04158,0,1998,Weya,4,0,Rural Hospital
+929,1178,Manicaland,Makoni,31.96780968,-18.24033,0,1998,Zambara,5,0,Clinic
+930,635,Manicaland,Makoni,31.85693932,-18.70275,0,1998,Masvosva,6,0,Rural Health Centre
+931,650,Manicaland,Makoni,32.36692047,-18.52292,0,1998,Matotwe,5,0,Clinic
+932,651,Manicaland,Makoni,31.95266914,-18.70075,0,1998,Matsika,5,0,Clinic
+933,653,Manicaland,Makoni,32.33710861,-18.67436,0,1998,Maurice Nyagumbo,5,0,Clinic
+934,655,Manicaland,Makoni,32.15613937,-18.74053,0,1998,Mavhudzi,5,0,Clinic
+935,658,Manicaland,Makoni,32.27336121,-17.87047,0,1998,Mayo1,6,0,Rural Health Centre
+936,659,Manicaland,Makoni,32.3517189,-17.78494,0,1998,Mayo2,6,0,Rural Health Centre
+937,720,Manicaland,Makoni,31.9343605,-18.53472,0,1998,Mubvurungwa,5,0,Clinic
+938,729,Manicaland,Makoni,32.00271988,-18.86703,0,1998,Mukamba,5,0,Clinic
+939,740,Manicaland,Makoni,32.21847153,-18.50592,0,1998,Mukuwapasi,5,0,Clinic
+940,824,Manicaland,Makoni,31.87491989,-18.55028,0,1998,Nedevedzo,4,0,Rural Hospital
+941,879,Manicaland,Makoni,32.4030304,-17.93886,0,1998,Nyahowe,6,0,Rural Health Centre
+942,881,Manicaland,Makoni,32.3223114,-18.46983,0,1998,Nyahukwe,6,0,Rural Health Centre
+943,903,Manicaland,Makoni,32.08721924,-18.93989,0,1998,Nyamidzi,5,0,Clinic
+944,906,Manicaland,Makoni,32.1720314,-18.09111,0,1998,Nyamukamani,6,0,Rural Health Centre
+945,928,Manicaland,Makoni,32.17139053,-18.72089,0,1998,Nyazura,5,0,Clinic
+946,929,Manicaland,Makoni,32.22460938,-18.75678,0,1998,Nyazura,3,0,Mission Clinic
+947,976,Manicaland,Makoni,32.43861008,-18.55803,0,1998,Ringanayi,5,0,Clinic
+948,987,Manicaland,Makoni,32.08377838,-18.8045,0,1998,Rukweza,5,0,Clinic
+949,991,Manicaland,Makoni,32.13636017,-18.53892,0,1998,Rusape,2,0,District Hospital
+950,1089,Manicaland,Makoni,32.45042038,-17.90319,0,1998,St Micheals,3,0,Mission Hospital
+951,1093,Manicaland,Makoni,31.91918945,-18.58714,0,1998,St Theresa,3,0,Mission Hospital
+952,1118,Manicaland,Makoni,32.02088928,-18.56839,0,1998,Tandi,5,0,Clinic
+953,1120,Manicaland,Makoni,32.0839386,-18.73558,0,1998,Tariro,5,0,Clinic
+954,1138,Manicaland,Makoni,32.10678101,-18.61947,0,1998,Tsanzaguru,5,0,Clinic
+955,1153,Manicaland,Makoni,32.11877823,-18.55675,0,1998,Vengere,5,0,Clinic
+956,1425,Manicaland,Makoni,32.23431,-18.67112,0,2007,Gorubi Springs,6,2005,Rural Health Centre
+957,1428,Manicaland,Makoni,32.14423,-18.72616,0,2007,Mavhudzi,5,1986,Clinic
+958,1436,Manicaland,Makoni,32.26243,-18.00061,0,2007,Nyamusosa,5,1998,Clinic
+959,0,Matebeleland South,Mangwe,28.332,-21.1696,0,2013,St. Annes,0,0,Mission Hospital
+960,0,Matebeleland South,Mangwe,27.8103,-20.4916,0,2013,Plumtree ZPS,0,0,Prison Clinic
+961,27,Matebeleland South,Maphisa,28.33506012,-20.60611,0,1998,Bazha,5,0,Clinic
+962,36,Matebeleland South,Maphisa,28.40613937,-21.48506,0,1998,Beula,6,0,Rural Health Centre
+963,364,Matebeleland South,Maphisa,28.5902195,-20.45719,0,1998,Gulati,6,0,Rural Health Centre
+964,413,Matebeleland South,Maphisa,28.55385971,-21.25589,0,1998,Homestead,6,0,Rural Health Centre
+965,500,Matebeleland South,Maphisa,28.4580307,-20.91947,0,1998,Kezi,4,0,Rural Hospital
+966,602,Matebeleland South,Maphisa,28.47435951,-21.07378,0,1998,Maphisa,2,0,District Hospital
+967,647,Matebeleland South,Maphisa,28.72024918,-20.46828,0,1998,Matobo,3,0,Mission Clinic
+968,648,Matebeleland South,Maphisa,28.48785973,-20.41767,0,1998,Matobo Rural,6,0,Rural Hospital
+969,672,Matebeleland South,Maphisa,28.2531395,-21.03622,0,1998,Mbembeswana,6,0,Rural Health Centre
+970,689,Matebeleland South,Maphisa,28.45796967,-21.06789,0,1998,Minda Sec,5,0,Clinic
+971,819,Matebeleland South,Maphisa,28.50527954,-20.69019,0,1998,Natisa,6,0,Rural Health Centre
+972,1024,Matebeleland South,Maphisa,28.70027924,-21.40547,0,1998,Sankonjana,6,0,Rural Health Centre
+973,1094,Matebeleland South,Maphisa,28.27392006,-21.25297,0,1998,St. Joseph's,4,0,Rural Hospital
+974,1139,Matebeleland South,Maphisa,28.48802948,-21.35383,0,1998,Tshelanyemba,3,0,Mission Hospital
+975,51,Mashonaland East,Marondera,31.34056091,-18.23686,0,1998,Border Church,6,0,Rural Health Centre
+976,53,Mashonaland East,Marondera,31.54143906,-18.18464,0,1998,Borrandile,7,0,Private Hospital
+977,145,Mashonaland East,Marondera,31.15019035,-18.40128,0,1998,Chimbwanda,4,0,Rural Health Centre
+978,170,Mashonaland East,Marondera,31.2404995,-18.32094,0,1998,Chiota,4,0,Rural Hospital
+979,173,Mashonaland East,Marondera,31.63982964,-18.00653,0,1998,Chiparawe,5,0,Clinic
+980,277,Mashonaland East,Marondera,31.78936005,-18.38519,0,1998,Dimbiti,6,0,Rural Health Centre
+981,287,Mashonaland East,Marondera,31.56706047,-18.18722,0,1998,Dombotombo,5,0,Clinic
+982,361,Mashonaland East,Marondera,31.50502968,-18.18478,0,1998,Grasslands,5,0,Clinic
+983,427,Mashonaland East,Marondera,31.62410927,-18.46728,0,1998,Igava,5,0,Clinic
+984,607,Mashonaland East,Marondera,31.53450012,-18.20553,0,1998,Marondera (PH),1,0,Provincial Hospital
+985,1174,Mashonaland East,Marondera,31.79039001,-18.23633,0,1998,Wenimbe,6,0,Rural Health Centre
+986,626,Mashonaland East,Marondera,31.68660927,-18.35392,0,1998,Masikana,5,0,Clinic
+987,726,Mashonaland East,Marondera,31.09005928,-18.28439,0,1998,Mudzimuirema,6,0,Rural Health Centre
+988,898,Mashonaland East,Marondera,31.54143906,-18.20611,0,1998,Nyameni,5,0,Clinic
+989,1478,Mashonaland East,Marondera,31.56606,-18.17918,0,2007,Dombotombo,5,0,Clinic
+990,1479,Mashonaland East,Marondera,31.38554,-18.433,0,2007,Lustliegh,5,2005,Clinic
+991,1480,Mashonaland East,Marondera,31.13047,-18.21594,0,2007,Nyembanzvere,5,2004,Clinic
+992,1481,Mashonaland East,Marondera,31.43256,-18.18013,0,2007,Prison,7,0,Clinic
+993,1482,Mashonaland East,Marondera,31.55904,-18.18789,0,2007,ZRP,5,1994,Clinic
+994,0,Mashonaland East,Marondera,31.6699,-18.1544,0,2013,Kushinga Phikelela,,0,Clinic
+995,0,Mashonaland East,Marondera,31.5907,-18.1566,0,2013,Marondera ,,0,Rural Clinic
+996,0,Mashonaland East,Marondera,31.6062,-18.1825,0,2013,Rakodzi ,,0,Clinic
+997,0,Mashonaland East,Marondera,31.5133,-18.3724,0,2013,Ridigita ,,2003,Poly Clinic
+998,0,Mashonaland East,Marondera,31.3857,-18.2567,0,2013,Waddilove ,,0,Clinic
+999,5,Masvingo,Masvingo,30.77088928,-19.83389,0,1998,Alvod,5,0,Clinic
+1000,32,Masvingo,Masvingo,30.47186089,-20.03367,0,1998,Bere,5,0,Clinic
+1001,50,Masvingo,Masvingo,30.75056076,-20.28386,0,1998,Bondolfi,4,0,Rural Hospital
+1002,92,Masvingo,Masvingo,30.85639,-20.29011,0,1998,Charumbira,5,0,Clinic
+1003,94,Masvingo,Masvingo,31.15414047,-20.43461,0,1998,Chatikobo,5,0,Clinic
+1004,345,Masvingo,Masvingo,30.77453041,-19.95453,0,1998,Gokomere,5,0,Clinic
+1005,369,Masvingo,Masvingo,30.52416992,-19.87314,0,1998,Gundura,5,0,Clinic
+1006,374,Masvingo,Masvingo,30.90313911,-19.77056,0,1998,Gurajena,4,0,Hospital
+1007,381,Masvingo,Masvingo,31.05475044,-20.62497,0,1998,Guwa,5,0,Clinic
+1008,522,Masvingo,Masvingo,30.50621986,-20.07467,0,1998,Lennox,5,0,Clinic
+1009,598,Masvingo,Masvingo,30.87352943,-20.40011,0,1998,Mapanzure,5,0,Clinic
+1010,1181,Masvingo,Masvingo,31.12188911,-20.2025,0,1998,Zano,5,0,Clinic
+1011,1191,Masvingo,Masvingo,30.85433006,-20.06789,0,1998,Zimuto,5,0,Clinic
+1012,1192,Masvingo,Masvingo,30.85519028,-19.95311,0,1998,Zimuto,3,0,Mission Hospital
+1013,1193,Masvingo,Masvingo,30.86891937,-19.85644,0,1998,Zimuto,5,0,Clinic
+1014,633,Masvingo,Masvingo,30.83913994,-20.07272,0,1998,Masvingo,1,0,General Hospital
+1015,694,Masvingo,Masvingo,30.93507957,-20.32372,0,1998,Mogenester,3,0,Mission Hospital
+1016,722,Masvingo,Masvingo,30.81936073,-20.08344,0,1998,Mucheke,5,0,Clinic
+1017,738,Masvingo,Masvingo,30.88978004,-20.53867,0,1998,Mukosi,5,0,Clinic
+1018,762,Masvingo,Masvingo,31.0537796,-20.37325,0,1998,Murinye,5,0,Clinic
+1019,771,Masvingo,Masvingo,30.71863937,-20.20614,0,1998,Mushandike,5,0,Clinic
+1020,784,Masvingo,Masvingo,31.07022095,-20.70494,0,1998,Musvovi,5,0,Clinic
+1021,831,Masvingo,Masvingo,30.92044067,-20.27436,0,1998,Nemwanwa,5,0,Clinic
+1022,883,Masvingo,Masvingo,31.16732979,-20.60147,0,1998,Nyajena,4,0,Rural Hospital
+1023,932,Masvingo,Masvingo,31.2206707,-20.85339,0,1998,Nyikavanhu,6,0,Rural Health Centre
+1024,973,Masvingo,Masvingo,31.17053032,-20.63819,0,1998,Renco,7,0,Mine Clinic
+1025,985,Masvingo,Masvingo,30.8374691,-20.08433,0,1998,Rujeko,5,0,Clinic
+1026,986,Masvingo,Masvingo,31.06792068,-20.26822,0,1998,Rukovo,5,0,Clinic
+1027,988,Masvingo,Masvingo,30.82336044,-20.10292,0,1998,Runyararo,5,0,Clinic
+1028,1053,Masvingo,Masvingo,31.0854702,-20.43675,0,1998,Shonganiso,5,0,Clinic
+1029,1055,Masvingo,Masvingo,30.9691906,-20.42275,0,1998,Shumba,5,0,Clinic
+1030,1105,Masvingo,Masvingo,30.70318985,-19.97103,0,1998,Summerton,5,0,Clinic
+1031,1377,Masvingo,Masvingo,30.51238,-20.0236,0,2007,Gaths Mine,4,0,Hospital
+1032,1308,Masvingo,Masvingo,30.84577,-20.6535,0,2007,ZRP Masvingo,5,1985,Clinic
+1033,1309,Masvingo,Masvingo,30.83774,-20.0843,0,2007,Rujeko,5,1988,Clinic
+1034,1310,Masvingo,Masvingo,30.80991,-20.0972,0,2007,Runyararo,5,1998,Clinic
+1035,1311,Masvingo,Masvingo,30.81981,-20.08317,0,2007,Mucheke,5,1982,Poly Clinic
+1036,1316,Masvingo,Masvingo,31.00902,-20.04842,0,2007,Stanmore RHC,6,2004,Rural Health Centre
+1037,1317,Masvingo,Masvingo,30.86269,-20.10285,0,2007,Masvingo Teachers College,5,1982,Clinic
+1038,1318,Masvingo,Masvingo,30.83191,-20.08477,0,2007,Masvingo Poly Technic,5,1995,Clinic
+1039,1342,Masvingo,Masvingo,30.72394,-20.43699,0,2007,Ngomahuru,6,1999,Rural Health Centre
+1040,1295,Masvingo,Masvingo,30.85123,-20.04052,1227,2007,ZNA Batallion,7,0,Clinic
+1041,1249,Matebeleland South,Matobo,28.35322,-21.39627,901,2007,Sigangatsha,8,1970,Clinic(Not Open)
+1042,1268,Matebeleland South,Matobo,28.25848,-20.67242,1170,2007,Fumugwe,8,0,(New Site)
+1043,1269,Matebeleland South,Matobo,28.49899,-20.25333,1432,2007,Hlekweni,7,1990,Clinic
+1044,1270,Matebeleland South,Matobo,28.67786,-20.40312,1435,2007,Ekukanyeni,5,2004,Clinic
+1045,0,Matebeleland South,Matobo,28.4149,-20.3311,0,2013,Cyrene ,0,0,Mission Clinic
+1046,0,Matebeleland South,Matobo,28.6291,-20.59,0,2013,Masiye Camp,Salvation Army,0,clinic
+1047,25,Masonaland Central,Mazowe,31.12623024,-16.87747,0,1998,Bare,5,0,Clinic
+1048,30,Masonaland Central,Mazowe,30.87218094,-17.52498,0,1998,Belgone Clinic,5,0,Clinic
+1049,155,Masonaland Central,Mazowe,31.19017982,-16.92892,0,1998,Chinehasha,5,0,Clinic
+1050,240,Masonaland Central,Mazowe,31.0093708,-17.6095,0,1998,Christon Bank,5,0,Clinic
+1051,247,Masonaland Central,Mazowe,30.94342995,-17.38715,0,1998,Concession Hosp.,2,0,District Hospital
+1052,255,Masonaland Central,Mazowe,31.08111954,-17.19515,0,1998,Dambo,5,0,Clinic
+1053,405,Masonaland Central,Mazowe,30.97216988,-17.59243,0,1998,Henderson Research,5,0,Clinic
+1054,410,Masonaland Central,Mazowe,30.69062996,-17.29543,0,1998,Holmeden,5,0,Clinic
+1055,417,Masonaland Central,Mazowe,30.99430084,-17.56592,0,1998,Howard,3,0,Mission Hospital
+1056,439,Masonaland Central,Mazowe,31.06539917,-17.44133,0,1998,Iron Duke,5,0,Clinic
+1057,453,Masonaland Central,Mazowe,31.20145035,-16.83293,0,1998,Jingamvura,5,0,Clinic
+1058,577,Masonaland Central,Mazowe,31.06069946,-17.02938,0,1998,Makope,5,0,Clinic
+1059,667,Masonaland Central,Mazowe,31.00945091,-17.45395,0,1998,Mazowe Citrus Hosp.,4,0,Rural Hospital
+1060,668,Masonaland Central,Mazowe,30.9246006,-17.47368,0,1998,Mazowe Mine,5,0,Clinic
+1061,669,Masonaland Central,Mazowe,30.93087006,-17.61567,0,1998,Mazowe Sec.,5,0,Clinic
+1062,734,Masonaland Central,Mazowe,31.16431999,-16.986,0,1998,Mukodzongi,5,0,Clinic
+1063,818,Masonaland Central,Mazowe,31.00281906,-17.36957,0,1998,N.E.M.Centre,5,0,Clinic
+1064,886,Masonaland Central,Mazowe,31.13680077,-17.02013,0,1998,Nyakudya,5,0,Clinic
+1065,937,Masonaland Central,Mazowe,31.05260086,-17.0807,0,1998,Nzvimbo,5,0,Clinic
+1066,979,Masonaland Central,Mazowe,31.04725075,-17.134,0,1998,Rosa,4,0,Rural Hospital
+1067,1057,Masonaland Central,Mazowe,31.13912964,-17.07427,0,1998,Shutu,5,0,Clinic
+1068,1104,Masonaland Central,Mazowe,30.96113014,-17.51272,0,1998,Stories Mine,5,0,Clinic
+1069,1145,Masonaland Central,Mazowe,31.05647087,-17.36563,0,1998,Tsungubvi,5,0,Clinic
+1070,1379,Masonaland Central,Mazowe,30.92369,-17.64257,0,2007,Danbury,5,2006,Clinic
+1071,1380,Masonaland Central,Mazowe,31.12155,-17.37307,0,2007,Vonabor,5,2006,Clinic
+1072,1381,Masonaland Central,Mazowe,31.13387,-17.27463,0,2007,Davaar,5,2006,Clinic
+1073,1382,Masonaland Central,Mazowe,31.19999,-17.02617,0,2007,Shopo,5,2006,Clinic
+1074,1383,Masonaland Central,Mazowe,31.00105,-17.30145,0,2007,Ardura,6,2006,Rural Health Centre
+1075,1384,Masonaland Central,Mazowe,30.82729,-17.39259,0,2007,Cranham,5,2006,Clinic
+1076,1385,Masonaland Central,Mazowe,30.95695,-16.9492,0,2007,Donje,5,2006,Clinic
+1077,1386,Masonaland Central,Mazowe,30.85431,-17.02942,0,2007,Mvurwi Farm Health Scheme,5,0,Farm Health Clinic
+1078,1387,Masonaland Central,Mazowe,30.855,-17.03112,0,2007,Mvurwi,2,0,Hospital
+1079,0,Masonaland Central,Mazowe,30.9546,-17.0488,0,2013,Forrester,,0,Clinic
+1080,0,Masonaland Central,Mazowe,30.9238,-17.6031,0,2013,Mazoe ,Prison,0,Clinic
+1081,0,Masonaland Central,Mazowe,30.783,-17.247,0,2013,Montgomery ,Mission,1980,Clinic
+1082,49,Midlands,Mberengwa,30.40714073,-20.87094,0,1998,Bonda,3,0,Mission Hospital
+1083,73,Midlands,Mberengwa,30.23944092,-20.67058,0,1998,Chabwira,5,0,Clinic
+1084,100,Midlands,Mberengwa,29.90756035,-20.73936,0,1998,Chedembeko,5,0,Clinic
+1085,116,Midlands,Mberengwa,29.68721962,-20.91722,0,1998,Chiedza,5,0,Clinic
+1086,158,Midlands,Mberengwa,29.78660965,-20.72236,0,1998,Chingezi,5,0,Clinic
+1087,245,Midlands,Mberengwa,29.8687191,-20.48608,0,1998,C-Mine,7,0,Private Clinic
+1088,387,Midlands,Mberengwa,30.06847,-20.95372,0,1998,Gwarava,6,0,Rural Health Centre
+1089,429,Midlands,Mberengwa,30.10207939,-20.86708,0,1998,Imbahuru,5,0,Clinic
+1090,432,Midlands,Mberengwa,30.38619041,-20.58697,0,1998,Ingezi,5,0,Clinic
+1091,445,Midlands,Mberengwa,29.93413925,-20.85536,0,1998,Jeka,4,0,Rural Hospital
+1092,505,Midlands,Mberengwa,29.58897018,-20.98397,0,1998,Kotokwe,5,0,Clinic
+1093,580,Midlands,Mberengwa,30.23636055,-20.98544,0,1998,Makuwerere,5,0,Clinic
+1094,617,Midlands,Mberengwa,29.66699982,-20.98667,0,1998,Masase,3,0,Mission Hospital
+1095,1165,Midlands,Mberengwa,30.38402939,-20.93614,0,1998,Vurasha,6,0,Rural Health Centre
+1096,1168,Midlands,Mberengwa,29.73971939,-20.56978,0,1998,Wanezi,5,0,Clinic
+1097,636,Midlands,Mberengwa,30.19042015,-20.84119,0,1998,Mataga,6,0,Rural Health Centre
+1098,639,Midlands,Mberengwa,30.28738976,-20.80739,0,1998,Matedzi,5,0,Clinic
+1099,656,Midlands,Mberengwa,29.8180809,-20.9215,0,1998,Mavorovondo,6,0,Rural Health Centre
+1100,665,Midlands,Mberengwa,30.10186005,-20.75736,0,1998,Mazivofa,5,0,Clinic
+1101,673,Midlands,Mberengwa,29.91980934,-20.48881,0,1998,Mberengwa,2,0,District Hospital
+1102,693,Midlands,Mberengwa,30.05381012,-20.62342,0,1998,Mnene,3,0,Mission Hospital
+1103,700,Midlands,Mberengwa,30.3904705,-20.71839,0,1998,Mponjani,5,0,Clinic
+1104,701,Midlands,Mberengwa,30.02206039,-20.82161,0,1998,Mposi,5,0,Clinic
+1105,733,Midlands,Mberengwa,30.14031029,-21.00736,0,1998,Muketi,5,0,Clinic
+1106,765,Midlands,Mberengwa,30.25756073,-20.60161,0,1998,Murongwe,6,0,Rural Health Centre
+1107,783,Midlands,Mberengwa,30.23905945,-20.92289,0,1998,Musume,3,0,Mission Hospital
+1108,814,Midlands,Mberengwa,29.7045002,-20.77317,0,1998,Mwenezi,6,0,Rural Health Centre
+1109,826,Midlands,Mberengwa,30.35491943,-20.68572,0,1998,Negobe,5,0,Clinic
+1110,844,Midlands,Mberengwa,30.42119026,-20.78594,0,1998,Ngungumbane,5,0,Clinic
+1111,1022,Midlands,Mberengwa,29.93564034,-20.92094,0,1998,Sandawana,5,0,Clinic
+1112,1111,Midlands,Mberengwa,30.13594055,-20.58678,0,1998,Svita,5,0,Clinic
+1113,1369,Midlands,Mberengwa,30.38104,-20.6077,809,2007,Buchwa,5,2003,Clinic
+1114,1392,Mashonaland Central,Mbire,30.61864,-16.34884,0,2007,Chirunya,6,2001,Rural Health Centre
+1115,1393,Mashonaland Central,Mbire,30.5915,-16.08729,0,2007,Nyambudzi,5,0,Rural Health Centre
+1116,1397,Mashonaland Central,Mt Darwin,31.61568,-16.4288,0,2007,Mutasa,6,2005,Rural Health Centre
+1117,1398,Mashonaland Central,Mt Darwin,31.85968,-16.36914,0,2007,Bandimba,6,2006,Rural Health Centre
+1118,1400,Mashonaland Central,Mt Darwin,31.57672,-16.77998,0,2007,ZRP,5,0,Clinic Private Clinic
+1119,64,Mashonaland Central,Mt Darwin,31.78725052,-16.56939,0,1998,Bveke,8,0,New Not Open
+1120,96,Mashonaland Central,Mt Darwin,31.67015076,-16.61703,0,1998,Chawanda,5,0,Clinic
+1121,296,Mashonaland Central,Mt Darwin,31.5902195,-16.56878,0,1998,Dotito,5,0,Clinic
+1122,473,Mashonaland Central,Mt Darwin,31.55252075,-16.31861,0,1998,Kaitano,5,0,Clinic
+1123,477,Mashonaland Central,Mt Darwin,31.7856102,-16.38361,0,1998,Kamutsenzere,5,0,Clinic
+1124,485,Mashonaland Central,Mt Darwin,31.83955002,-16.65555,0,1998,Karanda,3,0,Mission Hospital
+1125,708,Mashonaland Central,Mt Darwin,31.58872032,-16.77578,0,1998,Mt Darwin,2,0,District Hospital
+1126,739,Mashonaland Central,Mt Darwin,31.65189934,-16.20028,0,1998,Mukumbura,5,0,Clinic
+1127,802,Mashonaland Central,Mt Darwin,31.52272034,-16.60139,0,1998,Mutungagore,5,0,Clinic
+1128,830,Mashonaland Central,Mt Darwin,31.50015068,-16.58956,0,1998,Nembire,5,0,Clinic
+1129,888,Mashonaland Central,Mt Darwin,31.88368988,-16.70283,0,1998,Nyamahobobo,5,0,Clinic
+1130,944,Mashonaland Central,Mt Darwin,31.7713604,-16.56711,0,1998,Pachanza,5,0,Clinic
+1131,953,Mashonaland Central,Mt Darwin,31.90032959,-16.57581,0,1998,Pfunyanguwo,5,0,Clinic
+1132,1137,Mashonaland Central,Mt Darwin,31.55611038,-16.82555,0,1998,Tsakare,5,0,Clinic
+1133,0,Mashonaland Central,Mt Darwin,31.339,-16.7034,0,2013,Chiburi ,,0, ZPS 
+1134,0,Mashonaland Central,Mt Darwin,31.6659,-16.7597,0,2013,Matope ,,0,Clinic
+1135,0,Mashonaland Central,Mt Darwin,31.5761,-16.7799,0,2013,Mt Darwin, ZPS ,2005,Clinic
+1136,0,Mashonaland Central,Mt Darwin,31.6157,-16.4287,0,2013,Mutasa ,,0,Clinic
+1137,140,Mashonaland East,Mudzi,32.78955841,-17.20656,0,1998,Chikwizo,5,0,Clinic
+1138,149,Mashonaland East,Mudzi,32.50730896,-16.96742,0,1998,Chimukoko,4,0,Rural Health Centre
+1139,156,Mashonaland East,Mudzi,32.55430985,-16.86803,0,1998,Chingamuka,6,0,Rural Health Centre
+1140,199,Mashonaland East,Mudzi,32.35824966,-16.95819,0,1998,Chisvo,5,0,Clinic
+1141,220,Mashonaland East,Mudzi,32.28713989,-17.00475,0,1998,Chiunye,6,0,Rural Health Centre
+1142,268,Mashonaland East,Mudzi,32.7207489,-16.95756,0,1998,Dendera,5,0,Clinic
+1143,360,Mashonaland East,Mudzi,32.86700058,-17.18619,0,1998,Gozi,6,0,Rural Health Centre
+1144,484,Mashonaland East,Mudzi,32.75218964,-17.01956,0,1998,Kapotesa,6,0,Rural Health Centre
+1145,502,Mashonaland East,Mudzi,32.65636063,-16.90114,0,1998,Kondo,6,0,Rural Health Centre
+1146,506,Mashonaland East,Mudzi,32.67282867,-17.00811,0,1998,Kotwa,5,0,Clinic
+1147,507,Mashonaland East,Mudzi,32.66936111,-16.98928,0,1998,Kotwa,2,0,District Hospital
+1148,567,Mashonaland East,Mudzi,32.62403107,-17.28722,0,1998,Makaha,6,0,Rural Health Centre
+1149,614,Mashonaland East,Mudzi,32.57027817,-17.03969,0,1998,Masarakufa,6,0,Rural Health Centre
+1150,619,Mashonaland East,Mudzi,32.25447083,-17.10814,0,1998,Masenda,6,0,Rural Health Centre
+1151,880,Mashonaland East,Mudzi,32.88816834,-16.81739,0,1998,Nyahuku,5,0,Clinic
+1152,891,Mashonaland East,Mudzi,32.50497055,-16.87269,0,1998,Nyamanyora,6,0,Rural Health Centre
+1153,892,Mashonaland East,Mudzi,32.86571884,-16.96828,0,1998,Nyamapanda,5,0,Clinic
+1154,895,Mashonaland East,Mudzi,32.65531158,-17.20389,0,1998,Nyamatawa,5,0,Clinic
+1155,907,Mashonaland East,Mudzi,32.31850052,-17.07097,0,1998,Nyamukoho,5,0,Clinic
+1156,1050,Mashonaland East,Mudzi,32.4394989,-17.00806,0,1998,Shinga,5,0,Clinic
+1157,1099,Mashonaland East,Mudzi,32.80596924,-16.75703,0,1998,St. Pius,6,0,Rural Health Centre
+1158,1107,Mashonaland East,Mudzi,32.40539169,-17.17456,0,1998,Suswe,6,0,Rural Health Centre
+1159,0,Mashonaland East,Mudzi,32.6729,-16.9917,0,2013,Kotwa ,,0,Clinic
+1160,0,Mashonaland East,Mudzi,32.4498,-17.1149,0,2013,Mudzi Camp,,0,Clinic
+1161,204,Mashonaland East,Murehwa,31.88652992,-17.67478,0,1998,Chitate,6,0,Rural Health Centre
+1162,212,Mashonaland East,Murehwa,31.86819077,-17.52417,0,1998,Chitowa,5,0,Clinic
+1163,258,Mashonaland East,Murehwa,31.68605995,-17.50764,0,1998,Dandara,5,0,Clinic
+1164,446,Mashonaland East,Murehwa,32.08956146,-17.75797,0,1998,Jekwa,6,0,Rural Health Centre
+1165,468,Mashonaland East,Murehwa,31.73699951,-17.78822,0,1998,Kadzere,5,0,Clinic
+1166,542,Mashonaland East,Murehwa,31.85560989,-18.15306,0,1998,Macheke,5,0,Clinic
+1167,545,Mashonaland East,Murehwa,31.65402985,-17.47419,0,1998,Madamombe,6,0,Rural Health Centre
+1168,1170,Mashonaland East,Murehwa,31.93400002,-17.88836,0,1998,Waterloo,5,0,Clinic
+1169,744,Mashonaland East,Murehwa,31.59078026,-17.89122,0,1998,Munamba,6,0,Rural Health Centre
+1170,759,Mashonaland East,Murehwa,31.78763962,-17.65783,0,1998,Murewa,2,0,District Hospital
+1171,852,Mashonaland East,Murehwa,31.93446922,-17.87206,0,1998,Nhowe,5,0,Clinic
+1172,853,Mashonaland East,Murehwa,31.94075012,-17.85256,0,1998,Nhowe,3,0,Mission Hospital
+1173,909,Mashonaland East,Murehwa,31.61743927,-17.62108,0,1998,Nyamutumbu,5,0,Clinic
+1174,1038,Mashonaland East,Murehwa,31.63931084,-17.87231,0,1998,Shambamuto,5,0,Clinic
+1175,1091,Mashonaland East,Murehwa,31.5858593,-17.75058,0,1998,St Pauls Musami,3,0,Mission Hospital
+1176,1467,Mashonaland East,Murehwa,31.97012,-17.67149,0,2007,Wuyuwuyu,5,2006,Clinic
+1177,1468,Mashonaland East,Murehwa,31.80101,-18.10296,0,2007,Welcome Home Liden,5,2006,Clinic
+1178,1469,Mashonaland East,Murehwa,31.82746,-17.96305,0,2007,Craiglea,5,2003,Clinic
+1179,1470,Mashonaland East,Murehwa,31.58967,-17.76112,0,2007,Nehoreka,7,2006,Private Clinic
+1180,1471,Mashonaland East,Murehwa,31.73656,-17.48069,0,2007,S T Parirenyatwa,6,2006,Rural Health Centre
+1181,1472,Mashonaland East,Murehwa,31.69831,-17.58456,0,2007,Ngwerume,5,2002,Clinic
+1182,1473,Mashonaland East,Murehwa,31.69828,-17.88353,0,2007,Chizanga,5,2006,Clinic
+1183,1474,Mashonaland East,Murehwa,31.7877,-17.65589,0,2007,Prison,5,2000,Clinic
+1184,1475,Mashonaland East,Murehwa,31.78155,-17.55378,0,2007,Goso,5,2006,Clinic
+1185,0,Mashonaland East,Murehwa,31.8661,-17.5234,0,2013,Chitowa 1,,2000,RHC
+1186,0,Mashonaland East,Murehwa,31.9116,-17.5988,0,2013,Chitowa 2 ,,2003,Clinic
+1187,0,Mashonaland East,Murehwa,31.9716,-17.7698,0,2013,Dombwe ,,1981,RHC
+1188,0,Mashonaland East,Murehwa,31.7797,-17.8838,0,2013,Kadenge ,,1985,RHC
+1189,0,Mashonaland East,Murehwa,31.7326,-17.6268,0,2013,Kambarami ,,2009,Clinic
+1190,0,Mashonaland East,Murehwa,31.7366,-17.4807,0,2013,Matututu ,,2003,RHC
+1191,0,Mashonaland East,Murehwa,31.7346,-17.5402,0,2013,Muchinjike ,,0,RHC
+1192,0,Mashonaland East,Murehwa,31.789,-17.6546,0,2013,Murehwa, ZRP ,0,Clinic
+1193,0,Mashonaland East,Murehwa,31.7801,-17.6415,0,2013,Murewa ,,1996,Poly Clinic
+1194,0,Mashonaland East,Murehwa,32.0907,-17.8553,0,2013,Virginia Clinic,,0,Clinic
+1195,0,Mashonaland East,Murehwa,31.779,-17.6581,0,2013,Murewa OPD,,0,Clinic
+1196,19,Manicaland,Mutare,32.35144043,-19.30542,0,1998,Bakorenhema,5,0,Gvt Clinic
+1197,34,Manicaland,Mutare,32.4892807,-19.25094,0,1998,Berzerly Bridge,5,0,clinic
+1198,61,Manicaland,Mutare,32.80686188,-19.20719,0,1998,Burma Valley,5,0,clinic
+1199,67,Manicaland,Mutare,32.81993866,-19.05786,0,1998,Bvumba,7,0,Private Clinic
+1200,69,Manicaland,Mutare,32.43558121,-19.35569,0,1998,Bwizi,5,0,clinic
+1201,109,Manicaland,Mutare,32.3373909,-19.61906,0,1998,Chiadzwa,6,0,Rural Health Centre
+1202,122,Manicaland,Mutare,32.64107895,-18.96889,0,1998,Chikanga,5,0,Clinic
+1203,137,Manicaland,Mutare,32.30678177,-19.33714,0,1998,Chikwariro,3,0,Mission Hospital
+1204,174,Manicaland,Mutare,32.7040596,-19.32369,0,1998,Chipendeke,6,0,Rural Health Centre
+1205,175,Manicaland,Mutare,32.28535843,-19.17347,0,1998,Chipfatsura,5,0,Clinic
+1206,195,Manicaland,Mutare,32.40555954,-19.603,0,1998,Chishingwi,5,0,Clinic
+1207,200,Manicaland,Mutare,32.48403168,-19.12181,0,1998,Chitaka,5,0,clinic
+1208,201,Manicaland,Mutare,32.68661118,-19.13406,0,1998,Chitakatira,5,0,Gvt Clinic
+1209,210,Manicaland,Mutare,32.62313843,-19.34144,0,1998,Chitora,8,0,Under Construction
+1210,233,Manicaland,Mutare,32.25064087,-19.03914,0,1998,Chiwere,6,0,Rural Health Centre
+1211,242,Manicaland,Mutare,32.67074966,-18.98767,0,1998,City Clinic,5,0,Clinic
+1212,259,Manicaland,Mutare,32.6001091,-19.00678,0,1998,Dangamvura,5,0,Clinic
+1213,293,Manicaland,Mutare,32.52222061,-19.07036,0,1998,Dora,5,0,clinic
+1214,320,Manicaland,Mutare,32.65113831,-19.03792,0,1998,Fernvalley,5,0,Clinic
+1215,324,Manicaland,Mutare,32.65243912,-18.97078,0,1998,Florida,5,0,Clinic
+1216,378,Manicaland,Mutare,32.61811066,-19.37139,0,1998,Gutaurare,6,0,Rural Health Centre
+1217,395,Manicaland,Mutare,32.17253113,-19.2565,0,1998,Gwindingwi,6,0,Rural Health Centre
+1218,586,Manicaland,Mutare,32.63513947,-19.28447,0,1998,Mambwere,5,0,clinic
+1219,605,Manicaland,Mutare,32.27425003,-19.25336,0,1998,Marange,4,0,Rural Hospital
+1220,618,Manicaland,Mutare,32.42430878,-19.43903,0,1998,Masasi,5,0,clinic
+1221,1190,Manicaland,Mutare,32.62342072,-19.10036,0,1998,Zimunya,5,0,clinic
+1222,1208,Manicaland,Mutare,32.15258026,-19.22053,0,1998,Zumbare,5,0,clinic
+1223,654,Manicaland,Mutare,32.23868942,-19.50536,0,1998,Mavhiza,5,0,Clinic
+1224,712,Manicaland,Mutare,32.13581085,-19.10497,0,1998,Mt Zuma,6,0,Rural Health Centre
+1225,741,Manicaland,Mutare,32.35535812,-19.52181,0,1998,Mukwada,5,0,clinic
+1226,764,Manicaland,Mutare,32.55638886,-19.38897,0,1998,Muromo,6,0,Rural Health Centre
+1227,776,Manicaland,Mutare,32.44081116,-19.16811,0,1998,Mushunje,5,0,Clinic
+1228,788,Manicaland,Mutare,32.67047119,-18.96972,0,1998,Mutare,1,0,Provincial Hospital
+1229,876,Manicaland,Mutare,32.36872101,-19.11756,0,1998,Nyagundi,6,0,Rural Health Centre
+1230,897,Manicaland,Mutare,32.41685867,-18.88764,0,1998,Nyamazura,6,0,Rural Health Centre
+1231,936,Manicaland,Mutare,32.37125015,-19.35089,0,1998,Nzvenga,5,0,clinic
+1232,939,Manicaland,Mutare,32.38896942,-18.96922,0,1998,Odzi,4,0,Rural Hosp.
+1233,981,Manicaland,Mutare,32.62435913,-19.16856,0,1998,Rowa,5,0,clinic
+1234,1014,Manicaland,Mutare,32.65156174,-18.98944,0,1998,Sakubva,2,0,District Hospital
+1235,1085,Manicaland,Mutare,32.34072113,-19.42161,0,1998,St Andrews,3,0,Mission Hospital
+1236,1215,Manicaland,Mutare,32.1910286,-19.33794,0,1998,Zvipiripiri,5,0,Clinic
+1237,1451,Manicaland,Mutare,32.57973,-18.96491,0,2007,Prison Farm,5,2002,Clinic
+1238,1452,Manicaland,Mutare,32.64739,-18.99012,0,2007,Sakubva Health Centre,4,1986,Hospital
+1239,1453,Manicaland,Mutare,32.62497,-18.99814,0,2007,St Joseph's,3,0,T.B Hospital
+1240,1454,Manicaland,Mutare,32.6393,-19.00022,0,2007,Quaggas Hoek,5,1947,Clinic
+1241,1414,Manicaland,Mutare,32.71035,-19.1165,0,2007,St Welburgh,3,1999,Mission Clinic
+1242,1415,Manicaland,Mutare,32.62321,-19.32544,0,2007,Chitora,7,1999,Clinic
+1243,1416,Manicaland,Mutare,32.40403,-19.24827,0,2007,Matanda,7,1998,Rural Health Centre
+1244,1417,Manicaland,Mutare,32.36755,-18.97483,0,2007,ARDA Odzi,7,2004,Clinic
+1245,1418,Manicaland,Mutare,32.81328,-19.04207,0,2007,Vumba,7,1989,Clinic
+1246,1419,Manicaland,Mutare,32.65243912,-18.97078,0,2007,Florida,5,0,Clinic
+1247,1426,Manicaland,Mutare,32.28185,-18.87699,0,2007,Lee Kul,5,0,Clinic
+1248,10,Manicaland,Mutasa,32.96710968,-18.30217,0,1998,Arbourfoyle,7,0,Private Clinic
+1249,48,Manicaland,Mutasa,32.60338974,-18.45428,0,1998,Bonda,3,0,Mission Hospital
+1250,95,Manicaland,Mutasa,33.0032196,-18.23625,0,1998,Chavhanga,6,0,Rural Health Centre
+1251,196,Manicaland,Mutasa,33.00214005,-18.38981,0,1998,Chisuko,5,0,Council Clinic
+1252,209,Manicaland,Mutasa,32.78974915,-18.55269,0,1998,Chitombo,5,0,Council Clinic
+1253,298,Manicaland,Mutasa,32.70674896,-18.76931,0,1998,Drenane,5,0,Private-Border Timbers
+1254,303,Manicaland,Mutasa,32.96813965,-18.34042,0,1998,Eastern,7,0,Private-Tanganda
+1255,304,Manicaland,Mutasa,32.9173584,-18.35033,0,1998,Eastern Highlands1,7,0,Private-Tanganda
+1256,305,Manicaland,Mutasa,32.95180893,-18.35414,0,1998,Eastern Highlands5,7,0,Private-Tanganda
+1257,323,Manicaland,Mutasa,32.62335968,-18.93539,0,1998,Fitc,7,0,Private-Forestry
+1258,336,Manicaland,Mutasa,32.81785965,-18.52333,0,1998,Gatsi,3,0,Mission Clinic
+1259,377,Manicaland,Mutasa,32.65293884,-18.74136,0,1998,Guta,5,0,Council Clinic
+1260,399,Manicaland,Mutasa,32.47261047,-18.60322,0,1998,Haparare,5,0,Council Clinic
+1261,401,Manicaland,Mutasa,32.85197067,-18.49153,0,1998,Hauna,2,0,District Hospital
+1262,402,Manicaland,Mutasa,32.85083008,-18.502,0,1998,Hauna,5,0,Clinic
+1263,414,Manicaland,Mutasa,32.76974869,-18.60322,0,1998,Honde,3,0,Mission Hospital
+1264,458,Manicaland,Mutasa,32.70233154,-18.63772,0,1998,Jombe,5,0,Gvt Clinic
+1265,493,Manicaland,Mutasa,33.03453064,-18.37128,0,1998,Katiyo,7,0,Private-Tanganda
+1266,600,Manicaland,Mutasa,32.65219116,-18.78369,0,1998,Mapara,5,0,Gvt Clinic
+1267,1194,Manicaland,Mutasa,32.93635941,-18.38922,0,1998,Zindi,5,0,Clinic
+1268,1200,Manicaland,Mutasa,32.58778,-18.78931,0,1998,Zongoro,5,0,Council Clinic
+1269,698,Manicaland,Mutasa,32.67235947,-18.67472,0,1998,Moyoweshumba,5,0,Council Clinic
+1270,709,Manicaland,Mutasa,32.50263977,-18.75283,0,1998,Mt Jenya,5,0,Council Clinic
+1271,745,Manicaland,Mutasa,32.98957825,-18.4225,0,1998,Mundeya,5,0,Clinic
+1272,754,Manicaland,Mutasa,32.80147171,-18.57139,0,1998,Mupotedzi,5,0,Gvt Clinic
+1273,789,Manicaland,Mutasa,32.65393829,-18.55447,0,1998,Mutasa,5,0,Council Clinic
+1274,839,Manicaland,Mutasa,32.87152863,-18.58803,0,1998,Ngarura,5,0,Council clinic
+1275,942,Manicaland,Mutasa,32.58803177,-18.90747,0,1998,Old Mutare,3,0,Mission Hospital
+1276,971,Manicaland,Mutasa,32.67213821,-18.871,0,1998,Red Wing,7,0,Private-Mine
+1277,984,Manicaland,Mutasa,32.87477875,-18.48797,0,1998,Ruda,5,0,Clinic
+1278,989,Manicaland,Mutasa,32.85655975,-18.63775,0,1998,Rupinda,6,0,Rural Health Centre
+1279,1009,Manicaland,Mutasa,32.55828094,-18.50056,0,1998,Sadziwa,5,0,Council Clinic
+1280,1011,Manicaland,Mutasa,33.00286102,-18.32481,0,1998,Sagambe,5,0,Council Clinic
+1281,1012,Manicaland,Mutasa,32.82027817,-18.55569,0,1998,Sahumani,5,0,Council Clinic
+1282,1015,Manicaland,Mutasa,32.65560913,-18.60747,0,1998,Sakupwanya,5,0,Council Clinic
+1283,1017,Manicaland,Mutasa,32.75527954,-18.53369,0,1998,Samanga,5,0,Council clinic
+1284,1018,Manicaland,Mutasa,32.78430939,-18.62308,0,1998,Samaringa,5,0,Council clinic
+1285,1029,Manicaland,Mutasa,32.65763855,-18.53556,0,1998,Selbourne,7,0,Private-Waltle Company
+1286,1046,Manicaland,Mutasa,32.80480957,-18.77103,0,1998,Sheba,7,0,Private-Border Timbers
+1287,1047,Manicaland,Mutasa,32.53636169,-18.64078,0,1998,Sherukuru,6,0,Rural Health Centre
+1288,1086,Manicaland,Mutasa,32.6554985,-18.87431,0,1998,St Augustines,3,0,Mission Clinic
+1289,1087,Manicaland,Mutasa,32.47352982,-18.50311,0,1998,St Barbaras,3,0,Mission Hospitals
+1290,1092,Manicaland,Mutasa,32.93996811,-18.45806,0,1998,St Peter's Mandeya,3,0,Mission Hospital
+1291,1103,Manicaland,Mutasa,32.82181168,-18.74047,0,1998,Stapleford,7,0,Private-Forestry
+1292,1135,Manicaland,Mutasa,32.47303009,-18.43531,0,1998,Triashill,3,0,Mission Hospitals
+1293,1142,Manicaland,Mutasa,32.6032486,-18.68836,0,1998,Tsonzo,4,0,Rural Hospital
+1294,1444,Manicaland,Mutasa,32.57098,-18.57828,0,2007,Chinamasa,6,2000,Rural Health Centre
+1295,1445,Manicaland,Mutasa,32.54691,-18.90384,0,2007,Premier,5,2004,Clinic
+1296,1446,Manicaland,Mutasa,32.70662,-18.76903,0,2007,Drennan,7,0,Clinic
+1297,1447,Manicaland,Mutasa,32.75301,-18.74492,0,2007,Dunsinane,7,2003,Clinic
+1298,1449,Manicaland,Mutasa,32.72091,-18.91068,0,2007,Imbeza,7,0,Clinic
+1299,1439,Manicaland,Mutasa,32.91599,-18.34948,0,2007,EHPL 1,5,0,Clinic
+1300,1440,Manicaland,Mutasa,32.96527,-18.32585,0,2007,EHPL 6,5,1970,Clinic
+1301,1442,Manicaland,Mutasa,32.95193,-18.34585,0,2007,EHPL 5,5,0,Clinic
+1302,1443,Manicaland,Mutasa,32.65771,-18.53106,0,2007,Nyanga Pines,5,1998,Clinic
+1303,90,Mashonaland East,Mutoko,32.15361023,-17.17356,0,1998,Charewa,6,0,Rural Health Centre
+1304,151,Mashonaland East,Mutoko,32.10519028,-17.23619,0,1998,Chindenga,6,0,Rural Health Centre
+1305,419,Mashonaland East,Mutoko,32.15555954,-17.56853,0,1998,Hoyuyu 1,6,0,Rural Health Centre
+1306,420,Mashonaland East,Mutoko,32.25149918,-17.76861,0,1998,Hoyuyu 2,6,0,Rural Health Centre
+1307,496,Mashonaland East,Mutoko,32.15468979,-17.40781,0,1998,Katsukunya,6,0,Rural Health Centre
+1308,497,Mashonaland East,Mutoko,32.35289001,-17.21972,0,1998,Kawewe,6,0,Rural Health Centre
+1309,514,Mashonaland East,Mutoko,32.02027893,-17.62114,0,1998,Kushinga,6,0,Rural Health Centre
+1310,525,Mashonaland East,Mutoko,32.38985825,-17.35572,0,1998,Louisa Guidotte,3,0,Mission Hospital
+1311,578,Mashonaland East,Mutoko,32.47161102,-17.26753,0,1998,Makosa,4,0,Rural Hospital
+1312,638,Mashonaland East,Mutoko,32.43708038,-17.55014,0,1998,Matedza,6,0,Rural Health Centre
+1313,793,Mashonaland East,Mutoko,32.25355911,-17.41978,0,1998,Mutemwa Lep.,5,0,Clinic
+1314,798,Mashonaland East,Mutoko,32.23860931,-17.42342,0,1998,Mutoko,2,0,District Hospital
+1315,910,Mashonaland East,Mutoko,32.35602951,-17.63819,0,1998,Nyamuzizi,6,0,Rural Health Centre
+1316,911,Mashonaland East,Mutoko,32.25418854,-17.25403,0,1998,Nyamuzuwe,4,0,Rural Hospital
+1317,935,Mashonaland East,Mutoko,32.13711166,-17.66817,0,1998,Nzira,6,0,Rural Health Centre
+1318,1457,Mashonaland East,Mutoko,32.62211,-17.45294,0,2007,Chidye,5,2006,Rural Health Centre
+1319,1458,Mashonaland East,Mutoko,32.31187,-17.14878,0,2007,Madimutsa,5,2006,Rural Health Centre
+1320,1459,Mashonaland East,Mutoko,32.2507,-17.39984,0,2007,Chikondoma,5,2006,Clinic
+1321,1460,Mashonaland East,Mutoko,32.26708,-17.17914,0,2007,Kawazva,5,2001,Clinic
+1322,1461,Mashonaland East,Mutoko,32.27008,-17.41193,0,2007,Tony Yeatman,7,2000,Clinic
+1323,1462,Mashonaland East,Mutoko,31.96282,-17.49227,0,2007,Nyadire Resettlement,6,1987,Rural Health Centre
+1324,0,Mashonaland East,Mutoko,32.48,-17.3735,0,2013,Kapondoro,,1984, RHC
+1325,0,Mashonaland East,Mutoko,32.3095,-17.2546,0,2013,Kowo ,,2000,Clinic
+1326,0,Mashonaland East,Mutoko,32.27,-17.4119,0,2013,Mother of Peace,,0,Clinic
+1327,0,Mashonaland East,Mutoko,32.3947,-17.4282,0,2013,Mushimbo,,1984, RHC
+1328,0,Mashonaland East,Mutoko,32.2192,-17.4088,0,2013,Mutoko ,Prison ,0,Clinic
+1329,0,Mashonaland East,Mutoko,32.025,-17.422,0,2013,Nyadire ,Mission,0, Hosp
+1330,0,Mashonaland East,Mutoko,31.9627,-17.4923,0,2013,Nyadiri,,0, RHC
+1331,144,Masvingo,Mwenezi,30.50610924,-20.94306,0,1998,Chimbudzi,5,0,Clinic
+1332,186,Masvingo,Mwenezi,30.18000031,-21.11611,0,1998,Chirindi,5,0,Clinic
+1333,237,Masvingo,Mwenezi,30.57250023,-21.13972,0,1998,Chizumba,5,0,Clinic
+1334,280,Masvingo,Mwenezi,30.53861046,-21.19056,0,1998,Dine,5,0,Clinic
+1335,529,Masvingo,Mwenezi,30.78166962,-20.8975,0,1998,Lundi,5,0,Clinic
+1336,604,Masvingo,Mwenezi,30.31583023,-21.14583,0,1998,Maranda,5,0,Clinic
+1337,643,Masvingo,Mwenezi,30.48611069,-20.75028,0,1998,Matibi,3,0,Mission Hospital
+1338,663,Masvingo,Mwenezi,30.30528069,-21.04639,0,1998,Mazetese,5,0,Clinic
+1339,678,Masvingo,Mwenezi,30.62611008,-21.36028,0,1998,MDC,5,0,Clinic
+1340,743,Masvingo,Mwenezi,30.05916977,-21.21417,0,1998,Mulelesi,5,0,Clinic
+1341,748,Masvingo,Mwenezi,30.52471924,-21.30167,0,1998,Munyanyi,5,0,Clinic
+1342,766,Masvingo,Mwenezi,30.42444038,-21.05917,0,1998,Murove,5,0,Clinic
+1343,772,Masvingo,Mwenezi,30.58389091,-21.07639,0,1998,Mushava,5,0,Clinic
+1344,813,Masvingo,Mwenezi,30.70000076,-21.41417,0,1998,Mwenezi,5,0,Clinic
+1345,828,Masvingo,Mwenezi,30.60277939,-20.82833,0,1998,Nehanda,5,0,Clinic
+1346,835,Masvingo,Mwenezi,30.64666939,-20.94083,0,1998,Neshuro,2,0,District Hospital
+1347,1000,Masvingo,Mwenezi,30.72944069,-21.23778,0,1998,Rutenga,5,0,Clinic
+1348,1001,Masvingo,Mwenezi,30.74333,-21.25361,0,1998,Rutenga RWS,7,0,Railways-clinic
+1349,1324,Masvingo,Mwenezi,30.26423,-21.23095,0,2007,Boterere,6,2000,Rural Health Centre
+1350,1325,Masvingo,Mwenezi,30.39756,-21.20691,0,2007,Marinda,6,2005,Rural Health Centre
+1351,1296,Masvingo,Mwenezi,30.89483,-20.96429,516,2007,Petronella,8,0,Rural Health Centre(not operational)
+1352,1297,Masvingo,Mwenezi,30.81042,-21.08266,534,2007,Maryvale,8,0,Rural Health Centre(not operating)
+1353,252,Matebeleland North,Nkayi,28.66666985,-18.79722,0,1998,Dakamela,4,0,Rural Hospital
+1354,317,Matebeleland North,Nkayi,28.88582993,-18.91583,0,1998,Fanison,6,0,Rural Health Centre
+1355,382,Matebeleland North,Nkayi,28.96777916,-19.21444,0,1998,Guwe,6,0,Rural Health Centre
+1356,391,Matebeleland North,Nkayi,28.70889091,-18.66306,0,1998,Gwelutshena,6,0,Rural Health Centre
+1357,1182,Matebeleland North,Nkayi,28.77305985,-19.07,0,1998,Zenka,6,0,Rural Health Centre
+1358,1197,Matebeleland North,Nkayi,28.98806,-19.07778,0,1998,Zinyangeni,6,0,Rural Health Centre
+1359,640,Matebeleland North,Nkayi,28.95722008,-18.66917,0,1998,Mateme,6,0,Rural Health Centre
+1360,676,Matebeleland North,Nkayi,28.44166946,-18.94889,0,1998,Mbuma,3,0,Mission Hospital
+1361,836,Matebeleland North,Nkayi,28.8116703,-18.72778,0,1998,Nesigwe,6,0,Rural Health Centre
+1362,845,Matebeleland North,Nkayi,28.37972069,-18.57667,0,1998,Ngwaladi,4,0,Rural Hospital
+1363,856,Matebeleland North,Nkayi,28.89138985,-19.00056,0,1998,Nkayi,2,0,District Hospital
+1364,1028,Matebeleland North,Nkayi,28.46138954,-18.67028,0,1998,Sebumane,5,0,Clinic
+1365,1035,Matebeleland North,Nkayi,28.71249962,-18.955,0,1998,Sesame,5,0,Clinic
+1366,1065,Matebeleland North,Nkayi,28.48749924,-18.7825,0,1998,Sikobokobo,5,0,Clinic
+1367,1076,Matebeleland North,Nkayi,28.35139084,-18.74306,0,1998,Sivalo,6,0,Rural Health Centre
+1368,15,Manicaland,Nyanga,32.78696823,-17.46947,0,1998,Avilla,3,0,Mission Hospital
+1369,208,Manicaland,Nyanga,32.9842186,-17.79064,0,1998,Chitindo,5,0,Council Clinic
+1370,231,Manicaland,Nyanga,31.57185936,-17.15781,0,1998,Chiwarira,5,0,Council Clinic
+1371,284,Manicaland,Nyanga,32.43803024,-18.35139,0,1998,Dombo,6,0,Rural Health Centre
+1372,307,Manicaland,Nyanga,32.78955841,-17.60311,0,1998,Elim,3,0,Mission Hospital
+1373,313,Manicaland,Nyanga,32.70222092,-18.3835,0,1998,Erin,7,0,Forestry-Private
+1374,325,Manicaland,Nyanga,32.99074936,-17.33472,0,1998,Fombe,5,0,Council Clinic
+1375,330,Manicaland,Nyanga,32.95471954,-18.10139,0,1998,Gairezi,5,0,Council Clinic
+1376,357,Manicaland,Nyanga,32.67319107,-17.71917,0,1998,Gotekote,6,0,Rural Health Centre
+1377,475,Manicaland,Nyanga,32.86796951,-17.78936,0,1998,Kambudzi,8,0,Conucil Not Open
+1378,644,Manicaland,Nyanga,32.92385864,-17.57161,0,1998,Matize,6,0,Rural Health Centre
+1379,710,Manicaland,Nyanga,32.73577881,-17.97469,0,1998,Mt Mellary,4,0,Mission Hospital
+1380,874,Manicaland,Nyanga,32.9217186,-17.75789,0,1998,Nyadowa,5,0,Council Clinic
+1381,875,Manicaland,Nyanga,32.93111038,-18.18917,0,1998,Nyafaru,5,0,Council Clinic
+1382,893,Manicaland,Nyanga,32.95360947,-17.8625,0,1998,Nyamaropa,5,0,Council Clinic
+1383,905,Manicaland,Nyanga,32.55833054,-17.75681,0,1998,Nyamombe,6,0,Rural Health Centre
+1384,912,Manicaland,Nyanga,32.75753021,-18.22828,0,1998,Nyanga,2,0,District Hospital
+1385,916,Manicaland,Nyanga,32.78535843,-18.02061,0,1998,Nyangui,7,0,Forestry-Private
+1386,921,Manicaland,Nyanga,32.65750122,-18.2235,0,1998,Nyarumvurwe,6,0,Rural Health Centre
+1387,923,Manicaland,Nyanga,32.6720314,-18.01797,0,1998,Nyatate,5,0,Council clinic
+1388,925,Manicaland,Nyanga,32.6550293,-17.84089,0,1998,Nyautate,6,0,Rural Health Centre
+1389,972,Manicaland,Nyanga,32.88499832,-17.86889,0,1998,Regina Coeli,3,0,Mission Hospital
+1390,983,Manicaland,Nyanga,32.55397034,-18.11878,0,1998,Ruchera,6,0,Rural Health Centre
+1391,1020,Manicaland,Nyanga,32.97138977,-17.71872,0,1998,Samvure,5,0,Council Clinic
+1392,1126,Manicaland,Nyanga,32.88388824,-18.0175,0,1998,Tombo,5,0,Council Clinic
+1393,1455,Manicaland,Nyanga,32.75299,-18.4579,0,2007,Mutarazi,7,1998,Clinic
+1394,1432,Manicaland,Nyanga,32.70164,-18.32787,0,2007,Claremont,7,0,Clinic
+1395,1433,Manicaland,Nyanga,32.54565,-18.3711,0,2007,Spring Valley,5,2005,Clinic
+1396,1441,Manicaland,Nyanga,32.6735,-18.30215,0,2007,Aberfoyle,5,1970,Clinic
+1397,60,Mashonaland Central,Rushinga,32.0678215,-16.56635,0,1998,Bungwe,5,0,Clinic
+1398,142,Mashonaland Central,Rushinga,32.56536865,-16.65597,0,1998,Chimandau,5,0,Clinic
+1399,147,Mashonaland Central,Rushinga,32.12905121,-16.63128,0,1998,Chimhanda,5,0,Clinic
+1400,612,Mashonaland Central,Rushinga,32.52962875,-16.67677,0,1998,Mary Mount,3,0,Mission Hospital
+1401,666,Mashonaland Central,Rushinga,32.27703094,-16.75513,0,1998,Mazowe,5,0,Clinic
+1402,736,Mashonaland Central,Rushinga,32.29872894,-16.61053,0,1998,Mukonde,5,0,Clinic
+1403,737,Mashonaland Central,Rushinga,32.65610123,-16.65855,0,1998,Mukosa,5,0,Clinic
+1404,849,Mashonaland Central,Rushinga,32.1656189,-16.57892,0,1998,Nhawa,5,0,Clinic
+1405,896,Mashonaland Central,Rushinga,32.10972977,-16.73908,0,1998,Nyamatikiti,5,0,Clinic
+1406,990,Mashonaland Central,Rushinga,32.18284988,-16.62985,0,1998,Rusambo,5,0,Clinic
+1407,992,Mashonaland Central,Rushinga,32.02153015,-16.63225,0,1998,Rushinga,5,0,Clinic
+1408,0,Mashonaland Central,Rushinga,32.1282,-16.6383,0,2013,Chimnda,,0,Clinic
+1409,1,Mashonaland East,Seke,31.03853035,-18.35294,0,1998,Acton Ronolds,6,0,Rural Health Centre
+1410,9,Mashonaland East,Seke,30.94105911,-17.94144,0,1998,Arbo Acres,5,0,Clinic
+1411,28,Mashonaland East,Seke,30.85577965,-18.25661,0,1998,Beatrice,4,0,Rural Hospital
+1412,88,Mashonaland East,Seke,31.33643913,-18.17086,0,1998,Charakupa,5,0,Clinic
+1413,217,Mashonaland East,Seke,31.07164001,-18.01744,0,1998,Chitungwiza,1,0,General Hospital
+1414,272,Mashonaland East,Seke,31.03632927,-17.95647,0,1998,Derbyshire,5,0,Clinic
+1415,342,Mashonaland East,Seke,30.95022011,-18.02458,0,1998,Gilston,5,0,Clinic
+1416,460,Mashonaland East,Seke,31.13467026,-18.05411,0,1998,Jonasi,5,0,Clinic
+1417,512,Mashonaland East,Seke,31.2219696,-18.07236,0,1998,Kunaka,4,0,Rural Hospital
+1418,520,Mashonaland East,Seke,30.90024948,-18.06819,0,1998,Lanark,5,0,Clinic
+1419,570,Mashonaland East,Seke,31.40163994,-18.20086,0,1998,Makanyazingwa,5,0,Clinic
+1420,616,Mashonaland East,Seke,31.10333061,-18.41806,0,1998,Masasa,6,0,Rural Health Centre
+1421,724,Mashonaland East,Seke,31.01985931,-18.29,0,1998,Muda,5,0,Clinic
+1422,975,Mashonaland East,Seke,30.95043945,-18.48839,0,1998,Ringa,6,0,Rural Health Centre
+1423,0,Mashonaland East,Seke,31.1271,-17.8795,0,2013,Epworth  ,Mission,1972,Poly Clinic
+1424,0,Mashonaland East,Seke,31.1395,-17.8994,0,2013,Epworth ,,0,Mission Clinic
+1425,0,Mashonaland East,Seke,30.8036,-18.0727,0,2013,Marirangwe ,,0,Clinic
+1426,0,Mashonaland East,Seke,31.2097,-18.1457,0,2013,Zhakata ,,0,RHC
+1427,0,Mashonaland East,Seke,31.1565,-17.8848,0,2013,Overspill,,2011,Satellite Clinic
+1428,0,Mashonaland East,Seke,31.3212,-18.0801,0,2013,Bromley,,0,Clinic
+1429,78,Mashonaland Central,Shamva,31.60335922,-17.02592,0,1998,Chakonda,5,0,Clinic
+1430,113,Mashonaland Central,Shamva,31.5668602,-17.08352,0,1998,Chidembo,5,0,Clinic
+1431,120,Mashonaland Central,Shamva,31.55051994,-16.87733,0,1998,Chihuri,5,0,Clinic
+1432,152,Mashonaland Central,Shamva,31.52795029,-16.97833,0,1998,Chindunduma,5,0,Clinic
+1433,194,Mashonaland Central,Shamva,31.60021973,-17.20986,0,1998,Chishapa,5,0,Clinic
+1434,353,Mashonaland Central,Shamva,31.51667023,-16.91667,0,1998,Goora,5,0,Clinic
+1435,552,Mashonaland Central,Shamva,31.65596962,-17.06192,0,1998,Madziva Mine,5,0,Clinic
+1436,554,Mashonaland Central,Shamva,31.53878021,-16.92558,0,1998,Madziwa,5,0,Clinic
+1437,555,Mashonaland Central,Shamva,31.65827942,-17.06986,0,1998,Madziwa,7,0,Mine Clinic
+1438,1166,Mashonaland Central,Shamva,31.57036018,-17.30539,0,1998,Wadzanai,5,0,Clinic
+1439,1039,Mashonaland Central,Shamva,31.57152939,-17.29208,0,1998,Shamva,5,0,Clinic
+1440,1040,Mashonaland Central,Shamva,31.57016945,-17.32711,0,1998,Shamva,4,0,District Hospital
+1441,1041,Mashonaland Central,Shamva,31.65769005,-17.25022,0,1998,Shamva,7,0,Farm Health Clinic
+1442,1042,Mashonaland Central,Shamva,31.56876946,-17.31627,0,1998,Shamva Gold Mine,5,0,Clinic
+1443,1115,Mashonaland Central,Shamva,31.51815033,-17.32889,0,1998,Tafuna,5,0,Clinic
+1444,1217,Mashonaland Central,Shamva,31.66214943,-16.91072,0,1998,Zvomanyanga,5,0,Clinic
+1445,1401,Mashonaland Central,Shamva,31.41414,-16.9515,0,2007,Nyamaruro,6,2004,Rural Health Centre
+1446,1402,Mashonaland Central,Shamva,31.51339,-17.04933,0,2007,Nyamaropa,6,2006,Rural Health Centre
+1447,1403,Mashonaland Central,Shamva,31.61624,-17.02528,0,2007,Takawira,6,2005,Rural Health Centre
+1448,1404,Mashonaland Central,Shamva,31.65505,-17.06193,0,2007,Madziva Teacher's College,6,2006,Rural Health Centre
+1449,0,Mashonaland Central,Shamva,31.6578,-16.9344,0,2013,Mupfurudzi,,0,Rural Health Centre
+1450,0,Mashonaland Central,Shamva,31.4909,-17.3739,0,2013,mliti ,,0,Clinic
+1451,0,Mashonaland Central,Shamva,31.6841,-17.2431,0,2013,chipoli ,,0,Clinic
+1452,21,Midlands,Shurugwi,30.26968956,-19.97475,0,1998,Banga,5,0,Clinic
+1453,125,Midlands,Shurugwi,30.30253029,-19.81733,0,1998,Chikato,6,0,Rural Health Centre
+1454,189,Midlands,Shurugwi,30.10330963,-19.67347,0,1998,Chironde,5,0,Clinic
+1455,211,Midlands,Shurugwi,30.33897018,-19.57206,0,1998,Chitora,6,0,Rural Health Centre
+1456,370,Midlands,Shurugwi,30.08336067,-19.88494,0,1998,Gundura,5,0,Clinic
+1457,386,Midlands,Shurugwi,30.38903046,-19.78753,0,1998,Gwanza,6,0,Rural Health Centre
+1458,398,Midlands,Shurugwi,30.16764069,-19.65592,0,1998,Hanke,5,0,Clinic
+1459,455,Midlands,Shurugwi,30.28710938,-19.68503,0,1998,Jobolinko,5,0,Clinic
+1460,606,Midlands,Shurugwi,30.01932907,-19.87072,0,1998,Marishongwe,6,0,Rural Health Centre
+1461,1209,Midlands,Shurugwi,30.13594055,-19.80181,0,1998,Zvamabande,6,0,Rural Hospital
+1462,664,Midlands,Shurugwi,30.25642014,-19.8555,0,1998,Mazibisa,5,0,Clinic
+1463,850,Midlands,Shurugwi,30.22019005,-19.61906,0,1998,Nhema,5,0,Clinic
+1464,948,Midlands,Shurugwi,30.04083061,-19.93808,0,1998,Pakame,5,0,Clinic
+1465,978,Midlands,Shurugwi,30.30810928,-19.75194,0,1998,Rockford,5,0,Clinic
+1466,994,Midlands,Shurugwi,30.13622093,-19.90139,0,1998,Rusike,5,0,Clinic
+1467,1056,Midlands,Shurugwi,30.0011692,-19.67286,0,1998,Shurugwi,2,0,District Hospital
+1468,1109,Midlands,Shurugwi,30.25432968,-19.57464,0,1998,Svika,5,0,Clinic
+1469,1117,Midlands,Shurugwi,30.30574989,-19.88975,0,1998,Tana,6,0,Rural Health Centre
+1470,1128,Midlands,Shurugwi,30.20760918,-19.72044,0,1998,Tongogara,5,0,Clinic
+1471,1210,Midlands,Shurugwi,30.22117043,-19.5565,0,1998,Zvarota,6,0,Rural Health Centre
+1472,1315,Midlands,Shurugwi,29.81333,-19.95071,1212,2007,Dorset,5,2006,Clinic
+1473,1355,Midlands,Shurugwi,30.01086,-19.71792,1357,2007,Peak Mine,7,1945,Clinic
+1474,1356,Midlands,Shurugwi,29.99334,-19.65205,1509,2007,Chrome Mines,7,1980,Hospital
+1475,1357,Midlands,Shurugwi,30.00893,-19.67355,1432,2007,Ironsides,7,1980,Clinic
+1476,1358,Midlands,Shurugwi,29.99906,-19.67596,1423,2007,Makusha,5,2001,Clinic
+1477,39,Matebeleland North,Tsholotsho,27.81193924,-20.1,0,1998,Bubude,5,0,Clinic
+1478,452,Matebeleland North,Tsholotsho,27.73860931,-19.49333,0,1998,Jimila,5,0,Clinic
+1479,482,Matebeleland North,Tsholotsho,27.51749992,-19.26056,0,1998,Kapane,8,0,Not Open
+1480,550,Matebeleland North,Tsholotsho,27.50806046,-19.77528,0,1998,Madlamombe,5,0,Clinic
+1481,572,Matebeleland North,Tsholotsho,27.19194031,-17.94944,0,1998,Makaza,5,0,Clinic
+1482,691,Matebeleland North,Tsholotsho,27.66749954,-19.15111,0,1998,Mlagisa,6,0,Rural Health centre
+1483,719,Matebeleland North,Tsholotsho,27.0886097,-18.35889,0,1998,Mtshayeli,5,0,Clinic
+1484,858,Matebeleland North,Tsholotsho,27.88861084,-20.10056,0,1998,Nkunzi,6,0,Rural Health centre
+1485,949,Matebeleland North,Tsholotsho,27.57139015,-19.46944,0,1998,Panedziba,5,0,Clinic
+1486,964,Matebeleland North,Tsholotsho,27.09139061,-19.59306,0,1998,Pumula,3,0,Mission Hospital
+1487,1075,Matebeleland North,Tsholotsho,27.65500069,-19.28667,0,1998,Sipepa,4,0,Rural Hospital
+1488,1079,Matebeleland North,Tsholotsho,27.08416939,-19.39889,0,1998,Sodaka,6,0,Rural Health centre
+1489,1114,Matebeleland North,Tsholotsho,27.75278091,-19.76694,0,1998,T. Urban,5,0,Clinic
+1490,1141,Matebeleland North,Tsholotsho,27.75527954,-19.77278,0,1998,Tsholotsho,2,0,District Hospital
+1491,1294,Matebeleland North,Tsholotsho,27.27332,-19.45289,989,2007,Bemba,7,2006,Conucil Not Open
+1492,1295,Matebeleland North,Tsholotsho,27.35356,-19.78716,1012,2007,Sikente,5,2003,Clinic
+1493,1292,Matebeleland North,Tsholotsho,27.80185,-20.0903,1246,2007,Chefunye,8,2006,Council Clinic(Construction)
+1494,1293,Matebeleland North,Tsholotsho,27.18993,-19.48617,0,2007,Samahuru,7,2006,Clinic
+1495,1300,Matebeleland North,Tsholotsho,27.64581,-19.93546,1123,2007,Makaza,6,1986,Rural Health Centre
+1496,0,Matebeleland North,Tsholotsho,27.406,-19.4999,0,2013,Dlamini,0,0,council clinic
+1497,0,Matebeleland North,Tsholotsho,27.7239,-20.043,0,2013,Shaba,0,2011,council clinic
+1498,37,Matebeleland North,Umguza,28.80167007,-20.01194,0,1998,Bhekeni,6,0,Rural Health Centre
+1499,243,Matebeleland North,Umguza,28.69499969,-20.11028,0,1998,Clay Products,5,0,Private Clinic
+1500,316,Matebeleland North,Umguza,28.70000076,-20.09917,0,1998,Fair bridge,5,0,Clinic
+1501,322,Matebeleland North,Umguza,28.89417076,-19.9675,0,1998,Fingo,5,0,Clinic
+1502,428,Matebeleland North,Umguza,28.07416916,-19.66111,0,1998,Igusi,5,0,Clinic
+1503,435,Matebeleland North,Umguza,28.32722092,-19.49306,0,1998,Insuza,6,0,Rural Health centre
+1504,867,Matebeleland North,Umguza,28.84556007,-19.97944,0,1998,Ntabazinduna,5,0,Clinic
+1505,890,Matebeleland North,Umguza,28.26556015,-19.85889,0,1998,Nyamandlovu,4,0,Hospital
+1506,957,Matebeleland North,Umguza,28.57666969,-20.15528,0,1998,PMD,9,0,Matebeleland North
+1507,1149,Matebeleland North,Umguza,28.68499947,-20.11861,0,1998,Unicem,7,0,Private Clinic
+1508,1290,Matebeleland North,Umguza,28.41426,-19.73884,1153,2007,Redwood,5,2006,Clinic
+1509,1291,Matebeleland North,Umguza,28.006,-19.9121,1132,2007,Muntu,5,2004,Clinic
+1510,0,Matebeleland North,Umguza,28.3289,-19.4938,0,2013,Mbembesi,0,0,Rural Health Centre
+1511,0,Matebeleland North,Umguza,28.1923,-19.9487,0,2013,T.G Silundika,0,0,Rural Health Centre
+1512,0,Matebeleland North,Umguza,28.0553,-19.9505,0,2013,St. James ,0,1999,Mission Clinic
+1513,0,Matebeleland North,Umguza,28.0059,-19.912,0,2013,Muntu,0,2003,Rural Health Centre
+1514,0,Matebeleland North,Umguza,28.399,-20.0654,0,2013,Khami D Clinic,0,0,Prison Clinic
+1515,0,Matebeleland North,Umguza,28.3926,-20.0617,0,2013,Khami Medium Clinic,0,0,Prison Clinic
+1516,0,Matebeleland North,Umguza,28.3953,-20.0638,0,2013,Mlondolozi,0,0,Prison Clinic
+1517,0,Matebeleland North,Umguza,28.3962,-20.0662,0,2013,Khami Remand ,0,0,Prison Clinic
+1518,0,Matebeleland North,Umguza,28.4028,-20.0666,0,2013,Khami Maximum,0,0,Prison Clinic
+1519,0,Matebeleland North,Umguza,28.4057,-20.06883,0,2013,Khami Prison Staff clnc,0,0,Prison Clinic
+1520,52,Mashonaland East,Ump,31.97611046,-17.02083,0,1998,Borera,5,0,Clinic
+1521,176,Mashonaland East,Ump,31.93416977,-17.22472,0,1998,Chipfunde,5,0,Clinic
+1522,207,Mashonaland East,Ump,31.78360939,-17.45139,0,1998,Chitimbe,5,0,Clinic
+1523,216,Mashonaland East,Ump,32.07389069,-16.94528,0,1998,Chitsungo,5,0,Clinic
+1524,279,Mashonaland East,Ump,32.08778,-16.88,0,1998,Dindi,3,0,Mission Hospital
+1525,337,Mashonaland East,Ump,32.09917068,-16.99611,0,1998,Gaula,8,0,Clinic(Not Open)
+1526,470,Mashonaland East,Ump,32.25278091,-16.84306,0,1998,Kafura,6,0,Rural Health Centre
+1527,488,Mashonaland East,Ump,32.01472092,-17.31306,0,1998,Karimbika,6,0,Rural Health Centre
+1528,494,Mashonaland East,Ump,31.84056091,-17.2225,0,1998,Katiyo,5,0,Clinic
+1529,594,Mashonaland East,Ump,31.89611053,-17.36028,0,1998,Manyika,5,0,Clinic
+1530,603,Mashonaland East,Ump,31.98500061,-17.03667,0,1998,Maramba,5,0,Clinic
+1531,781,Mashonaland East,Ump,31.97639084,-17.40333,0,1998,Muskwe,5,0,Clinic
+1532,790,Mashonaland East,Ump,31.9738903,-17.12139,0,1998,Mutawatawa,2,0,District Hosptal
+1533,846,Mashonaland East,Ump,31.80083084,-17.37111,0,1998,Nhakiwa,5,0,Clinic
+1534,885,Mashonaland East,Ump,32.19194031,-16.9025,0,1998,Nyakasoro,5,0,Clinic
+1535,918,Mashonaland East,Ump,32.30472183,-16.78028,0,1998,Nyanzou,5,0,Clinic
+1536,919,Mashonaland East,Ump,32.30472183,-16.78028,0,1998,Nyanzou,5,0,Clinic
+1537,0,Mashonaland East,UMP,31.8404,-17.223,0,2013,Chikuhwa,,2008,RHC
+1538,0,Mashonaland East,UMP,32.4641,-16.7837,0,2013,Dewe  ,,2005,Clinic
+1539,0,Mashonaland East,UMP,31.7067,-17.3899,0,2013,Marembera ,,1998,RHC
+1540,0,Mashonaland East,UMP,31.8225,-17.2751,0,2013,Mashambanhaka,Council,0, Clinic
+1541,0,Mashonaland East,UMP,32.0993,-16.996,0,2013,Sowa ,,0,RHC
+1542,1255,Matebeleland North,Umzingwane,28.94167,-20.34218,1205,2007,Umzingwane High School,7,0,School Clinic
+1543,1256,Matebeleland North,Umzingwane,29.03401,-20.45149,1129,2007,Mbalambala,7,1960,Army Clinic
+1544,1257,Matebeleland North,Umzingwane,29.10956,-20.20814,1198,2007,Mpisini,5,2004,Clinic
+1545,55,Masvingo,Zaka,31.40731049,-20.62272,0,1998,Bota,5,0,Clinic
+1546,66,Masvingo,Zaka,31.4387207,-20.10544,0,1998,Bvukururu,5,0,Clinic
+1547,163,Masvingo,Zaka,31.55583,-20.30689,0,1998,Chinyabako,5,0,Clinic
+1548,177,Masvingo,Zaka,31.34071922,-20.06892,0,1998,Chipinda,6,0,Rural Health Centre
+1549,182,Masvingo,Zaka,31.67089081,-20.56889,0,1998,Chiredzana,5,0,Clinic
+1550,329,Masvingo,Zaka,31.61763954,-20.35083,0,1998,Fuve,5,0,Clinic
+1551,365,Masvingo,Zaka,31.40699959,-20.23847,0,1998,Gumbo,5,0,Clinic
+1552,400,Masvingo,Zaka,31.27368927,-20.40028,0,1998,Harava,6,0,Rural Health Centre
+1553,447,Masvingo,Zaka,31.45138931,-20.42467,0,1998,Jerera,5,0,Satelite Clinic
+1554,450,Masvingo,Zaka,31.26786041,-20.30397,0,1998,Jichidza,6,0,Rural Health Centre
+1555,451,Masvingo,Zaka,31.22244072,-20.26978,0,1998,Jichidza,3,0,Mission Clinic
+1556,1188,Masvingo,Zaka,31.55372047,-20.45111,0,1998,Zibwowa,5,0,Clinic
+1557,1195,Masvingo,Zaka,31.37375069,-20.47322,0,1998,Zinguwo,5,0,Clinic
+1558,774,Masvingo,Zaka,31.28597069,-20.60228,0,1998,Mushaya,5,0,Clinic
+1559,779,Masvingo,Zaka,31.4399395,-20.43994,0,1998,Musiso,3,0,Mission Hospital
+1560,820,Masvingo,Zaka,31.32192039,-20.18517,0,1998,Ndanga,4,0,Hospital
+1561,914,Masvingo,Zaka,31.5553894,-20.27308,0,1998,Nyangambu,5,0,Clinic
+1562,1078,Masvingo,Zaka,31.4861908,-20.43864,0,1998,Siyawareva,5,0,Clinic
+1563,1112,Masvingo,Zaka,31.55732918,-20.556,0,1998,Svuvure,4,0,Rural Health Hospital
+1564,1156,Masvingo,Zaka,31.31711006,-20.38519,0,1998,Veza,5,0,Clinic
+1565,1319,Masvingo,Zaka,31.16789,-20.3274,0,2007,Mageza,5,1994,Rural Health Centre
+1566,3,Mashonaland West,Zvimba,30.42028046,-16.89056,0,1998,ARDA Sisi,5,0,Council Clinic
+1567,17,Mashonaland West,Zvimba,30.43861008,-17.03944,0,1998,Ayrshire,5,0,Council Clinic
+1568,23,Mashonaland West,Zvimba,30.39583015,-17.38333,0,1998,Banket,2,0,District Hospital
+1569,70,Mashonaland West,Zvimba,30.68111038,-17.27111,0,1998,Caesal,7,0,Mine Clinic
+1570,80,Mashonaland West,Zvimba,30.37999916,-17.18056,0,1998,Chambadzi,7,0,Gold Mine Clinic
+1571,181,Mashonaland West,Zvimba,30.1241703,-17.68167,0,1998,Chirau,5,0,Council Clinic
+1572,224,Mashonaland West,Zvimba,30.03055954,-17.66528,0,1998,Chivhere,5,0,Gvt Clinic
+1573,250,Mashonaland West,Zvimba,30.94111061,-17.94139,0,1998,Crest Breeders,5,0,Council Clinic
+1574,261,Mashonaland West,Zvimba,30.54888916,-17.72028,0,1998,Darwendale,4,0,Rural Hospital
+1575,319,Mashonaland West,Zvimba,30.38611031,-17.79944,0,1998,Father Onea,3,0,Mission Hospital
+1576,390,Mashonaland West,Zvimba,30.85832977,-17.67694,0,1998,Gwebi,5,0,Gvt Clinic
+1577,434,Mashonaland West,Zvimba,30.71833038,-17.67083,0,1998,Inkomo,5,0,Army Hospital
+1578,444,Mashonaland West,Zvimba,30.03360939,-17.73194,0,1998,Jari,5,0,Council Clinic
+1579,457,Mashonaland West,Zvimba,30.11556053,-17.75417,0,1998,Jokwani,8,0,Council Clinic(Construction)
+1580,515,Mashonaland West,Zvimba,30.42000008,-17.73944,0,1998,Kutama,5,0,Council Clinic
+1581,516,Mashonaland West,Zvimba,30.39472008,-17.37639,0,1998,Kuwadzana,5,0,Council Clinic
+1582,1189,Mashonaland West,Zvimba,30.50917053,-17.84139,0,1998,ZIMPAM,7,0,Private Hospital
+1583,1201,Mashonaland West,Zvimba,30.04972076,-17.805,0,1998,Zowa,5,0,Council Clinic
+1584,628,Mashonaland West,Zvimba,30.32999992,-17.81111,0,1998,Masiyarwa,5,0,Council Clinic
+1585,716,Mashonaland West,Zvimba,30.93471909,-17.75806,0,1998,Mthu,5,0,Council Clinic
+1586,755,Mashonaland West,Zvimba,30.29083061,-17.73194,0,1998,Mupurubu,5,0,Council Clinic
+1587,761,Mashonaland West,Zvimba,30.60000038,-17.24556,0,1998,Muriel,5,0,Mine Clinic
+1588,763,Mashonaland West,Zvimba,30.20111084,-17.70722,0,1998,Murombedzi,7,0,Private Clinic
+1589,799,Mashonaland West,Zvimba,30.67638969,-17.14667,0,1998,Mutorashanga,5,0,Council Clinic
+1590,873,Mashonaland West,Zvimba,30.8116703,-17.67361,0,1998,Nyabika,5,0,Council Clinic
+1591,965,Mashonaland West,Zvimba,30.43055916,-17.03694,0,1998,Raffingora,4,0,Rural Hospital
+1592,1108,Mashonaland West,Zvimba,30.59277916,-17.40056,0,1998,Sutton,7,0,Mine Clinic
+1593,1132,Mashonaland West,Zvimba,30.33333015,-17.58389,0,1998,TRBC,5,0,Council Clinic
+1594,1133,Mashonaland West,Zvimba,30.45889091,-17.54139,0,1998,Trelawney,5,0,Council Clinic
+1595,1152,Mashonaland West,Zvimba,30.71833038,-17.08694,0,1998,Vanad,5,0,Mine Clinic
+1596,1213,Mashonaland West,Zvimba,30.19889069,-17.69917,0,1998,Zvimba,4,0,Rural Hospital
+1597,1242,Mashonaland West,Zvimba,30.11608,-17.7538,1214,2007,Kemurara,5,1998,Rural Health Centre
+1598,1243,Mashonaland West,Zvimba,30.56607,-17.50907,1386,2007,Mpinga Clinic,5,0,Clinic
+1599,24,Midlands,Zvishavane,29.87302971,-20.29022,0,1998,Bannockburn,5,0,Clinic
+1600,251,Midlands,Zvishavane,29.9031105,-20.33531,0,1998,Dadaya,3,0,Mission Hospital
+1601,362,Midlands,Zvishavane,30.21932983,-20.39072,0,1998,Gudo,5,0,Clinic
+1602,530,Midlands,Zvishavane,30.01794052,-20.25819,0,1998,Lundi,4,0,Rural Hospital
+1603,537,Midlands,Zvishavane,30.0866909,-20.15469,0,1998,Mabasa,5,0,Clinic
+1604,574,Midlands,Zvishavane,29.93444061,-20.20569,0,1998,Maketo,6,0,Rural Health Centre
+1605,599,Midlands,Zvishavane,29.91963959,-20.08956,0,1998,Mapanzure,5,0,Clinic
+1606,1161,Midlands,Zvishavane,30.18968964,-20.47197,0,1998,Vugwi,6,0,Rural Health Centre
+1607,1162,Midlands,Zvishavane,29.87214088,-20.26669,0,1998,Vukuzenzele,6,0,Rural Health Centre
+1608,641,Midlands,Zvishavane,30.05653,-20.00344,0,1998,Matenda,6,0,Rural Health Centre
+1609,688,Midlands,Zvishavane,29.83839035,-20.33686,0,1998,Mimosa,5,0,Clinic
+1610,714,Midlands,Zvishavane,30.28418922,-20.46786,0,1998,Mtambi,5,0,Clinic
+1611,767,Midlands,Zvishavane,30.38694,-20.53392,0,1998,Murowa,5,0,Clinic
+1612,1216,Midlands,Zvishavane,30.05238914,-20.30581,0,1998,Zvishavane,2,0,District Hospital
+1613,1359,Midlands,Zvishavane,30.04959,-20.31803,931,2007,Kandodo,5,1986,Clinic
+1614,1360,Midlands,Zvishavane,29.79052,-20.27637,1076,2007,Mhondongori,7,0,clinic
+1615,1361,Midlands,Zvishavane,29.79052,-20.27637,1076,2007,Mhondongori,5,2006,Clinic
+1616,1362,Midlands,Zvishavane,30.13646,-20.39601,847,2007,Sabi Mine,7,1980,Clinic
+1617,1363,Midlands,Zvishavane,30.06003,-20.30589,953,2007,Mandava,6,1980,Rural Health Centre
+1618,1364,Midlands,Zvishavane,30.06236,-20.2963,927,2007,Highlands,5,1994,Clinic
+1619,1365,Midlands,Zvishavane,30.1148,-20.23495,885,2007,Weleza,6,2006,Rural Health Centre
+1620,1366,Midlands,Zvishavane,30.06882,-20.31849,957,2007,Maglas,7,1986,Clinic
+1621,1367,Midlands,Zvishavane,30.06206,-20.32071,955,2007,Shabanie Mine,7,1915,Hospital
+1622,0,Manicaland,Bulawayo,28.5708,-20.1274,0,2013,Mpilo,Govt,0,Central Hospital
+1623,0,Manicaland,Bulawayo,28.5906,-20.1268,0,2013,Northern Surbabs ,council,0,clinic
+1624,0,Manicaland,Bulawayo,28.6168,-20.1664,0,2013,UBH,Govt,0,Central Hospital
+1625,0,Manicaland,Bulawayo,28.6104,-20.1863,0,2013,Premier Hillside ,Private,0,Hospital
+1626,0,Manicaland,Bulawayo,28.62,-20.1815,0,2013,J.M Nkomo Ekusileni,Private,0,Hospital
+1627,0,Manicaland,Bulawayo,28.5766,-20.1797,0,2013,Ingutsheni,Govt,0,Central Hospital
+1628,0,Manicaland,Bulawayo,28.5674,-20.1898,0,2013,Dr. Shennan ,council,0,Clinic
+1629,0,Manicaland,Bulawayo,28.534,-20.2003,0,2013,Nketa,council,0,Clinic
+1630,0,Manicaland,Bulawayo,28.5277,-20.1959,0,2013,24-Hr Medical centre,Private,0,Clinic
+1631,0,Manicaland,Bulawayo,28.5202,-20.1889,0,2013,Nkulumane,council,0,Clinic
+1632,0,Manicaland,Bulawayo,28.5009,-20.1825,0,2013,Maqhawe,council,0,Clinic
+1633,0,Manicaland,Bulawayo,28.5358,-20.1744,0,2013,Tshaballa,council,0,Clinic
+1634,0,Manicaland,Bulawayo,28.5084,-20.1369,0,2013,Magwegwe,council,0,Clinic
+1635,0,Manicaland,Bulawayo,28.4803,-20.1423,0,2013,Pumula ,council,0,Clinic
+1636,0,Manicaland,Bulawayo,28.4789,-20.1622,0,2013,Pumula South,council,0,Clinic
+1637,0,Manicaland,Bulawayo,28.5118,-20.1137,0,2013,Luveve,council,0,Clinic
+1638,0,Manicaland,Bulawayo,28.5249,-20.1185,0,2013,Emakhandeni,council,0,Clinic
+1639,0,Manicaland,Bulawayo,28.5087,-20.0798,0,2013,Cowdray Park,council,0,Clinic
+1640,0,Manicaland,Bulawayo,28.5193,-20.0781,0,2013,Thembani,Private,0,Clinic
+1641,0,Manicaland,Bulawayo,28.4951,-20.1222,0,2013,Magwegwe North,Private,0,Clinic
+1642,0,Manicaland,Bulawayo,28.5436,-20.1366,0,2013,Ambrose,Private,0,Hospital
+1643,0,Manicaland,Bulawayo,28.5329,-20.1345,0,2013,Njube,council,0,Clinic
+1644,0,Manicaland,Bulawayo,28.5277,-20.1466,0,2013,Pelandaba,council,0,Clinic
+1645,0,Manicaland,Bulawayo,28.5658,-20.1374,0,2013,Marondera,Poly,0,Clinic
+1646,0,Manicaland,Bulawayo,28.5435,-20.1207,0,2013,Entumbane,council,0,Clinic
+1647,0,Manicaland,Bulawayo,28.5406,-20.1283,0,2013,Entumbane ,Private,0,Clinic
+1648,0,Manicaland,Bulawayo,28.5696,-20.1395,0,2013,Mzilikazi,council,0,Clinic
+1649,0,Manicaland,Bulawayo,28.5965,-20.1828,0,2013,Martar-Dei,Catholic,0,Hospital
+1650,0,Manicaland,Bulawayo,28.5898,-20.1559,0,2013,Princess Margaret,council,0,Clinic
+1652,0,Manicaland,Bulawayo,28.5559,-20.1472,0,2013,Thorngrove,council,0,Clinic
+1653,0,Manicaland,Bulawayo,28.545,-20.1433,0,2013,E.F Watson,council,0,Clinic
+1654,0,Manicaland,Bulawayo,28.5808,-20.1647,0,2013,H&SC,Industrial,0,Clinic
+1655,0,Manicaland,Bulawayo,28.5422,-20.1446,0,2013,Mpopoma,Population Services,0,Clinic
+1656,,Masvingo,Mwenezi,30.625022,-21.3625022,0,2013,Mwenezana,Private,,Clinic
+1657,,Masvingo,Chivi,30.507307,-20.314247,0,2013,Chivi,Govt,,District Hospital
+1658,,Masvingo,Gutu,31.035245,-19.843855,0,2013,Cheshuro,Govt,,Clinic
+1659,,Masvingo,Bikita,31.95138,-20.247192,0,2013,Deure II,Govt,,Clinic
+1670,,Masvingo,Zaka,31.359695,-20.460264,0,2013,Nyakunhuwa,Govt,,Clinic
+1671,,Masvingo,Zaka,31.367537,-20.281069,0,2013,Nemauku,Govt,,Clinic
+1672,,Masvingo,Zaka,31.544249,#NAME?,0,2013,Nhema,Govt,,Clinic
+1673,,Masvingo,Masvingo,31.037316,-20.104089,0,2013,Mutimurefu,Prison,,Clinic
+1674,,Masvingo,Masvingo Urban,30.830665,-20.074458,0,2013,Makurira,Memorial,,Clinic
+1675,,Masvingo,Masvingo,30.864467,-19.856462,0,2013,Zimuto BC,Govt,,Clinic
+1676,,Manicaland,Chimanimani Urban,32.872205,-19.802964,0,2013,Chimanimani Urban,Govt,,Clinic
+1677,,Manicaland,Chipinge,32.625347,-20.19111,0,2013,Chipinge Town ,Govt,,Clinic
+1678,,Manicaland,Chipinge,32.608623,-20.276047,0,2013,Chiriga,Govt,,Rural Health Centre
+1679,,Manicaland,Chipinge,32.605458,-20.334519,0,2013,Muswera,Mission,,Clinic
+1680,,Manicaland,Chipinge,32.484827,-20.541155,0,2013,Tuzuka,Govt,,Rural Health Centre
+1681,,Manicaland,Chipinge,32.232564,-20.876273,0,2013,Takwirira,Govt,,Clinic
+1682,,Manicaland,Makoni,32.377826,-18.210936,0,2013,Bingaguru,Govt,,Rural Health Centre
+1683,,Manicaland,Makoni,32.289355,-18.143585,0,2013,Chinyika 2,Govt,,Rural Health Centre
+1684,,Manicaland,Mutasa,32.75297,-18.457824,0,2013,Chinangwe,Govt,,Clinic
+1685,1685,Mashonaland East,Goromonzi,31.3212,-18.0801,0,2013,Bromley,,1982,RHC
+1686,0,Mashonaland East,Marondera,31.5907,-18.1566,0,2013,MRDC,,0,Mobile Clinic
+1686,,Bulawayo,Bulawayo,28.57290745,-20.1274105,,,NTBRL,,,
+1686,,Bulawayo,Bulawayo,28.59705802,-20.1804545,,,Thorngrove,,,
+1686,,Bulawayo,Bulawayo,28.59707948,-20.180525,,,Diagnostic Laboratories Services Mater Dei,,,
+1686,,Bulawayo,Bulawayo,28.58836271,-20.15620881,,,cimas,,,
+1686,,Bulawayo,Bulawayo,28.61627896,-20.16530517,,,UBH Central Hospital,,,
+1686,,Bulawayo,Bulawayo,28.5698588,-20.12591925,,,Mpilo Central Hospital,,,
+1686,,Bulawayo,Bulawayo,28.52558553,-20.11810477,,,Emakhandeni Clinic,,,
+1686,,Bulawayo,Bulawayo,28.5080936,-20.13665607,,,Magwegwe Clinic,,,
+1686,,Bulawayo,Bulawayo,28.53447542,-20.19987031,,,Nketa Clinic,,,
+1686,,Bulawayo,Bulawayo,27.09139061,-19.59306,,,Pumula South Clinic,,,
+1686,,Harare,Chitungwiza,31.03041776,-17.81955735,,,WILKINS infectious Hospital,,,
+1686,,Harare,Chitungwiza,31.10525144,-18.01494363,,,Seke North clinic,,,
+1686,,Harare,Chitungwiza,31.07714417,-18.03080486,,,Seke South Clinic,,,
+1686,,Harare,Chitungwiza,31.19056909,-17.81099549,,,ZRP Support Camp,,,
