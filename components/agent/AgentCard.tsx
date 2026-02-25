@@ -32,6 +32,7 @@ export default function AgentCard({ agentProfile, landlordName, landlordAvatar }
   const Icon = agentTypeIcons[agentProfile.agent_type]
   const primaryArea = agentProfile.agent_service_areas?.find(a => a.is_primary)?.city
   const displayName = agentProfile.business_name || landlordName || 'Agent'
+  const avatarUrl = agentProfile.profile_image_url || landlordAvatar
 
   return (
     <div className="bg-[#F8F9FA] border-2 border-[#E9ECEF] rounded-2xl p-6 mb-6">
@@ -47,9 +48,9 @@ export default function AgentCard({ agentProfile, landlordName, landlordAvatar }
         {/* Agent Info */}
         <div className="flex items-start gap-3 mb-4">
           <div className="w-16 h-16 rounded-xl overflow-hidden bg-white flex-shrink-0 border-2 border-white group-hover:border-[#212529] transition-colors">
-            {(agentProfile.profile_image_url || landlordAvatar) ? (
+            {avatarUrl ? (
               <Image
-                src={agentProfile.profile_image_url || landlordAvatar}
+                src={avatarUrl}
                 alt={displayName}
                 width={64}
                 height={64}
