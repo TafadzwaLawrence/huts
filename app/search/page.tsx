@@ -320,10 +320,20 @@ export default function SearchPage() {
       </div>
 
       {/* Main Content */}
-      <div className="flex-1 flex overflow-hidden">
-        {/* Map Panel - Zillow puts map on LEFT */}
-        {(effectiveView === 'split' || effectiveView === 'map') && (
-          <div className={`${effectiveView === 'split' ? 'w-1/2 border-r border-[#E9ECEF]' : 'w-full'} relative`}>
+      <div className={`flex-1 ${isMobile ? 'flex flex-col' : 'flex'} overflow-hidden`}>
+        {/* Map Panel - On mobile: stacked on top (height adjusts by view mode), On desktop: Zillow style on left */}
+        {(isMobile || effectiveView === 'split' || effectiveView === 'map') && (
+          <div className={`${
+            isMobile 
+              ? `${
+                  effectiveView === 'map' ? 'h-[60vh]' : 
+                  effectiveView === 'list' ? 'h-[30vh]' : 
+                  'h-[45vh]'
+                } border-b border-[#E9ECEF]`
+              : effectiveView === 'split' 
+                ? 'w-1/2 border-r border-[#E9ECEF]' 
+                : 'w-full'
+          } relative`}>
             <MapView
               properties={mappableProperties}
               schools={schools}
@@ -337,9 +347,15 @@ export default function SearchPage() {
           </div>
         )}
 
-        {/* Listings Panel - Zillow puts list on RIGHT */}
-        {effectiveView !== 'map' && (
-          <div className={`overflow-y-auto bg-white ${effectiveView === 'split' ? 'w-1/2' : 'w-full'}`}>
+        {/* Listings Panel - On mobile: stacked below map, On desktop: Zillow style on right */}
+        {(isMobile || effectiveView !== 'map') && (
+          <div className={`overflow-y-auto bg-white ${
+            isMobile 
+              ? 'flex-1' 
+              : effectiveView === 'split' 
+                ? 'w-1/2' 
+                : 'w-full'
+          }`}>
             {/* Search as map moves toggle */}
             {effectiveView === 'split' && (
               <div className="px-4 py-1.5 border-b border-[#E9ECEF] bg-[#F8F9FA]/50 flex items-center gap-2 text-xs text-[#495057]">
