@@ -88,3 +88,158 @@ export const BREAKPOINTS = {
  */
 export const BLUR_PLACEHOLDER =
   'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mN88P7DfwAJhAPk0x1VwQAAAABJRU5ErkJggg=='
+
+/**
+ * Agent Types - Professional categories for the agent marketplace
+ */
+export const AGENT_TYPES = {
+  REAL_ESTATE_AGENT: 'real_estate_agent',
+  PROPERTY_MANAGER: 'property_manager',
+  HOME_BUILDER: 'home_builder',
+  PHOTOGRAPHER: 'photographer',
+  OTHER: 'other',
+} as const
+
+export const AGENT_TYPE_LABELS = {
+  [AGENT_TYPES.REAL_ESTATE_AGENT]: 'Real Estate Agent',
+  [AGENT_TYPES.PROPERTY_MANAGER]: 'Property Manager',
+  [AGENT_TYPES.HOME_BUILDER]: 'Home Builder',
+  [AGENT_TYPES.PHOTOGRAPHER]: 'Real Estate Photographer',
+  [AGENT_TYPES.OTHER]: 'Other Professional',
+} as const
+
+/**
+ * Agent Specializations - Areas of expertise
+ */
+export const AGENT_SPECIALIZATIONS = [
+  'luxury_homes',
+  'first_time_buyers',
+  'commercial',
+  'investment',
+  'student_housing',
+  'rental_management',
+  'affordable_housing',
+  'new_construction',
+  'foreclosures',
+  'land_sales',
+  'vacation_rentals',
+  'senior_living',
+] as const
+
+export const AGENT_SPECIALIZATION_LABELS: Record<string, string> = {
+  luxury_homes: 'Luxury Homes',
+  first_time_buyers: 'First-Time Buyers',
+  commercial: 'Commercial Properties',
+  investment: 'Investment Properties',
+  student_housing: 'Student Housing',
+  rental_management: 'Rental Management',
+  affordable_housing: 'Affordable Housing',
+  new_construction: 'New Construction',
+  foreclosures: 'Foreclosures & Short Sales',
+  land_sales: 'Land & Lots',
+  vacation_rentals: 'Vacation Rentals',
+  senior_living: 'Senior Living',
+}
+
+/**
+ * Agent Inquiry Types
+ */
+export const INQUIRY_TYPES = {
+  GENERAL: 'general',
+  BUYING: 'buying',
+  SELLING: 'selling',
+  RENTING: 'renting',
+  PROPERTY_MANAGEMENT: 'property_management',
+  PHOTOGRAPHY: 'photography',
+  OTHER: 'other',
+} as const
+
+export const INQUIRY_TYPE_LABELS = {
+  [INQUIRY_TYPES.GENERAL]: 'General Inquiry',
+  [INQUIRY_TYPES.BUYING]: 'Looking to Buy',
+  [INQUIRY_TYPES.SELLING]: 'Looking to Sell',
+  [INQUIRY_TYPES.RENTING]: 'Looking to Rent',
+  [INQUIRY_TYPES.PROPERTY_MANAGEMENT]: 'Property Management Services',
+  [INQUIRY_TYPES.PHOTOGRAPHY]: 'Photography Services',
+  [INQUIRY_TYPES.OTHER]: 'Other Services',
+} as const
+
+/**
+ * Agent Achievement Types
+ */
+export const ACHIEVEMENT_TYPES = {
+  TOP_PERFORMER: 'top_performer',
+  QUICK_RESPONDER: 'quick_responder',
+  VERIFIED_AGENT: 'verified_agent',
+  LUXURY_SPECIALIST: 'luxury_specialist',
+  '100_PROPERTIES': '100_properties',
+  '50_REVIEWS': '50_reviews',
+  '5_STAR_AGENT': '5_star_agent',
+  RISING_STAR: 'rising_star',
+  YEARS_EXPERIENCE_5: 'years_experience_5',
+  YEARS_EXPERIENCE_10: 'years_experience_10',
+  CERTIFIED_PROFESSIONAL: 'certified_professional',
+} as const
+
+export const ACHIEVEMENT_LABELS: Record<string, { title: string; description: string }> = {
+  top_performer: {
+    title: 'Top Performer',
+    description: 'In the top 10% of agents by inquiries this month',
+  },
+  quick_responder: {
+    title: 'Quick Responder',
+    description: 'Responds to inquiries within 2 hours on average',
+  },
+  verified_agent: {
+    title: 'Verified Agent',
+    description: 'Identity and credentials verified by Huts',
+  },
+  luxury_specialist: {
+    title: 'Luxury Specialist',
+    description: 'Specializes in high-end luxury properties',
+  },
+  '100_properties': {
+    title: '100+ Properties',
+    description: 'Successfully listed over 100 properties',
+  },
+  '50_reviews': {
+    title: '50+ Reviews',
+    description: 'Received 50 or more client reviews',
+  },
+  '5_star_agent': {
+    title: '5-Star Agent',
+    description: 'Maintains 4.9+ average rating with 20+ reviews',
+  },
+  rising_star: {
+    title: 'Rising Star',
+    description: 'New agent with exceptional early performance',
+  },
+  years_experience_5: {
+    title: '5+ Years Experience',
+    description: 'Over 5 years of professional experience',
+  },
+  years_experience_10: {
+    title: '10+ Years Experience',
+    description: 'Over 10 years of professional experience',
+  },
+  certified_professional: {
+    title: 'Certified Professional',
+    description: 'Holds professional certifications in real estate',
+  },
+}
+
+/**
+ * Languages commonly spoken in Zimbabwe
+ */
+export const LANGUAGES = [
+  'English',
+  'Shona',
+  'Ndebele',
+  'Kalanga',
+  'Shangani',
+  'Venda',
+  'Tonga',
+  'Sotho',
+  'Afrikaans',
+  'Portuguese',
+] as const

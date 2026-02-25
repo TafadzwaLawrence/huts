@@ -13,9 +13,30 @@ export type PropertyImageInsert = Database['public']['Tables']['property_images'
 
 export type SavedProperty = Database['public']['Tables']['saved_properties']['Row']
 
+// Agent types
+export type AgentProfile = Database['public']['Tables']['agent_profiles']['Row']
+export type AgentProfileInsert = Database['public']['Tables']['agent_profiles']['Insert']
+export type AgentProfileUpdate = Database['public']['Tables']['agent_profiles']['Update']
+
+export type AgentReview = Database['public']['Tables']['agent_reviews']['Row']
+export type AgentReviewInsert = Database['public']['Tables']['agent_reviews']['Insert']
+export type AgentReviewUpdate = Database['public']['Tables']['agent_reviews']['Update']
+
+export type AgentServiceArea = Database['public']['Tables']['agent_service_areas']['Row']
+export type AgentInquiry = Database['public']['Tables']['agent_inquiries']['Row']
+export type AgentInquiryInsert = Database['public']['Tables']['agent_inquiries']['Insert']
+export type AgentAchievement = Database['public']['Tables']['agent_achievements']['Row']
+export type AgentAdvertisement = Database['public']['Tables']['agent_advertisements']['Row']
+
 export type PropertyWithImages = Property & {
   property_images: PropertyImage[]
   profiles: Pick<Profile, 'name' | 'avatar_url' | 'verified'>
+}
+
+export type AgentProfileWithDetails = AgentProfile & {
+  agent_service_areas: AgentServiceArea[]
+  agent_achievements: AgentAchievement[]
+  agent_reviews: AgentReview[]
 }
 
 // Type guards for listing types

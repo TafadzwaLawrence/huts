@@ -20,7 +20,9 @@ import {
   MapPin,
   Check,
   Eye,
-  MessageSquare
+  MessageSquare,
+  Briefcase,
+  Mail
 } from 'lucide-react'
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { createClient } from '@/lib/supabase/client'
@@ -61,6 +63,7 @@ export function DashboardNavbar({ user, profile }: DashboardNavbarProps) {
   const [unreadCount, setUnreadCount] = useState(0)
   const [unreadMessages, setUnreadMessages] = useState(0)
   const [loadingNotifications, setLoadingNotifications] = useState(true)
+  const [hasAgentProfile, setHasAgentProfile] = useState(false)
   const notificationRef = useRef<HTMLDivElement>(null)
   const supabase = createClient()
 
@@ -106,9 +109,31 @@ export function DashboardNavbar({ user, profile }: DashboardNavbarProps) {
     }
   }, [])
 
+  // Check if user has an agent profile
+  const checkAgentProfile = useCallback(async () => {
+    try {
+      // Get user ID from Supabase auth
+      const { data: { user: authUser } } = await supabase.auth.getUser()
+      
+      if (!authUser) return
+      
+      const { data: agentProfile } = await supabase
+        .from('agent_profiles')
+        .select('id')
+        .eq('user_id', authUser.id)
+        .single()
+      
+      setHasAgentProfile(!!agentProfile)
+    } catch (error) {
+      // No agent profile found or error - that's okay
+      setHasAgentProfile(false)
+    }
+  }, [supabase])
+
   // Fetch notifications on mount and subscribe to realtime updates
   useEffect(() => {
     fetchNotifications()
+    checkAgentProfile()
 
     // Subscribe to real-time notification updates
     const channel = supabase
@@ -131,7 +156,7 @@ export function DashboardNavbar({ user, profile }: DashboardNavbarProps) {
     return () => {
       supabase.removeChannel(channel)
     }
-  }, [fetchNotifications, supabase])
+  }, [fetchNotifications, checkAgentProfile, supabase])
 
   // Close notification dropdown when clicking outside
   useEffect(() => {
@@ -203,9 +228,17 @@ export function DashboardNavbar({ user, profile }: DashboardNavbarProps) {
     { href: '/dashboard/my-properties', label: 'Properties', icon: Building2 },
     { href: '/dashboard/map', label: 'Map', icon: MapPin },
     { href: '/dashboard/reviews', label: 'Reviews', icon: Star },
+    ...(hasAgentProfile ? [
+      { href: '/dashboard/agent-profile', label: 'Agent Profile', icon: Briefcase },
+      { href: '/dashboard/agent-inquiries', label: 'Agent Inquiries', icon: Mail },
+    ] : [])
   ] : [
     { href: '/dashboard/overview', label: 'Overview', icon: LayoutDashboard },
     { href: '/dashboard/saved', label: 'Saved', icon: Heart },
+    ...(hasAgentProfile ? [
+      { href: '/dashboard/agent-profile', label: 'Agent Profile', icon: Briefcase },
+      { href: '/dashboard/agent-inquiries', label: 'Agent Inquiries', icon: Mail },
+    ] : [])
   ]
 
   const isActive = (href: string) => pathname === href

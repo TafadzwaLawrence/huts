@@ -61,6 +61,7 @@ export async function Navbar() {
   ]
 
   const rightLinks = [
+    { href: '/find-agent', label: 'Find an Agent' },
     { href: '/areas', label: 'Areas' },
     { href: '/help', label: 'Help' },
   ]

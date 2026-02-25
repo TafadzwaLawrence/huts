@@ -180,6 +180,21 @@ export default async function PropertyPage({ params }: { params: Promise<{ slug:
     notFound()
   }
 
+  // Check if landlord is also an agent
+  let agentProfile = null
+  if (property.user_id) {
+    const { data } = await supabase
+      .from('agent_profiles')
+      .select(`
+        *,
+        agent_service_areas(city, is_primary)
+      `)
+      .eq('user_id', property.user_id)
+      .eq('status', 'active')
+      .single()
+    agentProfile = data
+  }
+
   // Block public access to unverified properties (owners can still view their own)
   const { data: { user } } = await supabase.auth.getUser()
   const isOwner = user?.id === property.user_id
@@ -236,6 +251,7 @@ export default async function PropertyPage({ params }: { params: Promise<{ slug:
         slug={slug}
         currentUserId={user?.id}
         canReview={canReview}
+        agentProfile={agentProfile}
       />
     </div>
   )

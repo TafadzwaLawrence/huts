@@ -34,6 +34,7 @@ export function MobileMenu({ isLoggedIn, userName, userEmail, userAvatar, userIn
     { href: '/search', label: 'Browse All', icon: Search, desc: 'All properties' },
     { href: '/search?type=rent', label: 'For Rent', icon: Key, desc: 'Monthly rentals' },
     { href: '/search?type=sale', label: 'For Sale', icon: Building2, desc: 'Homes to buy' },
+    { href: '/find-agent', label: 'Find an Agent', icon: User, desc: 'Real estate pros' },
     { href: '/areas', label: 'Areas', icon: MapPin, desc: 'Neighborhoods' },
   ]
 

@@ -15,6 +15,15 @@ const footerSections = [
     ],
   },
   {
+    title: 'Professionals',
+    links: [
+      { label: 'Find an Agent', href: '/find-agent' },
+      { label: 'Become an Agent', href: '/agents/signup' },
+      { label: 'Agent Solutions', href: '/agent-solutions' },
+      { label: 'Agent Resources', href: '/resources' },
+    ],
+  },
+  {
     title: 'Popular',
     links: [
       { label: 'Harare Homes', href: '/search?city=Harare' },

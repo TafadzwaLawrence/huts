@@ -16,6 +16,7 @@ import CostBreakdown from './CostBreakdown'
 import EnhancedCostBreakdown from './EnhancedCostBreakdown'
 import PriceHistory from './PriceHistory'
 import ReviewsSection from '@/components/reviews/ReviewsSection'
+import AgentCard from '@/components/agent/AgentCard'
 import { Check } from 'lucide-react'
 
 interface PropertyDetailClientProps {
@@ -23,6 +24,7 @@ interface PropertyDetailClientProps {
   slug: string
   currentUserId?: string
   canReview: boolean
+  agentProfile?: any
 }
 
 const AMENITY_ICONS: Record<string, string> = {
@@ -38,7 +40,7 @@ const AMENITY_ICONS: Record<string, string> = {
   'Storage': 'storage',
 }
 
-export default function PropertyDetailClient({ property, slug, currentUserId, canReview }: PropertyDetailClientProps) {
+export default function PropertyDetailClient({ property, slug, currentUserId, canReview, agentProfile }: PropertyDetailClientProps) {
   const contactRef = useRef<HTMLDivElement>(null)
 
   const scrollToContact = () => {
@@ -187,6 +189,15 @@ export default function PropertyDetailClient({ property, slug, currentUserId, ca
           {/* Right column: sticky sidebar (35%) */}
           <div className="lg:col-span-5 xl:col-span-4" ref={contactRef}>
             <div className="space-y-4">
+              {/* Agent card (if landlord is an agent) */}
+              {agentProfile && (
+                <AgentCard
+                  agentProfile={agentProfile}
+                  landlordName={property.profiles?.name}
+                  landlordAvatar={property.profiles?.avatar_url}
+                />
+              )}
+
               {/* Contact card */}
               <ContactSidebar
                 propertyId={property.id}
