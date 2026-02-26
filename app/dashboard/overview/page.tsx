@@ -96,32 +96,32 @@ export default async function DashboardOverviewPage() {
   const dateString = today.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })
 
   return (
-    <div className="min-h-screen bg-[#F8F9FA]">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-10">
+    <div className="min-h-screen bg-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-10">
 
         {/* Header */}
-        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-8">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8 pb-6 border-b border-[#E9ECEF]">
           <div>
-            <p className="text-xs uppercase tracking-wider mb-2 text-[#ADB5BD]">{dateString}</p>
-            <h1 className="text-page-title">
+            <h1 className="text-2xl md:text-3xl font-bold text-[#212529] mb-1">
               {greeting}, {firstName}
             </h1>
+            <p className="text-sm text-[#495057]">{dateString}</p>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-3">
             {isLandlord ? (
               <Link
                 href="/dashboard/my-properties"
-                className="btn btn-secondary inline-flex items-center gap-2"
+                className="inline-flex items-center gap-2 px-4 py-2.5 bg-[#212529] text-white rounded-lg text-sm font-semibold hover:bg-black transition-colors"
               >
-                <Building2 size={ICON_SIZES.sm} />
+                <Building2 size={16} />
                 My Properties
               </Link>
             ) : (
               <Link
                 href="/search"
-                className="btn btn-primary inline-flex items-center gap-2"
+                className="inline-flex items-center gap-2 px-4 py-2.5 bg-[#212529] text-white rounded-lg text-sm font-semibold hover:bg-black transition-colors"
               >
-                <Search size={ICON_SIZES.sm} />
+                <Search size={16} />
                 Find a home
               </Link>
             )}
@@ -129,54 +129,50 @@ export default async function DashboardOverviewPage() {
         </div>
 
         {/* Stat Cards */}
-        <div className={`grid gap-3 mb-8 ${isLandlord ? 'grid-cols-2 lg:grid-cols-4' : 'grid-cols-2 lg:grid-cols-3'}`}>
+        <div className={`grid gap-4 mb-10 ${isLandlord ? 'grid-cols-2 lg:grid-cols-4' : 'grid-cols-2 lg:grid-cols-3'}`}>
           {/* Properties / Saved */}
           <Link 
             href={isLandlord ? '/dashboard/my-properties' : '/dashboard/saved'}
-            className="group bg-white rounded-xl border border-[#E9ECEF] p-6 card-hover-subtle"
+            className="group bg-white rounded-lg border border-[#E9ECEF] p-5 hover:border-[#212529] hover:shadow-sm transition-all"
           >
             <div className="flex items-center justify-between mb-3">
-              <div className="w-9 h-9 bg-[#F8F9FA] rounded-lg flex items-center justify-center group-hover:bg-black transition-colors">
-                {isLandlord ? (
-                  <Building2 size={ICON_SIZES.md} className="text-[#495057] group-hover:text-white transition-colors" />
-                ) : (
-                  <Heart size={ICON_SIZES.md} className="text-[#495057] group-hover:text-white transition-colors" />
-                )}
-              </div>
-              <ArrowUpRight size={ICON_SIZES.sm} className="text-[#ADB5BD] opacity-0 group-hover:opacity-100 transition-opacity" />
+              {isLandlord ? (
+                <Building2 size={20} className="text-[#495057]" />
+              ) : (
+                <Heart size={20} className="text-[#495057]" />
+              )}
+              <ChevronRight size={16} className="text-[#ADB5BD] group-hover:text-[#212529] transition-colors" />
             </div>
-            <p className="text-2xl font-bold text-black tabular-nums">{isLandlord ? propertyCount || 0 : savedCount || 0}</p>
-            <p className="text-xs text-[#495057] font-medium mt-0.5">
-              {isLandlord ? 'Properties' : 'Saved'}
+            <p className="text-3xl font-bold text-[#212529] mb-1">{isLandlord ? propertyCount || 0 : savedCount || 0}</p>
+            <p className="text-sm text-[#495057]">
+              {isLandlord ? 'Properties' : 'Saved homes'}
             </p>
           </Link>
 
           {/* Conversations */}
-          <OpenChatButton className="group bg-white rounded-xl border border-[#E9ECEF] p-6 card-hover-subtle relative text-left cursor-pointer">
+          <OpenChatButton className="group bg-white rounded-lg border border-[#E9ECEF] p-5 hover:border-[#212529] hover:shadow-sm transition-all relative text-left cursor-pointer">
             <div className="flex items-center justify-between mb-3">
-              <div className="w-9 h-9 bg-[#F8F9FA] rounded-lg flex items-center justify-center group-hover:bg-black transition-colors relative">
-                <MessageSquare size={ICON_SIZES.md} className="text-[#495057] group-hover:text-white transition-colors" />
-              </div>
-              {(conversationCount || 0) > 0 && (
-                <span className="w-5 h-5 bg-black text-white text-[10px] font-bold rounded-full flex items-center justify-center">
+              <MessageSquare size={20} className="text-[#495057]" />
+              {(conversationCount || 0) > 0 ? (
+                <span className="w-5 h-5 bg-[#212529] text-white text-[10px] font-bold rounded-full flex items-center justify-center">
                   {conversationCount! > 9 ? '9+' : conversationCount}
                 </span>
+              ) : (
+                <ChevronRight size={16} className="text-[#ADB5BD] group-hover:text-[#212529] transition-colors" />
               )}
             </div>
-            <p className="text-2xl font-bold text-black tabular-nums">{conversationCount || 0}</p>
-            <p className="text-xs text-[#495057] font-medium mt-0.5">Conversations</p>
+            <p className="text-3xl font-bold text-[#212529] mb-1">{conversationCount || 0}</p>
+            <p className="text-sm text-[#495057]">Messages</p>
           </OpenChatButton>
 
           {/* Landlord: Views */}
           {isLandlord && (
-            <div className="bg-white rounded-xl border border-[#E9ECEF] p-6">
+            <div className="bg-white rounded-lg border border-[#E9ECEF] p-5 hover:border-[#212529] hover:shadow-sm transition-all">
               <div className="flex items-center justify-between mb-3">
-                <div className="w-9 h-9 bg-[#F8F9FA] rounded-lg flex items-center justify-center">
-                  <Eye size={ICON_SIZES.md} className="text-[#495057]" />
-                </div>
+                <Eye size={20} className="text-[#495057]" />
               </div>
-              <p className="text-2xl font-bold text-black tabular-nums">{totalViews}</p>
-              <p className="text-xs text-[#495057] font-medium mt-0.5">Total Views</p>
+              <p className="text-3xl font-bold text-[#212529] mb-1">{totalViews}</p>
+              <p className="text-sm text-[#495057]">Total Views</p>
             </div>
           )}
 
@@ -184,30 +180,26 @@ export default async function DashboardOverviewPage() {
           {isLandlord ? (
             <Link 
               href="/dashboard/reviews"
-              className="group bg-white rounded-xl border border-[#E9ECEF] p-6 card-hover-subtle"
+              className="group bg-white rounded-lg border border-[#E9ECEF] p-5 hover:border-[#212529] hover:shadow-sm transition-all"
             >
               <div className="flex items-center justify-between mb-3">
-                <div className="w-9 h-9 bg-[#F8F9FA] rounded-lg flex items-center justify-center group-hover:bg-black transition-colors">
-                  <Star size={ICON_SIZES.md} className="text-[#495057] group-hover:text-white transition-colors" />
-                </div>
-                <ArrowUpRight size={ICON_SIZES.sm} className="text-[#ADB5BD] opacity-0 group-hover:opacity-100 transition-opacity" />
+                <Star size={20} className="text-[#495057]" />
+                <ChevronRight size={16} className="text-[#ADB5BD] group-hover:text-[#212529] transition-colors" />
               </div>
-              <p className="text-2xl font-bold text-black tabular-nums">{reviewCount || 0}</p>
-              <p className="text-xs text-[#495057] font-medium mt-0.5">Reviews</p>
+              <p className="text-3xl font-bold text-[#212529] mb-1">{reviewCount || 0}</p>
+              <p className="text-sm text-[#495057]">Reviews</p>
             </Link>
           ) : (
             <Link 
               href="/areas"
-              className="group bg-white rounded-xl border border-[#E9ECEF] p-6 card-hover-subtle"
+              className="group bg-white rounded-lg border border-[#E9ECEF] p-5 hover:border-[#212529] hover:shadow-sm transition-all"
             >
               <div className="flex items-center justify-between mb-3">
-                <div className="w-9 h-9 bg-[#F8F9FA] rounded-lg flex items-center justify-center group-hover:bg-black transition-colors">
-                  <MapPin size={ICON_SIZES.md} className="text-[#495057] group-hover:text-white transition-colors" />
-                </div>
-                <ArrowUpRight size={ICON_SIZES.sm} className="text-[#ADB5BD] opacity-0 group-hover:opacity-100 transition-opacity" />
+                <MapPin size={20} className="text-[#495057]" />
+                <ChevronRight size={16} className="text-[#ADB5BD] group-hover:text-[#212529] transition-colors" />
               </div>
-              <p className="text-2xl font-bold text-black tabular-nums">Explore</p>
-              <p className="text-xs text-[#495057] font-medium mt-0.5">Area Guides</p>
+              <p className="text-lg font-semibold text-[#212529] mb-1">Explore</p>
+              <p className="text-sm text-[#495057]">Area Guides</p>
             </Link>
           )}
         </div>
