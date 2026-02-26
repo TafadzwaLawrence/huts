@@ -2,8 +2,7 @@ import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
-import { Heart, MapPin, Bed, Bath, Square, Trash2, Home } from 'lucide-react'
-import { ICON_SIZES } from '@/lib/constants'
+import { Heart, MapPin, Bed, Bath, Square } from 'lucide-react'
 
 export const metadata = {
   title: 'Saved Properties - Huts',
@@ -54,33 +53,34 @@ export default async function SavedPropertiesPage() {
   const validSavedProperties = savedProperties?.filter(sp => sp.property !== null) || []
 
   return (
-    <div className="min-h-screen bg-[#F8F9FA]">
-      <div className="container-main py-8 md:py-12">
+    <div className="min-h-screen bg-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-10">
         {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-3xl md:text-4xl font-bold text-[#212529] mb-2">
-            Saved Properties
+        <div className="mb-8 pb-6 border-b border-[#E9ECEF]">
+          <h1 className="text-2xl md:text-3xl font-bold text-[#212529] mb-2">
+            Saved Homes
           </h1>
-          <p className="text-[#495057]">
-            {validSavedProperties.length} {validSavedProperties.length === 1 ? 'property' : 'properties'} saved
+          <p className="text-sm text-[#495057]">
+            {validSavedProperties.length} {validSavedProperties.length === 1 ? 'property' : 'properties'}
           </p>
         </div>
 
         {/* Content */}
         {validSavedProperties.length === 0 ? (
-          <div className="bg-white border-2 border-[#E9ECEF] rounded-xl p-12 text-center">
-            <Heart size={ICON_SIZES['3xl']} className="mx-auto text-[#ADB5BD] mb-6" />
-            <h2 className="text-2xl font-bold text-[#212529] mb-3">
-              No saved properties yet
+          <div className="bg-white border border-[#E9ECEF] rounded-lg p-12 text-center max-w-2xl mx-auto">
+            <div className="w-16 h-16 bg-[#F8F9FA] rounded-full flex items-center justify-center mx-auto mb-6">
+              <Heart size={32} className="text-[#ADB5BD]" />
+            </div>
+            <h2 className="text-xl font-bold text-[#212529] mb-2">
+              No saved homes yet
             </h2>
-            <p className="text-[#495057] mb-8 max-w-md mx-auto">
-              Start exploring properties and save your favorites to view them here.
+            <p className="text-sm text-[#495057] mb-6 max-w-md mx-auto">
+              Start exploring and save your favorite properties to keep track of them here.
             </p>
             <Link
               href="/search"
-              className="inline-flex items-center gap-2 bg-[#212529] text-white px-6 py-3 rounded-lg font-semibold hover:bg-black hover:shadow-xl transition-all"
+              className="inline-flex items-center gap-2 bg-[#212529] text-white px-5 py-2.5 rounded-lg text-sm font-semibold hover:bg-black transition-colors"
             >
-              <Home size={ICON_SIZES.lg} />
               Browse Properties
             </Link>
           </div>
@@ -95,60 +95,61 @@ export default async function SavedPropertiesPage() {
                 <div key={`${saved.user_id}-${saved.property_id}`} className="group relative">
                   <Link
                     href={`/property/${property.slug || property.id}`}
-                    className="block bg-white border-2 border-[#E9ECEF] rounded-xl overflow-hidden hover:border-[#212529] hover:shadow-xl transition-all duration-300"
+                    className="block bg-white border border-[#E9ECEF] rounded-lg overflow-hidden hover:border-[#212529] hover:shadow-md transition-all"
                   >
                     {/* Image */}
-                    <div className="relative h-48 overflow-hidden bg-[#E9ECEF]">
+                    <div className="relative h-56 overflow-hidden bg-[#F8F9FA]">
                       <Image
                         src={imageUrl}
                         alt={property.title}
                         fill
-                        className="object-cover group-hover:scale-105 transition-transform duration-500"
+                        className="object-cover group-hover:scale-105 transition-transform duration-300"
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                       />
                       
-                      {/* Price Badge */}
-                      <div className="absolute top-3 left-3 bg-black/90 text-white px-3 py-1.5 rounded text-sm font-semibold">
-                        ${(property.price / 100).toLocaleString()}/mo
-                      </div>
-
                       {/* Status Badge */}
                       {property.status !== 'active' && (
-                        <div className="absolute top-3 right-3 bg-[#FF6B6B] text-white px-3 py-1 rounded text-xs font-semibold">
-                          {property.status.toUpperCase()}
+                        <div className="absolute top-3 left-3 bg-[#FF6B6B] text-white px-2 py-1 rounded text-xs font-bold uppercase">
+                          {property.status}
                         </div>
                       )}
                     </div>
 
                     {/* Content */}
                     <div className="p-4">
-                      <h3 className="font-semibold text-[#212529] text-base mb-2 line-clamp-2">
-                        {property.title}
-                      </h3>
+                      {/* Price */}
+                      <p className="text-xl font-bold text-[#212529] mb-2">
+                        ${(property.price / 100).toLocaleString()}/mo
+                      </p>
                       
-                      <div className="flex items-center text-[#495057] text-xs mb-3">
-                        <MapPin size={ICON_SIZES.xs} className="mr-1 flex-shrink-0" />
-                        <span className="truncate">
-                          {property.neighborhood ? `${property.neighborhood}, ` : ''}{property.city}
-                        </span>
-                      </div>
-
                       {/* Features */}
-                      <div className="flex items-center gap-4 text-xs text-[#495057] pt-3 border-t border-[#E9ECEF]">
+                      <div className="flex items-center gap-3 text-sm text-[#495057] mb-2">
                         <span className="flex items-center gap-1">
-                          <Bed size={ICON_SIZES.sm} />
-                          {property.beds}
+                          <Bed size={16} />
+                          {property.beds} bd
                         </span>
                         <span className="flex items-center gap-1">
-                          <Bath size={ICON_SIZES.sm} />
-                          {property.baths}
+                          <Bath size={16} />
+                          {property.baths} ba
                         </span>
                         {property.sqft && (
                           <span className="flex items-center gap-1">
-                            <Square size={ICON_SIZES.sm} />
-                            {property.sqft}
+                            <Square size={16} />
+                            {property.sqft.toLocaleString()} sqft
                           </span>
                         )}
+                      </div>
+
+                      {/* Address */}
+                      <p className="text-sm text-[#495057] truncate mb-2">
+                        {property.title}
+                      </p>
+                      
+                      <div className="flex items-center text-xs text-[#ADB5BD]">
+                        <MapPin size={14} className="mr-1 flex-shrink-0" />
+                        <span className="truncate">
+                          {property.neighborhood ? `${property.neighborhood}, ` : ''}{property.city}
+                        </span>
                       </div>
 
                       {/* Saved Date */}
@@ -156,8 +157,7 @@ export default async function SavedPropertiesPage() {
                         <p className="text-xs text-[#ADB5BD]">
                           Saved {new Date(saved.saved_at).toLocaleDateString('en-US', { 
                             month: 'short', 
-                            day: 'numeric',
-                            year: 'numeric'
+                            day: 'numeric'
                           })}
                         </p>
                       </div>
@@ -165,14 +165,14 @@ export default async function SavedPropertiesPage() {
                   </Link>
 
                   {/* Remove Button */}
-                  <form action="/api/properties/unsave" method="POST">
+                  <form action="/api/properties/unsave" method="POST" className="absolute top-3 right-3 z-10">
                     <input type="hidden" name="propertyId" value={property.id} />
                     <button
                       type="submit"
-                      className="absolute top-3 right-3 z-10 p-2 bg-white/95 backdrop-blur-sm rounded-full hover:bg-[#FF6B6B] hover:text-white transition-all shadow-md group/btn"
+                      className="p-2.5 bg-white/95 backdrop-blur-sm rounded-full hover:bg-white transition-all shadow-md group/btn"
                       title="Remove from saved"
                     >
-                      <Heart size={ICON_SIZES.lg} className="fill-current text-[#FF6B6B] group-hover/btn:text-white" />
+                      <Heart size={20} className="fill-[#FF6B6B] text-[#FF6B6B] group-hover/btn:fill-white group-hover/btn:text-[#FF6B6B] transition-all" />
                     </button>
                   </form>
                 </div>
