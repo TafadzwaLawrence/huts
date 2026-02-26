@@ -2,12 +2,13 @@
 
 import { useState, useEffect, useCallback, useRef } from 'react'
 import { useSearchParams, useRouter, usePathname } from 'next/navigation'
-import { Map as MapIcon, List, Loader2, Bell, ChevronLeft, ChevronRight, Search, Lightbulb } from 'lucide-react'
+import { Map as MapIcon, List, Loader2, Bell, ChevronLeft, ChevronRight, Search, Lightbulb, X, Check } from 'lucide-react'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import { ICON_SIZES } from '@/lib/constants'
 import { PropertyCard } from '@/components/property/PropertyCard'
 import { FilterBar } from '@/components/search/FilterBar'
+import { createClient } from '@/lib/supabase/client'
 
 interface Property {
   id: string
@@ -89,8 +90,58 @@ export default function SearchPage() {
   const [mapBounds, setMapBounds] = useState<{ north: number; south: number; east: number; west: number } | null>(null)
   const isInitialMount = useRef(true)
   const abortRef = useRef<AbortController | null>(null)
+  
+  // Save search states
+  const [saveModalOpen, setSaveModalOpen] = useState(false)
+  const [searchName, setSearchName] = useState('')
+  const [savingSearch, setSavingSearch] = useState(false)
+  const [saveSuccess, setSaveSuccess] = useState(false)
 
   const debouncedBounds = useDebounce(mapBounds, 400)
+
+  // Save search handler
+  const handleSaveSearch = async () => {
+    if (!searchName.trim()) return
+    
+    setSavingSearch(true)
+    try {
+      const supabase = createClient()
+      const { data: { user } } = await supabase.auth.getUser()
+      
+      if (!user) {
+        alert('Please sign in to save searches')
+        return
+      }
+
+      const response = await fetch('/api/saved-searches', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: searchName.trim(),
+          filters: {
+            listingType,
+            ...filters,
+            sort,
+          },
+          frequency: 'daily',
+        }),
+      })
+
+      if (!response.ok) throw new Error('Failed to save search')
+      
+      setSaveSuccess(true)
+      setTimeout(() => {
+        setSaveModalOpen(false)
+        setSaveSuccess(false)
+        setSearchName('')
+      }, 1500)
+    } catch (error) {
+      console.error('Save search error:', error)
+      alert('Failed to save search. Please try again.')
+    } finally {
+      setSavingSearch(false)
+    }
+  }
 
   // Build query params for API
   const buildSearchParams = useCallback(() => {
@@ -315,7 +366,10 @@ export default function SearchPage() {
           </div>
 
           {/* Save Search */}
-          <button className="hidden md:inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold text-[#212529] border border-[#E9ECEF] rounded-lg hover:border-[#212529] transition-colors whitespace-nowrap">
+          <button 
+            onClick={() => setSaveModalOpen(true)}
+            className="hidden md:inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold text-[#212529] border border-[#E9ECEF] rounded-lg hover:border-[#212529] transition-colors whitespace-nowrap"
+          >
             <Bell size={14} />
             Save search
           </button>
@@ -545,6 +599,137 @@ export default function SearchPage() {
           </div>
         )}
       </div>
+
+      {/* Save Search Modal */}
+      {saveModalOpen && (
+        <>
+          {/* Backdrop */}
+          <div 
+            className="fixed inset-0 bg-black/50 z-[10000] animate-in fade-in duration-200"
+            onClick={() => !savingSearch && setSaveModalOpen(false)}
+          />
+          
+          {/* Modal */}
+          <div className="fixed inset-0 z-[10001] flex items-center justify-center p-4">
+            <div className="bg-white rounded-xl shadow-2xl max-w-md w-full animate-in zoom-in-95 duration-200">
+              {/* Header */}
+              <div className="flex items-center justify-between p-4 border-b border-[#E9ECEF]">
+                <h2 className="text-lg font-semibold text-[#212529]">
+                  {saveSuccess ? 'Search Saved!' : 'Save Search'}
+                </h2>
+                {!savingSearch && !saveSuccess && (
+                  <button
+                    onClick={() => setSaveModalOpen(false)}
+                    className="p-1 hover:bg-[#F8F9FA] rounded-md transition-colors"
+                  >
+                    <X size={18} className="text-[#495057]" />
+                  </button>
+                )}
+              </div>
+
+              {/* Body */}
+              <div className="p-4">
+                {saveSuccess ? (
+                  <div className="flex flex-col items-center justify-center py-6">
+                    <div className="w-12 h-12 bg-[#51CF66] rounded-full flex items-center justify-center mb-3">
+                      <Check size={24} className="text-white" />
+                    </div>
+                    <p className="text-sm text-[#495057] text-center">
+                      You'll receive notifications when new properties match your criteria.
+                    </p>
+                  </div>
+                ) : (
+                  <div className="space-y-4">
+                    <div>
+                      <label className="text-sm font-medium text-[#212529] block mb-2">
+                        Search name
+                      </label>
+                      <input
+                        type="text"
+                        value={searchName}
+                        onChange={(e) => setSearchName(e.target.value)}
+                        placeholder="e.g., 2 Bed Apartments in Harare"
+                        maxLength={50}
+                        className="w-full px-3 py-2.5 text-sm border border-[#E9ECEF] rounded-lg focus:border-[#212529] focus:ring-1 focus:ring-[#212529] outline-none transition-all"
+                        disabled={savingSearch}
+                        onKeyDown={(e) => e.key === 'Enter' && handleSaveSearch()}
+                        autoFocus
+                      />
+                    </div>
+
+                    <div className="bg-[#F8F9FA] rounded-lg p-3 space-y-1">
+                      <p className="text-xs font-medium text-[#495057]">Current filters:</p>
+                      <div className="flex flex-wrap gap-1.5">
+                        {listingType !== 'all' && (
+                          <span className="inline-flex items-center px-2 py-0.5 bg-white rounded text-xs text-[#212529]">
+                            {listingType === 'rent' ? 'For Rent' : 'For Sale'}
+                          </span>
+                        )}
+                        {filters.minPrice && (
+                          <span className="inline-flex items-center px-2 py-0.5 bg-white rounded text-xs text-[#212529]">
+                            Min: ${parseInt(filters.minPrice) / 100}
+                          </span>
+                        )}
+                        {filters.maxPrice && (
+                          <span className="inline-flex items-center px-2 py-0.5 bg-white rounded text-xs text-[#212529]">
+                            Max: ${parseInt(filters.maxPrice) / 100}
+                          </span>
+                        )}
+                        {filters.beds && (
+                          <span className="inline-flex items-center px-2 py-0.5 bg-white rounded text-xs text-[#212529]">
+                            {filters.beds}+ beds
+                          </span>
+                        )}
+                        {filters.baths && (
+                          <span className="inline-flex items-center px-2 py-0.5 bg-white rounded text-xs text-[#212529]">
+                            {filters.baths}+ baths
+                          </span>
+                        )}
+                        {filters.propertyType !== 'all' && (
+                          <span className="inline-flex items-center px-2 py-0.5 bg-white rounded text-xs text-[#212529] capitalize">
+                            {filters.propertyType}
+                          </span>
+                        )}
+                      </div>
+                    </div>
+
+                    <p className="text-xs text-[#ADB5BD]">
+                      We'll notify you daily when new properties match these criteria.
+                    </p>
+                  </div>
+                )}
+              </div>
+
+              {/* Footer */}
+              {!saveSuccess && (
+                <div className="flex gap-2 p-4 border-t border-[#E9ECEF]">
+                  <button
+                    onClick={() => setSaveModalOpen(false)}
+                    disabled={savingSearch}
+                    className="flex-1 py-2.5 text-sm font-medium text-[#495057] border border-[#E9ECEF] rounded-lg hover:bg-[#F8F9FA] transition-colors disabled:opacity-50"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    onClick={handleSaveSearch}
+                    disabled={!searchName.trim() || savingSearch}
+                    className="flex-1 py-2.5 text-sm font-semibold text-white bg-[#212529] rounded-lg hover:bg-black transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                  >
+                    {savingSearch ? (
+                      <>
+                        <Loader2 size={14} className="animate-spin" />
+                        Saving...
+                      </>
+                    ) : (
+                      'Save'
+                    )}
+                  </button>
+                </div>
+              )}
+            </div>
+          </div>
+        </>
+      )}
     </div>
   )
 }

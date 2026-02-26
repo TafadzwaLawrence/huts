@@ -25,15 +25,20 @@ interface FilterBarProps {
 
 function Dropdown({ label, active, children, onApply }: { label: string; active?: boolean; children: React.ReactNode; onApply?: () => void }) {
   const [open, setOpen] = useState(false)
+  const [isAnimating, setIsAnimating] = useState(false)
   const buttonRef = useRef<HTMLButtonElement>(null)
   const panelRef = useRef<HTMLDivElement>(null)
   const [pos, setPos] = useState({ top: 0, left: 0 })
 
-  // Calculate fixed position from button
+  // Calculate fixed position from button immediately
   useEffect(() => {
     if (open && buttonRef.current) {
       const rect = buttonRef.current.getBoundingClientRect()
       setPos({ top: rect.bottom + 8, left: rect.left })
+      // Start animation after position is set
+      requestAnimationFrame(() => setIsAnimating(true))
+    } else {
+      setIsAnimating(false)
     }
   }, [open])
 
@@ -72,19 +77,32 @@ function Dropdown({ label, active, children, onApply }: { label: string; active?
         }`}
       >
         {label}
-        <ChevronDown size={ICON_SIZES.sm} className={`transition-transform ${open ? 'rotate-180' : ''}`} />
+        <ChevronDown size={ICON_SIZES.sm} className={`transition-transform duration-200 ${open ? 'rotate-180' : ''}`} />
       </button>
 
       {open && (
         <>
-          {/* Backdrop */}
-          <div className="fixed inset-0 z-[999]" onClick={() => setOpen(false)} />
+          {/* Backdrop with fade */}
+          <div 
+            className={`fixed inset-0 z-[999] bg-black/5 transition-opacity duration-200 ${
+              isAnimating ? 'opacity-100' : 'opacity-0'
+            }`}
+            onClick={() => setOpen(false)} 
+          />
 
-          {/* Panel - fixed position to escape overflow clipping */}
+          {/* Panel with smooth scale & fade animation */}
           <div
             ref={panelRef}
-            className="fixed bg-white rounded-xl border border-[#E9ECEF] shadow-2xl z-[1000] min-w-[280px]"
-            style={{ top: pos.top, left: pos.left }}
+            className={`fixed bg-white rounded-xl border border-[#E9ECEF] shadow-2xl z-[1000] min-w-[280px] transition-all duration-200 ease-out origin-top ${
+              isAnimating 
+                ? 'opacity-100 scale-100 translate-y-0' 
+                : 'opacity-0 scale-95 -translate-y-2'
+            }`}
+            style={{ 
+              top: pos.top, 
+              left: pos.left,
+              willChange: 'transform, opacity'
+            }}
           >
             <div className="p-4">
               {children}
