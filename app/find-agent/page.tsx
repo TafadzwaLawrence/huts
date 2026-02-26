@@ -30,24 +30,106 @@ interface SearchParams {
 const CITIES = ['Harare', 'Bulawayo', 'Chitungwiza', 'Mutare', 'Gweru', 'Kwekwe', 'Kadoma', 'Masvingo']
 
 export default async function FindAgentPage({ searchParams }: { searchParams: SearchParams }) {
-  // Check if agent tables exist first
-  const supabase = await createClient()
-  
-  // Quick check if tables exist
+  // Initialize with safe defaults
+  let agents: any[] = []
+  let totalAgents = 0
+  let verifiedCount = 0
+  let featuredCount = 0
   let tablesExist = false
+
   try {
-    const { error: checkError } = await supabase
-      .from('agent_profiles')
-      .select('id')
-      .limit(1)
+    const supabase = await createClient()
     
-    tablesExist = !checkError
+    // Quick check if tables exist
+    try {
+      const { error: checkError } = await supabase
+        .from('agent_profiles')
+        .select('id')
+        .limit(1)
+      
+      tablesExist = !checkError
+    } catch (error) {
+      console.log('Agent tables check failed:', error)
+      tablesExist = false
+    }
+
+    // If tables don't exist, we'll show coming soon page below
+    if (!tablesExist) {
+      // Tables don't exist, fall through to show coming soon
+    } else {
+      // Try to query agents
+      try {
+        // Build query - simplified to avoid join issues
+        let query = supabase
+          .from('agent_profiles')
+          .select('*')
+          .eq('status', 'active')
+
+        // Apply filters
+        if (searchParams.type) {
+          query = query.eq('agent_type', searchParams.type)
+        }
+
+        if (searchParams.city) {
+          query = query.contains('service_areas', [searchParams.city])
+        }
+
+        if (searchParams.specialization) {
+          query = query.contains('specializations', [searchParams.specialization])
+        }
+
+        if (searchParams.verified === 'true') {
+          query = query.eq('verified', true)
+        }
+
+        if (searchParams.featured === 'true') {
+          query = query.eq('featured', true)
+        }
+
+        // Apply sorting
+        switch (searchParams.sort) {
+          case 'rating':
+            query = query.order('avg_rating', { ascending: false, nullsFirst: false })
+            break
+          case 'reviews':
+            query = query.order('total_reviews', { ascending: false })
+            break
+          case 'experience':
+            query = query.order('years_experience', { ascending: false, nullsFirst: false })
+            break
+          case 'newest':
+            query = query.order('created_at', { ascending: false })
+            break
+          default:
+            query = query.order('featured', { ascending: false })
+              .order('verified', { ascending: false })
+              .order('avg_rating', { ascending: false, nullsFirst: false })
+        }
+
+        const { data, error } = await query.limit(50)
+        
+        if (error) {
+          console.error('Error fetching agents:', error)
+          agents = []
+        } else {
+          agents = data || []
+        }
+        
+        totalAgents = agents.length
+        verifiedCount = agents.filter((a: any) => a.verified).length
+        featuredCount = agents.filter((a: any) => a.featured).length
+      } catch (error) {
+        console.error('Error in agent query:', error)
+        agents = []
+      }
+    }
   } catch (error) {
-    console.log('Agent tables not found')
+    console.error('Error initializing page:', error)
+    // Fall through to show coming soon page
     tablesExist = false
   }
 
-  // If tables don't exist, show coming soon page immediately
+  // If tables don't exist, show coming soon page
   if (!tablesExist) {
     return (
       <div className="min-h-screen bg-white flex items-center justify-center px-4">
@@ -66,78 +148,6 @@ export default async function FindAgentPage({ searchParams }: { searchParams: Se
         </div>
       </div>
     )
-  }
-
-  // Try to query agents
-  let agents: any[] = []
-  let totalAgents = 0
-  let verifiedCount = 0
-  let featuredCount = 0
-
-  try {
-    // Build query
-    let query = supabase
-      .from('agent_profiles')
-      .select(`
-        *,
-        agent_service_areas(city, is_primary),
-        agent_achievements(achievement_type),
-        profiles!agent_profiles_user_id_fkey(name, avatar_url)
-      `)
-      .eq('status', 'active')
-
-    // Apply filters
-    if (searchParams.type) {
-      query = query.eq('agent_type', searchParams.type)
-    }
-
-    if (searchParams.city) {
-      // Filter by service area
-      query = query.contains('service_areas', [searchParams.city])
-    }
-
-    if (searchParams.specialization) {
-      query = query.contains('specializations', [searchParams.specialization])
-    }
-
-    if (searchParams.verified === 'true') {
-    query = query.eq('verified', true)
-  }
-
-  if (searchParams.featured === 'true') {
-    query = query.eq('featured', true)
-  }
-
-  // Apply sorting
-  switch (searchParams.sort) {
-    case 'rating':
-      query = query.order('avg_rating', { ascending: false, nullsFirst: false })
-      break
-    case 'reviews':
-      query = query.order('total_reviews', { ascending: false })
-      break
-    case 'experience':
-      query = query.order('years_experience', { ascending: false, nullsFirst: false })
-      break
-    case 'newest':
-      query = query.order('created_at', { ascending: false })
-      break
-    default:
-      // Best match: featured first, then verified, then rating
-      query = query.order('featured', { ascending: false })
-        .order('verified', { ascending: false })
-        .order('avg_rating', { ascending: false, nullsFirst: false })
-  }
-
-    const { data } = await query.limit(50)
-    agents = data || []
-    totalAgents = agents.length
-    verifiedCount = agents.filter((a: any) => a.verified).length
-    featuredCount = agents.filter((a: any) => a.featured).length
-  } catch (error) {
-    // Query error - log and continue with empty results
-    console.error('Error fetching agents:', error)
-    agents = []
   }
 
   // Agent type icons
