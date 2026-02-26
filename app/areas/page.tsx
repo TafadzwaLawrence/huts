@@ -40,64 +40,64 @@ export default async function AreasPage() {
       <AreaSearchClient />
       <div className="min-h-screen bg-white">
         {/* Hero Section with Market Overview */}
-        <section className="relative bg-gradient-to-b from-[#F8F9FA] to-white border-b border-[#E9ECEF] py-12 md:py-16 overflow-hidden">
+        <section className="relative bg-[#212529] py-16 md:py-20 overflow-hidden">
           {/* Background Image */}
           <div className="absolute inset-0 z-0">
             <Image
               src="/pexels-davidmcbee-1546168.jpg"
               alt="Zimbabwe neighborhoods"
               fill
-              className="object-cover grayscale contrast-125 opacity-[0.15]"
+              className="object-cover opacity-20"
               priority
             />
-            {/* Dark Overlay for text readability */}
-            <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/70" />
+            {/* Subtle gradient overlay */}
+            <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/60" />
           </div>
 
           <div className="container-main max-w-7xl relative z-10">
             {/* Title */}
-            <div className="text-center mb-8">
-              <h1 className="text-4xl md:text-5xl font-bold text-white mb-4 tracking-tight drop-shadow-lg">
+            <div className="text-center mb-10">
+              <h1 className="text-4xl md:text-6xl font-bold text-white mb-4 tracking-tight">
                 Explore Neighborhoods
               </h1>
-              <p className="text-lg md:text-xl text-white/90 max-w-3xl mx-auto leading-relaxed drop-shadow-md">
+              <p className="text-base md:text-lg text-white/80 max-w-2xl mx-auto leading-relaxed">
                 Browse {totalProperties.toLocaleString()} properties across {activeAreas} neighborhoods. Find local insights, market trends, and your perfect area.
               </p>
             </div>
 
             {/* Market Stats */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8 max-w-4xl mx-auto">
-              <div className="bg-white/95 backdrop-blur-sm border-2 border-white/20 rounded-xl p-6 text-center hover:bg-white transition-all shadow-lg">
-                <div className="flex items-center justify-center gap-2 mb-2">
-                  <Grid3x3 size={24} className="text-[#212529]" />
-                  <span className="text-3xl font-bold text-[#212529]">{activeAreas}</span>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10 max-w-4xl mx-auto">
+              <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-5 text-center hover:bg-white/15 transition-all group">
+                <div className="flex items-center justify-center gap-2 mb-1.5">
+                  <Grid3x3 size={20} className="text-white/70 group-hover:text-white transition-colors" />
+                  <span className="text-3xl font-bold text-white">{activeAreas}</span>
                 </div>
-                <p className="text-sm text-[#ADB5BD] font-medium">Active Areas</p>
+                <p className="text-xs text-white/60 font-medium uppercase tracking-wider">Active Areas</p>
               </div>
-              <div className="bg-white/95 backdrop-blur-sm border-2 border-white/20 rounded-xl p-6 text-center hover:bg-white transition-all shadow-lg">
-                <div className="flex items-center justify-center gap-2 mb-2">
-                  <Home size={24} className="text-[#212529]" />
-                  <span className="text-3xl font-bold text-[#212529]">{totalProperties.toLocaleString()}</span>
+              <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-5 text-center hover:bg-white/15 transition-all group">
+                <div className="flex items-center justify-center gap-2 mb-1.5">
+                  <Home size={20} className="text-white/70 group-hover:text-white transition-colors" />
+                  <span className="text-3xl font-bold text-white">{totalProperties.toLocaleString()}</span>
                 </div>
-                <p className="text-sm text-[#ADB5BD] font-medium">Total Properties</p>
+                <p className="text-xs text-white/60 font-medium uppercase tracking-wider">Total Properties</p>
               </div>
-              <div className="bg-white/95 backdrop-blur-sm border-2 border-white/20 rounded-xl p-6 text-center hover:bg-white transition-all shadow-lg">
-                <div className="flex items-center justify-center gap-2 mb-2">
-                  <DollarSign size={24} className="text-[#212529]" />
-                  <span className="text-3xl font-bold text-[#212529]">
+              <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-5 text-center hover:bg-white/15 transition-all group">
+                <div className="flex items-center justify-center gap-2 mb-1.5">
+                  <DollarSign size={20} className="text-white/70 group-hover:text-white transition-colors" />
+                  <span className="text-3xl font-bold text-white">
                     ${Math.round(avgPriceOverall / 100).toLocaleString()}
                   </span>
                 </div>
-                <p className="text-sm text-[#ADB5BD] font-medium">Avg Monthly Rent</p>
+                <p className="text-xs text-white/60 font-medium uppercase tracking-wider">Avg Monthly Rent</p>
               </div>
             </div>
 
             {/* City Tabs */}
             {cities.length > 1 && (
-              <div className="flex flex-wrap justify-center gap-3 mb-6">
+              <div className="flex flex-wrap justify-center gap-2.5 mb-8">
                 <Link
                   href="/areas"
-                  className="px-6 py-2.5 bg-white text-[#212529] rounded-full font-medium text-sm hover:bg-white/90 transition-all shadow-md"
+                  className="px-5 py-2 bg-white text-[#212529] rounded-lg font-semibold text-sm hover:bg-white/90 hover:scale-105 transition-all shadow-lg"
                 >
                   All Cities
                 </Link>
@@ -105,7 +105,7 @@ export default async function AreasPage() {
                   <Link
                     key={city}
                     href={`/areas?city=${encodeURIComponent(city)}`}
-                    className="px-6 py-2.5 bg-white/20 backdrop-blur-sm border-2 border-white/30 text-white rounded-full font-medium text-sm hover:bg-white/30 transition-all"
+                    className="px-5 py-2 bg-white/10 backdrop-blur-md border border-white/30 text-white rounded-lg font-medium text-sm hover:bg-white/20 hover:border-white/50 transition-all"
                   >
                     {city}
                   </Link>
@@ -116,11 +116,11 @@ export default async function AreasPage() {
             {/* Search Bar */}
             <div className="max-w-2xl mx-auto">
               <div className="relative">
-                <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-[#ADB5BD]" size={20} />
+                <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-white/40" size={20} />
                 <input
                   type="text"
                   placeholder="Search neighborhoods by name or location..."
-                  className="w-full pl-12 pr-4 py-4 border-2 border-white/20 bg-white/95 backdrop-blur-sm rounded-xl text-[#212529] placeholder:text-[#ADB5BD] focus:outline-none focus:border-white focus:bg-white transition-all shadow-lg"
+                  className="w-full pl-12 pr-4 py-3.5 border border-white/20 bg-white/10 backdrop-blur-md rounded-xl text-white placeholder:text-white/40 focus:outline-none focus:border-white/50 focus:bg-white/15 transition-all"
                   id="area-search-input"
                 />
               </div>

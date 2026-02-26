@@ -78,7 +78,7 @@ export default function ContactSidebar({ propertyId, propertyTitle, landlord }: 
   }
 
   return (
-    <div className="sticky top-24 border border-[#E9ECEF] rounded-xl shadow-sm">
+    <div className="border border-[#E9ECEF] rounded-xl shadow-sm">
       {/* Landlord info header */}
       <div className="p-5 border-b border-[#E9ECEF]">
         <div className="flex items-center gap-3 mb-4">

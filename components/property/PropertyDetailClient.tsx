@@ -188,7 +188,7 @@ export default function PropertyDetailClient({ property, slug, currentUserId, ca
 
           {/* Right column: sticky sidebar (35%) */}
           <div className="lg:col-span-5 xl:col-span-4" ref={contactRef}>
-            <div className="space-y-4">
+            <div className="sticky top-20 space-y-4">
               {/* Agent card (if landlord is an agent) */}
               {agentProfile && (
                 <AgentCard
