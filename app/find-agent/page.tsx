@@ -30,14 +30,49 @@ interface SearchParams {
 const CITIES = ['Harare', 'Bulawayo', 'Chitungwiza', 'Mutare', 'Gweru', 'Kwekwe', 'Kadoma', 'Masvingo']
 
 export default async function FindAgentPage({ searchParams }: { searchParams: SearchParams }) {
+  // Check if agent tables exist first
   const supabase = await createClient()
+  
+  // Quick check if tables exist
+  let tablesExist = false
+  try {
+    const { error: checkError } = await supabase
+      .from('agent_profiles')
+      .select('id')
+      .limit(1)
+    
+    tablesExist = !checkError
+  } catch (error) {
+    console.log('Agent tables not found')
+    tablesExist = false
+  }
 
-  // Try to query agents - if tables don't exist, show coming soon page
+  // If tables don't exist, show coming soon page immediately
+  if (!tablesExist) {
+    return (
+      <div className="min-h-screen bg-white flex items-center justify-center px-4">
+        <div className="max-w-md text-center">
+          <Building2 size={64} className="mx-auto text-[#ADB5BD] mb-4" />
+          <h1 className="text-2xl font-bold text-[#212529] mb-2">Agent Marketplace Coming Soon</h1>
+          <p className="text-[#495057] mb-6">
+            We're building an amazing marketplace for real estate professionals. Check back soon!
+          </p>
+          <Link
+            href="/"
+            className="inline-block bg-[#212529] text-white px-6 py-3 rounded-lg hover:bg-black transition-colors"
+          >
+            Back to Home
+          </Link>
+        </div>
+      </div>
+    )
+  }
+
+  // Try to query agents
   let agents: any[] = []
   let totalAgents = 0
   let verifiedCount = 0
   let featuredCount = 0
-  let tablesExist = true
 
   try {
     // Build query
@@ -100,30 +135,9 @@ export default async function FindAgentPage({ searchParams }: { searchParams: Se
     verifiedCount = agents.filter((a: any) => a.verified).length
     featuredCount = agents.filter((a: any) => a.featured).length
   } catch (error) {
-    // Tables don't exist yet
-    console.log('Agent tables not found:', error)
-    tablesExist = false
-  }
-
-  // If tables don't exist, show coming soon page
-  if (!tablesExist) {
-    return (
-      <div className="min-h-screen bg-white flex items-center justify-center px-4">
-        <div className="max-w-md text-center">
-          <Building2 size={64} className="mx-auto text-[#ADB5BD] mb-4" />
-          <h1 className="text-2xl font-bold text-[#212529] mb-2">Agent Marketplace Coming Soon</h1>
-          <p className="text-[#495057] mb-6">
-            We're building an amazing marketplace for real estate professionals. Check back soon!
-          </p>
-          <Link
-            href="/"
-            className="inline-block bg-[#212529] text-white px-6 py-3 rounded-lg hover:bg-black transition-colors"
-          >
-            Back to Home
-          </Link>
-        </div>
-      </div>
-    )
+    // Query error - log and continue with empty results
+    console.error('Error fetching agents:', error)
+    agents = []
   }
 
   // Agent type icons
