@@ -12,6 +12,7 @@ import FloatingChatWidget from '@/components/chat/FloatingChatWidget'
 import { Toaster } from 'sonner'
 import { NProgressProvider } from '@/components/providers/NProgressProvider'
 import { createClient } from '@/lib/supabase/server'
+import ChunkLoadErrorHandler from '@/components/dashboard/ChunkLoadErrorHandler'
 
 const inter = Inter({ 
   subsets: ['latin'],
@@ -110,6 +111,9 @@ export default async function RootLayout({
       <body className={inter.className} suppressHydrationWarning>
         {/* JSON-LD Structured Data for Organization */}
         <OrganizationStructuredData />
+        
+        {/* Auto-reload on chunk load errors */}
+        <ChunkLoadErrorHandler />
         
         <Suspense fallback={null}>
           <NProgressProvider>

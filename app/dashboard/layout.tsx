@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
+import ChunkLoadErrorHandler from '@/components/dashboard/ChunkLoadErrorHandler'
 
 export const metadata: Metadata = {
   robots: { index: false, follow: false },
@@ -21,6 +22,7 @@ export default async function DashboardLayout({
 
   return (
     <div className="min-h-screen bg-[#F8F9FA]">
+      <ChunkLoadErrorHandler />
       {children}
     </div>
   )
