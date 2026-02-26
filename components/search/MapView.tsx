@@ -348,24 +348,24 @@ export default function MapView({ properties, schools = [], healthcareFacilities
 
       {/* Schools control overlay - positioned opposite zoom controls (top-right vs top-left zoom) */}
       <div className="absolute top-4 right-4 z-[400] pointer-events-auto">
-        <div className="bg-white rounded-lg shadow-lg border border-[#E9ECEF] overflow-hidden min-w-[200px]">
+        <div className="bg-white rounded-lg shadow-lg border border-[#E9ECEF] overflow-hidden min-w-[160px]">
           {/* Header */}
           <button
             onClick={() => setSchoolsControlExpanded(!schoolsControlExpanded)}
-            className="w-full px-4 py-3 flex items-center justify-between gap-3 hover:bg-[#F8F9FA] transition-colors"
+            className="w-full px-3 py-2 flex items-center justify-between gap-2 hover:bg-[#F8F9FA] transition-colors"
           >
-            <div className="flex items-center gap-2">
-              <span className="text-lg">🏫</span>
+            <div className="flex items-center gap-1.5">
+              <span className="text-base">🏫</span>
               <span className="text-sm font-semibold text-[#212529]">Schools</span>
               {isLoadingSchools && showSchools && (
-                <svg className="animate-spin h-3.5 w-3.5 text-[#495057]" fill="none" viewBox="0 0 24 24">
+                <svg className="animate-spin h-3 w-3 text-[#495057]" fill="none" viewBox="0 0 24 24">
                   <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                   <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                 </svg>
               )}
             </div>
             <svg
-              className={`w-4 h-4 text-[#495057] transition-transform ${schoolsControlExpanded ? 'rotate-180' : ''}`}
+              className={`w-3.5 h-3.5 text-[#495057] transition-transform ${schoolsControlExpanded ? 'rotate-180' : ''}`}
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -376,9 +376,9 @@ export default function MapView({ properties, schools = [], healthcareFacilities
 
           {/* Expanded content */}
           {schoolsControlExpanded && (
-            <div className="px-4 py-3 border-t border-[#E9ECEF] space-y-3">
+            <div className="px-3 py-2 border-t border-[#E9ECEF] space-y-2">
               {/* Main toggle */}
-              <label className="flex items-center gap-2.5 cursor-pointer">
+              <label className="flex items-center gap-2 cursor-pointer">
                 <input
                   type="checkbox"
                   checked={showSchools}
@@ -386,15 +386,15 @@ export default function MapView({ properties, schools = [], healthcareFacilities
                     const newShowSchools = e.target.checked
                     onSchoolFilterChange(newShowSchools, schoolLevels)
                   }}
-                  className="w-4 h-4 rounded border-[#E9ECEF] text-[#212529] focus:ring-[#212529] focus:ring-offset-0 cursor-pointer"
+                  className="w-3.5 h-3.5 rounded border-[#E9ECEF] text-[#212529] focus:ring-[#212529] focus:ring-offset-0 cursor-pointer"
                 />
-                <span className="text-sm text-[#212529] font-medium">Show on map</span>
+                <span className="text-xs text-[#212529] font-medium">Show on map</span>
               </label>
 
               {/* Level filters */}
               {showSchools && (
-                <div className="pt-2 border-t border-[#E9ECEF] space-y-2">
-                  <p className="text-xs font-medium text-[#495057] mb-1.5">School Level</p>
+                <div className="pt-1.5 border-t border-[#E9ECEF] space-y-1.5">
+                  <p className="text-[10px] font-semibold text-[#495057] uppercase tracking-wide mb-1">Level</p>
                   {[
                     { value: 'primary', label: 'Primary', emoji: '🏫' },
                     { value: 'secondary', label: 'Secondary', emoji: '🎓' },
@@ -404,7 +404,7 @@ export default function MapView({ properties, schools = [], healthcareFacilities
                     const currentLevels = schoolLevels.split(',').filter(Boolean)
                     const isChecked = currentLevels.includes(level.value)
                     return (
-                      <label key={level.value} className="flex items-center gap-2.5 cursor-pointer group">
+                      <label key={level.value} className="flex items-center gap-2 cursor-pointer group">
                         <input
                           type="checkbox"
                           checked={isChecked}
@@ -415,10 +415,10 @@ export default function MapView({ properties, schools = [], healthcareFacilities
                               : levels.filter((l) => l !== level.value)
                             onSchoolFilterChange(showSchools, newLevels.join(','))
                           }}
-                          className="w-4 h-4 rounded border-[#E9ECEF] text-[#212529] focus:ring-[#212529] focus:ring-offset-0 cursor-pointer"
+                          className="w-3.5 h-3.5 rounded border-[#E9ECEF] text-[#212529] focus:ring-[#212529] focus:ring-offset-0 cursor-pointer"
                         />
                         <span className="text-xs">{level.emoji}</span>
-                        <span className="text-sm text-[#495057] group-hover:text-[#212529] transition-colors">{level.label}</span>
+                        <span className="text-xs text-[#495057] group-hover:text-[#212529] transition-colors">{level.label}</span>
                       </label>
                     )
                   })}
