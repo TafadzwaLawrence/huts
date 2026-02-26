@@ -1,7 +1,7 @@
 import { Metadata } from 'next'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/server'
-import { MapPin, ArrowRight, TrendingUp, Search } from 'lucide-react'
+import { MapPin, ArrowRight, TrendingUp, Search, Home, DollarSign } from 'lucide-react'
 import AreaSearchClient from '@/components/areas/AreaSearchClient'
 
 export const metadata: Metadata = {
