@@ -27,6 +27,7 @@ interface Property {
 interface MapViewProps {
   properties: Property[]
   schools?: any[]
+  healthcareFacilities?: any[]
   selectedProperty: string | null
   onPropertySelect: (id: string | null) => void
   onBoundsChange?: (bounds: { north: number; south: number; east: number; west: number }) => void
@@ -49,11 +50,12 @@ function formatMarkerPrice(cents: number, isSale: boolean): string {
   return `$${Math.round(dollars)}`
 }
 
-export default function MapView({ properties, schools = [], selectedProperty, onPropertySelect, onBoundsChange, showSchools, schoolLevels, onSchoolFilterChange }: MapViewProps) {
+export default function MapView({ properties, schools = [], healthcareFacilities = [], selectedProperty, onPropertySelect, onBoundsChange, showSchools, schoolLevels, onSchoolFilterChange }: MapViewProps) {
   const mapRef = useRef<L.Map | null>(null)
   const mapContainerRef = useRef<HTMLDivElement>(null)
   const markersRef = useRef<{ [key: string]: L.Marker }>({})
   const schoolMarkersRef = useRef<{ [key: string]: L.Marker }>({})
+  const healthcareMarkersRef = useRef<{ [key: string]: L.Marker }>({})
   const clusterGroupRef = useRef<L.MarkerClusterGroup | null>(null)
   const [showZoomHint, setShowZoomHint] = useState(false)
   const [schoolsControlExpanded, setSchoolsControlExpanded] = useState(showSchools)
@@ -279,6 +281,57 @@ export default function MapView({ properties, schools = [], selectedProperty, on
       setTimeout(() => setIsLoadingSchools(false), 300)
     })
   }, [schools])
+
+  // Update healthcare markers when facilities change
+  useEffect(() => {
+    if (!mapRef.current) return
+    const map = mapRef.current
+
+    // Clear previous healthcare markers
+    Object.values(healthcareMarkersRef.current).forEach(marker => marker.remove())
+    healthcareMarkersRef.current = {}
+
+    if (!healthcareFacilities || healthcareFacilities.length === 0) return
+
+    healthcareFacilities.forEach((facility) => {
+      // Healthcare icon - red cross
+      const icon = L.divIcon({
+        className: 'healthcare-marker',
+        html: `
+          <div style="
+            width: 24px;
+            height: 24px;
+            background: #EF4444;
+            border: 2px solid #B91C1C;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+          ">
+            <span style="color: white; font-weight: bold;">+</span>
+          </div>
+        `,
+        iconSize: [24, 24],
+        iconAnchor: [12, 12],
+      })
+
+      const marker = L.marker([facility.latitude, facility.longitude], { icon })
+
+      marker.bindPopup(`
+        <div class="p-2 min-w-[200px]">
+          <div class="font-bold text-[#212529] mb-1">${facility.name}</div>
+          <div class="text-xs text-[#495057] mb-2">${facility.facility_type || 'Healthcare Facility'}</div>
+          <div class="text-xs text-[#495057] mb-1">${facility.district}, ${facility.province}</div>
+          ${facility.year_built && facility.year_built > 0 ? `<div class="text-xs text-[#495057]">Built: ${facility.year_built}</div>` : ''}
+        </div>
+      `, { maxWidth: 240, className: 'custom-popup' })
+
+      marker.addTo(map)
+      healthcareMarkersRef.current[facility.id] = marker
+    })
+  }, [healthcareFacilities])
 
   return (
     <>

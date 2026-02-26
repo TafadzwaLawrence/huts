@@ -31,6 +31,7 @@ interface Property {
 const MapView = dynamic<{
   properties: (Property & { lat: number; lng: number })[]
   schools?: any[]
+  healthcareFacilities?: any[]
   selectedProperty: string | null
   onPropertySelect: (id: string | null) => void
   onBoundsChange?: (bounds: { north: number; south: number; east: number; west: number }) => void
@@ -78,6 +79,7 @@ export default function SearchPage() {
   const [sort, setSort] = useState(searchParams.get('sort') || 'newest')
   const [properties, setProperties] = useState<Property[]>([])
   const [schools, setSchools] = useState<any[]>([])
+  const [healthcareFacilities, setHealthcareFacilities] = useState<any[]>([])
   const [total, setTotal] = useState(0)
   const [page, setPage] = useState(1)
   const [totalPages, setTotalPages] = useState(1)
@@ -171,6 +173,30 @@ export default function SearchPage() {
     }
   }, [filters.showSchools, filters.schoolLevels, debouncedBounds, searchParams])
 
+  // Fetch healthcare facilities within map bounds (always shown)
+  const fetchHealthcare = useCallback(async () => {
+    if (!debouncedBounds) {
+      setHealthcareFacilities([])
+      return
+    }
+
+    try {
+      const params = new URLSearchParams()
+      params.set('north', debouncedBounds.north.toString())
+      params.set('south', debouncedBounds.south.toString())
+      params.set('east', debouncedBounds.east.toString())
+      params.set('west', debouncedBounds.west.toString())
+
+      const res = await fetch(`/api/healthcare?${params.toString()}`)
+      if (!res.ok) throw new Error('Failed to fetch healthcare facilities')
+      const data = await res.json()
+      setHealthcareFacilities(data.facilities || [])
+    } catch (err) {
+      console.error('Healthcare fetch error:', err)
+      setHealthcareFacilities([])
+    }
+  }, [debouncedBounds])
+
   // Fetch on filter/sort/page change
   useEffect(() => {
     fetchProperties()
@@ -180,6 +206,11 @@ export default function SearchPage() {
   useEffect(() => {
     fetchSchools()
   }, [fetchSchools])
+
+  // Fetch healthcare facilities when bounds change
+  useEffect(() => {
+    fetchHealthcare()
+  }, [fetchHealthcare])
 
   // Sync state to URL
   useEffect(() => {
@@ -337,6 +368,7 @@ export default function SearchPage() {
             <MapView
               properties={mappableProperties}
               schools={schools}
+              healthcareFacilities={healthcareFacilities}
               selectedProperty={selectedProperty}
               onPropertySelect={setSelectedProperty}
               onBoundsChange={handleBoundsChange}
