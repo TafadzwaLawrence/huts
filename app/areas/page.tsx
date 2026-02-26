@@ -1,8 +1,7 @@
 import { Metadata } from 'next'
 import Link from 'next/link'
-import Image from 'next/image'
 import { createClient } from '@/lib/supabase/server'
-import { MapPin, Home, DollarSign, ArrowRight, TrendingUp, Search, Grid3x3 } from 'lucide-react'
+import { MapPin, ArrowRight, TrendingUp, Search } from 'lucide-react'
 import AreaSearchClient from '@/components/areas/AreaSearchClient'
 
 export const metadata: Metadata = {
@@ -39,65 +38,38 @@ export default async function AreasPage() {
     <>
       <AreaSearchClient />
       <div className="min-h-screen bg-white">
-        {/* Hero Section with Market Overview */}
-        <section className="relative bg-[#212529] py-16 md:py-20 overflow-hidden">
-          {/* Background Image */}
-          <div className="absolute inset-0 z-0">
-            <Image
-              src="/pexels-davidmcbee-1546168.jpg"
-              alt="Zimbabwe neighborhoods"
-              fill
-              className="object-cover opacity-20"
-              priority
-            />
-            {/* Subtle gradient overlay */}
-            <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/60" />
-          </div>
-
-          <div className="container-main max-w-7xl relative z-10">
+        {/* Hero Section - Zillow Style */}
+        <section className="bg-white border-b border-[#E9ECEF]">
+          <div className="container-main max-w-7xl py-8 md:py-12">
             {/* Title */}
-            <div className="text-center mb-10">
-              <h1 className="text-4xl md:text-6xl font-bold text-white mb-4 tracking-tight">
+            <div className="mb-6">
+              <h1 className="text-3xl md:text-4xl font-bold text-[#212529] mb-3">
                 Explore Neighborhoods
               </h1>
-              <p className="text-base md:text-lg text-white/80 max-w-2xl mx-auto leading-relaxed">
+              <p className="text-base text-[#495057] max-w-2xl">
                 Browse {totalProperties.toLocaleString()} properties across {activeAreas} neighborhoods. Find local insights, market trends, and your perfect area.
               </p>
             </div>
 
-            {/* Market Stats */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10 max-w-4xl mx-auto">
-              <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-5 text-center hover:bg-white/15 transition-all group">
-                <div className="flex items-center justify-center gap-2 mb-1.5">
-                  <Grid3x3 size={20} className="text-white/70 group-hover:text-white transition-colors" />
-                  <span className="text-3xl font-bold text-white">{activeAreas}</span>
-                </div>
-                <p className="text-xs text-white/60 font-medium uppercase tracking-wider">Active Areas</p>
-              </div>
-              <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-5 text-center hover:bg-white/15 transition-all group">
-                <div className="flex items-center justify-center gap-2 mb-1.5">
-                  <Home size={20} className="text-white/70 group-hover:text-white transition-colors" />
-                  <span className="text-3xl font-bold text-white">{totalProperties.toLocaleString()}</span>
-                </div>
-                <p className="text-xs text-white/60 font-medium uppercase tracking-wider">Total Properties</p>
-              </div>
-              <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-5 text-center hover:bg-white/15 transition-all group">
-                <div className="flex items-center justify-center gap-2 mb-1.5">
-                  <DollarSign size={20} className="text-white/70 group-hover:text-white transition-colors" />
-                  <span className="text-3xl font-bold text-white">
-                    ${Math.round(avgPriceOverall / 100).toLocaleString()}
-                  </span>
-                </div>
-                <p className="text-xs text-white/60 font-medium uppercase tracking-wider">Avg Monthly Rent</p>
+            {/* Search Bar */}
+            <div className="max-w-2xl mb-8">
+              <div className="relative">
+                <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-[#ADB5BD]" size={20} />
+                <input
+                  type="text"
+                  placeholder="Search neighborhoods by name or location..."
+                  className="w-full pl-12 pr-4 py-3.5 border-2 border-[#E9ECEF] rounded-lg text-[#212529] placeholder:text-[#ADB5BD] focus:outline-none focus:border-[#212529] transition-all"
+                  id="area-search-input"
+                />
               </div>
             </div>
 
             {/* City Tabs */}
             {cities.length > 1 && (
-              <div className="flex flex-wrap justify-center gap-2.5 mb-8">
+              <div className="flex flex-wrap gap-2 mb-6 border-b border-[#E9ECEF] pb-4">
                 <Link
                   href="/areas"
-                  className="px-5 py-2 bg-white text-[#212529] rounded-lg font-semibold text-sm hover:bg-white/90 hover:scale-105 transition-all shadow-lg"
+                  className="px-4 py-2 bg-[#212529] text-white rounded-lg font-medium text-sm hover:bg-black transition-colors"
                 >
                   All Cities
                 </Link>
@@ -105,7 +77,7 @@ export default async function AreasPage() {
                   <Link
                     key={city}
                     href={`/areas?city=${encodeURIComponent(city)}`}
-                    className="px-5 py-2 bg-white/10 backdrop-blur-md border border-white/30 text-white rounded-lg font-medium text-sm hover:bg-white/20 hover:border-white/50 transition-all"
+                    className="px-4 py-2 bg-white border border-[#E9ECEF] text-[#495057] rounded-lg font-medium text-sm hover:border-[#212529] hover:text-[#212529] transition-all"
                   >
                     {city}
                   </Link>
@@ -113,16 +85,21 @@ export default async function AreasPage() {
               </div>
             )}
 
-            {/* Search Bar */}
-            <div className="max-w-2xl mx-auto">
-              <div className="relative">
-                <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-white/40" size={20} />
-                <input
-                  type="text"
-                  placeholder="Search neighborhoods by name or location..."
-                  className="w-full pl-12 pr-4 py-3.5 border border-white/20 bg-white/10 backdrop-blur-md rounded-xl text-white placeholder:text-white/40 focus:outline-none focus:border-white/50 focus:bg-white/15 transition-all"
-                  id="area-search-input"
-                />
+            {/* Market Stats */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="bg-white border border-[#E9ECEF] rounded-lg p-6 hover:border-[#212529] transition-all">
+                <p className="text-3xl font-bold text-[#212529] mb-1">{activeAreas}</p>
+                <p className="text-sm text-[#495057]">Active Areas</p>
+              </div>
+              <div className="bg-white border border-[#E9ECEF] rounded-lg p-6 hover:border-[#212529] transition-all">
+                <p className="text-3xl font-bold text-[#212529] mb-1">{totalProperties.toLocaleString()}</p>
+                <p className="text-sm text-[#495057]">Total Properties</p>
+              </div>
+              <div className="bg-white border border-[#E9ECEF] rounded-lg p-6 hover:border-[#212529] transition-all">
+                <p className="text-3xl font-bold text-[#212529] mb-1">
+                  ${Math.round(avgPriceOverall / 100).toLocaleString()}
+                </p>
+                <p className="text-sm text-[#495057]">Avg Monthly Rent</p>
               </div>
             </div>
           </div>
