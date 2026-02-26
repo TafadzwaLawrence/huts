@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { Menu, X, Search, MapPin, Home, Heart, User, PlusCircle, LogOut, ChevronRight, Key, Bell, HelpCircle, Shield, Building2, Activity } from 'lucide-react'
+import { Menu, X, Search, MapPin, Home, Heart, User, PlusCircle, LogOut, ChevronRight, Key, Bell, HelpCircle, Shield, Building2 } from 'lucide-react'
 
 interface MobileMenuProps {
   isLoggedIn: boolean
@@ -35,7 +35,6 @@ export function MobileMenu({ isLoggedIn, userName, userEmail, userAvatar, userIn
     { href: '/search?type=rent', label: 'For Rent', icon: Key, desc: 'Monthly rentals' },
     { href: '/search?type=sale', label: 'For Sale', icon: Building2, desc: 'Homes to buy' },
     { href: '/areas', label: 'Areas', icon: MapPin, desc: 'Neighborhoods' },
-    { href: '/healthcare', label: 'Healthcare', icon: Activity, desc: 'Health facilities' },
   ]
 
   const agentLinks = [
