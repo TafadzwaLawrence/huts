@@ -60,6 +60,9 @@ export default function MapView({ properties, schools = [], healthcareFacilities
   const [showZoomHint, setShowZoomHint] = useState(false)
   const [schoolsControlExpanded, setSchoolsControlExpanded] = useState(showSchools)
   const [isLoadingSchools, setIsLoadingSchools] = useState(false)
+  const [isLocating, setIsLocating] = useState(false)
+  const userLocationCircleRef = useRef<L.CircleMarker | null>(null)
+  const userLocationPulseRef = useRef<L.CircleMarker | null>(null)
   const hasFittedBoundsRef = useRef(false)
   const isUserInteractingRef = useRef(false)
   // Store callbacks in refs so the map init effect never re-runs
@@ -67,6 +70,56 @@ export default function MapView({ properties, schools = [], healthcareFacilities
   onBoundsChangeRef.current = onBoundsChange
   const onPropertySelectRef = useRef(onPropertySelect)
   onPropertySelectRef.current = onPropertySelect
+
+  // Get user's live location
+  const getUserLocation = () => {
+    if (!navigator.geolocation) {
+      alert('Geolocation is not supported by your browser')
+      return
+    }
+
+    setIsLocating(true)
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const { latitude, longitude } = position.coords
+        const map = mapRef.current
+        if (!map) { setIsLocating(false); return }
+
+        // Remove previous location markers
+        if (userLocationCircleRef.current) userLocationCircleRef.current.remove()
+        if (userLocationPulseRef.current) userLocationPulseRef.current.remove()
+
+        // Add pulse ring
+        userLocationPulseRef.current = L.circleMarker([latitude, longitude], {
+          radius: 18,
+          fillColor: '#3B82F6',
+          fillOpacity: 0.15,
+          color: '#3B82F6',
+          weight: 1,
+          opacity: 0.3,
+        }).addTo(map)
+
+        // Add solid dot
+        userLocationCircleRef.current = L.circleMarker([latitude, longitude], {
+          radius: 7,
+          fillColor: '#3B82F6',
+          fillOpacity: 1,
+          color: '#FFFFFF',
+          weight: 2,
+          opacity: 1,
+        }).addTo(map)
+
+        map.setView([latitude, longitude], 14)
+        setIsLocating(false)
+      },
+      (error) => {
+        console.error('Geolocation error:', error)
+        alert('Unable to get your location. Please check your browser permissions.')
+        setIsLocating(false)
+      },
+      { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+    )
+  }
 
   // Initialize map — runs once, never re-creates
   useEffect(() => {
@@ -345,6 +398,26 @@ export default function MapView({ properties, schools = [], healthcareFacilities
           <p className="text-xs text-[#495057] mt-1">Or adjust your filters</p>
         </div>
       )}
+
+      {/* Live location button */}
+      <button
+        onClick={getUserLocation}
+        disabled={isLocating}
+        title="Go to my location"
+        className="absolute bottom-6 right-4 z-[400] w-9 h-9 bg-white rounded-lg shadow-lg border border-[#E9ECEF] flex items-center justify-center hover:bg-[#F8F9FA] transition-colors cursor-pointer disabled:opacity-50"
+      >
+        {isLocating ? (
+          <svg className="animate-spin h-4 w-4 text-[#495057]" fill="none" viewBox="0 0 24 24">
+            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+          </svg>
+        ) : (
+          <svg className="h-4 w-4 text-[#495057]" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M12 12m-3 0a3 3 0 1 0 6 0a3 3 0 1 0-6 0" />
+            <path strokeLinecap="round" strokeLinejoin="round" d="M12 2v3m0 14v3m10-10h-3M5 12H2" />
+          </svg>
+        )}
+      </button>
 
       {/* Schools control overlay - positioned opposite zoom controls (top-right vs top-left zoom) */}
       <div className="absolute top-4 right-4 z-[400] pointer-events-auto">
