@@ -169,31 +169,31 @@ export default function MyPropertiesList({ properties }: { properties: PropertyW
 
   if (properties.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center py-20">
-        <div className="w-20 h-20 bg-[#F8F9FA] rounded-2xl flex items-center justify-center mb-6 border border-[#E9ECEF]">
-          <Building2 size={ICON_SIZES['2xl']} className="text-[#ADB5BD]" />
+      <div className="flex flex-col items-center justify-center py-16">
+        <div className="w-16 h-16 bg-[#F8F9FA] rounded-lg flex items-center justify-center mb-4 border border-[#E9ECEF]">
+          <Building2 size={32} className="text-[#ADB5BD]" />
         </div>
-        <h2 className="text-2xl font-bold text-[#212529] mb-2">No properties yet</h2>
-        <p className="text-[#495057] mb-8 max-w-sm text-center">
-          Start earning by listing your first property. It only takes a few minutes.
+        <h2 className="text-xl font-bold text-[#212529] mb-2">No properties yet</h2>
+        <p className="text-sm text-[#495057] mb-6 max-w-sm text-center">
+          List your first property to get started.
         </p>
         <Link
           href="/dashboard/new-property"
-          className="inline-flex items-center gap-2 bg-[#212529] text-white px-8 py-3.5 rounded-xl font-semibold hover:bg-black hover:shadow-lg hover:-translate-y-0.5 transition-all"
+          className="inline-flex items-center gap-2 bg-[#212529] text-white px-6 py-2.5 rounded-lg font-semibold hover:bg-black transition-colors"
         >
-          <Sparkles size={ICON_SIZES.lg} />
-          List Your First Property
+          <Sparkles size={20} />
+          List property
         </Link>
       </div>
     )
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-5">
       {/* Page Header */}
-      <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3">
         <div>
-          <h1 className="text-2xl font-bold text-[#212529]">My Properties</h1>
+          <h1 className="text-2xl font-bold text-[#212529]">My properties</h1>
           <p className="text-sm text-[#495057] mt-1">
             {stats.total} {stats.total === 1 ? 'property' : 'properties'} &middot; {stats.active} active
           </p>
@@ -202,14 +202,14 @@ export default function MyPropertiesList({ properties }: { properties: PropertyW
 
       {/* Pending Verification Banner */}
       {stats.pending > 0 && (
-        <div className="bg-[#fff8e1] border border-[#ffc107]/40 rounded-xl px-5 py-4 flex items-start sm:items-center gap-3">
-          <ShieldAlert size={ICON_SIZES.lg} className="text-[#f59f00] flex-shrink-0 mt-0.5 sm:mt-0" />
+        <div className="bg-[#fff8e1] border border-[#ffc107]/30 rounded-lg px-4 py-3 flex items-start sm:items-center gap-3">
+          <ShieldAlert size={20} className="text-[#f59f00] flex-shrink-0" />
           <div className="flex-1 min-w-0">
             <p className="text-sm font-semibold text-[#212529]">
               {stats.pending} {stats.pending === 1 ? 'property' : 'properties'} pending verification
             </p>
             <p className="text-xs text-[#495057] mt-0.5">
-              Our team is reviewing your listing. This usually takes less than 24 hours.
+              Usually reviewed within 24 hours.
             </p>
           </div>
         </div>
@@ -217,46 +217,38 @@ export default function MyPropertiesList({ properties }: { properties: PropertyW
 
       {/* Stats Row */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-        <div className="bg-white rounded-xl border border-[#E9ECEF] p-4 hover:border-[#ADB5BD] transition-colors">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-[#F8F9FA] rounded-lg flex items-center justify-center flex-shrink-0">
-              <Eye size={ICON_SIZES.lg} className="text-[#212529]" />
-            </div>
+        <div className="bg-white rounded-lg border border-[#E9ECEF] p-4 hover:border-[#495057] transition-colors">
+          <div className="flex items-center gap-2">
+            <Eye size={18} className="text-[#495057]" />
             <div className="min-w-0">
-              <p className="text-xl font-bold text-[#212529] tabular-nums">{stats.totalViews.toLocaleString()}</p>
-              <p className="text-xs text-[#495057]">Total views</p>
+              <p className="text-lg font-bold text-[#212529] tabular-nums">{stats.totalViews.toLocaleString()}</p>
+              <p className="text-xs text-[#495057]">Views</p>
             </div>
           </div>
         </div>
-        <div className="bg-white rounded-xl border border-[#E9ECEF] p-4 hover:border-[#ADB5BD] transition-colors">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-[#F8F9FA] rounded-lg flex items-center justify-center flex-shrink-0">
-              <Heart size={ICON_SIZES.lg} className="text-[#212529]" />
-            </div>
+        <div className="bg-white rounded-lg border border-[#E9ECEF] p-4 hover:border-[#495057] transition-colors">
+          <div className="flex items-center gap-2">
+            <Heart size={18} className="text-[#495057]" />
             <div className="min-w-0">
-              <p className="text-xl font-bold text-[#212529] tabular-nums">{stats.totalSaves.toLocaleString()}</p>
+              <p className="text-lg font-bold text-[#212529] tabular-nums">{stats.totalSaves.toLocaleString()}</p>
               <p className="text-xs text-[#495057]">Saves</p>
             </div>
           </div>
         </div>
-        <div className="bg-white rounded-xl border border-[#E9ECEF] p-4 hover:border-[#ADB5BD] transition-colors">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-[#F8F9FA] rounded-lg flex items-center justify-center flex-shrink-0">
-              <MessageSquare size={ICON_SIZES.lg} className="text-[#212529]" />
-            </div>
+        <div className="bg-white rounded-lg border border-[#E9ECEF] p-4 hover:border-[#495057] transition-colors">
+          <div className="flex items-center gap-2">
+            <MessageSquare size={18} className="text-[#495057]" />
             <div className="min-w-0">
-              <p className="text-xl font-bold text-[#212529] tabular-nums">{stats.totalInquiries}</p>
+              <p className="text-lg font-bold text-[#212529] tabular-nums">{stats.totalInquiries}</p>
               <p className="text-xs text-[#495057]">Inquiries</p>
             </div>
           </div>
         </div>
-        <div className="bg-white rounded-xl border border-[#E9ECEF] p-4 hover:border-[#ADB5BD] transition-colors">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-[#F8F9FA] rounded-lg flex items-center justify-center flex-shrink-0">
-              <BarChart3 size={ICON_SIZES.lg} className="text-[#212529]" />
-            </div>
+        <div className="bg-white rounded-lg border border-[#E9ECEF] p-4 hover:border-[#495057] transition-colors">
+          <div className="flex items-center gap-2">
+            <BarChart3 size={18} className="text-[#495057]" />
             <div className="min-w-0">
-              <p className="text-xl font-bold text-[#212529] tabular-nums">
+              <p className="text-lg font-bold text-[#212529] tabular-nums">
                 {stats.totalViews > 0 ? `${((stats.totalInquiries / stats.totalViews) * 100).toFixed(1)}%` : '—'}
               </p>
               <p className="text-xs text-[#495057]">Conversion</p>
@@ -266,7 +258,7 @@ export default function MyPropertiesList({ properties }: { properties: PropertyW
       </div>
 
       {/* Toolbar — Search + Filters + Sort */}
-      <div className="bg-white rounded-xl border border-[#E9ECEF] p-3 space-y-3">
+      <div className="bg-white rounded-lg border border-[#E9ECEF] p-3 space-y-3">
         {/* Search */}
         <div className="relative">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-[#ADB5BD]" />
@@ -274,24 +266,24 @@ export default function MyPropertiesList({ properties }: { properties: PropertyW
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search by title, city, or neighborhood..."
-            className="w-full pl-9 pr-4 py-2.5 text-sm text-[#212529] bg-[#F8F9FA] border border-[#E9ECEF] rounded-lg placeholder:text-[#ADB5BD] focus:border-[#212529] focus:outline-none focus:bg-white transition-colors"
+            placeholder="Search properties..."
+            className="w-full pl-9 pr-4 py-2 text-sm text-[#212529] bg-[#F8F9FA] border border-[#E9ECEF] rounded-lg placeholder:text-[#ADB5BD] focus:border-[#495057] focus:outline-none focus:bg-white transition-colors"
           />
         </div>
 
         {/* Filters row */}
-        <div className="flex flex-col sm:flex-row sm:items-center gap-3">
+        <div className="flex flex-col sm:flex-row sm:items-center gap-2">
           <div className="flex flex-wrap items-center gap-2 flex-1">
             {/* Type pills */}
-            <div className="flex items-center bg-[#F8F9FA] rounded-lg p-0.5 border border-[#E9ECEF]">
+            <div className="flex items-center bg-[#F8F9FA] rounded-lg p-0.5">
               {(['all', 'rent', 'sale'] as TypeFilter[]).map(t => (
                 <button
                   key={t}
                   onClick={() => setTypeFilter(t)}
-                  className={`px-3 py-1.5 rounded-md text-xs font-semibold transition-all ${
+                  className={`px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${
                     typeFilter === t 
-                      ? 'bg-[#212529] text-white shadow-sm' 
-                      : 'text-[#212529] hover:bg-white'
+                      ? 'bg-[#212529] text-white' 
+                      : 'text-[#495057] hover:text-[#212529]'
                   }`}
                 >
                   {t === 'all' ? 'All' : t === 'rent' ? `Rent (${stats.rent})` : `Sale (${stats.sale})`}
@@ -300,19 +292,19 @@ export default function MyPropertiesList({ properties }: { properties: PropertyW
             </div>
 
             {/* Status pills */}
-            <div className="flex items-center bg-[#F8F9FA] rounded-lg p-0.5 border border-[#E9ECEF]">
+            <div className="flex items-center bg-[#F8F9FA] rounded-lg p-0.5">
               {(['all', 'active', 'inactive'] as StatusFilter[]).map(s => (
                 <button
                   key={s}
                   onClick={() => setStatusFilter(s)}
-                  className={`px-3 py-1.5 rounded-md text-xs font-semibold transition-all flex items-center gap-1 ${
+                  className={`px-3 py-1.5 rounded-md text-xs font-medium transition-colors flex items-center gap-1 ${
                     statusFilter === s 
-                      ? 'bg-[#212529] text-white shadow-sm' 
-                      : 'text-[#212529] hover:bg-white'
+                      ? 'bg-[#212529] text-white' 
+                      : 'text-[#495057] hover:text-[#212529]'
                   }`}
                 >
-                  {s === 'active' && <CheckCircle2 size={ICON_SIZES.xs} />}
-                  {s === 'inactive' && <Clock size={ICON_SIZES.xs} />}
+                  {s === 'active' && <CheckCircle2 size={12} />}
+                  {s === 'inactive' && <Clock size={12} />}
                   {s === 'all' ? 'All' : s === 'active' ? `Active (${stats.active})` : `Inactive (${stats.inactive})`}
                 </button>
               ))}
@@ -320,7 +312,7 @@ export default function MyPropertiesList({ properties }: { properties: PropertyW
 
             {/* Verification pills */}
             {(stats.pending > 0 || stats.rejected > 0) && (
-              <div className="flex items-center bg-[#F8F9FA] rounded-lg p-0.5 border border-[#E9ECEF]">
+              <div className="flex items-center bg-[#F8F9FA] rounded-lg p-0.5">
                 {(['all', 'pending', 'approved', 'rejected'] as VerificationFilter[]).map(v => {
                   const count = v === 'pending' ? stats.pending : v === 'approved' ? stats.verified : v === 'rejected' ? stats.rejected : stats.total
                   if (v !== 'all' && count === 0) return null
@@ -328,15 +320,15 @@ export default function MyPropertiesList({ properties }: { properties: PropertyW
                     <button
                       key={v}
                       onClick={() => setVerificationFilter(v)}
-                      className={`px-3 py-1.5 rounded-md text-xs font-semibold transition-all flex items-center gap-1 ${
+                      className={`px-3 py-1.5 rounded-md text-xs font-medium transition-colors flex items-center gap-1 ${
                         verificationFilter === v 
-                          ? 'bg-[#212529] text-white shadow-sm' 
-                          : 'text-[#212529] hover:bg-white'
+                          ? 'bg-[#212529] text-white' 
+                          : 'text-[#495057] hover:text-[#212529]'
                       }`}
                     >
-                      {v === 'pending' && <ShieldAlert size={ICON_SIZES.xs} />}
-                      {v === 'approved' && <ShieldCheck size={ICON_SIZES.xs} />}
-                      {v === 'rejected' && <ShieldX size={ICON_SIZES.xs} />}
+                      {v === 'pending' && <ShieldAlert size={12} />}
+                      {v === 'approved' && <ShieldCheck size={12} />}
+                      {v === 'rejected' && <ShieldX size={12} />}
                       {v === 'all' ? 'All' : `${v.charAt(0).toUpperCase() + v.slice(1)} (${count})`}
                     </button>
                   )
@@ -350,7 +342,7 @@ export default function MyPropertiesList({ properties }: { properties: PropertyW
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value as SortOption)}
-              className="appearance-none pl-3 pr-8 py-2 bg-[#F8F9FA] border border-[#E9ECEF] rounded-lg text-xs font-semibold text-[#212529] hover:border-[#ADB5BD] focus:border-[#212529] focus:outline-none transition-all cursor-pointer"
+              className="appearance-none pl-3 pr-8 py-2 bg-white border border-[#E9ECEF] rounded-lg text-xs font-medium text-[#495057] hover:border-[#495057] focus:border-[#212529] focus:outline-none transition-colors cursor-pointer"
             >
               <option value="newest">Newest</option>
               <option value="oldest">Oldest</option>
@@ -359,7 +351,7 @@ export default function MyPropertiesList({ properties }: { properties: PropertyW
               <option value="price-high">Price high</option>
               <option value="price-low">Price low</option>
             </select>
-            <ArrowUpDown size={ICON_SIZES.xs} className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[#495057] pointer-events-none" />
+            <ArrowUpDown size={12} className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[#495057] pointer-events-none" />
           </div>
         </div>
       </div>
@@ -373,12 +365,12 @@ export default function MyPropertiesList({ properties }: { properties: PropertyW
 
       {/* Property List */}
       {filteredProperties.length === 0 ? (
-        <div className="bg-white rounded-xl border border-[#E9ECEF] p-12 text-center">
-          <div className="w-16 h-16 bg-[#F8F9FA] rounded-full flex items-center justify-center mx-auto mb-4">
-            <Filter size={ICON_SIZES.xl} className="text-[#ADB5BD]" />
+        <div className="bg-white rounded-lg border border-[#E9ECEF] p-10 text-center">
+          <div className="w-14 h-14 bg-[#F8F9FA] rounded-lg flex items-center justify-center mx-auto mb-3">
+            <Filter size={28} className="text-[#ADB5BD]" />
           </div>
-          <h3 className="text-base font-semibold text-[#212529] mb-1">No properties match</h3>
-          <p className="text-sm text-[#495057] mb-4">Try adjusting your filters or search</p>
+          <h3 className="text-base font-semibold text-[#212529] mb-1">No matches</h3>
+          <p className="text-sm text-[#495057] mb-4">Try adjusting your filters</p>
           <button
             onClick={() => {
               setStatusFilter('all')
@@ -386,9 +378,9 @@ export default function MyPropertiesList({ properties }: { properties: PropertyW
               setVerificationFilter('all')
               setSearchQuery('')
             }}
-            className="text-sm font-semibold text-[#212529] underline underline-offset-4 hover:text-black"
+            className="text-sm font-medium text-[#212529] hover:underline"
           >
-            Clear all filters
+            Clear filters
           </button>
         </div>
       ) : (
@@ -406,8 +398,8 @@ export default function MyPropertiesList({ properties }: { properties: PropertyW
             return (
               <div
                 key={property.id}
-                className={`group bg-white rounded-xl border overflow-hidden transition-all duration-200 hover:shadow-md ${
-                  isPending ? 'border-[#ffc107]/50' : isRejected ? 'border-[#FF6B6B]/40' : 'border-[#E9ECEF] hover:border-[#212529]'
+                className={`group bg-white rounded-lg border overflow-hidden transition-colors ${
+                  isPending ? 'border-[#ffc107]/40' : isRejected ? 'border-[#FF6B6B]/30' : 'border-[#E9ECEF] hover:border-[#495057]'
                 }`}
               >
                 <div className="flex flex-col sm:flex-row">
@@ -428,8 +420,8 @@ export default function MyPropertiesList({ properties }: { properties: PropertyW
                       </div>
                     )}
                     {/* Top-left badges */}
-                    <div className="absolute top-3 left-3 flex items-center gap-1.5">
-                      <span className={`px-2 py-1 text-[10px] font-bold rounded-md uppercase tracking-wide backdrop-blur-sm ${
+                    <div className="absolute top-2 left-2 flex items-center gap-1">
+                      <span className={`px-2 py-0.5 text-[10px] font-bold rounded uppercase tracking-wide backdrop-blur-sm ${
                         isForSale 
                           ? 'bg-[#212529]/90 text-white' 
                           : 'bg-white/90 text-[#212529]'
@@ -438,12 +430,12 @@ export default function MyPropertiesList({ properties }: { properties: PropertyW
                       </span>
                       {/* Verification badge */}
                       {verificationStatus !== 'approved' && (
-                        <span className={`px-2 py-1 text-[10px] font-bold rounded-md flex items-center gap-1 backdrop-blur-sm ${
+                        <span className={`px-2 py-0.5 text-[10px] font-bold rounded flex items-center gap-1 backdrop-blur-sm ${
                           isPending
                             ? 'bg-[#ffc107]/90 text-[#212529]'
                             : 'bg-[#FF6B6B]/90 text-white'
                         }`}>
-                          {isPending ? <ShieldAlert size={ICON_SIZES.xs} /> : <ShieldX size={ICON_SIZES.xs} />}
+                          {isPending ? <ShieldAlert size={10} /> : <ShieldX size={10} />}
                           {isPending ? 'Pending' : 'Rejected'}
                         </span>
                       )}
@@ -494,24 +486,24 @@ export default function MyPropertiesList({ properties }: { properties: PropertyW
                       <div className="flex flex-wrap items-center gap-3 text-xs text-[#495057] mb-3">
                         {property.beds > 0 && (
                           <span className="flex items-center gap-1">
-                            <Bed size={ICON_SIZES.xs} className="text-[#ADB5BD]" /> 
+                            <Bed size={14} className="text-[#ADB5BD]" /> 
                             <span className="font-semibold text-[#212529]">{property.beds}</span> bed
                           </span>
                         )}
                         {property.baths > 0 && (
                           <span className="flex items-center gap-1">
-                            <Bath size={ICON_SIZES.xs} className="text-[#ADB5BD]" /> 
+                            <Bath size={14} className="text-[#ADB5BD]" /> 
                             <span className="font-semibold text-[#212529]">{property.baths}</span> bath
                           </span>
                         )}
                         {property.sqft > 0 && (
                           <span className="flex items-center gap-1">
-                            <Square size={ICON_SIZES.xs} className="text-[#ADB5BD]" /> 
+                            <Square size={14} className="text-[#ADB5BD]" /> 
                             <span className="font-semibold text-[#212529]">{property.sqft.toLocaleString()}</span> sqft
                           </span>
                         )}
                         <span className="ml-auto flex items-center gap-1 text-[#ADB5BD]">
-                          <Calendar size={ICON_SIZES.xs} /> {formatTimeAgo(property.created_at)}
+                          <Calendar size={12} /> {formatTimeAgo(property.created_at)}
                         </span>
                       </div>
                     </div>
@@ -520,21 +512,21 @@ export default function MyPropertiesList({ properties }: { properties: PropertyW
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-3 border-t border-[#F0F0F0]">
                       {/* Inline stats */}
                       <div className="flex items-center gap-4">
-                        <span className="flex items-center gap-1.5 text-xs text-[#495057]">
-                          <Eye size={ICON_SIZES.xs} className="text-[#ADB5BD]" />
+                        <span className="flex items-center gap-1 text-xs text-[#495057]">
+                          <Eye size={14} className="text-[#ADB5BD]" />
                           <span className="font-bold text-[#212529] tabular-nums">{property.stats.views}</span>
                         </span>
-                        <span className="flex items-center gap-1.5 text-xs text-[#495057]">
-                          <Heart size={ICON_SIZES.xs} className="text-[#ADB5BD]" />
+                        <span className="flex items-center gap-1 text-xs text-[#495057]">
+                          <Heart size={14} className="text-[#ADB5BD]" />
                           <span className="font-bold text-[#212529] tabular-nums">{property.stats.saves}</span>
                         </span>
-                        <span className="flex items-center gap-1.5 text-xs text-[#495057]">
-                          <MessageSquare size={ICON_SIZES.xs} className="text-[#ADB5BD]" />
+                        <span className="flex items-center gap-1 text-xs text-[#495057]">
+                          <MessageSquare size={14} className="text-[#ADB5BD]" />
                           <span className="font-bold text-[#212529] tabular-nums">{property.stats.inquiries}</span>
                         </span>
                         {property.stats.views > 0 && (
-                          <span className="hidden sm:flex items-center gap-1 text-[10px] font-semibold text-[#51CF66] bg-[#51CF66]/10 px-2 py-1 rounded-md">
-                            <TrendingUp size={ICON_SIZES.xs} />
+                          <span className="hidden sm:flex items-center gap-1 text-[10px] font-semibold text-[#51CF66] bg-[#51CF66]/10 px-2 py-0.5 rounded">
+                            <TrendingUp size={12} />
                             {((property.stats.inquiries / property.stats.views) * 100).toFixed(1)}%
                           </span>
                         )}
@@ -546,13 +538,13 @@ export default function MyPropertiesList({ properties }: { properties: PropertyW
                           <button
                             onClick={() => resendVerification(property.id)}
                             disabled={resendingId === property.id}
-                            className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold text-[#212529] bg-[#ffc107]/15 hover:bg-[#ffc107]/25 border border-[#ffc107]/50 rounded-lg transition-all disabled:opacity-50"
+                            className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-[#212529] bg-[#ffc107]/15 hover:bg-[#ffc107]/25 border border-[#ffc107]/50 rounded-lg transition-colors disabled:opacity-50"
                             title="Resend verification email"
                           >
                             {resendingId === property.id ? (
-                              <Loader2 size={ICON_SIZES.sm} className="animate-spin" />
+                              <Loader2 size={16} className="animate-spin" />
                             ) : (
-                              <Mail size={ICON_SIZES.sm} />
+                              <Mail size={16} />
                             )}
                             <span className="hidden sm:inline">Resend</span>
                           </button>
@@ -560,23 +552,23 @@ export default function MyPropertiesList({ properties }: { properties: PropertyW
                         <Link
                           href={`/property/${property.slug || property.id}`}
                           target="_blank"
-                          className="p-2 text-[#495057] hover:text-[#212529] hover:bg-[#F8F9FA] rounded-lg transition-all border border-[#E9ECEF]"
+                          className="p-1.5 text-[#495057] hover:text-[#212529] hover:bg-[#F8F9FA] rounded-lg transition-colors border border-[#E9ECEF]"
                           title="View listing"
                         >
-                          <ExternalLink size={ICON_SIZES.sm} />
+                          <ExternalLink size={16} />
                         </Link>
                         <button
                           onClick={() => setDeleteConfirm({ id: property.id, title: property.title })}
-                          className="p-2 text-[#495057] hover:text-[#FF6B6B] hover:bg-[#FF6B6B]/10 rounded-lg transition-all border border-[#E9ECEF] hover:border-[#FF6B6B]/30"
+                          className="p-1.5 text-[#495057] hover:text-[#FF6B6B] hover:bg-[#FF6B6B]/10 rounded-lg transition-colors border border-[#E9ECEF] hover:border-[#FF6B6B]/30"
                           title="Delete property"
                         >
-                          <Trash2 size={ICON_SIZES.sm} />
+                          <Trash2 size={16} />
                         </button>
                         <Link
                           href={`/dashboard/edit-property/${property.id}`}
-                          className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-semibold text-white bg-[#212529] hover:bg-black rounded-lg transition-all"
+                          className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-white bg-[#212529] hover:bg-black rounded-lg transition-colors"
                         >
-                          <Pencil size={ICON_SIZES.sm} />
+                          <Pencil size={16} />
                           Edit
                         </Link>
                       </div>
@@ -596,7 +588,7 @@ export default function MyPropertiesList({ properties }: { properties: PropertyW
           onClick={() => setDeleteConfirm(null)}
         >
           <div 
-            className="bg-white rounded-2xl p-6 max-w-sm w-full shadow-xl animate-in fade-in zoom-in-95 duration-200" 
+            className="bg-white rounded-lg p-6 max-w-sm w-full shadow-xl" 
             onClick={e => e.stopPropagation()}
           >
             <div className="w-12 h-12 rounded-full bg-[#FF6B6B]/10 flex items-center justify-center mx-auto mb-4">
@@ -614,7 +606,7 @@ export default function MyPropertiesList({ properties }: { properties: PropertyW
                 type="button"
                 onClick={() => setDeleteConfirm(null)}
                 disabled={deleting}
-                className="flex-1 px-4 py-2.5 border-2 border-[#E9ECEF] text-[#212529] rounded-xl text-sm font-semibold hover:border-[#212529] transition-colors disabled:opacity-50"
+                className="flex-1 px-4 py-2.5 border border-[#E9ECEF] text-[#212529] rounded-lg text-sm font-semibold hover:border-[#212529] transition-colors disabled:opacity-50"
               >
                 Cancel
               </button>
@@ -622,7 +614,7 @@ export default function MyPropertiesList({ properties }: { properties: PropertyW
                 type="button"
                 onClick={() => handleDelete(deleteConfirm.id)}
                 disabled={deleting}
-                className="flex-1 px-4 py-2.5 bg-[#FF6B6B] text-white rounded-xl text-sm font-semibold hover:bg-red-500 transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
+                className="flex-1 px-4 py-2.5 bg-[#FF6B6B] text-white rounded-lg text-sm font-semibold hover:bg-red-500 transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
               >
                 {deleting ? <Loader2 size={16} className="animate-spin" /> : <Trash2 size={16} />}
                 {deleting ? 'Deleting...' : 'Delete'}
