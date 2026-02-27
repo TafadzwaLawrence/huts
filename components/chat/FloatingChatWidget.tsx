@@ -24,6 +24,7 @@ type Conversation = {
   last_message_at: string
   last_message_preview: string | null
   property: {
+    id: string
     title: string
     slug: string
     property_images: Array<{ url: string; is_primary: boolean }>
@@ -281,6 +282,7 @@ export default function FloatingChatWidget() {
         last_message_at,
         last_message_preview,
         properties!inner (
+          id,
           title,
           slug,
           property_images (url, is_primary)
