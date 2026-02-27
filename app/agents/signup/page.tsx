@@ -476,75 +476,91 @@ export default function AgentSignupPage() {
 
             <div className="space-y-5">
               <div>
-                <label className="block text-sm font-medium text-[#212529] mb-1.5">
-                  Business name <span className="text-[#ADB5BD] font-normal">optional</span>
+                <label className="block text-sm font-semibold text-[#212529] mb-2">
+                  Business name <span className="text-[#ADB5BD] font-normal text-xs">optional</span>
                 </label>
-                <input
-                  type="text"
-                  value={formData.business_name}
-                  onChange={(e) => setFormData({ ...formData, business_name: e.target.value })}
-                  className="w-full px-4 py-3 border border-[#E9ECEF] rounded-lg focus:border-[#212529] focus:ring-1 focus:ring-[#212529] focus:outline-none transition-colors"
-                  placeholder="e.g., ABC Realty"
-                />
+                <div className="relative">
+                  <Building2 size={18} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#ADB5BD]" />
+                  <input
+                    type="text"
+                    value={formData.business_name}
+                    onChange={(e) => setFormData({ ...formData, business_name: e.target.value })}
+                    className="w-full pl-11 pr-4 py-3.5 bg-white border-2 border-[#E9ECEF] rounded-xl text-[#212529] placeholder:text-[#ADB5BD] focus:border-[#212529] focus:ring-0 focus:outline-none transition-colors"
+                    placeholder="e.g., ABC Realty"
+                  />
+                </div>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-[#212529] mb-1.5">
+                  <label className="block text-sm font-semibold text-[#212529] mb-2">
                     Phone number <span className="text-[#FF6B6B]">*</span>
                   </label>
-                  <input
-                    type="tel"
-                    value={formData.phone}
-                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                    className="w-full px-4 py-3 border border-[#E9ECEF] rounded-lg focus:border-[#212529] focus:ring-1 focus:ring-[#212529] focus:outline-none transition-colors"
-                    placeholder="+263 ..."
-                    required
-                  />
+                  <div className="relative">
+                    <Phone size={18} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#ADB5BD]" />
+                    <input
+                      type="tel"
+                      value={formData.phone}
+                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                      className="w-full pl-11 pr-4 py-3.5 bg-white border-2 border-[#E9ECEF] rounded-xl text-[#212529] placeholder:text-[#ADB5BD] focus:border-[#212529] focus:ring-0 focus:outline-none transition-colors"
+                      placeholder="+263 77 123 4567"
+                      required
+                    />
+                  </div>
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-[#212529] mb-1.5">
-                    WhatsApp <span className="text-[#ADB5BD] font-normal">optional</span>
+                  <label className="block text-sm font-semibold text-[#212529] mb-2">
+                    WhatsApp <span className="text-[#ADB5BD] font-normal text-xs">optional</span>
                   </label>
-                  <input
-                    type="tel"
-                    value={formData.whatsapp}
-                    onChange={(e) => setFormData({ ...formData, whatsapp: e.target.value })}
-                    className="w-full px-4 py-3 border border-[#E9ECEF] rounded-lg focus:border-[#212529] focus:ring-1 focus:ring-[#212529] focus:outline-none transition-colors"
-                    placeholder="+263 ..."
-                  />
+                  <div className="relative">
+                    <MessageSquare size={18} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#ADB5BD]" />
+                    <input
+                      type="tel"
+                      value={formData.whatsapp}
+                      onChange={(e) => setFormData({ ...formData, whatsapp: e.target.value })}
+                      className="w-full pl-11 pr-4 py-3.5 bg-white border-2 border-[#E9ECEF] rounded-xl text-[#212529] placeholder:text-[#ADB5BD] focus:border-[#212529] focus:ring-0 focus:outline-none transition-colors"
+                      placeholder="+263 77 123 4567"
+                    />
+                  </div>
                 </div>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-[#212529] mb-1.5">
+                <label className="block text-sm font-semibold text-[#212529] mb-2">
                   City <span className="text-[#FF6B6B]">*</span>
                 </label>
-                <select
-                  value={formData.office_city}
-                  onChange={(e) => setFormData({ ...formData, office_city: e.target.value })}
-                  className="w-full px-4 py-3 border border-[#E9ECEF] rounded-lg focus:border-[#212529] focus:ring-1 focus:ring-[#212529] focus:outline-none transition-colors"
-                  required
-                >
-                  <option value="">Select your city</option>
-                  {CITIES.map(city => (
-                    <option key={city} value={city}>{city}</option>
-                  ))}
-                </select>
+                <div className="relative">
+                  <MapPin size={18} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#ADB5BD] pointer-events-none" />
+                  <select
+                    value={formData.office_city}
+                    onChange={(e) => setFormData({ ...formData, office_city: e.target.value })}
+                    className="w-full pl-11 pr-10 py-3.5 bg-white border-2 border-[#E9ECEF] rounded-xl text-[#212529] focus:border-[#212529] focus:ring-0 focus:outline-none transition-colors appearance-none cursor-pointer"
+                    required
+                  >
+                    <option value="">Select your city</option>
+                    {CITIES.map(city => (
+                      <option key={city} value={city}>{city}</option>
+                    ))}
+                  </select>
+                  <ChevronRight size={16} className="absolute right-3.5 top-1/2 -translate-y-1/2 text-[#ADB5BD] rotate-90 pointer-events-none" />
+                </div>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-[#212529] mb-1.5">
-                  Office address <span className="text-[#ADB5BD] font-normal">optional</span>
+                <label className="block text-sm font-semibold text-[#212529] mb-2">
+                  Office address <span className="text-[#ADB5BD] font-normal text-xs">optional</span>
                 </label>
-                <input
-                  type="text"
-                  value={formData.office_address}
-                  onChange={(e) => setFormData({ ...formData, office_address: e.target.value })}
-                  className="w-full px-4 py-3 border border-[#E9ECEF] rounded-lg focus:border-[#212529] focus:ring-1 focus:ring-[#212529] focus:outline-none transition-colors"
-                  placeholder="Street address"
-                />
+                <div className="relative">
+                  <Home size={18} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#ADB5BD]" />
+                  <input
+                    type="text"
+                    value={formData.office_address}
+                    onChange={(e) => setFormData({ ...formData, office_address: e.target.value })}
+                    className="w-full pl-11 pr-4 py-3.5 bg-white border-2 border-[#E9ECEF] rounded-xl text-[#212529] placeholder:text-[#ADB5BD] focus:border-[#212529] focus:ring-0 focus:outline-none transition-colors"
+                    placeholder="Street address, suite number"
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -559,58 +575,67 @@ export default function AgentSignupPage() {
             <div className="space-y-5">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-[#212529] mb-1.5">
+                  <label className="block text-sm font-semibold text-[#212529] mb-2">
                     License number {formData.agent_type === 'real_estate_agent' && <span className="text-[#FF6B6B]">*</span>}
                   </label>
-                  <input
-                    type="text"
-                    value={formData.license_number}
-                    onChange={(e) => setFormData({ ...formData, license_number: e.target.value })}
-                    className="w-full px-4 py-3 border border-[#E9ECEF] rounded-lg focus:border-[#212529] focus:ring-1 focus:ring-[#212529] focus:outline-none transition-colors"
-                    placeholder="License #"
-                  />
+                  <div className="relative">
+                    <Shield size={18} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#ADB5BD]" />
+                    <input
+                      type="text"
+                      value={formData.license_number}
+                      onChange={(e) => setFormData({ ...formData, license_number: e.target.value })}
+                      className="w-full pl-11 pr-4 py-3.5 bg-white border-2 border-[#E9ECEF] rounded-xl text-[#212529] placeholder:text-[#ADB5BD] focus:border-[#212529] focus:ring-0 focus:outline-none transition-colors"
+                      placeholder="e.g., ZW-12345"
+                    />
+                  </div>
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-[#212529] mb-1.5">
+                  <label className="block text-sm font-semibold text-[#212529] mb-2">
                     Years of experience
                   </label>
-                  <input
-                    type="number"
-                    value={formData.years_experience || ''}
-                    onChange={(e) => setFormData({ ...formData, years_experience: parseInt(e.target.value) || 0 })}
-                    className="w-full px-4 py-3 border border-[#E9ECEF] rounded-lg focus:border-[#212529] focus:ring-1 focus:ring-[#212529] focus:outline-none transition-colors"
-                    placeholder="0"
-                    min="0"
-                  />
+                  <div className="relative">
+                    <TrendingUp size={18} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#ADB5BD]" />
+                    <input
+                      type="number"
+                      value={formData.years_experience || ''}
+                      onChange={(e) => setFormData({ ...formData, years_experience: parseInt(e.target.value) || 0 })}
+                      className="w-full pl-11 pr-4 py-3.5 bg-white border-2 border-[#E9ECEF] rounded-xl text-[#212529] placeholder:text-[#ADB5BD] focus:border-[#212529] focus:ring-0 focus:outline-none transition-colors"
+                      placeholder="0"
+                      min="0"
+                    />
+                  </div>
                 </div>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-[#212529] mb-1.5">
-                  Certifications <span className="text-[#ADB5BD] font-normal">optional — press Enter to add</span>
+                <label className="block text-sm font-semibold text-[#212529] mb-2">
+                  Certifications <span className="text-[#ADB5BD] font-normal text-xs">optional</span>
                 </label>
-                <input
-                  type="text"
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter' && e.currentTarget.value.trim()) {
-                      e.preventDefault()
-                      setFormData({
-                        ...formData,
-                        certifications: [...formData.certifications, e.currentTarget.value.trim()]
-                      })
-                      e.currentTarget.value = ''
-                    }
-                  }}
-                  className="w-full px-4 py-3 border border-[#E9ECEF] rounded-lg focus:border-[#212529] focus:ring-1 focus:ring-[#212529] focus:outline-none transition-colors"
-                  placeholder="e.g., Certified Property Manager"
-                />
+                <div className="relative">
+                  <Award size={18} className="absolute left-3.5 top-4 text-[#ADB5BD]" />
+                  <input
+                    type="text"
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' && e.currentTarget.value.trim()) {
+                        e.preventDefault()
+                        setFormData({
+                          ...formData,
+                          certifications: [...formData.certifications, e.currentTarget.value.trim()]
+                        })
+                        e.currentTarget.value = ''
+                      }
+                    }}
+                    className="w-full pl-11 pr-4 py-3.5 bg-white border-2 border-[#E9ECEF] rounded-xl text-[#212529] placeholder:text-[#ADB5BD] focus:border-[#212529] focus:ring-0 focus:outline-none transition-colors"
+                    placeholder="Type a certification and press Enter"
+                  />
+                </div>
                 {formData.certifications.length > 0 && (
                   <div className="flex flex-wrap gap-2 mt-3">
                     {formData.certifications.map((cert, idx) => (
                       <span
                         key={idx}
-                        className="inline-flex items-center gap-1.5 px-3 py-1 bg-[#F8F9FA] text-[#212529] text-sm rounded-full border border-[#E9ECEF]"
+                        className="inline-flex items-center gap-1.5 pl-3 pr-2 py-1.5 bg-[#212529] text-white text-sm rounded-full font-medium"
                       >
                         {cert}
                         <button
@@ -619,7 +644,7 @@ export default function AgentSignupPage() {
                             ...formData,
                             certifications: formData.certifications.filter((_, i) => i !== idx)
                           })}
-                          className="text-[#ADB5BD] hover:text-[#212529] text-base leading-none"
+                          className="w-5 h-5 rounded-full bg-white/20 hover:bg-white/30 flex items-center justify-center text-white text-xs leading-none transition-colors"
                         >
                           ×
                         </button>
@@ -671,19 +696,23 @@ export default function AgentSignupPage() {
 
               {formData.service_areas.length > 0 && (
                 <div>
-                  <label className="block text-sm font-medium text-[#212529] mb-1.5">
-                    Primary area <span className="text-[#ADB5BD] font-normal">optional</span>
+                  <label className="block text-sm font-semibold text-[#212529] mb-2">
+                    Primary area <span className="text-[#ADB5BD] font-normal text-xs">optional</span>
                   </label>
-                  <select
-                    value={formData.primary_service_area}
-                    onChange={(e) => setFormData({ ...formData, primary_service_area: e.target.value })}
-                    className="w-full px-4 py-3 border border-[#E9ECEF] rounded-lg focus:border-[#212529] focus:ring-1 focus:ring-[#212529] focus:outline-none transition-colors"
-                  >
-                    <option value="">Select primary area</option>
-                    {formData.service_areas.map(city => (
-                      <option key={city} value={city}>{city}</option>
-                    ))}
-                  </select>
+                  <div className="relative">
+                    <Star size={18} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#ADB5BD] pointer-events-none" />
+                    <select
+                      value={formData.primary_service_area}
+                      onChange={(e) => setFormData({ ...formData, primary_service_area: e.target.value })}
+                      className="w-full pl-11 pr-10 py-3.5 bg-white border-2 border-[#E9ECEF] rounded-xl text-[#212529] focus:border-[#212529] focus:ring-0 focus:outline-none transition-colors appearance-none cursor-pointer"
+                    >
+                      <option value="">Select primary area</option>
+                      {formData.service_areas.map(city => (
+                        <option key={city} value={city}>{city}</option>
+                      ))}
+                    </select>
+                    <ChevronRight size={16} className="absolute right-3.5 top-1/2 -translate-y-1/2 text-[#ADB5BD] rotate-90 pointer-events-none" />
+                  </div>
                 </div>
               )}
             </div>
@@ -698,23 +727,29 @@ export default function AgentSignupPage() {
 
             <div className="space-y-6">
               <div>
-                <label className="block text-sm font-medium text-[#212529] mb-1.5">
+                <label className="block text-sm font-semibold text-[#212529] mb-2">
                   About you <span className="text-[#FF6B6B]">*</span>
                 </label>
-                <textarea
-                  value={formData.bio}
-                  onChange={(e) => setFormData({ ...formData, bio: e.target.value })}
-                  className="w-full px-4 py-3 border border-[#E9ECEF] rounded-lg focus:border-[#212529] focus:ring-1 focus:ring-[#212529] focus:outline-none transition-colors resize-none"
-                  rows={5}
-                  placeholder="Share your experience, what you specialize in, and why clients should work with you..."
-                  required
-                />
-                <p className="text-xs text-[#ADB5BD] mt-1.5">{formData.bio.length}/1000</p>
+                <div className="relative">
+                  <FileText size={18} className="absolute left-3.5 top-4 text-[#ADB5BD]" />
+                  <textarea
+                    value={formData.bio}
+                    onChange={(e) => setFormData({ ...formData, bio: e.target.value.slice(0, 1000) })}
+                    className="w-full pl-11 pr-4 py-3.5 bg-white border-2 border-[#E9ECEF] rounded-xl text-[#212529] placeholder:text-[#ADB5BD] focus:border-[#212529] focus:ring-0 focus:outline-none transition-colors resize-none"
+                    rows={5}
+                    placeholder="Share your experience, what you specialize in, and why clients should work with you..."
+                    required
+                  />
+                </div>
+                <div className="flex items-center justify-between mt-2">
+                  <p className="text-xs text-[#ADB5BD]">200–1,000 characters recommended</p>
+                  <p className={`text-xs font-medium tabular-nums ${formData.bio.length > 900 ? 'text-[#FF6B6B]' : 'text-[#ADB5BD]'}`}>{formData.bio.length}/1,000</p>
+                </div>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-[#212529] mb-3">
-                  Specializations <span className="text-[#ADB5BD] font-normal">optional</span>
+                <label className="block text-sm font-semibold text-[#212529] mb-3">
+                  Specializations <span className="text-[#ADB5BD] font-normal text-xs">optional</span>
                 </label>
                 <div className="flex flex-wrap gap-2">
                   {AGENT_SPECIALIZATIONS.map(spec => {
@@ -741,7 +776,7 @@ export default function AgentSignupPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-[#212529] mb-3">Languages</label>
+                <label className="block text-sm font-semibold text-[#212529] mb-3">Languages</label>
                 <div className="flex flex-wrap gap-2">
                   {LANGUAGES.map(lang => {
                     const isSelected = formData.languages.includes(lang)
