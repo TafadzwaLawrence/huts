@@ -16,7 +16,13 @@ import {
   MapPin,
   FileText,
   Award,
-  Sparkles
+  Sparkles,
+  Users,
+  Eye,
+  MessageSquare,
+  TrendingUp,
+  Shield,
+  Star
 } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import { toast } from 'sonner'
@@ -60,9 +66,28 @@ interface FormData {
 
 const CITIES = ['Harare', 'Bulawayo', 'Chitungwiza', 'Mutare', 'Gweru', 'Kwekwe', 'Kadoma', 'Masvingo', 'Chinhoyi', 'Norton', 'Marondera', 'Ruwa', 'Chegutu', 'Bindura', 'Beitbridge', 'Redcliff', 'Victoria Falls', 'Hwange', 'Chiredzi', 'Kariba']
 
+const BENEFITS = [
+  {
+    icon: Eye,
+    title: 'Get discovered',
+    description: 'Appear in search results when buyers and renters look for agents in your area.',
+  },
+  {
+    icon: MessageSquare,
+    title: 'Connect with clients',
+    description: 'Receive direct inquiries from motivated buyers and renters actively searching.',
+  },
+  {
+    icon: TrendingUp,
+    title: 'Grow your business',
+    description: 'Build your reputation with reviews, showcase your listings, and track your performance.',
+  },
+]
+
 export default function AgentSignupPage() {
   const router = useRouter()
   const supabase = createClient()
+  const [showForm, setShowForm] = useState(false)
   const [currentStep, setCurrentStep] = useState(1)
   const [loading, setLoading] = useState(false)
   const [formData, setFormData] = useState<FormData>({
@@ -86,7 +111,6 @@ export default function AgentSignupPage() {
   const totalSteps = 5
 
   const handleNext = () => {
-    // Validation for each step
     if (currentStep === 1 && !formData.agent_type) {
       toast.error('Please select an agent type')
       return
@@ -127,19 +151,16 @@ export default function AgentSignupPage() {
         return
       }
 
-      // Get current profile
       const { data: profile } = await supabase
         .from('profiles')
         .select('name')
         .eq('id', user.id)
         .single()
 
-      // Generate slug from business name or profile name
       const slugBase = (formData.business_name || profile?.name || 'agent').toLowerCase()
         .replace(/[^a-z0-9]+/g, '-')
         .replace(/^-|-$/g, '')
 
-      // Insert agent profile
       const { data: agentProfile, error: profileError } = await supabase
         .from('agent_profiles')
         .insert({
@@ -166,7 +187,6 @@ export default function AgentSignupPage() {
 
       if (profileError) throw profileError
 
-      // Insert service areas
       if (formData.service_areas.length > 0 && agentProfile) {
         const serviceAreaInserts = formData.service_areas.map(area => ({
           agent_id: agentProfile.id,
@@ -199,145 +219,315 @@ export default function AgentSignupPage() {
     }
   }
 
+  // Landing page (before form)
+  if (!showForm) {
+    return (
+      <div className="min-h-screen bg-white">
+        {/* Hero Section */}
+        <section className="relative bg-[#212529] overflow-hidden">
+          <div className="absolute inset-0 opacity-5">
+            <div className="absolute inset-0" style={{
+              backgroundImage: 'radial-gradient(circle at 1px 1px, white 1px, transparent 0)',
+              backgroundSize: '40px 40px'
+            }} />
+          </div>
+          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="py-20 sm:py-28 lg:py-36">
+              <div className="max-w-3xl">
+                <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-[1.1] tracking-tight">
+                  Grow your real estate business with Huts
+                </h1>
+                <p className="mt-6 text-lg sm:text-xl text-[#ADB5BD] max-w-xl leading-relaxed">
+                  Join Zimbabwe&apos;s largest property platform. Connect with buyers and renters actively searching for their next home.
+                </p>
+                <div className="mt-10 flex flex-col sm:flex-row gap-4">
+                  <button
+                    onClick={() => setShowForm(true)}
+                    className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white text-[#212529] rounded-lg text-lg font-semibold hover:bg-[#F8F9FA] transition-colors"
+                  >
+                    Get started — it&apos;s free
+                    <ChevronRight size={20} />
+                  </button>
+                  <Link
+                    href="/find-agent"
+                    className="inline-flex items-center justify-center gap-2 px-8 py-4 border-2 border-[#495057] text-white rounded-lg text-lg font-semibold hover:border-white transition-colors"
+                  >
+                    Browse agents
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Stats Bar */}
+        <section className="border-b border-[#E9ECEF]">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div className="grid grid-cols-3 gap-8 text-center">
+              <div>
+                <p className="text-3xl sm:text-4xl font-bold text-[#212529]">1,000+</p>
+                <p className="text-sm text-[#495057] mt-1">Active listings</p>
+              </div>
+              <div>
+                <p className="text-3xl sm:text-4xl font-bold text-[#212529]">20+</p>
+                <p className="text-sm text-[#495057] mt-1">Cities covered</p>
+              </div>
+              <div>
+                <p className="text-3xl sm:text-4xl font-bold text-[#212529]">Free</p>
+                <p className="text-sm text-[#495057] mt-1">To join</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Benefits */}
+        <section className="py-20 sm:py-24">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl sm:text-4xl font-bold text-[#212529]">Why professionals choose Huts</h2>
+              <p className="text-[#495057] mt-4 text-lg max-w-2xl mx-auto">
+                Everything you need to connect with clients and grow your real estate business.
+              </p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
+              {BENEFITS.map((benefit) => (
+                <div key={benefit.title} className="text-center">
+                  <div className="w-14 h-14 rounded-2xl bg-[#F8F9FA] flex items-center justify-center mx-auto mb-5">
+                    <benefit.icon size={24} className="text-[#212529]" />
+                  </div>
+                  <h3 className="text-xl font-bold text-[#212529] mb-3">{benefit.title}</h3>
+                  <p className="text-[#495057] leading-relaxed">{benefit.description}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* How it works */}
+        <section className="py-20 sm:py-24 bg-[#F8F9FA]">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl sm:text-4xl font-bold text-[#212529]">Get started in minutes</h2>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+              {[
+                { step: '1', title: 'Create your profile', desc: 'Tell us about your experience and the areas you serve.' },
+                { step: '2', title: 'Get discovered', desc: 'Appear in search results for your service areas.' },
+                { step: '3', title: 'Close deals', desc: 'Connect with clients and grow your business.' },
+              ].map((item) => (
+                <div key={item.step} className="text-center">
+                  <div className="w-10 h-10 rounded-full bg-[#212529] text-white font-bold text-lg flex items-center justify-center mx-auto mb-5">
+                    {item.step}
+                  </div>
+                  <h3 className="text-lg font-bold text-[#212529] mb-2">{item.title}</h3>
+                  <p className="text-sm text-[#495057] leading-relaxed">{item.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* What you get */}
+        <section className="py-20 sm:py-24">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="max-w-4xl mx-auto">
+              <h2 className="text-3xl sm:text-4xl font-bold text-[#212529] text-center mb-16">
+                Everything you need, included
+              </h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-6">
+                {[
+                  'Professional profile page',
+                  'Direct client inquiries',
+                  'Client reviews & ratings',
+                  'Service area targeting',
+                  'Listing showcase',
+                  'Performance analytics',
+                  'Verified badge eligibility',
+                  'Mobile-optimized profile',
+                ].map((feature) => (
+                  <div key={feature} className="flex items-center gap-3 py-3 border-b border-[#E9ECEF]">
+                    <Check size={18} className="text-[#212529] flex-shrink-0" />
+                    <span className="text-[#212529]">{feature}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Bottom CTA */}
+        <section className="py-20 sm:py-24 bg-[#212529]">
+          <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">Ready to grow your business?</h2>
+            <p className="text-[#ADB5BD] text-lg mb-10">
+              Join hundreds of professionals already on Huts. It only takes a few minutes.
+            </p>
+            <button
+              onClick={() => {
+                setShowForm(true)
+                window.scrollTo({ top: 0, behavior: 'smooth' })
+              }}
+              className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white text-[#212529] rounded-lg text-lg font-semibold hover:bg-[#F8F9FA] transition-colors"
+            >
+              Create your free profile
+              <ChevronRight size={20} />
+            </button>
+          </div>
+        </section>
+      </div>
+    )
+  }
+
+  // Multi-step form
   return (
     <div className="min-h-screen bg-[#F8F9FA]">
       {/* Header */}
-      <div className="bg-white border-b border-[#E9ECEF]">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      <div className="bg-white border-b border-[#E9ECEF] sticky top-0 z-10">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center justify-between">
             <Link href="/" className="text-xl font-bold text-[#212529]">
               HUTS
             </Link>
-            <div className="flex items-center gap-3 text-sm text-[#495057]">
-              <span>Step {currentStep} of {totalSteps}</span>
-              <div className="w-32 h-2 bg-[#E9ECEF] rounded-full overflow-hidden">
-                <div 
-                  className="h-full bg-[#212529] transition-all duration-300"
-                  style={{ width: `${(currentStep / totalSteps) * 100}%` }}
-                />
+            <div className="flex items-center gap-4">
+              <div className="hidden sm:flex items-center gap-1.5">
+                {Array.from({ length: totalSteps }).map((_, i) => (
+                  <div
+                    key={i}
+                    className={`h-1.5 rounded-full transition-all duration-300 ${
+                      i + 1 <= currentStep ? 'bg-[#212529] w-8' : 'bg-[#E9ECEF] w-4'
+                    }`}
+                  />
+                ))}
               </div>
+              <span className="text-sm text-[#495057]">{currentStep}/{totalSteps}</span>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Main Content */}
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="bg-white rounded-2xl border border-[#E9ECEF] shadow-sm p-8">
-          {/* Step 1: Agent Type */}
-          {currentStep === 1 && (
-            <div className="space-y-6">
-              <div className="text-center mb-8">
-                <h1 className="text-3xl font-bold text-[#212529] mb-2">Become a Professional on Huts</h1>
-                <p className="text-[#495057]">Choose your professional category to get started</p>
-              </div>
+      {/* Form Content */}
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16">
+        {/* Step 1: Agent Type */}
+        {currentStep === 1 && (
+          <div>
+            <h1 className="text-2xl sm:text-3xl font-bold text-[#212529] mb-2">What type of professional are you?</h1>
+            <p className="text-[#495057] mb-8">Choose the category that best describes your work.</p>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {Object.entries(AGENT_TYPE_LABELS).map(([key, label]) => {
-                  const icons = {
-                    real_estate_agent: Building2,
-                    property_manager: Home,
-                    home_builder: Briefcase,
-                    photographer: Camera,
-                    other: Sparkles,
-                  }
-                  const Icon = icons[key as keyof typeof icons]
-                  const isSelected = formData.agent_type === key
+            <div className="grid grid-cols-1 gap-3">
+              {Object.entries(AGENT_TYPE_LABELS).map(([key, label]) => {
+                const icons: Record<string, typeof Building2> = {
+                  real_estate_agent: Building2,
+                  property_manager: Home,
+                  home_builder: Briefcase,
+                  photographer: Camera,
+                  other: Sparkles,
+                }
+                const descriptions: Record<string, string> = {
+                  real_estate_agent: 'Help clients buy, sell, or rent properties',
+                  property_manager: 'Manage rental properties for owners',
+                  home_builder: 'Build new homes and developments',
+                  photographer: 'Capture properties with professional photography',
+                  other: 'Appraiser, inspector, or other real estate service',
+                }
+                const Icon = icons[key] || Sparkles
+                const isSelected = formData.agent_type === key
 
-                  return (
-                    <button
-                      key={key}
-                      type="button"
-                      onClick={() => setFormData({ ...formData, agent_type: key as AgentType })}
-                      className={`relative border-2 rounded-xl p-6 transition-all text-left group ${
-                        isSelected
-                          ? 'border-[#212529] bg-[#F8F9FA] shadow-lg scale-[1.02]'
-                          : 'border-[#E9ECEF] hover:border-[#ADB5BD] hover:shadow-md bg-white'
-                      }`}
-                    >
-                      <div className="flex items-start justify-between mb-4">
-                        <div className={`h-12 w-12 rounded-xl flex items-center justify-center ${
-                          isSelected ? 'bg-[#212529]' : 'bg-[#F8F9FA]'
-                        }`}>
-                          <Icon className={`h-6 w-6 ${isSelected ? 'text-white' : 'text-[#495057]'}`} />
-                        </div>
-                        <div className={`h-6 w-6 rounded-full border-2 flex items-center justify-center transition-all ${
-                          isSelected 
-                            ? 'border-[#212529] bg-[#212529]' 
-                            : 'border-[#E9ECEF] group-hover:border-[#ADB5BD]'
-                        }`}>
-                          {isSelected && <Check size={14} className="text-white" />}
-                        </div>
-                      </div>
-                      <h3 className="font-bold text-lg mb-1 text-[#212529]">{label}</h3>
-                    </button>
-                  )
-                })}
-              </div>
+                return (
+                  <button
+                    key={key}
+                    type="button"
+                    onClick={() => setFormData({ ...formData, agent_type: key as AgentType })}
+                    className={`flex items-center gap-4 p-4 sm:p-5 rounded-xl border-2 text-left transition-all ${
+                      isSelected
+                        ? 'border-[#212529] bg-[#212529] shadow-sm'
+                        : 'border-[#E9ECEF] bg-white hover:border-[#ADB5BD]'
+                    }`}
+                  >
+                    <div className={`h-11 w-11 rounded-lg flex items-center justify-center flex-shrink-0 ${
+                      isSelected ? 'bg-white/10' : 'bg-[#F8F9FA]'
+                    }`}>
+                      <Icon className={`h-5 w-5 ${isSelected ? 'text-white' : 'text-[#495057]'}`} />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className={`font-semibold ${isSelected ? 'text-white' : 'text-[#212529]'}`}>{label}</p>
+                      <p className={`text-sm mt-0.5 ${isSelected ? 'text-white/70' : 'text-[#495057]'}`}>
+                        {descriptions[key]}
+                      </p>
+                    </div>
+                    <div className={`h-5 w-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${
+                      isSelected 
+                        ? 'border-white bg-white' 
+                        : 'border-[#E9ECEF]'
+                    }`}>
+                      {isSelected && <Check size={12} className="text-[#212529]" />}
+                    </div>
+                  </button>
+                )
+              })}
             </div>
-          )}
+          </div>
+        )}
 
-          {/* Step 2: Basic Info */}
-          {currentStep === 2 && (
-            <div className="space-y-6">
-              <div className="mb-8">
-                <h2 className="text-2xl font-bold text-[#212529] mb-2">Basic Information</h2>
-                <p className="text-[#495057]">Tell us about your business and how clients can reach you</p>
-              </div>
+        {/* Step 2: Basic Info */}
+        {currentStep === 2 && (
+          <div>
+            <h1 className="text-2xl sm:text-3xl font-bold text-[#212529] mb-2">Your contact details</h1>
+            <p className="text-[#495057] mb-8">How clients will find and reach you.</p>
 
+            <div className="space-y-5">
               <div>
-                <label className="block text-sm font-medium text-[#212529] mb-2">
-                  Business Name (Optional)
+                <label className="block text-sm font-medium text-[#212529] mb-1.5">
+                  Business name <span className="text-[#ADB5BD] font-normal">optional</span>
                 </label>
                 <input
                   type="text"
                   value={formData.business_name}
                   onChange={(e) => setFormData({ ...formData, business_name: e.target.value })}
-                  className="w-full px-4 py-3 border-2 border-[#E9ECEF] rounded-xl focus:border-[#212529] focus:outline-none transition-colors"
-                  placeholder="e.g., ABC Realty, Your Name Real Estate"
+                  className="w-full px-4 py-3 border border-[#E9ECEF] rounded-lg focus:border-[#212529] focus:ring-1 focus:ring-[#212529] focus:outline-none transition-colors"
+                  placeholder="e.g., ABC Realty"
                 />
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-[#212529] mb-2">
-                    Phone Number <span className="text-[#FF6B6B]">*</span>
+                  <label className="block text-sm font-medium text-[#212529] mb-1.5">
+                    Phone number <span className="text-[#FF6B6B]">*</span>
                   </label>
                   <input
                     type="tel"
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                    className="w-full px-4 py-3 border-2 border-[#E9ECEF] rounded-xl focus:border-[#212529] focus:outline-none transition-colors"
+                    className="w-full px-4 py-3 border border-[#E9ECEF] rounded-lg focus:border-[#212529] focus:ring-1 focus:ring-[#212529] focus:outline-none transition-colors"
                     placeholder="+263 ..."
                     required
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-[#212529] mb-2">
-                    WhatsApp (Optional)
+                  <label className="block text-sm font-medium text-[#212529] mb-1.5">
+                    WhatsApp <span className="text-[#ADB5BD] font-normal">optional</span>
                   </label>
                   <input
                     type="tel"
                     value={formData.whatsapp}
                     onChange={(e) => setFormData({ ...formData, whatsapp: e.target.value })}
-                    className="w-full px-4 py-3 border-2 border-[#E9ECEF] rounded-xl focus:border-[#212529] focus:outline-none transition-colors"
+                    className="w-full px-4 py-3 border border-[#E9ECEF] rounded-lg focus:border-[#212529] focus:ring-1 focus:ring-[#212529] focus:outline-none transition-colors"
                     placeholder="+263 ..."
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-[#212529] mb-2">
-                  Office City <span className="text-[#FF6B6B]">*</span>
+                <label className="block text-sm font-medium text-[#212529] mb-1.5">
+                  City <span className="text-[#FF6B6B]">*</span>
                 </label>
                 <select
                   value={formData.office_city}
                   onChange={(e) => setFormData({ ...formData, office_city: e.target.value })}
-                  className="w-full px-4 py-3 border-2 border-[#E9ECEF] rounded-xl focus:border-[#212529] focus:outline-none transition-colors"
+                  className="w-full px-4 py-3 border border-[#E9ECEF] rounded-lg focus:border-[#212529] focus:ring-1 focus:ring-[#212529] focus:outline-none transition-colors"
                   required
                 >
-                  <option value="">Select city...</option>
+                  <option value="">Select your city</option>
                   {CITIES.map(city => (
                     <option key={city} value={city}>{city}</option>
                   ))}
@@ -345,51 +535,51 @@ export default function AgentSignupPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-[#212529] mb-2">
-                  Office Address (Optional)
+                <label className="block text-sm font-medium text-[#212529] mb-1.5">
+                  Office address <span className="text-[#ADB5BD] font-normal">optional</span>
                 </label>
                 <input
                   type="text"
                   value={formData.office_address}
                   onChange={(e) => setFormData({ ...formData, office_address: e.target.value })}
-                  className="w-full px-4 py-3 border-2 border-[#E9ECEF] rounded-xl focus:border-[#212529] focus:outline-none transition-colors"
-                  placeholder="Street address, suite number, etc."
+                  className="w-full px-4 py-3 border border-[#E9ECEF] rounded-lg focus:border-[#212529] focus:ring-1 focus:ring-[#212529] focus:outline-none transition-colors"
+                  placeholder="Street address"
                 />
               </div>
             </div>
-          )}
+          </div>
+        )}
 
-          {/* Step 3: Professional Details */}
-          {currentStep === 3 && (
-            <div className="space-y-6">
-              <div className="mb-8">
-                <h2 className="text-2xl font-bold text-[#212529] mb-2">Professional Details</h2>
-                <p className="text-[#495057]">Help clients understand your experience and qualifications</p>
-              </div>
+        {/* Step 3: Professional Details */}
+        {currentStep === 3 && (
+          <div>
+            <h1 className="text-2xl sm:text-3xl font-bold text-[#212529] mb-2">Your experience</h1>
+            <p className="text-[#495057] mb-8">Credentials that build client confidence.</p>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="space-y-5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-[#212529] mb-2">
-                    License Number {formData.agent_type === 'real_estate_agent' && <span className="text-[#FF6B6B]">*</span>}
+                  <label className="block text-sm font-medium text-[#212529] mb-1.5">
+                    License number {formData.agent_type === 'real_estate_agent' && <span className="text-[#FF6B6B]">*</span>}
                   </label>
                   <input
                     type="text"
                     value={formData.license_number}
                     onChange={(e) => setFormData({ ...formData, license_number: e.target.value })}
-                    className="w-full px-4 py-3 border-2 border-[#E9ECEF] rounded-xl focus:border-[#212529] focus:outline-none transition-colors"
-                    placeholder="Your professional license number"
+                    className="w-full px-4 py-3 border border-[#E9ECEF] rounded-lg focus:border-[#212529] focus:ring-1 focus:ring-[#212529] focus:outline-none transition-colors"
+                    placeholder="License #"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-[#212529] mb-2">
-                    Years of Experience
+                  <label className="block text-sm font-medium text-[#212529] mb-1.5">
+                    Years of experience
                   </label>
                   <input
                     type="number"
                     value={formData.years_experience || ''}
                     onChange={(e) => setFormData({ ...formData, years_experience: parseInt(e.target.value) || 0 })}
-                    className="w-full px-4 py-3 border-2 border-[#E9ECEF] rounded-xl focus:border-[#212529] focus:outline-none transition-colors"
+                    className="w-full px-4 py-3 border border-[#E9ECEF] rounded-lg focus:border-[#212529] focus:ring-1 focus:ring-[#212529] focus:outline-none transition-colors"
                     placeholder="0"
                     min="0"
                   />
@@ -397,10 +587,9 @@ export default function AgentSignupPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-[#212529] mb-2">
-                  Certifications (Optional)
+                <label className="block text-sm font-medium text-[#212529] mb-1.5">
+                  Certifications <span className="text-[#ADB5BD] font-normal">optional — press Enter to add</span>
                 </label>
-                <p className="text-xs text-[#ADB5BD] mb-2">Press Enter after each certification</p>
                 <input
                   type="text"
                   onKeyDown={(e) => {
@@ -413,15 +602,15 @@ export default function AgentSignupPage() {
                       e.currentTarget.value = ''
                     }
                   }}
-                  className="w-full px-4 py-3 border-2 border-[#E9ECEF] rounded-xl focus:border-[#212529] focus:outline-none transition-colors"
-                  placeholder="e.g., Certified Property Manager, REALTOR®"
+                  className="w-full px-4 py-3 border border-[#E9ECEF] rounded-lg focus:border-[#212529] focus:ring-1 focus:ring-[#212529] focus:outline-none transition-colors"
+                  placeholder="e.g., Certified Property Manager"
                 />
                 {formData.certifications.length > 0 && (
                   <div className="flex flex-wrap gap-2 mt-3">
                     {formData.certifications.map((cert, idx) => (
                       <span
                         key={idx}
-                        className="inline-flex items-center gap-2 px-3 py-1 bg-[#F8F9FA] text-[#212529] text-sm rounded-full border border-[#E9ECEF]"
+                        className="inline-flex items-center gap-1.5 px-3 py-1 bg-[#F8F9FA] text-[#212529] text-sm rounded-full border border-[#E9ECEF]"
                       >
                         {cert}
                         <button
@@ -430,7 +619,7 @@ export default function AgentSignupPage() {
                             ...formData,
                             certifications: formData.certifications.filter((_, i) => i !== idx)
                           })}
-                          className="text-[#ADB5BD] hover:text-[#212529]"
+                          className="text-[#ADB5BD] hover:text-[#212529] text-base leading-none"
                         >
                           ×
                         </button>
@@ -440,63 +629,57 @@ export default function AgentSignupPage() {
                 )}
               </div>
             </div>
-          )}
+          </div>
+        )}
 
-          {/* Step 4: Service Areas */}
-          {currentStep === 4 && (
+        {/* Step 4: Service Areas */}
+        {currentStep === 4 && (
+          <div>
+            <h1 className="text-2xl sm:text-3xl font-bold text-[#212529] mb-2">Where do you operate?</h1>
+            <p className="text-[#495057] mb-8">Select the cities where you provide services. You&apos;ll appear in search results for these areas.</p>
+
             <div className="space-y-6">
-              <div className="mb-8">
-                <h2 className="text-2xl font-bold text-[#212529] mb-2">Service Areas</h2>
-                <p className="text-[#495057]">Select the cities where you provide services</p>
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-[#212529] mb-3">
-                  Select Cities <span className="text-[#FF6B6B]">*</span>
-                </label>
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-                  {CITIES.map(city => {
-                    const isSelected = formData.service_areas.includes(city)
-                    return (
-                      <button
-                        key={city}
-                        type="button"
-                        onClick={() => {
-                          const newAreas = toggleArrayItem(formData.service_areas, city)
-                          setFormData({ 
-                            ...formData, 
-                            service_areas: newAreas,
-                            // Clear primary if it's no longer in service areas
-                            primary_service_area: newAreas.includes(formData.primary_service_area) 
-                              ? formData.primary_service_area 
-                              : ''
-                          })
-                        }}
-                        className={`px-4 py-2 rounded-lg text-sm font-medium transition-all border-2 ${
-                          isSelected
-                            ? 'bg-[#212529] text-white border-[#212529]'
-                            : 'bg-white text-[#495057] border-[#E9ECEF] hover:border-[#212529]'
-                        }`}
-                      >
-                        {city}
-                      </button>
-                    )
-                  })}
-                </div>
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2.5">
+                {CITIES.map(city => {
+                  const isSelected = formData.service_areas.includes(city)
+                  return (
+                    <button
+                      key={city}
+                      type="button"
+                      onClick={() => {
+                        const newAreas = toggleArrayItem(formData.service_areas, city)
+                        setFormData({ 
+                          ...formData, 
+                          service_areas: newAreas,
+                          primary_service_area: newAreas.includes(formData.primary_service_area) 
+                            ? formData.primary_service_area 
+                            : ''
+                        })
+                      }}
+                      className={`px-3 py-2.5 rounded-lg text-sm font-medium transition-all border ${
+                        isSelected
+                          ? 'bg-[#212529] text-white border-[#212529]'
+                          : 'bg-white text-[#495057] border-[#E9ECEF] hover:border-[#212529]'
+                      }`}
+                    >
+                      {isSelected && <Check size={12} className="inline mr-1 -mt-0.5" />}
+                      {city}
+                    </button>
+                  )
+                })}
               </div>
 
               {formData.service_areas.length > 0 && (
                 <div>
-                  <label className="block text-sm font-medium text-[#212529] mb-3">
-                    Primary Service Area (Optional)
+                  <label className="block text-sm font-medium text-[#212529] mb-1.5">
+                    Primary area <span className="text-[#ADB5BD] font-normal">optional</span>
                   </label>
-                  <p className="text-xs text-[#ADB5BD] mb-3">Choose your main area of operation</p>
                   <select
                     value={formData.primary_service_area}
                     onChange={(e) => setFormData({ ...formData, primary_service_area: e.target.value })}
-                    className="w-full px-4 py-3 border-2 border-[#E9ECEF] rounded-xl focus:border-[#212529] focus:outline-none transition-colors"
+                    className="w-full px-4 py-3 border border-[#E9ECEF] rounded-lg focus:border-[#212529] focus:ring-1 focus:ring-[#212529] focus:outline-none transition-colors"
                   >
-                    <option value="">Select primary area...</option>
+                    <option value="">Select primary area</option>
                     {formData.service_areas.map(city => (
                       <option key={city} value={city}>{city}</option>
                     ))}
@@ -504,37 +687,36 @@ export default function AgentSignupPage() {
                 </div>
               )}
             </div>
-          )}
+          </div>
+        )}
 
-          {/* Step 5: Profile Content */}
-          {currentStep === 5 && (
+        {/* Step 5: Profile Content */}
+        {currentStep === 5 && (
+          <div>
+            <h1 className="text-2xl sm:text-3xl font-bold text-[#212529] mb-2">Complete your profile</h1>
+            <p className="text-[#495057] mb-8">A strong bio helps you stand out to potential clients.</p>
+
             <div className="space-y-6">
-              <div className="mb-8">
-                <h2 className="text-2xl font-bold text-[#212529] mb-2">Complete Your Profile</h2>
-                <p className="text-[#495057]">Tell clients what makes you stand out</p>
-              </div>
-
               <div>
-                <label className="block text-sm font-medium text-[#212529] mb-2">
-                  Professional Bio <span className="text-[#FF6B6B]">*</span>
+                <label className="block text-sm font-medium text-[#212529] mb-1.5">
+                  About you <span className="text-[#FF6B6B]">*</span>
                 </label>
-                <p className="text-xs text-[#ADB5BD] mb-2">Describe your experience, approach, and what sets you apart (200-1000 characters)</p>
                 <textarea
                   value={formData.bio}
                   onChange={(e) => setFormData({ ...formData, bio: e.target.value })}
-                  className="w-full px-4 py-3 border-2 border-[#E9ECEF] rounded-xl focus:border-[#212529] focus:outline-none transition-colors resize-none"
-                  rows={6}
-                  placeholder="Share your story, expertise, and what clients can expect when working with you..."
+                  className="w-full px-4 py-3 border border-[#E9ECEF] rounded-lg focus:border-[#212529] focus:ring-1 focus:ring-[#212529] focus:outline-none transition-colors resize-none"
+                  rows={5}
+                  placeholder="Share your experience, what you specialize in, and why clients should work with you..."
                   required
                 />
-                <p className="text-xs text-[#ADB5BD] mt-1">{formData.bio.length} / 1000 characters</p>
+                <p className="text-xs text-[#ADB5BD] mt-1.5">{formData.bio.length}/1000</p>
               </div>
 
               <div>
                 <label className="block text-sm font-medium text-[#212529] mb-3">
-                  Specializations (Optional)
+                  Specializations <span className="text-[#ADB5BD] font-normal">optional</span>
                 </label>
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                <div className="flex flex-wrap gap-2">
                   {AGENT_SPECIALIZATIONS.map(spec => {
                     const isSelected = formData.specializations.includes(spec)
                     return (
@@ -545,7 +727,7 @@ export default function AgentSignupPage() {
                           ...formData,
                           specializations: toggleArrayItem(formData.specializations, spec)
                         })}
-                        className={`px-3 py-2 rounded-lg text-xs font-medium transition-all border-2 ${
+                        className={`px-3 py-1.5 rounded-full text-sm transition-all border ${
                           isSelected
                             ? 'bg-[#212529] text-white border-[#212529]'
                             : 'bg-white text-[#495057] border-[#E9ECEF] hover:border-[#212529]'
@@ -559,10 +741,8 @@ export default function AgentSignupPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-[#212529] mb-3">
-                  Languages
-                </label>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                <label className="block text-sm font-medium text-[#212529] mb-3">Languages</label>
+                <div className="flex flex-wrap gap-2">
                   {LANGUAGES.map(lang => {
                     const isSelected = formData.languages.includes(lang)
                     return (
@@ -573,12 +753,12 @@ export default function AgentSignupPage() {
                           ...formData,
                           languages: toggleArrayItem(formData.languages, lang)
                         })}
-                        className={`px-3 py-2 rounded-lg text-sm font-medium transition-all border-2 ${
+                        className={`px-3 py-1.5 rounded-full text-sm transition-all border ${
                           isSelected
                             ? 'bg-[#212529] text-white border-[#212529]'
                             : 'bg-white text-[#495057] border-[#E9ECEF] hover:border-[#212529]'
                         }`}
-                        disabled={lang === 'English' && isSelected} // Can't deselect English
+                        disabled={lang === 'English' && isSelected}
                       >
                         {lang}
                       </button>
@@ -587,41 +767,51 @@ export default function AgentSignupPage() {
                 </div>
               </div>
             </div>
-          )}
+          </div>
+        )}
 
-          {/* Navigation Buttons */}
-          <div className="flex items-center justify-between mt-8 pt-6 border-t border-[#E9ECEF]">
+        {/* Navigation */}
+        <div className="flex items-center justify-between mt-10">
+          {currentStep > 1 ? (
             <button
               type="button"
               onClick={handleBack}
-              disabled={currentStep === 1}
-              className="inline-flex items-center gap-2 px-6 py-3 text-[#495057] hover:text-[#212529] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              className="inline-flex items-center gap-1.5 text-[#495057] hover:text-[#212529] transition-colors font-medium"
             >
-              <ChevronLeft size={ICON_SIZES.md} />
+              <ChevronLeft size={18} />
               Back
             </button>
+          ) : (
+            <button
+              type="button"
+              onClick={() => setShowForm(false)}
+              className="inline-flex items-center gap-1.5 text-[#495057] hover:text-[#212529] transition-colors font-medium"
+            >
+              <ChevronLeft size={18} />
+              Back
+            </button>
+          )}
 
-            {currentStep < totalSteps ? (
-              <button
-                type="button"
-                onClick={handleNext}
-                className="inline-flex items-center gap-2 px-6 py-3 bg-[#212529] text-white rounded-xl hover:bg-[#000000] transition-colors font-medium"
-              >
-                Next
-                <ChevronRight size={ICON_SIZES.md} />
-              </button>
-            ) : (
-              <button
-                type="button"
-                onClick={handleSubmit}
-                disabled={loading}
-                className="inline-flex items-center gap-2 px-6 py-3 bg-[#212529] text-white rounded-xl hover:bg-[#000000] transition-colors font-medium disabled:opacity-50"
-              >
-                {loading ? 'Creating Profile...' : 'Complete Signup'}
-                <Check size={ICON_SIZES.md} />
-              </button>
-            )}
-          </div>
+          {currentStep < totalSteps ? (
+            <button
+              type="button"
+              onClick={handleNext}
+              className="inline-flex items-center gap-2 px-8 py-3 bg-[#212529] text-white rounded-lg hover:bg-[#000000] transition-colors font-semibold"
+            >
+              Continue
+              <ChevronRight size={18} />
+            </button>
+          ) : (
+            <button
+              type="button"
+              onClick={handleSubmit}
+              disabled={loading}
+              className="inline-flex items-center gap-2 px-8 py-3 bg-[#212529] text-white rounded-lg hover:bg-[#000000] transition-colors font-semibold disabled:opacity-50"
+            >
+              {loading ? 'Creating...' : 'Create profile'}
+              {!loading && <Check size={18} />}
+            </button>
+          )}
         </div>
       </div>
     </div>

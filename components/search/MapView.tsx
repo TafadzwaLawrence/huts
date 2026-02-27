@@ -114,10 +114,15 @@ export default function MapView({ properties, schools = [], healthcareFacilities
       },
       (error) => {
         console.error('Geolocation error:', error)
-        alert('Unable to get your location. Please check your browser permissions.')
+        const messages: Record<number, string> = {
+          1: 'Location permission denied. Click the lock icon in your address bar to allow location access, then try again.',
+          2: 'Could not determine your location. Please try again.',
+          3: 'Location request timed out. Please try again.',
+        }
+        alert(messages[error.code] || 'Unable to get your location.')
         setIsLocating(false)
       },
-      { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+      { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 }
     )
   }
 

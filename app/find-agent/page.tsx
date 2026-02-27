@@ -184,25 +184,16 @@ export default async function FindAgentPage({ searchParams }: { searchParams: Se
           {/* Stats Cards */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-4xl mx-auto">
             <div className="bg-white/90 backdrop-blur-sm border border-[#E9ECEF] rounded-lg p-6 text-center shadow-sm">
-              <div className="w-12 h-12 rounded-lg bg-white border border-[#E9ECEF] flex items-center justify-center mx-auto mb-3">
-                <Building2 size={24} className="text-[#212529]" />
-              </div>
               <p className="text-3xl font-bold text-[#212529] tabular-nums mb-1">{totalAgents}</p>
               <p className="text-sm text-[#495057] font-medium">Professionals</p>
             </div>
             
             <div className="bg-white/90 backdrop-blur-sm border border-[#E9ECEF] rounded-lg p-6 text-center shadow-sm">
-              <div className="w-12 h-12 rounded-lg bg-white border border-[#E9ECEF] flex items-center justify-center mx-auto mb-3">
-                <CheckCircle size={24} className="text-[#212529]" />
-              </div>
               <p className="text-3xl font-bold text-[#212529] tabular-nums mb-1">{verifiedCount}</p>
               <p className="text-sm text-[#495057] font-medium">Verified</p>
             </div>
             
             <div className="bg-white/90 backdrop-blur-sm border border-[#E9ECEF] rounded-lg p-6 text-center shadow-sm">
-              <div className="w-12 h-12 rounded-lg bg-white border border-[#E9ECEF] flex items-center justify-center mx-auto mb-3">
-                <Star size={24} className="text-[#212529]" />
-              </div>
               <p className="text-3xl font-bold text-[#212529] tabular-nums mb-1">{featuredCount}</p>
               <p className="text-sm text-[#495057] font-medium">Featured</p>
             </div>
