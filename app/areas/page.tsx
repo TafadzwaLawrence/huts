@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { createClient } from '@/lib/supabase/server'
 import { MapPin, ArrowRight, TrendingUp, Search, Home, DollarSign } from 'lucide-react'
 import AreaSearchClient from '@/components/areas/AreaSearchClient'
+import AreasMapSearch from '@/components/areas/AreasMapSearch'
 
 export const metadata: Metadata = {
   title: 'Browse Neighborhoods — Rentals & Homes by Area | Huts',
@@ -26,6 +27,31 @@ export default async function AreasPage() {
     .select('*')
     .order('property_count', { ascending: false })
   
+  // Fetch properties with coordinates for map
+  const { data: properties } = await supabase
+    .from('properties')
+    .select(`
+      id,
+      slug,
+      title,
+      price,
+      sale_price,
+      listing_type,
+      beds,
+      baths,
+      lat,
+      lng,
+      city,
+      neighborhood,
+      status,
+      property_images (url)
+    `)
+    .eq('status', 'active')
+    .not('lat', 'is', null)
+    .not('lng', 'is', null)
+    .order('created_at', { ascending: false })
+    .limit(500)
+  
   // Get unique cities for tabs
   const cities = areas ? Array.from(new Set(areas.map(a => a.city))).sort() : []
   
@@ -40,7 +66,7 @@ export default async function AreasPage() {
       <div className="min-h-screen bg-white">
         {/* Hero Section - Zillow Style */}
         <section className="bg-white border-b border-[#E9ECEF]">
-          <div className="container-main max-w-7xl py-8 md:py-12">
+          <div className="container-main max-w-7xl py-8 md:py-12 px-4">
             {/* Title */}
             <div className="mb-6">
               <h1 className="text-3xl md:text-4xl font-bold text-[#212529] mb-3">
@@ -51,42 +77,11 @@ export default async function AreasPage() {
               </p>
             </div>
 
-            {/* Search Bar */}
-            <div className="max-w-2xl mb-8">
-              <div className="relative">
-                <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-[#ADB5BD]" size={20} />
-                <input
-                  type="text"
-                  placeholder="Search neighborhoods by name or location..."
-                  className="w-full pl-12 pr-4 py-3.5 border-2 border-[#E9ECEF] rounded-lg text-[#212529] placeholder:text-[#ADB5BD] focus:outline-none focus:border-[#212529] transition-all"
-                  id="area-search-input"
-                />
-              </div>
-            </div>
-
-            {/* City Tabs */}
-            {cities.length > 1 && (
-              <div className="flex flex-wrap gap-2 mb-6 border-b border-[#E9ECEF] pb-4">
-                <Link
-                  href="/areas"
-                  className="px-4 py-2 bg-[#212529] text-white rounded-lg font-medium text-sm hover:bg-black transition-colors"
-                >
-                  All Cities
-                </Link>
-                {cities.map(city => (
-                  <Link
-                    key={city}
-                    href={`/areas?city=${encodeURIComponent(city)}`}
-                    className="px-4 py-2 bg-white border border-[#E9ECEF] text-[#495057] rounded-lg font-medium text-sm hover:border-[#212529] hover:text-[#212529] transition-all"
-                  >
-                    {city}
-                  </Link>
-                ))}
-              </div>
-            )}
+            {/* Interactive Map Search */}
+            <AreasMapSearch properties={properties || []} />
 
             {/* Market Stats */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8">
               <div className="bg-white border border-[#E9ECEF] rounded-lg p-6 hover:border-[#212529] transition-all">
                 <p className="text-3xl font-bold text-[#212529] mb-1">{activeAreas}</p>
                 <p className="text-sm text-[#495057]">Active Areas</p>
