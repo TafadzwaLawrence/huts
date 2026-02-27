@@ -163,30 +163,48 @@ export default async function FindAgentPage({ searchParams }: { searchParams: Se
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <section className="bg-[#F8F9FA] border-b border-[#E9ECEF]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-12">
-          <div className="text-center max-w-3xl mx-auto">
-            <h1 className="text-2xl md:text-3xl font-bold text-[#212529] mb-3">
+      <section className="relative bg-white border-b border-[#E9ECEF] overflow-hidden">
+        {/* Background Image with Grayscale */}
+        <div 
+          className="absolute inset-0 bg-cover bg-center grayscale opacity-20"
+          style={{ backgroundImage: 'url(/agent-hero.jpg)' }}
+        />
+        
+        {/* Content */}
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+          <div className="text-center max-w-3xl mx-auto mb-8">
+            <h1 className="text-3xl md:text-4xl font-bold text-[#212529] mb-4">
               Find a real estate professional
             </h1>
-            <p className="text-base text-[#495057] mb-6">
+            <p className="text-lg text-[#495057]">
               Connect with verified agents, property managers, builders, and photographers in Zimbabwe
             </p>
+          </div>
 
-            {/* Stats */}
-            <div className="flex items-center justify-center gap-8 flex-wrap">
-              <div className="text-center">
-                <p className="text-xl font-bold text-[#212529] tabular-nums">{totalAgents}</p>
-                <p className="text-xs text-[#ADB5BD]">Professionals</p>
+          {/* Stats Cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-4xl mx-auto">
+            <div className="bg-white/90 backdrop-blur-sm border border-[#E9ECEF] rounded-lg p-6 text-center shadow-sm">
+              <div className="w-12 h-12 rounded-lg bg-white border border-[#E9ECEF] flex items-center justify-center mx-auto mb-3">
+                <Building2 size={24} className="text-[#212529]" />
               </div>
-              <div className="text-center">
-                <p className="text-xl font-bold text-[#212529] tabular-nums">{verifiedCount}</p>
-                <p className="text-xs text-[#ADB5BD]">Verified</p>
+              <p className="text-3xl font-bold text-[#212529] tabular-nums mb-1">{totalAgents}</p>
+              <p className="text-sm text-[#495057] font-medium">Professionals</p>
+            </div>
+            
+            <div className="bg-white/90 backdrop-blur-sm border border-[#E9ECEF] rounded-lg p-6 text-center shadow-sm">
+              <div className="w-12 h-12 rounded-lg bg-white border border-[#E9ECEF] flex items-center justify-center mx-auto mb-3">
+                <CheckCircle size={24} className="text-[#212529]" />
               </div>
-              <div className="text-center">
-                <p className="text-xl font-bold text-[#212529] tabular-nums">{featuredCount}</p>
-                <p className="text-xs text-[#ADB5BD]">Featured</p>
+              <p className="text-3xl font-bold text-[#212529] tabular-nums mb-1">{verifiedCount}</p>
+              <p className="text-sm text-[#495057] font-medium">Verified</p>
+            </div>
+            
+            <div className="bg-white/90 backdrop-blur-sm border border-[#E9ECEF] rounded-lg p-6 text-center shadow-sm">
+              <div className="w-12 h-12 rounded-lg bg-white border border-[#E9ECEF] flex items-center justify-center mx-auto mb-3">
+                <Star size={24} className="text-[#212529]" />
               </div>
+              <p className="text-3xl font-bold text-[#212529] tabular-nums mb-1">{featuredCount}</p>
+              <p className="text-sm text-[#495057] font-medium">Featured</p>
             </div>
           </div>
         </div>
