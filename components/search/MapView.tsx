@@ -300,22 +300,22 @@ export default function MapView({ properties, schools = [], healthcareFacilities
         className: 'healthcare-marker',
         html: `
           <div style="
-            width: 24px;
-            height: 24px;
+            width: 14px;
+            height: 14px;
             background: #EF4444;
-            border: 2px solid #B91C1C;
+            border: 1.5px solid #B91C1C;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 14px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+            font-size: 9px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
           ">
             <span style="color: white; font-weight: bold;">+</span>
           </div>
         `,
-        iconSize: [24, 24],
-        iconAnchor: [12, 12],
+        iconSize: [14, 14],
+        iconAnchor: [7, 7],
       })
 
       const marker = L.marker([facility.latitude, facility.longitude], { icon })
