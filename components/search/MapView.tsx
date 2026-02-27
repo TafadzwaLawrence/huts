@@ -305,8 +305,8 @@ export default function MapView({ properties, schools = [], healthcareFacilities
             <span class="sm-icon">${colors.icon}</span>
           </div>
         `,
-        iconSize: [32, 32],
-        iconAnchor: [16, 32],
+        iconSize: [18, 18],
+        iconAnchor: [9, 18],
       })
 
       const marker = L.marker([school.lat, school.lng], { icon })
@@ -660,15 +660,15 @@ export default function MapView({ properties, schools = [], healthcareFacilities
           overflow: visible;
         }
         .sm {
-          width: 32px;
-          height: 32px;
+          width: 18px;
+          height: 18px;
           border-radius: 50%;
-          border: 2.5px solid;
+          border: 1.5px solid;
           display: flex;
           align-items: center;
           justify-content: center;
           cursor: pointer;
-          box-shadow: 0 3px 12px rgba(0, 0, 0, 0.2);
+          box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
           transition: all 0.2s ease;
           position: relative;
         }
@@ -680,18 +680,18 @@ export default function MapView({ properties, schools = [], healthcareFacilities
         .sm::after {
           content: '';
           position: absolute;
-          bottom: -8px;
+          bottom: -5px;
           left: 50%;
           transform: translateX(-50%);
           width: 0;
           height: 0;
-          border-left: 6px solid transparent;
-          border-right: 6px solid transparent;
-          border-top: 8px solid;
+          border-left: 4px solid transparent;
+          border-right: 4px solid transparent;
+          border-top: 5px solid;
           border-top-color: inherit;
         }
         .sm-icon {
-          font-size: 16px;
+          font-size: 9px;
           line-height: 1;
         }
       `}</style>
