@@ -89,32 +89,32 @@ export default function MyReviewsPage() {
     <div className="min-h-screen bg-[#F8F9FA]">
       <div className="max-w-4xl mx-auto px-4 py-8">
         {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-page-title mb-2">My Reviews</h1>
-          <p className="text-muted-foreground">
+        <div className="mb-6">
+          <h1 className="text-2xl font-bold text-[#212529] mb-2">My reviews</h1>
+          <p className="text-sm text-[#495057]">
             Manage your property reviews and see landlord responses
           </p>
         </div>
 
         {/* Stats */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
-          <div className="bg-white border border-[#E9ECEF] rounded-lg p-6">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+          <div className="bg-white border border-[#E9ECEF] rounded-lg p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-secondary mb-1">Total Reviews</p>
-                <p className="text-stat">
+                <p className="text-xs text-[#495057] mb-1">Total Reviews</p>
+                <p className="text-lg font-bold text-[#212529] tabular-nums">
                   {reviews?.length || 0}
                 </p>
               </div>
-              <Star size={ICON_SIZES['2xl']} className="text-[#ADB5BD]" />
+              <Star size={20} className="text-[#ADB5BD]" />
             </div>
           </div>
 
-          <div className="bg-white border border-[#E9ECEF] rounded-lg p-6">
+          <div className="bg-white border border-[#E9ECEF] rounded-lg p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-secondary mb-1">Avg Rating Given</p>
-                <p className="text-stat">
+                <p className="text-xs text-[#495057] mb-1">Avg Rating Given</p>
+                <p className="text-lg font-bold text-[#212529] tabular-nums">
                   {reviews && reviews.length > 0
                     ? (
                         reviews.reduce((acc, r) => acc + r.rating, 0) /
@@ -123,42 +123,42 @@ export default function MyReviewsPage() {
                     : '0.0'}
                 </p>
               </div>
-              <Star size={ICON_SIZES['2xl']} className="fill-black text-black" />
+              <Star size={20} className="fill-black text-black" />
             </div>
           </div>
 
-          <div className="bg-white border border-[#E9ECEF] rounded-lg p-6">
+          <div className="bg-white border border-[#E9ECEF] rounded-lg p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-secondary mb-1">With Response</p>
-                <p className="text-stat">
+                <p className="text-xs text-[#495057] mb-1">With Response</p>
+                <p className="text-lg font-bold text-[#212529] tabular-nums">
                   {reviews?.filter((r) => r.review_responses).length || 0}
                 </p>
               </div>
-              <Edit size={ICON_SIZES['2xl']} className="text-[#ADB5BD]" />
+              <Edit size={20} className="text-[#ADB5BD]" />
             </div>
           </div>
         </div>
 
         {/* Reviews List */}
         {!reviews || reviews.length === 0 ? (
-          <div className="bg-white border border-[#E9ECEF] rounded-lg p-12 text-center">
-            <Star size={ICON_SIZES['3xl']} className="mx-auto text-[#ADB5BD] mb-4" />
-            <h3 className="text-subsection-title mb-2">
+          <div className="bg-white border border-[#E9ECEF] rounded-lg p-10 text-center">
+            <Star size={48} className="mx-auto text-[#ADB5BD] mb-4" />
+            <h3 className="text-xl font-bold text-[#212529] mb-2">
               No reviews yet
             </h3>
-            <p className="text-muted-foreground mb-6">
+            <p className="text-sm text-[#495057] mb-6">
               Start exploring properties and share your experiences
             </p>
             <Link
               href="/"
-              className="inline-block bg-black text-white px-6 py-2 rounded border-2 border-black hover:bg-[#212529] hover:-translate-y-0.5 transition-all"
+              className="inline-block bg-black text-white px-6 py-2.5 rounded-lg border border-black hover:bg-[#212529] transition-colors"
             >
-              Browse Properties
+              Browse properties
             </Link>
           </div>
         ) : (
-          <div className="space-y-6">
+          <div className="space-y-4">
             {reviews.map((review) => (
               <div
                 key={review.id}
@@ -171,18 +171,18 @@ export default function MyReviewsPage() {
                 >
                   <div className="flex items-center justify-between">
                     <div>
-                      <h3 className="text-card-title-sm">
+                      <h3 className="text-base font-semibold text-[#212529]">
                         {review.properties?.title}
                       </h3>
-                      <p className="text-secondary">
+                      <p className="text-sm text-[#495057]">
                         {review.properties?.location} · ${review.properties?.price}/mo
                       </p>
                     </div>
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-1">
                       {Array.from({ length: 5 }, (_, i) => (
                         <Star
                           key={i}
-                          size={ICON_SIZES.md}
+                          size={16}
                           className={
                             i < review.rating
                               ? 'fill-black text-black'
@@ -195,27 +195,27 @@ export default function MyReviewsPage() {
                 </Link>
 
                 {/* Review Content */}
-                <div className="p-6 space-y-4">
+                <div className="p-4 space-y-3">
                   <div>
                     <div className="flex items-center justify-between mb-2">
-                      <h4 className="text-card-title-sm">
+                      <h4 className="text-base font-semibold text-[#212529]">
                         {review.title}
                       </h4>
                       {review.editable_until &&
                         new Date(review.editable_until) > new Date() && (
                           <Link
                             href={`/dashboard/reviews/${review.id}/edit`}
-                            className="p-2 hover:bg-[#E9ECEF] rounded transition-colors"
+                            className="p-1.5 hover:bg-[#E9ECEF] rounded-lg transition-colors"
                             title="Edit review"
                           >
-                            <Edit size={ICON_SIZES.md} className="text-[#495057]" />
+                            <Edit size={16} className="text-[#495057]" />
                           </Link>
                         )}
                     </div>
-                    <p className="text-muted-foreground leading-relaxed">
+                    <p className="text-sm text-[#495057] leading-relaxed">
                       {review.comment}
                     </p>
-                    <p className="text-small mt-2">
+                    <p className="text-xs text-[#ADB5BD] mt-2">
                       {timeAgo(review.created_at)}
                       {review.edited && ' (edited)'}
                     </p>
@@ -223,18 +223,18 @@ export default function MyReviewsPage() {
 
                   {/* Landlord Response */}
                   {review.review_responses && (
-                    <div className="ml-4 pl-4 border-l-2 border-[#E9ECEF] space-y-2">
+                    <div className="ml-3 pl-3 border-l border-[#E9ECEF] space-y-2">
                       <div className="flex items-center gap-2">
-                        <span className="text-label">
+                        <span className="text-xs font-medium text-[#212529]">
                           Response from{' '}
                           {review.review_responses.profiles?.name ||
                             'Property Owner'}
                         </span>
                       </div>
-                      <p className="text-secondary">
+                      <p className="text-sm text-[#495057]">
                         {review.review_responses.response}
                       </p>
-                      <span className="text-small">
+                      <span className="text-xs text-[#ADB5BD]">
                         {timeAgo(review.review_responses.created_at)}
                       </span>
                     </div>
