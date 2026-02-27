@@ -632,7 +632,7 @@ export default function FloatingChatWidget() {
                 <div className="flex flex-col h-[calc(600px-64px)]">
                   {/* Property Info Banner */}
                   <Link
-                    href={`/property/${selectedConversation.property?.slug}`}
+                    href={`/property/${selectedConversation.property?.slug || selectedConversation.property?.id || ''}`}
                     className="p-3 bg-[#212529] hover:bg-black transition-colors flex items-center gap-3 group"
                   >
                     <div className="w-12 h-12 bg-[#495057] rounded-lg overflow-hidden flex-shrink-0 border-2 border-white/10">

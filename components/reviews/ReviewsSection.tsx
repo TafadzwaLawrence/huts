@@ -63,61 +63,67 @@ export default function ReviewsSection({
   }
 
   return (
-    <section className={cn('space-y-8', className)}>
+    <section className={cn('space-y-6', className)}>
       {/* Stats Header */}
-      <div className="border border-[#E9ECEF] rounded-lg p-6">
-        <div className="grid md:grid-cols-2 gap-8">
-          {/* Average Rating */}
-          <div className="space-y-4">
-            <h2 className="text-section-title">
-              Guest Reviews
-            </h2>
-            
-            {stats.totalReviews > 0 ? (
-              <>
-                <div className="flex items-end gap-3">
-                  <span className="text-5xl font-bold text-foreground">
-                    {stats.averageRating.toFixed(1)}
-                  </span>
-                  <RatingStars
-                    rating={stats.averageRating}
-                    size={ICON_SIZES.xl}
-                    showNumber={false}
-                    className="mb-2"
-                  />
-                </div>
-                <p className="text-muted-foreground">
-                  Based on {stats.totalReviews} {stats.totalReviews === 1 ? 'review' : 'reviews'}
-                </p>
-              </>
-            ) : (
-              <p className="text-muted-foreground">No reviews yet</p>
-            )}
-
-            {/* Write Review Button */}
-            {canReview && !showReviewForm && (
-              <button
-                onClick={() => setShowReviewForm(true)}
-                className="mt-4 bg-black text-white px-6 py-2 rounded border-2 border-black hover:bg-[#212529] hover:-translate-y-0.5 transition-all"
-              >
-                Write a Review
-              </button>
-            )}
-          </div>
-
-          {/* Rating Distribution */}
-          {stats.totalReviews > 0 && (
+      <div className="border-b border-[#E9ECEF] pb-6">
+        <h2 className="text-2xl font-bold text-[#212529] mb-6">
+          Guest Reviews
+        </h2>
+        
+        {stats.totalReviews > 0 ? (
+          <div className="grid md:grid-cols-2 gap-8">
+            {/* Average Rating */}
             <div>
-              <h3 className="text-label mb-4">
-                Rating Distribution
-              </h3>
+              <div className="flex items-baseline gap-2 mb-2">
+                <span className="text-4xl font-bold text-[#212529]">
+                  {stats.averageRating.toFixed(1)}
+                </span>
+                <span className="text-base text-[#495057]">out of 5</span>
+              </div>
+              <RatingStars
+                rating={stats.averageRating}
+                size={20}
+                showNumber={false}
+                className="mb-3"
+              />
+              <p className="text-sm text-[#495057]">
+                {stats.totalReviews} {stats.totalReviews === 1 ? 'review' : 'reviews'}
+              </p>
+
+              {/* Write Review Button */}
+              {canReview && !showReviewForm && (
+                <button
+                  onClick={() => setShowReviewForm(true)}
+                  className="mt-4 px-5 py-2.5 bg-[#212529] text-white rounded-lg text-sm font-medium hover:bg-black transition-colors"
+                >
+                  Write a review
+                </button>
+              )}
+            </div>
+
+            {/* Rating Distribution */}
+            <div>
               <RatingDistribution
                 distribution={stats.ratingDistribution}
                 totalReviews={stats.totalReviews}
               />
             </div>
-          )}
-        </div>
+          </div>
+        ) : (
+          <div className="py-8">
+            <p className="text-base text-[#495057] mb-4">
+              No reviews yet
+            </p>
+            {canReview && !showReviewForm && (
+              <button
+                onClick={() => setShowReviewForm(true)}
+                className="px-5 py-2.5 bg-[#212529] text-white rounded-lg text-sm font-medium hover:bg-black transition-colors"
+              >
+                Write the first review
+              </button>
+            )}
+          </div>
+        )}
       </div>
 
       {/* Review Form */}

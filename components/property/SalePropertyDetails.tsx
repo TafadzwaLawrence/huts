@@ -4,7 +4,7 @@ import { Building2, Calendar, MapPin, Square, Car, Home as HomeIcon, Ruler } fro
 import { PropertyWithImages } from '@/types'
 import { formatSalePrice, formatPrice } from '@/lib/utils'
 import { ICON_SIZES } from '@/lib/constants'
-import { MortgageCalculator } from './MortgageCalculator'
+// import { MortgageCalculator } from './MortgageCalculator' // Disabled - mortgages not applicable in Zimbabwe
 
 interface SalePropertyDetailsProps {
   property: PropertyWithImages
@@ -157,12 +157,12 @@ export function SalePropertyDetails({ property }: SalePropertyDetailsProps) {
         </div>
       </div>
 
-      {/* Mortgage Calculator */}
-      <MortgageCalculator
+      {/* Mortgage Calculator - Disabled for Zimbabwe market */}
+      {/* <MortgageCalculator
         salePrice={property.sale_price}
         propertyTaxAnnual={property.property_tax_annual}
         hoaFeeMonthly={property.hoa_fee_monthly}
-      />
+      /> */}
 
       {/* Contact CTAs */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

@@ -208,7 +208,7 @@ export default async function PropertyReviewsPage() {
                     <div className="flex items-center justify-between">
                       <div>
                         <Link
-                          href={`/property/${property.id}`}
+                          href={`/property/${property.slug || property.id}`}
                           className="text-xl font-bold text-[#212529] hover:underline"
                         >
                           {property.title}

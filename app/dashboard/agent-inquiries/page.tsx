@@ -253,7 +253,7 @@ function InquiryCard({ inquiry, agentProfileId }: any) {
       {/* Property Context */}
       {property && (
         <Link
-          href={`/property/${property.slug}`}
+          href={`/property/${property.slug || property.id}`}
           className="block mb-4 p-3 bg-[#F8F9FA] rounded-lg hover:bg-[#E9ECEF] transition-colors"
         >
           <div className="flex items-center gap-2 text-sm">

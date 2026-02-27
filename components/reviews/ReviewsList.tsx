@@ -110,51 +110,58 @@ export default function ReviewsList({
   ]
 
   return (
-    <div className={cn('space-y-4', className)}>
-      {/* Sort Controls */}
-      <div className="flex items-center justify-between">
-        <h3 className="text-card-title">
-          Reviews ({reviews.length})
-        </h3>
-        
-        <div className="relative">
-          <button
-            onClick={() => setShowSortMenu(!showSortMenu)}
-            className="flex items-center gap-2 px-3 py-2 border-2 border-[#E9ECEF] rounded hover:border-[#495057] transition-colors"
-          >
-            <span className="text-sm">
+    <div className={cn('space-y-6', className)}>
+      {/* Header with Sort */}
+      {reviews.length > 0 && (
+        <div className="flex items-center justify-between pb-4 border-b border-[#E9ECEF]">
+          <h3 className="text-xl font-bold text-[#212529]">
+            Reviews ({reviews.length})
+          </h3>
+          
+          <div className="relative">
+            <button
+              onClick={() => setShowSortMenu(!showSortMenu)}
+              className="flex items-center gap-2 px-4 py-2 text-sm text-[#495057] hover:text-[#212529] transition-colors"
+            >
               {sortOptions.find((opt) => opt.value === sortBy)?.label}
-            </span>
-            <ChevronDown size={ICON_SIZES.md} className="text-[#495057]" />
-          </button>
+              <ChevronDown size={16} />
+            </button>
 
-          {showSortMenu && (
-            <div className="absolute right-0 mt-1 w-48 bg-white border border-[#E9ECEF] rounded shadow-lg z-10">
-              {sortOptions.map((option) => (
-                <button
-                  key={option.value}
-                  onClick={() => {
-                    setSortBy(option.value)
-                    setShowSortMenu(false)
-                    setPage(1)
-                  }}
-                  className={cn(
-                    'w-full text-left px-4 py-2 text-sm hover:bg-[#E9ECEF] transition-colors',
-                    sortBy === option.value && 'bg-[#E9ECEF] font-medium'
-                  )}
-                >
-                  {option.label}
-                </button>
-              ))}
-            </div>
-          )}
+            {showSortMenu && (
+              <>
+                <div 
+                  className="fixed inset-0 z-10" 
+                  onClick={() => setShowSortMenu(false)}
+                />
+                <div className="absolute right-0 mt-1 w-44 bg-white border border-[#E9ECEF] rounded-lg shadow-lg z-20">
+                  {sortOptions.map((option) => (
+                    <button
+                      key={option.value}
+                      onClick={() => {
+                        setSortBy(option.value)
+                        setShowSortMenu(false)
+                        setPage(1)
+                      }}
+                      className={cn(
+                        'w-full text-left px-4 py-2.5 text-sm hover:bg-[#F8F9FA] transition-colors first:rounded-t-lg last:rounded-b-lg',
+                        sortBy === option.value && 'bg-[#F8F9FA] font-medium text-[#212529]',
+                        sortBy !== option.value && 'text-[#495057]'
+                      )}
+                    >
+                      {option.label}
+                    </button>
+                  ))}
+                </div>
+              </>
+            )}
+          </div>
         </div>
-      </div>
+      )}
 
       {/* Reviews List */}
       {reviews.length === 0 && !loading ? (
-        <div className="text-center py-12 border border-[#E9ECEF] rounded-lg">
-          <p className="text-muted-foreground">No reviews yet. Be the first to review!</p>
+        <div className="text-center py-16">
+          <p className="text-base text-[#495057]">Be the first to review</p>
         </div>
       ) : (
         <>
@@ -174,19 +181,19 @@ export default function ReviewsList({
 
           {/* Load More */}
           {hasMore && (
-            <div className="text-center pt-4">
+            <div className="text-center pt-6">
               <button
                 onClick={handleLoadMore}
                 disabled={loading}
-                className="bg-transparent text-black px-6 py-2 rounded border-2 border-[#495057] hover:border-black hover:border-[3px] transition-all disabled:opacity-50"
+                className="px-6 py-2.5 border border-[#212529] text-[#212529] rounded-lg text-sm font-medium hover:bg-[#212529] hover:text-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {loading ? (
-                  <>
-                    <Loader2 className="inline w-4 h-4 mr-2 animate-spin" />
+                  <span className="flex items-center gap-2">
+                    <Loader2 className="w-4 h-4 animate-spin" />
                     Loading...
-                  </>
+                  </span>
                 ) : (
-                  'Load More Reviews'
+                  'Show more reviews'
                 )}
               </button>
             </div>

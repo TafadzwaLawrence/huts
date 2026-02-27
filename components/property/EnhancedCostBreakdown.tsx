@@ -38,6 +38,11 @@ export default function CostBreakdown({
   const isSale = listingType === 'sale' || !!salePrice
   const isRental = !isSale && !!price
   
+  // Mortgage calculator disabled for Zimbabwe market
+  if (isSale) {
+    return null
+  }
+  
   const [downPaymentPct, setDownPaymentPct] = useState(20)
   const [interestRate, setInterestRate] = useState(6.5)
   const [loanTerm, setLoanTerm] = useState(30)

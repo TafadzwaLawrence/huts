@@ -267,7 +267,7 @@ export default function DashboardMapPage() {
                         {formatPrice(property.price)}/mo
                       </span>
                       <Link
-                        href={`/property/${property.id}`}
+                        href={`/property/${property.slug || property.id}`}
                         className="text-[#212529] hover:underline text-sm flex items-center gap-1"
                       >
                         View <ExternalLink size={12} />

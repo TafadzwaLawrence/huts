@@ -344,7 +344,7 @@ export default function MessagesPage() {
                 <div className="flex-1 min-w-0">
                   <span className="text-sm font-semibold text-[#212529] truncate block">{getOtherUser(selected).name}</span>
                   <Link
-                    href={`/property/${selected.property?.slug || ''}`}
+                    href={`/property/${selected.property?.slug || selected.property?.id || ''}`}
                     className="text-xs text-[#ADB5BD] hover:text-[#495057] truncate block transition-colors"
                   >
                     {selected.property?.title}

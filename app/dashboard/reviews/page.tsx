@@ -166,7 +166,7 @@ export default function MyReviewsPage() {
               >
                 {/* Property Info */}
                 <Link
-                  href={`/property/${review.properties?.id}`}
+                  href={`/property/${review.properties?.slug || review.properties?.id}`}
                   className="block p-4 border-b border-[#E9ECEF] hover:bg-[#F8F9FA] transition-colors"
                 >
                   <div className="flex items-center justify-between">
