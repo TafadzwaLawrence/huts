@@ -154,14 +154,14 @@ export default function HelpPage() {
 
           {/* Search Bar */}
           <div className="max-w-2xl mx-auto">
-            <div className="flex items-center border border-[#E9ECEF] rounded-lg bg-white focus-within:border-[#495057] transition-colors">
-              <Search size={18} className="ml-4 text-[#ADB5BD]" />
+            <div className="relative">
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-[#ADB5BD]" size={20} />
               <input
                 type="text"
                 placeholder="Search help articles..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="flex-1 px-4 py-3 outline-none bg-transparent text-[#212529] placeholder:text-[#ADB5BD]"
+                className="w-full pl-12 pr-4 py-3.5 border-2 border-[#E9ECEF] rounded-lg text-[#212529] placeholder:text-[#ADB5BD] focus:outline-none focus:border-[#212529] transition-all"
               />
             </div>
           </div>
