@@ -32,7 +32,7 @@ export default async function HomePage() {
             src="/pexels-gustavo-fring-7489107.jpg"
             alt="Hero background"
             fill
-            className="object-cover w-full h-full grayscale contrast-125 opacity-[0.15]"
+            className="object-cover w-full h-full grayscale contrast-110 opacity-[0.25]"
             priority
             sizes="100vw"
           />
@@ -118,7 +118,7 @@ export default async function HomePage() {
                   src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=600&h=400&fit=crop"
                   alt="Buy a home"
                   fill
-                  className="object-cover grayscale contrast-125 opacity-[0.35] group-hover:scale-105 transition-all duration-500"
+                  className="object-cover grayscale contrast-110 opacity-[0.55] group-hover:scale-105 transition-all duration-500"
                   sizes="(max-width: 768px) 100vw, 33vw"
                 />
               </div>
@@ -142,7 +142,7 @@ export default async function HomePage() {
                   src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=600&h=400&fit=crop"
                   alt="Rent a home"
                   fill
-                  className="object-cover grayscale contrast-125 opacity-[0.35] group-hover:scale-105 transition-all duration-500"
+                  className="object-cover grayscale contrast-110 opacity-[0.55] group-hover:scale-105 transition-all duration-500"
                   sizes="(max-width: 768px) 100vw, 33vw"
                 />
               </div>
@@ -166,7 +166,7 @@ export default async function HomePage() {
                   src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600&h=400&fit=crop"
                   alt="List a property"
                   fill
-                  className="object-cover grayscale contrast-125 opacity-[0.35] group-hover:scale-105 transition-all duration-500"
+                  className="object-cover grayscale contrast-110 opacity-[0.55] group-hover:scale-105 transition-all duration-500"
                   sizes="(max-width: 768px) 100vw, 33vw"
                 />
               </div>

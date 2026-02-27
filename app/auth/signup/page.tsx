@@ -289,7 +289,7 @@ export default function SignUpPage() {
           src="/pexels-curtis-adams-1694007-4832510.jpg"
           alt="Property exterior"
           fill
-          className="object-cover w-full h-full grayscale contrast-125 opacity-60 select-none pointer-events-none"
+          className="object-cover w-full h-full grayscale contrast-110 opacity-70 select-none pointer-events-none"
           priority
           sizes="50vw"
         />

@@ -202,7 +202,7 @@ export default async function AreaGuidePage({ params }: PageProps) {
                       <img
                         src={imageUrl}
                         alt={property.title}
-                        className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
+                        className="w-full h-full object-cover grayscale-[50%] group-hover:grayscale-0 transition-all duration-500"
                       />
                       <SaveButton className="absolute top-3 right-3 p-2 bg-white/95 rounded-full hover:scale-110 transition-all shadow-md" />
                     </div>
