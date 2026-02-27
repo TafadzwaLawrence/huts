@@ -12,6 +12,7 @@ import {
   ACHIEVEMENT_LABELS,
   ICON_SIZES 
 } from '@/lib/constants'
+import { AgentSortDropdown } from '@/components/agent/AgentSortDropdown'
 
 export const metadata: Metadata = {
   title: 'Find a Real Estate Professional in Zimbabwe | Huts',
@@ -279,24 +280,7 @@ export default async function FindAgentPage({ searchParams }: { searchParams: Se
               <p className="text-sm text-[#495057]">
                 {totalAgents} professional{totalAgents !== 1 ? 's' : ''} found
               </p>
-              <div className="flex items-center gap-2">
-                <span className="text-sm text-[#ADB5BD]">Sort by:</span>
-                <select
-                  value={searchParams.sort || 'best'}
-                  onChange={(e) => {
-                    const url = new URL(window.location.href)
-                    url.searchParams.set('sort', e.target.value)
-                    window.location.href = url.toString()
-                  }}
-                  className="text-sm bg-white border border-[#E9ECEF] rounded-lg px-3 py-2 focus:outline-none focus:border-[#212529]"
-                >
-                  <option value="best">Best Match</option>
-                  <option value="rating">Highest Rated</option>
-                  <option value="reviews">Most Reviews</option>
-                  <option value="experience">Most Experience</option>
-                  <option value="newest">Newest</option>
-                </select>
-              </div>
+              <AgentSortDropdown currentSort={searchParams.sort} />
             </div>
 
             {/* Featured Agents Section */}
