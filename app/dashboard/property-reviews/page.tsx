@@ -36,7 +36,7 @@ export default async function PropertyReviewsPage() {
   // Fetch landlord's properties
   const { data: properties } = await supabase
     .from('properties')
-    .select('id, title, location')
+    .select('id, title, location, slug')
     .eq('user_id', user.id)
 
   if (!properties || properties.length === 0) {
@@ -75,6 +75,7 @@ export default async function PropertyReviewsPage() {
       *,
       properties!inner (
         id,
+        slug,
         title,
         location,
         user_id

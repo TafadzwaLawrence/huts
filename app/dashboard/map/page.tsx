@@ -26,6 +26,7 @@ const Popup = dynamic(
 
 interface Property {
   id: string
+  slug: string
   title: string
   price: number
   beds: number
@@ -69,6 +70,7 @@ export default function DashboardMapPage() {
         .from('properties')
         .select(`
           id,
+          slug,
           title,
           price,
           beds,

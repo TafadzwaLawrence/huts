@@ -57,7 +57,7 @@ export default async function AgentInquiriesPage() {
     .from('agent_inquiries')
     .select(`
       *,
-      property:properties(title, slug, city, neighborhood)
+      property:properties(id, title, slug, city, neighborhood)
     `)
     .eq('agent_id', agentProfile.id)
     .order('created_at', { ascending: false })
@@ -186,7 +186,7 @@ export default async function AgentInquiriesPage() {
 }
 
 function InquiryCard({ inquiry, agentProfileId }: any) {
-  const property = inquiry.property as { title: string; slug: string; city: string; neighborhood: string } | null
+  const property = inquiry.property as { id: string; title: string; slug: string; city: string; neighborhood: string } | null
   const createdDate = new Date(inquiry.created_at).toLocaleDateString('en-US', {
     month: 'short',
     day: 'numeric',

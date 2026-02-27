@@ -23,6 +23,7 @@ type Conversation = {
   last_message_at: string
   last_message_preview: string | null
   property: {
+    id: string
     title: string
     slug: string
     property_images: Array<{ url: string; is_primary: boolean }>
@@ -80,7 +81,7 @@ export default function MessagesPage() {
       .from('conversations')
       .select(`
         id, property_id, last_message_at, last_message_preview,
-        property:properties!conversations_property_id_fkey(title, slug, property_images(url, is_primary)),
+        property:properties!conversations_property_id_fkey(id, title, slug, property_images(url, is_primary)),
         renter:profiles!conversations_renter_id_fkey(id, name, avatar_url),
         landlord:profiles!conversations_landlord_id_fkey(id, name, avatar_url)
       `)
