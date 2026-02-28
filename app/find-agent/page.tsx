@@ -4,7 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { 
   Search, Star, MapPin, Award, CheckCircle, Filter, 
-  Building2, Home, Camera, Briefcase, TrendingUp
+  Building2, Home, Camera, Briefcase, TrendingUp, ArrowRight
 } from 'lucide-react'
 import { 
   AGENT_TYPE_LABELS, 
@@ -489,18 +489,50 @@ export default async function FindAgentPage({ searchParams }: { searchParams: Se
 
             {/* Empty State */}
             {!agents || agents.length === 0 && (
-              <div className="text-center py-16">
-                <div className="w-16 h-16 mx-auto mb-4 rounded-lg bg-[#F8F9FA] border border-[#E9ECEF] flex items-center justify-center">
-                  <Search size={32} className="text-[#ADB5BD]" />
+              <div className="border border-[#E9ECEF] rounded-lg p-12 text-center">
+                <div className="max-w-md mx-auto">
+                  <div className="w-20 h-20 mx-auto mb-6 rounded-lg bg-[#F8F9FA] border border-[#E9ECEF] flex items-center justify-center">
+                    <Search size={40} className="text-[#ADB5BD]" />
+                  </div>
+                  <h3 className="text-2xl font-bold text-[#212529] mb-3">No professionals found</h3>
+                  <p className="text-base text-[#495057] mb-8 leading-relaxed">
+                    We couldn't find any professionals matching your criteria. Try adjusting your filters or browse our full directory.
+                  </p>
+                  
+                  <div className="space-y-3 mb-8">
+                    <p className="text-sm font-medium text-[#212529] mb-3">Suggestions:</p>
+                    <div className="grid grid-cols-1 gap-2 text-left">
+                      <div className="flex items-center gap-2 text-sm text-[#495057] bg-[#F8F9FA] px-4 py-2 rounded-lg">
+                        <CheckCircle size={16} className="text-[#212529] flex-shrink-0" />
+                        <span>Remove some filters to see more results</span>
+                      </div>
+                      <div className="flex items-center gap-2 text-sm text-[#495057] bg-[#F8F9FA] px-4 py-2 rounded-lg">
+                        <CheckCircle size={16} className="text-[#212529] flex-shrink-0" />
+                        <span>Try a different city or service area</span>
+                      </div>
+                      <div className="flex items-center gap-2 text-sm text-[#495057] bg-[#F8F9FA] px-4 py-2 rounded-lg">
+                        <CheckCircle size={16} className="text-[#212529] flex-shrink-0" />
+                        <span>Browse all professional types</span>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                    <Link
+                      href="/find-agent"
+                      className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#212529] text-white rounded-lg hover:bg-black transition-colors font-medium"
+                    >
+                      View all professionals
+                      <ArrowRight size={16} />
+                    </Link>
+                    <Link
+                      href="/search"
+                      className="inline-flex items-center justify-center gap-2 px-6 py-3 border-2 border-[#E9ECEF] text-[#212529] rounded-lg hover:border-[#212529] transition-colors font-medium"
+                    >
+                      Browse properties
+                    </Link>
+                  </div>
                 </div>
-                <h3 className="text-lg font-bold text-[#212529] mb-2">No professionals found</h3>
-                <p className="text-sm text-[#495057] mb-6">Try adjusting your filters or browse all professionals</p>
-                <Link
-                  href="/find-agent"
-                  className="inline-flex items-center gap-2 px-6 py-2.5 bg-[#212529] text-white rounded-lg hover:bg-[#000000] transition-colors font-medium"
-                >
-                  View all professionals
-                </Link>
               </div>
             )}
           </main>
