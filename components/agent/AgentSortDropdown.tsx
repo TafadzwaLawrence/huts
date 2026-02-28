@@ -22,7 +22,7 @@ export function AgentSortDropdown({ currentSort = 'best' }: AgentSortDropdownPro
       <select
         value={currentSort}
         onChange={(e) => handleSortChange(e.target.value)}
-        className="text-sm font-medium bg-white border-2 border-[#E9ECEF] rounded-lg px-4 py-2.5 hover:border-[#ADB5BD] focus:outline-none focus:border-[#212529] transition-colors cursor-pointer"
+        className="text-sm font-medium text-[#212529] bg-white border-2 border-[#E9ECEF] rounded-lg px-4 py-2.5 hover:border-[#ADB5BD] focus:outline-none focus:border-[#212529] transition-colors cursor-pointer"
       >
         <option value="best">Best match</option>
         <option value="rating">Highest rated</option>
