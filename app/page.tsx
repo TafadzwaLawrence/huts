@@ -32,10 +32,12 @@ export default async function HomePage() {
             src="/pexels-gustavo-fring-7489107.jpg"
             alt="Hero background"
             fill
-            className="object-cover w-full h-full grayscale contrast-110 opacity-[0.25]"
+            className="object-cover w-full h-full contrast-105 opacity-[0.25]"
             priority
             sizes="100vw"
           />
+          {/* Dark overlay for B&W aesthetic */}
+          <div className="absolute inset-0 bg-black/15 mix-blend-multiply pointer-events-none" />
           <div className="absolute inset-0 bg-gradient-to-b from-white/60 via-white/40 to-white/80" />
         </div>
         <div className="container-main relative z-10 py-20 md:py-32 lg:py-40">

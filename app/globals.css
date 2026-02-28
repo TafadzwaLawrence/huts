@@ -498,11 +498,6 @@
    ============================================ */
 
 @layer utilities {
-  /* Image hover: grayscale to color */
-  .img-grayscale-hover {
-    @apply grayscale transition-all duration-300 hover:grayscale-0;
-  }
-
   /* Heart save animation */
   .heart-animation {
     @apply transition-transform duration-200 active:scale-125;

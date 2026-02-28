@@ -60,12 +60,12 @@ export function ImageCarousel({ images, title, noGrayscale = false }: ImageCarou
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
     >
-      {/* Current Image */}
+      {/* Current Image - Full Color */}
       <Image
         src={images[currentIndex].url}
         alt={images[currentIndex].alt_text || `${title} - Photo ${currentIndex + 1}`}
         fill
-        className={noGrayscale ? "object-cover" : "object-cover grayscale contrast-110 opacity-[0.55]"}
+        className="object-cover contrast-105"
         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         placeholder="blur"
         blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAMCAgMCAgMDAwMEAwMEBQgFBQQEBQoHBwYIDAoMCwsKCwsNDhIQDQ4RDgsLEBYQERMUFRUVDA8XGBYUGBIUFRT/2wBDAQMEBAUEBQkFBQkUDQsNFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBT/wAARCAAKAAoDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAABwgJ/8QAJRAAAgEDAwMFAQAAAAAAAAAAAQIDBAURBhIHIzExCBMUQVFx/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAeEQABAwQDAQAAAAAAAAAAAAABAAIDBBEhMQUSQf/aAAwDAQACEQMRAD8Av+u25ts1Pqe8agt2qLpQwXS4T3BYadIWjRpZGkKAuh48S2M4zjOR5Gg0S0d0T0Dt/piy2Ca+3a4U1qtsNvSonaNZJRFGsfNgqkBmxkgEDPjxo306Ah6W0m+6QP/Z"
@@ -73,7 +73,12 @@ export function ImageCarousel({ images, title, noGrayscale = false }: ImageCarou
         key={currentIndex}
       />
 
-      {/* Gradient overlay */}
+      {/* Dark overlay for B&W aesthetic - only when not noGrayscale */}
+      {!noGrayscale && (
+        <div className="absolute inset-0 bg-black/15 mix-blend-multiply pointer-events-none" />
+      )}
+
+      {/* Hover gradient overlay */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
 
       {/* Navigation Arrows — show on hover */}

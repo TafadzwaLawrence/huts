@@ -202,8 +202,10 @@ export default async function AreaGuidePage({ params }: PageProps) {
                       <img
                         src={imageUrl}
                         alt={property.title}
-                        className="w-full h-full object-cover grayscale-[50%] group-hover:grayscale-0 transition-all duration-500"
+                        className="w-full h-full object-cover contrast-105 group-hover:brightness-110 transition-all duration-500"
                       />
+                      {/* Dark overlay for B&W aesthetic */}
+                      <div className="absolute inset-0 bg-black/15 mix-blend-multiply group-hover:bg-black/5 transition-colors duration-500 pointer-events-none" />
                       <SaveButton className="absolute top-3 right-3 p-2 bg-white/95 rounded-full hover:scale-110 transition-all shadow-md" />
                     </div>
 
