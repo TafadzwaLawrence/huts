@@ -113,7 +113,7 @@ export default async function ZimbabweRentalsPage() {
               Find Properties for Rent<br className="hidden md:block" /> in Zimbabwe
             </h1>
             <p className="text-xl md:text-2xl text-[#495057] mb-10 leading-relaxed max-w-3xl mx-auto">
-              Browse <strong>{totalCount || '100+'} verified rental properties</strong> across Zimbabwe. Apartments, houses, and rooms in Harare, Bulawayo, Gweru, Mutare, and every major city. Connect directly with landlords. Zero fees.
+              Browse <strong>{totalCount?.toLocaleString() || '0'} verified rental properties</strong> across Zimbabwe. Apartments, houses, and rooms in Harare, Bulawayo, Gweru, Mutare, and every major city. Connect directly with landlords. Zero fees.
             </p>
 
             {/* Search */}
@@ -145,9 +145,9 @@ export default async function ZimbabweRentalsPage() {
             {/* Stats */}
             <div className="grid grid-cols-3 gap-6 max-w-2xl mx-auto">
               {[
-                { value: totalCount || '100+', label: 'Active Listings' },
-                { value: topCities.length || '10+', label: 'Cities & Towns' },
-                { value: '100%', label: 'Verified' },
+                { value: totalCount?.toLocaleString() || '0', label: 'Active Listings' },
+                { value: topCities.length.toString(), label: 'Cities Covered' },
+                { value: 'Free', label: 'To Join' },
               ].map((stat) => (
                 <div key={stat.label}>
                   <div className="text-4xl md:text-5xl font-bold text-[#212529] mb-2">{stat.value}</div>
