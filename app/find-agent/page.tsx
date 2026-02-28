@@ -163,73 +163,64 @@ export default async function FindAgentPage({ searchParams }: { searchParams: Se
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <section className="relative bg-white border-b border-[#E9ECEF] overflow-hidden">
-        {/* Background Image with Grayscale */}
-        <div 
-          className="absolute inset-0 bg-cover bg-center grayscale opacity-15"
-          style={{ backgroundImage: 'url(/agent-hero.jpg)' }}
-        />
-        
-        {/* Subtle gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-white/50 via-transparent to-white/80" />
-        
-        {/* Content */}
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
-          <div className="text-center max-w-4xl mx-auto mb-12">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#212529] mb-6 tracking-tight">
+      <section className="bg-white border-b border-[#E9ECEF]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+          {/* Title */}
+          <div className="mb-6">
+            <h1 className="text-3xl md:text-4xl font-bold text-[#212529] mb-3">
               Find a real estate professional
             </h1>
-            <p className="text-xl md:text-2xl text-[#495057] mb-10 leading-relaxed">
+            <p className="text-base text-[#495057] max-w-2xl">
               Connect with verified agents, property managers, builders, and photographers in Zimbabwe
             </p>
+          </div>
 
-            {/* Search Bar */}
-            <div className="max-w-2xl mx-auto mb-12">
-              <div className="relative">
-                <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-[#ADB5BD]" size={20} />
-                <input
-                  type="text"
-                  placeholder="Search by name, city, or specialty..."
-                  className="w-full pl-12 pr-4 py-4 border-2 border-[#E9ECEF] rounded-lg text-[#212529] placeholder:text-[#ADB5BD] focus:outline-none focus:border-[#212529] transition-all bg-white/90 backdrop-blur-sm shadow-lg text-lg"
-                />
-              </div>
-            </div>
-
-            {/* Quick Type Buttons */}
-            <div className="flex flex-wrap gap-3 justify-center mb-12">
-              {[
-                { label: 'Agents', icon: Building2, href: '/find-agent?type=real_estate_agent' },
-                { label: 'Property Managers', icon: Home, href: '/find-agent?type=property_manager' },
-                { label: 'Builders', icon: Briefcase, href: '/find-agent?type=home_builder' },
-                { label: 'Photographers', icon: Camera, href: '/find-agent?type=photographer' },
-              ].map(({ label, icon: Icon, href }) => (
-                <Link
-                  key={label}
-                  href={href}
-                  className="flex items-center gap-2 px-4 py-2.5 bg-white/90 backdrop-blur-sm border border-[#E9ECEF] rounded-lg text-sm font-medium text-[#495057] hover:border-[#212529] hover:text-[#212529] transition-all shadow-sm"
-                >
-                  <Icon size={16} />
-                  {label}
-                </Link>
-              ))}
+          {/* Search Bar */}
+          <div className="mb-6">
+            <div className="relative max-w-2xl">
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-[#ADB5BD]" size={20} />
+              <input
+                type="text"
+                placeholder="Search by name, city, or specialty..."
+                className="w-full pl-12 pr-4 py-3.5 border-2 border-[#E9ECEF] rounded-lg text-[#212529] placeholder:text-[#ADB5BD] focus:outline-none focus:border-[#212529] transition-all"
+              />
             </div>
           </div>
 
-          {/* Stats Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-5xl mx-auto">
-            <div className="bg-white/95 backdrop-blur-sm border border-[#E9ECEF] rounded-lg p-8 text-center shadow-lg">
-              <p className="text-5xl md:text-6xl font-bold text-[#212529] tabular-nums mb-2">{totalAgents}</p>
-              <p className="text-base text-[#495057] font-medium">Professionals</p>
+          {/* Quick Type Buttons */}
+          <div className="flex flex-wrap gap-2 mb-8">
+            {[
+              { label: 'Agents', icon: Building2, href: '/find-agent?type=real_estate_agent' },
+              { label: 'Property Managers', icon: Home, href: '/find-agent?type=property_manager' },
+              { label: 'Builders', icon: Briefcase, href: '/find-agent?type=home_builder' },
+              { label: 'Photographers', icon: Camera, href: '/find-agent?type=photographer' },
+            ].map(({ label, icon: Icon, href }) => (
+              <Link
+                key={label}
+                href={href}
+                className="flex items-center gap-1.5 px-3 py-2 bg-white border border-[#E9ECEF] rounded-lg text-sm font-medium text-[#495057] hover:border-[#212529] hover:text-[#212529] transition-all"
+              >
+                <Icon size={16} />
+                {label}
+              </Link>
+            ))}
+          </div>
+
+          {/* Market Stats */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="bg-white border border-[#E9ECEF] rounded-lg p-6 hover:border-[#212529] transition-all">
+              <p className="text-3xl font-bold text-[#212529] mb-1">{totalAgents}</p>
+              <p className="text-sm text-[#495057]">Professionals</p>
             </div>
             
-            <div className="bg-white/95 backdrop-blur-sm border border-[#E9ECEF] rounded-lg p-8 text-center shadow-lg">
-              <p className="text-5xl md:text-6xl font-bold text-[#212529] tabular-nums mb-2">{verifiedCount}</p>
-              <p className="text-base text-[#495057] font-medium">Verified</p>
+            <div className="bg-white border border-[#E9ECEF] rounded-lg p-6 hover:border-[#212529] transition-all">
+              <p className="text-3xl font-bold text-[#212529] mb-1">{verifiedCount}</p>
+              <p className="text-sm text-[#495057]">Verified</p>
             </div>
             
-            <div className="bg-white/95 backdrop-blur-sm border border-[#E9ECEF] rounded-lg p-8 text-center shadow-lg">
-              <p className="text-5xl md:text-6xl font-bold text-[#212529] tabular-nums mb-2">{featuredCount}</p>
-              <p className="text-base text-[#495057] font-medium">Featured</p>
+            <div className="bg-white border border-[#E9ECEF] rounded-lg p-6 hover:border-[#212529] transition-all">
+              <p className="text-3xl font-bold text-[#212529] mb-1">{featuredCount}</p>
+              <p className="text-sm text-[#495057]">Featured</p>
             </div>
           </div>
         </div>
