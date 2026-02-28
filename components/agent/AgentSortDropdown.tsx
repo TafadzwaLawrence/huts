@@ -18,11 +18,11 @@ export function AgentSortDropdown({ currentSort = 'best' }: AgentSortDropdownPro
 
   return (
     <div className="flex items-center gap-2">
-      <span className="text-sm text-[#495057]">Sort by:</span>
+      <span className="text-sm font-medium text-[#495057]">Sort:</span>
       <select
         value={currentSort}
         onChange={(e) => handleSortChange(e.target.value)}
-        className="text-sm bg-white border border-[#E9ECEF] rounded-lg px-3 py-2 focus:outline-none focus:border-[#212529]"
+        className="text-sm font-medium bg-white border-2 border-[#E9ECEF] rounded-lg px-4 py-2.5 hover:border-[#ADB5BD] focus:outline-none focus:border-[#212529] transition-colors cursor-pointer"
       >
         <option value="best">Best match</option>
         <option value="rating">Highest rated</option>

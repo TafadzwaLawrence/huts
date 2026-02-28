@@ -310,10 +310,17 @@ export default async function FindAgentPage({ searchParams }: { searchParams: Se
           {/* Main Content */}
           <main className="flex-1">
             {/* Sort Controls */}
-            <div className="flex items-center justify-between mb-5">
-              <p className="text-sm text-[#495057]">
-                {totalAgents} professional{totalAgents !== 1 ? 's' : ''} found
-              </p>
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6 pb-4 border-b border-[#E9ECEF]">
+              <div>
+                <h2 className="text-lg font-bold text-[#212529]">
+                  {totalAgents === 0 ? 'No' : totalAgents} professional{totalAgents !== 1 ? 's' : ''} found
+                </h2>
+                {totalAgents > 0 && (
+                  <p className="text-sm text-[#495057] mt-0.5">
+                    {searchParams.type || searchParams.city ? 'Matching your search criteria' : 'Available in Zimbabwe'}
+                  </p>
+                )}
+              </div>
               <AgentSortDropdown currentSort={searchParams.sort} />
             </div>
 
