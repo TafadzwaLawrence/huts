@@ -41,17 +41,17 @@ export default async function HomePage() {
         <div className="container-main relative z-10 py-20 md:py-32 lg:py-40">
           <div className="max-w-4xl mx-auto text-center">
             {/* Headline */}
-            <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold text-black tracking-tight mb-6">
+            <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold text-white tracking-tight mb-6">
               Find your
               <span className="relative mx-3">
                 <span className="relative z-10">perfect</span>
-                <svg className="absolute -bottom-2 left-0 w-full h-3 text-[#212529]/30" viewBox="0 0 200 12" preserveAspectRatio="none">
+                <svg className="absolute -bottom-2 left-0 w-full h-3 text-white/50" viewBox="0 0 200 12" preserveAspectRatio="none">
                   <path d="M0,8 Q50,0 100,8 T200,8" fill="none" stroke="currentColor" strokeWidth="8" strokeLinecap="round" />
                 </svg>
               </span>
               home
             </h1>
-            <p className="text-lg md:text-xl text-[#495057] mb-10">
+            <p className="text-lg md:text-xl text-white/80 mb-10">
               The simplest way to discover rental properties or homes for sale.
             </p>
             
