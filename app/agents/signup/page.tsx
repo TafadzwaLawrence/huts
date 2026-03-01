@@ -339,60 +339,54 @@ export default function AgentSignupPage() {
         </section>
 
         {/* Benefits */}
-        <section className="py-20 sm:py-24">
+        <section className="py-12 sm:py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl sm:text-4xl font-bold text-[#212529]">Why professionals choose Huts</h2>
-              <p className="text-[#495057] mt-4 text-lg max-w-2xl mx-auto">
-                Everything you need to connect with clients and grow your real estate business.
-              </p>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
+            <h2 className="text-2xl font-bold text-[#212529] text-center mb-8">Why professionals choose Huts</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {BENEFITS.map((benefit) => (
-                <div key={benefit.title} className="text-center">
-                  <div className="w-14 h-14 rounded-2xl bg-[#F8F9FA] flex items-center justify-center mx-auto mb-5">
-                    <benefit.icon size={24} className="text-[#212529]" />
+                <div key={benefit.title} className="flex gap-4 items-start">
+                  <div className="w-10 h-10 rounded-xl bg-[#F8F9FA] border border-[#E9ECEF] flex items-center justify-center flex-shrink-0">
+                    <benefit.icon size={18} className="text-[#212529]" />
                   </div>
-                  <h3 className="text-xl font-bold text-[#212529] mb-3">{benefit.title}</h3>
-                  <p className="text-[#495057] leading-relaxed">{benefit.description}</p>
+                  <div>
+                    <h3 className="font-semibold text-[#212529] mb-1">{benefit.title}</h3>
+                    <p className="text-sm text-[#495057] leading-relaxed">{benefit.description}</p>
+                  </div>
                 </div>
               ))}
             </div>
           </div>
         </section>
 
-        {/* How it works */}
-        <section className="py-20 sm:py-24 bg-[#F8F9FA]">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl sm:text-4xl font-bold text-[#212529]">Get started in minutes</h2>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-              {[
-                { step: '1', title: 'Create your profile', desc: 'Tell us about your experience and the areas you serve.' },
-                { step: '2', title: 'Get discovered', desc: 'Appear in search results for your service areas.' },
-                { step: '3', title: 'Close deals', desc: 'Connect with clients and grow your business.' },
-              ].map((item) => (
-                <div key={item.step} className="text-center">
-                  <div className="w-10 h-10 rounded-full bg-[#212529] text-white font-bold text-lg flex items-center justify-center mx-auto mb-5">
-                    {item.step}
+        {/* How it works + What you get — combined compact section */}
+        <section className="py-12 sm:py-16 bg-[#F8F9FA] border-t border-[#E9ECEF]">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 gap-10">
+            {/* Steps */}
+            <div>
+              <h2 className="text-xl font-bold text-[#212529] mb-6">Get started in minutes</h2>
+              <div className="space-y-4">
+                {[
+                  { step: '1', title: 'Create your profile', desc: 'Your experience, areas, and contact details.' },
+                  { step: '2', title: 'Get discovered', desc: 'Show up in searches for your service areas.' },
+                  { step: '3', title: 'Close deals', desc: 'Receive inquiries and grow your client base.' },
+                ].map((item) => (
+                  <div key={item.step} className="flex gap-4 items-start">
+                    <div className="w-7 h-7 rounded-full bg-[#212529] text-white font-bold text-sm flex items-center justify-center flex-shrink-0 mt-0.5">
+                      {item.step}
+                    </div>
+                    <div>
+                      <p className="font-semibold text-[#212529] text-sm">{item.title}</p>
+                      <p className="text-xs text-[#495057] mt-0.5">{item.desc}</p>
+                    </div>
                   </div>
-                  <h3 className="text-lg font-bold text-[#212529] mb-2">{item.title}</h3>
-                  <p className="text-sm text-[#495057] leading-relaxed">{item.desc}</p>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
-          </div>
-        </section>
 
-        {/* What you get */}
-        <section className="py-20 sm:py-24">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="max-w-4xl mx-auto">
-              <h2 className="text-3xl sm:text-4xl font-bold text-[#212529] text-center mb-16">
-                Everything you need, included
-              </h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-6">
+            {/* Features */}
+            <div>
+              <h2 className="text-xl font-bold text-[#212529] mb-6">Everything included, free</h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2">
                 {[
                   'Professional profile page',
                   'Direct client inquiries',
@@ -403,9 +397,9 @@ export default function AgentSignupPage() {
                   'Verified badge eligibility',
                   'Mobile-optimized profile',
                 ].map((feature) => (
-                  <div key={feature} className="flex items-center gap-3 py-3 border-b border-[#E9ECEF]">
-                    <Check size={18} className="text-[#212529] flex-shrink-0" />
-                    <span className="text-[#212529]">{feature}</span>
+                  <div key={feature} className="flex items-center gap-2 py-1.5">
+                    <Check size={14} className="text-[#212529] flex-shrink-0" />
+                    <span className="text-sm text-[#212529]">{feature}</span>
                   </div>
                 ))}
               </div>
