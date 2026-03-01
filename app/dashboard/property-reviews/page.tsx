@@ -42,7 +42,7 @@ export default async function PropertyReviewsPage() {
   if (!properties || properties.length === 0) {
     return (
       <div className="min-h-screen bg-[#F8F9FA]">
-        <div className="max-w-4xl mx-auto px-4 py-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
           <h1 className="text-3xl font-bold text-[#212529] mb-6">
             Property Reviews
           </h1>
@@ -107,7 +107,7 @@ export default async function PropertyReviewsPage() {
 
   return (
     <div className="min-h-screen bg-[#F8F9FA]">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
         {/* Header */}
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-[#212529] mb-2">
