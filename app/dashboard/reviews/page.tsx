@@ -97,46 +97,35 @@ export default function MyReviewsPage() {
         </div>
 
         {/* Stats */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
-          <div className="bg-white border border-[#E9ECEF] rounded-lg p-4">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-xs text-[#495057] mb-1">Total Reviews</p>
-                <p className="text-lg font-bold text-[#212529] tabular-nums">
-                  {reviews?.length || 0}
-                </p>
-              </div>
-              <Star size={20} className="text-[#ADB5BD]" />
+        <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+          <div className="bg-white rounded-lg border border-[#E9ECEF] p-5 hover:border-[#212529] hover:shadow-sm transition-all">
+            <div className="flex items-center justify-between mb-3">
+              <Star size={20} className="text-[#495057]" />
             </div>
+            <p className="text-3xl font-bold text-[#212529] mb-1">{reviews?.length || 0}</p>
+            <p className="text-sm text-[#495057]">Total Reviews</p>
           </div>
 
-          <div className="bg-white border border-[#E9ECEF] rounded-lg p-4">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-xs text-[#495057] mb-1">Avg Rating Given</p>
-                <p className="text-lg font-bold text-[#212529] tabular-nums">
-                  {reviews && reviews.length > 0
-                    ? (
-                        reviews.reduce((acc, r) => acc + r.rating, 0) /
-                        reviews.length
-                      ).toFixed(1)
-                    : '0.0'}
-                </p>
-              </div>
+          <div className="bg-white rounded-lg border border-[#E9ECEF] p-5 hover:border-[#212529] hover:shadow-sm transition-all">
+            <div className="flex items-center justify-between mb-3">
               <Star size={20} className="fill-black text-black" />
             </div>
+            <p className="text-3xl font-bold text-[#212529] mb-1">
+              {reviews && reviews.length > 0
+                ? (reviews.reduce((acc, r) => acc + r.rating, 0) / reviews.length).toFixed(1)
+                : '0.0'}
+            </p>
+            <p className="text-sm text-[#495057]">Avg Rating Given</p>
           </div>
 
-          <div className="bg-white border border-[#E9ECEF] rounded-lg p-4">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-xs text-[#495057] mb-1">With Response</p>
-                <p className="text-lg font-bold text-[#212529] tabular-nums">
-                  {reviews?.filter((r) => r.review_responses).length || 0}
-                </p>
-              </div>
-              <Edit size={20} className="text-[#ADB5BD]" />
+          <div className="bg-white rounded-lg border border-[#E9ECEF] p-5 hover:border-[#212529] hover:shadow-sm transition-all">
+            <div className="flex items-center justify-between mb-3">
+              <Edit size={20} className="text-[#495057]" />
             </div>
+            <p className="text-3xl font-bold text-[#212529] mb-1">
+              {reviews?.filter((r) => r.review_responses).length || 0}
+            </p>
+            <p className="text-sm text-[#495057]">With Response</p>
           </div>
         </div>
 

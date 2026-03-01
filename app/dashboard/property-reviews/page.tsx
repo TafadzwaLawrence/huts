@@ -119,57 +119,37 @@ export default async function PropertyReviewsPage() {
         </div>
 
         {/* Stats */}
-        <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 mb-8">
-          <div className="bg-white border-2 border-[#E9ECEF] rounded-2xl p-6 hover:border-[#ADB5BD] transition-colors">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-[#495057] font-medium mb-1">Total Reviews</p>
-                <p className="text-4xl font-bold text-[#212529]">{totalReviews}</p>
-              </div>
-              <div className="w-14 h-14 bg-[#F8F9FA] rounded-2xl flex items-center justify-center">
-                <Star size={ICON_SIZES.xl} className="text-[#212529]" />
-              </div>
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+          <div className="bg-white rounded-lg border border-[#E9ECEF] p-5 hover:border-[#212529] hover:shadow-sm transition-all">
+            <div className="flex items-center justify-between mb-3">
+              <Star size={20} className="text-[#495057]" />
             </div>
+            <p className="text-3xl font-bold text-[#212529] mb-1">{totalReviews}</p>
+            <p className="text-sm text-[#495057]">Total Reviews</p>
           </div>
 
-          <div className="bg-white border-2 border-[#E9ECEF] rounded-2xl p-6 hover:border-[#ADB5BD] transition-colors">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-[#495057] font-medium mb-1">Avg Rating</p>
-                <p className="text-4xl font-bold text-[#212529]">
-                  {averageRating.toFixed(1)}
-                </p>
-              </div>
-              <div className="w-14 h-14 bg-[#F8F9FA] rounded-2xl flex items-center justify-center">
-                <Star size={ICON_SIZES.xl} className="fill-[#212529] text-[#212529]" />
-              </div>
+          <div className="bg-white rounded-lg border border-[#E9ECEF] p-5 hover:border-[#212529] hover:shadow-sm transition-all">
+            <div className="flex items-center justify-between mb-3">
+              <Star size={20} className="fill-black text-black" />
             </div>
+            <p className="text-3xl font-bold text-[#212529] mb-1">{averageRating.toFixed(1)}</p>
+            <p className="text-sm text-[#495057]">Avg Rating</p>
           </div>
 
-          <div className="bg-white border-2 border-[#E9ECEF] rounded-2xl p-6 hover:border-[#ADB5BD] transition-colors">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-[#495057] font-medium mb-1">Needs Response</p>
-                <p className="text-4xl font-bold text-[#212529]">{needsResponse}</p>
-              </div>
-              <div className="w-14 h-14 bg-[#F8F9FA] rounded-2xl flex items-center justify-center">
-                <MessageCircle size={ICON_SIZES.xl} className="text-[#212529]" />
-              </div>
+          <div className="bg-white rounded-lg border border-[#E9ECEF] p-5 hover:border-[#212529] hover:shadow-sm transition-all">
+            <div className="flex items-center justify-between mb-3">
+              <MessageCircle size={20} className="text-[#495057]" />
             </div>
+            <p className="text-3xl font-bold text-[#212529] mb-1">{needsResponse}</p>
+            <p className="text-sm text-[#495057]">Needs Response</p>
           </div>
 
-          <div className="bg-white border-2 border-[#E9ECEF] rounded-2xl p-6 hover:border-[#ADB5BD] transition-colors">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-[#495057] font-medium mb-1">Flagged</p>
-                <p className="text-4xl font-bold text-[#212529]">
-                  {flaggedReviews}
-                </p>
-              </div>
-              <div className="w-14 h-14 bg-[#F8F9FA] rounded-2xl flex items-center justify-center">
-                <Flag size={ICON_SIZES.xl} className="text-[#212529]" />
-              </div>
+          <div className="bg-white rounded-lg border border-[#E9ECEF] p-5 hover:border-[#212529] hover:shadow-sm transition-all">
+            <div className="flex items-center justify-between mb-3">
+              <Flag size={20} className="text-[#495057]" />
             </div>
+            <p className="text-3xl font-bold text-[#212529] mb-1">{flaggedReviews}</p>
+            <p className="text-sm text-[#495057]">Flagged</p>
           </div>
         </div>
 

@@ -215,44 +215,36 @@ export default function MyPropertiesList({ properties }: { properties: PropertyW
       )}
 
       {/* Stats Row */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-        <div className="bg-white rounded-lg border border-[#E9ECEF] p-4 hover:border-[#495057] transition-colors">
-          <div className="flex items-center gap-2">
-            <Eye size={18} className="text-[#495057]" />
-            <div className="min-w-0">
-              <p className="text-lg font-bold text-[#212529] tabular-nums">{stats.totalViews.toLocaleString()}</p>
-              <p className="text-xs text-[#495057]">Views</p>
-            </div>
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+        <div className="bg-white rounded-lg border border-[#E9ECEF] p-5 hover:border-[#212529] hover:shadow-sm transition-all">
+          <div className="flex items-center justify-between mb-3">
+            <Eye size={20} className="text-[#495057]" />
           </div>
+          <p className="text-3xl font-bold text-[#212529] mb-1">{stats.totalViews.toLocaleString()}</p>
+          <p className="text-sm text-[#495057]">Views</p>
         </div>
-        <div className="bg-white rounded-lg border border-[#E9ECEF] p-4 hover:border-[#495057] transition-colors">
-          <div className="flex items-center gap-2">
-            <Heart size={18} className="text-[#495057]" />
-            <div className="min-w-0">
-              <p className="text-lg font-bold text-[#212529] tabular-nums">{stats.totalSaves.toLocaleString()}</p>
-              <p className="text-xs text-[#495057]">Saves</p>
-            </div>
+        <div className="bg-white rounded-lg border border-[#E9ECEF] p-5 hover:border-[#212529] hover:shadow-sm transition-all">
+          <div className="flex items-center justify-between mb-3">
+            <Heart size={20} className="text-[#495057]" />
           </div>
+          <p className="text-3xl font-bold text-[#212529] mb-1">{stats.totalSaves.toLocaleString()}</p>
+          <p className="text-sm text-[#495057]">Saves</p>
         </div>
-        <div className="bg-white rounded-lg border border-[#E9ECEF] p-4 hover:border-[#495057] transition-colors">
-          <div className="flex items-center gap-2">
-            <MessageSquare size={18} className="text-[#495057]" />
-            <div className="min-w-0">
-              <p className="text-lg font-bold text-[#212529] tabular-nums">{stats.totalInquiries}</p>
-              <p className="text-xs text-[#495057]">Inquiries</p>
-            </div>
+        <div className="bg-white rounded-lg border border-[#E9ECEF] p-5 hover:border-[#212529] hover:shadow-sm transition-all">
+          <div className="flex items-center justify-between mb-3">
+            <MessageSquare size={20} className="text-[#495057]" />
           </div>
+          <p className="text-3xl font-bold text-[#212529] mb-1">{stats.totalInquiries}</p>
+          <p className="text-sm text-[#495057]">Inquiries</p>
         </div>
-        <div className="bg-white rounded-lg border border-[#E9ECEF] p-4 hover:border-[#495057] transition-colors">
-          <div className="flex items-center gap-2">
-            <BarChart3 size={18} className="text-[#495057]" />
-            <div className="min-w-0">
-              <p className="text-lg font-bold text-[#212529] tabular-nums">
-                {stats.totalViews > 0 ? `${((stats.totalInquiries / stats.totalViews) * 100).toFixed(1)}%` : '—'}
-              </p>
-              <p className="text-xs text-[#495057]">Conversion</p>
-            </div>
+        <div className="bg-white rounded-lg border border-[#E9ECEF] p-5 hover:border-[#212529] hover:shadow-sm transition-all">
+          <div className="flex items-center justify-between mb-3">
+            <BarChart3 size={20} className="text-[#495057]" />
           </div>
+          <p className="text-3xl font-bold text-[#212529] mb-1">
+            {stats.totalViews > 0 ? `${((stats.totalInquiries / stats.totalViews) * 100).toFixed(1)}%` : '—'}
+          </p>
+          <p className="text-sm text-[#495057]">Conversion</p>
         </div>
       </div>
 
