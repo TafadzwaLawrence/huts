@@ -80,6 +80,7 @@ export default function HomeSearchBar() {
   const [isLoading, setIsLoading] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
   const [activeIndex, setActiveIndex] = useState(-1)
+  const [isLocating, setIsLocating] = useState(false)
   const router = useRouter()
   const wrapperRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
@@ -194,6 +195,48 @@ export default function HomeSearchBar() {
     return () => clearTimeout(timer)
   }, [query, fetchSuggestions])
 
+  const handleLocateMe = () => {
+    if (!navigator.geolocation) return
+    setIsLocating(true)
+    setIsOpen(false)
+    navigator.geolocation.getCurrentPosition(
+      async (pos) => {
+        try {
+          const { latitude, longitude } = pos.coords
+          const res = await fetch(
+            `https://nominatim.openstreetmap.org/reverse?` +
+            new URLSearchParams({
+              lat: String(latitude),
+              lon: String(longitude),
+              format: 'json',
+              addressdetails: '1',
+              'accept-language': 'en',
+            }),
+            { headers: { 'User-Agent': 'HutsPropertySearch/1.0' } }
+          )
+          const data = await res.json()
+          const a = data.address ?? {}
+          const locality =
+            a.suburb || a.neighbourhood || a.city_district || a.town || a.city || a.county || ''
+          const label = locality || data.display_name?.split(',')[0] || ''
+          if (label) {
+            setQuery(label)
+            router.push(`/search?q=${encodeURIComponent(label)}`)
+          }
+        } catch (e) {
+          console.error('Reverse geocode error:', e)
+        } finally {
+          setIsLocating(false)
+        }
+      },
+      (err) => {
+        console.error('Geolocation error:', err)
+        setIsLocating(false)
+      },
+      { timeout: 10000, maximumAge: 60000 }
+    )
+  }
+
   const handleSelectDb = (s: DbSuggestion) => {
     setIsOpen(false)
     setActiveIndex(-1)
@@ -259,7 +302,17 @@ export default function HomeSearchBar() {
         <div className="flex flex-col md:flex-row gap-2">
           {/* Location Input */}
           <div className="flex-1 flex items-center gap-3 px-4 py-3 bg-[#F8F9FA] rounded-xl">
-            <MapPin size={ICON_SIZES.lg} className="text-[#ADB5BD] flex-shrink-0" />
+            <button
+              type="button"
+              onClick={handleLocateMe}
+              title="Use my current location"
+              className="flex-shrink-0 rounded-md p-0.5 transition-colors hover:text-[#212529] focus:outline-none focus:ring-2 focus:ring-[#212529] focus:ring-offset-1"
+              disabled={isLocating}
+            >
+              {isLocating
+                ? <Loader2 size={ICON_SIZES.lg} className="text-[#212529] animate-spin" />
+                : <MapPin size={ICON_SIZES.lg} className="text-[#ADB5BD] hover:text-[#212529] transition-colors" />}
+            </button>
             <input
               ref={inputRef}
               type="text"
@@ -271,7 +324,7 @@ export default function HomeSearchBar() {
               className="w-full bg-transparent outline-none text-[#212529] placeholder:text-[#ADB5BD] text-sm font-medium"
               autoComplete="off"
             />
-            {isLoading && (
+            {isLoading && !isLocating && (
               <Loader2 size={ICON_SIZES.md} className="text-[#ADB5BD] animate-spin flex-shrink-0" />
             )}
           </div>
