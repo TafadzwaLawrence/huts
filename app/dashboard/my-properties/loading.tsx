@@ -5,9 +5,11 @@ export default function MyPropertiesLoading() {
         <div className="space-y-5">
 
           {/* Page header */}
-          <div className="space-y-1.5">
-            <div className="h-7 w-40 bg-[#E9ECEF] rounded animate-pulse" />
-            <div className="h-4 w-48 bg-[#E9ECEF] rounded animate-pulse" />
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8 pb-6 border-b border-[#E9ECEF]">
+            <div className="space-y-2">
+              <div className="h-8 w-40 bg-[#E9ECEF] rounded animate-pulse" />
+              <div className="h-4 w-48 bg-[#E9ECEF] rounded animate-pulse" />
+            </div>
           </div>
 
           {/* Stats row: 2-col mobile, 4-col sm */}

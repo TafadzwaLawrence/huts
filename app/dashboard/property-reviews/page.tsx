@@ -107,15 +107,13 @@ export default async function PropertyReviewsPage() {
 
   return (
     <div className="min-h-screen bg-[#F8F9FA]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
         {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-[#212529] mb-2">
-            Property Reviews
-          </h1>
-          <p className="text-[#495057] text-lg">
-            Manage and respond to reviews for your properties
-          </p>
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8 pb-6 border-b border-[#E9ECEF]">
+          <div>
+            <h1 className="text-2xl md:text-3xl font-bold text-[#212529] mb-1">Property Reviews</h1>
+            <p className="text-sm text-[#495057]">Manage and respond to reviews for your properties</p>
+          </div>
         </div>
 
         {/* Stats */}

@@ -190,10 +190,10 @@ export default function MyPropertiesList({ properties }: { properties: PropertyW
   return (
     <div className="space-y-5">
       {/* Page Header */}
-      <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8 pb-6 border-b border-[#E9ECEF]">
         <div>
-          <h1 className="text-2xl font-bold text-[#212529]">My properties</h1>
-          <p className="text-sm text-[#495057] mt-1">
+          <h1 className="text-2xl md:text-3xl font-bold text-[#212529] mb-1">My properties</h1>
+          <p className="text-sm text-[#495057]">
             {stats.total} {stats.total === 1 ? 'property' : 'properties'} &middot; {stats.active} active
           </p>
         </div>

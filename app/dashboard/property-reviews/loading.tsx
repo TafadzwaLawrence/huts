@@ -4,9 +4,11 @@ export default function PropertyReviewsLoading() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
 
         {/* Header */}
-        <div className="mb-8 space-y-2">
-          <div className="h-8 w-44 bg-[#E9ECEF] rounded animate-pulse" />
-          <div className="h-5 w-72 bg-[#E9ECEF] rounded animate-pulse" />
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8 pb-6 border-b border-[#E9ECEF]">
+          <div className="space-y-2">
+            <div className="h-8 w-44 bg-[#E9ECEF] rounded animate-pulse" />
+            <div className="h-4 w-72 bg-[#E9ECEF] rounded animate-pulse" />
+          </div>
         </div>
 
         {/* Stats: 4 cards */}

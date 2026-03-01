@@ -89,11 +89,11 @@ export default function MyReviewsPage() {
     <div className="min-h-screen bg-[#F8F9FA]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
         {/* Header */}
-        <div className="mb-6">
-          <h1 className="text-2xl font-bold text-[#212529] mb-2">My reviews</h1>
-          <p className="text-sm text-[#495057]">
-            Manage your property reviews and see landlord responses
-          </p>
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8 pb-6 border-b border-[#E9ECEF]">
+          <div>
+            <h1 className="text-2xl md:text-3xl font-bold text-[#212529] mb-1">My reviews</h1>
+            <p className="text-sm text-[#495057]">Manage your property reviews and see landlord responses</p>
+          </div>
         </div>
 
         {/* Stats */}
