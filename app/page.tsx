@@ -51,10 +51,6 @@ export default async function HomePage() {
               </span>
               home
             </h1>
-            <p className="text-lg md:text-xl text-white/80 mb-10">
-              The simplest way to discover rental properties or homes for sale.
-            </p>
-            
             {/* Search Bar */}
             <HomeSearchBar />
           </div>

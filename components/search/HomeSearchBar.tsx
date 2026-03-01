@@ -332,10 +332,10 @@ export default function HomeSearchBar() {
           {/* Search Button */}
           <button
             onClick={handleSearch}
-            className="btn btn-primary flex items-center justify-center gap-2 px-8 py-4 min-h-[52px]"
+            className="btn btn-primary flex items-center justify-center px-5 py-4 min-h-[52px]"
+            aria-label="Search"
           >
             <Search size={ICON_SIZES.lg} />
-            <span>Search</span>
           </button>
         </div>
       </div>
