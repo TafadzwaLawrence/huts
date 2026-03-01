@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { 
@@ -84,12 +84,59 @@ const BENEFITS = [
   },
 ]
 
+interface PlatformStats {
+  listings: number | null
+  cities: number | null
+  agents: number | null
+}
+
 export default function AgentSignupPage() {
   const router = useRouter()
   const supabase = createClient()
   const [showForm, setShowForm] = useState(false)
   const [currentStep, setCurrentStep] = useState(1)
   const [loading, setLoading] = useState(false)
+  const [stats, setStats] = useState<PlatformStats>({ listings: null, cities: null, agents: null })
+
+  // Fetch real platform stats once on mount
+  useEffect(() => {
+    ;(async () => {
+      try {
+        const [listingsRes, propertiesRes, agentsRes] = await Promise.allSettled([
+          supabase
+            .from('properties')
+            .select('id', { count: 'exact', head: true })
+            .eq('status', 'active')
+            .eq('verification_status', 'approved'),
+          supabase
+            .from('properties')
+            .select('city')
+            .eq('status', 'active')
+            .eq('verification_status', 'approved'),
+          supabase
+            .from('agent_profiles')
+            .select('id', { count: 'exact', head: true })
+            .eq('status', 'active'),
+        ])
+
+        const listingCount =
+          listingsRes.status === 'fulfilled' ? (listingsRes.value.count ?? null) : null
+
+        let cityCount: number | null = null
+        if (propertiesRes.status === 'fulfilled' && propertiesRes.value.data) {
+          const unique = new Set(propertiesRes.value.data.map((p: any) => p.city).filter(Boolean))
+          cityCount = unique.size
+        }
+
+        const agentCount =
+          agentsRes.status === 'fulfilled' ? (agentsRes.value.count ?? null) : null
+
+        setStats({ listings: listingCount, cities: cityCount, agents: agentCount })
+      } catch (e) {
+        console.error('Stats fetch error:', e)
+      }
+    })()
+  }, [])
   const [formData, setFormData] = useState<FormData>({
     agent_type: '',
     business_name: '',
@@ -225,11 +272,16 @@ export default function AgentSignupPage() {
       <div className="min-h-screen bg-white">
         {/* Hero Section */}
         <section className="relative bg-[#212529] overflow-hidden">
-          <div className="absolute inset-0 opacity-5">
-            <div className="absolute inset-0" style={{
-              backgroundImage: 'radial-gradient(circle at 1px 1px, white 1px, transparent 0)',
-              backgroundSize: '40px 40px'
-            }} />
+          {/* Background image */}
+          <div className="absolute inset-0">
+            <img
+              src="/agents-hero.jpg"
+              alt=""
+              className="w-full h-full object-cover"
+              aria-hidden="true"
+            />
+            {/* Dark overlay so text stays legible */}
+            <div className="absolute inset-0 bg-black/60" />
           </div>
           <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="py-20 sm:py-28 lg:py-36">
@@ -265,16 +317,22 @@ export default function AgentSignupPage() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
             <div className="grid grid-cols-3 gap-8 text-center">
               <div>
-                <p className="text-3xl sm:text-4xl font-bold text-[#212529]">1,000+</p>
+                <p className="text-3xl sm:text-4xl font-bold text-[#212529]">
+                  {stats.listings === null ? '—' : stats.listings.toLocaleString()}
+                </p>
                 <p className="text-sm text-[#495057] mt-1">Active listings</p>
               </div>
               <div>
-                <p className="text-3xl sm:text-4xl font-bold text-[#212529]">20+</p>
+                <p className="text-3xl sm:text-4xl font-bold text-[#212529]">
+                  {stats.cities === null ? '—' : stats.cities}
+                </p>
                 <p className="text-sm text-[#495057] mt-1">Cities covered</p>
               </div>
               <div>
-                <p className="text-3xl sm:text-4xl font-bold text-[#212529]">Free</p>
-                <p className="text-sm text-[#495057] mt-1">To join</p>
+                <p className="text-3xl sm:text-4xl font-bold text-[#212529]">
+                  {stats.agents === null ? '—' : stats.agents.toLocaleString()}
+                </p>
+                <p className="text-sm text-[#495057] mt-1">Agents on platform</p>
               </div>
             </div>
           </div>
