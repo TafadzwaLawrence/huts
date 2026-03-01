@@ -19,9 +19,6 @@ const tabs = [
 export function BottomTabBar({ isLoggedIn }: BottomTabBarProps) {
   const pathname = usePathname()
 
-  // Bottom navigation disabled - using header navigation only
-  return null
-
   // Hide on dashboard pages (they have their own nav) and auth pages
   if (pathname.startsWith('/dashboard/') && !pathname.startsWith('/dashboard/saved')) return null
   if (pathname.startsWith('/auth')) return null

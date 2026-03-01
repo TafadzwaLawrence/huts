@@ -115,7 +115,6 @@ export default function TermsPage() {
               </p>
 
               <div className="space-y-16">
-              <div className="space-y-16">
                 {/* Agreement */}
                 <section id="agreement" className="scroll-mt-24">
                   <div className="flex items-center gap-3 mb-6">
@@ -266,8 +265,6 @@ export default function TermsPage() {
                     <h2 className="text-3xl font-bold text-[#212529]">Renter Responsibilities</h2>
                   </div>
                   <div className="ml-13 space-y-6">
-                    <div>
-                      <h3 className="text-xl font-bold text-[#212529] mb-3">4.1 Inquiries</h3>
                     <div>
                       <h3 className="text-xl font-bold text-[#212529] mb-3">4.1 Inquiries</h3>
                       <p className="text-[#495057] leading-relaxed mb-3">

@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { createClient, createStaticClient } from '@/lib/supabase/server'
 import { formatPrice, formatSalePrice } from '@/lib/utils'
-import { ChevronLeft } from 'lucide-react'
+import { ChevronRight } from 'lucide-react'
 import PropertyGallery from '@/components/property/PropertyGallery'
 import PropertyDetailClient from '@/components/property/PropertyDetailClient'
 import PropertyStructuredData from '@/components/property/PropertyStructuredData'
@@ -239,15 +239,24 @@ export default async function PropertyPage({ params }: { params: Promise<{ slug:
         ]}
       />
 
+      {/* Breadcrumb navigation */}
+      <div className="border-b border-[#E9ECEF] bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+          <nav className="flex items-center gap-1.5 text-sm text-[#495057]" aria-label="Breadcrumb">
+            <Link href="/" className="hover:text-[#212529] transition-colors">Home</Link>
+            <ChevronRight size={14} className="text-[#ADB5BD] shrink-0" />
+            <Link href="/search" className="hover:text-[#212529] transition-colors">Search</Link>
+            <ChevronRight size={14} className="text-[#ADB5BD] shrink-0" />
+            <Link href={`/search?city=${encodeURIComponent(property.city)}`} className="hover:text-[#212529] transition-colors">{property.city}</Link>
+            <ChevronRight size={14} className="text-[#ADB5BD] shrink-0" />
+            <span className="text-[#212529] font-medium truncate max-w-[200px]" aria-current="page">{property.title}</span>
+          </nav>
+        </div>
+      </div>
+
       {/* Gallery */}
-      <div className="relative">
+      <div>
         <PropertyGallery images={images} title={property.title} />
-        <Link
-          href="/search"
-          className="absolute top-4 left-4 bg-white/95 backdrop-blur-sm p-2.5 rounded-xl shadow-lg hover:bg-white hover:scale-105 transition-all z-10 border border-[#E9ECEF]"
-        >
-          <ChevronLeft size={22} className="text-[#212529]" />
-        </Link>
       </div>
 
       {/* Zillow-style two-column content with sticky sidebar */}

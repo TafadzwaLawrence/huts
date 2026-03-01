@@ -1,8 +1,9 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
-import { Search, MapPin, ArrowRight, User } from 'lucide-react'
+import { ArrowRight, User } from 'lucide-react'
 import { ICON_SIZES } from '@/lib/constants'
+import HomeSearchBar from '@/components/search/HomeSearchBar'
 
 export const metadata: Metadata = {
   title: 'Huts — Find Properties for Rent & Sale in Zimbabwe',
@@ -58,30 +59,7 @@ export default async function HomePage() {
             </p>
             
             {/* Search Bar */}
-            <div className="max-w-2xl mx-auto">
-              <div className="relative bg-white rounded-2xl shadow-xl border-2 border-[#E9ECEF] p-2 hover:border-[#495057] transition-colors duration-300">
-                <div className="flex flex-col md:flex-row gap-2">
-                  {/* Location Input */}
-                  <div className="flex-1 flex items-center gap-3 px-4 py-3 bg-[#F8F9FA] rounded-xl">
-                    <MapPin size={ICON_SIZES.lg} className="text-[#ADB5BD] flex-shrink-0" />
-                    <input
-                      type="text"
-                      placeholder="Search by city, neighborhood, or address"
-                      className="w-full bg-transparent outline-none text-[#212529] placeholder:text-[#ADB5BD] text-sm font-medium"
-                    />
-                  </div>
-
-                  {/* Search Button */}
-                  <Link
-                    href="/search"
-                    className="btn btn-primary flex items-center justify-center gap-2 px-8 py-4 min-h-[52px]"
-                  >
-                    <Search size={ICON_SIZES.lg} />
-                    <span>Search</span>
-                  </Link>
-                </div>
-              </div>
-            </div>
+            <HomeSearchBar />
           </div>
         </div>
       </section>

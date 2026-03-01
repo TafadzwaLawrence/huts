@@ -389,10 +389,9 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
   const handleDelete = async () => {
     setDeleting(true)
     try {
-      const { error } = await supabase
-        .from('properties')
-        .delete()
-        .eq('id', propertyId)
+      // Use RPC function to bypass RLS issues
+      const { data, error } = await supabase
+        .rpc('delete_property', { p_property_id: propertyId })
       if (error) throw error
       setHasChanges(false)
       toast.success('Property deleted')

@@ -79,10 +79,9 @@ export default function MyPropertiesList({ properties }: { properties: PropertyW
     setDeleting(true)
     try {
       const supabase = createClient()
-      const { error } = await supabase
-        .from('properties')
-        .delete()
-        .eq('id', propertyId)
+      // Use RPC function to bypass RLS issues
+      const { data, error } = await supabase
+        .rpc('delete_property', { p_property_id: propertyId })
       
       if (error) throw error
       
