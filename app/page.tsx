@@ -33,11 +33,10 @@ export default async function HomePage() {
             src="/pexels-rdne-8293778.jpg"
             alt="Hero background"
             fill
-            className="object-cover w-full h-full opacity-[0.25]"
+            className="object-cover w-full h-full"
             priority
             sizes="100vw"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-white/60 via-white/40 to-white/80" />
         </div>
         <div className="container-main relative z-10 py-20 md:py-32 lg:py-40">
           <div className="max-w-4xl mx-auto text-center">
