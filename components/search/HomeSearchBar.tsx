@@ -299,9 +299,8 @@ export default function HomeSearchBar() {
   return (
     <div ref={wrapperRef} className="max-w-2xl mx-auto relative">
       <div className="relative bg-white rounded-2xl shadow-xl border-2 border-[#E9ECEF] p-2 hover:border-[#495057] transition-colors duration-300">
-        <div className="flex flex-col md:flex-row gap-2">
-          {/* Location Input */}
-          <div className="flex-1 flex items-center gap-3 px-4 py-3 bg-[#F8F9FA] rounded-xl">
+          {/* Location Input + Search — single row */}
+          <div className="flex items-center gap-3 px-4 py-3 bg-[#F8F9FA] rounded-xl">
             <button
               type="button"
               onClick={handleLocateMe}
@@ -327,17 +326,15 @@ export default function HomeSearchBar() {
             {isLoading && !isLocating && (
               <Loader2 size={ICON_SIZES.md} className="text-[#ADB5BD] animate-spin flex-shrink-0" />
             )}
+            <button
+              type="button"
+              onClick={handleSearch}
+              aria-label="Search"
+              className="flex-shrink-0 rounded-md p-0.5 transition-colors focus:outline-none focus:ring-2 focus:ring-[#212529] focus:ring-offset-1"
+            >
+              <Search size={ICON_SIZES.lg} className="text-[#ADB5BD] hover:text-[#212529] transition-colors" />
+            </button>
           </div>
-
-          {/* Search Button */}
-          <button
-            onClick={handleSearch}
-            className="btn btn-primary flex items-center justify-center px-5 py-4 min-h-[52px]"
-            aria-label="Search"
-          >
-            <Search size={ICON_SIZES.lg} />
-          </button>
-        </div>
       </div>
 
       {/* Suggestions Dropdown */}
