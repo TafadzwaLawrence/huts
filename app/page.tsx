@@ -30,7 +30,7 @@ export default async function HomePage() {
         {/* Background Image (Gustavo Fring) */}
         <div className="absolute inset-0 z-0">
           <Image
-            src="/pexels-gustavo-fring-7489107.jpg"
+            src="/pexels-rdne-8293778.jpg"
             alt="Hero background"
             fill
             className="object-cover w-full h-full opacity-[0.25]"
