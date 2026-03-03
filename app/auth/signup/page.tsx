@@ -1,14 +1,14 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, Suspense } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { AlertCircle, Search, Building2, Check, Home } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import { toast } from 'sonner'
 
-export default function SignUpPage() {
+function SignUpPageInner() {
   const [mode, setMode] = useState<'signin' | 'signup'>('signin')
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
@@ -17,6 +17,8 @@ export default function SignUpPage() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const router = useRouter()
+  const searchParams = useSearchParams()
+  const next = searchParams.get('next') || '/dashboard'
   const supabase = createClient()
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -44,12 +46,12 @@ export default function SignUpPage() {
         }
 
         toast.success('Account created! Check your email to verify.')
-        router.push('/dashboard')
+        router.push(next)
       } else {
         const { error } = await supabase.auth.signInWithPassword({ email, password })
         if (error) throw error
         toast.success('Welcome back!')
-        router.push('/dashboard')
+        router.push(next)
       }
     } catch (error: any) {
       setError(error.message || 'Something went wrong')
@@ -67,7 +69,7 @@ export default function SignUpPage() {
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: `${window.location.origin}/auth/callback`,
+          redirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent(next)}`,
           queryParams: { access_type: 'offline', prompt: 'consent' },
         },
       })
@@ -308,5 +310,13 @@ export default function SignUpPage() {
         <div className="absolute -bottom-32 -left-32 w-96 h-96 rounded-full border border-white/5" />
       </div>
     </div>
+  )
+}
+
+export default function SignUpPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-white" />}>
+      <SignUpPageInner />
+    </Suspense>
   )
 }

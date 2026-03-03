@@ -266,6 +266,16 @@ export default function AgentSignupPage() {
     }
   }
 
+  const handleStartForm = async () => {
+    const { data: { user } } = await supabase.auth.getUser()
+    if (!user) {
+      router.push('/auth/signup?next=/agents/signup')
+      return
+    }
+    setShowForm(true)
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
   // Landing page (before form)
   if (!showForm) {
     return (
@@ -294,7 +304,7 @@ export default function AgentSignupPage() {
                 </p>
                 <div className="mt-10 flex flex-col sm:flex-row gap-4">
                   <button
-                    onClick={() => setShowForm(true)}
+                    onClick={handleStartForm}
                     className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white text-[#212529] rounded-lg text-lg font-semibold hover:bg-[#F8F9FA] transition-colors"
                   >
                     Get started — it&apos;s free
@@ -415,10 +425,7 @@ export default function AgentSignupPage() {
               Join hundreds of professionals already on Huts. It only takes a few minutes.
             </p>
             <button
-              onClick={() => {
-                setShowForm(true)
-                window.scrollTo({ top: 0, behavior: 'smooth' })
-              }}
+              onClick={handleStartForm}
               className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white text-[#212529] rounded-lg text-lg font-semibold hover:bg-[#F8F9FA] transition-colors"
             >
               Create your free profile
