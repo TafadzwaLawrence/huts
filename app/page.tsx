@@ -33,7 +33,7 @@ export default async function HomePage() {
             src="/pexels-rdne-8293778.jpg"
             alt="Hero background"
             fill
-            className="object-cover w-full h-full"
+            className="object-cover w-full h-full grayscale"
             priority
             sizes="100vw"
           />
