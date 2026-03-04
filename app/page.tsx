@@ -162,6 +162,214 @@ export default async function HomePage() {
         </div>
       </section>
 
+      {/* INTERNAL LINKS SECTION - SEO Discovery */}
+      <section className="py-12 bg-white border-t border-[#E9ECEF]">
+        <div className="container-main">
+          <h2 className="text-2xl font-bold text-[#212529] mb-8 text-center">
+            Explore Properties by Location & Type
+          </h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-5xl mx-auto">
+            {/* Rentals by City */}
+            <div>
+              <h3 className="font-bold text-[#212529] mb-4 text-sm uppercase tracking-wide">
+                Rentals by City
+              </h3>
+              <ul className="space-y-2.5 text-sm">
+                <li>
+                  <Link href="/rentals-in-harare" className="text-[#495057] hover:text-[#212529] hover:underline">
+                    Harare Rentals
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/search?city=Bulawayo&type=rent" className="text-[#495057] hover:text-[#212529] hover:underline">
+                    Bulawayo Rentals
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/search?city=Gweru&type=rent" className="text-[#495057] hover:text-[#212529] hover:underline">
+                    Gweru Rentals
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/search?city=Mutare&type=rent" className="text-[#495057] hover:text-[#212529] hover:underline">
+                    Mutare Rentals
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/properties-for-rent-zimbabwe" className="text-[#495057] hover:text-[#212529] hover:underline">
+                    All Zimbabwe Rentals
+                  </Link>
+                </li>
+              </ul>
+            </div>
+
+            {/* Property Types */}
+            <div>
+              <h3 className="font-bold text-[#212529] mb-4 text-sm uppercase tracking-wide">
+                Property Types
+              </h3>
+              <ul className="space-y-2.5 text-sm">
+                <li>
+                  <Link href="/search?propertyType=apartment" className="text-[#495057] hover:text-[#212529] hover:underline">
+                    Apartments
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/search?propertyType=house" className="text-[#495057] hover:text-[#212529] hover:underline">
+                    Houses
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/search?propertyType=room" className="text-[#495057] hover:text-[#212529] hover:underline">
+                    Rooms
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/search?propertyType=cottage" className="text-[#495057] hover:text-[#212529] hover:underline">
+                    Cottages
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/student-housing" className="text-[#495057] hover:text-[#212529] hover:underline">
+                    Student Housing
+                  </Link>
+                </li>
+              </ul>
+            </div>
+
+            {/* Buy or Rent */}
+            <div>
+              <h3 className="font-bold text-[#212529] mb-4 text-sm uppercase tracking-wide">
+                Buy or Rent
+              </h3>
+              <ul className="space-y-2.5 text-sm">
+                <li>
+                  <Link href="/search?type=rent" className="text-[#495057] hover:text-[#212529] hover:underline">
+                    For Rent
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/search?type=sale" className="text-[#495057] hover:text-[#212529] hover:underline">
+                    For Sale
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/rent-vs-buy" className="text-[#495057] hover:text-[#212529] hover:underline">
+                    Rent vs Buy Calculator
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/home-value" className="text-[#495057] hover:text-[#212529] hover:underline">
+                    Get Home Value
+                  </Link>
+                </li>
+              </ul>
+            </div>
+
+            {/* Resources */}
+            <div>
+              <h3 className="font-bold text-[#212529] mb-4 text-sm uppercase tracking-wide">
+                Resources
+              </h3>
+              <ul className="space-y-2.5 text-sm">
+                <li>
+                  <Link href="/areas" className="text-[#495057] hover:text-[#212529] hover:underline">
+                    Neighborhood Guides
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/help" className="text-[#495057] hover:text-[#212529] hover:underline">
+                    Help Center
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/pricing" className="text-[#495057] hover:text-[#212529] hover:underline">
+                    Pricing
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/contact" className="text-[#495057] hover:text-[#212529] hover:underline">
+                    Contact Us
+                  </Link>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ SECTION - SEO Optimized for "People Also Ask" */}
+      <section className="py-16 bg-[#F8F9FA]">
+        <div className="container-main max-w-4xl">
+          <h2 className="text-3xl md:text-4xl font-bold text-[#212529] mb-10 text-center">
+            Frequently Asked Questions
+          </h2>
+          
+          <div className="space-y-8">
+            <div className="bg-white rounded-lg p-6 border border-[#E9ECEF]">
+              <h3 className="text-lg font-bold text-[#212529] mb-3">
+                How much does it cost to rent in Zimbabwe?
+              </h3>
+              <p className="text-[#495057] leading-relaxed">
+                Rental prices vary by location and property type. In Harare, expect $300-$1,200/month for apartments and $500-$2,000/month for houses. 
+                Bulawayo and Gweru are typically 20-30% cheaper. Rooms start from $150/month. Student housing near universities ranges from $200-$500/month.
+              </p>
+            </div>
+
+            <div className="bg-white rounded-lg p-6 border border-[#E9ECEF]">
+              <h3 className="text-lg font-bold text-[#212529] mb-3">
+                Are properties on Huts verified?
+              </h3>
+              <p className="text-[#495057] leading-relaxed">
+                Yes, all properties undergo manual verification before going live. Our team verifies ownership documentation, photos authenticity, 
+                and contact details to prevent scams. Look for the &quot;Verified&quot; badge on listings. We also encourage reviews from renters to maintain quality.
+              </p>
+            </div>
+
+            <div className="bg-white rounded-lg p-6 border border-[#E9ECEF]">
+              <h3 className="text-lg font-bold text-[#212529] mb-3">
+                Can I list my property for free?
+              </h3>
+              <p className="text-[#495057] leading-relaxed">
+                Absolutely! Listing properties on Huts is completely free for landlords and property owners. Create an account, 
+                add your property details and photos, and publish in minutes. There are no hidden fees or commissions. 
+                You communicate directly with potential renters or buyers through our secure messaging system.
+              </p>
+            </div>
+
+            <div className="bg-white rounded-lg p-6 border border-[#E9ECEF]">
+              <h3 className="text-lg font-bold text-[#212529] mb-3">
+                What areas does Huts cover in Zimbabwe?
+              </h3>
+              <p className="text-[#495057] leading-relaxed">
+                We cover all major cities and towns across Zimbabwe including Harare (Borrowdale, Avondale, Mount Pleasant), 
+                Bulawayo, Gweru, Mutare, Victoria Falls, Masvingo, and Kwekwe. New areas and neighborhoods are added weekly as more landlords join our platform.
+              </p>
+            </div>
+
+            <div className="bg-white rounded-lg p-6 border border-[#E9ECEF]">
+              <h3 className="text-lg font-bold text-[#212529] mb-3">
+                How do I contact a landlord about a property?
+              </h3>
+              <p className="text-[#495057] leading-relaxed">
+                Simply create a free account, then click &quot;Contact Landlord&quot; on any property listing. You can send a message directly through our platform. 
+                Landlords typically respond within 24 hours. For urgent inquiries, verified landlords also display phone numbers you can call directly.
+              </p>
+            </div>
+
+            <div className="bg-white rounded-lg p-6 border border-[#E9ECEF]">
+              <h3 className="text-lg font-bold text-[#212529] mb-3">
+                Can I search for properties for sale, not just rentals?
+              </h3>
+              <p className="text-[#495057] leading-relaxed">
+                Yes! Huts supports both rental and sale listings. Use the search filters to select &quot;For Sale&quot; to browse homes, 
+                apartments, and land for purchase. Each sale listing includes purchase price, property details, and financing calculators to help you plan your investment.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* JSON-LD Structured Data */}
       <script
         type="application/ld+json"
@@ -201,6 +409,65 @@ export default async function HomePage() {
               },
               'query-input': 'required name=search_term_string',
             },
+          }),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'FAQPage',
+            mainEntity: [
+              {
+                '@type': 'Question',
+                name: 'How much does it cost to rent in Zimbabwe?',
+                acceptedAnswer: {
+                  '@type': 'Answer',
+                  text: 'Rental prices vary by location and property type. In Harare, expect $300-$1,200/month for apartments and $500-$2,000/month for houses. Bulawayo and Gweru are typically 20-30% cheaper. Rooms start from $150/month. Student housing near universities ranges from $200-$500/month.',
+                },
+              },
+              {
+                '@type': 'Question',
+                name: 'Are properties on Huts verified?',
+                acceptedAnswer: {
+                  '@type': 'Answer',
+                  text: 'Yes, all properties undergo manual verification before going live. Our team verifies ownership documentation, photos authenticity, and contact details to prevent scams. Look for the "Verified" badge on listings. We also encourage reviews from renters to maintain quality.',
+                },
+              },
+              {
+                '@type': 'Question',
+                name: 'Can I list my property for free?',
+                acceptedAnswer: {
+                  '@type': 'Answer',
+                  text: 'Absolutely! Listing properties on Huts is completely free for landlords and property owners. Create an account, add your property details and photos, and publish in minutes. There are no hidden fees or commissions. You communicate directly with potential renters or buyers through our secure messaging system.',
+                },
+              },
+              {
+                '@type': 'Question',
+                name: 'What areas does Huts cover in Zimbabwe?',
+                acceptedAnswer: {
+                  '@type': 'Answer',
+                  text: 'We cover all major cities and towns across Zimbabwe including Harare (Borrowdale, Avondale, Mount Pleasant), Bulawayo, Gweru, Mutare, Victoria Falls, Masvingo, and Kwekwe. New areas and neighborhoods are added weekly as more landlords join our platform.',
+                },
+              },
+              {
+                '@type': 'Question',
+                name: 'How do I contact a landlord about a property?',
+                acceptedAnswer: {
+                  '@type': 'Answer',
+                  text: 'Simply create a free account, then click "Contact Landlord" on any property listing. You can send a message directly through our platform. Landlords typically respond within 24 hours. For urgent inquiries, verified landlords also display phone numbers you can call directly.',
+                },
+              },
+              {
+                '@type': 'Question',
+                name: 'Can I search for properties for sale, not just rentals?',
+                acceptedAnswer: {
+                  '@type': 'Answer',
+                  text: 'Yes! Huts supports both rental and sale listings. Use the search filters to select "For Sale" to browse homes, apartments, and land for purchase. Each sale listing includes purchase price, property details, and financing calculators to help you plan your investment.',
+                },
+              },
+            ],
           }),
         }}
       />
