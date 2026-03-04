@@ -121,8 +121,8 @@ export function Footer() {
             </div>
           </div>
 
-          {/* Link Grid — 5 columns on desktop */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-8 lg:gap-6">
+          {/* Link Grid — 6 columns on desktop */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-8 lg:gap-6">
             {footerSections.map((section) => (
               <div key={section.title}>
                 <h3 className="text-xs font-semibold uppercase tracking-widest text-white/40 mb-4">
@@ -155,9 +155,9 @@ export function Footer() {
         {/* SEO internal links */}
         <nav className="pt-7 pb-5" aria-label="Property search links">
           <h3 className="text-xs font-semibold uppercase tracking-widest text-white/30 mb-4">Popular Searches</h3>
-          <div className="flex flex-wrap gap-x-5 gap-y-2 text-xs text-white/25">
+          <div className="flex flex-wrap gap-x-5 gap-y-2 text-xs text-white/50">
             {seoLinks.map((link) => (
-              <Link key={link.href} href={link.href} className="hover:text-white/50 transition-colors">
+              <Link key={link.href} href={link.href} className="hover:text-white/70 transition-colors">
                 {link.label}
               </Link>
             ))}

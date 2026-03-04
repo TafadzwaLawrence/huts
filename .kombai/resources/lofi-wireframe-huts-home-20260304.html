@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Huts — Home Page Redesign Wireframe</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Comic Sans MS', 'Chalkboard SE', cursive;
+      background: #fff;
+      color: #222;
+      font-size: 14px;
+    }
+
+    /* Legend */
+    .legend {
+      position: fixed;
+      top: 12px;
+      right: 12px;
+      background: #fff;
+      border: 2px solid #999;
+      border-radius: 6px;
+      padding: 10px 14px;
+      z-index: 9999;
+      font-size: 12px;
+    }
+    .legend h4 { margin-bottom: 6px; font-size: 13px; color: #333; }
+    .badge { display: inline-block; padding: 2px 7px; border-radius: 3px; font-size: 11px; font-weight: bold; margin-right: 4px; }
+    .badge-reuse { background: #4CAF50; color: #fff; }
+    .badge-new   { background: #FF9800; color: #fff; }
+    .badge-issue { background: #f44336; color: #fff; }
+
+    /* Reuse tag helper */
+    .tag-wrap { position: relative; display: block; }
+    .tag { position: absolute; top: -10px; right: 0; padding: 2px 7px; border-radius: 3px; font-size: 10px; font-weight: bold; z-index: 10; white-space: nowrap; }
+    .tag.reuse { background: #4CAF50; color: #fff; }
+    .tag.new   { background: #FF9800; color: #fff; }
+    .tag.issue { background: #f44336; color: #fff; }
+
+    /* Wireframe elements */
+    .wf-image {
+      background: #ddd;
+      border: 2px dashed #999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #666;
+      font-style: italic;
+    }
+
+    /* ===================== LAYOUT ===================== */
+    .navbar {
+      display: flex;
+      align-items: center;
+      height: 60px;
+      border-bottom: 2px solid #333;
+      padding: 0 24px;
+      gap: 12px;
+      background: #fff;
+    }
+    .logo-box {
+      width: 36px; height: 36px;
+      border: 2px solid #333;
+      border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 10px; font-weight: bold;
+    }
+    .brand-name { font-size: 18px; font-weight: bold; margin-right: 16px; }
+    .nav-links { display: flex; gap: 0; }
+    .nav-item {
+      padding: 6px 14px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      margin-right: 4px;
+      font-size: 13px;
+      display: flex; align-items: center; gap: 4px;
+      cursor: pointer;
+    }
+    .nav-item.active { border-color: #333; background: #f5f5f5; }
+    .nav-chevron { font-size: 10px; color: #666; }
+    .nav-spacer { flex: 1; }
+    .nav-right { display: flex; gap: 8px; align-items: center; }
+    .btn-wf {
+      padding: 6px 16px;
+      border: 2px solid #333;
+      border-radius: 6px;
+      font-family: inherit;
+      font-size: 13px;
+      cursor: pointer;
+      background: #fff;
+    }
+    .btn-wf.filled { background: #333; color: #fff; }
+    .btn-wf.ghost  { border-color: #ccc; }
+    .avatar-circle {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      border: 2px solid #333;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; font-weight: bold;
+    }
+
+    /* HERO */
+    .hero {
+      position: relative;
+      height: 480px;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        45deg,
+        #ccc 0, #ccc 1px,
+        #e0e0e0 1px, #e0e0e0 16px
+      );
+      opacity: 0.6;
+    }
+    /* NEW: gradient scrim — the key fix */
+    .hero-scrim {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.2) 60%, rgba(0,0,0,0.55) 100%);
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      padding: 24px;
+      text-align: center;
+    }
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 100px;
+      padding: 5px 14px;
+      color: #fff;
+      font-size: 12px;
+      margin-bottom: 18px;
+    }
+    .hero-h1 {
+      font-size: 52px;
+      font-weight: bold;
+      color: #fff;
+      line-height: 1.1;
+      margin-bottom: 12px;
+      text-shadow: 0 2px 16px rgba(0,0,0,0.5);
+    }
+    .hero-sub {
+      font-size: 17px;
+      color: rgba(255,255,255,0.85);
+      margin-bottom: 28px;
+      max-width: 520px;
+      text-shadow: 0 1px 8px rgba(0,0,0,0.4);
+    }
+    /* NEW: Intent tabs above search */
+    .intent-tabs {
+      display: flex;
+      gap: 0;
+      margin-bottom: 0;
+      border-radius: 12px 12px 0 0;
+      overflow: hidden;
+    }
+    .intent-tab {
+      padding: 8px 24px;
+      font-size: 14px;
+      font-weight: bold;
+      background: rgba(255,255,255,0.2);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.3);
+      border-bottom: none;
+      cursor: pointer;
+    }
+    .intent-tab.active {
+      background: #fff;
+      color: #333;
+    }
+    .search-bar-wf {
+      display: flex;
+      align-items: center;
+      background: #fff;
+      border-radius: 0 12px 12px 12px;
+      padding: 10px 14px;
+      gap: 8px;
+      width: 100%;
+      max-width: 640px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+    }
+    .search-icon-wf {
+      width: 20px; height: 20px;
+      border: 2px solid #999;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .search-input-wf {
+      flex: 1;
+      height: 24px;
+      border: none;
+      border-bottom: 2px dotted #999;
+      font-family: inherit;
+      font-size: 14px;
+      color: #999;
+    }
+    .search-btn-wf {
+      padding: 6px 18px;
+      background: #333;
+      color: #fff;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: bold;
+    }
+    .hero-stats {
+      display: flex;
+      gap: 32px;
+      margin-top: 24px;
+    }
+    .hero-stat { text-align: center; color: rgba(255,255,255,0.85); }
+    .hero-stat-num { font-size: 22px; font-weight: bold; color: #fff; }
+    .hero-stat-lbl { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; margin-top: 2px; }
+
+    /* CITY STRIP — NEW */
+    .city-strip {
+      display: flex;
+      gap: 12px;
+      padding: 20px 40px;
+      background: #f5f5f5;
+      border-bottom: 2px solid #ddd;
+      overflow-x: auto;
+    }
+    .city-pill {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      background: #fff;
+      border: 2px solid #ccc;
+      border-radius: 100px;
+      white-space: nowrap;
+      font-size: 13px;
+    }
+    .city-pill.active { border-color: #333; background: #333; color: #fff; }
+    .city-img-circle {
+      width: 24px; height: 24px;
+      border-radius: 50%;
+      background: #ccc;
+      flex-shrink: 0;
+    }
+
+    /* SIGN-IN NUDGE */
+    .nudge-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 40px;
+      background: #fff;
+      border-bottom: 1px solid #ddd;
+      gap: 12px;
+    }
+    .nudge-left { display: flex; align-items: center; gap: 12px; }
+    .nudge-avatar {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      border: 2px solid #333;
+      background: #ddd;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px;
+    }
+    .nudge-text-title { font-size: 13px; font-weight: bold; }
+    .nudge-text-sub   { font-size: 12px; color: #666; }
+
+    /* ACTION CARDS */
+    .action-section {
+      padding: 40px 40px;
+      background: #fff;
+    }
+    .action-section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .section-title { font-size: 20px; font-weight: bold; }
+    .section-link  { font-size: 13px; color: #333; text-decoration: underline; }
+    .action-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .action-card { cursor: pointer; }
+    .action-card-img {
+      height: 180px;
+      border-radius: 12px;
+      border: 2px dashed #999;
+      background: #e8e8e8;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .action-card-badge {
+      display: inline-block;
+      background: #333;
+      color: #fff;
+      font-size: 10px;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 3px 10px;
+      border-radius: 4px;
+      margin-bottom: 8px;
+    }
+    .action-card-title { font-size: 16px; font-weight: bold; margin-bottom: 6px; }
+    .action-card-desc  { font-size: 12px; color: #555; line-height: 1.5; margin-bottom: 10px; }
+    .action-card-cta   { font-size: 13px; font-weight: bold; text-decoration: underline; display: flex; align-items: center; gap: 4px; }
+
+    /* FEATURED PROPERTIES — NEW */
+    .featured-section {
+      padding: 40px 40px;
+      background: #f5f5f5;
+      border-top: 2px solid #ddd;
+    }
+    .prop-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-top: 20px;
+    }
+    .prop-card {
+      background: #fff;
+      border: 2px solid #ddd;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .prop-card-img {
+      height: 140px;
+      background: #ddd;
+      border-bottom: 1px solid #ccc;
+      display: flex; align-items: center; justify-content: center;
+      color: #888; font-size: 12px; font-style: italic;
+    }
+    .prop-card-body { padding: 12px; }
+    .prop-price { font-size: 16px; font-weight: bold; margin-bottom: 4px; }
+    .prop-type-badge {
+      display: inline-block;
+      background: #eee;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 10px;
+      padding: 2px 7px;
+      margin-bottom: 6px;
+    }
+    .prop-meta { font-size: 11px; color: #666; }
+    .prop-loc  { font-size: 12px; color: #444; margin-top: 4px; display: flex; align-items: center; gap: 4px; }
+    .heart-icon {
+      position: absolute;
+      top: 10px; right: 10px;
+      width: 28px; height: 28px;
+      background: rgba(255,255,255,0.9);
+      border-radius: 50%;
+      border: 1px solid #ddd;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px;
+    }
+    .prop-card-img-wrap { position: relative; }
+
+    /* TRUST SECTION — NEW */
+    .trust-section {
+      padding: 40px 40px;
+      background: #fff;
+      border-top: 2px solid #ddd;
+    }
+    .trust-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 20px;
+    }
+    .trust-card {
+      border: 2px solid #ddd;
+      border-radius: 10px;
+      padding: 24px;
+      display: flex;
+      gap: 16px;
+    }
+    .trust-icon {
+      width: 44px; height: 44px;
+      border: 2px solid #333;
+      border-radius: 10px;
+      flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px;
+    }
+    .trust-title { font-size: 15px; font-weight: bold; margin-bottom: 4px; }
+    .trust-desc  { font-size: 12px; color: #555; line-height: 1.5; }
+
+    /* CTA BANNER — NEW */
+    .cta-banner {
+      margin: 40px;
+      background: #333;
+      color: #fff;
+      border-radius: 16px;
+      padding: 48px 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 32px;
+    }
+    .cta-text h2 { font-size: 26px; font-weight: bold; margin-bottom: 8px; }
+    .cta-text p  { font-size: 14px; color: rgba(255,255,255,0.7); }
+    .cta-actions { display: flex; gap: 12px; flex-shrink: 0; }
+    .cta-btn-white {
+      padding: 12px 24px;
+      background: #fff;
+      color: #333;
+      border: none;
+      border-radius: 10px;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: bold;
+    }
+    .cta-btn-ghost {
+      padding: 12px 24px;
+      background: transparent;
+      color: #fff;
+      border: 2px solid rgba(255,255,255,0.4);
+      border-radius: 10px;
+      font-family: inherit;
+      font-size: 14px;
+    }
+
+    /* FOOTER */
+    .footer {
+      background: #222;
+      color: #fff;
+      padding: 48px 40px 24px;
+    }
+    .footer-top {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 48px;
+      padding-bottom: 32px;
+      border-bottom: 1px solid #444;
+      margin-bottom: 24px;
+    }
+    .footer-brand-desc { font-size: 13px; color: #999; line-height: 1.6; margin: 12px 0; }
+    .footer-contact { display: flex; gap: 8px; flex-wrap: wrap; }
+    .footer-contact-btn {
+      display: flex; align-items: center; gap: 6px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 8px;
+      padding: 7px 12px;
+      font-size: 12px;
+      color: #ccc;
+    }
+    .footer-links { display: grid; grid-template-columns: repeat(6, 1fr); gap: 16px; }
+    .footer-col-title { font-size: 10px; text-transform: uppercase; letter-spacing: 2px; color: #666; margin-bottom: 12px; }
+    .footer-link { display: block; font-size: 12px; color: #999; margin-bottom: 8px; }
+    .footer-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12px;
+      color: #555;
+      padding-top: 16px;
+      border-top: 1px solid #333;
+    }
+    .footer-bottom-links { display: flex; gap: 16px; }
+    .social-icons { display: flex; gap: 10px; }
+    .social-icon {
+      width: 28px; height: 28px;
+      border: 1px solid #444;
+      border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px;
+    }
+
+    /* Annotation boxes */
+    .annotation {
+      background: #fff9c4;
+      border: 2px solid #f0c000;
+      border-radius: 6px;
+      padding: 6px 10px;
+      font-size: 11px;
+      color: #555;
+      margin-top: 8px;
+      position: relative;
+    }
+    .annotation::before {
+      content: '💡 ';
+    }
+
+    /* Wireframe title block */
+    .wf-header {
+      background: #f5f5f5;
+      border-bottom: 3px solid #333;
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .wf-title { font-size: 18px; font-weight: bold; }
+    .wf-subtitle { font-size: 12px; color: #666; }
+    .wf-badge { background: #333; color: #fff; font-size: 11px; padding: 4px 12px; border-radius: 4px; }
+
+    /* Mobile preview placeholder */
+    .mobile-note {
+      background: #e8f5e9;
+      border: 2px solid #4CAF50;
+      border-radius: 8px;
+      padding: 12px 16px;
+      font-size: 12px;
+      color: #2e7d32;
+      margin: 16px 40px;
+    }
+    .mobile-note strong { display: block; margin-bottom: 4px; }
+  </style>
+</head>
+<body>
+
+<!-- LEGEND -->
+<div class="legend">
+  <h4>Component Tags</h4>
+  <div><span class="badge badge-reuse">[REUSE]</span> Existing component</div>
+  <div style="margin-top:4px"><span class="badge badge-new">[NEW]</span> New component needed</div>
+  <div style="margin-top:4px"><span class="badge badge-issue">[FIX]</span> Current issue addressed</div>
+</div>
+
+<!-- WIREFRAME HEADER -->
+<div class="wf-header">
+  <div>
+    <div class="wf-title">Huts — Home Page Redesign</div>
+    <div class="wf-subtitle">Lofi wireframe · Desktop 1440px · Addresses 12 issues from design review</div>
+  </div>
+  <div class="wf-badge">Option: Balanced Approach</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECTION 1: NAVBAR -->
+<!-- ============================================================ -->
+
+<!-- REUSABLE: Navbar from components/layout/Navbar.tsx -->
+<div class="tag-wrap" style="margin-bottom: 0;">
+  <span class="tag reuse" style="top: 4px; right: 4px;">[REUSE] Navbar</span>
+  <div class="navbar">
+    <div class="logo-box">🏠</div>
+    <span class="brand-name">Huts</span>
+    <div class="nav-links">
+      <div class="nav-item">Buy <span class="nav-chevron">▾</span></div>
+      <div class="nav-item">Rent <span class="nav-chevron">▾</span></div>
+      <div class="nav-item">Sell <span class="nav-chevron">▾</span></div>
+      <div class="nav-item">Agents <span class="nav-chevron">▾</span></div>
+    </div>
+    <div class="nav-spacer"></div>
+    <div class="nav-right">
+      <button class="btn-wf ghost">Areas</button>
+      <button class="btn-wf ghost">Help</button>
+      <div style="width:1px;height:20px;background:#ccc;"></div>
+      <button class="btn-wf">Sign in</button>
+      <button class="btn-wf filled">List Property</button>
+    </div>
+  </div>
+</div>
+<div class="annotation" style="margin: 0 0 0 0; border-radius: 0;">
+  [FIX] Added a prominent "List Property" CTA in navbar — currently missing for unauthenticated users who want to list. Increases landlord conversion path visibility.
+</div>
+
+<!-- ============================================================ -->
+<!-- SECTION 2: HERO — with scrim fix + intent tabs + stats -->
+<!-- ============================================================ -->
+
+<div class="tag-wrap" style="position: relative;">
+  <span class="tag new" style="top: 10px; right: 10px; z-index: 20;">[NEW] HeroScrim</span>
+  <span class="tag reuse" style="top: 10px; right: 140px; z-index: 20;">[REUSE] HomeSearchBar</span>
+
+  <div class="hero">
+    <div class="hero-bg"></div>
+
+    <!-- FIX: Gradient scrim overlay for text contrast -->
+    <div class="hero-scrim"></div>
+    <div style="position:absolute;top:6px;left:50%;transform:translateX(-50%);background:rgba(244,67,54,0.9);color:#fff;font-size:11px;padding:3px 10px;border-radius:4px;z-index:5;white-space:nowrap;">
+      [FIX] Gradient scrim added — ensures text contrast over any image (WCAG 1.4.3)
+    </div>
+
+    <div class="hero-content">
+      <!-- Eyebrow badge -->
+      <div class="hero-eyebrow">
+        ✦ &nbsp; Zimbabwe's #1 Property Marketplace
+      </div>
+
+      <!-- Headline -->
+      <div class="hero-h1">
+        Find your<br/>perfect home
+      </div>
+      <div class="hero-sub">
+        Browse verified rentals and homes for sale across Zimbabwe.
+      </div>
+
+      <!-- Intent tabs + search bar -->
+      <div style="width:100%;max-width:640px;">
+        <!-- REUSABLE: Intent tabs (existing filter type logic from FilterBar) -->
+        <div class="tag-wrap">
+          <span class="tag new">[NEW] IntentTabs</span>
+          <div class="intent-tabs">
+            <div class="intent-tab active">🔑 &nbsp; Rent</div>
+            <div class="intent-tab">🏠 &nbsp; Buy</div>
+            <div class="intent-tab">➕ &nbsp; List</div>
+          </div>
+        </div>
+
+        <div class="search-bar-wf">
+          <div class="search-icon-wf"></div>
+          <input class="search-input-wf" type="text" value="Search by city, neighborhood, or address..." readonly />
+          <div class="search-btn-wf">Search</div>
+        </div>
+      </div>
+      <div class="annotation" style="background:rgba(255,255,0,0.15);border-color:rgba(255,200,0,0.5);color:#fff;margin-top:10px;">
+        [NEW] Intent tabs (Rent/Buy/List) above search bar reduce friction — users pre-select intent before typing, eliminating a filter step.
+      </div>
+
+      <!-- Trust stats -->
+      <div class="tag-wrap">
+        <span class="tag new">[NEW] HeroStats</span>
+        <div class="hero-stats">
+          <div class="hero-stat">
+            <div class="hero-stat-num">500+</div>
+            <div class="hero-stat-lbl">Properties</div>
+          </div>
+          <div class="hero-stat">
+            <div class="hero-stat-num">2k+</div>
+            <div class="hero-stat-lbl">Users</div>
+          </div>
+          <div class="hero-stat">
+            <div class="hero-stat-num">50+</div>
+            <div class="hero-stat-lbl">Areas</div>
+          </div>
+          <div class="hero-stat">
+            <div class="hero-stat-num">24h</div>
+            <div class="hero-stat-lbl">Verification</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECTION 3: CITY QUICK-FILTERS (NEW) -->
+<!-- ============================================================ -->
+
+<div class="tag-wrap">
+  <span class="tag new">[NEW] CityFilterStrip</span>
+  <div class="city-strip">
+    <div style="font-size:12px;font-weight:bold;color:#555;align-self:center;white-space:nowrap;">Browse by city:</div>
+    <div class="city-pill active">
+      <div class="city-img-circle"></div>
+      All Zimbabwe
+    </div>
+    <div class="city-pill">
+      <div class="city-img-circle"></div>
+      Harare
+    </div>
+    <div class="city-pill">
+      <div class="city-img-circle"></div>
+      Bulawayo
+    </div>
+    <div class="city-pill">
+      <div class="city-img-circle"></div>
+      Gweru
+    </div>
+    <div class="city-pill">
+      <div class="city-img-circle"></div>
+      Mutare
+    </div>
+    <div class="city-pill">
+      <div class="city-img-circle"></div>
+      Masvingo
+    </div>
+    <div class="city-pill">
+      <div class="city-img-circle"></div>
+      Victoria Falls
+    </div>
+    <div class="city-pill" style="border-style:dashed;">
+      + More cities →
+    </div>
+  </div>
+</div>
+<div class="annotation" style="margin: 0 0 0 0; border-radius: 0;">
+  [NEW] City quick-filter strip — allows users to immediately narrow by city without typing. Drives discovery for users unfamiliar with specific neighborhoods.
+</div>
+
+<!-- ============================================================ -->
+<!-- SECTION 4: SIGN-IN NUDGE (existing, improved) -->
+<!-- ============================================================ -->
+
+<div class="tag-wrap">
+  <span class="tag reuse">[REUSE] PersonalisationNudge</span>
+  <div class="nudge-bar">
+    <div class="nudge-left">
+      <div class="nudge-avatar">👤</div>
+      <div>
+        <div class="nudge-text-title">Get personalised home recommendations</div>
+        <div class="nudge-text-sub">Sign in for saved searches, alerts, and homes matched to your preferences.</div>
+      </div>
+    </div>
+    <div style="display:flex;gap:8px;">
+      <button class="btn-wf ghost" style="font-size:13px;">Learn more</button>
+      <button class="btn-wf filled" style="font-size:13px;">Sign in →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECTION 5: ACTION CARDS (existing, reorganised) -->
+<!-- ============================================================ -->
+
+<!-- REUSABLE: ActionCard pattern from app/page.tsx -->
+<div class="tag-wrap">
+  <span class="tag reuse">[REUSE] ActionCards (app/page.tsx)</span>
+  <div class="action-section">
+    <div class="action-section-header">
+      <div class="section-title">What are you looking for?</div>
+    </div>
+    <div class="action-grid">
+      <div class="action-card">
+        <div class="action-card-img">
+          [Image: 400x200 — Modern house exterior]
+        </div>
+        <div class="action-card-badge">For Sale</div>
+        <div class="action-card-title">Buy a home</div>
+        <div class="action-card-desc">Browse photos, check pricing and neighborhood details on homes for sale in Zimbabwe.</div>
+        <div class="action-card-cta">Browse homes &nbsp; →</div>
+      </div>
+      <div class="action-card">
+        <div class="action-card-img">
+          [Image: 400x200 — Apartment interior living room]
+        </div>
+        <div class="action-card-badge">For Rent</div>
+        <div class="action-card-title">Rent a home</div>
+        <div class="action-card-desc">From searching on the largest rental network to messaging landlords — all in one place.</div>
+        <div class="action-card-cta">Find rentals &nbsp; →</div>
+      </div>
+      <div class="action-card">
+        <div class="action-card-img">
+          [Image: 400x200 — Person holding keys to property]
+        </div>
+        <div class="action-card-badge">Free Listing</div>
+        <div class="action-card-title">List a property</div>
+        <div class="action-card-desc">Connect with quality renters and buyers. List free in minutes with photo upload up to 1GB.</div>
+        <div class="action-card-cta">See your options &nbsp; →</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECTION 6: FEATURED PROPERTIES (NEW) -->
+<!-- ============================================================ -->
+
+<div class="tag-wrap">
+  <span class="tag new">[NEW] FeaturedProperties</span>
+  <div class="featured-section">
+    <div class="action-section-header">
+      <div class="section-title">Recently listed near Harare</div>
+      <a class="section-link">View all →</a>
+    </div>
+    <div class="prop-grid">
+      <!-- Card 1 -->
+      <div class="prop-card">
+        <div class="prop-card-img-wrap">
+          <div class="prop-card-img">[Image: 300x140]</div>
+          <div class="heart-icon">♡</div>
+        </div>
+        <div class="prop-card-body">
+          <div class="prop-price">$350 / mo</div>
+          <div class="prop-type-badge">For Rent</div>
+          <div class="prop-meta">3 bd · 2 ba · 1,200 sqft</div>
+          <div class="prop-loc">📍 Borrowdale, Harare</div>
+        </div>
+      </div>
+      <!-- Card 2 -->
+      <div class="prop-card">
+        <div class="prop-card-img-wrap">
+          <div class="prop-card-img">[Image: 300x140]</div>
+          <div class="heart-icon">♡</div>
+        </div>
+        <div class="prop-card-body">
+          <div class="prop-price">$85,000</div>
+          <div class="prop-type-badge">For Sale</div>
+          <div class="prop-meta">4 bd · 3 ba · 2,400 sqft</div>
+          <div class="prop-loc">📍 Avondale, Harare</div>
+        </div>
+      </div>
+      <!-- Card 3 -->
+      <div class="prop-card">
+        <div class="prop-card-img-wrap">
+          <div class="prop-card-img">[Image: 300x140]</div>
+          <div class="heart-icon">♡</div>
+        </div>
+        <div class="prop-card-body">
+          <div class="prop-price">$180 / mo</div>
+          <div class="prop-type-badge">For Rent</div>
+          <div class="prop-meta">1 bd · 1 ba · 600 sqft</div>
+          <div class="prop-loc">📍 Waterfalls, Harare</div>
+        </div>
+      </div>
+      <!-- Card 4 -->
+      <div class="prop-card">
+        <div class="prop-card-img-wrap">
+          <div class="prop-card-img">[Image: 300x140]</div>
+          <div class="heart-icon">♡</div>
+        </div>
+        <div class="prop-card-body">
+          <div class="prop-price">$220 / mo</div>
+          <div class="prop-type-badge">Student</div>
+          <div class="prop-meta">2 bd · 1 ba · 750 sqft</div>
+          <div class="prop-loc">📍 Mt Pleasant, Harare</div>
+        </div>
+      </div>
+    </div>
+    <div class="annotation">
+      [NEW] Featured property grid surfaces real listings on the home page — increases time-on-site, gives users immediate value without searching, and drives clicks into the search page.
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECTION 7: TRUST / FEATURES (NEW) -->
+<!-- ============================================================ -->
+
+<div class="tag-wrap">
+  <span class="tag new">[NEW] TrustFeatures</span>
+  <div class="trust-section">
+    <div class="section-title" style="margin-bottom:20px;">Why Huts?</div>
+    <div class="trust-grid">
+      <div class="trust-card">
+        <div class="trust-icon">✓</div>
+        <div>
+          <div class="trust-title">Verified Listings</div>
+          <div class="trust-desc">Every property is reviewed by our team before going live. No scams, no ghost listings.</div>
+        </div>
+      </div>
+      <div class="trust-card">
+        <div class="trust-icon">💬</div>
+        <div>
+          <div class="trust-title">Direct Messaging</div>
+          <div class="trust-desc">Message landlords directly through our secure system — no middleman, no waiting.</div>
+        </div>
+      </div>
+      <div class="trust-card">
+        <div class="trust-icon">🗺</div>
+        <div>
+          <div class="trust-title">Map with Amenities</div>
+          <div class="trust-desc">See nearby schools, hospitals, and clinics before you decide — built into every listing.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECTION 8: CTA BANNER (NEW) -->
+<!-- ============================================================ -->
+
+<div class="tag-wrap">
+  <span class="tag new">[NEW] ListCTABanner</span>
+  <div class="cta-banner">
+    <div class="cta-text">
+      <h2>Ready to list your property?</h2>
+      <p>Join 500+ landlords already connecting with quality tenants on Huts — free, in minutes.</p>
+    </div>
+    <div class="cta-actions">
+      <button class="cta-btn-ghost">Learn more</button>
+      <button class="cta-btn-white">List a property →</button>
+    </div>
+  </div>
+</div>
+<div class="annotation" style="margin: 0 40px 0;">
+  [NEW] Dark CTA banner creates visual anchor at bottom of page and provides a clear second conversion path for landlords who scrolled past the action cards.
+</div>
+
+<!-- ============================================================ -->
+<!-- SECTION 9: FOOTER (existing, with fixes noted) -->
+<!-- ============================================================ -->
+
+<div class="tag-wrap">
+  <span class="tag reuse">[REUSE] Footer (components/layout/Footer.tsx)</span>
+  <div class="footer">
+    <div class="footer-top">
+      <div>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+          <div style="width:32px;height:32px;background:#fff;border-radius:6px;display:flex;align-items:center;justify-content:center;">🏠</div>
+          <span style="font-size:18px;font-weight:bold;">Huts</span>
+        </div>
+        <div class="footer-brand-desc">
+          Zimbabwe's property marketplace. Find homes for rent and sale — verified listings, real landlords, zero clutter.
+        </div>
+        <div class="footer-contact">
+          <div class="footer-contact-btn">✉ hello@huts.co.zw</div>
+          <div class="footer-contact-btn">📞 +263 78 647 0999</div>
+        </div>
+        <div class="annotation" style="margin-top:12px;background:#fff3cd;border-color:#ffc107;color:#555;">
+          [FIX] Footer grid changed from grid-cols-5 to grid-cols-6 to fit all 6 sections. Popular Searches text-white/25 → text-white/50 for contrast.
+        </div>
+      </div>
+      <div class="footer-links">
+        <div>
+          <div class="footer-col-title">Real Estate</div>
+          <div class="footer-link">Homes for Sale</div>
+          <div class="footer-link">Rentals</div>
+          <div class="footer-link">New Listings</div>
+          <div class="footer-link">Student Housing</div>
+          <div class="footer-link">Area Guides</div>
+        </div>
+        <div>
+          <div class="footer-col-title">Professionals</div>
+          <div class="footer-link">Find an Agent</div>
+          <div class="footer-link">Become an Agent</div>
+        </div>
+        <div>
+          <div class="footer-col-title">Popular</div>
+          <div class="footer-link">Harare Homes</div>
+          <div class="footer-link">Bulawayo Homes</div>
+          <div class="footer-link">Apartments for Rent</div>
+          <div class="footer-link">Houses for Sale</div>
+        </div>
+        <div>
+          <div class="footer-col-title">Landlords</div>
+          <div class="footer-link">List a Property</div>
+          <div class="footer-link">Pricing</div>
+          <div class="footer-link">Dashboard</div>
+          <div class="footer-link">My Properties</div>
+        </div>
+        <div>
+          <div class="footer-col-title">Resources</div>
+          <div class="footer-link">Home Value</div>
+          <div class="footer-link">Rent vs Buy</div>
+          <div class="footer-link">Help Center</div>
+          <div class="footer-link">Contact Us</div>
+        </div>
+        <div>
+          <div class="footer-col-title">About</div>
+          <div class="footer-link">About Huts</div>
+          <div class="footer-link">Privacy Policy</div>
+          <div class="footer-link">Terms of Service</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div>📍 Harare, Zimbabwe &nbsp;·&nbsp; © 2026 Huts</div>
+      <div style="display:flex;align-items:center;gap:24px;">
+        <div class="social-icons">
+          <div class="social-icon">f</div>
+          <div class="social-icon">📷</div>
+        </div>
+        <div class="footer-bottom-links">
+          <span>Privacy</span>
+          <span>Terms</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MOBILE NOTE -->
+<div class="mobile-note">
+  <strong>📱 Mobile Changes (390px):</strong>
+  • BottomTabBar re-enabled with Home / Search / Saved / Account tabs (48px touch targets) &nbsp;·&nbsp;
+  • Hero search bar gets max-w and correct padding to prevent clipping &nbsp;·&nbsp;
+  • City strip scrolls horizontally &nbsp;·&nbsp;
+  • Featured properties collapse to 1-column scroll &nbsp;·&nbsp;
+  • Trust grid collapses to 1-column &nbsp;·&nbsp;
+  • CTA banner stacks vertically &nbsp;·&nbsp;
+  • FloatingChatWidget repositioned to bottom-right with z-index below tab bar
+</div>
+
+<div style="height: 32px;"></div>
+
+</body>
+</html>

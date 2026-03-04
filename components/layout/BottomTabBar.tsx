@@ -17,5 +17,31 @@ const tabs = [
 ]
 
 export function BottomTabBar({ isLoggedIn }: BottomTabBarProps) {
-  return null
+  const pathname = usePathname()
+
+  return (
+    <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-[#E9ECEF] z-50">
+      <div className="grid grid-cols-4 h-16">
+        {tabs.map((tab) => {
+          const isActive = tab.match(pathname)
+          const Icon = tab.icon
+          
+          return (
+            <Link
+              key={tab.href}
+              href={tab.href}
+              className={`flex flex-col items-center justify-center gap-1 transition-colors ${
+                isActive 
+                  ? 'text-[#212529]' 
+                  : 'text-[#ADB5BD] hover:text-[#495057]'
+              }`}
+            >
+              <Icon size={ICON_SIZES.lg} strokeWidth={isActive ? 2.5 : 2} />
+              <span className="text-[10px] font-medium">{tab.label}</span>
+            </Link>
+          )
+        })}
+      </div>
+    </nav>
+  )
 }

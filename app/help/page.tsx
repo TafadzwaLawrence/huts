@@ -1,26 +1,12 @@
 'use client'
 
 import { useState } from 'react'
-import { Metadata } from 'next'
 import Link from 'next/link'
 import { 
   Search, Home, User, MessageCircle, FileText, ArrowRight, 
   ChevronDown, Phone, Mail, MapPin, Building2, Activity,
   Heart, Camera, Shield, Clock, CheckCircle, Users
 } from 'lucide-react'
-
-const metadata: Metadata = {
-  title: 'Help Center - Huts',
-  description: 'Get help with listing your property, searching for rentals, and using Huts. Guides for landlords and renters in Zimbabwe.',
-  openGraph: {
-    title: 'Help Center | Huts',
-    description: 'Guides and support for listing properties and finding rentals on Huts.',
-    url: 'https://www.huts.co.zw/help',
-  },
-  alternates: {
-    canonical: 'https://www.huts.co.zw/help',
-  },
-}
 
 interface FAQItem {
   question: string

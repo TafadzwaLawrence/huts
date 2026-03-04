@@ -5,6 +5,7 @@ import { useSearchParams, useRouter, usePathname } from 'next/navigation'
 import { Map as MapIcon, List, Loader2, Bell, ChevronLeft, ChevronRight, Search, Lightbulb, X, Check } from 'lucide-react'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
+import { toast } from 'sonner'
 import { ICON_SIZES } from '@/lib/constants'
 import { PropertyCard } from '@/components/property/PropertyCard'
 import { FilterBar } from '@/components/search/FilterBar'
@@ -109,7 +110,7 @@ export default function SearchPage() {
       const { data: { user } } = await supabase.auth.getUser()
       
       if (!user) {
-        alert('Please sign in to save searches')
+        toast.error('Please sign in to save searches')
         return
       }
 
@@ -475,6 +476,7 @@ export default function SearchPage() {
                 value={sort}
                 onChange={(e) => setSort(e.target.value)}
                 className="text-xs text-[#495057] bg-transparent border-none outline-none cursor-pointer font-medium"
+                aria-label="Sort listings"
               >
                 <option value="newest">Sort: Newest</option>
                 <option value="price_asc">Price: Low to High</option>
@@ -641,10 +643,11 @@ export default function SearchPage() {
                 ) : (
                   <div className="space-y-4">
                     <div>
-                      <label className="text-sm font-medium text-[#212529] block mb-2">
+                      <label htmlFor="search-name-input" className="text-sm font-medium text-[#212529] block mb-2">
                         Search name
                       </label>
                       <input
+                        id="search-name-input"
                         type="text"
                         value={searchName}
                         onChange={(e) => setSearchName(e.target.value)}

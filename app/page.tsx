@@ -37,6 +37,8 @@ export default async function HomePage() {
             priority
             sizes="100vw"
           />
+          {/* Scrim overlay for text contrast */}
+          <div className="absolute inset-0 bg-black/30 z-[1]" />
         </div>
         <div className="container-main relative z-10 py-20 md:py-32 lg:py-40">
           <div className="max-w-4xl mx-auto text-center">
