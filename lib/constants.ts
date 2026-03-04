@@ -90,6 +90,15 @@ export const BLUR_PLACEHOLDER =
   'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mN88P7DfwAJhAPk0x1VwQAAAABJRU5ErkJggg=='
 
 /**
+ * Social Media Links - Official Huts social profiles
+ */
+export const SOCIAL_LINKS = {
+  twitter: 'https://x.com/HutsZw',
+  instagram: 'https://www.instagram.com/hutszw/',
+  facebook: 'https://www.facebook.com/profile.php?id=61588374308860',
+} as const
+
+/**
  * Agent Types - Professional categories for the agent marketplace
  */
 export const AGENT_TYPES = {

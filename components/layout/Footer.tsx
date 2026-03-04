@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import { Mail, MapPin, Phone, ArrowUpRight, Facebook, Instagram } from 'lucide-react'
-import { ICON_SIZES } from '@/lib/constants'
+import { Mail, MapPin, Phone, ArrowUpRight, Facebook, Instagram, Twitter } from 'lucide-react'
+import { ICON_SIZES, SOCIAL_LINKS } from '@/lib/constants'
 
 const footerSections = [
   {
@@ -177,10 +177,13 @@ export function Footer() {
           </div>
           <div className="flex items-center gap-6">
             <div className="flex items-center gap-3">
-              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-white/30 hover:text-white/70 transition-colors" aria-label="Facebook">
+              <a href={SOCIAL_LINKS.twitter} target="_blank" rel="noopener noreferrer" className="text-white/30 hover:text-white/70 transition-colors" aria-label="Twitter/X">
+                <Twitter size={ICON_SIZES.md} />
+              </a>
+              <a href={SOCIAL_LINKS.facebook} target="_blank" rel="noopener noreferrer" className="text-white/30 hover:text-white/70 transition-colors" aria-label="Facebook">
                 <Facebook size={ICON_SIZES.md} />
               </a>
-              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-white/30 hover:text-white/70 transition-colors" aria-label="Instagram">
+              <a href={SOCIAL_LINKS.instagram} target="_blank" rel="noopener noreferrer" className="text-white/30 hover:text-white/70 transition-colors" aria-label="Instagram">
                 <Instagram size={ICON_SIZES.md} />
               </a>
             </div>

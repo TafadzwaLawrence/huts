@@ -1,3 +1,5 @@
+import { SOCIAL_LINKS } from '@/lib/constants'
+
 /**
  * Organization structured data for the Huts brand.
  * Helps search engines understand the business and show rich results.
@@ -19,9 +21,9 @@ export default function OrganizationStructuredData() {
       email: 'support@huts.co.zw',
     },
     sameAs: [
-      'https://twitter.com/huts',
-      'https://www.facebook.com/huts',
-      'https://www.instagram.com/huts',
+      SOCIAL_LINKS.twitter,
+      SOCIAL_LINKS.facebook,
+      SOCIAL_LINKS.instagram,
     ],
     areaServed: {
       '@type': 'Country',

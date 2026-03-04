@@ -73,10 +73,10 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    site: '@huts',
+    site: '@HutsZw',
     title: 'Huts — Find Your Perfect Rental in Zimbabwe',
     description: 'Find apartments, houses, and rooms for rent or sale across Zimbabwe. Browse verified properties in Harare, Bulawayo, and beyond.',
-    creator: '@huts',
+    creator: '@HutsZw',
     images: ['https://www.huts.co.zw/opengraph-image'],
   },
   verification: {
