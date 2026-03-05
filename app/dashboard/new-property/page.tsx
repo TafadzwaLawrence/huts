@@ -447,181 +447,77 @@ export default function NewPropertyPage() {
                 </p>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
                 {/* Rent Card */}
                 <button
                   type="button"
                   onClick={() => setFormData(prev => ({ ...prev, listingType: 'rent' }))}
-                  className={`group relative p-7 md:p-8 rounded-2xl border-2 text-left transition-all duration-300 ${
+                  className={`group relative p-8 rounded-xl border-2 text-center transition-all duration-300 ${
                     formData.listingType === 'rent'
-                      ? 'border-[#212529] bg-[#212529] text-white shadow-2xl shadow-black/20 scale-[1.02]'
-                      : 'border-[#E9ECEF] bg-white hover:border-[#212529] hover:shadow-xl hover:scale-[1.01]'
+                      ? 'border-[#212529] bg-[#212529] text-white shadow-lg'
+                      : 'border-[#E9ECEF] bg-white hover:border-[#ADB5BD]'
                   }`}
                 >
                   {/* Selection Indicator */}
                   {formData.listingType === 'rent' && (
-                    <div className="absolute top-6 right-6">
-                      <div className="w-7 h-7 bg-white rounded-full flex items-center justify-center shadow-lg">
-                        <Check size={ICON_SIZES.md} className="text-[#212529]" strokeWidth={3} />
-                      </div>
+                    <div className="absolute top-4 right-4">
+                      <Check size={20} className="text-white" strokeWidth={2.5} />
                     </div>
                   )}
                   
                   {/* Icon */}
-                  <div className={`w-14 h-14 rounded-2xl flex items-center justify-center mb-6 transition-all duration-300 ${
-                    formData.listingType === 'rent' 
-                      ? 'bg-white/20 backdrop-blur-sm' 
-                      : 'bg-[#F8F9FA] group-hover:bg-[#212529] group-hover:scale-110'
+                  <div className={`w-12 h-12 rounded-xl flex items-center justify-center mx-auto mb-4 transition-colors ${
+                    formData.listingType === 'rent' ? 'bg-white/20' : 'bg-[#F8F9FA]'
                   }`}>
                     <Home 
-                      size={28} 
-                      className={`transition-colors ${
-                        formData.listingType === 'rent' ? 'text-white' : 'text-[#212529] group-hover:text-white'
-                      }`}
+                      size={24} 
+                      className={formData.listingType === 'rent' ? 'text-white' : 'text-[#212529]'}
                     />
                   </div>
                   
                   {/* Content */}
-                  <div className="space-y-4">
-                    <div>
-                      <h3 className="text-xl font-bold mb-2">For Rent</h3>
-                      <p className={`text-sm leading-relaxed ${
-                        formData.listingType === 'rent' ? 'text-white/80' : 'text-[#495057]'
-                      }`}>
-                        Generate steady monthly income from your property
-                      </p>
-                    </div>
-                    
-                    {/* Features */}
-                    <ul className={`space-y-2.5 text-sm ${
-                      formData.listingType === 'rent' ? 'text-white/70' : 'text-[#495057]'
-                    }`}>
-                      <li className="flex items-start gap-2.5">
-                        <Check 
-                          size={ICON_SIZES.sm} 
-                          className={`flex-shrink-0 mt-0.5 ${
-                            formData.listingType === 'rent' ? 'text-white' : 'text-[#212529]'
-                          }`}
-                        />
-                        <span>Set monthly rent & deposit</span>
-                      </li>
-                      <li className="flex items-start gap-2.5">
-                        <Check 
-                          size={ICON_SIZES.sm} 
-                          className={`flex-shrink-0 mt-0.5 ${
-                            formData.listingType === 'rent' ? 'text-white' : 'text-[#212529]'
-                          }`}
-                        />
-                        <span>Choose flexible lease terms</span>
-                      </li>
-                      <li className="flex items-start gap-2.5">
-                        <Check 
-                          size={ICON_SIZES.sm} 
-                          className={`flex-shrink-0 mt-0.5 ${
-                            formData.listingType === 'rent' ? 'text-white' : 'text-[#212529]'
-                          }`}
-                        />
-                        <span>Connect with verified renters</span>
-                      </li>
-                    </ul>
-                    
-                    {/* CTA hint */}
-                    <div className={`pt-3 border-t text-xs font-medium ${
-                      formData.listingType === 'rent' 
-                        ? 'border-white/20 text-white/60' 
-                        : 'border-[#E9ECEF] text-[#ADB5BD]'
-                    }`}>
-                      💡 Best for landlords & property investors
-                    </div>
-                  </div>
+                  <h3 className="text-lg font-bold mb-2">For Rent</h3>
+                  <p className={`text-sm ${
+                    formData.listingType === 'rent' ? 'text-white/70' : 'text-[#495057]'
+                  }`}>
+                    List for monthly rental income
+                  </p>
                 </button>
 
                 {/* Sale Card */}
                 <button
                   type="button"
                   onClick={() => setFormData(prev => ({ ...prev, listingType: 'sale' }))}
-                  className={`group relative p-7 md:p-8 rounded-2xl border-2 text-left transition-all duration-300 ${
+                  className={`group relative p-8 rounded-xl border-2 text-center transition-all duration-300 ${
                     formData.listingType === 'sale'
-                      ? 'border-[#212529] bg-[#212529] text-white shadow-2xl shadow-black/20 scale-[1.02]'
-                      : 'border-[#E9ECEF] bg-white hover:border-[#212529] hover:shadow-xl hover:scale-[1.01]'
+                      ? 'border-[#212529] bg-[#212529] text-white shadow-lg'
+                      : 'border-[#E9ECEF] bg-white hover:border-[#ADB5BD]'
                   }`}
                 >
                   {/* Selection Indicator */}
                   {formData.listingType === 'sale' && (
-                    <div className="absolute top-6 right-6">
-                      <div className="w-7 h-7 bg-white rounded-full flex items-center justify-center shadow-lg">
-                        <Check size={ICON_SIZES.md} className="text-[#212529]" strokeWidth={3} />
-                      </div>
+                    <div className="absolute top-4 right-4">
+                      <Check size={20} className="text-white" strokeWidth={2.5} />
                     </div>
                   )}
                   
                   {/* Icon */}
-                  <div className={`w-14 h-14 rounded-2xl flex items-center justify-center mb-6 transition-all duration-300 ${
-                    formData.listingType === 'sale' 
-                      ? 'bg-white/20 backdrop-blur-sm' 
-                      : 'bg-[#F8F9FA] group-hover:bg-[#212529] group-hover:scale-110'
+                  <div className={`w-12 h-12 rounded-xl flex items-center justify-center mx-auto mb-4 transition-colors ${
+                    formData.listingType === 'sale' ? 'bg-white/20' : 'bg-[#F8F9FA]'
                   }`}>
                     <Building2 
-                      size={28} 
-                      className={`transition-colors ${
-                        formData.listingType === 'sale' ? 'text-white' : 'text-[#212529] group-hover:text-white'
-                      }`}
+                      size={24} 
+                      className={formData.listingType === 'sale' ? 'text-white' : 'text-[#212529]'}
                     />
                   </div>
                   
                   {/* Content */}
-                  <div className="space-y-4">
-                    <div>
-                      <h3 className="text-xl font-bold mb-2">For Sale</h3>
-                      <p className={`text-sm leading-relaxed ${
-                        formData.listingType === 'sale' ? 'text-white/80' : 'text-[#495057]'
-                      }`}>
-                        Sell your property and reach serious buyers
-                      </p>
-                    </div>
-                    
-                    {/* Features */}
-                    <ul className={`space-y-2.5 text-sm ${
-                      formData.listingType === 'sale' ? 'text-white/70' : 'text-[#495057]'
-                    }`}>
-                      <li className="flex items-start gap-2.5">
-                        <Check 
-                          size={ICON_SIZES.sm} 
-                          className={`flex-shrink-0 mt-0.5 ${
-                            formData.listingType === 'sale' ? 'text-white' : 'text-[#212529]'
-                          }`}
-                        />
-                        <span>Set your asking price</span>
-                      </li>
-                      <li className="flex items-start gap-2.5">
-                        <Check 
-                          size={ICON_SIZES.sm} 
-                          className={`flex-shrink-0 mt-0.5 ${
-                            formData.listingType === 'sale' ? 'text-white' : 'text-[#212529]'
-                          }`}
-                        />
-                        <span>Showcase property features</span>
-                      </li>
-                      <li className="flex items-start gap-2.5">
-                        <Check 
-                          size={ICON_SIZES.sm} 
-                          className={`flex-shrink-0 mt-0.5 ${
-                            formData.listingType === 'sale' ? 'text-white' : 'text-[#212529]'
-                          }`}
-                        />
-                        <span>Negotiate with buyers directly</span>
-                      </li>
-                    </ul>
-                    
-                    {/* CTA hint */}
-                    <div className={`pt-3 border-t text-xs font-medium ${
-                      formData.listingType === 'sale' 
-                        ? 'border-white/20 text-white/60' 
-                        : 'border-[#E9ECEF] text-[#ADB5BD]'
-                    }`}>
-                      🏡 Best for homeowners & developers
-                    </div>
-                  </div>
+                  <h3 className="text-lg font-bold mb-2">For Sale</h3>
+                  <p className={`text-sm ${
+                    formData.listingType === 'sale' ? 'text-white/70' : 'text-[#495057]'
+                  }`}>
+                    Sell and reach serious buyers
+                  </p>
                 </button>
               </div>
             </div>
