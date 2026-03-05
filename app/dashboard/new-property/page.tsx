@@ -374,7 +374,7 @@ export default function NewPropertyPage() {
     <div className="min-h-screen bg-white">
       {/* Header */}
       <div className="bg-white border-b border-[#E9ECEF] sticky top-0 z-10">
-        <div className="max-w-3xl mx-auto px-4 py-3 sm:py-4">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-4">
           {/* Top row: Back + Title + Step count */}
           <div className="flex items-center justify-between mb-4">
             <Link 
@@ -428,7 +428,7 @@ export default function NewPropertyPage() {
         </div>
       </div>
 
-      <div className="max-w-2xl mx-auto px-4 py-8 md:py-12">
+      <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
         <form onSubmit={handleSubmit}>
           {/* Step 1: Listing Type */}
           {step === 1 && (
