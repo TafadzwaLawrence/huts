@@ -389,25 +389,41 @@ export default function NewPropertyPage() {
             <span className="text-xs text-[#ADB5BD] font-medium tabular-nums">{step}/{totalSteps}</span>
           </div>
           
-          {/* Step Indicator */}
-          <div className="flex items-center gap-1">
-            {stepLabels.map((s, i) => {
-              const stepNum = i + 1
-              const isCompleted = step > stepNum
-              const isActive = step === stepNum
-              return (
-                <div key={i} className="flex-1 flex flex-col items-center gap-1.5">
-                  <div className={`h-1 w-full rounded-full transition-all duration-500 ${
-                    isCompleted ? 'bg-[#212529]' : isActive ? 'bg-[#212529]' : 'bg-[#E9ECEF]'
-                  }`} />
-                  <span className={`text-[10px] font-medium transition-colors hidden sm:block ${
-                    isActive ? 'text-[#212529]' : isCompleted ? 'text-[#495057]' : 'text-[#ADB5BD]'
-                  }`}>
-                    {s.label}
-                  </span>
-                </div>
-              )
-            })}
+          {/* Step Indicator - Improved */}
+          <div className="space-y-3">
+            {/* Progress Bar */}
+            <div className="relative h-1.5 bg-[#E9ECEF] rounded-full overflow-hidden">
+              <div 
+                className="absolute inset-y-0 left-0 bg-gradient-to-r from-[#212529] to-[#495057] rounded-full transition-all duration-500 ease-out"
+                style={{ width: `${progress}%` }}
+              />
+            </div>
+            
+            {/* Step Labels */}
+            <div className="flex items-center justify-between">
+              {stepLabels.map((s, i) => {
+                const stepNum = i + 1
+                const isCompleted = step > stepNum
+                const isActive = step === stepNum
+                const Icon = s.icon
+                
+                return (
+                  <div key={i} className="flex flex-col items-center gap-1.5 flex-1">
+                    <Icon 
+                      size={ICON_SIZES.md} 
+                      className={`transition-colors ${
+                        isActive ? 'text-[#212529]' : isCompleted ? 'text-[#495057]' : 'text-[#ADB5BD]'
+                      }`} 
+                    />
+                    <span className={`text-[10px] sm:text-xs font-medium transition-colors ${
+                      isActive ? 'text-[#212529] font-semibold' : isCompleted ? 'text-[#495057]' : 'text-[#ADB5BD]'
+                    }`}>
+                      {s.label}
+                    </span>
+                  </div>
+                )
+              })}
+            </div>
           </div>
         </div>
       </div>
