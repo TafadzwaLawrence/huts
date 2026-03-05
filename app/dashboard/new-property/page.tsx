@@ -374,19 +374,24 @@ export default function NewPropertyPage() {
     <div className="min-h-screen bg-white">
       {/* Header */}
       <div className="bg-white border-b border-[#E9ECEF] sticky top-0 z-10">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-4">
-          {/* Top row: Back + Title + Step count */}
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-5">
+          {/* Title Row */}
           <div className="flex items-center justify-between mb-4">
+            <div>
+              <h1 className="text-xl md:text-2xl font-bold text-[#212529] tracking-tight">
+                Create New Listing
+              </h1>
+              <p className="text-xs text-[#ADB5BD] mt-1 font-medium">
+                Step {step} of {totalSteps}
+              </p>
+            </div>
             <Link 
               href="/dashboard/overview" 
-              className="flex items-center gap-2 text-[#495057] hover:text-[#212529] transition-colors text-sm font-medium"
-              title="Back to Dashboard"
+              className="flex items-center justify-center w-9 h-9 rounded-lg border border-[#E9ECEF] text-[#495057] hover:text-[#212529] hover:border-[#212529] transition-all"
+              title="Close and return to dashboard"
             >
-              <ArrowLeft size={ICON_SIZES.lg} />
-              <span className="hidden sm:inline">Dashboard</span>
+              <X size={ICON_SIZES.lg} />
             </Link>
-            <h1 className="text-sm font-semibold text-[#212529] tracking-wide uppercase">New Listing</h1>
-            <span className="text-xs text-[#ADB5BD] font-medium tabular-nums">{step}/{totalSteps}</span>
           </div>
           
           {/* Step Indicator - Improved */}
