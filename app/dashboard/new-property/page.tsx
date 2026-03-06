@@ -1244,9 +1244,8 @@ export default function NewPropertyPage() {
               <button
                 type="button"
                 onClick={prevStep}
-                className="flex items-center justify-center gap-2 px-5 py-3.5 border-2 border-[#E9ECEF] text-[#212529] rounded-xl text-sm font-semibold hover:border-[#212529] transition-all"
+                className="flex items-center justify-center px-5 py-3.5 border-2 border-[#E9ECEF] text-[#212529] rounded-xl text-sm font-semibold hover:border-[#212529] transition-all"
               >
-                <ArrowLeft size={ICON_SIZES.md} />
                 Back
               </button>
             )}
