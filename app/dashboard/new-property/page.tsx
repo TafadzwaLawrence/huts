@@ -1255,10 +1255,9 @@ export default function NewPropertyPage() {
               <button
                 type="button"
                 onClick={nextStep}
-                className="flex-1 flex items-center justify-center gap-2 bg-[#212529] text-white px-6 py-3.5 rounded-xl text-sm font-semibold hover:bg-black transition-all"
+                className="flex-1 flex items-center justify-center bg-[#212529] text-white px-6 py-3.5 rounded-xl text-sm font-semibold hover:bg-black transition-all"
               >
                 Continue
-                <ArrowRight size={ICON_SIZES.md} />
               </button>
             ) : (
               <button
