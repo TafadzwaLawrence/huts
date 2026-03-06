@@ -438,86 +438,134 @@ export default function NewPropertyPage() {
           {/* Step 1: Listing Type */}
           {step === 1 && (
             <div className="animate-fadeIn">
-              <div className="mb-8 text-center">
+              <div className="mb-10 text-center">
                 <h2 className="text-3xl md:text-4xl font-bold text-[#212529] tracking-tight mb-3">
-                  How would you like to list?
+                  What's your goal?
                 </h2>
-                <p className="text-[#495057] text-base md:text-lg max-w-xl mx-auto">
-                  Choose the listing type that matches your goal. You can always create another listing later.
+                <p className="text-[#495057] text-base md:text-lg max-w-2xl mx-auto">
+                  Choose how you'd like to list your property. Each option is optimized to help you reach the right audience.
                 </p>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8 max-w-4xl mx-auto">
                 {/* Rent Card */}
                 <button
                   type="button"
                   onClick={() => setFormData(prev => ({ ...prev, listingType: 'rent' }))}
-                  className={`group relative p-8 rounded-xl border-2 text-center transition-all duration-300 ${
+                  className={`group relative p-8 rounded-xl border-2 text-left transition-all duration-300 hover:scale-[1.02] ${
                     formData.listingType === 'rent'
-                      ? 'border-[#212529] bg-[#212529] text-white shadow-lg'
-                      : 'border-[#E9ECEF] bg-white hover:border-[#ADB5BD]'
+                      ? 'border-[#212529] bg-[#212529] text-white shadow-2xl'
+                      : 'border-[#E9ECEF] bg-white hover:border-[#495057] hover:shadow-lg'
                   }`}
                 >
                   {/* Selection Indicator */}
                   {formData.listingType === 'rent' && (
-                    <div className="absolute top-4 right-4">
-                      <Check size={20} className="text-white" strokeWidth={2.5} />
+                    <div className="absolute top-5 right-5 bg-white rounded-full p-1">
+                      <Check size={18} className="text-[#212529]" strokeWidth={3} />
                     </div>
                   )}
                   
                   {/* Icon */}
-                  <div className={`w-12 h-12 rounded-xl flex items-center justify-center mx-auto mb-4 transition-colors ${
-                    formData.listingType === 'rent' ? 'bg-white/20' : 'bg-[#F8F9FA]'
+                  <div className={`w-14 h-14 rounded-xl flex items-center justify-center mb-5 transition-all duration-300 ${
+                    formData.listingType === 'rent' 
+                      ? 'bg-white/20 group-hover:bg-white/30' 
+                      : 'bg-[#F8F9FA] group-hover:bg-[#E9ECEF]'
                   }`}>
                     <Home 
-                      size={24} 
+                      size={28} 
                       className={formData.listingType === 'rent' ? 'text-white' : 'text-[#212529]'}
                     />
                   </div>
                   
                   {/* Content */}
-                  <h3 className="text-lg font-bold mb-2">For Rent</h3>
-                  <p className={`text-sm ${
-                    formData.listingType === 'rent' ? 'text-white/70' : 'text-[#495057]'
+                  <h3 className="text-xl font-bold mb-2">List for Rent</h3>
+                  <p className={`text-sm mb-4 leading-relaxed ${
+                    formData.listingType === 'rent' ? 'text-white/80' : 'text-[#495057]'
                   }`}>
-                    List for monthly rental income
+                    Generate steady monthly income from qualified tenants
                   </p>
+                  
+                  {/* Features */}
+                  <div className="space-y-2">
+                    <div className={`flex items-start gap-2 text-xs ${
+                      formData.listingType === 'rent' ? 'text-white/70' : 'text-[#6C757D]'
+                    }`}>
+                      <Check size={14} className="mt-0.5 flex-shrink-0" strokeWidth={2.5} />
+                      <span>Reach active renters searching daily</span>
+                    </div>
+                    <div className={`flex items-start gap-2 text-xs ${
+                      formData.listingType === 'rent' ? 'text-white/70' : 'text-[#6C757D]'
+                    }`}>
+                      <Check size={14} className="mt-0.5 flex-shrink-0" strokeWidth={2.5} />
+                      <span>Built-in screening & inquiry management</span>
+                    </div>
+                    <div className={`flex items-start gap-2 text-xs ${
+                      formData.listingType === 'rent' ? 'text-white/70' : 'text-[#6C757D]'
+                    }`}>
+                      <Check size={14} className="mt-0.5 flex-shrink-0" strokeWidth={2.5} />
+                      <span>Flexible lease terms & instant updates</span>
+                    </div>
+                  </div>
                 </button>
 
                 {/* Sale Card */}
                 <button
                   type="button"
                   onClick={() => setFormData(prev => ({ ...prev, listingType: 'sale' }))}
-                  className={`group relative p-8 rounded-xl border-2 text-center transition-all duration-300 ${
+                  className={`group relative p-8 rounded-xl border-2 text-left transition-all duration-300 hover:scale-[1.02] ${
                     formData.listingType === 'sale'
-                      ? 'border-[#212529] bg-[#212529] text-white shadow-lg'
-                      : 'border-[#E9ECEF] bg-white hover:border-[#ADB5BD]'
+                      ? 'border-[#212529] bg-[#212529] text-white shadow-2xl'
+                      : 'border-[#E9ECEF] bg-white hover:border-[#495057] hover:shadow-lg'
                   }`}
                 >
                   {/* Selection Indicator */}
                   {formData.listingType === 'sale' && (
-                    <div className="absolute top-4 right-4">
-                      <Check size={20} className="text-white" strokeWidth={2.5} />
+                    <div className="absolute top-5 right-5 bg-white rounded-full p-1">
+                      <Check size={18} className="text-[#212529]" strokeWidth={3} />
                     </div>
                   )}
                   
                   {/* Icon */}
-                  <div className={`w-12 h-12 rounded-xl flex items-center justify-center mx-auto mb-4 transition-colors ${
-                    formData.listingType === 'sale' ? 'bg-white/20' : 'bg-[#F8F9FA]'
+                  <div className={`w-14 h-14 rounded-xl flex items-center justify-center mb-5 transition-all duration-300 ${
+                    formData.listingType === 'sale' 
+                      ? 'bg-white/20 group-hover:bg-white/30' 
+                      : 'bg-[#F8F9FA] group-hover:bg-[#E9ECEF]'
                   }`}>
                     <Building2 
-                      size={24} 
+                      size={28} 
                       className={formData.listingType === 'sale' ? 'text-white' : 'text-[#212529]'}
                     />
                   </div>
                   
                   {/* Content */}
-                  <h3 className="text-lg font-bold mb-2">For Sale</h3>
-                  <p className={`text-sm ${
-                    formData.listingType === 'sale' ? 'text-white/70' : 'text-[#495057]'
+                  <h3 className="text-xl font-bold mb-2">List for Sale</h3>
+                  <p className={`text-sm mb-4 leading-relaxed ${
+                    formData.listingType === 'sale' ? 'text-white/80' : 'text-[#495057]'
                   }`}>
-                    Sell and reach serious buyers
+                    Connect with serious buyers ready to make offers
                   </p>
+                  
+                  {/* Features */}
+                  <div className="space-y-2">
+                    <div className={`flex items-start gap-2 text-xs ${
+                      formData.listingType === 'sale' ? 'text-white/70' : 'text-[#6C757D]'
+                    }`}>
+                      <Check size={14} className="mt-0.5 flex-shrink-0" strokeWidth={2.5} />
+                      <span>Attract verified buyers with purchase intent</span>
+                    </div>
+                    <div className={`flex items-start gap-2 text-xs ${
+                      formData.listingType === 'sale' ? 'text-white/70' : 'text-[#6C757D]'
+                    }`}>
+                      <Check size={14} className="mt-0.5 flex-shrink-0" strokeWidth={2.5} />
+                      <span>Showcase financing options & calculators</span>
+                    </div>
+                    <div className={`flex items-start gap-2 text-xs ${
+                      formData.listingType === 'sale' ? 'text-white/70' : 'text-[#6C757D]'
+                    }`}>
+                      <Check size={14} className="mt-0.5 flex-shrink-0" strokeWidth={2.5} />
+                      <span>Premium exposure in sale searches</span>
+                    </div>
+                  </div>
                 </button>
               </div>
             </div>
