@@ -469,16 +469,18 @@ export default function NewPropertyPage() {
                   <div className={`w-14 h-14 rounded-xl flex items-center justify-center mb-5 transition-all duration-300 ${
                     formData.listingType === 'rent' 
                       ? 'bg-white/20 group-hover:bg-white/30' 
-                      : 'bg-[#F8F9FA] group-hover:bg-[#E9ECEF]'
+                      : 'bg-black/5 group-hover:bg-black/10'
                   }`}>
                     <Home 
                       size={28} 
-                      className={formData.listingType === 'rent' ? 'text-white' : 'text-[#212529]'}
+                      className={formData.listingType === 'rent' ? 'text-white' : 'text-black'}
                     />
                   </div>
                   
                   {/* Content */}
-                  <h3 className="text-xl font-bold mb-2">List for Rent</h3>
+                  <h3 className={`text-xl font-bold mb-2 ${
+                    formData.listingType === 'rent' ? 'text-white' : 'text-black'
+                  }`}>List for Rent</h3>
                   <p className={`text-sm mb-4 leading-relaxed ${
                     formData.listingType === 'rent' ? 'text-white/80' : 'text-[#495057]'
                   }`}>
@@ -529,16 +531,18 @@ export default function NewPropertyPage() {
                   <div className={`w-14 h-14 rounded-xl flex items-center justify-center mb-5 transition-all duration-300 ${
                     formData.listingType === 'sale' 
                       ? 'bg-white/20 group-hover:bg-white/30' 
-                      : 'bg-[#F8F9FA] group-hover:bg-[#E9ECEF]'
+                      : 'bg-black/5 group-hover:bg-black/10'
                   }`}>
                     <Building2 
                       size={28} 
-                      className={formData.listingType === 'sale' ? 'text-white' : 'text-[#212529]'}
+                      className={formData.listingType === 'sale' ? 'text-white' : 'text-black'}
                     />
                   </div>
                   
                   {/* Content */}
-                  <h3 className="text-xl font-bold mb-2">List for Sale</h3>
+                  <h3 className={`text-xl font-bold mb-2 ${
+                    formData.listingType === 'sale' ? 'text-white' : 'text-black'
+                  }`}>List for Sale</h3>
                   <p className={`text-sm mb-4 leading-relaxed ${
                     formData.listingType === 'sale' ? 'text-white/80' : 'text-[#495057]'
                   }`}>
