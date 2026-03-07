@@ -23,10 +23,9 @@ import {
   AGENT_SPECIALIZATIONS,
   AGENT_SPECIALIZATION_LABELS,
   LANGUAGES,
-  ICON_SIZES
+  ICON_SIZES,
+  ZIMBABWE_CITIES
 } from '@/lib/constants'
-
-const CITIES = ['Harare', 'Bulawayo', 'Chitungwiza', 'Mutare', 'Gweru', 'Kwekwe', 'Kadoma', 'Masvingo', 'Chinhoyi', 'Norton', 'Marondera', 'Ruwa', 'Chegutu', 'Bindura', 'Beitbridge', 'Redcliff', 'Victoria Falls', 'Hwange', 'Chiredzi', 'Kariba']
 
 export default function AgentProfileEditPage() {
   const router = useRouter()
@@ -300,7 +299,7 @@ export default function AgentProfileEditPage() {
                 required
               >
                 <option value="">Select city...</option>
-                {CITIES.map(city => (
+                {ZIMBABWE_CITIES.map(city => (
                   <option key={city} value={city}>{city}</option>
                 ))}
               </select>
@@ -411,7 +410,7 @@ export default function AgentProfileEditPage() {
           </h2>
 
           <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-            {CITIES.map(city => {
+            {ZIMBABWE_CITIES.map(city => {
               const isSelected = formData.service_areas.includes(city)
               return (
                 <button

@@ -10,7 +10,8 @@ import {
   AGENT_TYPE_LABELS, 
   AGENT_SPECIALIZATION_LABELS,
   ACHIEVEMENT_LABELS,
-  ICON_SIZES 
+  ICON_SIZES,
+  ZIMBABWE_CITIES
 } from '@/lib/constants'
 import { AgentSortDropdown } from '@/components/agent/AgentSortDropdown'
 
@@ -26,9 +27,9 @@ interface SearchParams {
   verified?: string
   featured?: string
   sort?: string
+  q?: string
+  page?: string
 }
-
-const CITIES = ['Harare', 'Bulawayo', 'Chitungwiza', 'Mutare', 'Gweru', 'Kwekwe', 'Kadoma', 'Masvingo']
 
 export default async function FindAgentPage({ searchParams }: { searchParams: SearchParams }) {
   // Initialize with safe defaults
@@ -37,6 +38,9 @@ export default async function FindAgentPage({ searchParams }: { searchParams: Se
   let verifiedCount = 0
   let featuredCount = 0
   let tablesExist = false
+  const PAGE_SIZE = 20
+  const page = Math.max(1, Number(searchParams.page) || 1)
+  const offset = (page - 1) * PAGE_SIZE
 
   try {
     const supabase = await createClient()
@@ -60,11 +64,26 @@ export default async function FindAgentPage({ searchParams }: { searchParams: Se
     } else {
       // Try to query agents
       try {
-        // Build query - simplified to avoid join issues
+        // Get full-table counts (independent of current filter)
+        const [totalRes, verifiedRes, featuredRes] = await Promise.all([
+          supabase.from('agent_profiles').select('*', { count: 'exact', head: true }).eq('status', 'active'),
+          supabase.from('agent_profiles').select('*', { count: 'exact', head: true }).eq('status', 'active').eq('verified', true),
+          supabase.from('agent_profiles').select('*', { count: 'exact', head: true }).eq('status', 'active').eq('featured', true),
+        ])
+        totalAgents = totalRes.count || 0
+        verifiedCount = verifiedRes.count || 0
+        featuredCount = featuredRes.count || 0
+
+        // Build query
         let query = supabase
           .from('agent_profiles')
           .select('*')
           .eq('status', 'active')
+
+        // Search by name
+        if (searchParams.q) {
+          query = query.ilike('business_name', `%${searchParams.q}%`)
+        }
 
         // Apply filters
         if (searchParams.type) {
@@ -72,7 +91,19 @@ export default async function FindAgentPage({ searchParams }: { searchParams: Se
         }
 
         if (searchParams.city) {
-          query = query.contains('service_areas', [searchParams.city])
+          // Filter via agent_service_areas join table (structured data)
+          const { data: agentIdsForCity } = await supabase
+            .from('agent_service_areas')
+            .select('agent_id')
+            .eq('city', searchParams.city)
+          const ids = (agentIdsForCity || []).map((r: any) => r.agent_id)
+          if (ids.length > 0) {
+            query = query.in('id', ids)
+          } else {
+            // No agents in this city
+            agents = []
+            return
+          }
         }
 
         if (searchParams.specialization) {
@@ -107,7 +138,7 @@ export default async function FindAgentPage({ searchParams }: { searchParams: Se
               .order('avg_rating', { ascending: false, nullsFirst: false })
         }
 
-        const { data, error } = await query.limit(50)
+        const { data, error } = await query.range(offset, offset + PAGE_SIZE - 1)
         
         if (error) {
           console.error('Error fetching agents:', error)
@@ -115,10 +146,6 @@ export default async function FindAgentPage({ searchParams }: { searchParams: Se
         } else {
           agents = data || []
         }
-        
-        totalAgents = agents.length
-        verifiedCount = agents.filter((a: any) => a.verified).length
-        featuredCount = agents.filter((a: any) => a.featured).length
       } catch (error) {
         console.error('Error in agent query:', error)
         agents = []
@@ -177,14 +204,26 @@ export default async function FindAgentPage({ searchParams }: { searchParams: Se
 
           {/* Search Bar */}
           <div className="mb-6">
-            <div className="relative max-w-2xl">
+            <form method="GET" action="/find-agent" className="relative max-w-2xl">
+              {/* Preserve existing filters */}
+              {searchParams.type && <input type="hidden" name="type" value={searchParams.type} />}
+              {searchParams.city && <input type="hidden" name="city" value={searchParams.city} />}
+              {searchParams.sort && <input type="hidden" name="sort" value={searchParams.sort} />}
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-[#ADB5BD]" size={20} />
               <input
                 type="text"
-                placeholder="Search by name, city, or specialty..."
-                className="w-full pl-12 pr-4 py-3.5 border-2 border-[#E9ECEF] rounded-lg text-[#212529] placeholder:text-[#ADB5BD] focus:outline-none focus:border-[#212529] transition-all"
+                name="q"
+                defaultValue={searchParams.q || ''}
+                placeholder="Search by agent name..."
+                className="w-full pl-12 pr-24 py-3.5 border-2 border-[#E9ECEF] rounded-lg text-[#212529] placeholder:text-[#ADB5BD] focus:outline-none focus:border-[#212529] transition-all"
               />
-            </div>
+              <button
+                type="submit"
+                className="absolute right-2 top-1/2 -translate-y-1/2 px-4 py-2 bg-[#212529] text-white rounded-lg text-sm font-semibold hover:bg-black transition-colors"
+              >
+                Search
+              </button>
+            </form>
           </div>
 
           {/* Quick Type Buttons */}
@@ -269,7 +308,7 @@ export default async function FindAgentPage({ searchParams }: { searchParams: Se
                     >
                       All cities
                     </Link>
-                    {CITIES.map(city => (
+                    {ZIMBABWE_CITIES.map(city => (
                       <Link
                         key={city}
                         href={`/find-agent?city=${city}${searchParams.type ? `&type=${searchParams.type}` : ''}${searchParams.sort ? `&sort=${searchParams.sort}` : ''}`}
@@ -539,6 +578,45 @@ export default async function FindAgentPage({ searchParams }: { searchParams: Se
                       Browse properties
                     </Link>
                   </div>
+                </div>
+              </div>
+            )}
+
+            {/* Pagination */}
+            {agents.length > 0 && (
+              <div className="flex items-center justify-between pt-6 border-t border-[#E9ECEF] mt-6">
+                <p className="text-sm text-[#495057]">
+                  Page {page}
+                </p>
+                <div className="flex gap-2">
+                  {page > 1 && (
+                    <Link
+                      href={`/find-agent?${new URLSearchParams({
+                        ...(searchParams.type ? { type: searchParams.type } : {}),
+                        ...(searchParams.city ? { city: searchParams.city } : {}),
+                        ...(searchParams.sort ? { sort: searchParams.sort } : {}),
+                        ...(searchParams.q ? { q: searchParams.q } : {}),
+                        page: String(page - 1),
+                      }).toString()}`}
+                      className="px-4 py-2 border border-[#E9ECEF] rounded-lg text-sm font-medium text-[#495057] hover:border-[#212529] hover:text-[#212529] transition-all"
+                    >
+                      ← Previous
+                    </Link>
+                  )}
+                  {agents.length === PAGE_SIZE && (
+                    <Link
+                      href={`/find-agent?${new URLSearchParams({
+                        ...(searchParams.type ? { type: searchParams.type } : {}),
+                        ...(searchParams.city ? { city: searchParams.city } : {}),
+                        ...(searchParams.sort ? { sort: searchParams.sort } : {}),
+                        ...(searchParams.q ? { q: searchParams.q } : {}),
+                        page: String(page + 1),
+                      }).toString()}`}
+                      className="px-4 py-2 bg-[#212529] text-white rounded-lg text-sm font-medium hover:bg-black transition-all"
+                    >
+                      Next →
+                    </Link>
+                  )}
                 </div>
               </div>
             )}

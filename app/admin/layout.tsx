@@ -14,6 +14,7 @@ import {
   ShieldCheck,
   LogOut,
   ChevronRight,
+  Briefcase,
 } from 'lucide-react'
 
 const ADMIN_EMAILS = (process.env.ADMIN_EMAILS || 'chitangalawrence03@gmail.com').split(',').map(e => e.trim())
@@ -66,6 +67,7 @@ export default async function AdminLayout({
             <AdminNavLink href="/admin/verification" icon={ShieldCheck} label="Verification" />
             <AdminNavLink href="/admin/properties" icon={Building2} label="Properties" />
             <AdminNavLink href="/admin/users" icon={Users} label="Users" />
+            <AdminNavLink href="/admin/agents" icon={Briefcase} label="Agents" />
           </nav>
         </div>
       </div>

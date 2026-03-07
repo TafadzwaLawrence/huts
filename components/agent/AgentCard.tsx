@@ -7,6 +7,7 @@ interface AgentCardProps {
   agentProfile: {
     id: string
     user_id: string
+    slug: string | null
     agent_type: 'real_estate_agent' | 'property_manager' | 'home_builder' | 'photographer' | 'other'
     business_name: string | null
     profile_image_url: string | null
@@ -33,6 +34,9 @@ export default function AgentCard({ agentProfile, landlordName, landlordAvatar }
   const primaryArea = agentProfile.agent_service_areas?.find(a => a.is_primary)?.city
   const displayName = agentProfile.business_name || landlordName || 'Agent'
   const avatarUrl = agentProfile.profile_image_url || landlordAvatar
+  const profileHref = agentProfile.slug
+    ? `/agent/${agentProfile.slug}`
+    : `/agent/${agentProfile.user_id}`
 
   return (
     <div className="bg-[#F8F9FA] border-2 border-[#E9ECEF] rounded-2xl p-6 mb-6">
@@ -42,7 +46,7 @@ export default function AgentCard({ agentProfile, landlordName, landlordAvatar }
       </div>
 
       <Link
-        href={`/agent/${agentProfile.user_id}`}
+        href={profileHref}
         className="group block"
       >
         {/* Agent Info */}

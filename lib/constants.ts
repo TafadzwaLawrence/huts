@@ -99,6 +99,35 @@ export const SOCIAL_LINKS = {
 } as const
 
 /**
+ * Zimbabwe Cities & Towns — single source of truth for all city pickers
+ * Covers urban councils, towns, municipalities, and major growth points
+ */
+export const ZIMBABWE_CITIES = [
+  // Harare Province
+  'Harare', 'Chitungwiza', 'Epworth', 'Ruwa', 'Norton',
+  // Bulawayo Province
+  'Bulawayo',
+  // Manicaland
+  'Mutare', 'Chipinge', 'Rusape', 'Chimanimani', 'Nyanga', 'Birchenough Bridge',
+  // Mashonaland Central
+  'Bindura', 'Mvurwi', 'Shamva', 'Guruve', 'Centenary',
+  // Mashonaland East
+  'Marondera', 'Macheke', 'Murewa', 'Hwedza', 'Wedza',
+  // Mashonaland West
+  'Chinhoyi', 'Kadoma', 'Chegutu', 'Karoi', 'Kariba', 'Banket',
+  // Masvingo
+  'Masvingo', 'Chiredzi', 'Triangle', 'Gutu', 'Bikita',
+  // Matabeleland North
+  'Victoria Falls', 'Hwange', 'Lupane', 'Binga', 'Dete',
+  // Matabeleland South
+  'Beitbridge', 'Gwanda', 'Plumtree', 'Esigodini', 'West Nicholson',
+  // Midlands
+  'Gweru', 'Kwekwe', 'Redcliff', 'Zvishavane', 'Shurugwi', 'Gokwe', 'Lalapanzi',
+] as const
+
+export type ZimbabweCity = typeof ZIMBABWE_CITIES[number]
+
+/**
  * Agent Types - Professional categories for the agent marketplace
  */
 export const AGENT_TYPES = {

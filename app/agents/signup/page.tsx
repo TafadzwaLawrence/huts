@@ -32,7 +32,8 @@ import {
   AGENT_SPECIALIZATIONS,
   AGENT_SPECIALIZATION_LABELS,
   LANGUAGES,
-  ICON_SIZES
+  ICON_SIZES,
+  ZIMBABWE_CITIES
 } from '@/lib/constants'
 
 type AgentType = 'real_estate_agent' | 'property_manager' | 'home_builder' | 'photographer' | 'other'
@@ -63,8 +64,6 @@ interface FormData {
   specializations: string[]
   languages: string[]
 }
-
-const CITIES = ['Harare', 'Bulawayo', 'Chitungwiza', 'Mutare', 'Gweru', 'Kwekwe', 'Kadoma', 'Masvingo', 'Chinhoyi', 'Norton', 'Marondera', 'Ruwa', 'Chegutu', 'Bindura', 'Beitbridge', 'Redcliff', 'Victoria Falls', 'Hwange', 'Chiredzi', 'Kariba']
 
 const BENEFITS = [
   {
@@ -227,7 +226,7 @@ export default function AgentSignupPage() {
           specializations: formData.specializations.length > 0 ? formData.specializations : null,
           languages: formData.languages.length > 0 ? formData.languages : ['English'],
           slug: slugBase,
-          status: 'active',
+          status: 'pending',
         })
         .select()
         .single()
@@ -248,7 +247,7 @@ export default function AgentSignupPage() {
         if (areasError) console.error('Service areas error:', areasError)
       }
 
-      toast.success('Agent profile created successfully!')
+      toast.success('Profile submitted! We\'ll review it shortly and let you know when it\'s approved.')
       router.push('/dashboard/overview')
     } catch (error: any) {
       console.error('Signup error:', error)

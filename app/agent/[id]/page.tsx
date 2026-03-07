@@ -24,12 +24,13 @@ type Props = {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const supabase = await createClient()
   
-  // Try to get agent profile first
+  // Try slug first, then fall back to user_id
   const { data: agentProfile } = await supabase
     .from('agent_profiles')
-    .select('business_name, bio, agent_type, office_city, slug')
-    .eq('user_id', params.id)
-    .single()
+    .select('business_name, bio, agent_type, office_city, slug, user_id')
+    .or(`slug.eq.${params.id},user_id.eq.${params.id}`)
+    .limit(1)
+    .maybeSingle()
 
   // Fallback to regular profile
   const { data: profile } = await supabase
@@ -51,16 +52,27 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function AgentProfilePage({ params }: Props) {
   const supabase = await createClient()
 
+  // Resolve whether params.id is a slug or a user_id
+  // Fetch agent profile first (slug or user_id)
+  const { data: agentProfileData } = await supabase
+    .from('agent_profiles')
+    .select('user_id')
+    .or(`slug.eq.${params.id},user_id.eq.${params.id}`)
+    .limit(1)
+    .maybeSingle()
+
+  const resolvedUserId = agentProfileData?.user_id || params.id
+
   // Fetch basic profile
   const { data: profile, error } = await supabase
     .from('profiles')
     .select('id, name, avatar_url, role, phone, email, created_at')
-    .eq('id', params.id)
+    .eq('id', resolvedUserId)
     .single()
 
   if (error || !profile) notFound()
 
-  // Fetch agent profile if exists
+  // Fetch full agent profile
   const { data: agentProfile } = await supabase
     .from('agent_profiles')
     .select(`
@@ -68,7 +80,7 @@ export default async function AgentProfilePage({ params }: Props) {
       agent_service_areas(*),
       agent_achievements(*)
     `)
-    .eq('user_id', params.id)
+    .eq('user_id', resolvedUserId)
     .single()
 
   // Fetch properties
@@ -79,7 +91,7 @@ export default async function AgentProfilePage({ params }: Props) {
       city, neighborhood, status, created_at,
       property_images(url, is_primary)
     `)
-    .eq('user_id', params.id)
+    .eq('user_id', resolvedUserId)
     .eq('status', 'active')
     .order('created_at', { ascending: false })
     .limit(12)
