@@ -33,7 +33,7 @@ import {
   AGENT_SPECIALIZATION_LABELS,
   LANGUAGES,
   ICON_SIZES,
-  ZIMBABWE_CITIES
+  ZIMBABWE_CITIES as CITIES,
 } from '@/lib/constants'
 
 type AgentType = 'real_estate_agent' | 'property_manager' | 'home_builder' | 'photographer' | 'other'
