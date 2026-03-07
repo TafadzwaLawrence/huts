@@ -17,6 +17,13 @@ node_modules
 .DS_Store
 *.pem
 
+# Temporary & Archive
+archive/
+*.bak
+*.tmp
+*TEST*.sql
+*NUCLEAR*.sql
+
 # Debug
 npm-debug.log*
 yarn-debug.log*

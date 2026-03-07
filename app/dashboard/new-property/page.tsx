@@ -469,18 +469,16 @@ export default function NewPropertyPage() {
                   <div className={`w-14 h-14 rounded-xl flex items-center justify-center mb-5 transition-all duration-300 ${
                     formData.listingType === 'rent' 
                       ? 'bg-white/20 group-hover:bg-white/30' 
-                      : 'bg-black/5 group-hover:bg-black/10'
+                      : 'bg-[#F8F9FA] group-hover:bg-[#E9ECEF]'
                   }`}>
                     <Home 
                       size={28} 
-                      className={formData.listingType === 'rent' ? 'text-white' : 'text-black'}
+                      className={formData.listingType === 'rent' ? 'text-white' : 'text-[#212529]'}
                     />
                   </div>
                   
                   {/* Content */}
-                  <h3 className={`text-xl font-bold mb-2 ${
-                    formData.listingType === 'rent' ? 'text-white' : 'text-black'
-                  }`}>List for Rent</h3>
+                  <h3 className="text-xl font-bold mb-2">List for Rent</h3>
                   <p className={`text-sm mb-4 leading-relaxed ${
                     formData.listingType === 'rent' ? 'text-white/80' : 'text-[#495057]'
                   }`}>
@@ -531,18 +529,16 @@ export default function NewPropertyPage() {
                   <div className={`w-14 h-14 rounded-xl flex items-center justify-center mb-5 transition-all duration-300 ${
                     formData.listingType === 'sale' 
                       ? 'bg-white/20 group-hover:bg-white/30' 
-                      : 'bg-black/5 group-hover:bg-black/10'
+                      : 'bg-[#F8F9FA] group-hover:bg-[#E9ECEF]'
                   }`}>
                     <Building2 
                       size={28} 
-                      className={formData.listingType === 'sale' ? 'text-white' : 'text-black'}
+                      className={formData.listingType === 'sale' ? 'text-white' : 'text-[#212529]'}
                     />
                   </div>
                   
                   {/* Content */}
-                  <h3 className={`text-xl font-bold mb-2 ${
-                    formData.listingType === 'sale' ? 'text-white' : 'text-black'
-                  }`}>List for Sale</h3>
+                  <h3 className="text-xl font-bold mb-2">List for Sale</h3>
                   <p className={`text-sm mb-4 leading-relaxed ${
                     formData.listingType === 'sale' ? 'text-white/80' : 'text-[#495057]'
                   }`}>
@@ -1244,8 +1240,9 @@ export default function NewPropertyPage() {
               <button
                 type="button"
                 onClick={prevStep}
-                className="flex items-center justify-center px-5 py-3.5 border-2 border-[#E9ECEF] text-[#212529] rounded-xl text-sm font-semibold hover:border-[#212529] transition-all"
+                className="flex items-center justify-center gap-2 px-5 py-3.5 border-2 border-[#E9ECEF] text-[#212529] rounded-xl text-sm font-semibold hover:border-[#212529] transition-all"
               >
+                <ArrowLeft size={ICON_SIZES.md} />
                 Back
               </button>
             )}
@@ -1254,9 +1251,10 @@ export default function NewPropertyPage() {
               <button
                 type="button"
                 onClick={nextStep}
-                className="flex-1 flex items-center justify-center bg-[#212529] text-white px-6 py-3.5 rounded-xl text-sm font-semibold hover:bg-black transition-all"
+                className="flex-1 flex items-center justify-center gap-2 bg-[#212529] text-white px-6 py-3.5 rounded-xl text-sm font-semibold hover:bg-black transition-all"
               >
                 Continue
+                <ArrowRight size={ICON_SIZES.md} />
               </button>
             ) : (
               <button
