@@ -6,7 +6,7 @@ import { toast } from 'sonner'
 
 interface BulkActionToolbarProps {
   selectedCount: number
-  resourceType: 'property' | 'user'
+  resourceType: 'property' | 'user' | 'agent'
   selectedIds: string[]
   onActionComplete: () => void
   onClearSelection: () => void
@@ -74,7 +74,7 @@ export function BulkActionToolbar({
             {selectedCount}
           </div>
           <span className="font-medium">
-            {selectedCount} {resourceType === 'property' ? 'properties' : 'users'} selected
+            {selectedCount} {resourceType === 'property' ? 'properties' : resourceType === 'agent' ? 'agents' : 'users'} selected
           </span>
         </div>
 
@@ -119,6 +119,27 @@ export function BulkActionToolbar({
               >
                 <UserCheck size={14} />
                 Unsuspend
+              </button>
+            </>
+          )}
+
+          {resourceType === 'agent' && (
+            <>
+              <button
+                onClick={() => handleBulkAction('unsuspend', 'activate')}
+                disabled={loading}
+                className="px-3 py-1.5 bg-[#212529] hover:bg-black rounded-lg text-sm font-medium transition-colors disabled:opacity-50 flex items-center gap-1.5"
+              >
+                <UserCheck size={14} />
+                Activate
+              </button>
+              <button
+                onClick={() => handleBulkAction('suspend', 'suspend')}
+                disabled={loading}
+                className="px-3 py-1.5 bg-[#495057] hover:bg-[#212529] rounded-lg text-sm font-medium transition-colors disabled:opacity-50 flex items-center gap-1.5"
+              >
+                <UserX size={14} />
+                Suspend
               </button>
             </>
           )}

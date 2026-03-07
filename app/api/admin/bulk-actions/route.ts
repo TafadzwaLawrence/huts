@@ -37,7 +37,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Invalid action' }, { status: 400 })
     }
 
-    if (!['property', 'user'].includes(resourceType)) {
+    if (!['property', 'user', 'agent'].includes(resourceType)) {
       return NextResponse.json({ error: 'Invalid resourceType' }, { status: 400 })
     }
 
@@ -145,6 +145,50 @@ export async function POST(request: NextRequest) {
           adminId: adminUser.user.id,
           action: action === 'suspend' ? 'user_suspended' : action === 'unsuspend' ? 'user_unsuspended' : 'bulk_delete',
           resourceType: 'user',
+          resourceId: resourceIds.join(','),
+          metadata: {
+            count: successCount,
+            totalAttempted: resourceIds.length,
+            failures: failureCount,
+          },
+        })
+      }
+    } else if (resourceType === 'agent') {
+      for (const agentId of resourceIds) {
+        try {
+          if (action === 'suspend') {
+            const { error } = await admin
+              .from('agent_profiles')
+              .update({ status: 'suspended', updated_at: new Date().toISOString() })
+              .eq('id', agentId)
+            if (error) throw error
+            successCount++
+          } else if (action === 'unsuspend') {
+            const { error } = await admin
+              .from('agent_profiles')
+              .update({ status: 'active', updated_at: new Date().toISOString() })
+              .eq('id', agentId)
+            if (error) throw error
+            successCount++
+          } else if (action === 'delete') {
+            const { error } = await admin
+              .from('agent_profiles')
+              .delete()
+              .eq('id', agentId)
+            if (error) throw error
+            successCount++
+          }
+        } catch (error) {
+          failureCount++
+          errors.push(`Agent ${agentId}: ${error instanceof Error ? error.message : 'Unknown error'}`)
+        }
+      }
+
+      if (adminUser && adminUser.user) {
+        await logAdminActivity({
+          adminId: adminUser.user.id,
+          action: action === 'suspend' ? 'agent_suspended' : action === 'unsuspend' ? 'agent_unsuspended' : 'bulk_delete',
+          resourceType: 'agent',
           resourceId: resourceIds.join(','),
           metadata: {
             count: successCount,

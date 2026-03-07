@@ -15,6 +15,8 @@ import {
   LogOut,
   ChevronRight,
   Briefcase,
+  Star,
+  MessageSquare,
 } from 'lucide-react'
 
 const ADMIN_EMAILS = (process.env.ADMIN_EMAILS || 'chitangalawrence03@gmail.com').split(',').map(e => e.trim())
@@ -68,6 +70,8 @@ export default async function AdminLayout({
             <AdminNavLink href="/admin/properties" icon={Building2} label="Properties" />
             <AdminNavLink href="/admin/users" icon={Users} label="Users" />
             <AdminNavLink href="/admin/agents" icon={Briefcase} label="Agents" />
+            <AdminNavLink href="/admin/reviews" icon={Star} label="Reviews" />
+            <AdminNavLink href="/admin/conversations" icon={MessageSquare} label="Messages" />
           </nav>
         </div>
       </div>

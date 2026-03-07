@@ -22,7 +22,8 @@ import {
   Eye,
   MessageSquare,
   Briefcase,
-  Mail
+  Mail,
+  Handshake,
 } from 'lucide-react'
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { createClient } from '@/lib/supabase/client'
@@ -226,6 +227,7 @@ export function DashboardNavbar({ user, profile }: DashboardNavbarProps) {
   const mainNavLinks = isLandlord ? [
     { href: '/dashboard/overview', label: 'Overview', icon: LayoutDashboard },
     { href: '/dashboard/my-properties', label: 'Properties', icon: Building2 },
+    { href: '/dashboard/rent-management', label: 'Rent', icon: Handshake },
     { href: '/dashboard/map', label: 'Map', icon: MapPin },
     { href: '/dashboard/reviews', label: 'Reviews', icon: Star },
     ...(hasAgentProfile ? [

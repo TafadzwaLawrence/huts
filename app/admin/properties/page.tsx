@@ -8,7 +8,11 @@ import {
   MapPin, 
   Home,
   ExternalLink,
+  Trash2,
+  Eye,
+  EyeOff,
 } from 'lucide-react'
+import { toast } from 'sonner'
 import { formatPrice, formatSalePrice } from '@/lib/utils'
 import { AdminPageHeader, AdminEmptyState, AdminPagination, AdminExportButton } from '@/components/admin'
 import { Badge } from '@/components/ui'
@@ -43,6 +47,34 @@ export default function AdminPropertiesPage() {
   const [totalPages, setTotalPages] = useState(1)
   const [total, setTotal] = useState(0)
   const [statusFilter, setStatusFilter] = useState('all')
+
+  const handleDelete = async (propertyId: string) => {
+    if (!confirm('Permanently delete this property and all its data? This cannot be undone.')) return
+    try {
+      const res = await fetch(`/api/admin/properties/${propertyId}`, { method: 'DELETE' })
+      if (!res.ok) throw new Error('Failed to delete')
+      toast.success('Property deleted')
+      fetchProperties()
+    } catch {
+      toast.error('Failed to delete property')
+    }
+  }
+
+  const handleToggleStatus = async (property: Property) => {
+    const newStatus = property.status === 'active' ? 'inactive' : 'active'
+    try {
+      const res = await fetch(`/api/admin/properties/${property.id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ status: newStatus }),
+      })
+      if (!res.ok) throw new Error('Failed to update')
+      toast.success(`Property ${newStatus === 'active' ? 'activated' : 'deactivated'}`)
+      fetchProperties()
+    } catch {
+      toast.error('Failed to update property status')
+    }
+  }
 
   const fetchProperties = async () => {
     setLoading(true)
@@ -197,13 +229,31 @@ export default function AdminPropertiesPage() {
                     </div>
 
                     {/* Actions */}
-                    <div className="md:col-span-1 flex justify-end">
+                    <div className="md:col-span-1 flex justify-end items-center gap-0.5">
+                      <button
+                        onClick={() => handleToggleStatus(property)}
+                        title={property.status === 'active' ? 'Deactivate' : 'Activate'}
+                        className={`p-1.5 rounded-lg transition-colors ${
+                          property.status === 'active'
+                            ? 'text-[#ADB5BD] hover:text-[#495057] hover:bg-[#F8F9FA]'
+                            : 'text-[#51CF66] hover:bg-green-50'
+                        }`}
+                      >
+                        {property.status === 'active' ? <EyeOff size={14} /> : <Eye size={14} />}
+                      </button>
+                      <button
+                        onClick={() => handleDelete(property.id)}
+                        title="Delete property"
+                        className="p-1.5 text-[#ADB5BD] hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors"
+                      >
+                        <Trash2 size={14} />
+                      </button>
                       <Link
                         href={`/property/${property.slug || property.id}`}
                         target="_blank"
-                        className="p-2 text-[#ADB5BD] hover:text-[#212529] transition-colors"
+                        className="p-1.5 text-[#ADB5BD] hover:text-[#212529] transition-colors rounded-lg"
                       >
-                        <ExternalLink size={ICON_SIZES.sm} />
+                        <ExternalLink size={14} />
                       </Link>
                     </div>
                   </div>

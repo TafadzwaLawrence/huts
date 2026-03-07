@@ -9,13 +9,16 @@ export type AdminAction =
   | 'user_suspended'
   | 'user_unsuspended'
   | 'user_deleted'
+  | 'agent_suspended'
+  | 'agent_unsuspended'
+  | 'agent_deleted'
   | 'bulk_approve'
   | 'bulk_reject'
   | 'bulk_delete'
   | 'review_deleted'
   | 'other'
 
-export type ResourceType = 'property' | 'user' | 'review' | 'message' | 'other'
+export type ResourceType = 'property' | 'user' | 'agent' | 'review' | 'message' | 'other'
 
 interface LogActivityParams {
   adminId: string

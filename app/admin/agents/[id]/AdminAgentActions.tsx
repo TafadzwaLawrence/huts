@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { CheckCircle, XCircle, ShieldCheck, Star, ExternalLink } from 'lucide-react'
+import { CheckCircle, XCircle, ShieldCheck, Star, ExternalLink, Trash2 } from 'lucide-react'
 import { toast } from 'sonner'
 import Link from 'next/link'
 
@@ -44,6 +44,21 @@ export default function AdminAgentActions({
   }
 
   const isLoading = (label: string) => loading === label
+
+  const handleDelete = async () => {
+    if (!confirm('Permanently delete this agent and all their data? This cannot be undone.')) return
+    setLoading('deleted')
+    try {
+      const res = await fetch(`/api/admin/agents/${agentId}`, { method: 'DELETE' })
+      const json = await res.json()
+      if (!res.ok) throw new Error(json.error || 'Failed')
+      toast.success('Agent deleted')
+      router.push('/admin/agents')
+    } catch (err: any) {
+      toast.error(err.message || 'Failed to delete agent')
+      setLoading(null)
+    }
+  }
 
   return (
     <div className="bg-white border border-[#E9ECEF] rounded-xl p-5 space-y-3">
@@ -119,6 +134,17 @@ export default function AdminAgentActions({
           <ExternalLink size={14} /> View Public Profile
         </Link>
       )}
+
+      <div className="pt-3 border-t border-[#F1F3F5]">
+        <button
+          onClick={handleDelete}
+          disabled={!!loading}
+          className="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-white text-red-600 border border-red-200 rounded-lg text-sm font-semibold hover:bg-red-50 transition-colors disabled:opacity-50"
+        >
+          <Trash2 size={15} />
+          {isLoading('deleted') ? 'Deleting…' : 'Delete Agent'}
+        </button>
+      </div>
     </div>
   )
 }

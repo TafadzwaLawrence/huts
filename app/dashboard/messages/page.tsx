@@ -15,6 +15,9 @@ import {
   Check,
   CheckCheck,
   ImageIcon,
+  Handshake,
+  X,
+  FileText,
 } from 'lucide-react'
 
 type Conversation = {
@@ -67,6 +70,17 @@ export default function MessagesPage() {
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLTextAreaElement>(null)
   const supabase = createClient()
+
+  // Agreement dialog state
+  const [agreementOpen, setAgreementOpen] = useState(false)
+  const [agreementLoading, setAgreementLoading] = useState(false)
+  const [agreementForm, setAgreementForm] = useState({
+    lease_start_date: '',
+    lease_end_date: '',
+    monthly_rent: '',
+    deposit_amount: '',
+    notes: '',
+  })
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
@@ -189,6 +203,64 @@ export default function MessagesPage() {
     }
   }
 
+  const handleConfirmAgreement = async () => {
+    if (!selected || !userId) return
+    const { lease_start_date, monthly_rent } = agreementForm
+
+    if (!lease_start_date) {
+      toast.error('Please set a lease start date')
+      return
+    }
+    if (!monthly_rent || isNaN(Number(monthly_rent))) {
+      toast.error('Please enter a valid monthly rent amount')
+      return
+    }
+
+    setAgreementLoading(true)
+    try {
+      const tenantId = selected.renter.id === userId ? selected.landlord.id : selected.renter.id
+      const res = await fetch('/api/agreements', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          property_id: selected.property_id,
+          tenant_id: tenantId,
+          conversation_id: selected.id,
+          agreement_type: 'rent',
+          lease_start_date,
+          lease_end_date: agreementForm.lease_end_date || null,
+          monthly_rent: Math.round(Number(monthly_rent) * 100), // store in cents
+          deposit_amount: agreementForm.deposit_amount
+            ? Math.round(Number(agreementForm.deposit_amount) * 100)
+            : 0,
+          notes: agreementForm.notes || null,
+        }),
+      })
+      const json = await res.json()
+      if (!res.ok) {
+        toast.error(json.error || 'Failed to create agreement')
+        return
+      }
+
+      // Send a system-style confirmation message in the thread
+      await supabase.from('messages').insert({
+        conversation_id: selected.id,
+        sender_id: userId,
+        content: `✅ Rental agreement confirmed!\n\nLease start: ${lease_start_date}${agreementForm.lease_end_date ? `\nLease end: ${agreementForm.lease_end_date}` : ''}\nMonthly rent: $${Number(monthly_rent).toLocaleString()}\nDeposit: $${Number(agreementForm.deposit_amount || 0).toLocaleString()}\n\nThe property has been marked as rented and removed from active listings.`,
+        message_type: 'text',
+      })
+
+      toast.success('Agreement confirmed! Property marked as rented.')
+      setAgreementOpen(false)
+      setAgreementForm({ lease_start_date: '', lease_end_date: '', monthly_rent: '', deposit_amount: '', notes: '' })
+      fetchConversations()
+    } catch {
+      toast.error('Something went wrong. Please try again.')
+    } finally {
+      setAgreementLoading(false)
+    }
+  }
+
   const getOtherUser = (conv: Conversation) => {
     if (!userId) return conv.renter
     return conv.renter.id === userId ? conv.landlord : conv.renter
@@ -221,6 +293,7 @@ export default function MessagesPage() {
   }
 
   return (
+    <>
     <div className="h-[calc(100vh-8rem)] flex flex-col">
       {/* Page header */}
       <div className="flex items-center justify-between px-6 py-4 border-b border-[#E9ECEF]">
@@ -351,6 +424,16 @@ export default function MessagesPage() {
                     {selected.property?.title}
                   </Link>
                 </div>
+                {/* Confirm Agreement button — landlord only */}
+                {userId === selected.landlord?.id && (
+                  <button
+                    onClick={() => setAgreementOpen(true)}
+                    className="flex items-center gap-1.5 px-3 py-1.5 bg-black text-white text-xs font-semibold rounded-lg hover:bg-[#212529] transition-colors whitespace-nowrap"
+                  >
+                    <Handshake size={14} />
+                    <span className="hidden sm:inline">Confirm Deal</span>
+                  </button>
+                )}
               </div>
 
               {/* Messages */}
@@ -421,5 +504,132 @@ export default function MessagesPage() {
         </div>
       </div>
     </div>
+
+    {/* ── Confirm Agreement Dialog ──────────────────────────── */}
+    {agreementOpen && selected && (
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4">
+        <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md">
+          {/* Header */}
+          <div className="flex items-center justify-between px-6 py-4 border-b border-[#E9ECEF]">
+            <div className="flex items-center gap-2">
+              <Handshake size={20} className="text-[#212529]" />
+              <h2 className="text-base font-bold text-[#212529]">Confirm Rental Agreement</h2>
+            </div>
+            <button
+              onClick={() => setAgreementOpen(false)}
+              className="p-1.5 hover:bg-[#F8F9FA] rounded-lg transition-colors"
+            >
+              <X size={18} />
+            </button>
+          </div>
+
+          {/* Property info */}
+          <div className="px-6 py-3 bg-[#F8F9FA] border-b border-[#E9ECEF]">
+            <div className="flex items-center gap-2">
+              <FileText size={14} className="text-[#ADB5BD]" />
+              <span className="text-xs text-[#495057]">
+                Property: <strong className="text-[#212529]">{selected.property?.title}</strong>
+              </span>
+            </div>
+            <p className="text-xs text-[#ADB5BD] mt-0.5">
+              Tenant: {selected.renter?.id === userId ? selected.landlord?.name : selected.renter?.name}
+            </p>
+          </div>
+
+          {/* Form */}
+          <div className="px-6 py-4 space-y-4">
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <label className="block text-xs font-medium text-[#495057] mb-1">
+                  Lease Start <span className="text-red-500">*</span>
+                </label>
+                <input
+                  type="date"
+                  value={agreementForm.lease_start_date}
+                  onChange={(e) => setAgreementForm(f => ({ ...f, lease_start_date: e.target.value }))}
+                  className="w-full text-sm px-3 py-2 border border-[#E9ECEF] rounded-lg focus:outline-none focus:ring-2 focus:ring-black/10 focus:border-[#212529]"
+                />
+              </div>
+              <div>
+                <label className="block text-xs font-medium text-[#495057] mb-1">Lease End</label>
+                <input
+                  type="date"
+                  value={agreementForm.lease_end_date}
+                  min={agreementForm.lease_start_date}
+                  onChange={(e) => setAgreementForm(f => ({ ...f, lease_end_date: e.target.value }))}
+                  className="w-full text-sm px-3 py-2 border border-[#E9ECEF] rounded-lg focus:outline-none focus:ring-2 focus:ring-black/10 focus:border-[#212529]"
+                />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <label className="block text-xs font-medium text-[#495057] mb-1">
+                  Monthly Rent ($) <span className="text-red-500">*</span>
+                </label>
+                <input
+                  type="number"
+                  min="0"
+                  step="0.01"
+                  placeholder="e.g. 500"
+                  value={agreementForm.monthly_rent}
+                  onChange={(e) => setAgreementForm(f => ({ ...f, monthly_rent: e.target.value }))}
+                  className="w-full text-sm px-3 py-2 border border-[#E9ECEF] rounded-lg focus:outline-none focus:ring-2 focus:ring-black/10 focus:border-[#212529]"
+                />
+              </div>
+              <div>
+                <label className="block text-xs font-medium text-[#495057] mb-1">Deposit ($)</label>
+                <input
+                  type="number"
+                  min="0"
+                  step="0.01"
+                  placeholder="e.g. 1000"
+                  value={agreementForm.deposit_amount}
+                  onChange={(e) => setAgreementForm(f => ({ ...f, deposit_amount: e.target.value }))}
+                  className="w-full text-sm px-3 py-2 border border-[#E9ECEF] rounded-lg focus:outline-none focus:ring-2 focus:ring-black/10 focus:border-[#212529]"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label className="block text-xs font-medium text-[#495057] mb-1">Notes (optional)</label>
+              <textarea
+                rows={2}
+                placeholder="Special terms, conditions, etc."
+                value={agreementForm.notes}
+                onChange={(e) => setAgreementForm(f => ({ ...f, notes: e.target.value }))}
+                className="w-full text-sm px-3 py-2 border border-[#E9ECEF] rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-black/10 focus:border-[#212529]"
+              />
+            </div>
+
+            <p className="text-xs text-[#ADB5BD] bg-[#F8F9FA] rounded-lg px-3 py-2">
+              Confirming this agreement will <strong>remove the property from active listings</strong> and mark it as rented. You can undo this from the Rent Management dashboard.
+            </p>
+          </div>
+
+          {/* Actions */}
+          <div className="flex gap-3 px-6 pb-5">
+            <button
+              onClick={() => setAgreementOpen(false)}
+              className="flex-1 py-2 text-sm font-medium text-[#495057] border border-[#E9ECEF] rounded-lg hover:bg-[#F8F9FA] transition-colors"
+            >
+              Cancel
+            </button>
+            <button
+              onClick={handleConfirmAgreement}
+              disabled={agreementLoading}
+              className="flex-1 py-2 text-sm font-semibold bg-black text-white rounded-lg hover:bg-[#212529] transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+            >
+              {agreementLoading ? (
+                <><Loader2 size={15} className="animate-spin" /> Confirming...</>
+              ) : (
+                <><Handshake size={15} /> Confirm Agreement</>
+              )}
+            </button>
+          </div>
+        </div>
+      </div>
+    )}
+  </>
   )
 }
