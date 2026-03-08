@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { GeistSans } from 'geist/font/sans'
+import { Geist } from 'next/font/google'
 import { Suspense } from 'react'
 import './globals.css'
 import { LayoutChrome } from '@/components/layout/LayoutChrome'
@@ -14,7 +14,11 @@ import { NProgressProvider } from '@/components/providers/NProgressProvider'
 import { createClient } from '@/lib/supabase/server'
 import ChunkLoadErrorHandler from '@/components/dashboard/ChunkLoadErrorHandler'
 
-const geist = GeistSans
+const geist = Geist({
+  subsets: ['latin'],
+  display: 'swap',
+  fallback: ['system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'sans-serif'],
+})
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.huts.co.zw'),
