@@ -174,7 +174,7 @@ export default PropertyVerificationEmail
 // Styles
 const main = {
   backgroundColor: '#f8f9fa',
-  fontFamily: '-apple-system,BlinkMacSystemFont,"Inter",sans-serif',
+  fontFamily: '-apple-system,BlinkMacSystemFont,"Geist",sans-serif',
 }
 
 const container = {

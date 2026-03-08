@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { GeistSans } from 'geist/font/sans'
 import { Suspense } from 'react'
 import './globals.css'
 import { LayoutChrome } from '@/components/layout/LayoutChrome'
@@ -14,11 +14,7 @@ import { NProgressProvider } from '@/components/providers/NProgressProvider'
 import { createClient } from '@/lib/supabase/server'
 import ChunkLoadErrorHandler from '@/components/dashboard/ChunkLoadErrorHandler'
 
-const inter = Inter({ 
-  subsets: ['latin'],
-  display: 'swap',
-  fallback: ['system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
-})
+const geist = GeistSans
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.huts.co.zw'),
@@ -108,7 +104,7 @@ export default async function RootLayout({
 
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={inter.className} suppressHydrationWarning>
+      <body className={geist.className} suppressHydrationWarning>
         {/* JSON-LD Structured Data for Organization */}
         <OrganizationStructuredData />
         

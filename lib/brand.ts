@@ -25,7 +25,7 @@ export const BRAND = {
   },
 
   fonts: {
-    family: 'Inter',
+    family: 'Geist',
     fallback: '-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif',
     weights: {
       regular: 400,

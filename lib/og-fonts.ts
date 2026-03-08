@@ -1,6 +1,6 @@
 /**
  * Font loading utility for Satori / next/og image generation.
- * Reads Inter TTF fonts bundled in public/fonts/ for reliable rendering.
+ * Reads Geist TTF fonts bundled in public/fonts/ for reliable rendering.
  * Satori requires TTF or OTF — woff/woff2 are NOT supported.
  */
 
@@ -22,10 +22,10 @@ let boldFontCache: SatoriFont[] | null = null
 const FONT_DIR = join(process.cwd(), 'public', 'fonts')
 
 const FONT_FILES: Record<number, string> = {
-  400: 'Inter-Regular.ttf',
-  500: 'Inter-Medium.ttf',
-  600: 'Inter-SemiBold.ttf',
-  700: 'Inter-Bold.ttf',
+  400: 'Geist-Regular.ttf',
+  500: 'Geist-Medium.ttf',
+  600: 'Geist-SemiBold.ttf',
+  700: 'Geist-Bold.ttf',
 }
 
 async function readFontFile(weight: number): Promise<ArrayBuffer> {
@@ -36,7 +36,7 @@ async function readFontFile(weight: number): Promise<ArrayBuffer> {
 }
 
 /**
- * Load Inter font in multiple weights for Satori rendering.
+ * Load Geist font in multiple weights for Satori rendering.
  * Pass the result to `ImageResponse` options: `{ fonts: await loadFonts() }`
  *
  * Loads: Regular (400), Medium (500), Semibold (600), Bold (700)

@@ -18,7 +18,7 @@ export async function GET(request: NextRequest) {
       <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-          font-family: 'Inter', -apple-system, sans-serif;
+          font-family: 'Geist', -apple-system, sans-serif;
           background: #f8f9fa;
           display: flex;
           align-items: center;
