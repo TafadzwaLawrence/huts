@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Geist } from 'next/font/google'
+import localFont from 'next/font/local'
 import { Suspense } from 'react'
 import './globals.css'
 import { LayoutChrome } from '@/components/layout/LayoutChrome'
@@ -14,8 +14,13 @@ import { NProgressProvider } from '@/components/providers/NProgressProvider'
 import { createClient } from '@/lib/supabase/server'
 import ChunkLoadErrorHandler from '@/components/dashboard/ChunkLoadErrorHandler'
 
-const geist = Geist({
-  subsets: ['latin'],
+const geist = localFont({
+  src: [
+    { path: '../public/fonts/Geist-Regular.ttf',  weight: '400', style: 'normal' },
+    { path: '../public/fonts/Geist-Medium.ttf',   weight: '500', style: 'normal' },
+    { path: '../public/fonts/Geist-SemiBold.ttf', weight: '600', style: 'normal' },
+    { path: '../public/fonts/Geist-Bold.ttf',     weight: '700', style: 'normal' },
+  ],
   display: 'swap',
   fallback: ['system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'sans-serif'],
 })
