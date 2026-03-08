@@ -23,7 +23,7 @@ export default async function ProfileSettingsPage() {
   if (!profile) redirect('/dashboard')
 
   return (
-    <div className="max-w-2xl">
+    <div>
       <ProfileForm 
         profile={profile as Profile} 
         userEmail={user.email || ''} 
