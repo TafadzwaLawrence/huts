@@ -73,9 +73,9 @@ export default function ProfileForm({ profile, userEmail, createdAt }: ProfileFo
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
+    <form onSubmit={handleSubmit} className="space-y-8">
       {/* Profile Header - Clean */}
-      <div className="bg-white border border-[#E9ECEF] rounded-lg p-6">
+      <div className="bg-white border-2 border-[#E9ECEF] rounded-xl p-6">
         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
           {/* Avatar */}
           <div className="relative group">
@@ -132,7 +132,7 @@ export default function ProfileForm({ profile, userEmail, createdAt }: ProfileFo
       </div>
 
       {/* Account Type */}
-      <div className="bg-white border border-[#E9ECEF] rounded-lg p-6">
+      <div className="bg-white border-2 border-[#E9ECEF] rounded-xl p-6">
         <div className="mb-6">
           <h3 className="text-base font-semibold text-[#212529] mb-1">Account Type</h3>
           <p className="text-sm text-[#495057]">Choose how you want to use Huts</p>
@@ -142,7 +142,7 @@ export default function ProfileForm({ profile, userEmail, createdAt }: ProfileFo
           <button
             type="button"
             onClick={() => setFormData({ ...formData, role: 'renter' })}
-            className={`border rounded-lg p-5 transition-all text-left ${
+            className={`border-2 rounded-xl p-5 transition-all text-left ${
               formData.role === 'renter'
                 ? 'border-[#212529] bg-[#F8F9FA]'
                 : 'border-[#E9ECEF] hover:border-[#212529]'
@@ -173,7 +173,7 @@ export default function ProfileForm({ profile, userEmail, createdAt }: ProfileFo
           <button
             type="button"
             onClick={() => setFormData({ ...formData, role: 'landlord' })}
-            className={`border rounded-lg p-5 transition-all text-left ${
+            className={`border-2 rounded-xl p-5 transition-all text-left ${
               formData.role === 'landlord'
                 ? 'border-[#212529] bg-[#F8F9FA]'
                 : 'border-[#E9ECEF] hover:border-[#212529]'
@@ -203,7 +203,7 @@ export default function ProfileForm({ profile, userEmail, createdAt }: ProfileFo
       </div>
 
       {/* Personal Information */}
-      <div className="bg-white border border-[#E9ECEF] rounded-lg p-6">
+      <div className="bg-white border-2 border-[#E9ECEF] rounded-xl p-6">
         <div className="mb-6">
           <h3 className="text-base font-semibold text-[#212529] mb-1">Personal Information</h3>
           <p className="text-sm text-[#495057]">Update your contact details</p>
@@ -220,7 +220,7 @@ export default function ProfileForm({ profile, userEmail, createdAt }: ProfileFo
               id="name"
               value={formData.name}
               onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-              className="w-full px-3 py-2.5 border border-[#E9ECEF] rounded-lg focus:border-[#212529] focus:outline-none transition-colors text-[#212529] placeholder:text-[#ADB5BD]"
+              className="w-full px-4 py-3 border-2 border-[#E9ECEF] rounded-xl focus:border-[#212529] focus:outline-none transition-colors text-[#212529] placeholder:text-[#ADB5BD]"
               placeholder="Enter your full name"
             />
           </div>
@@ -235,7 +235,7 @@ export default function ProfileForm({ profile, userEmail, createdAt }: ProfileFo
               id="email"
               value={userEmail}
               disabled
-              className="w-full px-3 py-2.5 border border-[#E9ECEF] rounded-lg bg-[#F8F9FA] text-[#ADB5BD] cursor-not-allowed"
+              className="w-full px-4 py-3 border-2 border-[#E9ECEF] rounded-xl bg-[#F8F9FA] text-[#ADB5BD] cursor-not-allowed"
             />
           </div>
 
@@ -249,7 +249,7 @@ export default function ProfileForm({ profile, userEmail, createdAt }: ProfileFo
               id="phone"
               value={formData.phone}
               onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-              className="w-full px-3 py-2.5 border border-[#E9ECEF] rounded-lg focus:border-[#212529] focus:outline-none transition-colors text-[#212529] placeholder:text-[#ADB5BD]"
+              className="w-full px-4 py-3 border-2 border-[#E9ECEF] rounded-xl focus:border-[#212529] focus:outline-none transition-colors text-[#212529] placeholder:text-[#ADB5BD]"
               placeholder="+263 77 123 4567"
             />
           </div>
@@ -276,7 +276,7 @@ export default function ProfileForm({ profile, userEmail, createdAt }: ProfileFo
                 }
               }}
               maxLength={500}
-              className="w-full px-3 py-2.5 border border-[#E9ECEF] rounded-lg focus:border-[#212529] focus:outline-none transition-colors resize-none text-[#212529] placeholder:text-[#ADB5BD]"
+              className="w-full px-4 py-3 border-2 border-[#E9ECEF] rounded-xl focus:border-[#212529] focus:outline-none transition-colors resize-none text-[#212529] placeholder:text-[#ADB5BD]"
               placeholder="Tell potential landlords or renters about yourself..."
             />
           </div>
@@ -284,7 +284,7 @@ export default function ProfileForm({ profile, userEmail, createdAt }: ProfileFo
       </div>
 
       {/* Submit Button */}
-      <div className="bg-white border-t border-[#E9ECEF] pt-6 flex items-center justify-end gap-3">
+      <div className="bg-white border-2 border-[#E9ECEF] rounded-xl p-6 flex items-center justify-end gap-3">
         {hasChanges && (
           <p className="text-sm text-[#495057] mr-auto">
             Unsaved changes
@@ -293,14 +293,14 @@ export default function ProfileForm({ profile, userEmail, createdAt }: ProfileFo
         <button
           type="button"
           onClick={() => router.push('/dashboard/overview')}
-          className="px-5 py-2.5 border border-[#E9ECEF] text-[#495057] rounded-lg hover:border-[#212529] transition-colors font-medium"
+          className="px-5 py-2.5 border-2 border-[#E9ECEF] text-[#495057] rounded-xl hover:border-[#212529] transition-colors font-medium"
         >
           Cancel
         </button>
         <button
           type="submit"
           disabled={isLoading || !hasChanges}
-          className="px-6 py-2.5 bg-[#212529] text-white rounded-lg hover:bg-black transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+          className="px-6 py-2.5 bg-[#212529] text-white rounded-xl hover:bg-black transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
         >
           {isLoading ? (
             <>

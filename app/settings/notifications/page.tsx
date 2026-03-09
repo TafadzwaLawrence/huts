@@ -1,7 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-import { createClient } from '@/lib/supabase/client'
+import { useState } from 'react'
 import { toast } from 'sonner'
 import { 
   Bell, 
@@ -57,21 +56,13 @@ const defaultSettings: NotificationSettings = {
 }
 
 export default function NotificationsPage() {
-  const [settings, setSettings] = useState<NotificationSettings>(defaultSettings)
-  const [loading, setLoading] = useState(true)
+  const [settings, setSettings] = useState<NotificationSettings>(() => {
+    if (typeof window === 'undefined') return defaultSettings
+    const saved = localStorage.getItem('notification_settings')
+    return saved ? JSON.parse(saved) : defaultSettings
+  })
   const [saving, setSaving] = useState(false)
   const [hasChanges, setHasChanges] = useState(false)
-  
-  const supabase = createClient()
-
-  useEffect(() => {
-    // Load notification settings from localStorage (or could be from DB)
-    const saved = localStorage.getItem('notification_settings')
-    if (saved) {
-      setSettings(JSON.parse(saved))
-    }
-    setLoading(false)
-  }, [])
 
   const updateSetting = (key: keyof NotificationSettings, value: boolean) => {
     setSettings(prev => ({ ...prev, [key]: value }))
@@ -99,14 +90,6 @@ export default function NotificationsPage() {
     })
     setSettings(prev => ({ ...prev, ...updates }))
     setHasChanges(true)
-  }
-
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center py-20">
-        <Loader2 className="h-8 w-8 animate-spin text-[#495057]" />
-      </div>
-    )
   }
 
   return (
