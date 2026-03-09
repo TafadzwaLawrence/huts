@@ -7,7 +7,7 @@ import HomeSearchBar from '@/components/search/HomeSearchBar'
 
 export const metadata: Metadata = {
   title: 'Huts — Find Properties for Rent & Sale in Zimbabwe',
-  description: 'Browse thousands of verified rental properties and homes for sale across Zimbabwe. Apartments, houses, rooms in Harare, Bulawayo, Gweru, and more. Your home is one search away.',
+  description: 'Browse thousands of verified rental properties and homes for sale in Zimbabwe. Apartments, houses & rooms in Harare, Bulawayo, Gweru and more.',
   openGraph: {
     title: 'Huts — Property Rentals & Sales in Zimbabwe',
     description: 'Find apartments, houses, and rooms for rent or sale. Verified listings across Zimbabwe.',

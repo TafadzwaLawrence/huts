@@ -6,12 +6,10 @@ import { LayoutChrome } from '@/components/layout/LayoutChrome'
 import { Navbar } from '@/components/layout/Navbar'
 import { NavbarSkeleton } from '@/components/layout/NavbarSkeleton'
 import { Footer } from '@/components/layout/Footer'
-import { BottomTabBar } from '@/components/layout/BottomTabBar'
 import OrganizationStructuredData from '@/components/layout/OrganizationStructuredData'
 import FloatingChatWidget from '@/components/chat/FloatingChatWidget'
 import { Toaster } from 'sonner'
 import { NProgressProvider } from '@/components/providers/NProgressProvider'
-import { createClient } from '@/lib/supabase/server'
 import ChunkLoadErrorHandler from '@/components/dashboard/ChunkLoadErrorHandler'
 
 const geist = localFont({
@@ -96,21 +94,11 @@ export const metadata: Metadata = {
   },
 }
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
-  // Check auth for BottomTabBar
-  let isLoggedIn = false
-  try {
-    const supabase = await createClient()
-    const { data: { user } } = await supabase.auth.getUser()
-    isLoggedIn = !!user
-  } catch {
-    // Ignore auth errors in layout
-  }
-
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={geist.className} suppressHydrationWarning>
@@ -129,7 +117,6 @@ export default async function RootLayout({
                 </Suspense>
               }
               footer={<Footer />}
-              bottomTabBar={<BottomTabBar isLoggedIn={isLoggedIn} />}
               chatWidget={<FloatingChatWidget />}
             >
               {children}

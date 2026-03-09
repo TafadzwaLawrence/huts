@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import { Mail, MapPin, Phone, ArrowUpRight, Facebook, Instagram, Twitter } from 'lucide-react'
+import { Mail, MapPin, Phone, ArrowUpRight, Facebook, Instagram, Twitter, Linkedin, Youtube } from 'lucide-react'
 import { ICON_SIZES, SOCIAL_LINKS } from '@/lib/constants'
 
 const footerSections = [
@@ -185,6 +185,12 @@ export function Footer() {
               </a>
               <a href={SOCIAL_LINKS.instagram} target="_blank" rel="noopener noreferrer" className="text-white/30 hover:text-white/70 transition-colors" aria-label="Instagram">
                 <Instagram size={ICON_SIZES.md} />
+              </a>
+              <a href={SOCIAL_LINKS.linkedin} target="_blank" rel="noopener noreferrer" className="text-white/30 hover:text-white/70 transition-colors" aria-label="LinkedIn">
+                <Linkedin size={ICON_SIZES.md} />
+              </a>
+              <a href={SOCIAL_LINKS.youtube} target="_blank" rel="noopener noreferrer" className="text-white/30 hover:text-white/70 transition-colors" aria-label="YouTube">
+                <Youtube size={ICON_SIZES.md} />
               </a>
             </div>
             <span className="text-white/10">|</span>

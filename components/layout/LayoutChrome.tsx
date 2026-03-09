@@ -7,11 +7,10 @@ interface LayoutChromeProps {
   children: ReactNode
   navbar: ReactNode
   footer: ReactNode
-  bottomTabBar: ReactNode
   chatWidget: ReactNode
 }
 
-export function LayoutChrome({ children, navbar, footer, bottomTabBar, chatWidget }: LayoutChromeProps) {
+export function LayoutChrome({ children, navbar, footer, chatWidget }: LayoutChromeProps) {
   const pathname = usePathname()
   
   // Routes where chrome (navbar, footer, etc.) should be hidden
@@ -29,12 +28,11 @@ export function LayoutChrome({ children, navbar, footer, bottomTabBar, chatWidge
       
       {!hideChrome && navbar}
       
-      <main id="main-content" className={hideChrome ? 'min-h-screen' : 'min-h-screen pb-14 md:pb-0'}>
+      <main id="main-content" className="min-h-screen">
         {children}
       </main>
       
       {!hideChrome && footer}
-      {!hideChrome && bottomTabBar}
       {!hideChrome && chatWidget}
     </>
   )

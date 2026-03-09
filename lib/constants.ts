@@ -96,6 +96,8 @@ export const SOCIAL_LINKS = {
   twitter: 'https://x.com/HutsZw',
   instagram: 'https://www.instagram.com/hutszw/',
   facebook: 'https://www.facebook.com/profile.php?id=61588374308860',
+  linkedin: 'https://www.linkedin.com/in/huts-zw-5bb86a3b5/',
+  youtube: 'https://www.youtube.com/channel/UCyoCf3huCspu0Oll8T0wZvQ',
 } as const
 
 /**
