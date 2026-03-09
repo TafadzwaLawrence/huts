@@ -264,7 +264,6 @@ export function DashboardNavbar({ user, profile }: DashboardNavbarProps) {
                     height={32}
                     className="h-8 w-8 object-contain group-hover:opacity-75 transition-opacity"
                   />
-                  <span className="text-[15px] font-black tracking-tight text-[#212529]">Huts</span>
                 </Link>
 
                 {/* Desktop Nav Links */}

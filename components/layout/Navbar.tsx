@@ -50,7 +50,6 @@ export async function Navbar() {
               height={32}
               className="h-8 w-8 object-contain transition-opacity group-hover:opacity-75"
             />
-            <span className="text-[15px] font-black tracking-tight text-[#212529]">Huts</span>
           </Link>
 
           {/* Nav links — immediately after logo */}
