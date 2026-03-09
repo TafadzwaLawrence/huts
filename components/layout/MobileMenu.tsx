@@ -89,14 +89,15 @@ export function MobileMenu({ isLoggedIn, userName, userEmail, userAvatar, userIn
       >
         {/* Header */}
         <div className="flex items-center justify-between px-4 py-4 border-b border-[#E9ECEF]">
-          <Link href="/" onClick={() => setIsOpen(false)}>
-            <Image
-              src="/logo.png"
-              alt="Huts"
-              width={100}
+          <Link href="/" onClick={() => setIsOpen(false)} className="flex items-center gap-2">
+            <img
+              src="/logo.svg"
+              alt=""
+              width={32}
               height={32}
-              className="h-8 w-auto object-contain"
+              className="h-8 w-8 object-contain"
             />
+            <span className="text-base font-bold tracking-widest text-[#212529]">HUTS</span>
           </Link>
           <button
             onClick={() => setIsOpen(false)}

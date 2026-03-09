@@ -89,7 +89,7 @@ function SignUpPageInner() {
           {/* Logo */}
           <div className="mb-10">
             <Link href="/">
-              <Image src="/logo.png" alt="Huts" width={48} height={48} priority />
+              <img src="/logo.svg" alt="Huts" width={48} height={48} className="h-12 w-12 object-contain" />
             </Link>
           </div>
 

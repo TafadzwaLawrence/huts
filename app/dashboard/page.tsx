@@ -113,12 +113,12 @@ export default function DashboardPage() {
             <Link href="/" className="flex items-center gap-3 group">
               <div className="relative">
                 <div className="absolute inset-0 bg-white rounded-2xl blur-xl opacity-30 group-hover:opacity-50 transition-opacity" />
-                <Image
-                  src="/logo.png"
-                  alt="Huts"
+                <img
+                  src="/logo.svg"
+                  alt=""
                   width={56}
                   height={56}
-                  className="relative w-14 h-14 object-contain"
+                  className="relative w-14 h-14 object-contain invert"
                 />
               </div>
               <div>
@@ -235,9 +235,9 @@ export default function DashboardPage() {
           {/* Mobile logo */}
           <div className="lg:hidden flex justify-center mb-10">
             <Link href="/" className="flex items-center gap-3">
-              <Image
-                src="/logo.png"
-                alt="Huts"
+              <img
+                src="/logo.svg"
+                alt=""
                 width={48}
                 height={48}
                 className="w-12 h-12 object-contain"

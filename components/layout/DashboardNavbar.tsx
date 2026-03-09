@@ -257,14 +257,14 @@ export function DashboardNavbar({ user, profile }: DashboardNavbarProps) {
               <div className="flex items-center gap-6">
                 {/* Logo */}
                 <Link href="/" className="flex items-center gap-2 group shrink-0">
-                  <Image
-                    src="/logo.png"
-                    alt="Huts"
-                    width={36}
-                    height={36}
-                    priority
-                    className="h-9 w-9 object-contain group-hover:opacity-80 transition-opacity"
+                  <img
+                    src="/logo.svg"
+                    alt=""
+                    width={32}
+                    height={32}
+                    className="h-8 w-8 object-contain group-hover:opacity-75 transition-opacity"
                   />
+                  <span className="text-[15px] font-bold tracking-widest text-[#212529]">HUTS</span>
                 </Link>
 
                 {/* Desktop Nav Links */}

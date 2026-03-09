@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import Image from 'next/image'
 import { Mail, MapPin, Phone, ArrowUpRight, Facebook, Instagram, Twitter, Linkedin, Youtube } from 'lucide-react'
 import { ICON_SIZES, SOCIAL_LINKS } from '@/lib/constants'
 
@@ -91,9 +90,9 @@ export function Footer() {
         <div className="flex flex-col lg:flex-row justify-between gap-10 mb-14 md:mb-16">
           <div className="max-w-sm">
             <div className="flex items-center gap-2.5 mb-5">
-              <Image
-                src="/logo.png"
-                alt="Huts"
+              <img
+                src="/logo.svg"
+                alt=""
                 width={36}
                 height={36}
                 className="h-9 w-9 object-contain invert"

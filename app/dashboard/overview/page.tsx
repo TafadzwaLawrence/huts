@@ -25,7 +25,7 @@ import {
 } from 'lucide-react'
 import RetryVerificationButton from '@/components/dashboard/RetryVerificationButton'
 import { OpenChatButton, OpenChatConversation } from '@/components/chat/OpenChatButton'
-import { ICON_SIZES } from '@/lib/constants'
+import { ICON_SIZES, AGENT_TYPE_LABELS } from '@/lib/constants'
 
 function formatTimeAgo(dateString: string): string {
   const now = new Date()
@@ -73,6 +73,31 @@ export default async function DashboardOverviewPage() {
     supabase.from('reviews').select('*', { count: 'exact', head: true }).eq('author_id', user.id),
     supabase.from('agent_profiles').select('id, status, verified, avg_rating, total_reviews, slug, agent_type').eq('user_id', user.id).maybeSingle(),
   ])
+
+  // Recent agent inquiries (if user has an agent profile)
+  const { data: recentAgentInquiries } = agentProfile
+    ? await supabase
+        .from('agent_inquiries')
+        .select('id, name, phone, email, inquiry_type, status, created_at')
+        .eq('agent_id', agentProfile.id)
+        .order('created_at', { ascending: false })
+        .limit(3)
+    : { data: null }
+
+  const { count: totalAgentInquiries } = agentProfile
+    ? await supabase
+        .from('agent_inquiries')
+        .select('*', { count: 'exact', head: true })
+        .eq('agent_id', agentProfile.id)
+    : { count: null }
+
+  const { count: newAgentInquiries } = agentProfile
+    ? await supabase
+        .from('agent_inquiries')
+        .select('*', { count: 'exact', head: true })
+        .eq('agent_id', agentProfile.id)
+        .eq('status', 'new')
+    : { count: null }
 
   // Get total views for landlord's properties
   let totalViews = 0
@@ -206,66 +231,122 @@ export default async function DashboardOverviewPage() {
           )}
         </div>
 
-        {/* Agent Status Banner */}
+        {/* Agent Dashboard Card */}
         {agentProfile && (
-          <div className={`mb-8 rounded-xl border px-5 py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 ${
-            agentProfile.status === 'active'    ? 'bg-white border-[#E9ECEF]' :
-            agentProfile.status === 'pending'   ? 'bg-amber-50 border-amber-200' :
-            agentProfile.status === 'suspended' ? 'bg-red-50 border-red-200' :
-            'bg-[#F8F9FA] border-[#E9ECEF]'
-          }`}>
-            <div className="flex items-center gap-3">
-              <div className={`w-2.5 h-2.5 rounded-full flex-shrink-0 ${
-                agentProfile.status === 'active'    ? 'bg-green-500' :
-                agentProfile.status === 'pending'   ? 'bg-amber-400' :
-                agentProfile.status === 'suspended' ? 'bg-red-500' :
-                'bg-[#ADB5BD]'
-              }`} />
-              <div>
-                {agentProfile.status === 'pending' && (
-                  <>
-                    <p className="text-sm font-semibold text-amber-800">Agent profile under review</p>
-                    <p className="text-xs text-amber-700 mt-0.5">We'll notify you once it's approved and visible on the platform.</p>
-                  </>
+          <div className="mb-8 bg-white rounded-xl border border-[#E9ECEF] overflow-hidden">
+            {/* Card header */}
+            <div className="flex items-center justify-between px-5 py-4 border-b border-[#F1F3F5]">
+              <div className="flex items-center gap-2.5">
+                <span className="text-sm font-semibold text-[#212529]">
+                  {(agentProfile.agent_type && AGENT_TYPE_LABELS[agentProfile.agent_type as keyof typeof AGENT_TYPE_LABELS]) || 'Agent'}
+                </span>
+                {agentProfile.verified && (
+                  <span className="inline-flex items-center gap-1 text-xs font-medium text-green-700 bg-green-50 px-2 py-0.5 rounded-full border border-green-200">
+                    <ShieldCheck size={11} /> Verified
+                  </span>
                 )}
+                <span className={`inline-flex items-center gap-1.5 text-xs font-medium px-2 py-0.5 rounded-full ${
+                  agentProfile.status === 'active'    ? 'bg-green-50 text-green-700 border border-green-200' :
+                  agentProfile.status === 'pending'   ? 'bg-amber-50 text-amber-700 border border-amber-200' :
+                  agentProfile.status === 'suspended' ? 'bg-red-50 text-red-700 border border-red-200' :
+                  'bg-[#F8F9FA] text-[#495057] border border-[#E9ECEF]'
+                }`}>
+                  <span className={`w-1.5 h-1.5 rounded-full ${
+                    agentProfile.status === 'active'    ? 'bg-green-500' :
+                    agentProfile.status === 'pending'   ? 'bg-amber-400' :
+                    agentProfile.status === 'suspended' ? 'bg-red-500' :
+                    'bg-[#ADB5BD]'
+                  }`} />
+                  {agentProfile.status === 'active' ? 'Active' : agentProfile.status === 'pending' ? 'Under Review' : agentProfile.status === 'suspended' ? 'Suspended' : agentProfile.status}
+                </span>
+              </div>
+              <div className="flex items-center gap-3">
                 {agentProfile.status === 'active' && (
-                  <>
-                    <p className="text-sm font-semibold text-[#212529]">
-                      Agent profile active
-                      {agentProfile.verified && <span className="ml-2 text-xs font-normal text-green-700">✓ Verified</span>}
-                    </p>
-                    <p className="text-xs text-[#495057] mt-0.5">
-                      {agentProfile.avg_rating
-                        ? `${Number(agentProfile.avg_rating).toFixed(1)} ⭐ · ${agentProfile.total_reviews} review${agentProfile.total_reviews !== 1 ? 's' : ''}`
-                        : 'No reviews yet'}
-                    </p>
-                  </>
+                  <Link href="/dashboard/agent-inquiries" className="text-xs font-semibold text-[#212529] hover:underline flex items-center gap-1">
+                    All inquiries <ArrowRight size={12} />
+                  </Link>
                 )}
-                {agentProfile.status === 'suspended' && (
-                  <>
-                    <p className="text-sm font-semibold text-red-800">Agent profile suspended</p>
-                    <p className="text-xs text-red-700 mt-0.5">Contact support for more information.</p>
-                  </>
-                )}
+                <Link href="/dashboard/agent-profile" className="text-xs font-medium text-[#495057] hover:text-[#212529] transition-colors">
+                  Edit profile
+                </Link>
               </div>
             </div>
 
-            <div className="flex items-center gap-2 sm:flex-shrink-0">
-              {agentProfile.status === 'active' && (
-                <Link
-                  href="/dashboard/agent-inquiries"
-                  className="text-xs font-semibold text-[#212529] underline underline-offset-2 hover:no-underline"
-                >
-                  View inquiries →
-                </Link>
-              )}
-              <Link
-                href="/dashboard/agent-profile"
-                className="text-xs font-semibold text-[#495057] underline underline-offset-2 hover:no-underline"
-              >
-                Edit profile
-              </Link>
-            </div>
+            {agentProfile.status === 'pending' && (
+              <div className="px-5 py-4 bg-amber-50">
+                <p className="text-sm text-amber-800">Your agent profile is under review. We'll notify you once it's approved and visible on the platform.</p>
+              </div>
+            )}
+
+            {agentProfile.status === 'suspended' && (
+              <div className="px-5 py-4 bg-red-50">
+                <p className="text-sm text-red-800">Your agent profile has been suspended. Please <Link href="/contact" className="underline">contact support</Link> for more information.</p>
+              </div>
+            )}
+
+            {agentProfile.status === 'active' && (
+              <div>
+                {/* Stats row */}
+                <div className="grid grid-cols-3 divide-x divide-[#F1F3F5] border-b border-[#F1F3F5]">
+                  <div className="px-5 py-4">
+                    <p className="text-2xl font-bold text-[#212529]">{totalAgentInquiries || 0}</p>
+                    <p className="text-xs text-[#495057] mt-0.5">Total inquiries</p>
+                  </div>
+                  <div className="px-5 py-4">
+                    <p className="text-2xl font-bold text-[#212529]">
+                      {newAgentInquiries || 0}
+                      {(newAgentInquiries || 0) > 0 && (
+                        <span className="ml-1.5 text-xs font-medium text-white bg-[#212529] px-1.5 py-0.5 rounded-full align-middle">new</span>
+                      )}
+                    </p>
+                    <p className="text-xs text-[#495057] mt-0.5">Unresponded</p>
+                  </div>
+                  <div className="px-5 py-4">
+                    <p className="text-2xl font-bold text-[#212529]">
+                      {agentProfile.avg_rating ? Number(agentProfile.avg_rating).toFixed(1) : '—'}
+                    </p>
+                    <p className="text-xs text-[#495057] mt-0.5">
+                      {agentProfile.total_reviews ? `${agentProfile.total_reviews} review${agentProfile.total_reviews !== 1 ? 's' : ''}` : 'Rating'}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Recent contacts */}
+                {recentAgentInquiries && recentAgentInquiries.length > 0 ? (
+                  <div className="px-5 py-4">
+                    <p className="text-xs font-semibold text-[#495057] uppercase tracking-wider mb-3">Recent contacts</p>
+                    <div className="space-y-2.5">
+                      {recentAgentInquiries.map((inq: any) => (
+                        <div key={inq.id} className="flex items-center justify-between gap-3">
+                          <div className="flex items-center gap-2.5 min-w-0">
+                            <div className="w-7 h-7 rounded-full bg-[#F1F3F5] flex items-center justify-center flex-shrink-0">
+                              <span className="text-xs font-semibold text-[#495057]">{inq.name?.charAt(0)?.toUpperCase() || '?'}</span>
+                            </div>
+                            <div className="min-w-0">
+                              <p className="text-sm font-medium text-[#212529] truncate">{inq.name}</p>
+                              <p className="text-xs text-[#ADB5BD] truncate">{inq.phone || inq.email || inq.inquiry_type}</p>
+                            </div>
+                          </div>
+                          <span className="text-xs text-[#ADB5BD] flex-shrink-0">{formatTimeAgo(inq.created_at)}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ) : (
+                  <div className="px-5 py-5 text-center">
+                    <p className="text-sm text-[#ADB5BD]">No inquiries yet — share your profile to get started.</p>
+                    {agentProfile.slug && (
+                      <Link
+                        href={`/agent/${agentProfile.slug}`}
+                        className="inline-flex items-center gap-1 mt-2 text-xs font-semibold text-[#212529] underline underline-offset-2 hover:no-underline"
+                      >
+                        View your public profile <ArrowUpRight size={12} />
+                      </Link>
+                    )}
+                  </div>
+                )}
+              </div>
+            )}
           </div>
         )}
 

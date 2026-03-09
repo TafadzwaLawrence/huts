@@ -9,8 +9,9 @@ export const BRAND = {
   tagline: 'Rent & Buy Property in Zimbabwe',
   subtitle: "Zimbabwe's Property Marketplace",
   url: 'https://www.huts.co.zw',
-  logo: '/logo.png',
+  logo: '/logo.svg',
   logoHighRes: '/huts-high-resolution-logo.png',
+  logoPng: '/logo.png',
 
   colors: {
     pureWhite: '#FFFFFF',

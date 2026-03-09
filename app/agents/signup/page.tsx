@@ -22,7 +22,11 @@ import {
   MessageSquare,
   TrendingUp,
   Shield,
-  Star
+  Star,
+  AlertCircle,
+  Loader2,
+  Lock,
+  Mail,
 } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import { toast } from 'sonner'
@@ -96,6 +100,28 @@ export default function AgentSignupPage() {
   const [currentStep, setCurrentStep] = useState(1)
   const [loading, setLoading] = useState(false)
   const [stats, setStats] = useState<PlatformStats>({ listings: null, cities: null, agents: null })
+
+  // ── Inline auth state ──────────────────────────────────────
+  const [user, setUser] = useState<any>(null)
+  const [authChecked, setAuthChecked] = useState(false)
+  const [authMode, setAuthMode] = useState<'signin' | 'signup'>('signup')
+  const [authEmail, setAuthEmail] = useState('')
+  const [authPassword, setAuthPassword] = useState('')
+  const [authName, setAuthName] = useState('')
+  const [authError, setAuthError] = useState('')
+  const [authLoading, setAuthLoading] = useState(false)
+
+  // Check session on mount and listen for auth state changes
+  useEffect(() => {
+    supabase.auth.getUser().then(({ data: { user } }) => {
+      setUser(user ?? null)
+      setAuthChecked(true)
+    })
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null)
+    })
+    return () => subscription.unsubscribe()
+  }, [])
 
   // Fetch real platform stats once on mount
   useEffect(() => {
@@ -265,14 +291,55 @@ export default function AgentSignupPage() {
     }
   }
 
-  const handleStartForm = async () => {
-    const { data: { user } } = await supabase.auth.getUser()
-    if (!user) {
-      router.push('/auth/signup?next=/agents/signup')
-      return
-    }
+  const handleStartForm = () => {
     setShowForm(true)
     window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
+  const handleInlineAuth = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setAuthLoading(true)
+    setAuthError('')
+    try {
+      if (authMode === 'signup') {
+        const { error } = await supabase.auth.signUp({
+          email: authEmail,
+          password: authPassword,
+          options: { data: { name: authName, role: 'landlord' } },
+        })
+        if (error) throw error
+        toast.success('Account created! You can now complete your agent profile.')
+      } else {
+        const { error } = await supabase.auth.signInWithPassword({
+          email: authEmail,
+          password: authPassword,
+        })
+        if (error) throw error
+        toast.success('Welcome back!')
+      }
+    } catch (err: any) {
+      setAuthError(err.message || 'Something went wrong')
+    } finally {
+      setAuthLoading(false)
+    }
+  }
+
+  const handleGoogleAuth = async () => {
+    setAuthLoading(true)
+    setAuthError('')
+    try {
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+          redirectTo: `${window.location.origin}/auth/callback?next=/agents/signup`,
+          queryParams: { access_type: 'offline', prompt: 'consent' },
+        },
+      })
+      if (error) throw error
+    } catch (err: any) {
+      setAuthError(err.message || 'Failed to continue with Google')
+      setAuthLoading(false)
+    }
   }
 
   // Landing page (before form)
@@ -432,6 +499,174 @@ export default function AgentSignupPage() {
             </button>
           </div>
         </section>
+      </div>
+    )
+  }
+
+  // Inline auth panel — shown when user clicked "Get started" but is not yet signed in
+  if (showForm && authChecked && !user) {
+    return (
+      <div className="min-h-screen bg-[#F8F9FA] flex flex-col">
+        {/* Mini header */}
+        <div className="bg-white border-b border-[#E9ECEF]">
+          <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
+            <Link href="/" className="text-xl font-bold text-[#212529]">HUTS</Link>
+            <button
+              onClick={() => setShowForm(false)}
+              className="text-sm text-[#495057] hover:text-[#212529] transition-colors"
+            >
+              ← Back
+            </button>
+          </div>
+        </div>
+
+        <div className="flex-1 flex items-center justify-center px-4 py-12">
+          <div className="w-full max-w-[400px]">
+            {/* Heading */}
+            <div className="text-center mb-8">
+              <div className="w-12 h-12 bg-[#212529] rounded-2xl flex items-center justify-center mx-auto mb-4">
+                <User size={22} className="text-white" />
+              </div>
+              <h1 className="text-2xl font-bold text-[#212529] mb-1">
+                {authMode === 'signup' ? 'Create your account' : 'Sign in to continue'}
+              </h1>
+              <p className="text-sm text-[#767676]">
+                {authMode === 'signup'
+                  ? 'You need an account to register as an agent on Huts.'
+                  : 'Sign in to your Huts account to continue.'}
+              </p>
+            </div>
+
+            <div className="bg-white border border-[#E9ECEF] rounded-2xl p-6 shadow-sm">
+              {/* Mode toggle */}
+              <div className="flex border-b border-[#E9ECEF] mb-6">
+                <button
+                  type="button"
+                  onClick={() => { setAuthMode('signup'); setAuthError('') }}
+                  className={`flex-1 pb-3 text-sm font-bold text-center transition-colors relative ${
+                    authMode === 'signup'
+                      ? 'text-[#212529] after:absolute after:bottom-0 after:inset-x-0 after:h-[3px] after:bg-[#212529] after:rounded-t'
+                      : 'text-[#767676] hover:text-[#212529]'
+                  }`}
+                >
+                  New account
+                </button>
+                <button
+                  type="button"
+                  onClick={() => { setAuthMode('signin'); setAuthError('') }}
+                  className={`flex-1 pb-3 text-sm font-bold text-center transition-colors relative ${
+                    authMode === 'signin'
+                      ? 'text-[#212529] after:absolute after:bottom-0 after:inset-x-0 after:h-[3px] after:bg-[#212529] after:rounded-t'
+                      : 'text-[#767676] hover:text-[#212529]'
+                  }`}
+                >
+                  Sign in
+                </button>
+              </div>
+
+              {/* Error */}
+              {authError && (
+                <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg flex items-start gap-2">
+                  <AlertCircle size={15} className="text-red-600 mt-0.5 flex-shrink-0" />
+                  <p className="text-sm text-red-700">{authError}</p>
+                </div>
+              )}
+
+              {/* Google */}
+              <button
+                type="button"
+                onClick={handleGoogleAuth}
+                disabled={authLoading}
+                className="w-full flex items-center justify-center gap-3 bg-white border border-[#D1D5DB] text-[#212529] py-3 px-4 rounded-lg text-sm font-semibold hover:bg-[#F8F9FA] hover:border-[#9CA3AF] transition-all disabled:opacity-50 disabled:cursor-not-allowed mb-4"
+              >
+                <svg className="w-5 h-5 flex-shrink-0" viewBox="0 0 24 24">
+                  <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                  <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                  <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                  <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                </svg>
+                Continue with Google
+              </button>
+
+              {/* Divider */}
+              <div className="relative mb-4">
+                <div className="absolute inset-0 flex items-center">
+                  <div className="w-full border-t border-[#E9ECEF]" />
+                </div>
+                <div className="relative flex justify-center">
+                  <span className="px-3 bg-white text-xs text-[#9CA3AF]">or</span>
+                </div>
+              </div>
+
+              {/* Email form */}
+              <form onSubmit={handleInlineAuth} className="space-y-3">
+                {authMode === 'signup' && (
+                  <div>
+                    <label className="block text-xs font-bold text-[#212529] mb-1">Full name</label>
+                    <div className="relative">
+                      <User size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#9CA3AF]" />
+                      <input
+                        type="text"
+                        required
+                        value={authName}
+                        onChange={(e) => setAuthName(e.target.value)}
+                        className="block w-full pl-9 pr-3 py-2.5 border border-[#D1D5DB] rounded-lg text-sm text-[#212529] placeholder-[#9CA3AF] focus:outline-none focus:border-[#212529] focus:ring-1 focus:ring-[#212529] transition-colors"
+                        placeholder="Your full name"
+                      />
+                    </div>
+                  </div>
+                )}
+                <div>
+                  <label className="block text-xs font-bold text-[#212529] mb-1">Email</label>
+                  <div className="relative">
+                    <Mail size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#9CA3AF]" />
+                    <input
+                      type="email"
+                      required
+                      value={authEmail}
+                      onChange={(e) => setAuthEmail(e.target.value)}
+                      className="block w-full pl-9 pr-3 py-2.5 border border-[#D1D5DB] rounded-lg text-sm text-[#212529] placeholder-[#9CA3AF] focus:outline-none focus:border-[#212529] focus:ring-1 focus:ring-[#212529] transition-colors"
+                      placeholder="your@email.com"
+                    />
+                  </div>
+                </div>
+                <div>
+                  <label className="block text-xs font-bold text-[#212529] mb-1">Password</label>
+                  <div className="relative">
+                    <Lock size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#9CA3AF]" />
+                    <input
+                      type="password"
+                      required
+                      minLength={6}
+                      value={authPassword}
+                      onChange={(e) => setAuthPassword(e.target.value)}
+                      className="block w-full pl-9 pr-3 py-2.5 border border-[#D1D5DB] rounded-lg text-sm text-[#212529] placeholder-[#9CA3AF] focus:outline-none focus:border-[#212529] focus:ring-1 focus:ring-[#212529] transition-colors"
+                      placeholder={authMode === 'signup' ? 'Create a password (min 6 chars)' : 'Enter your password'}
+                    />
+                  </div>
+                </div>
+                <button
+                  type="submit"
+                  disabled={authLoading}
+                  className="w-full bg-[#212529] text-white py-3 px-4 rounded-lg text-sm font-bold hover:bg-black transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                >
+                  {authLoading ? (
+                    <><Loader2 size={15} className="animate-spin" /> {authMode === 'signup' ? 'Creating account…' : 'Signing in…'}</>
+                  ) : (
+                    authMode === 'signup' ? 'Create account & continue' : 'Sign in & continue'
+                  )}
+                </button>
+              </form>
+
+              <p className="text-[11px] text-[#9CA3AF] text-center mt-4 leading-relaxed">
+                By continuing you agree to Huts'{' '}
+                <Link href="/terms" className="text-[#212529] underline">Terms of Use</Link>
+                {' '}and{' '}
+                <Link href="/privacy" className="text-[#212529] underline">Privacy Policy</Link>.
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
     )
   }

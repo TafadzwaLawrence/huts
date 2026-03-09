@@ -2,7 +2,6 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { Mail, Lock, ArrowRight, AlertCircle, Eye, EyeOff, Shield, ShieldAlert } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
@@ -76,7 +75,7 @@ export default function AdminSignInPage() {
       <div className="bg-[#212529] border-b border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2 group">
-            <Image src="/logo.png" alt="Huts" width={32} height={32} className="invert group-hover:opacity-80 transition-opacity" />
+            <img src="/logo.svg" alt="" width={32} height={32} className="h-8 w-8 object-contain invert group-hover:opacity-80 transition-opacity" />
             <span className="text-sm font-extrabold tracking-[2px] text-white/60 group-hover:text-white transition-colors">HUTS</span>
           </Link>
           <Link href="/auth/signup" className="text-sm text-white/60 hover:text-white transition-colors underline-offset-2 hover:underline">

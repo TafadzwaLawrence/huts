@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import Image from 'next/image'
 import { createClient } from '@/lib/supabase/server'
 import { MobileMenu } from './MobileMenu'
 import { NotificationDropdown } from './NotificationDropdown'
@@ -43,15 +42,15 @@ export async function Navbar() {
         <div className="flex items-center h-[60px]">
           {/* Left: Logo + Nav */}
           <div className="flex items-center gap-1 shrink-0">
-            <Link href="/" className="flex items-center shrink-0 mr-2 group">
-              <Image
-                src="/logo.png"
-                alt="Huts"
-                width={44}
-                height={44}
-                priority
-                className="h-9 w-9 object-contain transition-opacity group-hover:opacity-80"
+            <Link href="/" className="flex items-center gap-2 shrink-0 mr-2 group">
+              <img
+                src="/logo.svg"
+                alt=""
+                width={32}
+                height={32}
+                className="h-8 w-8 object-contain transition-opacity group-hover:opacity-75"
               />
+              <span className="text-[15px] font-bold tracking-widest text-[#212529]">HUTS</span>
             </Link>
 
             <div className="hidden md:contents">
