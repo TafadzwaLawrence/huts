@@ -39,10 +39,22 @@ export async function Navbar() {
   return (
     <ScrollHeader>
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6">
-        <div className="relative flex items-center h-[60px]">
+        <div className="flex items-center h-[60px] gap-2">
 
-          {/* Left: Nav links */}
-          <div className="flex-1 hidden md:flex items-center">
+          {/* Logo */}
+          <Link href="/" className="flex items-center gap-2 shrink-0 mr-3 group">
+            <img
+              src="/logo.svg"
+              alt=""
+              width={32}
+              height={32}
+              className="h-8 w-8 object-contain transition-opacity group-hover:opacity-75"
+            />
+            <span className="text-[15px] font-black tracking-tight text-[#212529]">Huts</span>
+          </Link>
+
+          {/* Nav links — immediately after logo */}
+          <div className="hidden md:contents">
             {user && isLandlord ? (
               <NavLinks links={landlordLinks} />
             ) : (
@@ -50,39 +62,31 @@ export async function Navbar() {
             )}
           </div>
 
-          {/* Center: Logo — absolutely centered so it never shifts */}
-          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-            <Link href="/" className="flex items-center gap-2 group pointer-events-auto">
-              <img
-                src="/logo.svg"
-                alt=""
-                width={32}
-                height={32}
-                className="h-8 w-8 object-contain transition-opacity group-hover:opacity-75"
-              />
-              <span className="text-[15px] font-black tracking-tight text-[#212529]">Huts</span>
-            </Link>
-          </div>
+          {/* Push right side to the edge */}
+          <div className="flex-1" />
 
-          {/* Right: Secondary links + actions */}
-          <div className="flex-1 hidden md:flex items-center justify-end">
+          {/* Right: utility links + auth — desktop only */}
+          <div className="hidden md:flex items-center gap-1">
             {rightLinks.map(({ href, label }) => (
               <Link
                 key={href}
                 href={href}
-                className="px-3 py-1.5 text-sm font-semibold text-[#585858] hover:text-[#212529] transition-colors"
+                className="px-3 py-1.5 text-sm text-[#585858] hover:text-[#212529] transition-colors"
               >
                 {label}
               </Link>
             ))}
 
             {isLandlord && user && (
-              <Link
-                href="/dashboard/new-property"
-                className="px-3 py-1.5 text-sm font-semibold text-[#585858] hover:text-[#212529] transition-colors"
-              >
-                Manage Listings
-              </Link>
+              <>
+                <div className="w-px h-5 bg-[#E5E7EB] mx-1" />
+                <Link
+                  href="/dashboard/new-property"
+                  className="flex items-center gap-1.5 px-3 py-1.5 text-sm font-semibold text-[#212529] border border-[#212529] rounded-lg hover:bg-[#212529] hover:text-white transition-colors"
+                >
+                  + List property
+                </Link>
+              </>
             )}
 
             <div className="w-px h-5 bg-[#E5E7EB] mx-1" />
@@ -101,15 +105,14 @@ export async function Navbar() {
             ) : (
               <Link
                 href="/auth/signup"
-                className="px-3 py-1.5 text-sm font-semibold text-[#212529] hover:underline underline-offset-4"
+                className="ml-1 px-4 py-1.5 text-sm font-semibold bg-[#212529] text-white rounded-lg hover:bg-black transition-colors"
               >
                 Sign in
               </Link>
             )}
           </div>
 
-          {/* Mobile: hamburger on the right, logo centers naturally */}
-          <div className="flex-1 md:hidden" />
+          {/* Mobile: hamburger */}
           <div className="md:hidden flex items-center gap-0.5">
             <MobileMenu
               isLoggedIn={!!user}
