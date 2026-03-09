@@ -4,7 +4,7 @@ import Link from 'next/link'
 import {
   GraduationCap, Home, Users, Zap, ArrowRight, MapPin,
   Sofa, Wifi, CheckCircle, Shield, Search, Bed, Bath, Square,
-  Building2, ChevronDown, BookOpen, Bus, Coffee
+  Building2, ChevronDown, BookOpen, Bus, Coffee, ChevronRight
 } from 'lucide-react'
 import { createClient } from '@/lib/supabase/server'
 import { formatPrice } from '@/lib/utils'
@@ -112,6 +112,17 @@ export default async function StudentHousingPage() {
 
   return (
     <div className="min-h-screen bg-white">
+      {/* Breadcrumb */}
+      <div className="border-b border-[#E9ECEF] bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+          <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-sm text-[#495057]">
+            <Link href="/" className="hover:text-[#212529] transition-colors">Home</Link>
+            <ChevronRight size={14} className="text-[#ADB5BD] shrink-0" />
+            <span className="text-[#212529] font-medium">Student Housing</span>
+          </nav>
+        </div>
+      </div>
+
       {/* HERO */}
       <section className="relative bg-[#212529] text-white overflow-hidden">
         {/* Background texture */}

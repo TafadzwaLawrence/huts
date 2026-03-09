@@ -11,6 +11,7 @@ import {
   Bed,
   Bath,
   Square,
+  ChevronRight,
 } from 'lucide-react'
 import SaveButton from '@/components/property/SaveButton'
 
@@ -98,13 +99,13 @@ export default async function AreaGuidePage({ params }: PageProps) {
       <section className="bg-[#F8F9FA] border-b border-[#E9ECEF] py-16 md:py-24">
         <div className="container-main max-w-6xl">
           <div className="max-w-3xl">
-            <div className="flex items-center text-sm text-[#495057] mb-4">
-              <Link href="/" className="hover:underline">Home</Link>
-              <span className="mx-2">/</span>
-              <Link href="/areas" className="hover:underline">Areas</Link>
-              <span className="mx-2">/</span>
-              <span className="text-[#212529]">{area.name}</span>
-            </div>
+            <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-sm text-[#495057] mb-4">
+              <Link href="/" className="hover:text-[#212529] transition-colors">Home</Link>
+              <ChevronRight size={14} className="text-[#ADB5BD] shrink-0" />
+              <Link href="/areas" className="hover:text-[#212529] transition-colors">Areas</Link>
+              <ChevronRight size={14} className="text-[#ADB5BD] shrink-0" />
+              <span className="text-[#212529] font-medium">{area.name}</span>
+            </nav>
 
             <h1 className="text-4xl md:text-5xl font-bold text-[#212529] mb-6 tracking-tight">
               {area.name}

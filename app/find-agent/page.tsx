@@ -4,7 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { 
   Search, Star, MapPin, Award, CheckCircle, Filter, 
-  Building2, Home, Camera, Briefcase, TrendingUp, ArrowRight
+  Building2, Home, Camera, Briefcase, TrendingUp, ArrowRight, ChevronRight
 } from 'lucide-react'
 import { 
   AGENT_TYPE_LABELS, 
@@ -192,6 +192,13 @@ export default async function FindAgentPage({ searchParams }: { searchParams: Se
       {/* Hero Section */}
       <section className="bg-white border-b border-[#E9ECEF]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+          {/* Breadcrumb */}
+          <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-sm text-[#495057] mb-6">
+            <Link href="/" className="hover:text-[#212529] transition-colors">Home</Link>
+            <ChevronRight size={14} className="text-[#ADB5BD] shrink-0" />
+            <span className="text-[#212529] font-medium">Find an Agent</span>
+          </nav>
+
           {/* Title */}
           <div className="mb-6">
             <h1 className="text-3xl md:text-4xl font-bold text-[#212529] mb-3">

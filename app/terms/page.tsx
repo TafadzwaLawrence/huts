@@ -38,9 +38,9 @@ export default function TermsPage() {
       <section className="bg-gradient-to-b from-[#F8F9FA] to-white border-b border-[#E9ECEF] py-12 md:py-16">
         <div className="container-main max-w-7xl">
           {/* Breadcrumb */}
-          <nav className="mb-6 flex items-center gap-2 text-sm text-[#495057]">
+          <nav aria-label="Breadcrumb" className="mb-6 flex items-center gap-1.5 text-sm text-[#495057]">
             <Link href="/" className="hover:text-[#212529] transition-colors">Home</Link>
-            <ChevronRight size={ICON_SIZES.sm} className="text-[#ADB5BD]" />
+            <ChevronRight size={14} className="text-[#ADB5BD] shrink-0" />
             <span className="text-[#212529] font-medium">Terms of Service</span>
           </nav>
 

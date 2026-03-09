@@ -2,7 +2,7 @@ import { Metadata } from 'next'
 import Link from 'next/link'
 import Image from 'next/image'
 import { createClient } from '@/lib/supabase/server'
-import { MapPin, Search, Home, Bed, Bath, Square, ArrowRight, Check, Building2, TrendingUp } from 'lucide-react'
+import { MapPin, Search, Home, Bed, Bath, Square, ArrowRight, Check, Building2, TrendingUp, ChevronRight } from 'lucide-react'
 import { formatPrice } from '@/lib/utils'
 import { ICON_SIZES } from '@/lib/constants'
 import SaveButton from '@/components/property/SaveButton'
@@ -102,9 +102,9 @@ export default async function ZimbabweRentalsPage() {
         }} />
         
         <div className="container-main max-w-7xl relative">
-          <nav className="mb-8 flex items-center gap-2 text-sm text-[#495057]">
-            <Link href="/" className="hover:text-[#212529]">Home</Link>
-            <span>/</span>
+          <nav aria-label="Breadcrumb" className="mb-8 flex items-center gap-1.5 text-sm text-[#495057]">
+            <Link href="/" className="hover:text-[#212529] transition-colors">Home</Link>
+            <ChevronRight size={14} className="text-[#ADB5BD] shrink-0" />
             <span className="text-[#212529] font-medium">Rentals in Zimbabwe</span>
           </nav>
 

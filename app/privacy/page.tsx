@@ -1,5 +1,6 @@
 import { Metadata } from 'next'
 import Link from 'next/link'
+import { ChevronRight } from 'lucide-react'
 
 export const metadata: Metadata = {
   title: 'Privacy Policy — Huts',
@@ -18,6 +19,13 @@ export default function PrivacyPage() {
   return (
     <div className="min-h-screen bg-white">
       <div className="container-main max-w-4xl py-20 md:py-32">
+        {/* Breadcrumb */}
+        <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-sm text-[#495057] mb-8">
+          <Link href="/" className="hover:text-[#212529] transition-colors">Home</Link>
+          <ChevronRight size={14} className="text-[#ADB5BD] shrink-0" />
+          <span className="text-[#212529] font-medium">Privacy Policy</span>
+        </nav>
+
         <h1 className="text-page-title mb-6">
           Privacy Policy
         </h1>

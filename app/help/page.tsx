@@ -4,7 +4,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { 
   Search, Home, User, MessageCircle, FileText, ArrowRight, 
-  ChevronDown, Phone, Mail, MapPin, Building2, Activity,
+  ChevronDown, ChevronRight, Phone, Mail, MapPin, Building2, Activity,
   Heart, Camera, Shield, Clock, CheckCircle, Users
 } from 'lucide-react'
 
@@ -131,6 +131,13 @@ export default function HelpPage() {
       {/* Hero */}
       <section className="border-b border-[#E9ECEF] bg-white py-12 md:py-16">
         <div className="max-w-4xl mx-auto px-4">
+          {/* Breadcrumb */}
+          <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-sm text-[#495057] mb-6">
+            <Link href="/" className="hover:text-[#212529] transition-colors">Home</Link>
+            <ChevronRight size={14} className="text-[#ADB5BD] shrink-0" />
+            <span className="text-[#212529] font-medium">Help</span>
+          </nav>
+
           <h1 className="text-3xl md:text-4xl font-bold text-[#212529] mb-3 text-center">
             How can we help?
           </h1>

@@ -16,7 +16,8 @@ export function LayoutChrome({ children, navbar, footer, chatWidget }: LayoutChr
   // Routes where chrome (navbar, footer, etc.) should be hidden
   const isAdminRoute = pathname.startsWith('/admin')
   const isAuthRoute = pathname.startsWith('/auth')
-  const hideChrome = isAdminRoute || isAuthRoute
+  const isAgentsSignup = pathname.startsWith('/agents/signup')
+  const hideChrome = isAdminRoute || isAuthRoute || isAgentsSignup
 
   return (
     <>

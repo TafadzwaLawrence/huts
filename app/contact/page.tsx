@@ -1,5 +1,6 @@
 import { Metadata } from 'next'
-import { Mail, Phone, MapPin, Send, MessageSquare } from 'lucide-react'
+import { Mail, Phone, MapPin, Send, MessageSquare, ChevronRight } from 'lucide-react'
+import Link from 'next/link'
 import { ICON_SIZES } from '@/lib/brand'
 
 export const metadata: Metadata = {
@@ -21,6 +22,13 @@ export default function ContactPage() {
       {/* Hero */}
       <section className="border-b border-[#E9ECEF] bg-white py-20 md:py-32">
         <div className="container-main text-center">
+          {/* Breadcrumb */}
+          <nav aria-label="Breadcrumb" className="flex items-center justify-center gap-1.5 text-sm text-[#495057] mb-8">
+            <Link href="/" className="hover:text-[#212529] transition-colors">Home</Link>
+            <ChevronRight size={14} className="text-[#ADB5BD] shrink-0" />
+            <span className="text-[#212529] font-medium">Contact</span>
+          </nav>
+
           <h1 className="text-page-title mb-6">
             Get in touch
           </h1>
