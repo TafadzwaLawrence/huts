@@ -64,15 +64,6 @@ const NAV_GROUPS: NavItemGroup[] = [
       { label: 'Home Value',         href: '/home-value',              icon: BarChart2,   description: "Estimate your home's market value"           },
     ],
   },
-  {
-    label: 'Agents',
-    activePatterns: ['/find-agent', '/agents/'],
-    items: [
-      { label: 'Find an Agent',   href: '/find-agent',    icon: Users,    description: 'Connect with local property experts'          },
-      { label: 'Become an Agent', href: '/agents/signup', icon: UserPlus, description: 'Join our growing agent network'               },
-      { label: 'Agent Resources', href: '/help',          icon: BookOpen, description: 'Tools and guides for property agents'         },
-    ],
-  },
 ]
 
 // ─── ScrollHeader ─────────────────────────────────────────────────────────────
