@@ -79,7 +79,7 @@ export function ScrollHeader({ children }: { children: React.ReactNode }) {
 
   return (
     <header
-      className={`sticky top-0 z-50 bg-white transition-shadow duration-200 ${
+      className={`sticky top-0 z-[1100] bg-white transition-shadow duration-200 ${
         scrolled ? 'shadow-[0_2px_8px_rgba(0,0,0,0.08)]' : 'shadow-[0_1px_0_#e5e7eb]'
       }`}
     >
@@ -208,10 +208,7 @@ export function MegaNav() {
       {/* ── Dim-backdrop (closes on click) ── */}
       <div
         aria-hidden="true"
-        className={`fixed inset-0 top-[60px] z-[47] bg-black transition-opacity duration-200 ${
-          isOpen ? 'opacity-[0.18] pointer-events-auto' : 'opacity-0 pointer-events-none'
-        }`}
-        onClick={() => setActiveLabel(null)}
+        className={`fixed inset-0 top-[60px] z-[1098] bg-black transition-opacity duration-200 ${
       />
 
       {/* ── Full-width mega panel ── */}
@@ -221,15 +218,7 @@ export function MegaNav() {
         aria-hidden={!isOpen}
         onMouseEnter={keep}
         onMouseLeave={hide}
-        className={`fixed top-[60px] left-0 right-0 z-[48] bg-white border-t border-[#E5E7EB] transition-all duration-200 ease-out ${
-          isOpen
-            ? 'opacity-100 translate-y-0 shadow-[0_12px_40px_rgba(0,0,0,0.07)] pointer-events-auto'
-            : 'opacity-0 -translate-y-2 shadow-none pointer-events-none'
-        }`}
-      >
-        <div className="max-w-[1440px] mx-auto px-6 sm:px-8 py-7 pb-8">
-          {/* Section label */}
-          <p className="text-[10.5px] font-semibold text-[#9CA3AF] uppercase tracking-[0.16em] mb-5 select-none">
+        className={`fixed top-[60px] left-0 right-0 z-[1099] bg-white border-t border-[#E5E7EB] transition-all duration-200 ease-out ${
             {currentGroup?.label}
           </p>
 
@@ -369,10 +358,7 @@ export function AgentsDropdown() {
       {/* Dim backdrop */}
       <div
         aria-hidden="true"
-        className={`fixed inset-0 top-[60px] z-[47] bg-black transition-opacity duration-200 ${
-          open ? 'opacity-[0.18] pointer-events-auto' : 'opacity-0 pointer-events-none'
-        }`}
-        onClick={() => setOpen(false)}
+        className={`fixed inset-0 top-[60px] z-[1098] bg-black transition-opacity duration-200 ${
       />
 
       {/* Full-width mega panel — identical to MegaNav */}
@@ -382,14 +368,7 @@ export function AgentsDropdown() {
         aria-hidden={!open}
         onMouseEnter={keep}
         onMouseLeave={hide}
-        className={`fixed top-[60px] left-0 right-0 z-[48] bg-white border-t border-[#E5E7EB] transition-all duration-200 ease-out ${
-          open
-            ? 'opacity-100 translate-y-0 shadow-[0_12px_40px_rgba(0,0,0,0.07)] pointer-events-auto'
-            : 'opacity-0 -translate-y-2 shadow-none pointer-events-none'
-        }`}
-      >
-        <div className="max-w-[1440px] mx-auto px-6 sm:px-8 py-7 pb-8">
-          <p className="text-[10.5px] font-semibold text-[#9CA3AF] uppercase tracking-[0.16em] mb-5 select-none">
+        className={`fixed top-[60px] left-0 right-0 z-[1099] bg-white border-t border-[#E5E7EB] transition-all duration-200 ease-out ${
             Agents
           </p>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-1">
