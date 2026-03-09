@@ -6,6 +6,6 @@ export interface MegaMenuItem {
   href: string
   description?: string
   /** Any Lucide-compatible icon component. */
-  icon?: ComponentType<{ size?: number; className?: string; strokeWidth?: number }>
+  icon?: ComponentType<{ size?: string | number; className?: string; strokeWidth?: number | string }>
   badge?: string
 }
