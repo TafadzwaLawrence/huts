@@ -3,7 +3,7 @@ import { createClient } from '@/lib/supabase/server'
 import { MobileMenu } from './MobileMenu'
 import { NotificationDropdown } from './NotificationDropdown'
 import { UserMenu } from './UserMenu'
-import { ScrollHeader, NavLinks, MegaNav } from './NavbarClient'
+import { ScrollHeader, NavLinks, MegaNav, AgentsDropdown } from './NavbarClient'
 
 export async function Navbar() {
   const supabase = await createClient()
@@ -32,7 +32,6 @@ export async function Navbar() {
   ]
 
   const rightLinks = [
-    { href: '/find-agent', label: 'Agents' },
     { href: '/areas', label: 'Areas' },
     { href: '/help', label: 'Help' },
   ]
@@ -68,6 +67,7 @@ export async function Navbar() {
 
           {/* Right: utility links + auth — desktop only */}
           <div className="hidden md:flex items-center gap-1">
+            <AgentsDropdown />
             {rightLinks.map(({ href, label }) => (
               <Link
                 key={href}
