@@ -230,7 +230,7 @@ export function MegaNav() {
         aria-hidden={!isOpen}
         onMouseEnter={keep}
         onMouseLeave={hide}
-        className={`fixed top-[60px] left-0 right-0 z-[48] bg-white border-t border-[#E5E7EB] transition-all duration-[200ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${
+        className={`fixed top-[60px] left-0 right-0 z-[48] bg-white border-t border-[#E5E7EB] transition-all duration-200 ease-out ${
           isOpen
             ? 'opacity-100 translate-y-0 shadow-[0_12px_40px_rgba(0,0,0,0.07)] pointer-events-auto'
             : 'opacity-0 -translate-y-2 shadow-none pointer-events-none'
