@@ -396,8 +396,10 @@ SENTRY_DSN=https://7eff2bd4522f30a7f7f3c2b55d207a1d@o4509355706613760.ingest.de.
 
 ### Typography
 ```css
-/* Google Fonts: Inter */
-font-family: 'Inter', -apple-system, sans-serif;
+/* Google Sans — loaded as local variable font via next/font/local in app/layout.tsx */
+/* Single font for entire app — applied to <body> via googleSans.className */
+font-family: 'Google Sans', system-ui, -apple-system, sans-serif;
+/* CSS var: --font-sans  |  Tailwind: font-sans (default, applied globally) */
 
 /* Scale */
 --text-xs: 0.75rem;    /* 12px */

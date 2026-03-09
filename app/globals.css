@@ -164,7 +164,7 @@
   
   body {
     @apply bg-background text-foreground antialiased;
-    /* Font is applied via inter.className in layout.tsx */
+    /* Google Sans applied via googleSans.className in layout.tsx */
   }
 
   /* Focus states - CRITICAL for accessibility */

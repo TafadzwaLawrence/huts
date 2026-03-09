@@ -12,13 +12,21 @@ import { Toaster } from 'sonner'
 import { NProgressProvider } from '@/components/providers/NProgressProvider'
 import ChunkLoadErrorHandler from '@/components/dashboard/ChunkLoadErrorHandler'
 
-const geist = localFont({
+// Google Sans — variable font, covers all weights 100–900
+const googleSans = localFont({
   src: [
-    { path: '../public/fonts/Geist-Regular.ttf',  weight: '400', style: 'normal' },
-    { path: '../public/fonts/Geist-Medium.ttf',   weight: '500', style: 'normal' },
-    { path: '../public/fonts/Geist-SemiBold.ttf', weight: '600', style: 'normal' },
-    { path: '../public/fonts/Geist-Bold.ttf',     weight: '700', style: 'normal' },
+    {
+      path: '../public/fonts/GoogleSans-VariableFont_GRAD,opsz,wght.ttf',
+      weight: '100 900',
+      style: 'normal',
+    },
+    {
+      path: '../public/fonts/GoogleSans-Italic-VariableFont_GRAD,opsz,wght.ttf',
+      weight: '100 900',
+      style: 'italic',
+    },
   ],
+  variable: '--font-sans',
   display: 'swap',
   fallback: ['system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'sans-serif'],
 })
@@ -100,8 +108,8 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={geist.className} suppressHydrationWarning>
+    <html lang="en" className={googleSans.variable} suppressHydrationWarning>
+      <body className={googleSans.className} suppressHydrationWarning>
         {/* JSON-LD Structured Data for Organization */}
         <OrganizationStructuredData />
         

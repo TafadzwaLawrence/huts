@@ -51,7 +51,7 @@ const config: Config = {
       },
       /* Typography */
       fontFamily: {
-        sans: ['Geist', 'var(--font-geist-sans)', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+        sans: ['var(--font-sans)', 'Google Sans', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
       },
       fontSize: {
         'xs': ['0.75rem', { lineHeight: '1rem' }],      // 12px
