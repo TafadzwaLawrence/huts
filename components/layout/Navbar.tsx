@@ -6,34 +6,6 @@ import { NotificationDropdown } from './NotificationDropdown'
 import { UserMenu } from './UserMenu'
 import { ScrollHeader, NavLinks, MegaNav } from './NavbarClient'
 
-// Zillow-style mega-nav configurations
-const buyMenuItems = [
-  { label: 'Homes for Sale', href: '/search?type=sale' },
-  { label: 'New Listings', href: '/search?type=sale&sort=newest' },
-  { label: 'Home Values', href: '/home-value' },
-  { label: 'Area Guides', href: '/areas' },
-]
-
-const rentMenuItems = [
-  { label: 'All Rentals', href: '/search?type=rent' },
-  { label: 'Apartments', href: '/search?type=rent&propertyType=apartment' },
-  { label: 'Houses', href: '/search?type=rent&propertyType=house' },
-  { label: 'Student Housing', href: '/student-housing' },
-]
-
-const sellMenuItems = [
-  { label: 'List Your Property', href: '/dashboard/new-property' },
-  { label: 'My Listings', href: '/dashboard/my-properties' },
-  { label: 'Pricing', href: '/pricing' },
-  { label: 'Home Value', href: '/home-value' },
-]
-
-const agentMenuItems = [
-  { label: 'Find an Agent', href: '/find-agent' },
-  { label: 'Become an Agent', href: '/agents/signup' },
-  { label: 'Agent Resources', href: '/help' }, // Will be /resources when built
-]
-
 export async function Navbar() {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
@@ -58,13 +30,6 @@ export async function Navbar() {
     { href: '/dashboard/overview', label: 'Dashboard' },
     { href: '/dashboard/my-properties', label: 'Properties' },
     { href: '/dashboard/reviews', label: 'Reviews' },
-  ]
-
-  const megaNavItems = [
-    { label: 'Buy', items: buyMenuItems, activePatterns: ['type=sale'] },
-    { label: 'Rent', items: rentMenuItems, activePatterns: ['type=rent', '/student'] },
-    { label: 'Sell', items: sellMenuItems, activePatterns: ['/dashboard/new-property'] },
-    { label: 'Agents', items: agentMenuItems, activePatterns: ['/find-agent', '/agents/'] },
   ]
 
   const rightLinks = [
@@ -93,7 +58,7 @@ export async function Navbar() {
               {user && isLandlord ? (
                 <NavLinks links={landlordLinks} />
               ) : (
-                <MegaNav items={megaNavItems} />
+                <MegaNav />
               )}
             </div>
           </div>
