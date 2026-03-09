@@ -613,7 +613,7 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
     <div className="min-h-screen bg-white">
       {/* Sticky Header - Enhanced */}
       <div className="bg-white/98 backdrop-blur-sm border-b-2 border-[#E9ECEF] sticky top-0 z-20 shadow-sm">
-        <div className="max-w-3xl mx-auto px-4 py-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center justify-between mb-3">
             <Link
               href="/dashboard/my-properties"
@@ -696,7 +696,8 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
         </div>
       </div>
 
-      <div className="max-w-2xl mx-auto px-4 py-8 md:py-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+        <div className="max-w-2xl">
         <form ref={formRef} onSubmit={handleSubmit}>
 
           {/* ===== STATUS ===== */}
@@ -1712,6 +1713,7 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
             )}
           </div>
         </form>
+        </div>
       </div>
 
       {/* Sticky Bottom Save Bar - Appears when scrolling */}

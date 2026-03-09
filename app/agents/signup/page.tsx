@@ -1,7 +1,7 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-import { useRouter } from 'next/navigation'
+import { useState, useEffect, Suspense } from 'react'
+import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import { 
   Building2, 
@@ -17,7 +17,6 @@ import {
   FileText,
   Award,
   Sparkles,
-  Users,
   Eye,
   MessageSquare,
   TrendingUp,
@@ -31,12 +30,10 @@ import {
 import { createClient } from '@/lib/supabase/client'
 import { toast } from 'sonner'
 import {
-  AGENT_TYPES,
   AGENT_TYPE_LABELS,
   AGENT_SPECIALIZATIONS,
   AGENT_SPECIALIZATION_LABELS,
   LANGUAGES,
-  ICON_SIZES,
   ZIMBABWE_CITIES as CITIES,
 } from '@/lib/constants'
 
@@ -93,11 +90,15 @@ interface PlatformStats {
   agents: number | null
 }
 
-export default function AgentSignupPage() {
+// Inner component that uses useSearchParams (must be inside Suspense)
+function AgentSignupInner() {
   const router = useRouter()
+  const searchParams = useSearchParams()
   const supabase = createClient()
   const [showForm, setShowForm] = useState(false)
-  const [currentStep, setCurrentStep] = useState(1)
+  // Step 0 = account creation (only shown when unauthenticated)
+  // Steps 1-5 = agent profile wizard
+  const [currentStep, setCurrentStep] = useState(0)
   const [loading, setLoading] = useState(false)
   const [stats, setStats] = useState<PlatformStats>({ listings: null, cities: null, agents: null })
 
@@ -116,11 +117,25 @@ export default function AgentSignupPage() {
     supabase.auth.getUser().then(({ data: { user } }) => {
       setUser(user ?? null)
       setAuthChecked(true)
+      // If already authenticated when landing on this page (e.g. returned from Google
+      // OAuth or re-visited after account creation), jump straight into the wizard.
+      if (user) {
+        const stepParam = searchParams.get('step')
+        const step = stepParam ? parseInt(stepParam) : 1
+        setCurrentStep(step >= 1 && step <= 5 ? step : 1)
+        setShowForm(true)
+      }
     })
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      setUser(session?.user ?? null)
+      const newUser = session?.user ?? null
+      setUser(newUser)
+      // When auth completes (email signup/signin), advance from step 0 → step 1
+      if (newUser) {
+        setCurrentStep(prev => prev === 0 ? 1 : prev)
+      }
     })
     return () => subscription.unsubscribe()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   // Fetch real platform stats once on mount
@@ -293,6 +308,8 @@ export default function AgentSignupPage() {
 
   const handleStartForm = () => {
     setShowForm(true)
+    // If user is already authenticated, start at step 1; otherwise step 0 (account creation)
+    setCurrentStep(user ? 1 : 0)
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
@@ -308,7 +325,8 @@ export default function AgentSignupPage() {
           options: { data: { name: authName, role: 'landlord' } },
         })
         if (error) throw error
-        toast.success('Account created! You can now complete your agent profile.')
+        // onAuthStateChange will fire and advance currentStep to 1
+        toast.success('Account created! Completing your agent profile now.')
       } else {
         const { error } = await supabase.auth.signInWithPassword({
           email: authEmail,
@@ -316,6 +334,7 @@ export default function AgentSignupPage() {
         })
         if (error) throw error
         toast.success('Welcome back!')
+        // onAuthStateChange fires → setCurrentStep(1) handled in the listener
       }
     } catch (err: any) {
       setAuthError(err.message || 'Something went wrong')
@@ -331,7 +350,8 @@ export default function AgentSignupPage() {
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: `${window.location.origin}/auth/callback?next=/agents/signup`,
+          // Return to /agents/signup?step=1 so we land directly in the wizard
+          redirectTo: `${window.location.origin}/auth/callback?next=/agents/signup?step=1`,
           queryParams: { access_type: 'offline', prompt: 'consent' },
         },
       })
@@ -503,26 +523,53 @@ export default function AgentSignupPage() {
     )
   }
 
-  // Inline auth panel — shown when user clicked "Get started" but is not yet signed in
-  if (showForm && authChecked && !user) {
+  // Unified wizard — step 0 = account creation, steps 1-5 = agent profile
+  // Show a loading state while we resolve the session
+  if (!authChecked) {
     return (
-      <div className="min-h-screen bg-[#F8F9FA] flex flex-col">
-        {/* Mini header */}
-        <div className="bg-white border-b border-[#E9ECEF]">
-          <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
-            <Link href="/" className="text-xl font-bold text-[#212529]">HUTS</Link>
-            <button
-              onClick={() => setShowForm(false)}
-              className="text-sm text-[#495057] hover:text-[#212529] transition-colors"
-            >
-              ← Back
-            </button>
+      <div className="min-h-screen bg-[#F8F9FA] flex items-center justify-center">
+        <Loader2 size={28} className="animate-spin text-[#ADB5BD]" />
+      </div>
+    )
+  }
+
+  return (
+    <div className="min-h-screen bg-[#F8F9FA]">
+      {/* Header */}
+      <div className="bg-white border-b border-[#E9ECEF] sticky top-0 z-10">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+          <div className="flex items-center justify-between">
+            <Link href="/" className="flex items-center shrink-0">
+              <img src="/logo.svg" alt="Huts" width={32} height={32} className="h-8 w-8 object-contain" />
+            </Link>
+            <div className="flex items-center gap-4">
+              {/* Progress dots — only show for profile steps 1-5 */}
+              {currentStep >= 1 && (
+                <div className="hidden sm:flex items-center gap-1.5">
+                  {Array.from({ length: totalSteps }).map((_, i) => (
+                    <div
+                      key={i}
+                      className={`h-1.5 rounded-full transition-all duration-300 ${
+                        i + 1 <= currentStep ? 'bg-[#212529] w-8' : 'bg-[#E9ECEF] w-4'
+                      }`}
+                    />
+                  ))}
+                </div>
+              )}
+              <span className="text-sm text-[#495057]">
+                {currentStep === 0 ? 'Create account' : `${currentStep}/${totalSteps}`}
+              </span>
+            </div>
           </div>
         </div>
+      </div>
 
-        <div className="flex-1 flex items-center justify-center px-4 py-12">
-          <div className="w-full max-w-[400px]">
-            {/* Heading */}
+      {/* Form Content */}
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16">
+
+        {/* Step 0: Account creation / sign in */}
+        {currentStep === 0 && (
+          <div className="max-w-[420px] mx-auto">
             <div className="text-center mb-8">
               <div className="w-12 h-12 bg-[#212529] rounded-2xl flex items-center justify-center mx-auto mb-4">
                 <User size={22} className="text-white" />
@@ -532,8 +579,8 @@ export default function AgentSignupPage() {
               </h1>
               <p className="text-sm text-[#767676]">
                 {authMode === 'signup'
-                  ? 'You need an account to register as an agent on Huts.'
-                  : 'Sign in to your Huts account to continue.'}
+                  ? 'First, create a free Huts account — then build your agent profile.'
+                  : 'Sign in to pick up where you left off.'}
               </p>
             </div>
 
@@ -564,7 +611,6 @@ export default function AgentSignupPage() {
                 </button>
               </div>
 
-              {/* Error */}
               {authError && (
                 <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg flex items-start gap-2">
                   <AlertCircle size={15} className="text-red-600 mt-0.5 flex-shrink-0" />
@@ -588,7 +634,6 @@ export default function AgentSignupPage() {
                 Continue with Google
               </button>
 
-              {/* Divider */}
               <div className="relative mb-4">
                 <div className="absolute inset-0 flex items-center">
                   <div className="w-full border-t border-[#E9ECEF]" />
@@ -598,7 +643,6 @@ export default function AgentSignupPage() {
                 </div>
               </div>
 
-              {/* Email form */}
               <form onSubmit={handleInlineAuth} className="space-y-3">
                 {authMode === 'signup' && (
                   <div>
@@ -648,58 +692,35 @@ export default function AgentSignupPage() {
                 <button
                   type="submit"
                   disabled={authLoading}
-                  className="w-full bg-[#212529] text-white py-3 px-4 rounded-lg text-sm font-bold hover:bg-black transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                  className="w-full bg-[#212529] text-white py-3 px-4 rounded-lg text-sm font-bold hover:bg-black transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 mt-1"
                 >
                   {authLoading ? (
                     <><Loader2 size={15} className="animate-spin" /> {authMode === 'signup' ? 'Creating account…' : 'Signing in…'}</>
                   ) : (
-                    authMode === 'signup' ? 'Create account & continue' : 'Sign in & continue'
+                    <>{authMode === 'signup' ? 'Create account & continue' : 'Sign in & continue'} <ChevronRight size={15} /></>
                   )}
                 </button>
               </form>
 
               <p className="text-[11px] text-[#9CA3AF] text-center mt-4 leading-relaxed">
-                By continuing you agree to Huts'{' '}
+                By continuing you agree to Huts&apos;{' '}
                 <Link href="/terms" className="text-[#212529] underline">Terms of Use</Link>
                 {' '}and{' '}
                 <Link href="/privacy" className="text-[#212529] underline">Privacy Policy</Link>.
               </p>
             </div>
-          </div>
-        </div>
-      </div>
-    )
-  }
 
-  // Multi-step form
-  return (
-    <div className="min-h-screen bg-[#F8F9FA]">
-      {/* Header */}
-      <div className="bg-white border-b border-[#E9ECEF] sticky top-0 z-10">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex items-center justify-between">
-            <Link href="/" className="text-xl font-bold text-[#212529]">
-              HUTS
-            </Link>
-            <div className="flex items-center gap-4">
-              <div className="hidden sm:flex items-center gap-1.5">
-                {Array.from({ length: totalSteps }).map((_, i) => (
-                  <div
-                    key={i}
-                    className={`h-1.5 rounded-full transition-all duration-300 ${
-                      i + 1 <= currentStep ? 'bg-[#212529] w-8' : 'bg-[#E9ECEF] w-4'
-                    }`}
-                  />
-                ))}
-              </div>
-              <span className="text-sm text-[#495057]">{currentStep}/{totalSteps}</span>
-            </div>
+            <button
+              type="button"
+              onClick={() => setShowForm(false)}
+              className="mt-6 flex items-center gap-1.5 text-sm text-[#495057] hover:text-[#212529] transition-colors mx-auto"
+            >
+              <ChevronLeft size={16} />
+              Back to overview
+            </button>
           </div>
-        </div>
-      </div>
+        )}
 
-      {/* Form Content */}
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16">
         {/* Step 1: Agent Type */}
         {currentStep === 1 && (
           <div>
@@ -1098,7 +1119,8 @@ export default function AgentSignupPage() {
           </div>
         )}
 
-        {/* Navigation */}
+        {/* Navigation — only shown for steps 1-5 */}
+        {currentStep >= 1 && (
         <div className="flex items-center justify-between mt-10">
           {currentStep > 1 ? (
             <button
@@ -1141,7 +1163,20 @@ export default function AgentSignupPage() {
             </button>
           )}
         </div>
+        )}
       </div>
     </div>
+  )
+}
+
+export default function AgentSignupPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-[#F8F9FA] flex items-center justify-center">
+        <Loader2 size={28} className="animate-spin text-[#ADB5BD]" />
+      </div>
+    }>
+      <AgentSignupInner />
+    </Suspense>
   )
 }
