@@ -39,10 +39,20 @@ export async function Navbar() {
   return (
     <ScrollHeader>
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6">
-        <div className="flex items-center h-[60px]">
-          {/* Left: Logo + Nav */}
-          <div className="flex items-center gap-1 shrink-0">
-            <Link href="/" className="flex items-center gap-2 shrink-0 mr-2 group">
+        <div className="relative flex items-center h-[60px]">
+
+          {/* Left: Nav links */}
+          <div className="flex-1 hidden md:flex items-center">
+            {user && isLandlord ? (
+              <NavLinks links={landlordLinks} />
+            ) : (
+              <MegaNav />
+            )}
+          </div>
+
+          {/* Center: Logo — absolutely centered so it never shifts */}
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+            <Link href="/" className="flex items-center gap-2 group pointer-events-auto">
               <img
                 src="/logo.svg"
                 alt=""
@@ -52,22 +62,10 @@ export async function Navbar() {
               />
               <span className="text-[15px] font-black tracking-tight text-[#212529]">Huts</span>
             </Link>
-
-            <div className="hidden md:contents">
-              {user && isLandlord ? (
-                <NavLinks links={landlordLinks} />
-              ) : (
-                <MegaNav />
-              )}
-            </div>
           </div>
 
-          {/* Spacer */}
-          <div className="flex-1" />
-
           {/* Right: Secondary links + actions */}
-          <div className="hidden md:flex items-center">
-            {/* Secondary text links */}
+          <div className="flex-1 hidden md:flex items-center justify-end">
             {rightLinks.map(({ href, label }) => (
               <Link
                 key={href}
@@ -110,8 +108,9 @@ export async function Navbar() {
             )}
           </div>
 
-          {/* Mobile right side */}
-          <div className="md:hidden flex items-center gap-0.5 ml-auto">
+          {/* Mobile: hamburger on the right, logo centers naturally */}
+          <div className="flex-1 md:hidden" />
+          <div className="md:hidden flex items-center gap-0.5">
             <MobileMenu
               isLoggedIn={!!user}
               userName={userName}
