@@ -36,10 +36,18 @@ export default function NeighborhoodSection({ lat, lng, city, neighborhood, stat
         dragging: true,
       }).setView([lat, lng], 15)
 
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      const tileLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; OpenStreetMap contributors',
         maxZoom: 19,
-      }).addTo(map)
+      })
+      let tileErrorHandled = false
+      tileLayer.on('tileerror', () => {
+        if (!tileErrorHandled) {
+          tileErrorHandled = true
+          tileLayer.setUrl('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png')
+        }
+      })
+      tileLayer.addTo(map)
 
       // Property marker
       const markerIcon = L.divIcon({

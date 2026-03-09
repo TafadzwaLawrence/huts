@@ -53,10 +53,18 @@ export default function LocationPicker({ lat, lng, onLocationChange, className }
       zoomControl: true,
     })
 
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    const tileLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '© OpenStreetMap contributors',
       maxZoom: 19,
-    }).addTo(map)
+    })
+    let tileErrorHandled = false
+    tileLayer.on('tileerror', () => {
+      if (!tileErrorHandled) {
+        tileErrorHandled = true
+        tileLayer.setUrl('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png')
+      }
+    })
+    tileLayer.addTo(map)
 
     // Add initial marker if position exists
     if (lat && lng) {

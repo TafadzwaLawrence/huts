@@ -44,6 +44,7 @@ export default function DashboardMapPage() {
   const [loading, setLoading] = useState(true)
   const [selectedProperty, setSelectedProperty] = useState<Property | null>(null)
   const [mounted, setMounted] = useState(false)
+  const [tileUrl, setTileUrl] = useState('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png')
   const supabase = createClient()
 
   useEffect(() => {
@@ -240,7 +241,14 @@ export default function DashboardMapPage() {
           >
             <TileLayer
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              url={tileUrl}
+              eventHandlers={{
+                tileerror: () => setTileUrl(prev =>
+                  prev.includes('openstreetmap')
+                    ? 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png'
+                    : prev
+                ),
+              }}
             />
             {properties.map((property) => (
               <Marker

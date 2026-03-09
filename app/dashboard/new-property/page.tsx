@@ -374,7 +374,7 @@ export default function NewPropertyPage() {
     <div className="min-h-screen bg-white">
       {/* Header */}
       <div className="bg-white border-b border-[#E9ECEF] sticky top-0 z-10">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-5">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-5">
           {/* Title Row */}
           <div className="flex items-center justify-between mb-4">
             <div>
@@ -433,7 +433,8 @@ export default function NewPropertyPage() {
         </div>
       </div>
 
-      <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+        <div className="max-w-2xl">
         <form onSubmit={handleSubmit}>
           {/* Step 1: Listing Type */}
           {step === 1 && (
@@ -1277,6 +1278,7 @@ export default function NewPropertyPage() {
             )}
           </div>
         </form>
+        </div>
       </div>
 
       {/* Animation styles */}

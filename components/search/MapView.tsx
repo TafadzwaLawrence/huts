@@ -136,11 +136,19 @@ export default function MapView({ properties, schools = [], healthcareFacilities
       zoomControl: true,
     })
 
-    // Use colorful OpenStreetMap tiles
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    // Use OpenStreetMap tiles with CartoDB Voyager fallback on connection errors
+    const tileLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
       maxZoom: 19,
-    }).addTo(map)
+    })
+    let tileErrorHandled = false
+    tileLayer.on('tileerror', () => {
+      if (!tileErrorHandled) {
+        tileErrorHandled = true
+        tileLayer.setUrl('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png')
+      }
+    })
+    tileLayer.addTo(map)
 
     // Initialize cluster group
     const clusterGroup = L.markerClusterGroup({
