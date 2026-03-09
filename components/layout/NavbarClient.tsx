@@ -299,48 +299,63 @@ export function MegaNav() {
 }
 
 // ─── AgentsDropdown ───────────────────────────────────────────────────────────
-// Compact right-side dropdown for the Agents section
+// Right-side trigger that opens the same full-width mega panel as Buy/Rent/Sell
 
-const AGENTS_ITEMS = [
-  { label: 'Find an Agent',   href: '/find-agent',    icon: Users,    description: 'Connect with local property experts'   },
-  { label: 'Become an Agent', href: '/agents/signup', icon: UserPlus, description: 'Join our growing agent network'         },
-  { label: 'Agent Resources', href: '/help',          icon: BookOpen, description: 'Tools and guides for property agents'  },
-]
+const AGENTS_GROUP: NavItemGroup = {
+  label: 'Agents',
+  activePatterns: ['/find-agent', '/agents/'],
+  items: [
+    { label: 'Find an Agent',   href: '/find-agent',    icon: Users,    description: 'Connect with local property experts'   },
+    { label: 'Become an Agent', href: '/agents/signup', icon: UserPlus, description: 'Join our growing agent network'         },
+    { label: 'Agent Resources', href: '/help',          icon: BookOpen, description: 'Tools and guides for property agents'  },
+  ],
+}
 
 export function AgentsDropdown() {
   const pathname = usePathname()
   const [open, setOpen] = useState(false)
-  const ref = useRef<HTMLDivElement>(null)
+  const hideRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
-  const isActive = ['/find-agent', '/agents/'].some((p) => pathname.startsWith(p))
+  const fullUrl = typeof window !== 'undefined' ? pathname + window.location.search : pathname
+  const isActive = open || (AGENTS_GROUP.activePatterns?.some((p) => fullUrl.includes(p)) ?? false)
 
-  // Close on outside click or Escape
+  const show = useCallback(() => {
+    if (hideRef.current) clearTimeout(hideRef.current)
+    setOpen(true)
+  }, [])
+
+  const hide = useCallback(() => {
+    hideRef.current = setTimeout(() => setOpen(false), 130)
+  }, [])
+
+  const keep = useCallback(() => {
+    if (hideRef.current) clearTimeout(hideRef.current)
+  }, [])
+
   useEffect(() => {
-    if (!open) return
     const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setOpen(false) }
-    const onOutside = (e: MouseEvent) => {
-      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false)
-    }
+    const onScroll = () => { if (open) setOpen(false) }
     document.addEventListener('keydown', onKey)
-    document.addEventListener('mousedown', onOutside)
+    window.addEventListener('scroll', onScroll, { passive: true })
     return () => {
       document.removeEventListener('keydown', onKey)
-      document.removeEventListener('mousedown', onOutside)
+      window.removeEventListener('scroll', onScroll)
+      if (hideRef.current) clearTimeout(hideRef.current)
     }
   }, [open])
 
   return (
-    <div ref={ref} className="relative">
+    <>
       <button
-        onMouseEnter={() => setOpen(true)}
-        onMouseLeave={() => setOpen(false)}
-        onClick={() => setOpen((o) => !o)}
+        onMouseEnter={show}
+        onMouseLeave={hide}
+        onClick={() => (open ? setOpen(false) : show())}
         aria-expanded={open}
         aria-haspopup="true"
-        className={`group flex items-center gap-0.5 px-3 h-[60px] text-sm relative transition-colors duration-150 ${
-          isActive || open
-            ? 'text-[#111827] font-bold after:absolute after:bottom-0 after:inset-x-1 after:h-[3px] after:rounded-t after:bg-[#111827]'
-            : 'text-[#585858] hover:text-[#212529]'
+        className={`group flex items-center gap-0.5 px-3 h-[60px] text-sm font-bold relative transition-colors duration-150 ${
+          isActive
+            ? 'text-[#111827] after:absolute after:bottom-0 after:inset-x-1 after:h-[3px] after:rounded-t after:bg-[#111827]'
+            : 'text-[#6B7280] hover:text-[#111827]'
         }`}
       >
         Agents
@@ -351,36 +366,64 @@ export function AgentsDropdown() {
         />
       </button>
 
-      {/* Compact dropdown panel */}
+      {/* Dim backdrop */}
       <div
-        onMouseEnter={() => setOpen(true)}
-        onMouseLeave={() => setOpen(false)}
-        className={`absolute right-0 top-[60px] w-72 bg-white border border-[#E5E7EB] rounded-2xl shadow-[0_12px_40px_rgba(0,0,0,0.10)] overflow-hidden transition-all duration-200 ease-out z-[48] ${
-          open ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 -translate-y-2 pointer-events-none'
+        aria-hidden="true"
+        className={`fixed inset-0 top-[60px] z-[47] bg-black transition-opacity duration-200 ${
+          open ? 'opacity-[0.18] pointer-events-auto' : 'opacity-0 pointer-events-none'
+        }`}
+        onClick={() => setOpen(false)}
+      />
+
+      {/* Full-width mega panel — identical to MegaNav */}
+      <div
+        role="navigation"
+        aria-label="Agents menu"
+        aria-hidden={!open}
+        onMouseEnter={keep}
+        onMouseLeave={hide}
+        className={`fixed top-[60px] left-0 right-0 z-[48] bg-white border-t border-[#E5E7EB] transition-all duration-200 ease-out ${
+          open
+            ? 'opacity-100 translate-y-0 shadow-[0_12px_40px_rgba(0,0,0,0.07)] pointer-events-auto'
+            : 'opacity-0 -translate-y-2 shadow-none pointer-events-none'
         }`}
       >
-        <div className="p-2">
-          {AGENTS_ITEMS.map((item) => {
-            const Icon = item.icon
-            return (
-              <Link
-                key={item.href}
-                href={item.href}
-                onClick={() => setOpen(false)}
-                className="group flex items-start gap-3 px-3 py-3 rounded-xl hover:bg-[#F9FAFB] transition-colors duration-150"
-              >
-                <div className="mt-[1px] w-8 h-8 rounded-lg border border-[#E5E7EB] bg-white group-hover:border-[#D1D5DB] flex items-center justify-center shrink-0 transition-all duration-150">
-                  <Icon size={15} strokeWidth={1.75} className="text-[#6B7280] group-hover:text-[#111827] transition-colors duration-150" />
-                </div>
-                <div>
-                  <p className="text-[13px] font-semibold text-[#1F2937] leading-snug">{item.label}</p>
-                  <p className="text-[11.5px] text-[#9CA3AF] mt-0.5 leading-relaxed">{item.description}</p>
-                </div>
-              </Link>
-            )
-          })}
+        <div className="max-w-[1440px] mx-auto px-6 sm:px-8 py-7 pb-8">
+          <p className="text-[10.5px] font-semibold text-[#9CA3AF] uppercase tracking-[0.16em] mb-5 select-none">
+            Agents
+          </p>
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-1">
+            {AGENTS_GROUP.items.map((item) => {
+              const Icon = item.icon
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  onClick={() => setOpen(false)}
+                  role="menuitem"
+                  className="group relative flex items-start gap-3.5 px-4 py-[14px] rounded-2xl hover:bg-[#F9FAFB] active:bg-[#F3F4F6] transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-[#111827] focus-visible:outline-offset-2"
+                >
+                  {Icon && (
+                    <div className="mt-[1px] w-[38px] h-[38px] rounded-xl border border-[#E5E7EB] bg-white group-hover:border-[#D1D5DB] group-hover:shadow-sm flex items-center justify-center shrink-0 transition-all duration-150">
+                      <Icon size={17} strokeWidth={1.75} className="text-[#6B7280] group-hover:text-[#111827] transition-colors duration-150" />
+                    </div>
+                  )}
+                  <div className="min-w-0">
+                    <p className="text-[13.5px] font-semibold text-[#1F2937] group-hover:text-[#111827] leading-snug transition-colors duration-150">
+                      {item.label}
+                    </p>
+                    {item.description && (
+                      <p className="text-[12px] text-[#9CA3AF] mt-[3px] leading-relaxed font-normal">
+                        {item.description}
+                      </p>
+                    )}
+                  </div>
+                </Link>
+              )
+            })}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   )
 }
