@@ -50,7 +50,7 @@ export async function Navbar() {
                 height={32}
                 className="h-8 w-8 object-contain transition-opacity group-hover:opacity-75"
               />
-              <span className="text-[15px] font-bold tracking-widest text-[#212529]">HUTS</span>
+              <span className="text-[15px] font-black tracking-tight text-[#212529]">Huts</span>
             </Link>
 
             <div className="hidden md:contents">

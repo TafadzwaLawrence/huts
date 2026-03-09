@@ -97,7 +97,7 @@ export function MobileMenu({ isLoggedIn, userName, userEmail, userAvatar, userIn
               height={32}
               className="h-8 w-8 object-contain"
             />
-            <span className="text-base font-bold tracking-widest text-[#212529]">HUTS</span>
+            <span className="text-base font-black tracking-tight text-[#212529]">Huts</span>
           </Link>
           <button
             onClick={() => setIsOpen(false)}
