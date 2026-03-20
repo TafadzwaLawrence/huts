@@ -46,9 +46,9 @@ export async function Navbar() {
             <img
               src="/logo.svg"
               alt=""
-              width={32}
-              height={32}
-              className="h-8 w-8 object-contain transition-opacity group-hover:opacity-75"
+              width={24}
+              height={24}
+              className="h-6 w-6 object-contain transition-opacity group-hover:opacity-75"
             />
           </Link>
 

@@ -260,9 +260,9 @@ export function DashboardNavbar({ user, profile }: DashboardNavbarProps) {
                   <img
                     src="/logo.svg"
                     alt=""
-                    width={32}
-                    height={32}
-                    className="h-8 w-8 object-contain group-hover:opacity-75 transition-opacity"
+                    width={24}
+                    height={24}
+                    className="h-6 w-6 object-contain group-hover:opacity-75 transition-opacity"
                   />
                 </Link>
 
