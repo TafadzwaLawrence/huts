@@ -4,19 +4,19 @@
  */
 
 // Import database-generated types (regenerated after migration)
-import type {
-  agents as Agent,
-  brokerages as Brokerage,
-  agent_teams as AgentTeam,
-  team_members as TeamMember,
-  agent_service_areas as AgentServiceArea,
-  leads as Lead,
-  clients as Client,
-  client_notes as ClientNote,
-  lead_distribution_history as LeadDistributionHistory,
-  appointments as Appointment,
-  appointment_attendees as AppointmentAttendee,
-} from './database'
+import type { Database } from './database'
+
+type Agent = Database['public']['Tables']['agents']['Row']
+type Brokerage = Database['public']['Tables']['brokerages']['Row']
+type AgentTeam = Database['public']['Tables']['agent_teams']['Row']
+type TeamMember = Database['public']['Tables']['team_members']['Row']
+type AgentServiceArea = Database['public']['Tables']['agent_service_areas']['Row']
+type Lead = Database['public']['Tables']['leads']['Row']
+type Client = Database['public']['Tables']['clients']['Row']
+type ClientNote = Database['public']['Tables']['client_notes']['Row']
+type LeadDistributionHistory = Database['public']['Tables']['lead_distribution_history']['Row']
+type Appointment = Database['public']['Tables']['appointments']['Row']
+type AppointmentAttendee = Database['public']['Tables']['appointment_attendees']['Row']
 
 // Enums & Constants
 export enum AgentType {
@@ -159,8 +159,10 @@ export interface CreateLeadRequest {
   budgetMin?: number
   budgetMax?: number
   preferredAreas?: string[]
+  specializations?: string[]
   timeline?: string
   financingStatus?: FinancingStatus
+  brokerageId?: string
 }
 
 export interface CreateLeadResponse extends LeadDistributionResult {

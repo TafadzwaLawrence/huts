@@ -33,8 +33,8 @@ import {
 import type {
   CreateLeadRequest,
   AppointmentStatus,
-  AssignmentMode,
 } from '@/types/agent-system'
+import { AssignmentMode } from '@/types/agent-system'
 
 // Type for agents in assignment pool
 interface AgentForAssignment {
@@ -77,7 +77,7 @@ export async function POST(request: Request) {
 
     const leadScore = calculateLeadScore(
       profileCompleteness,
-      body.financingStatus || 'unknown',
+      body.financingStatus ?? undefined,
       body.timeline || '3_months',
     )
 
@@ -123,7 +123,7 @@ export async function POST(request: Request) {
     }
 
     // 4. Determine brokerage and assignment mode
-    let brokerageId = body.brokerage_id
+    let brokerageId = body.brokerageId
 
     // If no brokerage specified, try to find default
     if (!brokerageId) {
@@ -138,7 +138,7 @@ export async function POST(request: Request) {
     }
 
     // Get assignment mode from brokerage config
-    let assignmentMode: AssignmentMode = 'round_robin'
+    let assignmentMode = AssignmentMode.RoundRobin
     if (brokerageId) {
       const { data: brokerage } = await supabase
         .from('brokerages')

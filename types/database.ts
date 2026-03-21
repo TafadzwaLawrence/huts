@@ -532,6 +532,32 @@ export interface Database {
           joined_at?: string
         }
       }
+      agent_service_areas: {
+        Row: {
+          id: string
+          agent_id: string
+          city: string
+          neighborhood: string | null
+          is_primary: boolean
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          agent_id: string
+          city: string
+          neighborhood?: string | null
+          is_primary?: boolean
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          agent_id?: string
+          city?: string
+          neighborhood?: string | null
+          is_primary?: boolean
+          created_at?: string
+        }
+      }
       clients: {
         Row: {
           id: string
