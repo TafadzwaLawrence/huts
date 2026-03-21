@@ -192,17 +192,17 @@
 
   /* Page Title: Top-level page headings (h1) */
   .text-page-title {
-    @apply text-3xl md:text-4xl font-bold tracking-tight text-foreground;
+    @apply text-3xl md:text-4xl font-bold tracking-tight text-[#212529];
   }
 
   /* Section Title: Major section headings (h2) */
   .text-section-title {
-    @apply text-2xl md:text-3xl font-bold text-foreground;
+    @apply text-2xl md:text-3xl font-bold text-[#212529];
   }
 
   /* Subsection Title: Subsection headings (h3) */
   .text-subsection-title {
-    @apply text-xl font-bold text-foreground;
+    @apply text-xl font-bold text-[#212529];
   }
 
   /* Card Title: Card and list item headings */
