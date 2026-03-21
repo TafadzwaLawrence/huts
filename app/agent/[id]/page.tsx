@@ -535,9 +535,29 @@ export default async function AgentProfilePage({ params }: Props) {
                 </div>
               </section>
             )}
+
+            {/* Languages */}
+            {agentProfile?.languages && agentProfile.languages.length > 0 && (
+              <section>
+                <h2 className="text-xl font-bold text-[#212529] mb-4 flex items-center gap-2">
+                  <Languages size={ICON_SIZES.md} />
+                  Languages
+                </h2>
+                <div className="flex flex-wrap gap-2">
+                  {agentProfile.languages.map((lang: string) => (
+                    <span
+                      key={lang}
+                      className="px-3 py-1 bg-[#F8F9FA] text-[#495057] text-sm rounded-full border border-[#E9ECEF]"
+                    >
+                      {lang}
+                    </span>
+                  ))}
+                </div>
+              </section>
+            )}
           </div>
 
-          {/* Sidebar */}
+          {/* Sidebar */
           <div className="space-y-6">
             {/* Contact Card */}
             {isAgent && (
@@ -579,26 +599,6 @@ export default async function AgentProfilePage({ params }: Props) {
                 </div>
 
                 <AgentContactForm agentId={agentProfile.id} agentName={agentProfile.business_name || profile.name || 'Agent'} />
-              </div>
-            )}
-
-            {/* Languages */}
-            {agentProfile?.languages && agentProfile.languages.length > 0 && (
-              <div className="border border-[#E9ECEF] rounded-2xl p-6">
-                <h3 className="text-lg font-bold text-[#212529] mb-4 flex items-center gap-2">
-                  <Languages size={ICON_SIZES.md} />
-                  Languages
-                </h3>
-                <div className="flex flex-wrap gap-2">
-                  {agentProfile.languages.map((lang: string) => (
-                    <span
-                      key={lang}
-                      className="px-3 py-1 bg-[#F8F9FA] text-[#495057] text-sm rounded-full border border-[#E9ECEF]"
-                    >
-                      {lang}
-                    </span>
-                  ))}
-                </div>
               </div>
             )}
 
