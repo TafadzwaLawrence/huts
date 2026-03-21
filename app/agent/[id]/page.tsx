@@ -557,7 +557,7 @@ export default async function AgentProfilePage({ params }: Props) {
             )}
           </div>
 
-          {/* Sidebar */
+          {/* Sidebar */}
           <div className="space-y-6">
             {/* Contact Card */}
             {isAgent && (
