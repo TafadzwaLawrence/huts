@@ -512,6 +512,29 @@ export default async function AgentProfilePage({ params }: Props) {
                 </div>
               </section>
             )}
+
+            {/* Service Areas */}
+            {agentProfile?.agent_service_areas && agentProfile.agent_service_areas.length > 0 && (
+              <section>
+                <h2 className="text-xl font-bold text-[#212529] mb-4 flex items-center gap-2">
+                  <MapPin size={ICON_SIZES.md} />
+                  Service Areas
+                </h2>
+                <div className="space-y-2">
+                  {agentProfile.agent_service_areas.map((area: any) => (
+                    <div 
+                      key={area.id}
+                      className="flex items-center justify-between text-sm"
+                    >
+                      <span className="text-[#495057]">{area.city}</span>
+                      {area.is_primary && (
+                        <span className="text-xs bg-[#212529] text-white px-2 py-0.5 rounded-full">Primary</span>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </section>
+            )}
           </div>
 
           {/* Sidebar */}
@@ -556,29 +579,6 @@ export default async function AgentProfilePage({ params }: Props) {
                 </div>
 
                 <AgentContactForm agentId={agentProfile.id} agentName={agentProfile.business_name || profile.name || 'Agent'} />
-              </div>
-            )}
-
-            {/* Service Areas */}
-            {agentProfile?.agent_service_areas && agentProfile.agent_service_areas.length > 0 && (
-              <div className="border border-[#E9ECEF] rounded-2xl p-6">
-                <h3 className="text-lg font-bold text-[#212529] mb-4 flex items-center gap-2">
-                  <MapPin size={ICON_SIZES.md} />
-                  Service Areas
-                </h3>
-                <div className="space-y-2">
-                  {agentProfile.agent_service_areas.map((area: any) => (
-                    <div 
-                      key={area.id}
-                      className="flex items-center justify-between text-sm"
-                    >
-                      <span className="text-[#495057]">{area.city}</span>
-                      {area.is_primary && (
-                        <span className="text-xs bg-[#212529] text-white px-2 py-0.5 rounded-full">Primary</span>
-                      )}
-                    </div>
-                  ))}
-                </div>
               </div>
             )}
 
