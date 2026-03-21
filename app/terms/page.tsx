@@ -343,74 +343,91 @@ export default function TermsPage() {
               {/* Prohibited Uses */}
               <section id="prohibited">
                 <h2 className="text-section-title mb-4">Prohibited Uses</h2>
-                <p className="text-[#495057] leading-relaxed mb-4">
-                  You may not use Huts to:
-                </p>
+                <p className="text-[#495057] leading-relaxed mb-4">You may not use Huts to:</p>
                 <ul className="list-disc list-inside text-[#495057] space-y-2 ml-2">
-                      <ul className="space-y-3">
-                        <li className="flex items-start gap-3 text-[#495057]">
-                          <span className="w-1.5 h-1.5 bg-[#212529] rounded-full mt-2 flex-shrink-0"></span>
-                          <span>Violate any laws or regulations</span>
-                        </li>
-                        <li className="flex items-start gap-3 text-[#495057]">
-                          <span className="w-1.5 h-1.5 bg-[#212529] rounded-full mt-2 flex-shrink-0"></span>
-                          <span>Engage in fraudulent or deceptive practices</span>
-                        </li>
-                        <li className="flex items-start gap-3 text-[#495057]">
-                          <span className="w-1.5 h-1.5 bg-[#212529] rounded-full mt-2 flex-shrink-0"></span>
-                          <span>Scrape, harvest, or collect user data</span>
-                        </li>
-                        <li className="flex items-start gap-3 text-[#495057]">
-                          <span className="w-1.5 h-1.5 bg-[#212529] rounded-full mt-2 flex-shrink-0"></span>
-                          <span>Transmit viruses, malware, or harmful code</span>
-                        </li>
-                        <li className="flex items-start gap-3 text-[#495057]">
-                          <span className="w-1.5 h-1.5 bg-[#212529] rounded-full mt-2 flex-shrink-0"></span>
-                          <span>Interfere with the Platform's operation</span>
-                        </li>
-                        <li className="flex items-start gap-3 text-[#495057]">
-                          <span className="w-1.5 h-1.5 bg-[#212529] rounded-full mt-2 flex-shrink-0"></span>
-                          <span>Impersonate others or create fake accounts</span>
-                        </li>
-                        <li className="flex items-start gap-3 text-[#495057]">
-                          <span className="w-1.5 h-1.5 bg-[#212529] rounded-full mt-2 flex-shrink-0"></span>
-                          <span>Post spam or unsolicited advertisements</span>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </section>
+                  <li>Violate any laws or regulations</li>
+                  <li>Engage in fraudulent or deceptive practices</li>
+                  <li>Scrape, harvest, or collect user data</li>
+                  <li>Transmit viruses, malware, or harmful code</li>
+                  <li>Interfere with the Platform's operation</li>
+                  <li>Impersonate others or create fake accounts</li>
+                  <li>Post spam or unsolicited advertisements</li>
+                </ul>
+              </section>
 
-                {/* Intellectual Property */}
-                <section id="intellectual" className="scroll-mt-24">
-                  <div className="flex items-center gap-3 mb-6">
-                    <div className="w-10 h-10 bg-[#212529] text-white rounded-xl flex items-center justify-center font-bold text-lg">
-                      7
-                    </div>
-                    <h2 className="text-3xl font-bold text-[#212529]">Intellectual Property</h2>
+              {/* Intellectual Property */}
+              <section id="intellectual">
+                <h2 className="text-section-title mb-4">Intellectual Property</h2>
+                <div className="space-y-6">
+                  <div>
+                    <h3 className="text-subsection-title mb-3">Platform Content</h3>
+                    <p className="text-[#495057] leading-relaxed">
+                      The Huts platform, including its design, code, logos, and trademarks, is owned by Huts and protected by copyright and intellectual property laws.
+                    </p>
                   </div>
-                  <div className="ml-13 space-y-6">
-                    <div>
-                      <h3 className="text-xl font-bold text-[#212529] mb-3">7.1 Platform Content</h3>
-                      <p className="text-[#495057] leading-relaxed">
-                        The Huts platform, including its design, code, logos, and trademarks, is owned by Huts and protected by copyright and intellectual property laws.
-                      </p>
-                    </div>
 
-                    <div>
-                      <h3 className="text-xl font-bold text-[#212529] mb-3">7.2 User Content</h3>
-                      <p className="text-[#495057] leading-relaxed">
-                        You retain ownership of content you upload (photos, descriptions, etc.) but grant Huts a non-exclusive, worldwide license to use, display, and distribute this content on the Platform.
-                      </p>
-                    </div>
+                  <div>
+                    <h3 className="text-subsection-title mb-3">User Content</h3>
+                    <p className="text-[#495057] leading-relaxed">
+                      You retain ownership of content you upload (photos, descriptions, etc.) but grant Huts a non-exclusive, worldwide license to use, display, and distribute this content on the Platform.
+                    </p>
                   </div>
-                </section>
+                </div>
+              </section>
 
-                {/* Disclaimers */}
-                <section id="disclaimers" className="scroll-mt-24">
-                  <div className="flex items-center gap-3 mb-6">
-                    <div className="w-10 h-10 bg-[#212529] text-white rounded-xl flex items-center justify-center font-bold text-lg">
-                      8
+              {/* Disclaimers */}
+              <section id="disclaimers">
+                <h2 className="text-section-title mb-4">Disclaimers</h2>
+                <p className="text-[#495057] leading-relaxed mb-4">Huts is provided "as is" without warranties of any kind. We do not:</p>
+                <ul className="list-disc list-inside text-[#495057] space-y-2 ml-2">
+                  <li>Verify the accuracy of property listings</li>
+                  <li>Conduct background checks on users</li>
+                  <li>Guarantee property availability or condition</li>
+                  <li>Participate in rental transactions or negotiations</li>
+                  <li>Guarantee the Platform will be error-free or uninterrupted</li>
+                </ul>
+              </section>
+
+              {/* Limitation of Liability */}
+              <section id="liability">
+                <h2 className="text-section-title mb-4">Limitation of Liability</h2>
+                <p className="text-[#495057] leading-relaxed">To the maximum extent permitted by law, Huts and its affiliates shall not be liable for any indirect, incidental, consequential, or punitive damages arising from your use of the Platform. Our total liability shall not exceed the amount you paid us in the past 12 months.</p>
+              </section>
+
+              {/* Termination */}
+              <section id="termination">
+                <h2 className="text-section-title mb-4">Termination</h2>
+                <p className="text-[#495057] leading-relaxed mb-4">We reserve the right to suspend or terminate your account at any time for:</p>
+                <ul className="list-disc list-inside text-[#495057] space-y-2 ml-2">
+                  <li>Violation of these Terms</li>
+                  <li>Fraudulent or illegal activity</li>
+                  <li>Abuse of the Platform or other users</li>
+                  <li>Non-payment of subscription fees</li>
+                </ul>
+              </section>
+
+              {/* Governing Law */}
+              <section id="governing">
+                <h2 className="text-section-title mb-4">Governing Law</h2>
+                <p className="text-[#495057] leading-relaxed">These Terms are governed by the laws of Zimbabwe. Any disputes shall be resolved in the courts of Harare, Zimbabwe.</p>
+              </section>
+
+              {/* Contact */}
+              <section id="contact">
+                <h2 className="text-section-title mb-4">Contact Us</h2>
+                <p className="text-[#495057] leading-relaxed">If you have questions about these Terms, please contact us:</p>
+                <p className="text-[#495057] leading-relaxed mt-4">
+                  <strong className="text-[#212529]">Email:</strong> legal@huts.co.zw<br />
+                  <strong className="text-[#212529]">Address:</strong> 123 Samora Machel Avenue, Harare, Zimbabwe
+                </p>
+              </section>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+  )
+}
                     </div>
                     <h2 className="text-3xl font-bold text-[#212529]">Disclaimers</h2>
                   </div>
