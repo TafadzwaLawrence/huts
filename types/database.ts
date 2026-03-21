@@ -16,19 +16,19 @@ export interface Database {
           name: string | null
           avatar_url: string | null
           phone: string | null
-          role: 'landlord' | 'renter' | 'admin'
+          role: 'landlord' | 'renter' | 'admin' | 'agent'
           bio: string | null
           verified: boolean
           created_at: string
           updated_at: string
         }
         Insert: {
-          id: string
+          id?: string
           email: string
           name?: string | null
           avatar_url?: string | null
           phone?: string | null
-          role?: 'landlord' | 'renter' | 'admin'
+          role?: 'landlord' | 'renter' | 'admin' | 'agent'
           bio?: string | null
           verified?: boolean
           created_at?: string
@@ -40,7 +40,7 @@ export interface Database {
           name?: string | null
           avatar_url?: string | null
           phone?: string | null
-          role?: 'landlord' | 'renter' | 'admin'
+          role?: 'landlord' | 'renter' | 'admin' | 'agent'
           bio?: string | null
           verified?: boolean
           created_at?: string

@@ -112,23 +112,20 @@ export function DashboardNavbar({ user, profile }: DashboardNavbarProps) {
     }
   }, [])
 
-  // Check if user has an agent profile
+  // Check if user has an agent record in the new agents table
   const checkAgentProfile = useCallback(async () => {
     try {
-      // Get user ID from Supabase auth
       const { data: { user: authUser } } = await supabase.auth.getUser()
-      
       if (!authUser) return
-      
-      const { data: agentProfile } = await supabase
-        .from('agent_profiles')
+
+      const { data: agent } = await supabase
+        .from('agents')
         .select('id')
         .eq('user_id', authUser.id)
         .single()
-      
-      setHasAgentProfile(!!agentProfile)
-    } catch (error) {
-      // No agent profile found or error - that's okay
+
+      setHasAgentProfile(!!agent)
+    } catch {
       setHasAgentProfile(false)
     }
   }, [supabase])
@@ -233,19 +230,13 @@ export function DashboardNavbar({ user, profile }: DashboardNavbarProps) {
     { href: '/dashboard/map', label: 'Map', icon: MapPin },
     { href: '/dashboard/reviews', label: 'Reviews', icon: Star },
     ...(hasAgentProfile ? [
-      { href: '/dashboard/agent-profile', label: 'Agent Profile', icon: Briefcase },
-      { href: '/dashboard/leads', label: 'Leads', icon: Mail },
-      { href: '/dashboard/clients', label: 'Clients', icon: Users },
-      { href: '/dashboard/calendar', label: 'Calendar', icon: Calendar },
+      { href: '/agent/overview', label: 'Agent Portal', icon: Briefcase },
     ] : [])
   ] : [
     { href: '/dashboard/overview', label: 'Overview', icon: LayoutDashboard },
     { href: '/dashboard/saved', label: 'Saved', icon: Heart },
     ...(hasAgentProfile ? [
-      { href: '/dashboard/agent-profile', label: 'Agent Profile', icon: Briefcase },
-      { href: '/dashboard/leads', label: 'Leads', icon: Mail },
-      { href: '/dashboard/clients', label: 'Clients', icon: Users },
-      { href: '/dashboard/calendar', label: 'Calendar', icon: Calendar },
+      { href: '/agent/overview', label: 'Agent Portal', icon: Briefcase },
     ] : [])
   ]
 
