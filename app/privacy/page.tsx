@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 export default function PrivacyPage() {
   return (
     <div className="min-h-screen bg-white">
-      <div className="container-main max-w-4xl py-20 md:py-32">
+      <div className="container-main max-w-7xl py-8 md:py-12 px-4">
         {/* Breadcrumb */}
         <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-sm text-[#495057] mb-8">
           <Link href="/" className="hover:text-[#212529] transition-colors">Home</Link>
