@@ -520,13 +520,15 @@ export default async function AgentProfilePage({ params }: Props) {
                   <MapPin size={ICON_SIZES.md} />
                   Service Areas
                 </h2>
-                <div className="space-y-2">
+                <div className="flex flex-wrap gap-2">
                   {agentProfile.agent_service_areas.map((area: any) => (
                     <div 
                       key={area.id}
-                      className="flex items-center justify-between text-sm"
+                      className="inline-flex items-center gap-2"
                     >
-                      <span className="text-[#495057]">{area.city}</span>
+                      <span className="px-3 py-1 bg-[#F8F9FA] text-[#495057] text-sm rounded-full border border-[#E9ECEF]">
+                        {area.city}
+                      </span>
                       {area.is_primary && (
                         <span className="text-xs bg-[#212529] text-white px-2 py-0.5 rounded-full">Primary</span>
                       )}
