@@ -11,6 +11,7 @@ import {
   Bell, 
   Settings, 
   User,
+  Users,
   Building2,
   Menu,
   X,
@@ -24,6 +25,7 @@ import {
   Briefcase,
   Mail,
   Handshake,
+  Calendar,
 } from 'lucide-react'
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { createClient } from '@/lib/supabase/client'
@@ -232,14 +234,18 @@ export function DashboardNavbar({ user, profile }: DashboardNavbarProps) {
     { href: '/dashboard/reviews', label: 'Reviews', icon: Star },
     ...(hasAgentProfile ? [
       { href: '/dashboard/agent-profile', label: 'Agent Profile', icon: Briefcase },
-      { href: '/dashboard/agent-inquiries', label: 'Agent Inquiries', icon: Mail },
+      { href: '/dashboard/leads', label: 'Leads', icon: Mail },
+      { href: '/dashboard/clients', label: 'Clients', icon: Users },
+      { href: '/dashboard/calendar', label: 'Calendar', icon: Calendar },
     ] : [])
   ] : [
     { href: '/dashboard/overview', label: 'Overview', icon: LayoutDashboard },
     { href: '/dashboard/saved', label: 'Saved', icon: Heart },
     ...(hasAgentProfile ? [
       { href: '/dashboard/agent-profile', label: 'Agent Profile', icon: Briefcase },
-      { href: '/dashboard/agent-inquiries', label: 'Agent Inquiries', icon: Mail },
+      { href: '/dashboard/leads', label: 'Leads', icon: Mail },
+      { href: '/dashboard/clients', label: 'Clients', icon: Users },
+      { href: '/dashboard/calendar', label: 'Calendar', icon: Calendar },
     ] : [])
   ]
 
