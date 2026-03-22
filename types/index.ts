@@ -50,37 +50,64 @@ export type PropertyWithImages = Property & {
 }
 
 // ============================================================================
-// Transaction & Messaging Types
+// Phase 1 & 2: Agent System Types
 // ============================================================================
-
-export type {
+// Re-export all agent system enums and types for convenience
+export {
+  // Phase 1 Enums
+  AgentType,
+  LeadStatus,
+  LeadType,
+  FinancingStatus,
+  AssignmentMode,
+  ClientType,
+  AppointmentType,
+  AppointmentStatus,
+  // Phase 2 Enums
   TransactionType,
   TransactionStatus,
-  FinancingType,
-  ParticipantRole,
+  TransactionParticipantRole,
   DocumentType,
-  MessageType,
-  ContactMethod,
   CommissionStatus,
+  FinancingType,
+} from './agent-system'
+
+export type {
+  // Phase 1 Types
+  Agent,
+  Brokerage,
+  AgentTeam,
+  TeamMember,
+  AgentServiceArea,
+  Lead,
+  Client,
+  ClientNote,
+  LeadDistributionHistory,
+  Appointment,
+  AppointmentAttendee,
+  AgentWithTeams,
+  LeadWithDistribution,
+  ClientWithNotes,
+  AppointmentWithAttendees,
+  LeadScore,
+  AgentFitScore,
+  LeadDistributionResult,
+  CreateLeadRequest,
+  CreateLeadResponse,
+  ClaimLeadRequest,
+  ClaimLeadResponse,
+  ListLeadsRequest,
+  ListLeadsResponse,
+  // Phase 2 Types
   Transaction,
   TransactionParticipant,
   TransactionDocument,
-  MessageThread,
-  Message,
+  TransactionMessageThread,
   Commission,
   TransactionAnalytics,
-  CreateTransactionRequest,
-  CreateTransactionParticipant,
-  UpdateTransactionRequest,
-  CreateMessageThreadRequest,
-  SendMessageRequest,
-  CreateCommissionRequest,
-  UpdateCommissionRequest,
   TransactionWithParticipants,
-  MessageThreadWithMessages,
-  AgentCommissionSummary,
-  TransactionAnalyticsSummary
-} from './transactions'
+  CommissionWithDetails,
+} from './agent-system'
 
 export type AgentProfileWithDetails = any // AgentProfile & { agent_service_areas: AgentServiceArea[]; agent_achievements: AgentAchievement[]; agent_reviews: AgentReview[] }
 
@@ -101,3 +128,13 @@ export function isStudentProperty(property: Property | PropertyWithImages): bool
 export type PropertyCardProps = {
   property: PropertyWithImages
 }
+
+// Phase 2 Request/Response Types
+export type {
+  CreateTransactionRequest,
+  UpdateTransactionRequest,
+  CreateMessageThreadRequest,
+  SendMessageRequest,
+  CreateCommissionRequest,
+  UpdateCommissionRequest,
+} from './transactions'

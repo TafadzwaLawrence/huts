@@ -1,7 +1,5 @@
-import type { TransactionStatus as TransactionStatusType } from '@/types'
-
 interface TransactionStatusProps {
-  status: TransactionStatusType
+  status: 'active' | 'pending_offer' | 'under_contract' | 'closed' | 'cancelled' | 'expired'
 }
 
 export function TransactionStatus({ status }: TransactionStatusProps) {

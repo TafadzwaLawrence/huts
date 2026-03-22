@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { X, Search, User, Plus } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
-import type { CreateTransactionRequest, TransactionType, ParticipantRole } from '@/types'
+import { TransactionType } from '@/types'
 
 interface CreateTransactionModalProps {
   isOpen: boolean
@@ -34,11 +34,11 @@ export function CreateTransactionModal({ isOpen, onClose }: CreateTransactionMod
 
   // Form data
   const [selectedProperty, setSelectedProperty] = useState<Property | null>(null)
-  const [transactionType, setTransactionType] = useState<TransactionType>('sale')
+  const [transactionType, setTransactionType] = useState<'sale' | 'rental' | 'lease'>('sale')
   const [listingPrice, setListingPrice] = useState('')
   const [participants, setParticipants] = useState<Array<{
     profile: Profile
-    role: ParticipantRole
+    role: 'listing_agent' | 'selling_agent' | 'buyer_agent' | 'buyer' | 'seller' | 'landlord' | 'tenant' | 'coordinator'
     commission_split_pct?: number
   }>>([])
   const [notes, setNotes] = useState('')
@@ -117,7 +117,7 @@ export function CreateTransactionModal({ isOpen, onClose }: CreateTransactionMod
 
     setLoading(true)
     try {
-      const requestData: CreateTransactionRequest = {
+      const requestData = {
         property_id: selectedProperty.id,
         transaction_type: transactionType,
         listing_price: listingPrice ? parseFloat(listingPrice) : undefined,
@@ -282,7 +282,7 @@ export function CreateTransactionModal({ isOpen, onClose }: CreateTransactionMod
                       <select
                         value={participant.role}
                         onChange={(e) => updateParticipant(participant.profile.id, {
-                          role: e.target.value as ParticipantRole
+                          role: e.target.value as 'listing_agent' | 'selling_agent' | 'buyer_agent' | 'buyer' | 'seller' | 'landlord' | 'tenant' | 'coordinator'
                         })}
                         className="px-2 py-1 border border-light-gray rounded text-sm"
                       >

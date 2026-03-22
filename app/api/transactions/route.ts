@@ -167,7 +167,7 @@ export async function POST(request: NextRequest) {
     if (transactionError) throw transactionError
 
     // Add participants
-    const participantsData = body.participants.map(p => ({
+    const participantsData = body.participants.map((p: any) => ({
       transaction_id: transaction.id,
       profile_id: p.profile_id,
       role: p.role,

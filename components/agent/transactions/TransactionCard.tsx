@@ -1,18 +1,32 @@
 'use client'
 
-import { format } from 'date-fns'
 import { MapPin, Users, DollarSign, Calendar, FileText } from 'lucide-react'
 import type { TransactionWithParticipants } from '@/types'
 import { TransactionStatus } from './TransactionStatus'
-import { formatPrice, formatSalePrice } from '@/lib/utils'
+import { formatSalePrice } from '@/lib/utils'
 
 interface TransactionCardProps {
   transaction: TransactionWithParticipants
 }
 
+// Helper to format date without external library
+function formatDate(dateString: string | null | undefined): string | null {
+  if (!dateString) return null
+  try {
+    const date = new Date(dateString)
+    return date.toLocaleDateString('en-US', {
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric',
+    })
+  } catch {
+    return null
+  }
+}
+
 export function TransactionCard({ transaction }: TransactionCardProps) {
-  const property = transaction.property
-  const primaryImage = property?.property_images?.find(img => img.is_primary) || property?.property_images?.[0]
+  const closingDateFormatted = formatDate(transaction.closing_date)
+  const isSale = transaction.transaction_type === 'sale'
 
   return (
     <div className="bg-white border border-light-gray rounded-lg p-6 hover:shadow-md transition-shadow">
@@ -20,50 +34,32 @@ export function TransactionCard({ transaction }: TransactionCardProps) {
         <div className="flex-1">
           <div className="flex items-center gap-3 mb-2">
             <h3 className="text-lg font-semibold text-charcoal">
-              {property?.title || 'Untitled Property'}
+              Transaction {transaction.id.slice(0, 8)}
             </h3>
             <TransactionStatus status={transaction.status} />
           </div>
 
-          {property?.address && (
-            <div className="flex items-center text-dark-gray text-sm mb-2">
-              <MapPin size={14} className="mr-1" />
-              {property.address}
+          <div className="flex items-center gap-4 text-sm text-dark-gray mb-3">
+            <div className="capitalize px-2 py-1 bg-light-gray rounded text-xs font-medium">
+              {transaction.transaction_type}
             </div>
-          )}
-
-          <div className="flex items-center gap-4 text-sm text-dark-gray">
-            <span className="capitalize">{transaction.transaction_type}</span>
             {transaction.final_price && (
               <div className="flex items-center">
                 <DollarSign size={14} className="mr-1" />
-                {transaction.listing_type === 'sale'
-                  ? formatSalePrice(transaction.final_price)
-                  : formatPrice(transaction.final_price)
-                }
+                {isSale ? formatSalePrice(transaction.final_price) : `$${transaction.final_price.toLocaleString()}`}
               </div>
             )}
-            {transaction.closing_date && (
+            {closingDateFormatted && (
               <div className="flex items-center">
                 <Calendar size={14} className="mr-1" />
-                Closes {format(new Date(transaction.closing_date), 'MMM d, yyyy')}
+                {closingDateFormatted}
               </div>
             )}
           </div>
         </div>
-
-        {primaryImage && (
-          <div className="ml-4">
-            <img
-              src={primaryImage.url}
-              alt={property?.title || 'Property'}
-              className="w-20 h-20 object-cover rounded-lg"
-            />
-          </div>
-        )}
       </div>
 
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between border-t border-light-gray pt-3">
         <div className="flex items-center gap-4 text-sm">
           <div className="flex items-center text-dark-gray">
             <Users size={14} className="mr-1" />

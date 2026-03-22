@@ -21,6 +21,13 @@
 -- Core transaction management for property deals
 -- ============================================================================
 
+DROP TABLE IF EXISTS transaction_analytics CASCADE;
+DROP TABLE IF EXISTS transaction_participants CASCADE;
+DROP TABLE IF EXISTS transaction_documents CASCADE;
+DROP TABLE IF EXISTS transaction_message_threads CASCADE;
+DROP TABLE IF EXISTS commissions CASCADE;
+DROP TABLE IF EXISTS transactions CASCADE;
+
 CREATE TABLE transactions (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   property_id UUID NOT NULL REFERENCES properties(id) ON DELETE CASCADE,
