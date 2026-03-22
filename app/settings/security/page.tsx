@@ -124,7 +124,7 @@ export default function SecurityPage() {
                 type={showCurrentPassword ? 'text' : 'password'}
                 value={currentPassword}
                 onChange={(e) => setCurrentPassword(e.target.value)}
-                className="w-full px-4 py-3 pr-12 border-2 border-[#E9ECEF] rounded-xl focus:border-[#212529] focus:outline-none transition-colors"
+                className="w-full px-4 py-3 pr-12 border-2 border-[#E9ECEF] rounded-xl focus:border-[#212529] focus:outline-none transition-colors text-[#212529] placeholder:text-[#ADB5BD]"
                 placeholder="Enter current password"
               />
               <button
@@ -147,7 +147,7 @@ export default function SecurityPage() {
                 type={showNewPassword ? 'text' : 'password'}
                 value={newPassword}
                 onChange={(e) => setNewPassword(e.target.value)}
-                className="w-full px-4 py-3 pr-12 border-2 border-[#E9ECEF] rounded-xl focus:border-[#212529] focus:outline-none transition-colors"
+                className="w-full px-4 py-3 pr-12 border-2 border-[#E9ECEF] rounded-xl focus:border-[#212529] focus:outline-none transition-colors text-[#212529] placeholder:text-[#ADB5BD]"
                 placeholder="Enter new password"
               />
               <button
@@ -191,7 +191,7 @@ export default function SecurityPage() {
               type="password"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
-              className={`w-full px-4 py-3 border-2 rounded-xl focus:outline-none transition-colors ${
+              className={`w-full px-4 py-3 border-2 rounded-xl focus:outline-none transition-colors text-[#212529] placeholder:text-[#ADB5BD] ${
                 confirmPassword && confirmPassword !== newPassword
                   ? 'border-red-300 focus:border-red-500'
                   : 'border-[#E9ECEF] focus:border-[#212529]'
@@ -311,7 +311,7 @@ export default function SecurityPage() {
                 value={deleteConfirmText}
                 onChange={(e) => setDeleteConfirmText(e.target.value)}
                 placeholder="DELETE"
-                className="w-full px-4 py-3 border-2 border-[#E9ECEF] rounded-xl focus:border-[#FF6B6B] focus:outline-none transition-colors font-mono"
+                className="w-full px-4 py-3 border-2 border-[#E9ECEF] rounded-xl focus:border-[#FF6B6B] focus:outline-none transition-colors font-mono text-[#212529] placeholder:text-[#ADB5BD]"
               />
             </div>
             <div className="flex gap-3">
