@@ -31,12 +31,12 @@ type Conversation = {
   }
   renter: {
     id: string
-    name: string
+    full_name: string
     avatar_url: string | null
   }
   landlord: {
     id: string
-    name: string
+    full_name: string
     avatar_url: string | null
   }
   unread_count?: number
@@ -59,7 +59,7 @@ type PendingInquiry = {
   }
   sender: {
     id: string
-    name: string
+    full_name: string
     avatar_url: string | null
   }
 }
@@ -228,12 +228,12 @@ export default function FloatingChatWidget() {
               ),
               renter:profiles!conversations_renter_id_fkey (
                 id,
-                name,
+                full_name,
                 avatar_url
               ),
               landlord:profiles!conversations_landlord_id_fkey (
                 id,
-                name,
+                full_name,
                 avatar_url
               )
             `)
@@ -289,12 +289,12 @@ export default function FloatingChatWidget() {
         ),
         renter:profiles!conversations_renter_id_fkey (
           id,
-          name,
+          full_name,
           avatar_url
         ),
         landlord:profiles!conversations_landlord_id_fkey (
           id,
-          name,
+          full_name,
           avatar_url
         )
       `)
@@ -338,7 +338,7 @@ export default function FloatingChatWidget() {
         ),
         sender:profiles!inquiries_sender_id_fkey (
           id,
-          name,
+          full_name,
           avatar_url
         )
       `)
@@ -476,12 +476,12 @@ export default function FloatingChatWidget() {
           ),
           renter:profiles!conversations_renter_id_fkey (
             id,
-            name,
+            full_name,
             avatar_url
           ),
           landlord:profiles!conversations_landlord_id_fkey (
             id,
-            name,
+            full_name,
             avatar_url
           )
         `)
@@ -508,7 +508,7 @@ export default function FloatingChatWidget() {
     pendingInquiries
       .filter(inq => {
         if (!searchQuery) return true
-        return (inq.sender?.name || '').toLowerCase().includes(q) ||
+        return (inq.sender?.full_name || '').toLowerCase().includes(q) ||
           (inq.property?.title || '').toLowerCase().includes(q) ||
           inq.message.toLowerCase().includes(q)
       })
@@ -518,7 +518,7 @@ export default function FloatingChatWidget() {
       .filter(conv => {
         if (!searchQuery) return true
         const other = userId === conv.renter?.id ? conv.landlord : conv.renter
-        return (other?.name || '').toLowerCase().includes(q) ||
+        return (other?.full_name || '').toLowerCase().includes(q) ||
           (conv.property?.title || '').toLowerCase().includes(q)
       })
       .forEach(conv => items.push({ type: 'conversation', data: conv }))
@@ -583,14 +583,14 @@ export default function FloatingChatWidget() {
                       if (other?.avatar_url) {
                         return <img src={other.avatar_url} alt="" className="w-full h-full object-cover" />
                       }
-                      return other?.name?.[0]?.toUpperCase() || 'U'
+                      return other?.full_name?.[0]?.toUpperCase() || 'U'
                     })()}
                   </div>
                   <div className="flex-1 min-w-0">
                     <p className="font-semibold text-sm truncate">
                       {userId === selectedConversation.renter?.id
-                        ? selectedConversation.landlord?.name
-                        : selectedConversation.renter?.name}
+                        ? selectedConversation.landlord?.full_name
+                        : selectedConversation.renter?.full_name}
                     </p>
                     <p className="text-xs text-white/70 truncate">{selectedConversation.property?.title}</p>
                   </div>
@@ -816,7 +816,7 @@ export default function FloatingChatWidget() {
                           const inq = item.data
                           const isRecipient = inq.recipient_id === userId
                           const otherPerson = isRecipient ? inq.sender : null
-                          const displayName = otherPerson?.name || 'Unknown'
+                          const displayName = otherPerson?.full_name || 'Unknown'
 
                           return (
                             <button
@@ -891,7 +891,7 @@ export default function FloatingChatWidget() {
                                   {otherUser?.avatar_url ? (
                                     <img src={otherUser.avatar_url} alt="" className="w-full h-full object-cover" />
                                   ) : (
-                                    otherUser?.name?.[0]?.toUpperCase() || 'U'
+                                    otherUser?.full_name?.[0]?.toUpperCase() || 'U'
                                   )}
                                 </div>
                                 {hasUnread && (
@@ -904,7 +904,7 @@ export default function FloatingChatWidget() {
                               <div className="flex-1 min-w-0">
                                 <div className="flex items-center justify-between mb-0.5">
                                   <p className={`truncate text-sm ${hasUnread ? 'font-bold text-[#212529]' : 'font-semibold text-[#495057]'}`}>
-                                    {otherUser?.name || 'Unknown'}
+                                    {otherUser?.full_name || 'Unknown'}
                                   </p>
                                   <span className={`text-[10px] flex-shrink-0 ml-2 ${hasUnread ? 'text-[#212529] font-semibold' : 'text-[#ADB5BD]'}`}>
                                     {formatTime(conv.last_message_at)}

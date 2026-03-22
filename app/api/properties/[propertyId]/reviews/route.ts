@@ -32,13 +32,13 @@ export async function GET(
       .select(`
         *,
         profiles:author_id (
-          name,
+          full_name,
           avatar_url
         ),
         review_responses (
           *,
           profiles:landlord_id (
-            name,
+            full_name,
             avatar_url
           )
         )

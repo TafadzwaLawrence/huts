@@ -2,15 +2,16 @@
 
 import { useState, useEffect } from 'react'
 import { createClient } from '@/lib/supabase/client'
-import { TrendingUp, TrendingDown, Minus, Calendar } from 'lucide-react'
+import { TrendingUp, TrendingDown, Calendar } from 'lucide-react'
 
 interface PriceHistoryEntry {
   id: string
-  old_price: number | null
-  new_price: number | null
-  old_sale_price: number | null
-  new_sale_price: number | null
-  changed_at: string
+  event_type: string
+  price: number
+  previous_price: number | null
+  change_amount: number | null
+  change_percent: number | null
+  created_at: string
 }
 
 interface PriceHistoryProps {
@@ -29,9 +30,9 @@ export default function PriceHistory({ propertyId, currentPrice, currentSalePric
       const supabase = createClient()
       const { data } = await supabase
         .from('price_history')
-        .select('id, old_price, new_price, old_sale_price, new_sale_price, changed_at')
+        .select('id, event_type, price, previous_price, change_amount, change_percent, created_at')
         .eq('property_id', propertyId)
-        .order('changed_at', { ascending: false })
+        .order('created_at', { ascending: false })
         .limit(20)
 
       setHistory(data || [])
@@ -68,21 +69,15 @@ export default function PriceHistory({ propertyId, currentPrice, currentSalePric
   }
 
   const getChange = (entry: PriceHistoryEntry) => {
-    const oldVal = isSale ? entry.old_sale_price : entry.old_price
-    const newVal = isSale ? entry.new_sale_price : entry.new_price
-    if (!oldVal || !newVal) return { direction: 'neutral' as const, percent: 0 }
-    const diff = newVal - oldVal
-    const percent = Math.abs((diff / oldVal) * 100)
+    if (!entry.previous_price || !entry.change_percent) return { direction: 'neutral' as const, percent: 0 }
     return {
-      direction: diff > 0 ? 'up' as const : diff < 0 ? 'down' as const : 'neutral' as const,
-      percent: Math.round(percent * 10) / 10,
+      direction: entry.price > entry.previous_price ? 'up' as const : 'down' as const,
+      percent: Math.abs(Math.round(entry.change_percent * 10) / 10),
     }
   }
 
-  // Build visual timeline data - find min/max for chart scaling
-  const prices = history
-    .map(e => isSale ? (e.new_sale_price || 0) : (e.new_price || 0))
-    .filter(p => p > 0)
+  // Build visual timeline data
+  const prices = history.map(e => e.price).filter(p => p > 0)
   const minPrice = Math.min(...prices)
   const maxPrice = Math.max(...prices)
   const range = maxPrice - minPrice || 1
@@ -94,15 +89,14 @@ export default function PriceHistory({ propertyId, currentPrice, currentSalePric
       {/* Mini bar chart */}
       <div className="flex items-end gap-1 h-16 mb-4 px-1">
         {[...history].reverse().map((entry, i) => {
-          const price = isSale ? (entry.new_sale_price || 0) : (entry.new_price || 0)
-          const height = price > 0 ? Math.max(8, ((price - minPrice) / range) * 100) : 8
+          const height = Math.max(8, ((entry.price - minPrice) / range) * 100)
           const change = getChange(entry)
           return (
             <div
               key={entry.id}
               className="flex-1 rounded-t transition-all"
               style={{ height: `${height}%` }}
-              title={`${formatAmount(price)} on ${new Date(entry.changed_at).toLocaleDateString()}`}
+              title={`${formatAmount(entry.price)} on ${new Date(entry.created_at).toLocaleDateString()}`}
             >
               <div
                 className={`w-full h-full rounded-t ${
@@ -120,9 +114,7 @@ export default function PriceHistory({ propertyId, currentPrice, currentSalePric
       <div className="space-y-0">
         {history.map((entry, i) => {
           const change = getChange(entry)
-          const newPrice = isSale ? entry.new_sale_price : entry.new_price
-          const oldPrice = isSale ? entry.old_sale_price : entry.old_price
-          const date = new Date(entry.changed_at)
+          const date = new Date(entry.created_at)
 
           return (
             <div
@@ -145,9 +137,9 @@ export default function PriceHistory({ propertyId, currentPrice, currentSalePric
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2">
                   <span className="text-sm font-semibold text-[#212529]">
-                    {newPrice ? formatAmount(newPrice) : 'N/A'}
+                    {formatAmount(entry.price)}
                   </span>
-                  {change.direction !== 'neutral' && oldPrice && (
+                  {change.direction !== 'neutral' && (
                     <span className={`flex items-center gap-0.5 text-xs ${
                       change.direction === 'down' ? 'text-[#51CF66]' : 'text-[#FF6B6B]'
                     }`}>
@@ -156,9 +148,9 @@ export default function PriceHistory({ propertyId, currentPrice, currentSalePric
                     </span>
                   )}
                 </div>
-                {oldPrice && (
+                {entry.previous_price && (
                   <p className="text-xs text-[#ADB5BD]">
-                    from {formatAmount(oldPrice)}
+                    from {formatAmount(entry.previous_price)}
                   </p>
                 )}
               </div>

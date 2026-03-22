@@ -36,7 +36,7 @@ export default function ReviewsSection({
     try {
       const response = await fetch(`/api/properties/${propertyId}/reviews?page=1&limit=1`)
       const data = await response.json()
-      setStats(data.stats)
+      if (data.stats) setStats(data.stats)
     } catch (error) {
       console.error('Failed to fetch review stats:', error)
     } finally {

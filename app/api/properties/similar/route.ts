@@ -47,8 +47,8 @@ export async function GET(request: Request) {
     if (beds) {
       const b = parseInt(beds)
       query = query
-        .gte('beds', Math.max(1, b - 1))
-        .lte('beds', b + 1)
+        .gte('bedrooms', Math.max(1, b - 1))
+        .lte('bedrooms', b + 1)
     }
 
     const { data: properties, error } = await query.order('created_at', { ascending: false })

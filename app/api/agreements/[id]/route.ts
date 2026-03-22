@@ -91,8 +91,8 @@ export async function GET(
           id, title, slug, address, city, listing_type,
           property_images(url, is_primary)
         ),
-        landlord:profiles!rental_agreements_landlord_id_fkey(id, name, avatar_url, phone, email),
-        tenant:profiles!rental_agreements_tenant_id_fkey(id, name, avatar_url, phone, email),
+        landlord:profiles!rental_agreements_landlord_id_fkey(id, full_name, avatar_url, phone, email),
+        tenant:profiles!rental_agreements_tenant_id_fkey(id, full_name, avatar_url, phone, email),
         rent_payments(
           id, due_date, amount, status, paid_at, payment_method, notes, created_at
         )

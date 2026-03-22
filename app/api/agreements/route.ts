@@ -21,8 +21,8 @@ export async function GET() {
           id, title, slug, address, city, listing_type, status,
           property_images(url, is_primary)
         ),
-        landlord:profiles!rental_agreements_landlord_id_fkey(id, name, avatar_url, phone),
-        tenant:profiles!rental_agreements_tenant_id_fkey(id, name, avatar_url, phone)
+        landlord:profiles!rental_agreements_landlord_id_fkey(id, full_name, avatar_url, phone),
+        tenant:profiles!rental_agreements_tenant_id_fkey(id, full_name, avatar_url, phone)
       `)
       .or(`landlord_id.eq.${user.id},tenant_id.eq.${user.id}`)
       .order('created_at', { ascending: false })
