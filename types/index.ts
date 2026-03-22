@@ -49,6 +49,39 @@ export type PropertyWithImages = Property & {
   profiles: Pick<Profile, 'name' | 'avatar_url' | 'verified'>
 }
 
+// ============================================================================
+// Transaction & Messaging Types
+// ============================================================================
+
+export type {
+  TransactionType,
+  TransactionStatus,
+  FinancingType,
+  ParticipantRole,
+  DocumentType,
+  MessageType,
+  ContactMethod,
+  CommissionStatus,
+  Transaction,
+  TransactionParticipant,
+  TransactionDocument,
+  MessageThread,
+  Message,
+  Commission,
+  TransactionAnalytics,
+  CreateTransactionRequest,
+  CreateTransactionParticipant,
+  UpdateTransactionRequest,
+  CreateMessageThreadRequest,
+  SendMessageRequest,
+  CreateCommissionRequest,
+  UpdateCommissionRequest,
+  TransactionWithParticipants,
+  MessageThreadWithMessages,
+  AgentCommissionSummary,
+  TransactionAnalyticsSummary
+} from './transactions'
+
 export type AgentProfileWithDetails = any // AgentProfile & { agent_service_areas: AgentServiceArea[]; agent_achievements: AgentAchievement[]; agent_reviews: AgentReview[] }
 
 // Type guards for listing types

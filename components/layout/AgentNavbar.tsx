@@ -18,6 +18,7 @@ import {
   Menu,
   X,
   Bell,
+  FileText,
 } from 'lucide-react'
 
 interface AgentNavbarProps {
@@ -37,6 +38,7 @@ interface AgentNavbarProps {
 const NAV_LINKS = [
   { href: '/agent/overview', label: 'Overview', icon: LayoutDashboard },
   { href: '/agent/leads', label: 'Leads', icon: Inbox },
+  { href: '/agent/transactions', label: 'Transactions', icon: FileText },
   { href: '/agent/clients', label: 'Clients', icon: Users },
   { href: '/agent/calendar', label: 'Calendar', icon: Calendar },
   { href: '/agent/profile', label: 'My Profile', icon: User },

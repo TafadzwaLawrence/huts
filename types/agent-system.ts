@@ -193,6 +193,92 @@ export interface ListLeadsResponse {
   hasMore: boolean
 }
 
+// ============================================================================
+// PHASE 2: Transactions & Messaging Enums
+// ============================================================================
+
+export enum TransactionType {
+  Sale = 'sale',
+  Rental = 'rental',
+  Lease = 'lease',
+}
+
+export enum TransactionStatus {
+  Active = 'active',
+  PendingOffer = 'pending_offer',
+  UnderContract = 'under_contract',
+  Closed = 'closed',
+  Cancelled = 'cancelled',
+  Expired = 'expired',
+}
+
+export enum TransactionParticipantRole {
+  ListingAgent = 'listing_agent',
+  SellingAgent = 'selling_agent',
+  BuyerAgent = 'buyer_agent',
+  Buyer = 'buyer',
+  Seller = 'seller',
+  Landlord = 'landlord',
+  Tenant = 'tenant',
+  Coordinator = 'coordinator',
+}
+
+export enum DocumentType {
+  Contract = 'contract',
+  Disclosure = 'disclosure',
+  Addendum = 'addendum',
+  InspectionReport = 'inspection_report',
+  Appraisal = 'appraisal',
+  ClosingStatement = 'closing_statement',
+  Other = 'other',
+}
+
+export enum CommissionStatus {
+  Pending = 'pending',
+  Paid = 'paid',
+  Cancelled = 'cancelled',
+}
+
+export enum FinancingType {
+  Cash = 'cash',
+  Conventional = 'conventional',
+  FHA = 'fha',
+  VA = 'va',
+  Other = 'other',
+}
+
+// Phase 2 Type Exports from database
+type Transaction = Database['public']['Tables']['transactions']['Row']
+type TransactionParticipant = Database['public']['Tables']['transaction_participants']['Row']
+type TransactionDocument = Database['public']['Tables']['transaction_documents']['Row']
+type TransactionMessageThread = Database['public']['Tables']['transaction_message_threads']['Row']
+type Commission = Database['public']['Tables']['commissions']['Row']
+type TransactionAnalytics = Database['public']['Tables']['transaction_analytics']['Row']
+
+// Phase 2 Insert/Update types
+export type TransactionInsert = Database['public']['Tables']['transactions']['Insert']
+export type TransactionUpdate = Database['public']['Tables']['transactions']['Update']
+export type TransactionParticipantInsert = Database['public']['Tables']['transaction_participants']['Insert']
+export type TransactionParticipantUpdate = Database['public']['Tables']['transaction_participants']['Update']
+export type TransactionDocumentInsert = Database['public']['Tables']['transaction_documents']['Insert']
+export type TransactionDocumentUpdate = Database['public']['Tables']['transaction_documents']['Update']
+export type CommissionInsert = Database['public']['Tables']['commissions']['Insert']
+export type CommissionUpdate = Database['public']['Tables']['commissions']['Update']
+
+// Phase 2 Composed types
+export interface TransactionWithParticipants extends Transaction {
+  participants?: TransactionParticipant[]
+  documents?: TransactionDocument[]
+  commissions?: Commission[]
+  analytics?: TransactionAnalytics | null
+}
+
+export interface CommissionWithDetails extends Commission {
+  transaction?: Transaction
+  agent?: Agent
+  brokerage?: Brokerage
+}
+
 // Export re-exported types
 export type {
   Agent,
@@ -206,4 +292,10 @@ export type {
   LeadDistributionHistory,
   Appointment,
   AppointmentAttendee,
+  Transaction,
+  TransactionParticipant,
+  TransactionDocument,
+  TransactionMessageThread,
+  Commission,
+  TransactionAnalytics,
 }
