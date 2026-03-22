@@ -537,39 +537,33 @@ function AgentSignupInner() {
   return (
     <div className="min-h-screen flex">
       {/* Left — Form Panel */}
-      <div className="w-full lg:w-1/2 flex flex-col bg-white lg:h-screen lg:overflow-y-auto">
-      {/* Header */}
-      <div className="bg-white border-b border-[#E9ECEF] sticky top-0 z-10 flex-shrink-0">
-        <div className="px-6 sm:px-10 py-4">
-          <div className="flex items-center justify-between">
-            <Link href="/" className="flex items-center shrink-0">
-              <img src="/logo.svg" alt="Huts" width={32} height={32} className="h-8 w-8 object-contain" />
+      <div className="w-full lg:w-1/2 flex flex-col justify-center px-6 sm:px-12 lg:px-16 xl:px-24 py-12 bg-white">
+        <div className="w-full max-w-[440px] mx-auto">
+          {/* Logo */}
+          <div className="mb-10">
+            <Link href="/">
+              <img src="/logo.svg" alt="Huts" width={48} height={48} className="h-12 w-12 object-contain" />
             </Link>
-            <div className="flex items-center gap-4">
-              {/* Progress dots — only show for profile steps 1-5 */}
-              {currentStep >= 1 && (
-                <div className="hidden sm:flex items-center gap-1.5">
-                  {Array.from({ length: totalSteps }).map((_, i) => (
-                    <div
-                      key={i}
-                      className={`h-1.5 rounded-full transition-all duration-300 ${
-                        i + 1 <= currentStep ? 'bg-[#212529] w-8' : 'bg-[#E9ECEF] w-4'
-                      }`}
-                    />
-                  ))}
-                </div>
-              )}
-              <span className="text-sm text-[#495057]">
-                {currentStep === 0 ? 'Create account' : `${currentStep}/${totalSteps}`}
-              </span>
-            </div>
           </div>
-        </div>
-      </div>
 
-      {/* Form Content */}
-      <div className="flex-1 px-6 sm:px-10 lg:px-14 py-10 sm:py-14">
-        <div className="w-full max-w-[520px] mx-auto">
+          {/* Progress indicator for steps 1-5 */}
+          {currentStep >= 1 && (
+            <div className="mb-8">
+              <div className="flex items-center justify-center gap-1.5">
+                {Array.from({ length: totalSteps }).map((_, i) => (
+                  <div
+                    key={i}
+                    className={`h-1.5 rounded-full transition-all duration-300 ${
+                      i + 1 <= currentStep ? 'bg-[#212529] w-8' : 'bg-[#E9ECEF] w-4'
+                    }`}
+                  />
+                ))}
+              </div>
+              <p className="text-center text-sm text-[#495057] mt-3">
+                Step {currentStep} of {totalSteps}
+              </p>
+            </div>
+          )}
 
         {/* Step 0: Account creation / sign in */}
         {currentStep === 0 && (
@@ -1169,7 +1163,6 @@ function AgentSignupInner() {
         </div>
         )}
         </div>
-      </div>
       </div>
 
       {/* Right — Image panel (hidden on mobile) */}
