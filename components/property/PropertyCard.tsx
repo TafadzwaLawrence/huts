@@ -127,7 +127,7 @@ export function PropertyCard({ property, compact = false }: PropertyCardProps) {
           <div className="flex items-center text-sm text-[#495057]">
             <MapPin size={12} className="mr-1 flex-shrink-0 text-[#ADB5BD]" />
             <span className="line-clamp-1">
-              {property.title}, {property.neighborhood ? `${property.neighborhood}, ` : ''}{property.city}
+              {property.title}, {property.area ? `${property.area}, ` : ''}{property.city}
             </span>
           </div>
         </div>
