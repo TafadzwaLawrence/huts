@@ -18,42 +18,85 @@ export async function DELETE() {
       return NextResponse.json({ error: 'Server configuration error' }, { status: 500 })
     }
 
-    const adminClient = createAdminClient()
+    const admin = createAdminClient()
     const uid = user.id
 
-    // Step 1: Delete from tables that DIRECTLY reference auth.users(id).
-    // These are NOT covered by the profiles cascade, so they must be
-    // removed first — otherwise Supabase's internal auth delete may fail.
+    // ── Step 1: Get user's property IDs ──────────────────────────────
+    const { data: userProperties } = await admin
+      .from('properties')
+      .select('id')
+      .eq('user_id', uid)
+    const propIds = (userProperties || []).map((p) => p.id)
 
-    // saved_searches.user_id → auth.users (migration 017)
-    await adminClient.from('saved_searches').delete().eq('user_id', uid)
+    // ── Step 2: Get review IDs that would trigger refresh_property_ratings ──
+    // We must delete reviews EXPLICITLY to avoid the materialized-view
+    // refresh trigger (REFRESH MATERIALIZED VIEW CONCURRENTLY crashes
+    // inside a transaction if migration 024 was not applied).
+    const reviewIds: string[] = []
 
-    // agent_profiles.user_id → auth.users (migration 021)
-    await adminClient.from('agent_profiles').delete().eq('user_id', uid)
+    const { data: authoredReviews } = await admin
+      .from('reviews')
+      .select('id')
+      .eq('author_id', uid)
+    if (authoredReviews) reviewIds.push(...authoredReviews.map((r) => r.id))
 
-    // agents.user_id → auth.users (migration 030)
-    await adminClient.from('agents').delete().eq('user_id', uid)
+    if (propIds.length > 0) {
+      const { data: propReviews } = await admin
+        .from('reviews')
+        .select('id')
+        .in('property_id', propIds)
+      if (propReviews) reviewIds.push(...propReviews.map((r) => r.id))
+    }
 
-    // Step 2: Delete the profiles row.
-    // This cascades to properties, messages, reviews, notifications,
-    // saved_properties, conversations, and all other app tables.
-    const { error: profileError } = await adminClient
+    const uniqueReviewIds = Array.from(new Set(reviewIds))
+
+    // ── Step 3: Delete review leaf tables, then reviews ──────────────
+    if (uniqueReviewIds.length > 0) {
+      await admin.from('review_votes').delete().in('review_id', uniqueReviewIds)
+      await admin.from('review_responses').delete().in('review_id', uniqueReviewIds)
+      await admin.from('reviews').delete().in('id', uniqueReviewIds)
+    }
+    // Also delete any remaining votes this user cast on OTHER reviews
+    await admin.from('review_votes').delete().eq('user_id', uid)
+
+    // ── Step 4: Delete remaining property dependents ─────────────────
+    if (propIds.length > 0) {
+      await admin.from('property_images').delete().in('property_id', propIds)
+      await admin.from('saved_properties').delete().in('property_id', propIds)
+      await admin.from('properties').delete().in('id', propIds)
+    }
+
+    // ── Step 5: Delete user's saved properties & conversations ───────
+    await admin.from('saved_properties').delete().eq('user_id', uid)
+    await admin
+      .from('conversations')
+      .delete()
+      .or(`renter_id.eq.${uid},landlord_id.eq.${uid}`)
+    await admin.from('messages').delete().eq('sender_id', uid)
+
+    // ── Step 6: Delete direct auth.users FK references ───────────────
+    await admin.from('agents').delete().eq('user_id', uid)
+    // Tables that may or may not exist (silently ignored if missing)
+    await admin.from('saved_searches').delete().eq('user_id', uid)
+
+    // ── Step 7: Delete profile (cascades any remaining app data) ─────
+    const { error: profileError } = await admin
       .from('profiles')
       .delete()
       .eq('id', uid)
 
     if (profileError) {
       console.error('[Delete Account] Profile delete failed:', profileError)
-      return NextResponse.json({ error: 'Failed to clean up account data' }, { status: 500 })
     }
 
-    // Step 3: Delete the auth user. The database is now clean, so
-    // Supabase's internal cascade has nothing that can raise an error.
+    // ── Step 8: Delete auth user ─────────────────────────────────────
+    // All application data is gone; Supabase cascade is now a no-op.
     const res = await fetch(`${supabaseUrl}/auth/v1/admin/users/${uid}`, {
       method: 'DELETE',
       headers: {
         apikey: serviceRoleKey,
         Authorization: `Bearer ${serviceRoleKey}`,
+        'Content-Type': 'application/json',
       },
     })
 
