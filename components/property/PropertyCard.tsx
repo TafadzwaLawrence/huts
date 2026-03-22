@@ -35,7 +35,7 @@ export function PropertyCard({ property, compact = false }: PropertyCardProps) {
 
   return (
     <Link 
-      href={`/property/${property.slug || property.id}`} 
+      href={`/property/${property.id}`} 
       className="block group relative"
       prefetch={true}
       onClick={() => setIsNavigating(true)}
