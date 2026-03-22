@@ -68,21 +68,9 @@ export function PropertyCard({ property, compact = false }: PropertyCardProps) {
           {/* Student Housing Badges */}
           {isStudentProperty(property) && (
             <div className="absolute top-3 left-3 flex flex-wrap gap-1.5 max-w-[140px]">
-              {property.furnished && (
-                <div className="bg-[#212529]/90 backdrop-blur-sm text-white px-2 py-1 rounded text-xs font-semibold flex items-center gap-1 shadow-md" title="Furnished">
-                  <Sofa size={ICON_SIZES.xs} /> Furnished
-                </div>
-              )}
-              {property.shared_rooms && (
-                <div className="bg-[#212529]/90 backdrop-blur-sm text-white px-2 py-1 rounded text-xs font-semibold flex items-center gap-1 shadow-md" title="Shared Rooms Available">
-                  <Users size={ICON_SIZES.xs} /> Shared
-                </div>
-              )}
-              {property.utilities_included && (
-                <div className="bg-[#212529]/90 backdrop-blur-sm text-white px-2 py-1 rounded text-xs font-semibold flex items-center gap-1 shadow-md" title="Utilities Included">
-                  <Zap size={ICON_SIZES.xs} /> Utilities
-                </div>
-              )}
+              <div className="bg-[#212529]/90 backdrop-blur-sm text-white px-2 py-1 rounded text-xs font-semibold flex items-center gap-1 shadow-md" title="Student Housing">
+                <Users size={ICON_SIZES.xs} /> Student
+              </div>
             </div>
           )}
 
