@@ -23,11 +23,31 @@ export default async function MyPropertiesPage() {
     redirect('/dashboard/overview')
   }
 
-  const { data: properties } = await supabase
+  let properties: any[] = []
+
+  const { data: propertiesWithUrl, error: propertiesWithUrlError } = await supabase
     .from('properties')
     .select(`*, property_images(url, order, is_primary)`)
     .eq('user_id', user.id)
     .order('created_at', { ascending: false })
+
+  if (!propertiesWithUrlError) {
+    properties = propertiesWithUrl || []
+  } else {
+    // Fallback for environments where the image column is still named image_url.
+    const { data: propertiesWithLegacyImages, error: propertiesWithLegacyImagesError } = await supabase
+      .from('properties')
+      .select(`*, property_images(url:image_url, order, is_primary)`)
+      .eq('user_id', user.id)
+      .order('created_at', { ascending: false })
+
+    if (propertiesWithLegacyImagesError) {
+      console.error('[Dashboard MyProperties] Failed to load properties:', propertiesWithLegacyImagesError)
+      properties = []
+    } else {
+      properties = propertiesWithLegacyImages || []
+    }
+  }
 
   const propertiesWithStats = await Promise.all(
     (properties || []).map(async (property) => {

@@ -51,14 +51,66 @@ export default async function DashboardOverviewPage() {
     redirect('/dashboard')
   }
 
+  const fetchRecentProperties = async () => {
+    const primary = await supabase
+      .from('properties')
+      .select('id, title, slug, city, area, price, sale_price, listing_type, property_images(url, is_primary)')
+      .eq('status', 'active')
+      .eq('verification_status', 'approved')
+      .order('created_at', { ascending: false })
+      .limit(4)
+
+    if (!primary.error) return primary.data || []
+
+    const fallback = await supabase
+      .from('properties')
+      .select('id, title, slug, city, area, price, sale_price, listing_type, property_images(url:image_url, is_primary)')
+      .eq('status', 'active')
+      .eq('verification_status', 'approved')
+      .order('created_at', { ascending: false })
+      .limit(4)
+
+    if (fallback.error) {
+      console.error('[Dashboard Overview] Failed to load recent properties:', fallback.error)
+      return []
+    }
+
+    return fallback.data || []
+  }
+
+  const fetchUserProperties = async () => {
+    const primary = await supabase
+      .from('properties')
+      .select('id, title, slug, status, verification_status, price, sale_price, listing_type, city, area, created_at, property_images(url, is_primary)')
+      .eq('user_id', user.id)
+      .order('created_at', { ascending: false })
+      .limit(3)
+
+    if (!primary.error) return primary.data || []
+
+    const fallback = await supabase
+      .from('properties')
+      .select('id, title, slug, status, verification_status, price, sale_price, listing_type, city, area, created_at, property_images(url:image_url, is_primary)')
+      .eq('user_id', user.id)
+      .order('created_at', { ascending: false })
+      .limit(3)
+
+    if (fallback.error) {
+      console.error('[Dashboard Overview] Failed to load user properties:', fallback.error)
+      return []
+    }
+
+    return fallback.data || []
+  }
+
   // Parallelize all queries
   const [
     { data: profile },
     { count: savedCount },
     { count: propertyCount },
     { count: conversationCount },
-    { data: recentProperties },
-    { data: userProperties },
+    recentProperties,
+    userProperties,
     { data: recentConversations },
     { count: reviewCount },
     { data: agentProfile },
@@ -67,8 +119,8 @@ export default async function DashboardOverviewPage() {
     supabase.from('saved_properties').select('*', { count: 'exact', head: true }).eq('user_id', user.id),
     supabase.from('properties').select('*', { count: 'exact', head: true }).eq('user_id', user.id),
     supabase.from('conversations').select('*', { count: 'exact', head: true }).or(`landlord_id.eq.${user.id},renter_id.eq.${user.id}`),
-    supabase.from('properties').select('id, title, slug, city, area, price, sale_price, listing_type, property_images(url, is_primary)').eq('status', 'active').eq('verification_status', 'approved').order('created_at', { ascending: false }).limit(4),
-    supabase.from('properties').select('id, title, slug, status, verification_status, price, sale_price, listing_type, city, area, created_at, property_images(url, is_primary)').eq('user_id', user.id).order('created_at', { ascending: false }).limit(3),
+    fetchRecentProperties(),
+    fetchUserProperties(),
     supabase.from('conversations').select('id, last_message_preview, last_message_at, property_id, properties:property_id(title, slug), profiles:renter_id(name, avatar_url)').or(`landlord_id.eq.${user.id},renter_id.eq.${user.id}`).order('last_message_at', { ascending: false }).limit(3),
     supabase.from('reviews').select('*', { count: 'exact', head: true }).eq('author_id', user.id),
     supabase.from('agent_profiles').select('id, status, verified, avg_rating, total_reviews, slug, agent_type').eq('user_id', user.id).maybeSingle(),

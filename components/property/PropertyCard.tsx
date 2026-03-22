@@ -20,7 +20,8 @@ export function PropertyCard({ property, compact = false }: PropertyCardProps) {
     ...images.filter((img: any) => img.is_primary),
     ...images.filter((img: any) => !img.is_primary),
   ].map((img: any) => ({
-    url: img.image_url,
+    // Support both legacy and current payload shapes.
+    url: img.url || img.image_url,
     is_primary: img.is_primary,
     alt_text: property.title,
   }))

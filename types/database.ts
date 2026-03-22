@@ -199,21 +199,30 @@ export interface Database {
         Row: {
           id: string
           property_id: string
-          image_url: string
+          url: string
+          thumbnail_url: string | null
+          alt_text: string | null
+          order: number
           is_primary: boolean
           created_at: string
         }
         Insert: {
           id?: string
           property_id: string
-          image_url: string
+          url: string
+          thumbnail_url?: string | null
+          alt_text?: string | null
+          order?: number
           is_primary?: boolean
           created_at?: string
         }
         Update: {
           id?: string
           property_id?: string
-          image_url?: string
+          url?: string
+          thumbnail_url?: string | null
+          alt_text?: string | null
+          order?: number
           is_primary?: boolean
           created_at?: string
         }
