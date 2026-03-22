@@ -155,9 +155,8 @@ function AgentSignupInner() {
             .eq('status', 'active')
             .eq('verification_status', 'approved'),
           supabase
-            .from('agent_profiles')
-            .select('id', { count: 'exact', head: true })
-            .eq('status', 'active'),
+            .from('agents')
+            .select('id', { count: 'exact', head: true }),
         ])
 
         const listingCount =
@@ -249,26 +248,26 @@ function AgentSignupInner() {
         .replace(/[^a-z0-9]+/g, '-')
         .replace(/^-|-$/g, '')
 
+      // Update profile: set role to 'agent' and store contact/location info
+      await supabase
+        .from('profiles')
+        .update({
+          role: 'agent',
+          phone: formData.phone || null,
+          city: formData.office_city || null,
+          bio: formData.bio || null,
+        })
+        .eq('id', user.id)
+
       const { data: agentProfile, error: profileError } = await supabase
-        .from('agent_profiles')
+        .from('agents')
         .insert({
-          user_id: user.id,
+          profile_id: user.id,
           agent_type: formData.agent_type,
-          business_name: formData.business_name || null,
-          phone: formData.phone,
-          whatsapp: formData.whatsapp || null,
-          office_address: formData.office_address || null,
-          office_city: formData.office_city,
           license_number: formData.license_number || null,
-          license_state: formData.license_state || null,
-          years_experience: formData.years_experience || 0,
-          certifications: formData.certifications.length > 0 ? formData.certifications : null,
           service_areas: formData.service_areas.length > 0 ? formData.service_areas : null,
           bio: formData.bio || null,
           specializations: formData.specializations.length > 0 ? formData.specializations : null,
-          languages: formData.languages.length > 0 ? formData.languages : ['English'],
-          slug: slugBase,
-          status: 'pending',
         })
         .select()
         .single()
@@ -279,7 +278,6 @@ function AgentSignupInner() {
         const serviceAreaInserts = formData.service_areas.map(area => ({
           agent_id: agentProfile.id,
           city: area,
-          is_primary: area === formData.primary_service_area,
         }))
 
         const { error: areasError } = await supabase
