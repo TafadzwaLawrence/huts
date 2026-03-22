@@ -3,6 +3,7 @@
 import { useState, useEffect, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
+import Image from 'next/image'
 import { 
   Building2, 
   Home, 
@@ -534,10 +535,12 @@ function AgentSignupInner() {
   }
 
   return (
-    <div className="min-h-screen bg-[#F8F9FA]">
+    <div className="min-h-screen flex">
+      {/* Left — Form Panel */}
+      <div className="w-full lg:w-1/2 flex flex-col bg-white lg:h-screen lg:overflow-y-auto">
       {/* Header */}
-      <div className="bg-white border-b border-[#E9ECEF] sticky top-0 z-10">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <div className="bg-white border-b border-[#E9ECEF] sticky top-0 z-10 flex-shrink-0">
+        <div className="px-6 sm:px-10 py-4">
           <div className="flex items-center justify-between">
             <Link href="/" className="flex items-center shrink-0">
               <img src="/logo.svg" alt="Huts" width={32} height={32} className="h-8 w-8 object-contain" />
@@ -565,7 +568,8 @@ function AgentSignupInner() {
       </div>
 
       {/* Form Content */}
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16">
+      <div className="flex-1 px-6 sm:px-10 lg:px-14 py-10 sm:py-14">
+        <div className="w-full max-w-[520px] mx-auto">
 
         {/* Step 0: Account creation / sign in */}
         {currentStep === 0 && (
@@ -1164,6 +1168,30 @@ function AgentSignupInner() {
           )}
         </div>
         )}
+        </div>
+      </div>
+      </div>
+
+      {/* Right — Image panel (hidden on mobile) */}
+      <div className="hidden lg:flex lg:w-1/2 relative items-center justify-center overflow-hidden bg-[#212529]">
+        <Image
+          src="/agent-hero.jpg"
+          alt="Real estate professionals"
+          fill
+          className="object-cover contrast-105 opacity-70 select-none pointer-events-none"
+          priority
+          sizes="50vw"
+        />
+        {/* Dark overlay for B&W aesthetic */}
+        <div className="absolute inset-0 bg-black/15 mix-blend-multiply pointer-events-none" />
+        {/* Decorative grid pattern overlay */}
+        <div className="absolute inset-0 opacity-[0.07]" style={{
+          backgroundImage: `linear-gradient(rgba(255,255,255,.12) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.12) 1px, transparent 1px)`,
+          backgroundSize: '60px 60px',
+        }} />
+        {/* Decorative circles */}
+        <div className="absolute -top-24 -right-24 w-80 h-80 rounded-full border border-white/5" />
+        <div className="absolute -bottom-32 -left-32 w-96 h-96 rounded-full border border-white/5" />
       </div>
     </div>
   )
