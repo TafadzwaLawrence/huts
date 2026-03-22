@@ -37,12 +37,12 @@ export default async function AreasPage() {
       price,
       sale_price,
       listing_type,
-      beds,
-      baths,
+      bedrooms,
+      bathrooms,
       lat,
       lng,
       city,
-      neighborhood,
+      area,
       status,
       property_images (url)
     `)

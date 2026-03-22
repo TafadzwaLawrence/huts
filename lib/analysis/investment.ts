@@ -82,12 +82,12 @@ export async function calculateInvestmentMetrics(
   // Estimate monthly rent from comparable rentals
   const { data: rentComps } = await supabase
     .from('properties')
-    .select('price, beds, baths, sqft')
+    .select('price, bedrooms, bathrooms, square_feet')
     .eq('city', property.city)
     .eq('listing_type', 'rent')
     .eq('status', 'active')
-    .gte('beds', Math.max(0, property.beds - 1))
-    .lte('beds', property.beds + 1)
+    .gte('bedrooms', Math.max(0, property.bedrooms - 1))
+    .lte('bedrooms', property.bedrooms + 1)
     .limit(15)
 
   let estimatedMonthlyRent: number
@@ -95,9 +95,9 @@ export async function calculateInvestmentMetrics(
     // Calculate weighted average based on similarity
     const weights = rentComps.map(r => {
       let weight = 1
-      if (r.beds === property.beds) weight += 0.5
-      if (Math.abs(r.baths - property.baths) <= 0.5) weight += 0.3
-      if (r.sqft && property.sqft && Math.abs(r.sqft - property.sqft) / property.sqft < 0.2) {
+      if (r.bedrooms === property.bedrooms) weight += 0.5
+      if (Math.abs(r.bathrooms - property.bathrooms) <= 0.5) weight += 0.3
+      if (r.square_feet && property.square_feet && Math.abs(r.square_feet - property.square_feet) / property.square_feet < 0.2) {
         weight += 0.5
       }
       return { rent: r.price, weight }

@@ -22,7 +22,7 @@ interface AreaGuide {
   slug: string
   name: string
   city: string
-  neighborhood: string | null
+  area: string | null
   description: string | null
   property_count: number
   avg_rent: number | null
@@ -192,7 +192,7 @@ export default function AreaGuidesPage() {
                       </h3>
                       <div className="flex items-center text-sm text-[#495057]">
                         <MapPin size={ICON_SIZES.sm} className="mr-1" />
-                        {area.neighborhood ? `${area.neighborhood}, ` : ''}{area.city}
+                        {area.area ? `${area.area}, ` : ''}{area.city}
                       </div>
                     </div>
                   </div>

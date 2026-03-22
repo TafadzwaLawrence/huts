@@ -21,7 +21,7 @@ export async function GET(request: NextRequest) {
       .from('reviews')
       .select(
         `
-        id, rating, comment_text, created_at, updated_at,
+        id, rating, comment, created_at, updated_at,
         helpful_count, not_helpful_count, is_verified_tenant,
         author_id, property_id,
         profiles!reviews_author_id_fkey(name, email, avatar_url),

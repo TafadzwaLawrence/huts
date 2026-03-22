@@ -67,8 +67,8 @@ export default async function DashboardOverviewPage() {
     supabase.from('saved_properties').select('*', { count: 'exact', head: true }).eq('user_id', user.id),
     supabase.from('properties').select('*', { count: 'exact', head: true }).eq('user_id', user.id),
     supabase.from('conversations').select('*', { count: 'exact', head: true }).or(`landlord_id.eq.${user.id},renter_id.eq.${user.id}`),
-    supabase.from('properties').select('id, title, slug, city, neighborhood, price, sale_price, listing_type, property_images(url, is_primary)').eq('status', 'active').eq('verification_status', 'approved').order('created_at', { ascending: false }).limit(4),
-    supabase.from('properties').select('id, title, slug, status, verification_status, price, sale_price, listing_type, city, neighborhood, created_at, property_images(url, is_primary)').eq('user_id', user.id).order('created_at', { ascending: false }).limit(3),
+    supabase.from('properties').select('id, title, slug, city, area, price, sale_price, listing_type, property_images(url, is_primary)').eq('status', 'active').eq('verification_status', 'approved').order('created_at', { ascending: false }).limit(4),
+    supabase.from('properties').select('id, title, slug, status, verification_status, price, sale_price, listing_type, city, area, created_at, property_images(url, is_primary)').eq('user_id', user.id).order('created_at', { ascending: false }).limit(3),
     supabase.from('conversations').select('id, last_message_preview, last_message_at, property_id, properties:property_id(title, slug), profiles:renter_id(name, avatar_url)').or(`landlord_id.eq.${user.id},renter_id.eq.${user.id}`).order('last_message_at', { ascending: false }).limit(3),
     supabase.from('reviews').select('*', { count: 'exact', head: true }).eq('author_id', user.id),
     supabase.from('agent_profiles').select('id, status, verified, avg_rating, total_reviews, slug, agent_type').eq('user_id', user.id).maybeSingle(),
@@ -372,7 +372,7 @@ export default async function DashboardOverviewPage() {
                     const priceDisplay = property.listing_type === 'sale' 
                       ? `$${((price || 0) / 100).toLocaleString()}`
                       : `$${((price || 0) / 100).toLocaleString()}/mo`
-                    const location = [property.neighborhood, property.city].filter(Boolean).join(', ')
+                    const location = [property.area, property.city].filter(Boolean).join(', ')
                     
                     return (
                       <div
@@ -568,7 +568,7 @@ export default async function DashboardOverviewPage() {
                           <p className="text-xs font-medium text-[#212529] truncate group-hover:underline underline-offset-2">{property.title}</p>
                           <p className="text-[10px] text-[#ADB5BD] mt-0.5 flex items-center gap-1">
                             <MapPin size={ICON_SIZES.xs} />
-                            {property.neighborhood ? `${property.neighborhood}, ` : ''}{property.city}
+                            {property.area ? `${property.area}, ` : ''}{property.city}
                           </p>
                         </div>
                       </Link>

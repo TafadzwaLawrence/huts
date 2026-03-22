@@ -9,7 +9,7 @@ import { AdminPageHeader, AdminEmptyState, AdminPagination } from '@/components/
 interface Review {
   id: string
   rating: number
-  comment_text: string
+  comment: string
   created_at: string
   helpful_count: number
   not_helpful_count: number
@@ -140,7 +140,7 @@ export default function AdminReviewsPage() {
                     </div>
 
                     {/* Comment */}
-                    <p className="text-sm text-[#212529] line-clamp-2">{review.comment_text}</p>
+                    <p className="text-sm text-[#212529] line-clamp-2">{review.comment}</p>
 
                     {/* Author + property */}
                     <div className="flex items-center gap-3 mt-2 text-xs text-[#ADB5BD] flex-wrap">

@@ -11,11 +11,11 @@ interface PropertyStickyHeaderProps {
     price?: number | null
     sale_price?: number | null
     listing_type?: string | null
-    beds: number
-    baths: number
-    sqft?: number | null
+    bedrooms: number
+    bathrooms: number
+    square_feet?: number | null
     city: string
-    neighborhood?: string | null
+    area?: string | null
   }
   onContact: () => void
 }
@@ -48,18 +48,18 @@ export default function PropertyStickyHeader({ property, onContact }: PropertySt
               {isRental && <span className="text-sm font-normal text-[#ADB5BD]">/mo</span>}
             </span>
             <div className="hidden sm:flex items-center gap-2 text-sm text-[#495057]">
-              <span><b>{property.beds}</b> bd</span>
+              <span><b>{property.bedrooms}</b> bd</span>
               <span className="text-[#ADB5BD]">|</span>
-              <span><b>{property.baths}</b> ba</span>
-              {property.sqft && (
+              <span><b>{property.bathrooms}</b> ba</span>
+              {property.square_feet && (
                 <>
                   <span className="text-[#ADB5BD]">|</span>
-                  <span><b>{property.sqft.toLocaleString()}</b> sqft</span>
+                  <span><b>{property.square_feet.toLocaleString()}</b> sqft</span>
                 </>
               )}
             </div>
             <span className="hidden md:block text-sm text-[#495057] truncate">
-              {property.neighborhood || property.city}
+              {property.area || property.city}
             </span>
           </div>
 

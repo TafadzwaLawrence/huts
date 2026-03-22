@@ -57,7 +57,7 @@ async function getStudentProperties() {
     .from('properties')
     .select(`
       id, title, slug, listing_type, price, sale_price,
-      beds, baths, sqft, city, neighborhood, property_type,
+      beds, bathrooms, square_feet, city, area, property_type,
       furnished, shared_rooms, utilities_included,
       property_images(url, is_primary, alt_text),
       profiles(name, avatar_url, verified)
@@ -82,7 +82,7 @@ async function getAffordableRentals() {
     .from('properties')
     .select(`
       id, title, slug, listing_type, price,
-      beds, baths, sqft, city, neighborhood, property_type,
+      beds, bathrooms, square_feet, city, area, property_type,
       furnished, shared_rooms, utilities_included,
       property_images(url, is_primary, alt_text),
       profiles(name, avatar_url, verified)
@@ -388,21 +388,21 @@ export default async function StudentHousingPage() {
                         </h3>
                         <div className="flex items-center text-[#495057] text-sm mb-4">
                           <MapPin size={ICON_SIZES.sm} className="mr-1.5 flex-shrink-0 text-[#ADB5BD]" />
-                          <span className="truncate">{property.neighborhood ? `${property.neighborhood}, ` : ''}{property.city}</span>
+                          <span className="truncate">{property.area ? `${property.area}, ` : ''}{property.city}</span>
                         </div>
                         <div className="flex items-center gap-4 text-sm text-[#495057] pt-4 border-t border-[#F1F3F5]">
                           <span className="flex items-center gap-1.5">
                             <Bed size={ICON_SIZES.sm} className="text-[#ADB5BD]" />
-                            <span className="font-semibold text-[#212529]">{property.beds}</span>
+                            <span className="font-semibold text-[#212529]">{property.bedrooms}</span>
                           </span>
                           <span className="flex items-center gap-1.5">
                             <Bath size={ICON_SIZES.sm} className="text-[#ADB5BD]" />
-                            <span className="font-semibold text-[#212529]">{property.baths}</span>
+                            <span className="font-semibold text-[#212529]">{property.bathrooms}</span>
                           </span>
-                          {property.sqft && (
+                          {property.square_feet && (
                             <span className="flex items-center gap-1.5">
                               <Square size={ICON_SIZES.sm} className="text-[#ADB5BD]" />
-                              <span className="font-semibold text-[#212529]">{property.sqft}</span>
+                              <span className="font-semibold text-[#212529]">{property.square_feet}</span>
                             </span>
                           )}
                         </div>

@@ -240,21 +240,21 @@ export default async function ZimbabweRentalsPage() {
                         </h3>
                         <div className="flex items-center text-[#495057] text-sm mb-3">
                           <MapPin size={ICON_SIZES.sm} className="mr-1.5 text-[#ADB5BD]" />
-                          <span className="truncate">{property.neighborhood ? `${property.neighborhood}, ` : ''}{property.city}</span>
+                          <span className="truncate">{property.area ? `${property.area}, ` : ''}{property.city}</span>
                         </div>
                         <div className="flex items-center gap-4 text-sm pt-3 border-t border-[#E9ECEF]">
                           <span className="flex items-center gap-1">
                             <Bed size={ICON_SIZES.sm} className="text-[#ADB5BD]" />
-                            <span className="font-semibold text-[#212529]">{property.beds}</span>
+                            <span className="font-semibold text-[#212529]">{property.bedrooms}</span>
                           </span>
                           <span className="flex items-center gap-1">
                             <Bath size={ICON_SIZES.sm} className="text-[#ADB5BD]" />
-                            <span className="font-semibold text-[#212529]">{property.baths}</span>
+                            <span className="font-semibold text-[#212529]">{property.bathrooms}</span>
                           </span>
-                          {property.sqft && (
+                          {property.square_feet && (
                             <span className="flex items-center gap-1">
                               <Square size={ICON_SIZES.sm} className="text-[#ADB5BD]" />
-                              <span className="font-semibold text-[#212529]">{property.sqft}</span>
+                              <span className="font-semibold text-[#212529]">{property.square_feet}</span>
                             </span>
                           )}
                         </div>

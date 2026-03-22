@@ -152,7 +152,7 @@ export default function PropertyDetailClient({ property, slug, currentUserId, ca
               lat={property.lat}
               lng={property.lng}
               city={property.city}
-              neighborhood={property.neighborhood}
+              neighborhood={property.area}
               state={property.state}
             />
 
@@ -163,7 +163,7 @@ export default function PropertyDetailClient({ property, slug, currentUserId, ca
               listingType={property.listing_type}
               price={property.price}
               salePrice={property.sale_price}
-              beds={property.beds}
+              beds={property.bedrooms}
             />
 
             {/* FAQs - Zillow style */}

@@ -30,8 +30,8 @@ export function SalePropertyDetails({ property }: SalePropertyDetailsProps) {
           <div className="bg-[#F8F9FA] px-4 py-2 rounded-lg">
             <p className="text-xs text-[#495057]">Price per sqft</p>
             <p className="text-lg font-semibold text-[#212529]">
-              {property.sqft 
-                ? `$${Math.round((property.sale_price / 100) / property.sqft)}`
+              {property.square_feet 
+                ? `$${Math.round((property.sale_price / 100) / property.square_feet)}`
                 : 'N/A'
               }
             </p>
@@ -89,14 +89,14 @@ export function SalePropertyDetails({ property }: SalePropertyDetailsProps) {
             </div>
           )}
 
-          {property.sqft && (
+          {property.square_feet && (
             <div className="flex items-center gap-3">
               <div className="p-2 bg-[#F8F9FA] rounded">
                 <Square size={ICON_SIZES.lg} className="text-[#495057]" />
               </div>
               <div>
                 <p className="text-xs text-[#ADB5BD]">Interior</p>
-                <p className="font-medium text-[#212529]">{property.sqft} sqft</p>
+                <p className="font-medium text-[#212529]">{property.square_feet} sqft</p>
               </div>
             </div>
           )}

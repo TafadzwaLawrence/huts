@@ -13,11 +13,11 @@ interface SimilarProperty {
   price?: number | null
   sale_price?: number | null
   listing_type?: string | null
-  beds: number
-  baths: number
-  sqft?: number | null
+  bedrooms: number
+  bathrooms: number
+  square_feet?: number | null
   city: string
-  neighborhood?: string | null
+  area?: string | null
   property_images: { url: string; is_primary?: boolean }[]
 }
 
@@ -146,17 +146,17 @@ export default function SimilarHomes({ propertyId, city, listingType, price, sal
                   </div>
                 </div>
                 <div className="text-xs text-[#495057] flex items-center gap-2 mb-0.5">
-                  <span className="font-bold text-[#212529]">{prop.beds}</span> bd |
-                  <span className="font-bold text-[#212529]">{prop.baths}</span> ba
-                  {prop.sqft && (
+                  <span className="font-bold text-[#212529]">{prop.bedrooms}</span> bd |
+                  <span className="font-bold text-[#212529]">{prop.bathrooms}</span> ba
+                  {prop.square_feet && (
                     <>
-                      | <span className="font-bold text-[#212529]">{prop.sqft.toLocaleString()}</span> sqft
+                      | <span className="font-bold text-[#212529]">{prop.square_feet.toLocaleString()}</span> sqft
                     </>
                   )}
                 </div>
                 <p className="text-xs text-[#495057] flex items-center gap-1 truncate">
                   <MapPin size={10} />
-                  {prop.neighborhood || prop.city}
+                  {prop.area || prop.city}
                 </p>
               </Link>
             )

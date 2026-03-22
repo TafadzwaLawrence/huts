@@ -17,17 +17,17 @@ export async function GET(request: NextRequest) {
     let query = supabase
       .from('properties')
       .select(`
-        id, title, slug, price, sale_price, sqft, beds, baths,
-        neighborhood, city, listing_type, property_type,
+        id, title, slug, price, sale_price, square_feet, bedrooms, bathrooms,
+        area, city, listing_type, property_type,
         property_images(url, is_primary)
       `)
       .eq('status', 'active')
       .eq('city', city)
       .limit(50)
 
-    // Try to match neighborhood
+    // Try to match area
     if (address.length > 2) {
-      query = query.ilike('neighborhood', `%${address}%`)
+      query = query.ilike('area', `%${address}%`)
     }
 
     const { data: comparables, error } = await query
@@ -40,8 +40,8 @@ export async function GET(request: NextRequest) {
       const { data: cityComps } = await supabase
         .from('properties')
         .select(`
-          id, title, slug, price, sale_price, sqft, beds, baths,
-          neighborhood, city, listing_type, property_type,
+          id, title, slug, price, sale_price, square_feet, bedrooms, bathrooms,
+          area, city, listing_type, property_type,
           property_images(url, is_primary)
         `)
         .eq('status', 'active')
@@ -63,10 +63,10 @@ export async function GET(request: NextRequest) {
     ).filter(p => p > 0)
 
     const sqftPrices = allComparables
-      .filter(p => p.sqft && p.sqft > 0)
+      .filter(p => p.square_feet && p.square_feet > 0)
       .map(p => {
         const price = p.listing_type === 'sale' ? (p.sale_price || p.price || 0) : (p.price || 0)
-        return price / (p.sqft || 1)
+        return price / (p.square_feet || 1)
       })
 
     const avg = (arr: number[]) => arr.length ? arr.reduce((a, b) => a + b, 0) / arr.length : 0
@@ -97,10 +97,10 @@ export async function GET(request: NextRequest) {
         slug: comp.slug,
         price: comp.price || 0,
         sale_price: comp.sale_price,
-        sqft: comp.sqft,
-        beds: comp.beds,
-        baths: comp.baths,
-        neighborhood: comp.neighborhood || city,
+        sqft: comp.square_feet,
+        beds: comp.bedrooms,
+        baths: comp.bathrooms,
+        neighborhood: comp.area || city,
         listing_type: comp.listing_type,
         primary_image: primary?.url || null,
       }

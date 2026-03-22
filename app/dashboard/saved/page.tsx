@@ -126,16 +126,16 @@ export default async function SavedPropertiesPage() {
                       <div className="flex items-center gap-3 text-sm text-[#495057] mb-2">
                         <span className="flex items-center gap-1">
                           <Bed size={16} />
-                          {property.beds} bd
+                          {property.bedrooms} bd
                         </span>
                         <span className="flex items-center gap-1">
                           <Bath size={16} />
-                          {property.baths} ba
+                          {property.bathrooms} ba
                         </span>
-                        {property.sqft && (
+                        {property.square_feet && (
                           <span className="flex items-center gap-1">
                             <Square size={16} />
-                            {property.sqft.toLocaleString()} sqft
+                            {property.square_feet.toLocaleString()} sqft
                           </span>
                         )}
                       </div>
@@ -148,7 +148,7 @@ export default async function SavedPropertiesPage() {
                       <div className="flex items-center text-xs text-[#ADB5BD]">
                         <MapPin size={14} className="mr-1 flex-shrink-0" />
                         <span className="truncate">
-                          {property.neighborhood ? `${property.neighborhood}, ` : ''}{property.city}
+                          {property.area ? `${property.area}, ` : ''}{property.city}
                         </span>
                       </div>
 

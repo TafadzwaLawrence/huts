@@ -31,7 +31,7 @@ export default async function SearchLayout({
   ] = await Promise.all([
     supabase
       .from('properties')
-      .select('id, title, slug, city, neighborhood, listing_type, beds, baths, price, sale_price')
+      .select('id, title, slug, city, area, listing_type, bedrooms, bathrooms, price, sale_price')
       .eq('status', 'active')
       .eq('verification_status', 'approved')
       .order('created_at', { ascending: false })
@@ -52,8 +52,8 @@ export default async function SearchLayout({
   // Build unique neighborhoods
   const neighborhoods = Object.values(
     (neighborhoodData || []).reduce((acc: Record<string, { name: string; city: string; count: number }>, p: any) => {
-      const key = `${p.neighborhood}|${p.city}`
-      if (!acc[key]) acc[key] = { name: p.neighborhood, city: p.city, count: 0 }
+      const key = `${p.area}|${p.city}`
+      if (!acc[key]) acc[key] = { name: p.area, city: p.city, count: 0 }
       acc[key].count++
       return acc
     }, {})
@@ -133,7 +133,7 @@ export default async function SearchLayout({
                     >
                       <span className="block text-sm font-medium text-[#212529] line-clamp-1">{p.title}</span>
                       <span className="block text-xs text-[#495057] mt-1">
-                        {p.neighborhood ? `${p.neighborhood}, ` : ''}{p.city} · {p.beds} bed · {p.baths} bath
+                        {p.area ? `${p.area}, ` : ''}{p.city} · {p.bedrooms} bed · {p.bathrooms} bath
                         {p.listing_type === 'sale' ? ' · For Sale' : ' · For Rent'}
                       </span>
                     </Link>

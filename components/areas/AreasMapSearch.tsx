@@ -45,12 +45,12 @@ interface Property {
   price: number
   sale_price: number | null
   listing_type: string
-  beds: number
-  baths: number
+  bedrooms: number
+  bathrooms: number
   lat: number
   lng: number
   city: string
-  neighborhood: string | null
+  area: string | null
   property_images: { url: string }[]
 }
 
@@ -508,7 +508,7 @@ export default function AreasMapSearch({
                             )}
                           </p>
                           <p className="text-xs text-[#495057] mb-2">
-                            {property.beds} bed • {property.baths} bath
+                            {property.bedrooms} bed • {property.bathrooms} bath
                           </p>
                           <a
                             href={`/property/${property.slug || property.id}`}
@@ -560,7 +560,7 @@ export default function AreasMapSearch({
                         {property.title}
                       </p>
                       <p className="text-xs text-[#ADB5BD]">
-                        {property.beds} bed • {property.baths} bath
+                        {property.bedrooms} bed • {property.bathrooms} bath
                       </p>
                     </div>
                   </a>

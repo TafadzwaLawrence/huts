@@ -134,7 +134,7 @@ export async function getEngagementBenchmark(propertyId: string): Promise<{
   // Get property details
   const { data: property } = await supabase
     .from('properties')
-    .select('city, listing_type, beds')
+    .select('city, listing_type, bedrooms')
     .eq('id', propertyId)
     .single()
 
@@ -147,8 +147,8 @@ export async function getEngagementBenchmark(propertyId: string): Promise<{
     .eq('city', property.city)
     .eq('listing_type', property.listing_type)
     .eq('status', 'active')
-    .gte('beds', Math.max(0, property.beds - 1))
-    .lte('beds', property.beds + 1)
+    .gte('bedrooms', Math.max(0, property.bedrooms - 1))
+    .lte('bedrooms', property.bedrooms + 1)
     .limit(50)
 
   const propertyMetrics = await getPropertyEngagement(propertyId)

@@ -27,8 +27,8 @@ export async function GET(request: NextRequest) {
       .from('properties')
       .select(`
         id, title, slug, status, verification_status, listing_type,
-        price, sale_price, city, neighborhood, property_type,
-        beds, baths, sqft, created_at, verified_at,
+        price, sale_price, city, area, property_type,
+        beds, bathrooms, square_feet, created_at, verified_at,
         user_id,
         profiles!properties_user_id_fkey(name, email, avatar_url),
         property_images(url, is_primary)

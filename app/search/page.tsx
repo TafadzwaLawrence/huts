@@ -18,11 +18,11 @@ interface Property {
   listing_type: 'rent' | 'sale' | null
   price: number | null
   sale_price: number | null
-  beds: number
-  baths: number
-  sqft: number | null
+  bedrooms: number
+  bathrooms: number
+  square_feet: number | null
   city: string
-  neighborhood: string | null
+  area: string | null
   property_type: string | null
   lat: number | null
   lng: number | null

@@ -19,7 +19,7 @@ export default function ProfileForm({ profile, userEmail, createdAt }: ProfileFo
   const [hasChanges, setHasChanges] = useState(false);
   const [avatarUrl, setAvatarUrl] = useState(profile.avatar_url || '');
   const [formData, setFormData] = useState({
-    name: profile.name || '',
+    name: profile.full_name || '',
     phone: profile.phone || '',
     bio: profile.bio || '',
     role: profile.role as 'renter' | 'landlord',
@@ -28,7 +28,7 @@ export default function ProfileForm({ profile, userEmail, createdAt }: ProfileFo
   // Track changes
   useEffect(() => {
     const changed = 
-      formData.name !== (profile.name || '') ||
+      formData.name !== (profile.full_name || '') ||
       formData.phone !== (profile.phone || '') ||
       formData.bio !== (profile.bio || '') ||
       formData.role !== profile.role ||

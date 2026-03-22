@@ -90,6 +90,24 @@ export interface Database {
           updated_at: string
           property_tax_annual: number | null
           hoa_fee_monthly: number | null
+          slug: string | null
+          state: string | null
+          zip_code: string | null
+          deposit: number | null
+          available_from: string | null
+          lease_term: string | null
+          meta_description: string | null
+          published_at: string | null
+          year_built: number | null
+          lot_size_sqft: number | null
+          lot_size: number | null
+          parking_spaces: number | null
+          garage_spaces: number | null
+          stories: number | null
+          verification_status: string | null
+          verified_at: string | null
+          lat: number | null
+          lng: number | null
         }
         Insert: {
           id?: string
@@ -114,6 +132,24 @@ export interface Database {
           updated_at?: string
           property_tax_annual?: number | null
           hoa_fee_monthly?: number | null
+          slug?: string | null
+          state?: string | null
+          zip_code?: string | null
+          deposit?: number | null
+          available_from?: string | null
+          lease_term?: string | null
+          meta_description?: string | null
+          published_at?: string | null
+          year_built?: number | null
+          lot_size_sqft?: number | null
+          lot_size?: number | null
+          parking_spaces?: number | null
+          garage_spaces?: number | null
+          stories?: number | null
+          verification_status?: string | null
+          verified_at?: string | null
+          lat?: number | null
+          lng?: number | null
         }
         Update: {
           id?: string
@@ -138,6 +174,24 @@ export interface Database {
           updated_at?: string
           property_tax_annual?: number | null
           hoa_fee_monthly?: number | null
+          slug?: string | null
+          state?: string | null
+          zip_code?: string | null
+          deposit?: number | null
+          available_from?: string | null
+          lease_term?: string | null
+          meta_description?: string | null
+          published_at?: string | null
+          year_built?: number | null
+          lot_size_sqft?: number | null
+          lot_size?: number | null
+          parking_spaces?: number | null
+          garage_spaces?: number | null
+          stories?: number | null
+          verification_status?: string | null
+          verified_at?: string | null
+          lat?: number | null
+          lng?: number | null
         }
       }
 
@@ -171,8 +225,16 @@ export interface Database {
           property_id: string
           author_id: string
           rating: number
+          title: string
+          comment: string
           comment_text: string
           is_verified: boolean
+          inquiry_id: string | null
+          status: string
+          flagged_reason: string | null
+          flagged_at: string | null
+          editable_until: string | null
+          edited: boolean
           helpful_count: number
           created_at: string
           updated_at: string
@@ -182,8 +244,16 @@ export interface Database {
           property_id: string
           author_id: string
           rating: number
-          comment_text: string
+          title: string
+          comment: string
+          comment_text?: string
           is_verified?: boolean
+          inquiry_id?: string | null
+          status?: string
+          flagged_reason?: string | null
+          flagged_at?: string | null
+          editable_until?: string | null
+          edited?: boolean
           helpful_count?: number
           created_at?: string
           updated_at?: string
@@ -193,8 +263,16 @@ export interface Database {
           property_id?: string
           author_id?: string
           rating?: number
+          title?: string
+          comment?: string
           comment_text?: string
           is_verified?: boolean
+          inquiry_id?: string | null
+          status?: string
+          flagged_reason?: string | null
+          flagged_at?: string | null
+          editable_until?: string | null
+          edited?: boolean
           helpful_count?: number
           created_at?: string
           updated_at?: string
@@ -991,6 +1069,75 @@ export interface Database {
           commission_earned?: number | null
           lead_source?: string | null
           marketing_channel?: string | null
+          created_at?: string
+        }
+      }
+
+      saved_properties: {
+        Row: {
+          user_id: string
+          property_id: string
+          saved_at: string
+          notes: string | null
+        }
+        Insert: {
+          user_id: string
+          property_id: string
+          saved_at?: string
+          notes?: string | null
+        }
+        Update: {
+          user_id?: string
+          property_id?: string
+          saved_at?: string
+          notes?: string | null
+        }
+      }
+
+      review_responses: {
+        Row: {
+          id: string
+          review_id: string
+          landlord_id: string
+          response: string
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          review_id: string
+          landlord_id: string
+          response: string
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          review_id?: string
+          landlord_id?: string
+          response?: string
+          created_at?: string
+          updated_at?: string
+        }
+      }
+
+      review_votes: {
+        Row: {
+          review_id: string
+          user_id: string
+          helpful: boolean
+          created_at: string
+        }
+        Insert: {
+          review_id: string
+          user_id: string
+          helpful: boolean
+          created_at?: string
+        }
+        Update: {
+          review_id?: string
+          user_id?: string
+          helpful?: boolean
           created_at?: string
         }
       }

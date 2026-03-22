@@ -109,7 +109,7 @@ export default function MyPropertiesList({ properties }: { properties: PropertyW
       const searchMatch = !searchQuery.trim() || 
         p.title?.toLowerCase().includes(searchQuery.toLowerCase()) ||
         p.city?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        p.neighborhood?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        p.area?.toLowerCase().includes(searchQuery.toLowerCase()) ||
         p.address?.toLowerCase().includes(searchQuery.toLowerCase())
       return statusMatch && typeMatch && verifyMatch && searchMatch
     })
@@ -459,7 +459,7 @@ export default function MyPropertiesList({ properties }: { properties: PropertyW
                           <p className="text-xs text-[#495057] flex items-center gap-1.5 mt-1">
                             <MapPin size={ICON_SIZES.xs} className="flex-shrink-0 text-[#ADB5BD]" />
                             <span className="line-clamp-1">
-                              {[property.neighborhood, property.city].filter(Boolean).join(', ') || property.address}
+                              {[property.area, property.city].filter(Boolean).join(', ') || property.address}
                             </span>
                           </p>
                         </div>
@@ -475,22 +475,22 @@ export default function MyPropertiesList({ properties }: { properties: PropertyW
 
                       {/* Property specs + date */}
                       <div className="flex flex-wrap items-center gap-3 text-xs text-[#495057] mb-3">
-                        {property.beds > 0 && (
+                        {property.bedrooms > 0 && (
                           <span className="flex items-center gap-1">
                             <Bed size={14} className="text-[#ADB5BD]" /> 
-                            <span className="font-semibold text-[#212529]">{property.beds}</span> bed
+                            <span className="font-semibold text-[#212529]">{property.bedrooms}</span> bed
                           </span>
                         )}
-                        {property.baths > 0 && (
+                        {property.bathrooms > 0 && (
                           <span className="flex items-center gap-1">
                             <Bath size={14} className="text-[#ADB5BD]" /> 
-                            <span className="font-semibold text-[#212529]">{property.baths}</span> bath
+                            <span className="font-semibold text-[#212529]">{property.bathrooms}</span> bath
                           </span>
                         )}
-                        {property.sqft > 0 && (
+                        {property.square_feet > 0 && (
                           <span className="flex items-center gap-1">
                             <Square size={14} className="text-[#ADB5BD]" /> 
-                            <span className="font-semibold text-[#212529]">{property.sqft.toLocaleString()}</span> sqft
+                            <span className="font-semibold text-[#212529]">{property.square_feet.toLocaleString()}</span> sqft
                           </span>
                         )}
                         <span className="ml-auto flex items-center gap-1 text-[#ADB5BD]">

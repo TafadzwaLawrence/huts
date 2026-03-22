@@ -29,12 +29,12 @@ interface Property {
   slug: string
   title: string
   price: number
-  beds: number
-  baths: number
+  bedrooms: number
+  bathrooms: number
   lat: number
   lng: number
   city: string
-  neighborhood: string | null
+  area: string | null
   status: string
   property_images: { url: string }[]
 }
@@ -74,12 +74,12 @@ export default function DashboardMapPage() {
           slug,
           title,
           price,
-          beds,
-          baths,
+          bedrooms,
+          bathrooms,
           lat,
           lng,
           city,
-          neighborhood,
+          area,
           status,
           property_images (url)
         `)
@@ -200,7 +200,7 @@ export default function DashboardMapPage() {
                     <div className="flex-1 min-w-0">
                       <h3 className="font-semibold text-[#212529] truncate">{property.title}</h3>
                       <p className="text-sm text-[#495057] truncate">
-                        {property.neighborhood || property.city}
+                        {property.area || property.city}
                       </p>
                       <div className="flex items-center gap-3 mt-2 text-sm text-[#495057]">
                         <span className="flex items-center gap-1">
@@ -209,11 +209,11 @@ export default function DashboardMapPage() {
                         </span>
                         <span className="flex items-center gap-1">
                           <Bed size={14} />
-                          {property.beds}
+                          {property.bedrooms}
                         </span>
                         <span className="flex items-center gap-1">
                           <Bath size={14} />
-                          {property.baths}
+                          {property.bathrooms}
                         </span>
                       </div>
                       <span className={`inline-block mt-2 px-2 py-0.5 text-xs rounded-full ${
@@ -270,7 +270,7 @@ export default function DashboardMapPage() {
                     )}
                     <h3 className="font-semibold text-[#212529] mb-1">{property.title}</h3>
                     <p className="text-sm text-[#495057] mb-2">
-                      {property.neighborhood || property.city}
+                      {property.area || property.city}
                     </p>
                     <div className="flex items-center justify-between">
                       <span className="font-bold text-[#212529]">

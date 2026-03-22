@@ -16,11 +16,11 @@ type CompareProperty = {
   price: number | null
   sale_price: number | null
   listing_type: string
-  beds: number
-  baths: number
-  sqft: number | null
+  bedrooms: number
+  bathrooms: number
+  square_feet: number | null
   city: string
-  neighborhood: string | null
+  area: string | null
   property_type: string | null
   amenities: string[] | null
   year_built: number | null
@@ -34,11 +34,11 @@ type CompareProperty = {
 const COMPARE_ROWS = [
   { key: 'price', label: 'Price' },
   { key: 'property_type', label: 'Type' },
-  { key: 'beds', label: 'Bedrooms' },
-  { key: 'baths', label: 'Bathrooms' },
-  { key: 'sqft', label: 'Sq Ft' },
+  { key: 'bedrooms', label: 'Bedrooms' },
+  { key: 'bathrooms', label: 'Bathrooms' },
+  { key: 'square_feet', label: 'Sq Ft' },
   { key: 'city', label: 'City' },
-  { key: 'neighborhood', label: 'Neighborhood' },
+  { key: 'area', label: 'Neighborhood' },
   { key: 'year_built', label: 'Year Built' },
   { key: 'parking_spaces', label: 'Parking' },
   { key: 'deposit', label: 'Deposit' },
@@ -65,8 +65,8 @@ export default function ComparePage() {
     const { data } = await supabase
       .from('properties')
       .select(`
-        id, title, slug, price, sale_price, listing_type, beds, baths, sqft,
-        city, neighborhood, property_type, amenities, year_built, parking_spaces,
+        id, title, slug, price, sale_price, listing_type, bedrooms, bathrooms, square_feet,
+        city, area, property_type, amenities, year_built, parking_spaces,
         deposit, available_from, description,
         property_images(url, is_primary)
       `)
@@ -88,8 +88,8 @@ export default function ComparePage() {
     const { data } = await supabase
       .from('properties')
       .select(`
-        id, title, slug, price, sale_price, listing_type, beds, baths, sqft,
-        city, neighborhood, property_type, amenities, year_built, parking_spaces,
+        id, title, slug, price, sale_price, listing_type, bedrooms, bathrooms, square_feet,
+        city, area, property_type, amenities, year_built, parking_spaces,
         deposit, available_from, description,
         property_images(url, is_primary)
       `)
@@ -132,7 +132,7 @@ export default function ComparePage() {
           ? formatSalePrice(prop.sale_price ?? 0)
           : `${formatPrice(prop.price ?? 0)}/mo`
       case 'sqft':
-        return prop.sqft ? `${prop.sqft.toLocaleString()} sqft` : '—'
+        return prop.square_feet ? `${prop.square_feet.toLocaleString()} sqft` : '—'
       case 'year_built':
         return prop.year_built || '—'
       case 'parking_spaces':
@@ -201,7 +201,7 @@ export default function ComparePage() {
                       {prop.title}
                     </Link>
                     <p className="text-xs text-[#ADB5BD] flex items-center gap-1 mt-0.5">
-                      <MapPin size={10} /> {prop.neighborhood || prop.city}
+                      <MapPin size={10} /> {prop.area || prop.city}
                     </p>
                   </div>
                 </div>
@@ -315,7 +315,7 @@ export default function ComparePage() {
                         </div>
                         <div className="flex-1 min-w-0">
                           <p className="text-sm font-medium text-[#212529] truncate">{result.title}</p>
-                          <p className="text-xs text-[#ADB5BD]">{result.neighborhood || result.city}</p>
+                          <p className="text-xs text-[#ADB5BD]">{result.area || result.city}</p>
                         </div>
                         {alreadyAdded ? (
                           <Check size={16} className="text-green-500" />

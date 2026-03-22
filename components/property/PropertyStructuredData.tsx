@@ -42,13 +42,13 @@ export default function PropertyStructuredData({
   const images = property.property_images?.map((img: any) => img.url) ?? []
   const description =
     property.description ||
-    `${property.beds} bedroom, ${property.baths} bathroom ${property.property_type || 'property'} in ${property.city}, Zimbabwe`
+    `${property.bedrooms} bedroom, ${property.bathrooms} bathroom ${property.property_type || 'property'} in ${property.city}, Zimbabwe`
 
   // Shared address
   const address = {
     '@type': 'PostalAddress',
     addressLocality: property.city,
-    addressRegion: property.neighborhood || property.city,
+    addressRegion: property.area || property.city,
     addressCountry: 'ZW',
   }
 
@@ -60,13 +60,13 @@ export default function PropertyStructuredData({
     description,
     url: propertyUrl,
     address,
-    numberOfBedrooms: property.beds,
-    numberOfBathroomsTotal: property.baths,
-    ...(property.sqft
+    numberOfBedrooms: property.bedrooms,
+    numberOfBathroomsTotal: property.bathrooms,
+    ...(property.square_feet
       ? {
           floorSize: {
             '@type': 'QuantitativeValue',
-            value: property.sqft,
+            value: property.square_feet,
             unitCode: 'FTK',
           },
         }

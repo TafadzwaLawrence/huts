@@ -14,11 +14,11 @@ interface Property {
   listing_type: 'rent' | 'sale' | null
   price: number | null
   sale_price: number | null
-  beds: number
-  baths: number
-  sqft: number | null
+  bedrooms: number
+  bathrooms: number
+  square_feet: number | null
   city: string
-  neighborhood: string | null
+  area: string | null
   lat: number
   lng: number
   property_images: Array<{ id?: string; url: string; is_primary: boolean; alt_text?: string | null }>
@@ -250,11 +250,11 @@ export default function MapView({ properties, schools = [], healthcareFacilities
           ${imageUrl ? `<img src="${imageUrl}" alt="${property.title}" class="w-full h-28 object-cover rounded-md mb-2" />` : ''}
           <div class="font-bold text-[#212529] mb-0.5">${formattedPrice}${!isSale ? '/mo' : ''}</div>
           <div class="font-semibold text-sm text-[#212529] mb-0.5 line-clamp-1">${property.title}</div>
-          <div class="text-xs text-[#495057] mb-2">${property.neighborhood ? property.neighborhood + ', ' : ''}${property.city}</div>
+          <div class="text-xs text-[#495057] mb-2">${property.area ? property.area + ', ' : ''}${property.city}</div>
           <div class="flex gap-3 text-xs text-[#495057] mb-2">
-            <span>${property.beds} bd</span>
-            <span>${property.baths} ba</span>
-            ${property.sqft ? `<span>${property.sqft} sqft</span>` : ''}
+            <span>${property.bedrooms} bd</span>
+            <span>${property.bathrooms} ba</span>
+            ${property.square_feet ? `<span>${property.square_feet} sqft</span>` : ''}
           </div>
           <a href="/property/${property.slug || property.id}" class="block text-center bg-[#212529] text-white py-1.5 rounded-md text-xs font-medium hover:bg-black transition-colors">View</a>
         </div>

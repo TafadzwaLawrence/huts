@@ -35,11 +35,11 @@ interface Property {
   price: number | null
   sale_price: number | null
   city: string
-  neighborhood: string | null
+  area: string | null
   property_type: string | null
-  beds: number
-  baths: number
-  sqft: number | null
+  bedrooms: number
+  bathrooms: number
+  square_feet: number | null
   created_at: string
   verified_at: string | null
   user_id: string
@@ -209,7 +209,7 @@ export default function AdminVerificationPage() {
                         <h3 className="text-base font-semibold text-[#212529]">{property.title}</h3>
                         <p className="text-sm text-[#ADB5BD] flex items-center gap-1 mt-0.5">
                           <MapPin size={ICON_SIZES.sm} />
-                          {property.neighborhood ? `${property.neighborhood}, ` : ''}{property.city}
+                          {property.area ? `${property.area}, ` : ''}{property.city}
                         </p>
                       </div>
                       <p className="text-lg font-bold text-[#212529] flex-shrink-0">
@@ -222,10 +222,10 @@ export default function AdminVerificationPage() {
                       {property.property_type && (
                         <span className="capitalize">{property.property_type}</span>
                       )}
-                      <span className="flex items-center gap-1"><Bed size={ICON_SIZES.sm} /> {property.beds} bed</span>
-                      <span className="flex items-center gap-1"><Bath size={ICON_SIZES.sm} /> {property.baths} bath</span>
-                      {property.sqft && property.sqft > 0 && (
-                        <span className="flex items-center gap-1"><Square size={ICON_SIZES.sm} /> {property.sqft.toLocaleString()} sqft</span>
+                      <span className="flex items-center gap-1"><Bed size={ICON_SIZES.sm} /> {property.bedrooms} bed</span>
+                      <span className="flex items-center gap-1"><Bath size={ICON_SIZES.sm} /> {property.bathrooms} bath</span>
+                      {property.square_feet && property.square_feet > 0 && (
+                        <span className="flex items-center gap-1"><Square size={ICON_SIZES.sm} /> {property.square_feet.toLocaleString()} sqft</span>
                       )}
                     </div>
 

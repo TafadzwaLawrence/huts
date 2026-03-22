@@ -10,14 +10,14 @@ interface PropertyHeaderProps {
     title: string
     description?: string | null
     city: string
-    neighborhood?: string | null
+    area?: string | null
     state?: string | null
     price?: number | null
     sale_price?: number | null
     listing_type?: string | null
-    beds: number
-    baths: number
-    sqft?: number | null
+    bedrooms: number
+    bathrooms: number
+    square_feet?: number | null
     parking_spaces?: number | null
     deposit?: number | null
     property_type?: string | null
@@ -31,8 +31,8 @@ export default function PropertyHeader({ property, slug }: PropertyHeaderProps) 
   const isSale = property.listing_type === 'sale' || !!property.sale_price
 
   const locationParts: string[] = []
-  if (property.neighborhood && property.neighborhood !== property.city) {
-    locationParts.push(property.neighborhood)
+  if (property.area && property.area !== property.city) {
+    locationParts.push(property.area)
   }
   locationParts.push(property.city)
   if (property.state && property.state !== property.city) {
@@ -69,25 +69,25 @@ export default function PropertyHeader({ property, slug }: PropertyHeaderProps) 
           <PropertyActions
             propertyId={property.id}
             propertyTitle={property.title}
-            propertyDescription={property.description || `${property.beds} bed, ${property.baths} bath ${propertyTypeDisplay} in ${property.city}`}
+            propertyDescription={property.description || `${property.bedrooms} bed, ${property.bathrooms} bath ${propertyTypeDisplay} in ${property.city}`}
           />
         </div>
       </div>
 
       {/* Stats row - Zillow style: bold stats inline */}
       <div className="flex items-center gap-1 text-[#212529] mb-2">
-        <span className="font-bold text-lg">{property.beds}</span>
+        <span className="font-bold text-lg">{property.bedrooms}</span>
         <span className="text-[#495057] text-sm mr-3">bd</span>
 
         <span className="text-[#ADB5BD]">|</span>
 
-        <span className="font-bold text-lg ml-3">{property.baths}</span>
+        <span className="font-bold text-lg ml-3">{property.bathrooms}</span>
         <span className="text-[#495057] text-sm mr-3">ba</span>
 
-        {property.sqft && (
+        {property.square_feet && (
           <>
             <span className="text-[#ADB5BD]">|</span>
-            <span className="font-bold text-lg ml-3">{property.sqft.toLocaleString()}</span>
+            <span className="font-bold text-lg ml-3">{property.square_feet.toLocaleString()}</span>
             <span className="text-[#495057] text-sm mr-3">sqft</span>
           </>
         )}
@@ -115,9 +115,9 @@ export default function PropertyHeader({ property, slug }: PropertyHeaderProps) 
         <span className="inline-flex items-center bg-[#F8F9FA] text-[#495057] px-2.5 py-0.5 rounded text-xs font-medium border border-[#E9ECEF]">
           {propertyTypeDisplay}
         </span>
-        {isSale && property.sqft && property.sale_price && (
+        {isSale && property.square_feet && property.sale_price && (
           <span className="inline-flex items-center bg-[#F8F9FA] text-[#495057] px-2.5 py-0.5 rounded text-xs font-medium border border-[#E9ECEF]">
-            ${Math.round((property.sale_price / 100) / property.sqft)}/sqft
+            ${Math.round((property.sale_price / 100) / property.square_feet)}/sqft
           </span>
         )}
       </div>

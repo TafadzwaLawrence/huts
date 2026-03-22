@@ -15,7 +15,7 @@ export default async function Image({ params }: { params: Promise<{ slug: string
   // Fetch property by slug then ID (with properly ordered images)
   let { data: property } = await supabase
     .from('properties')
-    .select('title, price, sale_price, listing_type, city, beds, baths, sqft, property_images(url, is_primary, order)')
+    .select('title, price, sale_price, listing_type, city, bedrooms, bathrooms, square_feet, property_images(url, is_primary, order)')
     .eq('slug', slug)
     .order('is_primary', { ascending: false, referencedTable: 'property_images' })
     .order('order', { ascending: true, referencedTable: 'property_images' })
@@ -24,7 +24,7 @@ export default async function Image({ params }: { params: Promise<{ slug: string
   if (!property) {
     const result = await supabase
       .from('properties')
-      .select('title, price, sale_price, listing_type, city, beds, baths, sqft, property_images(url, is_primary, order)')
+      .select('title, price, sale_price, listing_type, city, bedrooms, bathrooms, square_feet, property_images(url, is_primary, order)')
       .eq('id', slug)
       .order('is_primary', { ascending: false, referencedTable: 'property_images' })
       .order('order', { ascending: true, referencedTable: 'property_images' })
@@ -60,9 +60,9 @@ export default async function Image({ params }: { params: Promise<{ slug: string
       title: property.title,
       price: priceDisplay,
       city: property.city,
-      beds: property.beds,
-      baths: property.baths,
-      sqft: property.sqft,
+      beds: property.bedrooms,
+      baths: property.bathrooms,
+      sqft: property.square_feet,
       imageUrl: primaryImage,
       listingType: property.listing_type as 'rent' | 'sale',
       logoSrc,

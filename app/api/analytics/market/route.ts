@@ -26,7 +26,7 @@ export async function GET(request: Request) {
     // Get market overview
     const { data: activeListings, count } = await supabase
       .from('properties')
-      .select('price, sale_price, beds, baths, sqft, property_type, neighborhood', { count: 'exact' })
+      .select('price, sale_price, bedrooms, bathrooms, square_feet, property_type, area', { count: 'exact' })
       .eq('city', city)
       .eq('listing_type', listingType)
       .eq('status', 'active')
@@ -65,7 +65,7 @@ export async function GET(request: Request) {
     const bedroomGroups: Record<string, number[]> = {}
     
     for (const listing of activeListings) {
-      const beds = listing.beds.toString()
+      const beds = listing.bedrooms.toString()
       const price = listingType === 'sale' ? listing.sale_price : listing.price
       if (!bedroomGroups[beds]) bedroomGroups[beds] = []
       if (price) bedroomGroups[beds].push(price)
@@ -103,8 +103,8 @@ export async function GET(request: Request) {
     // Popular neighborhoods
     const neighborhoodCounts: Record<string, number> = {}
     for (const listing of activeListings) {
-      if (listing.neighborhood) {
-        neighborhoodCounts[listing.neighborhood] = (neighborhoodCounts[listing.neighborhood] || 0) + 1
+      if (listing.area) {
+        neighborhoodCounts[listing.area] = (neighborhoodCounts[listing.area] || 0) + 1
       }
     }
     const popularNeighborhoods = Object.entries(neighborhoodCounts)
@@ -117,7 +117,7 @@ export async function GET(request: Request) {
 
     // Average sqft
     const sqftValues = activeListings
-      .map(p => p.sqft)
+      .map(p => p.square_feet)
       .filter((s): s is number => s !== null && s > 0)
     const avgSqft = sqftValues.length > 0
       ? Math.round(sqftValues.reduce((a, b) => a + b, 0) / sqftValues.length)

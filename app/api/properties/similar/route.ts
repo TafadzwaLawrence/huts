@@ -19,7 +19,7 @@ export async function GET(request: Request) {
 
     let query = supabase
       .from('properties')
-      .select('id, title, slug, price, sale_price, listing_type, beds, baths, sqft, city, neighborhood, property_images(url, is_primary)')
+      .select('id, title, slug, price, sale_price, listing_type, bedrooms, bathrooms, square_feet, city, area, property_images(url, is_primary)')
       .eq('status', 'active')
       .eq('verification_status', 'approved')
       .neq('id', propertyId)

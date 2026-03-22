@@ -28,11 +28,11 @@ interface Property {
   price: number | null
   sale_price: number | null
   city: string
-  neighborhood: string | null
+  area: string | null
   property_type: string | null
-  beds: number
-  baths: number
-  sqft: number | null
+  bedrooms: number
+  bathrooms: number
+  square_feet: number | null
   created_at: string
   verified_at: string | null
   user_id: string
@@ -188,7 +188,7 @@ export default function AdminPropertiesPage() {
                         <p className="text-sm font-medium text-[#212529] truncate">{property.title}</p>
                         <p className="text-xs text-[#ADB5BD] flex items-center gap-1 truncate">
                           <MapPin size={ICON_SIZES.xs} />
-                          {property.neighborhood ? `${property.neighborhood}, ` : ''}{property.city}
+                          {property.area ? `${property.area}, ` : ''}{property.city}
                         </p>
                       </div>
                     </div>

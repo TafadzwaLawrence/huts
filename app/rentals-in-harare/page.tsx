@@ -85,8 +85,8 @@ export default async function HarareRentalsPage() {
     .not('neighborhood', 'is', null)
 
   const neighborhoodCounts = neighborhoods?.reduce((acc: any, prop: any) => {
-    if (!acc[prop.neighborhood]) acc[prop.neighborhood] = 0
-    acc[prop.neighborhood]++
+    if (!acc[prop.area]) acc[prop.area] = 0
+    acc[prop.area]++
     return acc
   }, {})
 
@@ -234,21 +234,21 @@ export default async function HarareRentalsPage() {
                         </h3>
                         <div className="flex items-center text-[#495057] text-xs mb-3">
                           <MapPin size={ICON_SIZES.xs} className="mr-1 flex-shrink-0 text-[#ADB5BD]" />
-                          <span className="truncate">{property.neighborhood}</span>
+                          <span className="truncate">{property.area}</span>
                         </div>
                         <div className="flex items-center gap-3 text-xs text-[#495057] pt-3 border-t border-[#E9ECEF]">
                           <span className="flex items-center gap-1">
                             <Bed size={ICON_SIZES.xs} className="text-[#ADB5BD]" />
-                            <span className="font-semibold text-[#212529]">{property.beds}</span>
+                            <span className="font-semibold text-[#212529]">{property.bedrooms}</span>
                           </span>
                           <span className="flex items-center gap-1">
                             <Bath size={ICON_SIZES.xs} className="text-[#ADB5BD]" />
-                            <span className="font-semibold text-[#212529]">{property.baths}</span>
+                            <span className="font-semibold text-[#212529]">{property.bathrooms}</span>
                           </span>
-                          {property.sqft && property.sqft > 0 && (
+                          {property.square_feet && property.square_feet > 0 && (
                             <span className="flex items-center gap-1">
                               <Square size={ICON_SIZES.xs} className="text-[#ADB5BD]" />
-                              <span className="font-semibold text-[#212529]">{property.sqft}</span>
+                              <span className="font-semibold text-[#212529]">{property.square_feet}</span>
                             </span>
                           )}
                         </div>

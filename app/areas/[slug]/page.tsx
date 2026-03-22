@@ -86,7 +86,7 @@ export default async function AreaGuidePage({ params }: PageProps) {
     .eq('city', area.city)
 
   if (area.neighborhood) {
-    propertiesQuery = propertiesQuery.eq('neighborhood', area.neighborhood)
+    propertiesQuery = propertiesQuery.eq('area', area.neighborhood)
   }
 
   const { data: properties } = await propertiesQuery
@@ -223,22 +223,22 @@ export default async function AreaGuidePage({ params }: PageProps) {
 
                       <div className="flex items-center text-xs text-[#495057] mb-3">
                         <MapPin size={12} className="mr-1" />
-                        {property.neighborhood ? `${property.neighborhood}, ` : ''}{property.city}
+                        {property.area ? `${property.area}, ` : ''}{property.city}
                       </div>
 
                       <div className="flex items-center gap-3 text-xs text-[#495057] pt-3 border-t border-[#F8F9FA]">
                         <span className="flex items-center gap-1">
                           <Bed size={14} />
-                          {property.beds}
+                          {property.bedrooms}
                         </span>
                         <span className="flex items-center gap-1">
                           <Bath size={14} />
-                          {property.baths}
+                          {property.bathrooms}
                         </span>
-                        {property.sqft && (
+                        {property.square_feet && (
                           <span className="flex items-center gap-1">
                             <Square size={14} />
-                            {property.sqft}
+                            {property.square_feet}
                           </span>
                         )}
                       </div>

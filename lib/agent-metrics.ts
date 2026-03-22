@@ -102,9 +102,10 @@ export function calculateAgentFitScore(
   if (
     leadServiceAreas &&
     leadServiceAreas.length > 0 &&
-    agent.office_city
+    agent.service_areas &&
+    agent.service_areas.length > 0
   ) {
-    const agentCities = [agent.office_city] // Could be extended to service_areas from DB
+    const agentCities = agent.service_areas
     const matches = agentCities.filter((city) =>
       leadServiceAreas.some((leadCity) =>
         leadCity.toLowerCase().includes(city.toLowerCase()),
@@ -128,13 +129,11 @@ export function calculateAgentFitScore(
     specialtyMatch = matches.length / Math.max(agent.specializations.length, 1)
   }
 
-  // Response rate bonus: agents with >90% response rate get bonus
-  // In Phase 1, this will be updated when we have metrics
-  responseRateBonus = agent.total_reviews && agent.total_reviews > 5 ? 0.5 : 0
+  // Response rate bonus: agents with high total_leads_converted get bonus
+  responseRateBonus = agent.total_leads_converted && agent.total_leads_converted > 5 ? 0.5 : 0
 
-  // Performance weight: higher-rated agents get priority
-  // Scale agent rating to 0-1 range (if rating exists)
-  performanceWeight = agent.avg_rating ? agent.avg_rating / 5 : 0.3
+  // Performance weight: higher lead conversion agents get priority
+  performanceWeight = agent.total_leads_converted ? Math.min(agent.total_leads_converted / 20, 1) * 0.5 + 0.3 : 0.3
 
   // Availability check: placeholder for future implementation
   // Could factor in: open leads count, response time, etc.

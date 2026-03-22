@@ -38,7 +38,6 @@ export type AgentProfileUpdate = any
 export type AgentReview = any
 export type AgentReviewInsert = any
 export type AgentReviewUpdate = any
-export type AgentServiceArea = any
 export type AgentInquiry = any
 export type AgentInquiryInsert = any
 export type AgentAchievement = any
@@ -46,7 +45,7 @@ export type AgentAdvertisement = any
 
 export type PropertyWithImages = Property & {
   property_images: PropertyImage[]
-  profiles: Pick<Profile, 'name' | 'avatar_url' | 'verified'>
+  profiles: Pick<Profile, 'full_name' | 'avatar_url' | 'verified'>
 }
 
 // ============================================================================

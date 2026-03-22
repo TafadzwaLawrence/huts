@@ -122,8 +122,8 @@ export async function calculateListingQuality(propertyId: string): Promise<Quali
   // ============ DETAILS (max 20 points) ============
   let detailScore = 0
   const detailChecks = [
-    { field: property.sqft, points: 4, name: 'square footage' },
-    { field: property.neighborhood, points: 4, name: 'neighborhood' },
+    { field: property.square_feet, points: 4, name: 'square footage' },
+    { field: property.area, points: 4, name: 'area' },
     { field: property.available_from, points: 3, name: 'availability date' },
     { field: property.year_built, points: 3, name: 'year built' },
     { field: property.lot_size_sqft, points: 3, name: 'lot size' },
@@ -215,12 +215,12 @@ export async function calculateListingQuality(propertyId: string): Promise<Quali
   let filledFields = 0
   if (property.title) filledFields++
   if (property.description && property.description.length >= 50) filledFields++
-  if (property.sqft) filledFields++
-  if (property.neighborhood) filledFields++
+  if (property.square_feet) filledFields++
+  if (property.area) filledFields++
   if (property.address) filledFields++
   if (property.city) filledFields++
-  if (property.beds) filledFields++
-  if (property.baths) filledFields++
+  if (property.bedrooms) filledFields++
+  if (property.bathrooms) filledFields++
   if (property.price || property.sale_price) filledFields++
   if (imageCount >= 1) filledFields++
   if (amenityCount >= 1) filledFields++

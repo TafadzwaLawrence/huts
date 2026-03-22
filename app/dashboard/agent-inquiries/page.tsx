@@ -57,7 +57,7 @@ export default async function AgentInquiriesPage() {
     .from('agent_inquiries')
     .select(`
       *,
-      property:properties(id, title, slug, city, neighborhood)
+      property:properties(id, title, slug, city, area)
     `)
     .eq('agent_id', agentProfile.id)
     .order('created_at', { ascending: false })
@@ -186,7 +186,7 @@ export default async function AgentInquiriesPage() {
 }
 
 function InquiryCard({ inquiry, agentProfileId }: any) {
-  const property = inquiry.property as { id: string; title: string; slug: string; city: string; neighborhood: string } | null
+  const property = inquiry.property as { id: string; title: string; slug: string; city: string; area: string | null } | null
   const createdDate = new Date(inquiry.created_at).toLocaleDateString('en-US', {
     month: 'short',
     day: 'numeric',
@@ -260,7 +260,7 @@ function InquiryCard({ inquiry, agentProfileId }: any) {
             <MapPin size={ICON_SIZES.sm} className="text-[#495057]" />
             <span className="font-medium text-[#212529]">{property.title}</span>
             <span className="text-[#ADB5BD]">•</span>
-            <span className="text-[#495057]">{property.neighborhood || property.city}</span>
+            <span className="text-[#495057]">{property.area || property.city}</span>
           </div>
         </Link>
       )}

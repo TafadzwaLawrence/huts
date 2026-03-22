@@ -113,7 +113,7 @@ export default function HomeSearchBar() {
       const [propertiesResult, nominatimResult] = await Promise.allSettled([
         supabase
           .from('properties')
-          .select('city, neighborhood')
+          .select('city, area')
           .eq('status', 'active')
           .eq('verification_status', 'approved'),
         fetch(
@@ -141,8 +141,8 @@ export default function HomeSearchBar() {
         }, {})
 
         const neighborhoodCounts = properties.reduce((acc: Record<string, { city: string; count: number }>, p) => {
-          if (p.neighborhood && p.city) {
-            const k = `${p.neighborhood}||${p.city}`
+          if (p.area && p.city) {
+            const k = `${p.area}||${p.city}`
             acc[k] = { city: p.city, count: (acc[k]?.count || 0) + 1 }
           }
           return acc

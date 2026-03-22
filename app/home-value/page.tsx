@@ -16,10 +16,10 @@ type ValuationResult = {
     slug: string
     price: number
     sale_price: number | null
-    sqft: number | null
-    beds: number
-    baths: number
-    neighborhood: string
+    square_feet: number | null
+    bedrooms: number
+    bathrooms: number
+    area: string | null
     listing_type: string
     primary_image?: string
   }>
@@ -182,11 +182,11 @@ export default function HomeValuePage() {
                     </div>
                     <div className="p-4">
                       <h3 className="text-sm font-semibold text-[#212529] truncate mb-1">{comp.title}</h3>
-                      <p className="text-xs text-[#ADB5BD] mb-2">{comp.neighborhood}</p>
+                      <p className="text-xs text-[#ADB5BD] mb-2">{comp.area}</p>
                       <div className="flex gap-3 text-xs text-[#495057]">
-                        <span><b>{comp.beds}</b> bd</span>
-                        <span><b>{comp.baths}</b> ba</span>
-                        {comp.sqft && <span><b>{comp.sqft.toLocaleString()}</b> sqft</span>}
+                        <span><b>{comp.bedrooms}</b> bd</span>
+                        <span><b>{comp.bathrooms}</b> ba</span>
+                        {comp.square_feet && <span><b>{comp.square_feet.toLocaleString()}</b> sqft</span>}
                       </div>
                     </div>
                   </Link>

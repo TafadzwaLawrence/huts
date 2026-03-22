@@ -38,7 +38,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     // First try by slug
     let { data: property } = await supabase
       .from('properties')
-      .select('title, description, city, price, sale_price, listing_type, beds, baths, property_type, property_images(url), created_at, updated_at, published_at')
+      .select('title, description, city, price, sale_price, listing_type, bedrooms, bathrooms, property_type, property_images(url), created_at, updated_at, published_at')
       .eq('slug', slug)
       .single()
 
@@ -46,7 +46,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     if (!property) {
       const result = await supabase
         .from('properties')
-        .select('title, description, city, price, sale_price, listing_type, beds, baths, property_type, property_images(url), created_at, updated_at, published_at')
+        .select('title, description, city, price, sale_price, listing_type, bedrooms, bathrooms, property_type, property_images(url), created_at, updated_at, published_at')
         .eq('id', slug)
         .single()
       property = result.data
@@ -68,7 +68,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
     // Build compelling description for social sharing
     const descriptionParts = [
-      `${listingType}: ${property.beds} bed, ${property.baths} bath ${property.property_type || 'property'} in ${property.city}, Zimbabwe.`,
+      `${listingType}: ${property.bedrooms} bed, ${property.bathrooms} bath ${property.property_type || 'property'} in ${property.city}, Zimbabwe.`,
       priceDisplay + '.',
     ]
     if (property.description) {
@@ -77,7 +77,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     const description = descriptionParts.join(' ')
 
     // Shorter description for Twitter (200 char limit)
-    const twitterDescription = `${listingType}: ${property.beds} bed, ${property.baths} bath in ${property.city}. ${priceDisplay}`
+    const twitterDescription = `${listingType}: ${property.bedrooms} bed, ${property.bathrooms} bath in ${property.city}. ${priceDisplay}`
 
     // Property type for better categorization
     const propertyTypeDisplay = property.property_type
@@ -109,7 +109,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
         section: isSale ? 'Properties for Sale' : 'Properties for Rent',
         tags: [
           property.city,
-          `${property.beds} bedroom`,
+          `${property.bedrooms} bedroom`,
           propertyTypeDisplay,
           isSale ? 'For Sale' : 'For Rent',
           'Zimbabwe Real Estate',

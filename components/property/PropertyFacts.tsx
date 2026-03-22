@@ -11,9 +11,9 @@ interface FactCategory {
 interface PropertyFactsProps {
   property: {
     property_type?: string | null
-    beds: number
-    baths: number
-    sqft?: number | null
+    bedrooms: number
+    bathrooms: number
+    square_feet?: number | null
     parking_spaces?: number | null
     year_built?: number | null
     lot_size?: number | null
@@ -47,9 +47,9 @@ export default function PropertyFacts({ property }: PropertyFactsProps) {
     {
       title: 'Interior',
       facts: [
-        { label: 'Bedrooms', value: property.beds },
-        { label: 'Bathrooms', value: property.baths },
-        { label: 'Square feet', value: property.sqft ? `${property.sqft.toLocaleString()} sqft` : null },
+        { label: 'Bedrooms', value: property.bedrooms },
+        { label: 'Bathrooms', value: property.bathrooms },
+        { label: 'Square feet', value: property.square_feet ? `${property.square_feet.toLocaleString()} sqft` : null },
         { label: 'Flooring', value: property.flooring },
         { label: 'Appliances', value: property.appliances },
       ],
@@ -68,7 +68,7 @@ export default function PropertyFacts({ property }: PropertyFactsProps) {
       title: 'Financial',
       facts: [
         ...(isSale ? [
-          { label: 'Price per sqft', value: property.sqft && property.sale_price ? `$${Math.round((property.sale_price / 100) / property.sqft)}` : null },
+          { label: 'Price per sqft', value: property.square_feet && property.sale_price ? `$${Math.round((property.sale_price / 100) / property.square_feet)}` : null },
           { label: 'Property tax (annual)', value: property.property_tax_annual ? `$${(property.property_tax_annual / 100).toLocaleString()}` : null },
           { label: 'HOA fee (monthly)', value: property.hoa_fee_monthly ? `$${(property.hoa_fee_monthly / 100).toLocaleString()}` : null },
         ] : [

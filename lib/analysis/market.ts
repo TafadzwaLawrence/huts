@@ -4,11 +4,11 @@ export interface ComparableProperty {
   id: string
   title: string
   price: number
-  beds: number
-  baths: number
-  sqft: number | null
+  bedrooms: number
+  bathrooms: number
+  square_feet: number | null
   propertyType: string
-  neighborhood: string | null
+  area: string | null
   pricePerSqft: number | null
   similarity: number
 }
@@ -61,14 +61,14 @@ export async function getMarketAnalysis(propertyId: string): Promise<MarketAnaly
   const { data: comparables } = await supabase
     .from('properties')
     .select(`
-      id, title, price, sale_price, beds, baths, sqft, 
-      property_type, neighborhood, listing_type, created_at, status
+      id, title, price, sale_price, bedrooms, bathrooms, square_feet, 
+      property_type, area, listing_type, created_at, status
     `)
     .eq('city', property.city)
     .eq('listing_type', listingType)
     .eq('status', 'active')
-    .gte('beds', Math.max(0, property.beds - 1))
-    .lte('beds', property.beds + 1)
+    .gte('bedrooms', Math.max(0, property.bedrooms - 1))
+    .lte('bedrooms', property.bedrooms + 1)
     .neq('id', propertyId)
     .limit(30)
 
@@ -78,12 +78,12 @@ export async function getMarketAnalysis(propertyId: string): Promise<MarketAnaly
       id: comp.id,
       title: comp.title,
       price,
-      beds: comp.beds,
-      baths: comp.baths,
-      sqft: comp.sqft,
+      bedrooms: comp.bedrooms,
+      bathrooms: comp.bathrooms,
+      square_feet: comp.square_feet,
       propertyType: comp.property_type,
-      neighborhood: comp.neighborhood,
-      pricePerSqft: comp.sqft && price ? Math.round(price / comp.sqft) : null,
+      area: comp.area,
+      pricePerSqft: comp.square_feet && price ? Math.round(price / comp.square_feet) : null,
       similarity: calculateSimilarity(property, comp)
     }
   }).sort((a, b) => b.similarity - a.similarity)
@@ -120,12 +120,12 @@ export async function getMarketAnalysis(propertyId: string): Promise<MarketAnaly
       confidence
     },
     pricePerSqft: {
-      property: property.sqft && currentPrice ? Math.round(currentPrice / property.sqft) : null,
+      property: property.square_feet && currentPrice ? Math.round(currentPrice / property.square_feet) : null,
       marketAverage: Math.round(sqftStats.average),
       marketMin: sqftStats.min,
       marketMax: sqftStats.max,
-      percentile: property.sqft && currentPrice
-        ? calculatePercentile(currentPrice / property.sqft, pricesPerSqft)
+      percentile: property.square_feet && currentPrice
+        ? calculatePercentile(currentPrice / property.square_feet, pricesPerSqft)
         : 50
     },
     demandIndicators
@@ -139,10 +139,10 @@ function calculateSimilarity(target: any, comp: any): number {
   let score = 100
 
   // Beds difference (-15 per bed)
-  score -= Math.abs(target.beds - comp.beds) * 15
+  score -= Math.abs(target.bedrooms - comp.bedrooms) * 15
 
   // Baths difference (-10 per bath)
-  score -= Math.abs(target.baths - comp.baths) * 10
+  score -= Math.abs(target.bathrooms - comp.bathrooms) * 10
 
   // Property type match (+15)
   if (target.property_type === comp.property_type) {
@@ -152,15 +152,15 @@ function calculateSimilarity(target: any, comp: any): number {
   }
 
   // Neighborhood match (+20)
-  if (target.neighborhood && comp.neighborhood) {
-    if (target.neighborhood.toLowerCase() === comp.neighborhood.toLowerCase()) {
+  if (target.area && comp.area) {
+    if (target.area.toLowerCase() === comp.area.toLowerCase()) {
       score += 20
     }
   }
 
   // Sqft similarity
-  if (target.sqft && comp.sqft) {
-    const sqftDiff = Math.abs(target.sqft - comp.sqft) / target.sqft
+  if (target.square_feet && comp.square_feet) {
+    const sqftDiff = Math.abs(target.square_feet - comp.square_feet) / target.square_feet
     if (sqftDiff <= 0.1) score += 15 // Within 10%
     else if (sqftDiff <= 0.2) score += 10 // Within 20%
     else if (sqftDiff <= 0.3) score += 5 // Within 30%
@@ -250,13 +250,13 @@ function calculateSuggestedPrice(
   }
 
   // Adjust for sqft if significantly different
-  if (property.sqft && stats.average > 0) {
+  if (property.square_feet && stats.average > 0) {
     const avgSqft = comparables
-      .filter(c => c.sqft)
-      .reduce((sum, c) => sum + c.sqft!, 0) / comparables.filter(c => c.sqft).length
+      .filter(c => c.square_feet)
+      .reduce((sum, c) => sum + c.square_feet!, 0) / comparables.filter(c => c.square_feet).length
 
     if (avgSqft > 0) {
-      const sqftRatio = property.sqft / avgSqft
+      const sqftRatio = property.square_feet / avgSqft
       if (sqftRatio > 1.1) optimal *= Math.min(1.15, sqftRatio * 0.5 + 0.5)
       if (sqftRatio < 0.9) optimal *= Math.max(0.85, sqftRatio * 0.5 + 0.5)
     }

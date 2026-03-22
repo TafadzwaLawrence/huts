@@ -36,7 +36,7 @@ export async function GET(request: NextRequest) {
 
     supabase
       .from('properties')
-      .select('id, title, slug, city, neighborhood, listing_type')
+      .select('id, title, slug, city, area, listing_type')
       .eq('status', 'active')
       .eq('verification_status', 'approved')
       .ilike('title', searchTerm)
@@ -72,7 +72,7 @@ export async function GET(request: NextRequest) {
     label: p.title,
     value: p.slug || p.id,
     city: p.city,
-    neighborhood: p.neighborhood,
+    neighborhood: p.area,
     listing_type: p.listing_type,
   }))
 

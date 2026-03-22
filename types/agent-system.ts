@@ -110,7 +110,7 @@ export interface LeadWithDistribution extends Lead {
   assignedTeam?: AgentTeam | null
 }
 
-export interface ClientWithNotes extends Client {
+export interface ClientWithNotes extends Omit<Client, 'notes'> {
   notes?: ClientNote[]
   agent?: Agent
 }
