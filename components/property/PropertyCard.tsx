@@ -106,13 +106,13 @@ export function PropertyCard({ property, compact = false }: PropertyCardProps) {
 
           {/* Beds / Baths / Sqft inline */}
           <div className="flex items-center gap-1 text-sm text-[#495057] mb-1">
-            <span><strong className="text-[#212529]">{property.beds}</strong> bd</span>
+            <span><strong className="text-[#212529]">{property.bedrooms}</strong> bd</span>
             <span className="text-[#ADB5BD]">|</span>
-            <span><strong className="text-[#212529]">{property.baths}</strong> ba</span>
-            {property.sqft && property.sqft > 0 && (
+            <span><strong className="text-[#212529]">{property.bathrooms}</strong> ba</span>
+            {property.square_feet && property.square_feet > 0 && (
               <>
                 <span className="text-[#ADB5BD]">|</span>
-                <span><strong className="text-[#212529]">{property.sqft.toLocaleString()}</strong> sqft</span>
+                <span><strong className="text-[#212529]">{property.square_feet.toLocaleString()}</strong> sqft</span>
               </>
             )}
             {listingLabel && (
