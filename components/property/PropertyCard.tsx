@@ -19,7 +19,11 @@ export function PropertyCard({ property, compact = false }: PropertyCardProps) {
   const sortedImages = [
     ...images.filter((img: any) => img.is_primary),
     ...images.filter((img: any) => !img.is_primary),
-  ]
+  ].map((img: any) => ({
+    url: img.image_url,
+    is_primary: img.is_primary,
+    alt_text: property.title,
+  }))
 
   const priceDisplay = isRentalProperty(property) && property.price
     ? `${formatPrice(property.price)}/mo`
