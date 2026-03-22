@@ -569,9 +569,6 @@ function AgentSignupInner() {
         {currentStep === 0 && (
           <div className="max-w-[420px] mx-auto">
             <div className="text-center mb-8">
-              <div className="w-12 h-12 bg-[#212529] rounded-2xl flex items-center justify-center mx-auto mb-4">
-                <User size={22} className="text-white" />
-              </div>
               <h1 className="text-2xl font-bold text-[#212529] mb-1">
                 {authMode === 'signup' ? 'Create your account' : 'Sign in to continue'}
               </h1>
