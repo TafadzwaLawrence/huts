@@ -36,7 +36,7 @@ interface Property {
   created_at: string
   verified_at: string | null
   user_id: string
-  profiles: { name: string | null; email: string; avatar_url: string | null }
+  profiles: { full_name: string | null; email: string; avatar_url: string | null }
   property_images: Array<{ url: string; is_primary: boolean }>
 }
 
@@ -195,7 +195,7 @@ export default function AdminPropertiesPage() {
 
                     {/* Owner */}
                     <div className="md:col-span-2 min-w-0 hidden md:block">
-                      <p className="text-xs text-[#495057] truncate">{owner?.name || 'Unknown'}</p>
+                      <p className="text-xs text-[#495057] truncate">{owner?.full_name || 'Unknown'}</p>
                       <p className="text-[10px] text-[#ADB5BD] truncate">{owner?.email}</p>
                     </div>
 

@@ -395,20 +395,20 @@ export default async function FindAgentPage({ searchParams }: { searchParams: Se
                             {(agent.profile_image_url || profile?.avatar_url) ? (
                               <Image
                                 src={agent.profile_image_url || profile.avatar_url}
-                                alt={agent.business_name || profile?.name || ''}
+                                alt={agent.business_name || profile?.full_name || ''}
                                 width={56}
                                 height={56}
                                 className="w-full h-full object-cover"
                               />
                             ) : (
                               <div className="w-full h-full flex items-center justify-center text-lg font-bold text-[#ADB5BD] bg-[#E9ECEF]">
-                                {(agent.business_name || profile?.name || 'A')[0].toUpperCase()}
+                                {(agent.business_name || profile?.full_name || 'A')[0].toUpperCase()}
                               </div>
                             )}
                           </div>
                           <div className="flex-1 min-w-0">
                             <h3 className="font-bold text-[#212529] truncate group-hover:text-[#000000]">
-                              {agent.business_name || profile?.name || 'Agent'}
+                              {agent.business_name || profile?.full_name || 'Agent'}
                             </h3>
                             <div className="flex items-center gap-1 text-xs text-[#495057] mt-0.5">
                               <Icon size={12} />

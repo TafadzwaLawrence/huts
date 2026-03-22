@@ -18,7 +18,7 @@ export async function PATCH(request: NextRequest) {
     }
 
     const updateData: Record<string, any> = {}
-    if (name !== undefined) updateData.name = name
+    if (name !== undefined) updateData.full_name = name
     if (phone !== undefined) updateData.phone = phone
     if (bio !== undefined) updateData.bio = bio
     if (role !== undefined) updateData.role = role

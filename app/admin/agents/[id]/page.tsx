@@ -35,7 +35,7 @@ export default async function AdminAgentDetailPage({ params }: Props) {
     .from('agent_profiles')
     .select(`
       *,
-      profiles:user_id (name, email, avatar_url, created_at),
+      profiles:user_id (full_name, email, avatar_url, created_at),
       agent_service_areas (city, is_primary),
       agent_reviews (id, rating, status)
     `)
@@ -67,14 +67,14 @@ export default async function AdminAgentDetailPage({ params }: Props) {
             <div className="flex items-start gap-4">
               {/* Avatar */}
               <div className="w-16 h-16 rounded-xl bg-[#F8F9FA] border border-[#E9ECEF] flex items-center justify-center flex-shrink-0 text-2xl font-bold text-[#ADB5BD]">
-                {(agent.business_name || profile?.name || 'A')[0].toUpperCase()}
+                {(agent.business_name || profile?.full_name || 'A')[0].toUpperCase()}
               </div>
 
               <div className="flex-1 min-w-0">
                 <div className="flex items-start justify-between gap-2 flex-wrap">
                   <div>
                     <h1 className="text-xl font-bold text-[#212529]">
-                      {agent.business_name || profile?.name || '—'}
+                      {agent.business_name || profile?.full_name || '—'}
                     </h1>
                     <div className="flex items-center gap-2 mt-1 text-sm text-[#495057]">
                       <Icon size={14} />

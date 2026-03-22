@@ -34,12 +34,12 @@ export default function AgentContactForm({ agentId, agentName, propertyId }: Age
       if (user) {
         const { data: profile } = await supabase
           .from('profiles')
-          .select('name, email')
+          .select('full_name, email')
           .eq('id', user.id)
           .single()
 
         if (profile) {
-          formData.name = formData.name || profile.name || ''
+          formData.name = formData.name || profile.full_name || ''
           formData.email = formData.email || profile.email || user.email || ''
         }
       }

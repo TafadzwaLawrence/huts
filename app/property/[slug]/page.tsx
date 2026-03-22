@@ -156,7 +156,7 @@ export default async function PropertyPage({ params }: { params: Promise<{ slug:
     .select(`
       *,
       property_images(id, url, is_primary, order, alt_text),
-      profiles:user_id(id, name, avatar_url, phone, email)
+      profiles:user_id(id, full_name, avatar_url, phone, email)
     `)
     .eq('slug', slug)
     .single()
@@ -168,7 +168,7 @@ export default async function PropertyPage({ params }: { params: Promise<{ slug:
       .select(`
         *,
         property_images(id, url, is_primary, order, alt_text),
-        profiles:user_id(id, name, avatar_url, phone, email)
+        profiles:user_id(id, full_name, avatar_url, phone, email)
       `)
       .eq('id', slug)
       .single()

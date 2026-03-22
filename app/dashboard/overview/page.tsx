@@ -121,7 +121,7 @@ export default async function DashboardOverviewPage() {
     supabase.from('conversations').select('*', { count: 'exact', head: true }).or(`landlord_id.eq.${user.id},renter_id.eq.${user.id}`),
     fetchRecentProperties(),
     fetchUserProperties(),
-    supabase.from('conversations').select('id, last_message_preview, last_message_at, property_id, properties:property_id(title, slug), profiles:renter_id(name, avatar_url)').or(`landlord_id.eq.${user.id},renter_id.eq.${user.id}`).order('last_message_at', { ascending: false }).limit(3),
+    supabase.from('conversations').select('id, last_message_preview, last_message_at, property_id, properties:property_id(title, slug), profiles:renter_id(full_name, avatar_url)').or(`landlord_id.eq.${user.id},renter_id.eq.${user.id}`).order('last_message_at', { ascending: false }).limit(3),
     supabase.from('reviews').select('*', { count: 'exact', head: true }).eq('author_id', user.id),
     supabase.from('agent_profiles').select('id, status, verified, avg_rating, total_reviews, slug, agent_type').eq('user_id', user.id).maybeSingle(),
   ])
@@ -163,7 +163,7 @@ export default async function DashboardOverviewPage() {
   }
 
   const isLandlord = profile?.role === 'landlord'
-  const userName = profile?.name || user.email?.split('@')[0] || 'User'
+  const userName = profile?.full_name || user.email?.split('@')[0] || 'User'
   const firstName = userName.split(' ')[0]
   
   // Time-based greeting

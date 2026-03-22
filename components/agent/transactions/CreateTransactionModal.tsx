@@ -21,7 +21,7 @@ interface Property {
 
 interface Profile {
   id: string
-  name: string
+  full_name: string
   email: string
   avatar_url?: string
 }
@@ -80,8 +80,8 @@ export function CreateTransactionModal({ isOpen, onClose }: CreateTransactionMod
     try {
       const { data, error } = await supabase
         .from('profiles')
-        .select('id, name, email, avatar_url')
-        .or(`name.ilike.%${query}%,email.ilike.%${query}%`)
+        .select('id, full_name, email, avatar_url')
+        .or(`full_name.ilike.%${query}%,email.ilike.%${query}%`)
         .limit(10)
 
       if (error) throw error
@@ -260,7 +260,7 @@ export function CreateTransactionModal({ isOpen, onClose }: CreateTransactionMod
                       >
                         <User size={16} />
                         <div>
-                          <div className="font-medium">{profile.name}</div>
+                          <div className="font-medium">{profile.full_name}</div>
                           <div className="text-sm text-dark-gray">{profile.email}</div>
                         </div>
                       </button>
@@ -276,7 +276,7 @@ export function CreateTransactionModal({ isOpen, onClose }: CreateTransactionMod
                     <div key={participant.profile.id} className="flex items-center gap-3 p-3 border border-light-gray rounded-md">
                       <User size={16} />
                       <div className="flex-1">
-                        <div className="font-medium">{participant.profile.name}</div>
+                        <div className="font-medium">{participant.profile.full_name}</div>
                         <div className="text-sm text-dark-gray">{participant.profile.email}</div>
                       </div>
                       <select

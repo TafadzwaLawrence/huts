@@ -50,7 +50,7 @@ export default async function AdminOverviewPage() {
       id, title, slug, city, listing_type, price, sale_price, created_at,
       profiles!properties_user_id_fkey(name, email)
     `).eq('verification_status', 'pending').order('created_at', { ascending: false }).limit(5),
-    admin.from('profiles').select('id, name, email, role, created_at').order('created_at', { ascending: false }).limit(5),
+    admin.from('profiles').select('id, full_name, email, role, created_at').order('created_at', { ascending: false }).limit(5),
   ])
 
   const today = new Date()

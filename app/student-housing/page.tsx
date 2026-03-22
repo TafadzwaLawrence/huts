@@ -57,10 +57,10 @@ async function getStudentProperties() {
     .from('properties')
     .select(`
       id, title, slug, listing_type, price, sale_price,
-      beds, bathrooms, square_feet, city, area, property_type,
+      bedrooms, bathrooms, square_feet, city, area, property_type,
       furnished, shared_rooms, utilities_included,
       property_images(url, is_primary, alt_text),
-      profiles(name, avatar_url, verified)
+      profiles(full_name, avatar_url, verified)
     `)
     .eq('property_type', 'student')
     .eq('status', 'active')
@@ -82,10 +82,10 @@ async function getAffordableRentals() {
     .from('properties')
     .select(`
       id, title, slug, listing_type, price,
-      beds, bathrooms, square_feet, city, area, property_type,
+      bedrooms, bathrooms, square_feet, city, area, property_type,
       furnished, shared_rooms, utilities_included,
       property_images(url, is_primary, alt_text),
-      profiles(name, avatar_url, verified)
+      profiles(full_name, avatar_url, verified)
     `)
     .eq('status', 'active')
     .eq('verification_status', 'approved')

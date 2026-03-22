@@ -37,7 +37,7 @@ export default async function AdminAgentsPage({
       id, user_id, agent_type, business_name, office_city,
       phone, verified, status, featured, avg_rating, total_reviews,
       created_at, slug,
-      profiles:user_id (name, email, avatar_url)
+      profiles:user_id (full_name, email, avatar_url)
     `)
     .eq('status', statusFilter)
     .order('created_at', { ascending: false })
@@ -119,7 +119,7 @@ export default async function AdminAgentsPage({
                     <td className="px-5 py-4">
                       <div>
                         <p className="font-semibold text-[#212529]">
-                          {agent.business_name || profile?.name || '—'}
+                          {agent.business_name || profile?.full_name || '—'}
                         </p>
                         <p className="text-xs text-[#ADB5BD] mt-0.5">{profile?.email}</p>
                       </div>

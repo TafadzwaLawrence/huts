@@ -27,7 +27,7 @@ interface Property {
   lat: number | null
   lng: number | null
   property_images: Array<{ id?: string; url: string; is_primary: boolean; alt_text?: string | null }>
-  profiles?: { name: string; avatar_url: string | null; verified: boolean }
+  profiles?: { full_name: string; avatar_url: string | null; verified: boolean }
 }
 
 const MapView = dynamic<{

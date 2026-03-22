@@ -31,8 +31,8 @@ type Conversation = {
     slug: string
     property_images: Array<{ url: string; is_primary: boolean }>
   }
-  renter: { id: string; name: string; avatar_url: string | null }
-  landlord: { id: string; name: string; avatar_url: string | null }
+  renter: { id: string; full_name: string; avatar_url: string | null }
+  landlord: { id: string; full_name: string; avatar_url: string | null }
   unread_count?: number
 }
 
@@ -96,8 +96,8 @@ export default function MessagesPage() {
       .select(`
         id, property_id, last_message_at, last_message_preview,
         property:properties!conversations_property_id_fkey(id, title, slug, property_images(url, is_primary)),
-        renter:profiles!conversations_renter_id_fkey(id, name, avatar_url),
-        landlord:profiles!conversations_landlord_id_fkey(id, name, avatar_url)
+        renter:profiles!conversations_renter_id_fkey(id, full_name, avatar_url),
+        landlord:profiles!conversations_landlord_id_fkey(id, full_name, avatar_url)
       `)
       .or(`renter_id.eq.${user.id},landlord_id.eq.${user.id}`)
       .order('last_message_at', { ascending: false })
@@ -277,7 +277,7 @@ export default function MessagesPage() {
     const other = getOtherUser(conv)
     return (
       conv.property?.title?.toLowerCase().includes(q) ||
-      other.name?.toLowerCase().includes(q) ||
+      other.full_name?.toLowerCase().includes(q) ||
       conv.last_message_preview?.toLowerCase().includes(q)
     )
   })
@@ -361,7 +361,7 @@ export default function MessagesPage() {
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center justify-between mb-0.5">
                           <span className={`text-sm truncate ${hasUnread ? 'font-bold text-[#212529]' : 'font-medium text-[#495057]'}`}>
-                            {other.name || 'Unknown'}
+                            {other.full_name || 'Unknown'}
                           </span>
                           <span className="text-[10px] text-[#ADB5BD] whitespace-nowrap ml-2">
                             {timeAgo(conv.last_message_at)}
@@ -416,7 +416,7 @@ export default function MessagesPage() {
                   )}
                 </div>
                 <div className="flex-1 min-w-0">
-                  <span className="text-sm font-semibold text-[#212529] truncate block">{getOtherUser(selected).name}</span>
+                  <span className="text-sm font-semibold text-[#212529] truncate block">{getOtherUser(selected).full_name || 'Unknown'}</span>
                   <Link
                     href={`/property/${selected.property?.slug || selected.property?.id || ''}`}
                     className="text-xs text-[#ADB5BD] hover:text-[#495057] truncate block transition-colors"
@@ -532,7 +532,7 @@ export default function MessagesPage() {
               </span>
             </div>
             <p className="text-xs text-[#ADB5BD] mt-0.5">
-              Tenant: {selected.renter?.id === userId ? selected.landlord?.name : selected.renter?.name}
+              Tenant: {selected.renter?.id === userId ? selected.landlord?.full_name : selected.renter?.full_name}
             </p>
           </div>
 

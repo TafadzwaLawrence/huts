@@ -27,7 +27,7 @@ interface AgentNavbarProps {
     email?: string
   }
   profile: {
-    name?: string | null
+    full_name?: string | null
     avatar_url?: string | null
     role?: string | null
   } | null
@@ -55,7 +55,7 @@ export function AgentNavbar({ user, profile, agentId, isPremier }: AgentNavbarPr
   const [signingOut, setSigningOut] = useState(false)
 
   const userName =
-    profile?.name || user.email?.split('@')[0] || 'Agent'
+    profile?.full_name || user.email?.split('@')[0] || 'Agent'
   const userInitial = userName.charAt(0).toUpperCase()
   const userAvatar = profile?.avatar_url
 

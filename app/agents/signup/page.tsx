@@ -241,11 +241,11 @@ function AgentSignupInner() {
 
       const { data: profile } = await supabase
         .from('profiles')
-        .select('name')
+        .select('full_name')
         .eq('id', user.id)
         .single()
 
-      const slugBase = (formData.business_name || profile?.name || 'agent').toLowerCase()
+      const slugBase = (formData.business_name || profile?.full_name || 'agent').toLowerCase()
         .replace(/[^a-z0-9]+/g, '-')
         .replace(/^-|-$/g, '')
 

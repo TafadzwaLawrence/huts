@@ -89,11 +89,11 @@ export default async function AgentOverviewPage() {
 
   const { data: profile } = await supabase
     .from('profiles')
-    .select('name')
+    .select('full_name')
     .eq('id', user.id)
     .single()
 
-  const agentName = profile?.name?.split(' ')[0] || 'Agent'
+  const agentName = profile?.full_name?.split(' ')[0] || 'Agent'
 
   // Parallelise all stat queries
   const now = new Date()

@@ -14,14 +14,14 @@ export async function Navbar() {
   if (user) {
     const { data } = await supabase
       .from('profiles')
-      .select('name, role, avatar_url')
+      .select('full_name, role, avatar_url')
       .eq('id', user.id)
       .single()
     profile = data
   }
   
   const isLandlord = profile?.role === 'landlord'
-  const userName = profile?.name || user?.user_metadata?.full_name || user?.user_metadata?.name || user?.email?.split('@')[0]
+  const userName = profile?.full_name || user?.user_metadata?.full_name || user?.user_metadata?.name || user?.email?.split('@')[0]
   const userInitial = userName?.charAt(0).toUpperCase() || 'U'
   const userAvatar = profile?.avatar_url || user?.user_metadata?.avatar_url
 

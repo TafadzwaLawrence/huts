@@ -51,7 +51,7 @@ interface DashboardNavbarProps {
     }
   }
   profile?: {
-    name?: string
+    full_name?: string
     role?: string
     avatar_url?: string
   }
@@ -71,7 +71,7 @@ export function DashboardNavbar({ user, profile }: DashboardNavbarProps) {
   const supabase = createClient()
 
   const isLandlord = profile?.role === 'landlord'
-  const userName = profile?.name || user.user_metadata?.full_name || user.user_metadata?.name || user.email?.split('@')[0] || 'User'
+  const userName = profile?.full_name || user.user_metadata?.full_name || user.user_metadata?.name || user.email?.split('@')[0] || 'User'
   const userInitial = userName.charAt(0).toUpperCase()
   const userAvatar = profile?.avatar_url || user.user_metadata?.avatar_url
 

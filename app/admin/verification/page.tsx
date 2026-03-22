@@ -43,7 +43,7 @@ interface Property {
   created_at: string
   verified_at: string | null
   user_id: string
-  profiles: { name: string | null; email: string; avatar_url: string | null }
+  profiles: { full_name: string | null; email: string; avatar_url: string | null }
   property_images: Array<{ url: string; is_primary: boolean }>
 }
 
@@ -232,9 +232,9 @@ export default function AdminVerificationPage() {
                     {/* Owner info */}
                     <div className="flex items-center gap-2 mb-4 text-xs text-[#ADB5BD]">
                       <div className="w-5 h-5 rounded-full bg-[#F8F9FA] flex items-center justify-center text-[9px] font-bold text-[#495057] flex-shrink-0">
-                        {(owner?.name || owner?.email || '?')[0].toUpperCase()}
+                        {(owner?.full_name || owner?.email || '?')[0].toUpperCase()}
                       </div>
-                      <span>{owner?.name || 'Unknown'}</span>
+                      <span>{owner?.full_name || 'Unknown'}</span>
                       <span>·</span>
                       <span>{owner?.email}</span>
                       <span>·</span>

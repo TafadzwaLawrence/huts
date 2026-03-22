@@ -1,19 +1,46 @@
 'use client'
 
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 import { toast } from 'sonner'
-import { Shield, Key, Smartphone, Eye, EyeOff, Loader2, AlertTriangle, CheckCircle } from 'lucide-react'
+import { Shield, Key, Smartphone, Eye, EyeOff, Loader2, AlertTriangle, CheckCircle, Trash2 } from 'lucide-react'
 
 export default function SecurityPage() {
+  const router = useRouter()
   const [currentPassword, setCurrentPassword] = useState('')
   const [newPassword, setNewPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [showCurrentPassword, setShowCurrentPassword] = useState(false)
   const [showNewPassword, setShowNewPassword] = useState(false)
   const [loading, setLoading] = useState(false)
-  
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false)
+  const [deleteConfirmText, setDeleteConfirmText] = useState('')
+  const [deleting, setDeleting] = useState(false)
+
   const supabase = createClient()
+
+  const handleDeleteAccount = async () => {
+    if (deleteConfirmText !== 'DELETE') {
+      toast.error('Please type DELETE to confirm')
+      return
+    }
+
+    setDeleting(true)
+    try {
+      const res = await fetch('/api/auth/delete-account', { method: 'DELETE' })
+      if (!res.ok) {
+        const data = await res.json()
+        throw new Error(data.error || 'Failed to delete account')
+      }
+      await supabase.auth.signOut()
+      toast.success('Account deleted')
+      router.push('/')
+    } catch (error: any) {
+      toast.error(error.message || 'Failed to delete account')
+      setDeleting(false)
+    }
+  }
 
   const handlePasswordChange = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -253,12 +280,61 @@ export default function SecurityPage() {
           </div>
         </div>
 
-        <button className="w-full py-3 border-2 border-[#FF6B6B] text-[#FF6B6B] rounded-xl font-medium hover:bg-[#FF6B6B]/10 transition-colors">
-          Delete Account
-        </button>
-        <p className="mt-2 text-xs text-[#495057] text-center">
-          This will permanently delete your account and all associated data.
-        </p>
+        {!showDeleteConfirm ? (
+          <>
+            <button
+              onClick={() => setShowDeleteConfirm(true)}
+              className="w-full py-3 border-2 border-[#FF6B6B] text-[#FF6B6B] rounded-xl font-medium hover:bg-[#FF6B6B]/10 transition-colors flex items-center justify-center gap-2"
+            >
+              <Trash2 size={16} />
+              Delete Account
+            </button>
+            <p className="mt-2 text-xs text-[#495057] text-center">
+              This will permanently delete your account and all associated data.
+            </p>
+          </>
+        ) : (
+          <div className="space-y-4">
+            <div className="p-4 bg-[#FF6B6B]/5 border border-[#FF6B6B]/20 rounded-xl">
+              <p className="text-sm font-medium text-[#212529] mb-1">Are you absolutely sure?</p>
+              <p className="text-sm text-[#495057]">
+                This will permanently delete your account, all your properties, messages, and reviews.
+                <strong className="text-[#212529]"> This cannot be undone.</strong>
+              </p>
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-[#212529] mb-2">
+                Type <span className="font-mono font-bold">DELETE</span> to confirm
+              </label>
+              <input
+                type="text"
+                value={deleteConfirmText}
+                onChange={(e) => setDeleteConfirmText(e.target.value)}
+                placeholder="DELETE"
+                className="w-full px-4 py-3 border-2 border-[#E9ECEF] rounded-xl focus:border-[#FF6B6B] focus:outline-none transition-colors font-mono"
+              />
+            </div>
+            <div className="flex gap-3">
+              <button
+                onClick={() => { setShowDeleteConfirm(false); setDeleteConfirmText('') }}
+                className="flex-1 py-3 border-2 border-[#E9ECEF] text-[#495057] rounded-xl font-medium hover:border-[#212529] hover:text-[#212529] transition-colors"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleDeleteAccount}
+                disabled={deleting || deleteConfirmText !== 'DELETE'}
+                className="flex-1 py-3 bg-[#FF6B6B] text-white rounded-xl font-medium hover:bg-red-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              >
+                {deleting ? (
+                  <><Loader2 size={16} className="animate-spin" /> Deleting...</>
+                ) : (
+                  <><Trash2 size={16} /> Delete Forever</>
+                )}
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   )

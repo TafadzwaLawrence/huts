@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 
-const VALID_SORT_OPTIONS = ['newest', 'price_asc', 'price_desc', 'beds_desc', 'baths_desc', 'sqft_desc'] as const
+const VALID_SORT_OPTIONS = ['newest', 'price_asc', 'price_desc', 'bedrooms_desc', 'bathrooms_desc', 'square_feet_desc'] as const
 type SortOption = typeof VALID_SORT_OPTIONS[number]
 
 const PAGE_SIZE = 40
@@ -42,11 +42,11 @@ export async function GET(request: NextRequest) {
       listing_type,
       price,
       sale_price,
-      beds,
-      baths,
-      sqft,
+      bedrooms,
+      bathrooms,
+      square_feet,
       city,
-      neighborhood,
+      area,
       property_type,
       lat,
       lng,
@@ -64,7 +64,7 @@ export async function GET(request: NextRequest) {
 
   // Text search
   if (q) {
-    query = query.or(`title.ilike.%${q}%,city.ilike.%${q}%,neighborhood.ilike.%${q}%`)
+    query = query.or(`title.ilike.%${q}%,city.ilike.%${q}%,area.ilike.%${q}%`)
   }
 
   // Property type filter
@@ -97,18 +97,18 @@ export async function GET(request: NextRequest) {
 
   // Bedroom/bathroom filters
   if (beds > 0) {
-    query = query.gte('beds', beds)
+    query = query.gte('bedrooms', beds)
   }
   if (baths > 0) {
-    query = query.gte('baths', baths)
+    query = query.gte('bathrooms', baths)
   }
 
   // Sqft filters
   if (minSqft > 0) {
-    query = query.gte('sqft', minSqft)
+    query = query.gte('square_feet', minSqft)
   }
   if (maxSqft > 0) {
-    query = query.lte('sqft', maxSqft)
+    query = query.lte('square_feet', maxSqft)
   }
 
   // Location filters
@@ -116,7 +116,7 @@ export async function GET(request: NextRequest) {
     query = query.ilike('city', `%${city}%`)
   }
   if (neighborhood) {
-    query = query.ilike('neighborhood', `%${neighborhood}%`)
+    query = query.ilike('area', `%${neighborhood}%`)
   }
 
   // Map viewport bounds
@@ -150,14 +150,14 @@ export async function GET(request: NextRequest) {
           query = query.order('price', { ascending: false, nullsFirst: false })
         }
         break
-      case 'beds_desc':
-        query = query.order('beds', { ascending: false })
+      case 'bedrooms_desc':
+        query = query.order('bedrooms', { ascending: false })
         break
-      case 'baths_desc':
-        query = query.order('baths', { ascending: false })
+      case 'bathrooms_desc':
+        query = query.order('bathrooms', { ascending: false })
         break
-      case 'sqft_desc':
-        query = query.order('sqft', { ascending: false, nullsFirst: false })
+      case 'square_feet_desc':
+        query = query.order('square_feet', { ascending: false, nullsFirst: false })
         break
     }
   } else {
