@@ -19,24 +19,37 @@ export async function DELETE() {
     }
 
     const adminClient = createAdminClient()
+    const uid = user.id
 
-    // Step 1: Delete all application data using the admin client.
-    // Deleting from profiles cascades to properties, messages,
-    // reviews, notifications, and all other related tables.
+    // Step 1: Delete from tables that DIRECTLY reference auth.users(id).
+    // These are NOT covered by the profiles cascade, so they must be
+    // removed first — otherwise Supabase's internal auth delete may fail.
+
+    // saved_searches.user_id → auth.users (migration 017)
+    await adminClient.from('saved_searches').delete().eq('user_id', uid)
+
+    // agent_profiles.user_id → auth.users (migration 021)
+    await adminClient.from('agent_profiles').delete().eq('user_id', uid)
+
+    // agents.user_id → auth.users (migration 030)
+    await adminClient.from('agents').delete().eq('user_id', uid)
+
+    // Step 2: Delete the profiles row.
+    // This cascades to properties, messages, reviews, notifications,
+    // saved_properties, conversations, and all other app tables.
     const { error: profileError } = await adminClient
       .from('profiles')
       .delete()
-      .eq('id', user.id)
+      .eq('id', uid)
 
     if (profileError) {
       console.error('[Delete Account] Profile delete failed:', profileError)
-      // Non-fatal — profile may already be gone; continue to auth delete
+      return NextResponse.json({ error: 'Failed to clean up account data' }, { status: 500 })
     }
 
-    // Step 2: Delete the auth user via REST API.
-    // With application data already removed, Supabase has nothing
-    // left to cascade and the deletion succeeds cleanly.
-    const res = await fetch(`${supabaseUrl}/auth/v1/admin/users/${user.id}`, {
+    // Step 3: Delete the auth user. The database is now clean, so
+    // Supabase's internal cascade has nothing that can raise an error.
+    const res = await fetch(`${supabaseUrl}/auth/v1/admin/users/${uid}`, {
       method: 'DELETE',
       headers: {
         apikey: serviceRoleKey,
