@@ -19,9 +19,7 @@ import {
   Star,
   LayoutDashboard,
   MapPin,
-  Check,
   Eye,
-  MessageSquare,
   Briefcase,
   Mail,
   Handshake,
@@ -29,17 +27,7 @@ import {
 } from 'lucide-react'
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { createClient } from '@/lib/supabase/client'
-
-interface Notification {
-  id: string
-  type: 'message' | 'inquiry' | 'review' | 'property_update' | 'system'
-  title: string
-  description: string | null
-  link: string | null
-  read_at: string | null
-  created_at: string
-  metadata: Record<string, any>
-}
+import { NotificationDropdown } from './NotificationDropdown'
 
 interface DashboardNavbarProps {
   user: {
@@ -61,56 +49,14 @@ export function DashboardNavbar({ user, profile }: DashboardNavbarProps) {
   const pathname = usePathname()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
-  const [notificationsOpen, setNotificationsOpen] = useState(false)
-  const [notifications, setNotifications] = useState<Notification[]>([])
   const [unreadCount, setUnreadCount] = useState(0)
-  const [unreadMessages, setUnreadMessages] = useState(0)
-  const [loadingNotifications, setLoadingNotifications] = useState(true)
   const [hasAgentProfile, setHasAgentProfile] = useState(false)
-  const notificationRef = useRef<HTMLDivElement>(null)
   const supabase = createClient()
 
   const isLandlord = profile?.role === 'landlord'
   const userName = profile?.full_name || user.user_metadata?.full_name || user.user_metadata?.name || user.email?.split('@')[0] || 'User'
   const userInitial = userName.charAt(0).toUpperCase()
   const userAvatar = profile?.avatar_url || user.user_metadata?.avatar_url
-
-  // Helper function to format time ago
-  const timeAgo = (date: string) => {
-    const now = new Date()
-    const past = new Date(date)
-    const diffMs = now.getTime() - past.getTime()
-    const diffMins = Math.floor(diffMs / 60000)
-    const diffHours = Math.floor(diffMs / 3600000)
-    const diffDays = Math.floor(diffMs / 86400000)
-
-    if (diffMins < 1) return 'Just now'
-    if (diffMins < 60) return `${diffMins} min ago`
-    if (diffHours < 24) return `${diffHours} hour${diffHours > 1 ? 's' : ''} ago`
-    if (diffDays < 7) return `${diffDays} day${diffDays > 1 ? 's' : ''} ago`
-    return past.toLocaleDateString()
-  }
-
-  // Fetch notifications from API
-  const fetchNotifications = useCallback(async () => {
-    try {
-      const response = await fetch('/api/notifications')
-      if (response.ok) {
-        const data = await response.json()
-        setNotifications(data.notifications || [])
-        setUnreadCount(data.unreadCount || 0)
-        // Count message notifications for badge
-        const messageCount = (data.notifications || []).filter(
-          (n: Notification) => n.type === 'message' && !n.read_at
-        ).length
-        setUnreadMessages(messageCount)
-      }
-    } catch (error) {
-      console.error('Error fetching notifications:', error)
-    } finally {
-      setLoadingNotifications(false)
-    }
-  }, [])
 
   // Check if user has an agent record in the new agents table
   const checkAgentProfile = useCallback(async () => {
@@ -130,72 +76,9 @@ export function DashboardNavbar({ user, profile }: DashboardNavbarProps) {
     }
   }, [supabase])
 
-  // Fetch notifications on mount and subscribe to realtime updates
   useEffect(() => {
-    fetchNotifications()
     checkAgentProfile()
-
-    // Subscribe to real-time notification updates
-    const channel = supabase
-      .channel('notifications')
-      .on(
-        'postgres_changes',
-        {
-          event: 'INSERT',
-          schema: 'public',
-          table: 'notifications',
-        },
-        (payload) => {
-          // Add new notification to the list
-          setNotifications(prev => [payload.new as Notification, ...prev])
-          setUnreadCount(prev => prev + 1)
-        }
-      )
-      .subscribe()
-
-    return () => {
-      supabase.removeChannel(channel)
-    }
-  }, [fetchNotifications, checkAgentProfile, supabase])
-
-  // Close notification dropdown when clicking outside
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (notificationRef.current && !notificationRef.current.contains(event.target as Node)) {
-        setNotificationsOpen(false)
-      }
-    }
-    document.addEventListener('mousedown', handleClickOutside)
-    return () => document.removeEventListener('mousedown', handleClickOutside)
-  }, [])
-
-  const markAsRead = async (id: string) => {
-    try {
-      await fetch('/api/notifications', {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ notificationId: id })
-      })
-      setNotifications(prev => prev.map(n => n.id === id ? {...n, read_at: new Date().toISOString()} : n))
-      setUnreadCount(prev => Math.max(0, prev - 1))
-    } catch (error) {
-      console.error('Error marking notification as read:', error)
-    }
-  }
-
-  const markAllAsRead = async () => {
-    try {
-      await fetch('/api/notifications', {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ markAllRead: true })
-      })
-      setNotifications(prev => prev.map(n => ({...n, read_at: new Date().toISOString()})))
-      setUnreadCount(0)
-    } catch (error) {
-      console.error('Error marking all notifications as read:', error)
-    }
-  }
+  }, [checkAgentProfile])
 
   // Handle scroll effect
   useEffect(() => {
@@ -305,88 +188,7 @@ export function DashboardNavbar({ user, profile }: DashboardNavbarProps) {
 
                 {/* Utilities Group - Desktop */}
                 <div className="hidden md:flex items-center gap-1 mr-3 pr-3 border-r border-[#E9ECEF]">
-                  {/* Notification Bell with Dropdown */}
-                  <div className="relative" ref={notificationRef}>
-                    <button 
-                      onClick={() => setNotificationsOpen(!notificationsOpen)}
-                      className="relative p-2 rounded-lg text-[#495057] hover:text-[#212529] hover:bg-[#F8F9FA] transition-colors"
-                    >
-                      <Bell size={18} />
-                      {unreadCount > 0 && (
-                        <span className="absolute top-1 right-1 w-2 h-2 bg-[#FF6B6B] rounded-full" />
-                      )}
-                    </button>
-
-                    {/* Notification Dropdown */}
-                    {notificationsOpen && (
-                      <div className="absolute top-full right-0 mt-2 w-80 bg-white rounded-xl shadow-xl border border-[#E9ECEF] overflow-hidden z-50">
-                        <div className="flex items-center justify-between px-4 py-3 border-b border-[#E9ECEF]">
-                          <h3 className="font-semibold text-[#212529]">Notifications</h3>
-                          {unreadCount > 0 && (
-                            <button 
-                              onClick={markAllAsRead}
-                              className="text-xs text-[#495057] hover:text-[#212529] transition-colors flex items-center gap-1"
-                            >
-                              <Check size={12} />
-                              Mark all read
-                            </button>
-                          )}
-                        </div>
-
-                        <div className="max-h-80 overflow-y-auto">
-                          {notifications.length === 0 ? (
-                            <div className="py-8 text-center text-[#ADB5BD]">
-                              <Bell size={24} className="mx-auto mb-2 opacity-50" />
-                              <p className="text-sm">No notifications yet</p>
-                            </div>
-                          ) : (
-                            notifications.map((notification) => (
-                              <Link
-                                key={notification.id}
-                                href={notification.link || '/dashboard'}
-                                onClick={() => {
-                                  if (!notification.read_at) markAsRead(notification.id)
-                                  setNotificationsOpen(false)
-                                }}
-                                className={`flex items-start gap-3 px-4 py-3 hover:bg-[#F8F9FA] transition-colors border-b border-[#E9ECEF] last:border-0 ${
-                                  !notification.read_at ? 'bg-[#F8F9FA]/50' : ''
-                                }`}
-                              >
-                                <div className="w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0 bg-[#F8F9FA]">
-                                  {notification.type === 'message' && <MessageSquare size={16} className="text-[#212529]" />}
-                                  {notification.type === 'inquiry' && <Building2 size={16} className="text-[#212529]" />}
-                                  {notification.type === 'review' && <Star size={16} className="text-[#212529]" />}
-                                  {notification.type === 'property_update' && <Building2 size={16} className="text-[#212529]" />}
-                                  {notification.type === 'system' && <Bell size={16} className="text-[#212529]" />}
-                                </div>
-                                <div className="flex-1 min-w-0">
-                                  <div className="flex items-center gap-2">
-                                    <p className="font-medium text-sm text-[#212529]">{notification.title}</p>
-                                    {!notification.read_at && (
-                                      <span className="w-2 h-2 bg-[#FF6B6B] rounded-full flex-shrink-0" />
-                                    )}
-                                  </div>
-                                  <p className="text-xs text-[#495057] truncate">{notification.description}</p>
-                                  <p className="text-xs text-[#ADB5BD] mt-0.5">{timeAgo(notification.created_at)}</p>
-                                </div>
-                              </Link>
-                            ))
-                          )}
-                        </div>
-
-                        <div className="border-t border-[#E9ECEF]">
-                          <Link
-                            href="/settings/notifications"
-                            onClick={() => setNotificationsOpen(false)}
-                            className="flex items-center justify-center gap-2 px-4 py-3 text-sm text-[#495057] hover:bg-[#F8F9FA] transition-colors"
-                          >
-                            <Settings size={14} />
-                            Notification Settings
-                          </Link>
-                        </div>
-                      </div>
-                    )}
-                  </div>
+                  <NotificationDropdown onUnreadCountChange={setUnreadCount} />
                   
                   <Link
                     href="/settings"
