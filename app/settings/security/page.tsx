@@ -34,8 +34,9 @@ export default function SecurityPage() {
         throw new Error(data.error || 'Failed to delete account')
       }
       await supabase.auth.signOut()
-      toast.success('Account deleted')
-      router.push('/')
+      toast.success('Account deleted successfully')
+      // Hard redirect — clears all React state and auth context
+      window.location.href = '/?deleted=1'
     } catch (error: any) {
       toast.error(error.message || 'Failed to delete account')
       setDeleting(false)
