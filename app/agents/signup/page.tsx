@@ -13,7 +13,6 @@ import {
   ChevronLeft, 
   Check,
   User,
-  Phone,
   MapPin,
   FileText,
   Award,
@@ -28,8 +27,10 @@ import {
   Lock,
   Mail,
 } from 'lucide-react'
+
 import { createClient } from '@/lib/supabase/client'
 import { toast } from 'sonner'
+import PhoneInput from '@/components/ui/PhoneInput'
 import {
   AGENT_TYPE_LABELS,
   AGENT_SPECIALIZATIONS,
@@ -47,7 +48,9 @@ interface FormData {
   // Step 2: Basic Info
   business_name: string
   phone: string
+  phone_dial: string
   whatsapp: string
+  whatsapp_dial: string
   office_address: string
   office_city: string
   
@@ -181,7 +184,9 @@ function AgentSignupInner() {
     agent_type: '',
     business_name: '',
     phone: '',
+    phone_dial: '+263',
     whatsapp: '',
+    whatsapp_dial: '+263',
     office_address: '',
     office_city: '',
     license_number: '',
@@ -253,7 +258,7 @@ function AgentSignupInner() {
         .from('profiles')
         .update({
           role: 'agent',
-          phone: formData.phone || null,
+          phone: formData.phone ? `${formData.phone_dial}${formData.phone}` : null,
           city: formData.office_city || null,
           bio: formData.bio || null,
         })
@@ -803,33 +808,25 @@ function AgentSignupInner() {
                   <label className="block text-sm font-semibold text-[#212529] mb-2">
                     Phone number <span className="text-[#FF6B6B]">*</span>
                   </label>
-                  <div className="relative">
-                    <Phone size={18} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#ADB5BD]" />
-                    <input
-                      type="tel"
-                      value={formData.phone}
-                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      className="w-full pl-11 pr-4 py-3.5 bg-white border-2 border-[#E9ECEF] rounded-xl text-[#212529] placeholder:text-[#ADB5BD] focus:border-[#212529] focus:ring-0 focus:outline-none transition-colors"
-                      placeholder="+263 77 123 4567"
-                      required
-                    />
-                  </div>
+                  <PhoneInput
+                    value={formData.phone}
+                    dialCode={formData.phone_dial}
+                    onChange={(local, dial) => setFormData({ ...formData, phone: local, phone_dial: dial })}
+                    placeholder="77 123 4567"
+                    required
+                  />
                 </div>
 
                 <div>
                   <label className="block text-sm font-semibold text-[#212529] mb-2">
                     WhatsApp <span className="text-[#ADB5BD] font-normal text-xs">optional</span>
                   </label>
-                  <div className="relative">
-                    <MessageSquare size={18} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#ADB5BD]" />
-                    <input
-                      type="tel"
-                      value={formData.whatsapp}
-                      onChange={(e) => setFormData({ ...formData, whatsapp: e.target.value })}
-                      className="w-full pl-11 pr-4 py-3.5 bg-white border-2 border-[#E9ECEF] rounded-xl text-[#212529] placeholder:text-[#ADB5BD] focus:border-[#212529] focus:ring-0 focus:outline-none transition-colors"
-                      placeholder="+263 77 123 4567"
-                    />
-                  </div>
+                  <PhoneInput
+                    value={formData.whatsapp}
+                    dialCode={formData.whatsapp_dial}
+                    onChange={(local, dial) => setFormData({ ...formData, whatsapp: local, whatsapp_dial: dial })}
+                    placeholder="77 123 4567"
+                  />
                 </div>
               </div>
 
