@@ -456,7 +456,7 @@ export default function NewPropertyPage() {
                   className={`group relative p-8 rounded-xl border-2 text-left transition-all duration-300 hover:scale-[1.02] ${
                     formData.listingType === 'rent'
                       ? 'border-[#212529] bg-[#212529] text-white shadow-2xl'
-                      : 'border-[#E9ECEF] bg-white hover:border-[#495057] hover:shadow-lg'
+                      : 'border-[#E9ECEF] bg-white text-[#212529] hover:border-[#495057] hover:shadow-lg'
                   }`}
                 >
                   {/* Selection Indicator */}
@@ -516,7 +516,7 @@ export default function NewPropertyPage() {
                   className={`group relative p-8 rounded-xl border-2 text-left transition-all duration-300 hover:scale-[1.02] ${
                     formData.listingType === 'sale'
                       ? 'border-[#212529] bg-[#212529] text-white shadow-2xl'
-                      : 'border-[#E9ECEF] bg-white hover:border-[#495057] hover:shadow-lg'
+                      : 'border-[#E9ECEF] bg-white text-[#212529] hover:border-[#495057] hover:shadow-lg'
                   }`}
                 >
                   {/* Selection Indicator */}
