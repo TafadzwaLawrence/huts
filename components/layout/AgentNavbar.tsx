@@ -147,12 +147,16 @@ export function AgentNavbar({
 
   // ── Leads count ────────────────────────────────────────────────────────────
   const fetchNewLeads = useCallback(async () => {
-    const { count } = await supabase
-      .from('leads')
-      .select('id', { count: 'exact', head: true })
-      .eq('assigned_to', agentId)
-      .in('status', ['assigned', 'new'])
-    setNewLeadCount(count ?? 0)
+    try {
+      const { count, error } = await supabase
+        .from('leads')
+        .select('id', { count: 'exact', head: true })
+        .eq('assigned_to', agentId)
+        .in('status', ['assigned', 'new'])
+      if (!error) setNewLeadCount(count ?? 0)
+    } catch {
+      // leads table may not be available yet — badge stays at 0
+    }
   }, [supabase, agentId])
 
   useEffect(() => {

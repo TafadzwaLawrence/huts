@@ -48,7 +48,7 @@ export default async function AgentPortalLayout({
         totalReviews={agent.total_reviews ?? null}
         agentType={agent.agent_type ?? null}
       />
-      <main className="pt-14">{children}</main>
+      <main className="pt-[60px]">{children}</main>
     </div>
   )
 }

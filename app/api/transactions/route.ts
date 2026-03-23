@@ -22,7 +22,15 @@ export async function GET(request: NextRequest) {
     const limit = parseInt(searchParams.get('limit') || '50')
     const offset = parseInt(searchParams.get('offset') || '0')
 
-    // Get transactions where user is a participant or creator
+    // Find transaction IDs where user is a participant (PostgREST can't filter
+    // on joined table columns via .or(), so we resolve this with a pre-query)
+    const { data: participantRows } = await supabase
+      .from('transaction_participants')
+      .select('transaction_id')
+      .eq('profile_id', user.id)
+
+    const participantTxnIds = (participantRows || []).map((r: any) => r.transaction_id as string)
+
     let query = supabase
       .from('transactions')
       .select(`
@@ -37,7 +45,7 @@ export async function GET(request: NextRequest) {
           preferred_contact_method,
           profiles (
             id,
-            name,
+            full_name,
             email,
             avatar_url
           )
@@ -64,9 +72,15 @@ export async function GET(request: NextRequest) {
           created_at
         )
       `)
-      .or(`created_by.eq.${user.id},transaction_participants.profile_id.eq.${user.id}`)
-      .order('created_at', { ascending: false })
-      .range(offset, offset + limit - 1)
+
+    // Filter: transactions created by this user OR where they are a participant
+    if (participantTxnIds.length > 0) {
+      query = query.or(`created_by.eq.${user.id},id.in.(${participantTxnIds.join(',')})`)
+    } else {
+      query = query.eq('created_by', user.id)
+    }
+
+    query = query.order('created_at', { ascending: false }).range(offset, offset + limit - 1)
 
     if (status) {
       query = query.eq('status', status)

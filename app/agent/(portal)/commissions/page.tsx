@@ -200,7 +200,7 @@ async function CommissionsContent() {
 
 function CommissionsLoading() {
   return (
-    <div className="space-y-6">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         {Array.from({ length: 4 }).map((_, i) => (
           <div key={i} className="bg-white border border-[#E9ECEF] rounded-xl p-5 animate-pulse">
@@ -229,7 +229,7 @@ function CommissionsLoading() {
 
 export default function CommissionsDashboardPage() {
   return (
-    <div className="space-y-6">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
       <div>
         <h1 className="text-2xl font-bold text-[#111827]">Commissions</h1>
         <p className="text-sm text-[#6B7280] mt-1">Track your earnings from closed transactions</p>
