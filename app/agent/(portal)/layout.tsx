@@ -20,12 +20,12 @@ export default async function AgentPortalLayout({
   const [{ data: profile }, { data: agent }] = await Promise.all([
     supabase
       .from('profiles')
-      .select('name, role, avatar_url')
+      .select('full_name, role, avatar_url')
       .eq('id', user.id)
       .single(),
     supabase
       .from('agents')
-      .select('id, is_premier')
+      .select('id, is_premier, slug, avg_rating, total_reviews, agent_type')
       .eq('user_id', user.id)
       .single(),
   ])
@@ -43,6 +43,10 @@ export default async function AgentPortalLayout({
         profile={profile}
         agentId={agent.id}
         isPremier={agent.is_premier ?? false}
+        agentSlug={agent.slug ?? null}
+        avgRating={agent.avg_rating ?? null}
+        totalReviews={agent.total_reviews ?? null}
+        agentType={agent.agent_type ?? null}
       />
       <main className="pt-14">{children}</main>
     </div>

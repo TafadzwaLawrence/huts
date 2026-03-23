@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname, useRouter } from 'next/navigation'
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import {
   LayoutDashboard,
@@ -20,6 +20,10 @@ import {
   Bell,
   FileText,
   MessageSquare,
+  DollarSign,
+  Plus,
+  ExternalLink,
+  Star,
 } from 'lucide-react'
 
 interface AgentNavbarProps {
@@ -34,27 +38,61 @@ interface AgentNavbarProps {
   } | null
   agentId: string
   isPremier: boolean
+  agentSlug?: string | null
+  avgRating?: number | null
+  totalReviews?: number | null
+  agentType?: string | null
 }
 
 const NAV_LINKS = [
-  { href: '/agent/overview', label: 'Overview', icon: LayoutDashboard },
-  { href: '/agent/leads', label: 'Leads', icon: Inbox },
+  { href: '/agent/overview',     label: 'Overview',     icon: LayoutDashboard },
+  { href: '/agent/leads',        label: 'Leads',        icon: Inbox },
+  { href: '/agent/clients',      label: 'Clients',      icon: Users },
   { href: '/agent/transactions', label: 'Transactions', icon: FileText },
-  { href: '/agent/clients', label: 'Clients', icon: Users },
-  { href: '/agent/messages', label: 'Messages', icon: MessageSquare },
-  { href: '/agent/calendar', label: 'Calendar', icon: Calendar },
-  { href: '/agent/profile', label: 'My Profile', icon: User },
+  { href: '/agent/commissions',  label: 'Commissions',  icon: DollarSign },
+  { href: '/agent/messages',     label: 'Messages',     icon: MessageSquare },
+  { href: '/agent/calendar',     label: 'Calendar',     icon: Calendar },
 ]
 
-export function AgentNavbar({ user, profile, agentId, isPremier }: AgentNavbarProps) {
+const QUICK_ACTIONS = [
+  { href: '/agent/leads?new=1',        label: 'Add Lead',            icon: Inbox },
+  { href: '/agent/calendar?new=1',     label: 'Schedule Appointment', icon: Calendar },
+  { href: '/agent/transactions?new=1', label: 'New Transaction',      icon: FileText },
+]
+
+function formatAgentType(type: string | null | undefined): string {
+  switch (type) {
+    case 'real_estate_agent': return 'Real Estate Agent'
+    case 'property_manager':  return 'Property Manager'
+    case 'home_builder':      return 'Home Builder'
+    case 'photographer':      return 'Photographer'
+    case 'other':             return 'Agent'
+    default:                  return 'Agent'
+  }
+}
+
+export function AgentNavbar({
+  user,
+  profile,
+  agentId,
+  isPremier,
+  agentSlug,
+  avgRating,
+  totalReviews,
+  agentType,
+}: AgentNavbarProps) {
   const pathname = usePathname()
   const router = useRouter()
   const supabase = createClient()
 
   const [mobileOpen, setMobileOpen] = useState(false)
   const [userMenuOpen, setUserMenuOpen] = useState(false)
+  const [quickActionsOpen, setQuickActionsOpen] = useState(false)
   const [newLeadCount, setNewLeadCount] = useState(0)
   const [signingOut, setSigningOut] = useState(false)
+
+  const quickActionsRef = useRef<HTMLDivElement>(null)
+  const userMenuRef = useRef<HTMLDivElement>(null)
 
   const userName =
     profile?.full_name || user.email?.split('@')[0] || 'Agent'
@@ -91,7 +129,22 @@ export function AgentNavbar({ user, profile, agentId, isPremier }: AgentNavbarPr
   useEffect(() => {
     setMobileOpen(false)
     setUserMenuOpen(false)
+    setQuickActionsOpen(false)
   }, [pathname])
+
+  // Close dropdowns on outside click
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      if (quickActionsRef.current && !quickActionsRef.current.contains(e.target as Node)) {
+        setQuickActionsOpen(false)
+      }
+      if (userMenuRef.current && !userMenuRef.current.contains(e.target as Node)) {
+        setUserMenuOpen(false)
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [])
 
   // Prevent scroll when mobile menu is open
   useEffect(() => {
@@ -171,8 +224,35 @@ export function AgentNavbar({ user, profile, agentId, isPremier }: AgentNavbarPr
               </Link>
             )}
 
+            {/* Quick Actions */}
+            <div className="relative hidden md:block" ref={quickActionsRef}>
+              <button
+                onClick={() => setQuickActionsOpen(!quickActionsOpen)}
+                className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-black text-white text-sm font-medium hover:bg-[#212529] transition-colors"
+                aria-label="Quick actions"
+              >
+                <Plus size={14} />
+                <span className="hidden lg:block">Quick Add</span>
+              </button>
+              {quickActionsOpen && (
+                <div className="absolute right-0 top-full mt-1 w-52 bg-white border border-[#E9ECEF] rounded-xl shadow-lg py-1 z-50">
+                  <p className="px-4 py-2 text-[10px] font-semibold text-[#ADB5BD] uppercase tracking-widest">Quick Actions</p>
+                  {QUICK_ACTIONS.map(({ href, label, icon: Icon }) => (
+                    <Link
+                      key={href}
+                      href={href}
+                      className="flex items-center gap-2.5 px-4 py-2 text-sm text-[#495057] hover:bg-[#F8F9FA] transition-colors"
+                    >
+                      <Icon size={14} />
+                      {label}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
+
             {/* User menu */}
-            <div className="relative">
+            <div className="relative" ref={userMenuRef}>
               <button
                 onClick={() => setUserMenuOpen(!userMenuOpen)}
                 className="flex items-center gap-2 pl-2 pr-1 py-1 rounded-lg hover:bg-[#F8F9FA] transition-colors"
@@ -197,11 +277,37 @@ export function AgentNavbar({ user, profile, agentId, isPremier }: AgentNavbarPr
               </button>
 
               {userMenuOpen && (
-                <div className="absolute right-0 top-full mt-1 w-52 bg-white border border-[#E9ECEF] rounded-xl shadow-lg py-1 z-50">
-                  <div className="px-4 py-2.5 border-b border-[#E9ECEF]">
-                    <p className="text-sm font-semibold text-[#212529] truncate">{userName}</p>
-                    <p className="text-xs text-[#ADB5BD] truncate">{user.email}</p>
+                <div className="absolute right-0 top-full mt-1 w-60 bg-white border border-[#E9ECEF] rounded-xl shadow-lg py-1 z-50">
+                  {/* Identity block */}
+                  <div className="px-4 py-3 border-b border-[#E9ECEF]">
+                    <div className="flex items-start justify-between gap-2">
+                      <div className="min-w-0">
+                        <p className="text-sm font-semibold text-[#212529] truncate">{userName}</p>
+                        <p className="text-xs text-[#ADB5BD] truncate mt-0.5">{formatAgentType(agentType)}</p>
+                        {user.email && (
+                          <p className="text-xs text-[#ADB5BD] truncate">{user.email}</p>
+                        )}
+                      </div>
+                      {isPremier && (
+                        <span className="shrink-0 flex items-center gap-1 text-[10px] font-semibold text-amber-700 bg-amber-50 border border-amber-200 px-1.5 py-0.5 rounded-full">
+                          <Award size={9} />
+                          Premier
+                        </span>
+                      )}
+                    </div>
+                    {/* Rating */}
+                    {avgRating != null && avgRating > 0 && (
+                      <div className="flex items-center gap-1 mt-2">
+                        <Star size={11} className="text-amber-500 fill-amber-500" />
+                        <span className="text-xs font-semibold text-[#212529]">{avgRating.toFixed(1)}</span>
+                        {totalReviews != null && totalReviews > 0 && (
+                          <span className="text-xs text-[#ADB5BD]">· {totalReviews} review{totalReviews !== 1 ? 's' : ''}</span>
+                        )}
+                      </div>
+                    )}
                   </div>
+
+                  {/* Actions */}
                   <Link
                     href="/agent/profile"
                     className="flex items-center gap-2.5 px-4 py-2 text-sm text-[#495057] hover:bg-[#F8F9FA] transition-colors"
@@ -209,6 +315,17 @@ export function AgentNavbar({ user, profile, agentId, isPremier }: AgentNavbarPr
                     <User size={14} />
                     Edit Profile
                   </Link>
+                  {agentSlug && (
+                    <Link
+                      href={`/agent/${agentSlug}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2.5 px-4 py-2 text-sm text-[#495057] hover:bg-[#F8F9FA] transition-colors"
+                    >
+                      <ExternalLink size={14} />
+                      View Public Profile
+                    </Link>
+                  )}
                   <Link
                     href="/settings"
                     className="flex items-center gap-2.5 px-4 py-2 text-sm text-[#495057] hover:bg-[#F8F9FA] transition-colors"
@@ -249,7 +366,43 @@ export function AgentNavbar({ user, profile, agentId, isPremier }: AgentNavbarPr
             className="absolute inset-0 bg-black/20"
             onClick={() => setMobileOpen(false)}
           />
-          <div className="absolute top-14 left-0 right-0 bg-white border-b border-[#E9ECEF] shadow-lg">
+          <div className="absolute top-14 left-0 right-0 bg-white border-b border-[#E9ECEF] shadow-lg max-h-[calc(100vh-3.5rem)] overflow-y-auto">
+            {/* Mobile identity block */}
+            <div className="flex items-center gap-3 px-4 py-4 border-b border-[#E9ECEF]">
+              {userAvatar ? (
+                <Image
+                  src={userAvatar}
+                  alt={userName}
+                  width={40}
+                  height={40}
+                  className="rounded-full object-cover shrink-0"
+                />
+              ) : (
+                <div className="w-10 h-10 rounded-full bg-black text-white text-base font-semibold flex items-center justify-center shrink-0">
+                  {userInitial}
+                </div>
+              )}
+              <div className="min-w-0 flex-1">
+                <p className="text-sm font-semibold text-[#212529] truncate">{userName}</p>
+                <p className="text-xs text-[#ADB5BD] truncate">{formatAgentType(agentType)}</p>
+                {avgRating != null && avgRating > 0 && (
+                  <div className="flex items-center gap-1 mt-0.5">
+                    <Star size={10} className="text-amber-500 fill-amber-500" />
+                    <span className="text-xs font-medium text-[#495057]">{avgRating.toFixed(1)}</span>
+                    {totalReviews != null && totalReviews > 0 && (
+                      <span className="text-xs text-[#ADB5BD]">· {totalReviews} review{totalReviews !== 1 ? 's' : ''}</span>
+                    )}
+                  </div>
+                )}
+              </div>
+              {isPremier && (
+                <span className="shrink-0 flex items-center gap-1 text-[10px] font-semibold text-amber-700 bg-amber-50 border border-amber-200 px-1.5 py-0.5 rounded-full">
+                  <Award size={9} />
+                  Premier
+                </span>
+              )}
+            </div>
+
             <nav className="flex flex-col p-3 gap-1">
               {NAV_LINKS.map(({ href, label, icon: Icon }) => {
                 const active = isActive(href)
@@ -274,7 +427,49 @@ export function AgentNavbar({ user, profile, agentId, isPremier }: AgentNavbarPr
                   </Link>
                 )
               })}
+
+              {/* Quick actions section */}
               <div className="border-t border-[#E9ECEF] mt-2 pt-2">
+                <p className="px-4 py-1.5 text-[10px] font-semibold text-[#ADB5BD] uppercase tracking-widest">Quick Add</p>
+                {QUICK_ACTIONS.map(({ href, label, icon: Icon }) => (
+                  <Link
+                    key={href}
+                    href={href}
+                    className="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-[#495057] hover:bg-[#F8F9FA] transition-colors"
+                  >
+                    <Icon size={16} />
+                    {label}
+                  </Link>
+                ))}
+              </div>
+
+              {/* Profile / settings */}
+              <div className="border-t border-[#E9ECEF] mt-2 pt-2">
+                <Link
+                  href="/agent/profile"
+                  className="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-[#495057] hover:bg-[#F8F9FA] transition-colors"
+                >
+                  <User size={16} />
+                  Edit Profile
+                </Link>
+                {agentSlug && (
+                  <Link
+                    href={`/agent/${agentSlug}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-[#495057] hover:bg-[#F8F9FA] transition-colors"
+                  >
+                    <ExternalLink size={16} />
+                    View Public Profile
+                  </Link>
+                )}
+                <Link
+                  href="/settings"
+                  className="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-[#495057] hover:bg-[#F8F9FA] transition-colors"
+                >
+                  <Settings size={16} />
+                  Settings
+                </Link>
                 <button
                   onClick={handleSignOut}
                   disabled={signingOut}
