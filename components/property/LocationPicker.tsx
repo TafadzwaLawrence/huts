@@ -240,21 +240,29 @@ export default function LocationPicker({ lat, lng, onLocationChange, className }
 
         {/* Search Results Dropdown */}
         {searchResults.length > 0 && (
-          <div className="bg-white border border-[#E9ECEF] rounded-xl shadow-lg overflow-hidden z-50 relative">
+          <div
+            className="bg-white rounded-2xl overflow-hidden relative z-50"
+            style={{
+              border: '1.5px solid #E9ECEF',
+              boxShadow: '0 8px 24px -4px rgba(33,37,41,0.12), 0 2px 8px -2px rgba(33,37,41,0.06)',
+            }}
+          >
             {searchResults.map((result, index) => (
               <button
                 key={index}
                 type="button"
                 onClick={() => selectSearchResult(result)}
-                className="w-full px-4 py-3 text-left hover:bg-[#F8F9FA] transition-colors border-b border-[#E9ECEF] last:border-b-0"
+                className="w-full px-4 py-3 text-left hover:bg-[#F8F9FA] active:bg-[#E9ECEF] transition-colors border-b border-[#E9ECEF] last:border-b-0"
               >
-                <div className="flex items-start gap-2.5">
-                  <MapPin className="h-4 w-4 text-[#495057] mt-0.5 shrink-0" />
-                  <div>
-                    <p className="text-sm font-medium text-[#212529]">
+                <div className="flex items-start gap-3">
+                  <div className="w-7 h-7 rounded-lg bg-[#F8F9FA] border border-[#E9ECEF] flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <MapPin className="h-3.5 w-3.5 text-[#495057]" />
+                  </div>
+                  <div className="min-w-0">
+                    <p className="text-sm font-semibold text-[#212529] truncate">
                       {result.display_name.split(',')[0]}
                     </p>
-                    <p className="text-xs text-[#ADB5BD] line-clamp-1">
+                    <p className="text-xs text-[#ADB5BD] line-clamp-1 mt-0.5">
                       {result.display_name}
                     </p>
                   </div>

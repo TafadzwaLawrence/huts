@@ -359,10 +359,16 @@ export default function PhoneInput({
 
       {/* Dropdown */}
       {open && (
-        <div className="absolute top-full left-0 mt-1.5 z-50 w-72 bg-white border-2 border-[#E9ECEF] rounded-xl shadow-lg overflow-hidden">
-          {/* Search */}
-          <div className="flex items-center gap-2 px-3 py-2.5 border-b border-[#E9ECEF]">
-            <Search size={14} className="text-[#ADB5BD] flex-shrink-0" />
+        <div
+          className="absolute top-[calc(100%+6px)] left-0 z-50 w-72 bg-white rounded-2xl overflow-hidden"
+          style={{
+            border: '1.5px solid #E9ECEF',
+            boxShadow: '0 8px 24px -4px rgba(33,37,41,0.12), 0 2px 8px -2px rgba(33,37,41,0.06)',
+          }}
+        >
+          {/* Search bar */}
+          <div className="flex items-center gap-2 px-3 py-2.5 bg-[#F8F9FA] border-b border-[#E9ECEF]">
+            <Search size={13} className="text-[#ADB5BD] flex-shrink-0" />
             <input
               ref={searchRef}
               type="text"
@@ -375,40 +381,50 @@ export default function PhoneInput({
               <button
                 type="button"
                 onClick={() => setSearch('')}
-                className="text-[#ADB5BD] hover:text-[#212529]"
+                className="w-4 h-4 rounded-full bg-[#ADB5BD] hover:bg-[#495057] flex items-center justify-center transition-colors flex-shrink-0"
               >
-                <X size={13} />
+                <X size={9} className="text-white" />
               </button>
             )}
           </div>
 
           {/* List */}
-          <ul
-            role="listbox"
-            className="max-h-56 overflow-y-auto py-1"
-          >
+          <ul role="listbox" className="max-h-56 overflow-y-auto">
             {filtered.length === 0 ? (
-              <li className="px-4 py-3 text-sm text-[#ADB5BD] text-center">No results</li>
+              <li className="px-4 py-5 text-sm text-[#ADB5BD] text-center">No results</li>
             ) : (
-              filtered.map((country) => (
-                <li key={`${country.code}-${country.dial}`}>
-                  <button
-                    type="button"
-                    role="option"
-                    aria-selected={country.dial === dialCode && country.code === selected.code}
-                    onClick={() => selectCountry(country)}
-                    className={`w-full flex items-center gap-3 px-3 py-2 text-left hover:bg-[#F8F9FA] transition-colors ${
-                      country.code === selected.code ? 'bg-[#F8F9FA] font-semibold' : ''
-                    }`}
-                  >
-                    <span className="text-base leading-none w-6 text-center flex-shrink-0">
-                      {country.flag}
-                    </span>
-                    <span className="flex-1 text-sm text-[#212529] truncate">{country.name}</span>
-                    <span className="text-xs text-[#ADB5BD] flex-shrink-0">{country.dial}</span>
-                  </button>
-                </li>
-              ))
+              filtered.map((country) => {
+                const isSelected = country.code === selected.code
+                return (
+                  <li key={`${country.code}-${country.dial}`}>
+                    <button
+                      type="button"
+                      role="option"
+                      aria-selected={isSelected}
+                      onClick={() => selectCountry(country)}
+                      className={`w-full flex items-center gap-2.5 px-3 py-2.5 text-left transition-colors ${
+                        isSelected
+                          ? 'bg-[#212529]'
+                          : 'hover:bg-[#F8F9FA]'
+                      }`}
+                    >
+                      <span className="text-base leading-none w-5 text-center flex-shrink-0">
+                        {country.flag}
+                      </span>
+                      <span className={`flex-1 text-sm truncate ${
+                        isSelected ? 'text-white font-medium' : 'text-[#212529]'
+                      }`}>
+                        {country.name}
+                      </span>
+                      <span className={`text-xs tabular-nums flex-shrink-0 ${
+                        isSelected ? 'text-[#ADB5BD]' : 'text-[#ADB5BD]'
+                      }`}>
+                        {country.dial}
+                      </span>
+                    </button>
+                  </li>
+                )
+              })
             )}
           </ul>
         </div>
