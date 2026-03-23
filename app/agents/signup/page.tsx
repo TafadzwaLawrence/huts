@@ -28,9 +28,12 @@ import {
   Mail,
 } from 'lucide-react'
 
+import dynamic from 'next/dynamic'
 import { createClient } from '@/lib/supabase/client'
 import { toast } from 'sonner'
 import PhoneInput from '@/components/ui/PhoneInput'
+
+const LocationPicker = dynamic(() => import('@/components/property/LocationPicker'), { ssr: false })
 import {
   AGENT_TYPE_LABELS,
   AGENT_SPECIALIZATIONS,
@@ -52,6 +55,8 @@ interface FormData {
   whatsapp: string
   whatsapp_dial: string
   office_address: string
+  office_lat: number | null
+  office_lng: number | null
   office_city: string
   
   // Step 3: Professional Details
@@ -188,6 +193,8 @@ function AgentSignupInner() {
     whatsapp: '',
     whatsapp_dial: '+263',
     office_address: '',
+    office_lat: null,
+    office_lng: null,
     office_city: '',
     license_number: '',
     license_state: 'Zimbabwe',
@@ -855,16 +862,30 @@ function AgentSignupInner() {
                 <label className="block text-sm font-semibold text-[#212529] mb-2">
                   Office address <span className="text-[#ADB5BD] font-normal text-xs">optional</span>
                 </label>
-                <div className="relative">
+                {/* Text field — auto-filled from map, or type manually */}
+                <div className="relative mb-2">
                   <Home size={18} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#ADB5BD]" />
                   <input
                     type="text"
                     value={formData.office_address}
                     onChange={(e) => setFormData({ ...formData, office_address: e.target.value })}
                     className="w-full pl-11 pr-4 py-3.5 bg-white border-2 border-[#E9ECEF] rounded-xl text-[#212529] placeholder:text-[#ADB5BD] focus:border-[#212529] focus:ring-0 focus:outline-none transition-colors"
-                    placeholder="Street address, suite number"
+                    placeholder="Type address or pick on map below"
                   />
                 </div>
+                {/* Inline map picker */}
+                <LocationPicker
+                  lat={formData.office_lat ?? undefined}
+                  lng={formData.office_lng ?? undefined}
+                  onLocationChange={(lat, lng, address) => {
+                    setFormData(prev => ({
+                      ...prev,
+                      office_lat: lat || null,
+                      office_lng: lng || null,
+                      office_address: address || prev.office_address,
+                    }))
+                  }}
+                />
               </div>
             </div>
           </div>
