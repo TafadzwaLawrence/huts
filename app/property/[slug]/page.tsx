@@ -7,6 +7,7 @@ import PropertyGallery from '@/components/property/PropertyGallery'
 import PropertyDetailClient from '@/components/property/PropertyDetailClient'
 import PropertyStructuredData from '@/components/property/PropertyStructuredData'
 import BreadcrumbStructuredData from '@/components/property/BreadcrumbStructuredData'
+import PropertyViewTracker from '@/components/property/PropertyViewTracker'
 
 // ISR - Revalidate every 60 seconds for fresh data
 export const revalidate = 60
@@ -222,6 +223,9 @@ export default async function PropertyPage({ params }: { params: Promise<{ slug:
 
   return (
     <div className="min-h-screen bg-white pb-20 lg:pb-0">
+      {/* Track this page view for landlord analytics */}
+      <PropertyViewTracker propertyId={property.id} viewerId={user?.id ?? null} />
+
       {/* JSON-LD Structured Data for SEO */}
       <PropertyStructuredData property={property} slug={slug} />
       <BreadcrumbStructuredData

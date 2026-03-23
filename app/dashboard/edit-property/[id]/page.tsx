@@ -766,7 +766,7 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
                 className={`relative p-6 rounded-xl border-2 text-left transition-all group ${
                   formData.listingType === 'rent'
                     ? 'border-[#212529] bg-[#212529] text-white shadow-lg shadow-black/5'
-                    : 'border-[#E9ECEF] bg-white hover:border-[#212529] hover:shadow-md'
+                    : 'border-[#E9ECEF] bg-white text-[#212529] hover:border-[#212529] hover:shadow-md'
                 }`}
               >
                 <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-3 ${
@@ -794,7 +794,7 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
                 className={`relative p-6 rounded-xl border-2 text-left transition-all group ${
                   formData.listingType === 'sale'
                     ? 'border-[#212529] bg-[#212529] text-white shadow-lg shadow-black/5'
-                    : 'border-[#E9ECEF] bg-white hover:border-[#212529] hover:shadow-md'
+                    : 'border-[#E9ECEF] bg-white text-[#212529] hover:border-[#212529] hover:shadow-md'
                 }`}
               >
                 <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-3 ${
