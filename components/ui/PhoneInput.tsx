@@ -328,33 +328,33 @@ export default function PhoneInput({
 
   return (
     <div ref={containerRef} className="relative flex w-full">
-      {/* Country code trigger */}
+      {/* Country code trigger — compact, fixed width */}
       <button
         type="button"
         onClick={() => setOpen((o) => !o)}
         aria-haspopup="listbox"
         aria-expanded={open}
-        className="flex items-center gap-1.5 px-3 py-3.5 bg-white border-2 border-r-0 border-[#E9ECEF] rounded-l-xl text-[#212529] hover:border-[#ADB5BD] focus:border-[#212529] focus:outline-none transition-colors whitespace-nowrap flex-shrink-0"
+        className="inline-flex items-center gap-1 pl-3 pr-2 py-3.5 bg-white border-2 border-r-0 border-[#E9ECEF] rounded-l-xl text-[#212529] hover:border-[#ADB5BD] focus:border-[#212529] focus:outline-none transition-colors whitespace-nowrap flex-shrink-0"
       >
-        <span className="text-base leading-none" aria-hidden="true">{selected.flag}</span>
-        <span className="text-sm font-medium">{selected.dial}</span>
+        <span className="text-sm leading-none" aria-hidden="true">{selected.flag}</span>
+        <span className="text-sm font-medium tabular-nums">{selected.dial}</span>
         <ChevronRight
-          size={14}
-          className={`text-[#ADB5BD] transition-transform duration-200 ${open ? 'rotate-90' : 'rotate-90 opacity-60'}`}
-          style={{ transform: open ? 'rotate(270deg)' : 'rotate(90deg)' }}
+          size={12}
+          className="text-[#ADB5BD] flex-shrink-0"
+          style={{ transform: open ? 'rotate(270deg)' : 'rotate(90deg)', transition: 'transform 0.15s' }}
         />
       </button>
 
-      {/* Number input */}
+      {/* Number input — takes all remaining space */}
       <input
         id={id}
         type="tel"
-        inputMode="numeric"
+        inputMode="tel"
         value={value}
         onChange={(e) => onChange(e.target.value, dialCode)}
         placeholder={placeholder}
         required={required}
-        className="flex-1 min-w-0 px-3 py-3.5 bg-white border-2 border-[#E9ECEF] rounded-r-xl text-[#212529] placeholder:text-[#ADB5BD] focus:border-[#212529] focus:ring-0 focus:outline-none transition-colors"
+        className="flex-1 w-0 min-w-0 px-3 py-3.5 bg-white border-2 border-[#E9ECEF] rounded-r-xl text-[#212529] placeholder:text-[#ADB5BD] focus:border-[#212529] focus:ring-0 focus:outline-none transition-colors"
       />
 
       {/* Dropdown */}
