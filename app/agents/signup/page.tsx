@@ -274,10 +274,14 @@ function AgentSignupInner() {
       const { data: agentProfile, error: profileError } = await supabase
         .from('agents')
         .insert({
-          profile_id: user.id,
+          user_id: user.id,
           agent_type: formData.agent_type,
+          business_name: formData.business_name || null,
+          phone: formData.phone ? `${formData.phone_dial}${formData.phone}` : null,
+          whatsapp: formData.whatsapp ? `${formData.whatsapp_dial}${formData.whatsapp}` : null,
+          office_address: formData.office_address || null,
+          office_city: formData.office_city || null,
           license_number: formData.license_number || null,
-          service_areas: formData.service_areas.length > 0 ? formData.service_areas : null,
           bio: formData.bio || null,
           specializations: formData.specializations.length > 0 ? formData.specializations : null,
         })
