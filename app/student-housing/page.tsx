@@ -8,7 +8,6 @@ import {
 } from 'lucide-react'
 import { createClient } from '@/lib/supabase/server'
 import { formatPrice } from '@/lib/utils'
-import { ICON_SIZES } from '@/lib/brand'
 
 export const metadata: Metadata = {
   title: 'Student Housing Near Universities in Zimbabwe | Huts',
@@ -112,298 +111,188 @@ export default async function StudentHousingPage() {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Breadcrumb */}
-      <div className="border-b border-[#E9ECEF] bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
-          <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-sm text-[#495057]">
-            <Link href="/" className="hover:text-[#212529] transition-colors">Home</Link>
-            <ChevronRight size={14} className="text-[#ADB5BD] shrink-0" />
-            <span className="text-[#212529] font-medium">Student Housing</span>
-          </nav>
-        </div>
-      </div>
 
       {/* HERO */}
-      <section className="relative bg-[#212529] text-white overflow-hidden">
-        {/* Background texture */}
-        <div className="absolute inset-0 opacity-[0.04]" style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
-        }} />
-        {/* Gradient orbs */}
-        <div className="absolute -top-40 -right-40 w-[500px] h-[500px] bg-white/[0.03] rounded-full blur-[120px]" />
-        <div className="absolute -bottom-40 -left-40 w-[400px] h-[400px] bg-white/[0.02] rounded-full blur-[100px]" />
+      <section className="bg-[#212529] text-white">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28">
+          <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-white/30 mb-10">
+            <Link href="/" className="hover:text-white/60 transition-colors">Home</Link>
+            <ChevronRight size={12} />
+            <span className="text-white/50">Student Housing</span>
+          </nav>
 
-        <div className="container-main relative py-20 md:py-28 lg:py-36">
-          <div className="max-w-3xl">
-            {/* Badge */}
-            <div className="inline-flex items-center gap-2 bg-white/[0.08] backdrop-blur-sm border border-white/[0.1] rounded-full px-4 py-2 mb-8">
-              <GraduationCap size={ICON_SIZES.md} className="text-white/70" />
-              <span className="text-xs font-bold uppercase tracking-widest text-white/80">Student Accommodation</span>
-            </div>
+          <p className="text-xs font-semibold uppercase tracking-widest text-white/40 mb-5">
+            Student Accommodation · Zimbabwe
+          </p>
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight leading-[1.06] mb-6">
+            Student housing<br />
+            <span className="text-white/40">near your campus.</span>
+          </h1>
+          <p className="text-base md:text-lg text-white/50 mb-10 max-w-lg leading-relaxed">
+            Furnished rooms, shared accommodation, and affordable rentals near universities across Zimbabwe.
+          </p>
 
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight leading-[1.08] mb-6">
-              Student housing
-              <br />
-              <span className="text-white/50">near your campus</span>
-            </h1>
-
-            <p className="text-lg md:text-xl text-white/70 mb-10 leading-relaxed max-w-xl">
-              Furnished rooms, shared accommodation, and affordable rentals
-              near universities across Zimbabwe. Move-in ready, student-friendly.
-            </p>
-
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Link
-                href="/search?type=rent&studentHousingOnly=true"
-                className="group inline-flex items-center justify-center gap-2.5 bg-white text-[#212529] px-8 py-4 rounded-xl font-bold text-base hover:-translate-y-0.5 hover:shadow-2xl transition-all"
-              >
-                <Search size={ICON_SIZES.lg} />
-                Browse Student Housing
-                <ArrowRight size={ICON_SIZES.lg} className="group-hover:translate-x-0.5 transition-transform" />
-              </Link>
-              <a
-                href="#universities"
-                className="inline-flex items-center justify-center gap-2 bg-white/[0.08] border border-white/[0.12] text-white px-8 py-4 rounded-xl font-semibold hover:bg-white/[0.12] transition-all"
-              >
-                Find by University
-                <ChevronDown size={ICON_SIZES.md} />
-              </a>
-            </div>
-
-            {/* Quick stats */}
-            <div className="mt-14 pt-8 border-t border-white/[0.08] grid grid-cols-3 gap-8 max-w-md">
-              {[
-                { value: '17', label: 'Universities' },
-                { value: '100%', label: 'Verified' },
-                { value: '$0', label: 'Agent Fees' },
-              ].map((stat) => (
-                <div key={stat.label}>
-                  <div className="text-2xl font-bold text-white mb-1">{stat.value}</div>
-                  <div className="text-xs text-white/40 font-medium">{stat.label}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* KEY FEATURES */}
-      <section className="py-16 md:py-24 bg-[#F8F9FA] relative overflow-hidden">
-        <div className="absolute inset-0 opacity-[0.015]" style={{
-          backgroundImage: `radial-gradient(circle at 1px 1px, #212529 1px, transparent 0)`,
-          backgroundSize: '32px 32px'
-        }} />
-        <div className="container-main relative">
-          <div className="text-center mb-14">
-            <div className="inline-flex items-center gap-2 bg-white border border-[#E9ECEF] rounded-full px-4 py-1.5 mb-4">
-              <Sofa size={ICON_SIZES.xs} className="text-[#495057]" />
-              <span className="text-[10px] font-bold text-[#495057] uppercase tracking-widest">Student Features</span>
-            </div>
-            <h2 className="text-3xl md:text-4xl font-bold text-[#212529] tracking-tight mb-4">
-              Made for student life
-            </h2>
-            <p className="text-[#495057] text-lg max-w-lg mx-auto">
-              Every listing is tailored for university students in Zimbabwe
-            </p>
+          <div className="flex flex-col sm:flex-row gap-3">
+            <Link
+              href="/search?type=rent&studentHousingOnly=true"
+              className="inline-flex items-center justify-center gap-2 bg-white text-[#212529] px-6 py-3 rounded-lg font-semibold text-sm hover:bg-[#F8F9FA] transition-colors"
+            >
+              <Search size={15} />
+              Browse Student Housing
+            </Link>
+            <a
+              href="#universities"
+              className="inline-flex items-center justify-center gap-2 text-white/60 border border-white/10 px-6 py-3 rounded-lg font-medium text-sm hover:border-white/20 hover:text-white/80 transition-colors"
+            >
+              Find by University
+              <ChevronDown size={14} />
+            </a>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 lg:gap-6">
+          <div className="mt-14 pt-8 border-t border-white/[0.06] flex gap-10">
             {[
-              {
-                icon: Sofa,
-                title: 'Furnished & Ready',
-                description: 'Move in with just your bags. Beds, desks, wardrobes, and study spaces included — no extra costs.',
-              },
-              {
-                icon: Users,
-                title: 'Shared Room Options',
-                description: 'Split costs with fellow students. Shared rooms and common areas that build community and save money.',
-              },
-              {
-                icon: Zap,
-                title: 'Utilities Included',
-                description: 'Water, electricity, and Wi-Fi bundled into one monthly payment. No surprise bills at end of month.',
-              },
-            ].map(({ icon: Icon, title, description }, idx) => (
-              <div key={idx} className="group bg-white p-8 rounded-2xl border-2 border-[#E9ECEF] hover:border-[#212529] hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-                <div className="w-14 h-14 bg-[#F8F9FA] group-hover:bg-[#212529] rounded-xl flex items-center justify-center mb-6 transition-colors duration-300">
-                  <Icon size={ICON_SIZES.xl} className="text-[#495057] group-hover:text-white transition-colors" />
-                </div>
-                <h3 className="text-xl font-bold text-[#212529] mb-3">{title}</h3>
-                <p className="text-[#495057] leading-relaxed">{description}</p>
+              { value: '17', label: 'Universities' },
+              { value: '100%', label: 'Verified' },
+              { value: '$0', label: 'Agent Fees' },
+            ].map((s) => (
+              <div key={s.label}>
+                <div className="text-xl font-bold text-white">{s.value}</div>
+                <div className="text-xs text-white/30 mt-0.5">{s.label}</div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* FIND BY UNIVERSITY */}
-      <section id="universities" className="py-16 md:py-24 bg-white scroll-mt-20">
-        <div className="container-main">
-          <div className="text-center mb-14">
-            <div className="inline-flex items-center gap-2 bg-[#212529] rounded-full px-5 py-2.5 mb-6">
-              <MapPin size={ICON_SIZES.sm} className="text-white" />
-              <span className="text-xs font-semibold tracking-widest uppercase text-white">By Campus</span>
-            </div>
-            <h2 className="text-3xl md:text-4xl font-bold text-[#212529] tracking-tight mb-4">
-              Find housing near your university
-            </h2>
-            <p className="text-[#495057] text-lg max-w-lg mx-auto">
-              Browse student-friendly rentals close to all {UNIVERSITIES.length} Zimbabwean universities
-            </p>
+      {/* WHAT'S INCLUDED */}
+      <section className="border-b border-[#E9ECEF]">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-[#E9ECEF]">
+            {[
+              { icon: Sofa,  title: 'Furnished & Ready',    desc: 'Beds, desks, and wardrobes included — move in with just your bags.' },
+              { icon: Users, title: 'Shared Room Options',  desc: 'Split costs with fellow students in shared rooms and common areas.' },
+              { icon: Zap,   title: 'Utilities Included',   desc: 'Water, electricity, and Wi-Fi in one monthly payment. No surprises.' },
+            ].map(({ icon: Icon, title, desc }) => (
+              <div key={title} className="flex items-start gap-4 px-6 py-8">
+                <Icon size={18} className="text-[#495057] mt-0.5 shrink-0" />
+                <div>
+                  <p className="font-semibold text-[#212529] text-sm mb-1">{title}</p>
+                  <p className="text-sm text-[#ADB5BD] leading-relaxed">{desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* UNIVERSITIES */}
+      <section id="universities" className="py-16 md:py-24 scroll-mt-16">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="mb-10">
+            <h2 className="text-2xl md:text-3xl font-bold text-[#212529] mb-2">Find housing near your university</h2>
+            <p className="text-[#ADB5BD] text-sm">{UNIVERSITIES.length} universities across Zimbabwe</p>
           </div>
 
-          {/* Major universities - always visible */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-5">
-            {UNIVERSITIES.map(({ name, short, city, area, icon: Icon }) => (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-[#E9ECEF] border border-[#E9ECEF] rounded-xl overflow-hidden">
+            {UNIVERSITIES.map(({ name, short, city, area }) => (
               <Link
                 key={short}
                 href={`/search?type=rent&city=${encodeURIComponent(city)}`}
-                className="group relative bg-white border-2 border-[#E9ECEF] rounded-2xl p-5 hover:border-[#212529] hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden"
+                className="group bg-white px-5 py-4 hover:bg-[#F8F9FA] transition-colors flex items-center justify-between gap-3"
               >
-                {/* Hover gradient */}
-                <div className="absolute inset-0 bg-gradient-to-br from-[#F8F9FA] to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-
-                <div className="relative flex items-start gap-4">
-                  <div className="w-11 h-11 bg-[#F8F9FA] group-hover:bg-[#212529] rounded-xl flex items-center justify-center flex-shrink-0 transition-colors duration-300">
-                    <Icon size={ICON_SIZES.lg} className="text-[#495057] group-hover:text-white transition-colors" />
+                <div className="min-w-0">
+                  <div className="flex items-baseline gap-2">
+                    <span className="text-xs font-bold text-[#212529]">{short}</span>
+                    <span className="text-xs text-[#ADB5BD] truncate hidden sm:block">{name}</span>
                   </div>
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2 mb-0.5">
-                      <h3 className="font-bold text-[#212529] text-sm line-clamp-1">{name}</h3>
-                      <span className="text-[10px] font-bold text-[#ADB5BD] bg-[#F8F9FA] px-1.5 py-0.5 rounded flex-shrink-0">{short}</span>
-                    </div>
-                    <div className="flex items-center gap-1.5 text-sm text-[#495057]">
-                      <MapPin size={ICON_SIZES.xs} className="text-[#ADB5BD] flex-shrink-0" />
-                      <span className="truncate">{area !== city ? `${area}, ${city}` : city}</span>
-                    </div>
-                    <div className="mt-2.5 pt-2.5 border-t border-[#E9ECEF] flex items-center justify-between opacity-60 group-hover:opacity-100 transition-opacity">
-                      <span className="text-[11px] font-semibold text-[#495057]">Browse rentals nearby</span>
-                      <ArrowRight size={ICON_SIZES.xs} className="text-[#212529] group-hover:translate-x-1 transition-transform" />
-                    </div>
-                  </div>
+                  <p className="text-xs text-[#ADB5BD] mt-0.5 flex items-center gap-1">
+                    <MapPin size={10} />
+                    {area !== city ? `${area}, ${city}` : city}
+                  </p>
                 </div>
+                <ArrowRight size={13} className="text-[#ADB5BD] group-hover:text-[#212529] shrink-0 transition-colors" />
               </Link>
             ))}
           </div>
         </div>
       </section>
 
-      {/* FEATURED PROPERTIES */}
-      <section className="py-16 md:py-24 bg-[#F8F9FA] relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-[#212529]/5 rounded-full blur-3xl" />
-        <div className="container-main relative">
-          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-6 mb-10 md:mb-14">
+      {/* LISTINGS */}
+      <section className="py-16 md:py-24 bg-[#F8F9FA] border-t border-[#E9ECEF]">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-end justify-between mb-10 gap-4">
             <div>
-              <div className="inline-flex items-center gap-2 bg-white border border-[#E9ECEF] rounded-full px-4 py-1.5 mb-4">
-                <GraduationCap size={ICON_SIZES.xs} className="text-[#495057]" />
-                <span className="text-[10px] font-bold text-[#495057] uppercase tracking-widest">
-                  {isShowingFallback ? 'Affordable Rentals' : 'Student Housing'}
-                </span>
-              </div>
-              <h2 className="text-3xl md:text-4xl font-bold text-[#212529] tracking-tight mb-2">
-                {isShowingFallback ? 'Budget-Friendly Rentals' : 'Featured Student Housing'}
+              <h2 className="text-2xl md:text-3xl font-bold text-[#212529] mb-1">
+                {isShowingFallback ? 'Budget-friendly rentals' : 'Student housing'}
               </h2>
-              <p className="text-[#495057]">
+              <p className="text-sm text-[#ADB5BD]">
                 {isShowingFallback
-                  ? 'Affordable rooms and apartments perfect for students'
-                  : `${studentProperties.length} student ${studentProperties.length === 1 ? 'property' : 'properties'} available`}
+                  ? 'Affordable rooms and apartments for students'
+                  : `${displayProperties.length} ${displayProperties.length === 1 ? 'property' : 'properties'} available`}
               </p>
             </div>
             <Link
               href="/search?type=rent&studentHousingOnly=true"
-              className="group inline-flex items-center gap-2.5 text-sm font-semibold text-[#212529] border-2 border-[#E9ECEF] px-5 py-2.5 rounded-full hover:border-[#212529] hover:bg-[#212529] hover:text-white transition-all duration-200"
+              className="inline-flex items-center gap-1.5 text-sm font-medium text-[#495057] hover:text-[#212529] transition-colors shrink-0"
             >
-              <span>View all</span>
-              <ArrowRight size={ICON_SIZES.sm} className="group-hover:translate-x-0.5 transition-transform" />
+              View all <ArrowRight size={13} />
             </Link>
           </div>
 
           {displayProperties.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {displayProperties.map((property: any) => {
                 const primaryImage = property.property_images?.find((img: any) => img.is_primary) || property.property_images?.[0]
                 const imageUrl = primaryImage?.url
 
                 return (
-                  <Link
-                    key={property.id}
-                    href={`/property/${property.slug || property.id}`}
-                    className="group"
-                  >
-                    <article className="relative border-2 border-[#E9ECEF] rounded-2xl overflow-hidden bg-white hover:border-[#212529] hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-                      {/* Image */}
-                      <div className="relative h-52 overflow-hidden bg-[#F8F9FA]">
+                  <Link key={property.id} href={`/property/${property.slug || property.id}`} className="group">
+                    <article className="bg-white border border-[#E9ECEF] rounded-xl overflow-hidden hover:border-[#212529] hover:shadow-md transition-all duration-200">
+                      <div className="relative h-44 overflow-hidden bg-[#F8F9FA]">
                         {imageUrl ? (
-                          <>
-                            <Image
-                              src={imageUrl}
-                              alt={primaryImage?.alt_text || property.title}
-                              fill
-                              className="object-cover group-hover:scale-105 transition-transform duration-500"
-                              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                            />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                          </>
+                          <Image
+                            src={imageUrl}
+                            alt={primaryImage?.alt_text || property.title}
+                            fill
+                            className="object-cover group-hover:scale-[1.03] transition-transform duration-500"
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                          />
                         ) : (
                           <div className="w-full h-full flex items-center justify-center">
-                            <Home className="text-[#ADB5BD]" size={ICON_SIZES['3xl']} />
+                            <Home className="text-[#E9ECEF]" size={36} />
                           </div>
                         )}
-
-                        {/* Price */}
                         {property.price && (
-                          <div className="absolute bottom-3 left-3 bg-white/95 backdrop-blur-sm px-3 py-1.5 rounded-lg shadow-lg">
-                            <span className="text-base font-bold text-[#212529]">{formatPrice(property.price)}</span>
-                            <span className="text-xs text-[#495057]">/mo</span>
+                          <div className="absolute bottom-2.5 left-2.5 bg-black/80 text-white px-2.5 py-1 rounded text-xs font-semibold">
+                            {formatPrice(property.price)}<span className="opacity-60">/mo</span>
                           </div>
                         )}
-
-                        {/* Student badges */}
                         {property.property_type === 'student' && (
-                          <div className="absolute top-3 left-3 flex flex-wrap gap-1.5">
+                          <div className="absolute top-2.5 left-2.5 flex gap-1">
                             {property.furnished && (
-                              <div className="bg-[#212529]/90 backdrop-blur-sm text-white px-2 py-1 rounded text-[10px] font-bold flex items-center gap-1">
-                                <Sofa size={ICON_SIZES.xs} /> Furnished
-                              </div>
-                            )}
-                            {property.shared_rooms && (
-                              <div className="bg-[#212529]/90 backdrop-blur-sm text-white px-2 py-1 rounded text-[10px] font-bold flex items-center gap-1">
-                                <Users size={ICON_SIZES.xs} /> Shared
-                              </div>
+                              <span className="bg-white/90 text-[#212529] px-1.5 py-0.5 rounded text-[10px] font-semibold flex items-center gap-0.5">
+                                <Sofa size={9} /> Furnished
+                              </span>
                             )}
                             {property.utilities_included && (
-                              <div className="bg-[#212529]/90 backdrop-blur-sm text-white px-2 py-1 rounded text-[10px] font-bold flex items-center gap-1">
-                                <Zap size={ICON_SIZES.xs} /> Utilities
-                              </div>
+                              <span className="bg-white/90 text-[#212529] px-1.5 py-0.5 rounded text-[10px] font-semibold flex items-center gap-0.5">
+                                <Zap size={9} /> Bills incl.
+                              </span>
                             )}
                           </div>
                         )}
                       </div>
-
-                      {/* Content */}
-                      <div className="p-5">
-                        <h3 className="font-semibold text-[#212529] text-base mb-2 line-clamp-1 group-hover:underline underline-offset-2 decoration-[#212529]/30">
-                          {property.title}
-                        </h3>
-                        <div className="flex items-center text-[#495057] text-sm mb-4">
-                          <MapPin size={ICON_SIZES.sm} className="mr-1.5 flex-shrink-0 text-[#ADB5BD]" />
-                          <span className="truncate">{property.area ? `${property.area}, ` : ''}{property.city}</span>
-                        </div>
-                        <div className="flex items-center gap-4 text-sm text-[#495057] pt-4 border-t border-[#F1F3F5]">
-                          <span className="flex items-center gap-1.5">
-                            <Bed size={ICON_SIZES.sm} className="text-[#ADB5BD]" />
-                            <span className="font-semibold text-[#212529]">{property.bedrooms}</span>
-                          </span>
-                          <span className="flex items-center gap-1.5">
-                            <Bath size={ICON_SIZES.sm} className="text-[#ADB5BD]" />
-                            <span className="font-semibold text-[#212529]">{property.bathrooms}</span>
-                          </span>
+                      <div className="p-4">
+                        <h3 className="font-semibold text-[#212529] text-sm mb-1 line-clamp-1">{property.title}</h3>
+                        <p className="text-xs text-[#ADB5BD] mb-3 flex items-center gap-1">
+                          <MapPin size={10} />
+                          {property.area ? `${property.area}, ` : ''}{property.city}
+                        </p>
+                        <div className="flex items-center gap-3 text-xs text-[#495057] pt-3 border-t border-[#F1F3F5]">
+                          <span className="flex items-center gap-1"><Bed size={11} className="text-[#ADB5BD]" />{property.bedrooms} bed</span>
+                          <span className="flex items-center gap-1"><Bath size={11} className="text-[#ADB5BD]" />{property.bathrooms} bath</span>
                           {property.square_feet && (
-                            <span className="flex items-center gap-1.5">
-                              <Square size={ICON_SIZES.sm} className="text-[#ADB5BD]" />
-                              <span className="font-semibold text-[#212529]">{property.square_feet}</span>
-                            </span>
+                            <span className="flex items-center gap-1"><Square size={11} className="text-[#ADB5BD]" />{property.square_feet} ft²</span>
                           )}
                         </div>
                       </div>
@@ -413,73 +302,44 @@ export default async function StudentHousingPage() {
               })}
             </div>
           ) : (
-            <div className="max-w-2xl mx-auto">
-              <div className="bg-white border-2 border-dashed border-[#E9ECEF] rounded-2xl p-12 md:p-16 text-center">
-                <div className="flex justify-center items-center gap-4 mb-8">
-                  <div className="w-16 h-16 bg-[#F8F9FA] rounded-2xl flex items-center justify-center border border-[#E9ECEF] rotate-[-6deg]">
-                    <GraduationCap size={ICON_SIZES['2xl']} className="text-[#ADB5BD]" />
-                  </div>
-                  <div className="w-20 h-20 bg-[#212529] rounded-2xl flex items-center justify-center shadow-xl">
-                    <Home size={ICON_SIZES['3xl']} className="text-white" />
-                  </div>
-                  <div className="w-16 h-16 bg-[#F8F9FA] rounded-2xl flex items-center justify-center border border-[#E9ECEF] rotate-[6deg]">
-                    <MapPin size={ICON_SIZES['2xl']} className="text-[#ADB5BD]" />
-                  </div>
-                </div>
-                <h3 className="text-2xl md:text-3xl font-bold text-[#212529] mb-3">No student housing listed yet</h3>
-                <p className="text-[#495057] text-lg mb-8 max-w-md mx-auto">
-                  Be the first to list student accommodation and help thousands of students find a home near campus.
-                </p>
-                <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <Link
-                    href="/dashboard/new-property"
-                    className="group inline-flex items-center justify-center gap-2 bg-[#212529] text-white px-8 py-4 rounded-xl font-semibold hover:bg-black hover:shadow-xl hover:-translate-y-0.5 transition-all"
-                  >
-                    List Student Housing
-                    <ArrowRight size={ICON_SIZES.lg} className="group-hover:translate-x-1 transition-transform" />
-                  </Link>
-                  <Link
-                    href="/search?type=rent"
-                    className="inline-flex items-center justify-center gap-2 bg-white text-[#212529] border-2 border-[#E9ECEF] px-8 py-4 rounded-xl font-semibold hover:border-[#212529] hover:shadow-md transition-all"
-                  >
-                    <Search size={ICON_SIZES.lg} />
-                    Browse All Rentals
-                  </Link>
-                </div>
+            <div className="bg-white border border-dashed border-[#E9ECEF] rounded-xl p-12 text-center">
+              <GraduationCap size={32} className="mx-auto text-[#ADB5BD] mb-4" />
+              <h3 className="text-lg font-bold text-[#212529] mb-2">No student housing listed yet</h3>
+              <p className="text-sm text-[#ADB5BD] mb-6 max-w-sm mx-auto">Be the first to list accommodation and help students find a home near campus.</p>
+              <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                <Link href="/dashboard/new-property" className="inline-flex items-center gap-2 bg-[#212529] text-white px-5 py-2.5 rounded-lg text-sm font-semibold hover:bg-black transition-colors">
+                  List Student Housing <ArrowRight size={14} />
+                </Link>
+                <Link href="/search?type=rent" className="inline-flex items-center gap-2 text-[#495057] border border-[#E9ECEF] px-5 py-2.5 rounded-lg text-sm font-semibold hover:border-[#212529] transition-colors">
+                  <Search size={14} /> Browse All Rentals
+                </Link>
               </div>
             </div>
           )}
         </div>
       </section>
 
-      {/* WHAT STUDENTS NEED */}
-      <section className="py-16 md:py-24 bg-white">
-        <div className="container-main">
-          <div className="text-center mb-14">
-            <h2 className="text-3xl md:text-4xl font-bold text-[#212529] tracking-tight mb-4">
-              What to look for in student housing
-            </h2>
-            <p className="text-[#495057] text-lg max-w-lg mx-auto">
-              A quick guide for students searching for their perfect digs
-            </p>
+      {/* CHECKLIST */}
+      <section className="py-16 md:py-24">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="mb-10">
+            <h2 className="text-2xl md:text-3xl font-bold text-[#212529] mb-2">What to look for</h2>
+            <p className="text-sm text-[#ADB5BD]">A quick checklist for students searching for accommodation</p>
           </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 lg:gap-6 max-w-4xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {[
-              { icon: MapPin, title: 'Proximity to campus', desc: 'Walking distance or reliable transport routes to your university save time and money.' },
-              { icon: Wifi, title: 'Reliable internet', desc: 'Essential for assignments, research, and online lectures — check the Wi-Fi speed before signing.' },
-              { icon: Shield, title: 'Safe neighbourhood', desc: 'Look for well-lit areas with security features, especially if you study late at the library.' },
-              { icon: Bus, title: 'Public transport access', desc: 'Check kombi routes and proximity to bus stops for getting around the city affordably.' },
-              { icon: Coffee, title: 'Nearby amenities', desc: 'Shops, restaurants, and study spots within walking distance make student life much easier.' },
-              { icon: CheckCircle, title: 'Flexible lease terms', desc: 'Semester-based or month-to-month leases work best for students who travel during breaks.' },
-            ].map(({ icon: Icon, title, desc }, idx) => (
-              <div key={idx} className="group flex items-start gap-4 p-5 rounded-xl border border-[#E9ECEF] hover:border-[#212529] hover:shadow-lg transition-all duration-300">
-                <div className="w-10 h-10 bg-[#F8F9FA] group-hover:bg-[#212529] rounded-lg flex items-center justify-center flex-shrink-0 transition-colors duration-300">
-                  <Icon size={ICON_SIZES.lg} className="text-[#495057] group-hover:text-white transition-colors" />
-                </div>
+              { icon: MapPin,       title: 'Proximity to campus',     desc: 'Walking distance or reliable kombi routes save time and money.' },
+              { icon: Wifi,         title: 'Reliable internet',        desc: 'Confirm Wi-Fi speed before signing. Essential for assignments and online lectures.' },
+              { icon: Shield,       title: 'Safe neighbourhood',       desc: 'Well-lit areas with security features, especially for late-night study sessions.' },
+              { icon: Bus,          title: 'Public transport access',  desc: 'Check kombi routes and proximity to bus stops for affordable city travel.' },
+              { icon: Coffee,       title: 'Nearby amenities',         desc: 'Shops, food, and study spots within walking distance.' },
+              { icon: CheckCircle,  title: 'Flexible lease terms',     desc: 'Semester or month-to-month leases work best around academic calendars.' },
+            ].map(({ icon: Icon, title, desc }) => (
+              <div key={title} className="flex items-start gap-3 p-4 rounded-lg border border-[#E9ECEF] hover:border-[#212529] transition-colors">
+                <Icon size={15} className="text-[#495057] mt-0.5 shrink-0" />
                 <div>
-                  <h3 className="font-bold text-[#212529] mb-1">{title}</h3>
-                  <p className="text-sm text-[#495057] leading-relaxed">{desc}</p>
+                  <p className="text-sm font-semibold text-[#212529] mb-0.5">{title}</p>
+                  <p className="text-xs text-[#ADB5BD] leading-relaxed">{desc}</p>
                 </div>
               </div>
             ))}
@@ -488,144 +348,85 @@ export default async function StudentHousingPage() {
       </section>
 
       {/* FAQ */}
-      <section className="py-16 md:py-24 bg-[#F8F9FA]">
-        <div className="container-main">
-          <div className="max-w-3xl mx-auto">
-            <div className="text-center mb-14">
-              <h2 className="text-3xl md:text-4xl font-bold text-[#212529] tracking-tight mb-4">
-                Common questions
-              </h2>
-              <p className="text-[#495057] text-lg">
-                Everything students ask about renting in Zimbabwe
-              </p>
-            </div>
+      <section className="py-16 md:py-24 bg-[#F8F9FA] border-t border-[#E9ECEF]">
+        <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-2xl md:text-3xl font-bold text-[#212529] mb-2">Common questions</h2>
+          <p className="text-sm text-[#ADB5BD] mb-10">Everything students ask about renting in Zimbabwe</p>
 
-            <div className="space-y-4">
-              {[
-                {
-                  q: 'Do I need a deposit for student housing?',
-                  a: 'Most landlords require a one-month deposit plus one month rent upfront. Some student-specific properties offer reduced deposits or payment plans — check individual listings for details.'
-                },
-                {
-                  q: 'Can I share a room to reduce costs?',
-                  a: 'Yes! Many properties on Huts offer shared room options specifically for students. Look for listings with the "Shared" badge to find shared accommodation near your campus.'
-                },
-                {
-                  q: 'Are utilities included in the rent?',
-                  a: 'It depends on the property. Listings with the "Utilities" badge include water, electricity, and often Wi-Fi in the monthly rent. Always confirm with the landlord which utilities are covered.'
-                },
-                {
-                  q: 'Can I rent for just one semester?',
-                  a: 'Many landlords near universities offer flexible lease terms including semester-based leases. Use the search filters to find properties with short-term availability, or message landlords to negotiate terms.'
-                },
-                {
-                  q: 'How do I verify a listing is legitimate?',
-                  a: 'Every property on Huts goes through our verification process before being published. Look for the verified badge and always use our in-app messaging to communicate with landlords — never pay outside the platform.'
-                },
-              ].map(({ q, a }, idx) => (
-                <details key={idx} className="group bg-white border-2 border-[#E9ECEF] rounded-xl hover:border-[#212529] transition-colors">
-                  <summary className="flex items-center justify-between cursor-pointer p-6 font-bold text-[#212529] list-none">
-                    <span className="pr-4">{q}</span>
-                    <ChevronDown size={ICON_SIZES.lg} className="text-[#ADB5BD] group-open:rotate-180 transition-transform flex-shrink-0" />
-                  </summary>
-                  <div className="px-6 pb-6 pt-0">
-                    <p className="text-[#495057] leading-relaxed">{a}</p>
-                  </div>
-                </details>
-              ))}
-            </div>
+          <div className="divide-y divide-[#E9ECEF] border border-[#E9ECEF] rounded-xl overflow-hidden bg-white">
+            {[
+              { q: 'Do I need a deposit?',                    a: 'Most landlords require one month deposit plus one month rent upfront. Some student-specific properties offer reduced deposits or payment plans — check individual listings.' },
+              { q: 'Can I share a room to reduce costs?',     a: 'Yes. Many listings on Huts offer shared room options. Look for the "Shared" badge when browsing.' },
+              { q: 'Are utilities included in the rent?',     a: 'It depends on the listing. Properties with a "Bills incl." badge cover water, electricity, and often Wi-Fi. Always confirm with the landlord.' },
+              { q: 'Can I rent for just one semester?',       a: 'Many landlords near universities offer semester-based or month-to-month leases. Use search filters or message landlords directly to negotiate terms.' },
+              { q: 'How do I know a listing is legitimate?',  a: 'Every property on Huts is verified before publishing. Look for the verified badge and always communicate through our in-app messaging — never pay outside the platform.' },
+            ].map(({ q, a }, idx) => (
+              <details key={idx} className="group">
+                <summary className="flex items-center justify-between cursor-pointer px-5 py-4 text-sm font-semibold text-[#212529] list-none hover:bg-[#F8F9FA] transition-colors">
+                  {q}
+                  <ChevronDown size={14} className="text-[#ADB5BD] group-open:rotate-180 transition-transform shrink-0 ml-4" />
+                </summary>
+                <div className="px-5 pb-4 text-sm text-[#495057] leading-relaxed border-t border-[#F1F3F5]">
+                  <p className="pt-3">{a}</p>
+                </div>
+              </details>
+            ))}
           </div>
         </div>
       </section>
 
       {/* CTA */}
-      <section className="py-20 md:py-28 bg-[#212529] text-white relative overflow-hidden">
-        <div className="absolute -top-40 -right-40 w-[500px] h-[500px] bg-white/[0.03] rounded-full blur-[120px]" />
-        <div className="absolute -bottom-40 -left-40 w-[400px] h-[400px] bg-white/[0.02] rounded-full blur-[100px]" />
-
-        <div className="container-main relative">
-          <div className="max-w-3xl mx-auto text-center">
-            <GraduationCap size={ICON_SIZES['3xl']} className="mx-auto mb-6 text-white/30" />
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-6">
-              Ready to find your
-              <br />
-              student home?
-            </h2>
-            <p className="text-lg text-white/60 mb-10 max-w-xl mx-auto leading-relaxed">
-              Search verified, student-friendly properties near your university.
-              No agent fees, no hassle — just affordable housing.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link
-                href="/search?type=rent&studentHousingOnly=true"
-                className="group inline-flex items-center justify-center gap-2.5 bg-white text-[#212529] px-10 py-4 rounded-xl font-bold text-base hover:-translate-y-0.5 hover:shadow-2xl transition-all"
-              >
-                Start Searching
-                <ArrowRight size={ICON_SIZES.lg} className="group-hover:translate-x-0.5 transition-transform" />
-              </Link>
-              <Link
-                href="/dashboard/new-property"
-                className="inline-flex items-center justify-center gap-2 bg-white/[0.08] border border-white/[0.12] text-white px-10 py-4 rounded-xl font-semibold hover:bg-white/[0.12] transition-all"
-              >
-                List Student Housing
-              </Link>
-            </div>
-
-            {/* Trust strip */}
-            <div className="mt-14 pt-8 border-t border-white/[0.06] flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-xs tracking-wide">
-              {[
-                { icon: Shield, text: 'Verified Listings' },
-                { icon: CheckCircle, text: 'Free for Students' },
-                { icon: GraduationCap, text: 'Campus-Nearby' },
-              ].map(({ icon: Icon, text }) => (
-                <div key={text} className="flex items-center gap-1.5 text-white/30">
-                  <Icon size={ICON_SIZES.xs} />
-                  <span>{text}</span>
-                </div>
-              ))}
-            </div>
+      <section className="bg-[#212529] text-white py-20 md:py-28">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <GraduationCap size={28} className="mx-auto mb-6 text-white/20" />
+          <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
+            Ready to find your student home?
+          </h2>
+          <p className="text-white/40 text-sm mb-8 max-w-md mx-auto leading-relaxed">
+            Verified, student-friendly properties near your university. No agent fees, no hassle.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-3 justify-center">
+            <Link
+              href="/search?type=rent&studentHousingOnly=true"
+              className="inline-flex items-center justify-center gap-2 bg-white text-[#212529] px-6 py-3 rounded-lg font-semibold text-sm hover:bg-[#F8F9FA] transition-colors"
+            >
+              Start Searching <ArrowRight size={14} />
+            </Link>
+            <Link
+              href="/dashboard/new-property"
+              className="inline-flex items-center justify-center gap-2 text-white/60 border border-white/10 px-6 py-3 rounded-lg font-medium text-sm hover:border-white/20 hover:text-white/80 transition-colors"
+            >
+              List Student Housing
+            </Link>
+          </div>
+          <div className="mt-12 pt-8 border-t border-white/[0.06] flex flex-wrap items-center justify-center gap-6 text-xs text-white/20">
+            <span className="flex items-center gap-1.5"><Shield size={11} /> Verified Listings</span>
+            <span className="flex items-center gap-1.5"><CheckCircle size={11} /> Free for Students</span>
+            <span className="flex items-center gap-1.5"><GraduationCap size={11} /> Campus-Nearby</span>
           </div>
         </div>
       </section>
 
       {/* JSON-LD Structured Data */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'WebPage',
-            name: 'Student Housing Near Universities in Zimbabwe',
-            description: 'Find affordable student accommodation near UZ, NUST, MSU, and other Zimbabwean universities.',
-            url: 'https://www.huts.co.zw/student-housing',
-            isPartOf: {
-              '@type': 'WebSite',
-              name: 'Huts',
-              url: 'https://www.huts.co.zw',
-            },
-            about: {
-              '@type': 'Thing',
-              name: 'Student Housing in Zimbabwe',
-            },
-          }),
-        }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'FAQPage',
-            mainEntity: [
-              { '@type': 'Question', name: 'Do I need a deposit for student housing?', acceptedAnswer: { '@type': 'Answer', text: 'Most landlords require a one-month deposit plus one month rent upfront. Some student-specific properties offer reduced deposits or payment plans.' } },
-              { '@type': 'Question', name: 'Can I share a room to reduce costs?', acceptedAnswer: { '@type': 'Answer', text: 'Yes! Many properties on Huts offer shared room options specifically for students. Look for listings with the "Shared" badge.' } },
-              { '@type': 'Question', name: 'Are utilities included in the rent?', acceptedAnswer: { '@type': 'Answer', text: 'It depends on the property. Listings with the "Utilities" badge include water, electricity, and often Wi-Fi in the monthly rent.' } },
-              { '@type': 'Question', name: 'Can I rent for just one semester?', acceptedAnswer: { '@type': 'Answer', text: 'Many landlords near universities offer flexible lease terms including semester-based leases.' } },
-              { '@type': 'Question', name: 'How do I verify a listing is legitimate?', acceptedAnswer: { '@type': 'Answer', text: 'Every property on Huts goes through our verification process before being published. Look for the verified badge.' } },
-            ],
-          }),
-        }}
-      />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'WebPage',
+        name: 'Student Housing Near Universities in Zimbabwe',
+        description: 'Find affordable student accommodation near UZ, NUST, MSU, and other Zimbabwean universities.',
+        url: 'https://www.huts.co.zw/student-housing',
+        isPartOf: { '@type': 'WebSite', name: 'Huts', url: 'https://www.huts.co.zw' },
+      })}} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        mainEntity: [
+          { '@type': 'Question', name: 'Do I need a deposit for student housing?',    acceptedAnswer: { '@type': 'Answer', text: 'Most landlords require a one-month deposit plus one month rent upfront. Some student-specific properties offer reduced deposits or payment plans.' } },
+          { '@type': 'Question', name: 'Can I share a room to reduce costs?',          acceptedAnswer: { '@type': 'Answer', text: 'Yes. Many properties on Huts offer shared room options specifically for students. Look for listings with the "Shared" badge.' } },
+          { '@type': 'Question', name: 'Are utilities included in the rent?',          acceptedAnswer: { '@type': 'Answer', text: 'It depends on the property. Listings with a "Bills incl." badge include water, electricity, and often Wi-Fi in the monthly rent.' } },
+          { '@type': 'Question', name: 'Can I rent for just one semester?',            acceptedAnswer: { '@type': 'Answer', text: 'Many landlords near universities offer flexible lease terms including semester-based leases.' } },
+          { '@type': 'Question', name: 'How do I verify a listing is legitimate?',    acceptedAnswer: { '@type': 'Answer', text: 'Every property on Huts goes through our verification process before being published. Look for the verified badge.' } },
+        ],
+      })}} />
     </div>
   )
 }

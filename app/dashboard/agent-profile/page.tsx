@@ -591,7 +591,7 @@ export default function AgentProfileEditPage() {
         {/* Save Button */}
         <div className="flex items-center justify-between pt-6 border-t border-[#E9ECEF]">
           <Link
-            href="/dashboard/overview"
+            href="/agent/overview"
             className="px-6 py-3 text-[#495057] hover:text-[#212529] transition-colors font-medium"
           >
             Cancel
