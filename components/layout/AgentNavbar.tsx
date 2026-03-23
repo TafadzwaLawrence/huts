@@ -19,6 +19,7 @@ import {
   X,
   Bell,
   FileText,
+  MessageSquare,
 } from 'lucide-react'
 
 interface AgentNavbarProps {
@@ -40,6 +41,7 @@ const NAV_LINKS = [
   { href: '/agent/leads', label: 'Leads', icon: Inbox },
   { href: '/agent/transactions', label: 'Transactions', icon: FileText },
   { href: '/agent/clients', label: 'Clients', icon: Users },
+  { href: '/agent/messages', label: 'Messages', icon: MessageSquare },
   { href: '/agent/calendar', label: 'Calendar', icon: Calendar },
   { href: '/agent/profile', label: 'My Profile', icon: User },
 ]

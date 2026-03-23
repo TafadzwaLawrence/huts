@@ -1,4 +1,4 @@
-import { createClient } from '@/lib/supabase/server'
+import { createAdminClient } from '@/lib/supabase/server'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import {
@@ -11,9 +11,9 @@ import AdminAgentActions from './AdminAgentActions'
 type Props = { params: { id: string } }
 
 export async function generateMetadata({ params }: Props) {
-  const supabase = await createClient()
+  const supabase = createAdminClient()
   const { data } = await supabase
-    .from('agent_profiles')
+    .from('agents')
     .select('business_name')
     .eq('id', params.id)
     .single()
@@ -29,15 +29,15 @@ const agentTypeIcons: Record<string, any> = {
 }
 
 export default async function AdminAgentDetailPage({ params }: Props) {
-  const supabase = await createClient()
+  // Use admin client to bypass RLS — admin must see all agent statuses
+  const supabase = createAdminClient()
 
   const { data: agent, error } = await supabase
-    .from('agent_profiles')
+    .from('agents')
     .select(`
       *,
       profiles:user_id (full_name, email, avatar_url, created_at),
-      agent_service_areas (city, is_primary),
-      agent_reviews (id, rating, status)
+      agent_service_areas (city, is_primary)
     `)
     .eq('id', params.id)
     .single()
@@ -47,8 +47,6 @@ export default async function AdminAgentDetailPage({ params }: Props) {
   const profile = agent.profiles as any
   const Icon = agentTypeIcons[agent.agent_type] || Award
   const serviceAreas = (agent.agent_service_areas as any[]) || []
-  const reviews = (agent.agent_reviews as any[]) || []
-  const publishedReviews = reviews.filter((r: any) => r.status === 'published')
 
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -158,7 +156,7 @@ export default async function AdminAgentDetailPage({ params }: Props) {
               <div>
                 <dt className="text-[#ADB5BD] mb-0.5">Reviews</dt>
                 <dd className="font-medium text-[#212529]">
-                  {publishedReviews.length} published
+                  {agent.total_reviews ?? 0} reviews
                   {agent.avg_rating ? ` · ${Number(agent.avg_rating).toFixed(1)} ⭐` : ''}
                 </dd>
               </div>

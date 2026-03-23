@@ -137,3 +137,93 @@ export type {
   CreateCommissionRequest,
   UpdateCommissionRequest,
 } from './transactions'
+
+// ============================================================================
+// Financial Lifecycle Engine Types
+// ============================================================================
+
+export type {
+  ObligationType,
+  ObligationStatus,
+  LedgerEntryType,
+  DepositTransactionType,
+  AdjustmentType,
+  DisputeStatus,
+  Currency,
+  AgreementFinancials,
+  ObligationRow,
+  LedgerEntry,
+  BalanceSummary,
+} from '../lib/financial-engine'
+
+export interface FinancialStatement {
+  id: string
+  agreement_id: string
+  period_start: string
+  period_end: string
+  opening_balance: number
+  total_charges: number
+  total_payments: number
+  closing_balance: number
+  currency: string
+  generated_at: string
+}
+
+export interface PaymentDispute {
+  id: string
+  agreement_id: string
+  obligation_id: string | null
+  tenant_id: string
+  reason: string
+  status: 'open' | 'resolved' | 'dismissed'
+  resolution_notes: string | null
+  created_at: string
+  resolved_at: string | null
+}
+
+export interface DepositTransaction {
+  id: string
+  agreement_id: string
+  type: 'received' | 'deduction' | 'refund'
+  amount: number
+  reason: string | null
+  created_by: string
+  created_at: string
+}
+
+export interface LeaseAdjustment {
+  id: string
+  agreement_id: string
+  created_by: string
+  type: 'charge' | 'credit'
+  amount: number
+  currency: string
+  reason: string
+  applied_at: string
+}
+
+export interface LeaseRecurringFee {
+  id: string
+  agreement_id: string
+  name: string
+  amount: number
+  frequency: 'monthly' | 'weekly' | 'once'
+  is_active: boolean
+  created_at: string
+}
+
+export interface LandlordFinancialSummary {
+  total_active_leases: number
+  total_monthly_rent: number
+  total_overdue_amount: number
+  total_overdue_count: number
+  total_open_disputes: number
+  agreements: Array<{
+    id: string
+    property: { id: string; title: string; city: string } | null
+    monthly_rent: number
+    currency: string
+    overdue_amount: number
+  }>
+}
+

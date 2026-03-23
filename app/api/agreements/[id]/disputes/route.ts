@@ -1,8 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
-import { applyPaymentToObligations } from '@/lib/financial-engine'
 
-// GET /api/agreements/[id]/payments – list payments for an agreement
+// GET /api/agreements/[id]/disputes – list disputes (both parties)
 export async function GET(
   _request: NextRequest,
   { params }: { params: { id: string } }
@@ -14,10 +13,9 @@ export async function GET(
       return NextResponse.json({ error: 'Authentication required' }, { status: 401 })
     }
 
-    // Verify the user is a party to this agreement (RLS handles it, but we also need the data)
     const { data: agreement } = await supabase
       .from('rental_agreements')
-      .select('id, landlord_id, tenant_id, monthly_rent')
+      .select('id')
       .eq('id', params.id)
       .single()
 
@@ -26,21 +24,24 @@ export async function GET(
     }
 
     const { data, error } = await supabase
-      .from('rent_payments')
-      .select('*')
+      .from('payment_disputes')
+      .select(`
+        *,
+        tenant:profiles!payment_disputes_tenant_id_fkey(full_name, email),
+        obligation:lease_obligations!payment_disputes_obligation_id_fkey(type, description, amount, due_date)
+      `)
       .eq('agreement_id', params.id)
-      .order('due_date', { ascending: true })
+      .order('created_at', { ascending: false })
 
     if (error) throw error
-
     return NextResponse.json({ data })
   } catch (error) {
-    console.error('[Payments][GET] error:', error)
+    console.error('[Disputes] GET error:', error)
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
   }
 }
 
-// POST /api/agreements/[id]/payments – log a payment (landlord only)
+// POST /api/agreements/[id]/disputes – tenant opens a dispute
 export async function POST(
   request: NextRequest,
   { params }: { params: { id: string } }
@@ -53,19 +54,19 @@ export async function POST(
     }
 
     const body = await request.json()
-    const { due_date, amount, status, paid_at, payment_method, notes, reference_id } = body
+    const { reason, obligation_id } = body
 
-    if (!due_date || !amount) {
+    if (!reason || reason.trim().length < 10) {
       return NextResponse.json(
-        { error: 'Missing required fields: due_date, amount' },
+        { error: 'reason must be at least 10 characters' },
         { status: 400 }
       )
     }
 
-    // Verify landlord ownership
+    // Verify this user is the tenant on this agreement
     const { data: agreement } = await supabase
       .from('rental_agreements')
-      .select('id, landlord_id')
+      .select('id, tenant_id, landlord_id')
       .eq('id', params.id)
       .single()
 
@@ -73,49 +74,26 @@ export async function POST(
       return NextResponse.json({ error: 'Agreement not found' }, { status: 404 })
     }
 
-    if (agreement.landlord_id !== user.id) {
-      return NextResponse.json(
-        { error: 'Only the landlord can log payments' },
-        { status: 403 }
-      )
+    if (agreement.tenant_id !== user.id) {
+      return NextResponse.json({ error: 'Only the tenant can open a dispute' }, { status: 403 })
     }
 
-    // Insert into rent_payments (legacy table kept for backwards compat)
     const { data, error } = await supabase
-      .from('rent_payments')
+      .from('payment_disputes')
       .insert({
         agreement_id: params.id,
-        due_date,
-        amount,
-        status: status || 'paid',
-        paid_at: paid_at || new Date().toISOString(),
-        payment_method: payment_method || null,
-        notes: notes || null,
+        obligation_id: obligation_id ?? null,
+        tenant_id: user.id,
+        reason: reason.trim(),
+        status: 'open',
       })
       .select()
       .single()
 
     if (error) throw error
-
-    // Also apply to lease_obligations and write ledger entry (new engine)
-    // Non-fatal: if no obligations exist yet (pre-038 agreements), skip gracefully
-    try {
-      await applyPaymentToObligations(
-        supabase,
-        params.id,
-        Number(amount),
-        payment_method || 'manual',
-        reference_id || null,
-        user.id
-      )
-    } catch (_engineError) {
-      // Obligations may not exist for this agreement yet — that's OK
-      console.warn('[Payments] applyPaymentToObligations skipped (no obligations):', _engineError)
-    }
-
     return NextResponse.json({ data }, { status: 201 })
   } catch (error) {
-    console.error('[Payments][POST] error:', error)
+    console.error('[Disputes] POST error:', error)
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
   }
 }

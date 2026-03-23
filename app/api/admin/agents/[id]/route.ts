@@ -1,9 +1,14 @@
 import { NextResponse } from 'next/server'
-import { createClient } from '@/lib/supabase/server'
+import { createClient, createAdminClient } from '@/lib/supabase/server'
+import { resend } from '@/lib/resend'
+import { AgentVerificationEmail } from '@/emails/AgentVerificationEmail'
+import * as React from 'react'
 
 const ADMIN_EMAILS = (process.env.ADMIN_EMAILS || 'chitangalawrence03@gmail.com')
   .split(',')
   .map(e => e.trim())
+
+const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://huts.co.zw'
 
 export async function PATCH(
   req: Request,
@@ -39,14 +44,66 @@ export async function PATCH(
       return NextResponse.json({ error: 'No valid fields to update' }, { status: 400 })
     }
 
-    const { data, error } = await supabase
-      .from('agent_profiles')
+    // Use admin client to bypass RLS for the actual DB write
+    const adminDb = createAdminClient()
+    const { data, error } = await adminDb
+      .from('agents')
       .update({ ...allowed, updated_at: new Date().toISOString() })
       .eq('id', params.id)
-      .select('id, status, verified, featured')
+      .select('id, user_id, status, verified, featured, business_name, agent_type, slug')
       .single()
 
     if (error) throw error
+
+    // ── Send verification / approval email ──────────────────────────────────
+    const shouldEmail =
+      (allowed.status === 'active') || (allowed.verified === true)
+
+    if (shouldEmail && data) {
+      try {
+        // Fetch the agent's email from profiles
+        const { data: profile } = await supabase
+          .from('profiles')
+          .select('full_name, email')
+          .eq('id', data.user_id)
+          .single()
+
+        if (profile?.email) {
+          const agentName = data.business_name || profile.full_name || 'Agent'
+          const agentTypeLabels: Record<string, string> = {
+            real_estate_agent: 'Real Estate Agent',
+            property_manager: 'Property Manager',
+            home_builder: 'Home Builder',
+            photographer: 'Real Estate Photographer',
+            other: 'Professional',
+          }
+          const agentType = agentTypeLabels[data.agent_type] || 'Professional'
+          const profileSlug = data.slug || data.user_id
+          const profileUrl = `${BASE_URL}/agent/${profileSlug}`
+          const portalUrl  = `${BASE_URL}/agent/overview`
+          const action: 'approved' | 'verified' =
+            allowed.status === 'active' ? 'approved' : 'verified'
+
+          await resend.emails.send({
+            from: 'Huts <noreply@huts.co.zw>',
+            to: profile.email,
+            subject: action === 'approved'
+              ? `Your Huts agent profile is now live, ${agentName}!`
+              : `You've been verified on Huts, ${agentName}!`,
+            react: React.createElement(AgentVerificationEmail, {
+              agentName,
+              agentType,
+              profileUrl,
+              portalUrl,
+              action,
+            }),
+          })
+        }
+      } catch (emailErr) {
+        // Non-fatal — log but don't fail the update
+        console.error('[Admin] agents PATCH email error:', emailErr)
+      }
+    }
 
     return NextResponse.json({ data })
   } catch (error) {
@@ -70,8 +127,9 @@ export async function DELETE(
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
     }
 
-    const { error } = await supabase
-      .from('agent_profiles')
+    const adminDb = createAdminClient()
+    const { error } = await adminDb
+      .from('agents')
       .delete()
       .eq('id', params.id)
 

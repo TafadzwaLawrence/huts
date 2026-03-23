@@ -1,8 +1,8 @@
-import { createClient } from '@/lib/supabase/server'
+import { createAdminClient } from '@/lib/supabase/server'
 import Link from 'next/link'
 import { 
   Building2, Home, Briefcase, Camera, Award,
-  CheckCircle, Clock, ShieldCheck, ShieldX, Users, ChevronRight
+  CheckCircle, Users, ChevronRight
 } from 'lucide-react'
 import { AGENT_TYPE_LABELS } from '@/lib/constants'
 
@@ -28,11 +28,12 @@ export default async function AdminAgentsPage({
 }: {
   searchParams: { status?: string }
 }) {
-  const supabase = await createClient()
+  // Use admin client to bypass RLS — admin must see ALL statuses, not just active
+  const supabase = createAdminClient()
   const statusFilter = searchParams.status || 'pending'
 
   const { data: agents, error } = await supabase
-    .from('agent_profiles')
+    .from('agents')
     .select(`
       id, user_id, agent_type, business_name, office_city,
       phone, verified, status, featured, avg_rating, total_reviews,
@@ -42,9 +43,9 @@ export default async function AdminAgentsPage({
     .eq('status', statusFilter)
     .order('created_at', { ascending: false })
 
-  // Count per status for badges
+  // Count per status for tab badges
   const { data: counts } = await supabase
-    .from('agent_profiles')
+    .from('agents')
     .select('status')
 
   const statusCounts = (counts || []).reduce((acc: Record<string, number>, row: any) => {
