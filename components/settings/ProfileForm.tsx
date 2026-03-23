@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { User, Briefcase, Home, Loader2, Check, Camera, Clock } from 'lucide-react';
+import { User, Briefcase, Home, Loader2, Check, Camera, Clock, Award, ExternalLink } from 'lucide-react';
 import { UploadButton } from '@/lib/uploadthing';
 import { toast } from 'sonner';
 import type { Profile } from '@/types';
@@ -11,9 +11,13 @@ interface ProfileFormProps {
   profile: Profile;
   userEmail: string;
   createdAt: string;
+  isAgent?: boolean;
+  agentType?: string | null;
+  isPremier?: boolean;
+  agentSlug?: string | null;
 }
 
-export default function ProfileForm({ profile, userEmail, createdAt }: ProfileFormProps) {
+export default function ProfileForm({ profile, userEmail, createdAt, isAgent = false, agentType, isPremier = false, agentSlug }: ProfileFormProps) {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [hasChanges, setHasChanges] = useState(false);
@@ -22,7 +26,7 @@ export default function ProfileForm({ profile, userEmail, createdAt }: ProfileFo
     name: profile.full_name || '',
     phone: profile.phone || '',
     bio: profile.bio || '',
-    role: profile.role as 'renter' | 'landlord',
+    role: profile.role as 'renter' | 'landlord' | 'agent',
   });
 
   // Track changes
@@ -54,7 +58,7 @@ export default function ProfileForm({ profile, userEmail, createdAt }: ProfileFo
           name: formData.name || null,
           phone: formData.phone || null,
           bio: formData.bio || null,
-          role: formData.role,
+          ...(isAgent ? {} : { role: formData.role }),
           avatar_url: avatarUrl || null,
         }),
       });
@@ -119,9 +123,20 @@ export default function ProfileForm({ profile, userEmail, createdAt }: ProfileFo
             <p className="text-sm text-[#495057] mt-1">{userEmail}</p>
             <div className="flex items-center gap-3 mt-3">
               <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-[#F8F9FA] text-[#495057] border border-[#E9ECEF]">
-                {formData.role === 'landlord' ? <Briefcase size={12} /> : <Home size={12} />}
-                {formData.role === 'landlord' ? 'Landlord' : 'Renter'}
+                {isAgent ? <Award size={12} /> : formData.role === 'landlord' ? <Briefcase size={12} /> : <Home size={12} />}
+                {isAgent
+                  ? (agentType === 'property_manager' ? 'Property Manager'
+                    : agentType === 'home_builder' ? 'Home Builder'
+                    : agentType === 'photographer' ? 'Photographer'
+                    : 'Agent')
+                  : formData.role === 'landlord' ? 'Landlord' : 'Renter'}
               </span>
+              {isAgent && isPremier && (
+                <span className="inline-flex items-center gap-1 text-xs font-semibold text-amber-700 bg-amber-50 border border-amber-200 px-2.5 py-1 rounded-full">
+                  <Award size={11} />
+                  Premier
+                </span>
+              )}
               <span className="text-xs text-[#ADB5BD] flex items-center gap-1">
                 <Clock size={12} />
                 Joined {new Date(createdAt).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
@@ -137,6 +152,46 @@ export default function ProfileForm({ profile, userEmail, createdAt }: ProfileFo
           <h3 className="text-base font-semibold text-[#212529] mb-1">Account Type</h3>
           <p className="text-sm text-[#495057]">Choose how you want to use Huts</p>
         </div>
+        {isAgent ? (
+          <div className="flex items-start gap-4 p-5 border-2 border-[#212529] bg-[#F8F9FA] rounded-xl">
+            <div className="h-12 w-12 rounded-lg bg-[#212529] flex items-center justify-center shrink-0">
+              <Award className="h-6 w-6 text-white" />
+            </div>
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center gap-2 flex-wrap">
+                <h4 className="font-semibold text-base text-[#212529]">Agent Account</h4>
+                {isPremier && (
+                  <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-amber-700 bg-amber-50 border border-amber-200 px-1.5 py-0.5 rounded-full">
+                    <Award size={9} />
+                    Premier
+                  </span>
+                )}
+              </div>
+              <p className="text-sm text-[#495057] mt-1">
+                Your account is registered as a licensed agent. To update your agent profile, specialisations, or service areas, use the Agent Portal.
+              </p>
+              <div className="flex items-center gap-4 mt-3 flex-wrap">
+                <a
+                  href="/agent/profile"
+                  className="text-sm font-medium text-[#212529] underline underline-offset-2"
+                >
+                  Edit Agent Profile
+                </a>
+                {agentSlug && (
+                  <a
+                    href={`/agent/${agentSlug}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 text-sm text-[#495057] hover:text-[#212529] transition-colors"
+                  >
+                    <ExternalLink size={13} />
+                    View Public Profile
+                  </a>
+                )}
+              </div>
+            </div>
+          </div>
+        ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {/* Renter Option */}
           <button
@@ -200,6 +255,7 @@ export default function ProfileForm({ profile, userEmail, createdAt }: ProfileFo
             </p>
           </button>
         </div>
+        )}
       </div>
 
       {/* Personal Information */}
