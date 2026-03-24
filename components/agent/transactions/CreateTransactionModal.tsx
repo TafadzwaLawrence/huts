@@ -159,11 +159,11 @@ export function CreateTransactionModal({ isOpen, onClose }: CreateTransactionMod
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
       <div className="bg-white rounded-lg max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto">
         {/* Header */}
-        <div className="flex items-center justify-between p-6 border-b border-light-gray">
-          <h2 className="text-xl font-semibold text-charcoal">Create New Transaction</h2>
+        <div className="flex items-center justify-between p-6 border-b border-[#E9ECEF]">
+          <h2 className="text-xl font-semibold text-[#212529]">Create New Transaction</h2>
           <button
             onClick={onClose}
-            className="text-dark-gray hover:text-charcoal"
+            className="text-[#495057] hover:text-[#212529]"
           >
             <X size={24} />
           </button>
@@ -174,7 +174,7 @@ export function CreateTransactionModal({ isOpen, onClose }: CreateTransactionMod
           {step === 1 && (
             <div className="space-y-6">
               <div>
-                <label className="block text-sm font-medium text-charcoal mb-2">
+                <label className="block text-sm font-medium text-[#212529] mb-2">
                   Select Property
                 </label>
                 <select
@@ -196,7 +196,7 @@ export function CreateTransactionModal({ isOpen, onClose }: CreateTransactionMod
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-charcoal mb-2">
+                  <label className="block text-sm font-medium text-[#212529] mb-2">
                     Transaction Type
                   </label>
                   <select
@@ -211,7 +211,7 @@ export function CreateTransactionModal({ isOpen, onClose }: CreateTransactionMod
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-charcoal mb-2">
+                  <label className="block text-sm font-medium text-[#212529] mb-2">
                     Listing Price
                   </label>
                   <input
@@ -227,7 +227,7 @@ export function CreateTransactionModal({ isOpen, onClose }: CreateTransactionMod
               <button
                 onClick={() => setStep(2)}
                 disabled={!selectedProperty}
-                className="w-full bg-black text-white py-2 px-4 rounded-md hover:bg-charcoal disabled:bg-gray-400 disabled:cursor-not-allowed"
+                className="w-full bg-black text-white py-2 px-4 rounded-md hover:bg-[#212529] disabled:opacity-40 disabled:cursor-not-allowed"
               >
                 Next: Add Participants
               </button>
@@ -237,7 +237,7 @@ export function CreateTransactionModal({ isOpen, onClose }: CreateTransactionMod
           {step === 2 && (
             <div className="space-y-6">
               <div>
-                <label className="block text-sm font-medium text-charcoal mb-2">
+                <label className="block text-sm font-medium text-[#212529] mb-2">
                   Add Participants
                 </label>
                 <div className="relative">
@@ -251,17 +251,17 @@ export function CreateTransactionModal({ isOpen, onClose }: CreateTransactionMod
                 </div>
 
                 {searchResults.length > 0 && (
-                  <div className="mt-2 border border-light-gray rounded-md max-h-40 overflow-y-auto">
+                  <div className="mt-2 border border-[#E9ECEF] rounded-md max-h-40 overflow-y-auto">
                     {searchResults.map((profile) => (
                       <button
                         key={profile.id}
                         onClick={() => addParticipant(profile)}
-                        className="w-full px-3 py-2 text-left hover:bg-light-gray flex items-center gap-3"
+                        className="w-full px-3 py-2 text-left hover:bg-[#E9ECEF] flex items-center gap-3 text-[#212529]"
                       >
                         <User size={16} />
                         <div>
                           <div className="font-medium">{profile.full_name}</div>
-                          <div className="text-sm text-dark-gray">{profile.email}</div>
+                          <div className="text-sm text-[#495057]">{profile.email}</div>
                         </div>
                       </button>
                     ))}
@@ -271,20 +271,20 @@ export function CreateTransactionModal({ isOpen, onClose }: CreateTransactionMod
 
               {participants.length > 0 && (
                 <div className="space-y-3">
-                  <h4 className="font-medium text-charcoal">Participants</h4>
+                  <h4 className="font-medium text-[#212529]">Participants</h4>
                   {participants.map((participant) => (
-                    <div key={participant.profile.id} className="flex items-center gap-3 p-3 border border-light-gray rounded-md">
-                      <User size={16} />
+                    <div key={participant.profile.id} className="flex items-center gap-3 p-3 border border-[#E9ECEF] rounded-md">
+                      <User size={16} className="text-[#495057]" />
                       <div className="flex-1">
-                        <div className="font-medium">{participant.profile.full_name}</div>
-                        <div className="text-sm text-dark-gray">{participant.profile.email}</div>
+                        <div className="font-medium text-[#212529]">{participant.profile.full_name}</div>
+                        <div className="text-sm text-[#495057]">{participant.profile.email}</div>
                       </div>
                       <select
                         value={participant.role}
                         onChange={(e) => updateParticipant(participant.profile.id, {
                           role: e.target.value as 'listing_agent' | 'selling_agent' | 'buyer_agent' | 'buyer' | 'seller' | 'landlord' | 'tenant' | 'coordinator'
                         })}
-                        className="px-2 py-1 border border-light-gray rounded text-sm"
+                        className="px-2 py-1 border border-[#E9ECEF] rounded text-sm text-[#212529] bg-white"
                       >
                         <option value="buyer">Buyer</option>
                         <option value="seller">Seller</option>
@@ -303,7 +303,7 @@ export function CreateTransactionModal({ isOpen, onClose }: CreateTransactionMod
                           onChange={(e) => updateParticipant(participant.profile.id, {
                             commission_split_pct: parseFloat(e.target.value) || 0
                           })}
-                          className="w-20 px-2 py-1 border border-light-gray rounded text-sm"
+                          className="w-20 px-2 py-1 border border-[#E9ECEF] rounded text-sm text-[#212529] bg-white"
                         />
                       )}
                       <button
@@ -318,7 +318,7 @@ export function CreateTransactionModal({ isOpen, onClose }: CreateTransactionMod
               )}
 
               <div>
-                <label className="block text-sm font-medium text-charcoal mb-2">
+                <label className="block text-sm font-medium text-[#212529] mb-2">
                   Notes (Optional)
                 </label>
                 <textarea
@@ -333,14 +333,14 @@ export function CreateTransactionModal({ isOpen, onClose }: CreateTransactionMod
               <div className="flex gap-3">
                 <button
                   onClick={() => setStep(1)}
-                  className="flex-1 border border-dark-gray text-charcoal py-2 px-4 rounded-md hover:bg-light-gray"
+                  className="flex-1 border border-[#495057] text-[#212529] py-2 px-4 rounded-md hover:bg-[#E9ECEF]"
                 >
                   Back
                 </button>
                 <button
                   onClick={handleSubmit}
                   disabled={loading || participants.length === 0}
-                  className="flex-1 bg-black text-white py-2 px-4 rounded-md hover:bg-charcoal disabled:bg-gray-400 disabled:cursor-not-allowed"
+                  className="flex-1 bg-black text-white py-2 px-4 rounded-md hover:bg-[#212529] disabled:opacity-40 disabled:cursor-not-allowed"
                 >
                   {loading ? 'Creating...' : 'Create Transaction'}
                 </button>
