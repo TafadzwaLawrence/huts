@@ -265,14 +265,14 @@ export default function AgentLeadsPage() {
             placeholder="Search by name, email, phone..."
             value={search}
             onChange={e => setSearch(e.target.value)}
-            className="w-full pl-9 pr-3 py-2 border border-[#E9ECEF] rounded-lg text-sm focus:outline-none focus:border-black"
+            className="w-full pl-9 pr-3 py-2 border border-[#E9ECEF] rounded-lg text-sm bg-white text-[#212529] focus:outline-none focus:border-black"
           />
         </div>
 
         <select
           value={statusFilter}
           onChange={e => setStatusFilter(e.target.value)}
-          className="border border-[#E9ECEF] rounded-lg text-sm px-3 py-2 focus:outline-none focus:border-black bg-white"
+          className="border border-[#E9ECEF] rounded-lg text-sm px-3 py-2 bg-white text-[#212529] focus:outline-none focus:border-black"
         >
           <option value="assigned,claimed,contacted,in_progress">Active</option>
           <option value="assigned">Assigned</option>
@@ -286,7 +286,7 @@ export default function AgentLeadsPage() {
         <select
           value={sortBy}
           onChange={e => setSortBy(e.target.value)}
-          className="border border-[#E9ECEF] rounded-lg text-sm px-3 py-2 focus:outline-none focus:border-black bg-white"
+          className="border border-[#E9ECEF] rounded-lg text-sm px-3 py-2 bg-white text-[#212529] focus:outline-none focus:border-black"
         >
           <option value="score">Sort by Score</option>
           <option value="urgency">Sort by Urgency</option>

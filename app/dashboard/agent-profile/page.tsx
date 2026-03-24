@@ -329,7 +329,7 @@ export default function AgentProfileEditPage() {
                 type="text"
                 value={formData.business_name}
                 onChange={(e) => setFormData({ ...formData, business_name: e.target.value })}
-                className="w-full px-4 py-3 border-2 border-[#E9ECEF] rounded-xl focus:border-[#212529] focus:outline-none transition-colors"
+                className="w-full px-4 py-3 border-2 border-[#E9ECEF] rounded-xl bg-white text-[#212529] focus:border-[#212529] focus:outline-none transition-colors"
                 placeholder="Your business name"
               />
             </div>
@@ -343,7 +343,7 @@ export default function AgentProfileEditPage() {
                   type="tel"
                   value={formData.phone}
                   onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                  className="w-full px-4 py-3 border-2 border-[#E9ECEF] rounded-xl focus:border-[#212529] focus:outline-none transition-colors"
+                  className="w-full px-4 py-3 border-2 border-[#E9ECEF] rounded-xl bg-white text-[#212529] focus:border-[#212529] focus:outline-none transition-colors"
                   placeholder="+263 ..."
                   required
                 />
@@ -357,7 +357,7 @@ export default function AgentProfileEditPage() {
                   type="tel"
                   value={formData.whatsapp}
                   onChange={(e) => setFormData({ ...formData, whatsapp: e.target.value })}
-                  className="w-full px-4 py-3 border-2 border-[#E9ECEF] rounded-xl focus:border-[#212529] focus:outline-none transition-colors"
+                  className="w-full px-4 py-3 border-2 border-[#E9ECEF] rounded-xl bg-white text-[#212529] focus:border-[#212529] focus:outline-none transition-colors"
                   placeholder="+263 ..."
                 />
               </div>
@@ -370,7 +370,7 @@ export default function AgentProfileEditPage() {
               <select
                 value={formData.office_city}
                 onChange={(e) => setFormData({ ...formData, office_city: e.target.value })}
-                className="w-full px-4 py-3 border-2 border-[#E9ECEF] rounded-xl focus:border-[#212529] focus:outline-none transition-colors"
+                className="w-full px-4 py-3 border-2 border-[#E9ECEF] rounded-xl bg-white text-[#212529] focus:border-[#212529] focus:outline-none transition-colors"
                 required
               >
                 <option value="">Select city...</option>
@@ -388,7 +388,7 @@ export default function AgentProfileEditPage() {
                 type="text"
                 value={formData.office_address}
                 onChange={(e) => setFormData({ ...formData, office_address: e.target.value })}
-                className="w-full px-4 py-3 border-2 border-[#E9ECEF] rounded-xl focus:border-[#212529] focus:outline-none transition-colors"
+                className="w-full px-4 py-3 border-2 border-[#E9ECEF] rounded-xl bg-white text-[#212529] focus:border-[#212529] focus:outline-none transition-colors"
                 placeholder="Street address, suite number, etc."
               />
             </div>
@@ -412,7 +412,7 @@ export default function AgentProfileEditPage() {
                   type="text"
                   value={formData.license_number}
                   onChange={(e) => setFormData({ ...formData, license_number: e.target.value })}
-                  className="w-full px-4 py-3 border-2 border-[#E9ECEF] rounded-xl focus:border-[#212529] focus:outline-none transition-colors"
+                  className="w-full px-4 py-3 border-2 border-[#E9ECEF] rounded-xl bg-white text-[#212529] focus:border-[#212529] focus:outline-none transition-colors"
                   placeholder="Your license number"
                 />
               </div>
@@ -425,7 +425,7 @@ export default function AgentProfileEditPage() {
                   type="number"
                   value={formData.years_experience || ''}
                   onChange={(e) => setFormData({ ...formData, years_experience: parseInt(e.target.value) || 0 })}
-                  className="w-full px-4 py-3 border-2 border-[#E9ECEF] rounded-xl focus:border-[#212529] focus:outline-none transition-colors"
+                  className="w-full px-4 py-3 border-2 border-[#E9ECEF] rounded-xl bg-white text-[#212529] focus:border-[#212529] focus:outline-none transition-colors"
                   placeholder="0"
                   min="0"
                 />
@@ -448,7 +448,7 @@ export default function AgentProfileEditPage() {
                     e.currentTarget.value = ''
                   }
                 }}
-                className="w-full px-4 py-3 border-2 border-[#E9ECEF] rounded-xl focus:border-[#212529] focus:outline-none transition-colors"
+                className="w-full px-4 py-3 border-2 border-[#E9ECEF] rounded-xl bg-white text-[#212529] focus:border-[#212529] focus:outline-none transition-colors"
                 placeholder="Press Enter to add"
               />
               {formData.certifications.length > 0 && (
@@ -518,7 +518,7 @@ export default function AgentProfileEditPage() {
           <textarea
             value={formData.bio}
             onChange={(e) => setFormData({ ...formData, bio: e.target.value })}
-            className="w-full px-4 py-3 border-2 border-[#E9ECEF] rounded-xl focus:border-[#212529] focus:outline-none transition-colors resize-none"
+            className="w-full px-4 py-3 border-2 border-[#E9ECEF] rounded-xl bg-white text-[#212529] focus:border-[#212529] focus:outline-none transition-colors resize-none"
             rows={6}
             placeholder="Tell clients about your experience and approach..."
           />

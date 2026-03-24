@@ -320,7 +320,7 @@ export default function MessagesPage() {
                 placeholder="Search conversations..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                className="w-full pl-9 pr-4 py-2.5 text-sm bg-[#F8F9FA] border border-[#E9ECEF] rounded-lg focus:outline-none focus:ring-2 focus:ring-black/10 focus:border-[#212529]"
+                className="w-full pl-9 pr-4 py-2.5 text-sm bg-[#F8F9FA] text-[#212529] border border-[#E9ECEF] rounded-lg focus:outline-none focus:ring-2 focus:ring-black/10 focus:border-[#212529]"
               />
             </div>
           </div>
@@ -487,7 +487,7 @@ export default function MessagesPage() {
                     onKeyDown={handleKeyDown}
                     placeholder="Type a message..."
                     rows={1}
-                    className="flex-1 resize-none text-sm px-4 py-2.5 bg-[#F8F9FA] border border-[#E9ECEF] rounded-xl focus:outline-none focus:ring-2 focus:ring-black/10 focus:border-[#212529] max-h-32"
+                    className="flex-1 resize-none text-sm px-4 py-2.5 bg-[#F8F9FA] text-[#212529] border border-[#E9ECEF] rounded-xl focus:outline-none focus:ring-2 focus:ring-black/10 focus:border-[#212529] max-h-32"
                     style={{ minHeight: '42px' }}
                   />
                   <button

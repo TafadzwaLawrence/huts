@@ -95,7 +95,7 @@ function AddNoteForm({ clientId, onAdded }: { clientId: string; onAdded: () => v
         value={noteText}
         onChange={e => setNoteText(e.target.value)}
         placeholder="Add a note..."
-        className="flex-1 text-sm border border-[#E9ECEF] rounded-lg px-3 py-1.5 focus:outline-none focus:border-black"
+        className="flex-1 text-sm border border-[#E9ECEF] rounded-lg px-3 py-1.5 bg-white text-[#212529] focus:outline-none focus:border-black"
       />
       <button
         type="submit"

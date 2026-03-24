@@ -291,7 +291,7 @@ function ScheduleModal({
               value={form.title}
               onChange={e => setForm({ ...form, title: e.target.value })}
               placeholder="e.g. Property tour with John Smith"
-              className="w-full border border-[#E9ECEF] rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-black"
+              className="w-full border border-[#E9ECEF] rounded-lg px-3 py-2 text-sm bg-white text-[#212529] focus:outline-none focus:border-black"
             />
           </div>
 
@@ -302,7 +302,7 @@ function ScheduleModal({
                 required
                 value={form.appointmentType}
                 onChange={e => setForm({ ...form, appointmentType: e.target.value })}
-                className="w-full border border-[#E9ECEF] rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-black bg-white"
+                className="w-full border border-[#E9ECEF] rounded-lg px-3 py-2 text-sm bg-white text-[#212529] focus:outline-none focus:border-black"
               >
                 {Object.entries(TYPE_LABELS).map(([v, l]) => (
                   <option key={v} value={v}>{l}</option>
@@ -314,7 +314,7 @@ function ScheduleModal({
               <select
                 value={form.durationMinutes}
                 onChange={e => setForm({ ...form, durationMinutes: parseInt(e.target.value) })}
-                className="w-full border border-[#E9ECEF] rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-black bg-white"
+                className="w-full border border-[#E9ECEF] rounded-lg px-3 py-2 text-sm bg-white text-[#212529] focus:outline-none focus:border-black"
               >
                 <option value={30}>30 min</option>
                 <option value={60}>1 hour</option>
@@ -332,7 +332,7 @@ function ScheduleModal({
               type="datetime-local"
               value={form.scheduledAt}
               onChange={e => setForm({ ...form, scheduledAt: e.target.value })}
-              className="w-full border border-[#E9ECEF] rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-black"
+              className="w-full border border-[#E9ECEF] rounded-lg px-3 py-2 text-sm bg-white text-[#212529] focus:outline-none focus:border-black"
             />
           </div>
 
@@ -342,7 +342,7 @@ function ScheduleModal({
               value={form.location}
               onChange={e => setForm({ ...form, location: e.target.value })}
               placeholder="Address or meeting link"
-              className="w-full border border-[#E9ECEF] rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-black"
+              className="w-full border border-[#E9ECEF] rounded-lg px-3 py-2 text-sm bg-white text-[#212529] focus:outline-none focus:border-black"
             />
           </div>
 
@@ -352,7 +352,7 @@ function ScheduleModal({
               value={form.description}
               onChange={e => setForm({ ...form, description: e.target.value })}
               rows={2}
-              className="w-full border border-[#E9ECEF] rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-black resize-none"
+              className="w-full border border-[#E9ECEF] rounded-lg px-3 py-2 text-sm bg-white text-[#212529] focus:outline-none focus:border-black resize-none"
             />
           </div>
 
