@@ -653,7 +653,7 @@ export default function SearchPage() {
                         onChange={(e) => setSearchName(e.target.value)}
                         placeholder="e.g., 2 Bed Apartments in Harare"
                         maxLength={50}
-                        className="w-full px-3 py-2.5 text-sm border border-[#E9ECEF] rounded-lg focus:border-[#212529] focus:ring-1 focus:ring-[#212529] outline-none transition-all"
+                        className="text-[#212529] bg-white w-full px-3 py-2.5 text-sm border border-[#E9ECEF] rounded-lg focus:border-[#212529] focus:ring-1 focus:ring-[#212529] outline-none transition-all"
                         disabled={savingSearch}
                         onKeyDown={(e) => e.key === 'Enter' && handleSaveSearch()}
                         autoFocus

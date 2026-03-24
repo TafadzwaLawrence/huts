@@ -289,7 +289,7 @@ function AddClientModal({ onClose, onAdded }: { onClose: () => void; onAdded: ()
                 required
                 value={form.firstName}
                 onChange={e => setForm({ ...form, firstName: e.target.value })}
-                className="w-full border border-[#E9ECEF] rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-black"
+                className="text-[#212529] bg-white w-full border border-[#E9ECEF] rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-black"
               />
             </div>
             <div>
@@ -298,7 +298,7 @@ function AddClientModal({ onClose, onAdded }: { onClose: () => void; onAdded: ()
                 required
                 value={form.lastName}
                 onChange={e => setForm({ ...form, lastName: e.target.value })}
-                className="w-full border border-[#E9ECEF] rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-black"
+                className="text-[#212529] bg-white w-full border border-[#E9ECEF] rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-black"
               />
             </div>
           </div>
@@ -310,7 +310,7 @@ function AddClientModal({ onClose, onAdded }: { onClose: () => void; onAdded: ()
               type="email"
               value={form.email}
               onChange={e => setForm({ ...form, email: e.target.value })}
-              className="w-full border border-[#E9ECEF] rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-black"
+              className="text-[#212529] bg-white w-full border border-[#E9ECEF] rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-black"
             />
           </div>
 
@@ -319,7 +319,7 @@ function AddClientModal({ onClose, onAdded }: { onClose: () => void; onAdded: ()
             <input
               value={form.phone}
               onChange={e => setForm({ ...form, phone: e.target.value })}
-              className="w-full border border-[#E9ECEF] rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-black"
+              className="text-[#212529] bg-white w-full border border-[#E9ECEF] rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-black"
             />
           </div>
 
@@ -329,7 +329,7 @@ function AddClientModal({ onClose, onAdded }: { onClose: () => void; onAdded: ()
               required
               value={form.clientType}
               onChange={e => setForm({ ...form, clientType: e.target.value })}
-              className="w-full border border-[#E9ECEF] rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-black bg-white"
+              className="text-[#212529] w-full border border-[#E9ECEF] rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-black bg-white"
             >
               {Object.entries(CLIENT_TYPE_LABELS).map(([value, label]) => (
                 <option key={value} value={value}>{label}</option>
@@ -345,7 +345,7 @@ function AddClientModal({ onClose, onAdded }: { onClose: () => void; onAdded: ()
                 value={form.budgetMin}
                 onChange={e => setForm({ ...form, budgetMin: e.target.value })}
                 placeholder="50000"
-                className="w-full border border-[#E9ECEF] rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-black"
+                className="text-[#212529] bg-white w-full border border-[#E9ECEF] rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-black"
               />
             </div>
             <div>
@@ -355,7 +355,7 @@ function AddClientModal({ onClose, onAdded }: { onClose: () => void; onAdded: ()
                 value={form.budgetMax}
                 onChange={e => setForm({ ...form, budgetMax: e.target.value })}
                 placeholder="200000"
-                className="w-full border border-[#E9ECEF] rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-black"
+                className="text-[#212529] bg-white w-full border border-[#E9ECEF] rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-black"
               />
             </div>
           </div>
@@ -365,7 +365,7 @@ function AddClientModal({ onClose, onAdded }: { onClose: () => void; onAdded: ()
             <select
               value={form.timeline}
               onChange={e => setForm({ ...form, timeline: e.target.value })}
-              className="w-full border border-[#E9ECEF] rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-black bg-white"
+              className="text-[#212529] w-full border border-[#E9ECEF] rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-black bg-white"
             >
               <option value="">Not specified</option>
               <option value="asap">ASAP</option>
@@ -482,13 +482,13 @@ export default function AgentClientsPage() {
             placeholder="Search clients..."
             value={search}
             onChange={e => setSearch(e.target.value)}
-            className="w-full pl-9 pr-3 py-2 border border-[#E9ECEF] rounded-lg text-sm focus:outline-none focus:border-black"
+            className="text-[#212529] bg-white w-full pl-9 pr-3 py-2 border border-[#E9ECEF] rounded-lg text-sm focus:outline-none focus:border-black"
           />
         </div>
         <select
           value={typeFilter}
           onChange={e => setTypeFilter(e.target.value)}
-          className="border border-[#E9ECEF] rounded-lg text-sm px-3 py-2 focus:outline-none focus:border-black bg-white"
+          className="text-[#212529] border border-[#E9ECEF] rounded-lg text-sm px-3 py-2 focus:outline-none focus:border-black bg-white"
         >
           <option value="">All Types</option>
           {Object.entries(CLIENT_TYPE_LABELS).map(([v, l]) => (

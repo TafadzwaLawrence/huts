@@ -185,7 +185,7 @@ function LogPaymentDialog({
                 type="date"
                 value={form.due_date}
                 onChange={(e) => setForm(f => ({ ...f, due_date: e.target.value }))}
-                className="w-full text-sm px-3 py-2 border border-[#E9ECEF] rounded-lg focus:outline-none focus:ring-2 focus:ring-black/10 focus:border-[#212529]"
+                className="text-[#212529] bg-white w-full text-sm px-3 py-2 border border-[#E9ECEF] rounded-lg focus:outline-none focus:ring-2 focus:ring-black/10 focus:border-[#212529]"
               />
             </div>
             <div>
@@ -198,7 +198,7 @@ function LogPaymentDialog({
                 step="0.01"
                 value={form.amount}
                 onChange={(e) => setForm(f => ({ ...f, amount: e.target.value }))}
-                className="w-full text-sm px-3 py-2 border border-[#E9ECEF] rounded-lg focus:outline-none focus:ring-2 focus:ring-black/10 focus:border-[#212529]"
+                className="text-[#212529] bg-white w-full text-sm px-3 py-2 border border-[#E9ECEF] rounded-lg focus:outline-none focus:ring-2 focus:ring-black/10 focus:border-[#212529]"
               />
             </div>
           </div>
@@ -209,7 +209,7 @@ function LogPaymentDialog({
               <select
                 value={form.status}
                 onChange={(e) => setForm(f => ({ ...f, status: e.target.value }))}
-                className="w-full text-sm px-3 py-2 border border-[#E9ECEF] rounded-lg focus:outline-none focus:ring-2 focus:ring-black/10 focus:border-[#212529] bg-white"
+                className="text-[#212529] w-full text-sm px-3 py-2 border border-[#E9ECEF] rounded-lg focus:outline-none focus:ring-2 focus:ring-black/10 focus:border-[#212529] bg-white"
               >
                 <option value="paid">Paid</option>
                 <option value="pending">Pending</option>
@@ -222,7 +222,7 @@ function LogPaymentDialog({
               <select
                 value={form.payment_method}
                 onChange={(e) => setForm(f => ({ ...f, payment_method: e.target.value }))}
-                className="w-full text-sm px-3 py-2 border border-[#E9ECEF] rounded-lg focus:outline-none focus:ring-2 focus:ring-black/10 focus:border-[#212529] bg-white"
+                className="text-[#212529] w-full text-sm px-3 py-2 border border-[#E9ECEF] rounded-lg focus:outline-none focus:ring-2 focus:ring-black/10 focus:border-[#212529] bg-white"
               >
                 <option value="cash">Cash</option>
                 <option value="bank_transfer">Bank Transfer</option>
@@ -239,7 +239,7 @@ function LogPaymentDialog({
                 type="date"
                 value={form.paid_at}
                 onChange={(e) => setForm(f => ({ ...f, paid_at: e.target.value }))}
-                className="w-full text-sm px-3 py-2 border border-[#E9ECEF] rounded-lg focus:outline-none focus:ring-2 focus:ring-black/10 focus:border-[#212529]"
+                className="text-[#212529] bg-white w-full text-sm px-3 py-2 border border-[#E9ECEF] rounded-lg focus:outline-none focus:ring-2 focus:ring-black/10 focus:border-[#212529]"
               />
             </div>
           )}
@@ -251,7 +251,7 @@ function LogPaymentDialog({
               placeholder="Receipt reference, extra details..."
               value={form.notes}
               onChange={(e) => setForm(f => ({ ...f, notes: e.target.value }))}
-              className="w-full text-sm px-3 py-2 border border-[#E9ECEF] rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-black/10 focus:border-[#212529]"
+              className="text-[#212529] bg-white w-full text-sm px-3 py-2 border border-[#E9ECEF] rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-black/10 focus:border-[#212529]"
             />
           </div>
         </div>

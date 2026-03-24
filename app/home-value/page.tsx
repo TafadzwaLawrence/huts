@@ -86,13 +86,13 @@ export default function HomeValuePage() {
                   value={address}
                   onChange={(e) => setAddress(e.target.value)}
                   placeholder="Enter neighborhood or address..."
-                  className="w-full pl-11 pr-4 py-4 text-base bg-white border-2 border-[#E9ECEF] rounded-xl focus:outline-none focus:border-[#212529] transition-colors"
+                  className="text-[#212529] w-full pl-11 pr-4 py-4 text-base bg-white border-2 border-[#E9ECEF] rounded-xl focus:outline-none focus:border-[#212529] transition-colors"
                 />
               </div>
               <select
                 value={city}
                 onChange={(e) => setCity(e.target.value)}
-                className="px-4 py-4 text-base bg-white border-2 border-[#E9ECEF] rounded-xl focus:outline-none focus:border-[#212529]"
+                className="text-[#212529] px-4 py-4 text-base bg-white border-2 border-[#E9ECEF] rounded-xl focus:outline-none focus:border-[#212529]"
               >
                 <option value="Harare">Harare</option>
                 <option value="Bulawayo">Bulawayo</option>

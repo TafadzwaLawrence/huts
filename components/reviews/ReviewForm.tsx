@@ -126,7 +126,7 @@ export default function ReviewForm({
           value={formData.title}
           onChange={(e) => setFormData({ ...formData, title: e.target.value })}
           placeholder="Summarize your experience"
-          className="w-full px-3 py-2 border-2 border-[#E9ECEF] rounded focus:border-black focus:outline-none transition-colors"
+          className="text-[#212529] bg-white w-full px-3 py-2 border-2 border-[#E9ECEF] rounded focus:border-black focus:outline-none transition-colors"
           required
         />
       </div>
@@ -142,7 +142,7 @@ export default function ReviewForm({
           onChange={(e) => setFormData({ ...formData, comment: e.target.value })}
           placeholder="Share details about your experience (minimum 50 characters)"
           rows={6}
-          className="w-full px-3 py-2 border-2 border-[#E9ECEF] rounded focus:border-black focus:outline-none transition-colors resize-none"
+          className="text-[#212529] bg-white w-full px-3 py-2 border-2 border-[#E9ECEF] rounded focus:border-black focus:outline-none transition-colors resize-none"
           required
         />
         <p className="text-secondary">

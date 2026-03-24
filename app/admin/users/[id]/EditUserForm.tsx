@@ -92,7 +92,7 @@ export default function EditUserForm({ user }: EditUserFormProps) {
           id="name"
           value={formData.name}
           onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-          className="w-full px-4 py-2 border border-light-gray rounded-lg focus:outline-none focus:border-charcoal"
+          className="text-[#212529] bg-white w-full px-4 py-2 border border-light-gray rounded-lg focus:outline-none focus:border-charcoal"
           placeholder="User's full name"
         />
       </div>
@@ -106,7 +106,7 @@ export default function EditUserForm({ user }: EditUserFormProps) {
           id="role"
           value={formData.role}
           onChange={(e) => setFormData({ ...formData, role: e.target.value as 'landlord' | 'renter' })}
-          className="w-full px-4 py-2 border border-light-gray rounded-lg focus:outline-none focus:border-charcoal"
+          className="text-[#212529] bg-white w-full px-4 py-2 border border-light-gray rounded-lg focus:outline-none focus:border-charcoal"
         >
           <option value="landlord">Landlord</option>
           <option value="renter">Renter</option>
@@ -123,7 +123,7 @@ export default function EditUserForm({ user }: EditUserFormProps) {
           id="verified"
           checked={formData.verified}
           onChange={(e) => setFormData({ ...formData, verified: e.target.checked })}
-          className="mt-1 h-4 w-4 border-light-gray rounded focus:ring-charcoal"
+          className="text-[#212529] bg-white mt-1 h-4 w-4 border-light-gray rounded focus:ring-charcoal"
         />
         <div>
           <label htmlFor="verified" className="text-sm font-medium text-charcoal cursor-pointer">
@@ -142,7 +142,7 @@ export default function EditUserForm({ user }: EditUserFormProps) {
           id="is_admin"
           checked={formData.is_admin}
           onChange={(e) => setFormData({ ...formData, is_admin: e.target.checked })}
-          className="mt-1 h-4 w-4 border-amber-300 rounded focus:ring-amber-500"
+          className="text-[#212529] bg-white mt-1 h-4 w-4 border-amber-300 rounded focus:ring-amber-500"
         />
         <div className="flex-1">
           <label htmlFor="is_admin" className="text-sm font-medium text-[#495057] cursor-pointer flex items-center gap-2">

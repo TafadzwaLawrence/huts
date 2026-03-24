@@ -166,7 +166,7 @@ export function FilterBar({
               value={filters.minPrice}
               onChange={(e) => onFilterChange('minPrice', e.target.value)}
               placeholder="No min"
-              className="w-full px-3 py-2 text-sm border border-[#E9ECEF] rounded-lg focus:border-[#212529] focus:ring-1 focus:ring-[#212529] outline-none transition-all"
+              className="text-[#212529] bg-white w-full px-3 py-2 text-sm border border-[#E9ECEF] rounded-lg focus:border-[#212529] focus:ring-1 focus:ring-[#212529] outline-none transition-all"
             />
           </div>
           <div>
@@ -176,7 +176,7 @@ export function FilterBar({
               value={filters.maxPrice}
               onChange={(e) => onFilterChange('maxPrice', e.target.value)}
               placeholder="No max"
-              className="w-full px-3 py-2 text-sm border border-[#E9ECEF] rounded-lg focus:border-[#212529] focus:ring-1 focus:ring-[#212529] outline-none transition-all"
+              className="text-[#212529] bg-white w-full px-3 py-2 text-sm border border-[#E9ECEF] rounded-lg focus:border-[#212529] focus:ring-1 focus:ring-[#212529] outline-none transition-all"
             />
           </div>
           
@@ -391,14 +391,14 @@ export function FilterBar({
                 value={filters.minPrice}
                 onChange={(e) => onFilterChange('minPrice', e.target.value)}
                 placeholder="Min"
-                className="w-full px-3 py-2.5 text-sm border border-[#E9ECEF] rounded-lg focus:border-[#212529] outline-none"
+                className="text-[#212529] bg-white w-full px-3 py-2.5 text-sm border border-[#E9ECEF] rounded-lg focus:border-[#212529] outline-none"
               />
               <input
                 type="number"
                 value={filters.maxPrice}
                 onChange={(e) => onFilterChange('maxPrice', e.target.value)}
                 placeholder="Max"
-                className="w-full px-3 py-2.5 text-sm border border-[#E9ECEF] rounded-lg focus:border-[#212529] outline-none"
+                className="text-[#212529] bg-white w-full px-3 py-2.5 text-sm border border-[#E9ECEF] rounded-lg focus:border-[#212529] outline-none"
               />
             </div>
           </div>

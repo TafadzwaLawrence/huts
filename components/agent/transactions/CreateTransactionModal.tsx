@@ -183,7 +183,7 @@ export function CreateTransactionModal({ isOpen, onClose }: CreateTransactionMod
                     const property = properties.find(p => p.id === e.target.value)
                     setSelectedProperty(property || null)
                   }}
-                  className="w-full px-3 py-2 border border-light-gray rounded-md focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent"
+                  className="text-[#212529] bg-white w-full px-3 py-2 border border-light-gray rounded-md focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent"
                 >
                   <option value="">Choose a property...</option>
                   {properties.map((property) => (
@@ -202,7 +202,7 @@ export function CreateTransactionModal({ isOpen, onClose }: CreateTransactionMod
                   <select
                     value={transactionType}
                     onChange={(e) => setTransactionType(e.target.value as TransactionType)}
-                    className="w-full px-3 py-2 border border-light-gray rounded-md focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent"
+                    className="text-[#212529] bg-white w-full px-3 py-2 border border-light-gray rounded-md focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent"
                   >
                     <option value="sale">Sale</option>
                     <option value="rental">Rental</option>
@@ -219,7 +219,7 @@ export function CreateTransactionModal({ isOpen, onClose }: CreateTransactionMod
                     value={listingPrice}
                     onChange={(e) => setListingPrice(e.target.value)}
                     placeholder="Enter price..."
-                    className="w-full px-3 py-2 border border-light-gray rounded-md focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent"
+                    className="text-[#212529] bg-white w-full px-3 py-2 border border-light-gray rounded-md focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent"
                   />
                 </div>
               </div>
@@ -246,7 +246,7 @@ export function CreateTransactionModal({ isOpen, onClose }: CreateTransactionMod
                     type="text"
                     placeholder="Search by name or email..."
                     onChange={(e) => searchProfiles(e.target.value)}
-                    className="w-full pl-10 pr-3 py-2 border border-light-gray rounded-md focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent"
+                    className="text-[#212529] bg-white w-full pl-10 pr-3 py-2 border border-light-gray rounded-md focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent"
                   />
                 </div>
 
@@ -326,7 +326,7 @@ export function CreateTransactionModal({ isOpen, onClose }: CreateTransactionMod
                   onChange={(e) => setNotes(e.target.value)}
                   placeholder="Add any additional notes..."
                   rows={3}
-                  className="w-full px-3 py-2 border border-light-gray rounded-md focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent"
+                  className="text-[#212529] bg-white w-full px-3 py-2 border border-light-gray rounded-md focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent"
                 />
               </div>
 

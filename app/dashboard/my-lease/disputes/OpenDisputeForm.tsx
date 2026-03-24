@@ -69,7 +69,7 @@ export default function OpenDisputeForm({ agreementId, currency, obligations }: 
           <select
             value={obligationId}
             onChange={e => setObligationId(e.target.value)}
-            className="w-full border border-[#E9ECEF] rounded px-3 py-2 text-sm focus:outline-none focus:border-[#212529]"
+            className="text-[#212529] bg-white w-full border border-[#E9ECEF] rounded px-3 py-2 text-sm focus:outline-none focus:border-[#212529]"
           >
             <option value="">None — general dispute</option>
             {eligibleObs.map(o => (
@@ -88,7 +88,7 @@ export default function OpenDisputeForm({ agreementId, currency, obligations }: 
           onChange={e => setReason(e.target.value)}
           rows={4}
           placeholder="What are you disputing? Please be specific..."
-          className="w-full border border-[#E9ECEF] rounded px-3 py-2 text-sm focus:outline-none focus:border-[#212529] resize-none"
+          className="text-[#212529] bg-white w-full border border-[#E9ECEF] rounded px-3 py-2 text-sm focus:outline-none focus:border-[#212529] resize-none"
           required
           minLength={10}
         />

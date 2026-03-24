@@ -98,13 +98,13 @@ export default function LogPaymentForm({ agreementId, currency, obligations }: L
             value={amount}
             onChange={e => setAmount(e.target.value)}
             required
-            className="w-full border border-[#E9ECEF] rounded px-3 py-2 text-sm focus:outline-none focus:border-[#212529]"
+            className="text-[#212529] bg-white w-full border border-[#E9ECEF] rounded px-3 py-2 text-sm focus:outline-none focus:border-[#212529]"
           />
         </div>
         <select
           value={method}
           onChange={e => setMethod(e.target.value)}
-          className="border border-[#E9ECEF] rounded px-3 py-2 text-sm focus:outline-none focus:border-[#212529]"
+          className="text-[#212529] bg-white border border-[#E9ECEF] rounded px-3 py-2 text-sm focus:outline-none focus:border-[#212529]"
         >
           <option value="cash">Cash</option>
           <option value="bank_transfer">Bank Transfer</option>
@@ -118,7 +118,7 @@ export default function LogPaymentForm({ agreementId, currency, obligations }: L
         placeholder="Reference (optional, e.g. TXN-123)"
         value={reference}
         onChange={e => setReference(e.target.value)}
-        className="w-full border border-[#E9ECEF] rounded px-3 py-2 text-sm focus:outline-none focus:border-[#212529]"
+        className="text-[#212529] bg-white w-full border border-[#E9ECEF] rounded px-3 py-2 text-sm focus:outline-none focus:border-[#212529]"
       />
 
       <button

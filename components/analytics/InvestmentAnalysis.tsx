@@ -147,7 +147,7 @@ export function InvestmentAnalysis({ propertyId }: InvestmentAnalysisProps) {
                   onChange={(e) => setDownPayment(Number(e.target.value))}
                   min={0}
                   max={100}
-                  className="w-full px-3 py-2 border border-[#E9ECEF] rounded text-sm focus:outline-none focus:border-[#212529]"
+                  className="text-[#212529] bg-white w-full px-3 py-2 border border-[#E9ECEF] rounded text-sm focus:outline-none focus:border-[#212529]"
                 />
               </div>
               <div>
@@ -159,7 +159,7 @@ export function InvestmentAnalysis({ propertyId }: InvestmentAnalysisProps) {
                   min={0}
                   max={20}
                   step={0.1}
-                  className="w-full px-3 py-2 border border-[#E9ECEF] rounded text-sm focus:outline-none focus:border-[#212529]"
+                  className="text-[#212529] bg-white w-full px-3 py-2 border border-[#E9ECEF] rounded text-sm focus:outline-none focus:border-[#212529]"
                 />
               </div>
             </div>

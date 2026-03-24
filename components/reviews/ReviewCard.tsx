@@ -227,7 +227,7 @@ export default function ReviewCard({
                 onChange={(e) => setResponseText(e.target.value)}
                 placeholder="Write your response (10-1000 characters)"
                 rows={3}
-                className="w-full px-3 py-2 border-2 border-[#E9ECEF] rounded focus:border-black focus:outline-none transition-colors resize-none text-sm"
+                className="text-[#212529] bg-white w-full px-3 py-2 border-2 border-[#E9ECEF] rounded focus:border-black focus:outline-none transition-colors resize-none text-sm"
               />
               <div className="flex gap-2">
                 <button

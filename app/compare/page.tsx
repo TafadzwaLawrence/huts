@@ -283,7 +283,7 @@ export default function ComparePage() {
                     onChange={(e) => setSearchQuery(e.target.value)}
                     onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
                     placeholder="Search by property name..."
-                    className="w-full pl-9 pr-4 py-3 text-sm border border-[#E9ECEF] rounded-xl focus:outline-none focus:border-[#212529]"
+                    className="text-[#212529] bg-white w-full pl-9 pr-4 py-3 text-sm border border-[#E9ECEF] rounded-xl focus:outline-none focus:border-[#212529]"
                     autoFocus
                   />
                 </div>

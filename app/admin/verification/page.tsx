@@ -174,7 +174,7 @@ export default function AdminVerificationPage() {
                       type="checkbox"
                       checked={isSelected(property.id)}
                       onChange={() => toggleSelection(property.id)}
-                      className="w-4 h-4 border-[#E9ECEF] rounded focus:ring-[#212529] cursor-pointer"
+                      className="text-[#212529] bg-white w-4 h-4 border-[#E9ECEF] rounded focus:ring-[#212529] cursor-pointer"
                     />
                   </div>
 
@@ -250,7 +250,7 @@ export default function AdminVerificationPage() {
                           onChange={(e) => setRejectReason(e.target.value)}
                           placeholder="Explain why this property was rejected..."
                           rows={2}
-                          className="w-full px-3 py-2 text-sm border border-red-200 rounded-lg focus:outline-none focus:border-[#FF6B6B] transition-colors resize-none"
+                          className="text-[#212529] bg-white w-full px-3 py-2 text-sm border border-red-200 rounded-lg focus:outline-none focus:border-[#FF6B6B] transition-colors resize-none"
                         />
                         <div className="flex gap-2 mt-2">
                           <button

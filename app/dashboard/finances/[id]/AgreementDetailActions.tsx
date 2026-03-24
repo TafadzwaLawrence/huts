@@ -164,14 +164,14 @@ export default function AgreementDetailActions({
                 placeholder={`Amount (${currency.toUpperCase()})`}
                 value={adjAmount}
                 onChange={e => setAdjAmount(e.target.value)}
-                className="w-full border border-[#E9ECEF] rounded px-3 py-2 text-sm focus:outline-none focus:border-[#212529]"
+                className="text-[#212529] bg-white w-full border border-[#E9ECEF] rounded px-3 py-2 text-sm focus:outline-none focus:border-[#212529]"
               />
               <input
                 type="text"
                 placeholder="Reason (e.g. Maintenance charge, Lease promotion)"
                 value={adjReason}
                 onChange={e => setAdjReason(e.target.value)}
-                className="w-full border border-[#E9ECEF] rounded px-3 py-2 text-sm focus:outline-none focus:border-[#212529]"
+                className="text-[#212529] bg-white w-full border border-[#E9ECEF] rounded px-3 py-2 text-sm focus:outline-none focus:border-[#212529]"
               />
               <button
                 onClick={submitAdjustment}
@@ -199,7 +199,7 @@ export default function AgreementDetailActions({
               <select
                 value={disputeObligationId}
                 onChange={e => setDisputeObligationId(e.target.value)}
-                className="w-full border border-[#E9ECEF] rounded px-3 py-2 text-sm focus:outline-none focus:border-[#212529]"
+                className="text-[#212529] bg-white w-full border border-[#E9ECEF] rounded px-3 py-2 text-sm focus:outline-none focus:border-[#212529]"
               >
                 <option value="">Select obligation (optional)</option>
                 {obligations.filter(o => ['pending', 'overdue', 'partial'].includes(o.status)).map(o => (
@@ -213,7 +213,7 @@ export default function AgreementDetailActions({
                 value={disputeReason}
                 onChange={e => setDisputeReason(e.target.value)}
                 rows={3}
-                className="w-full border border-[#E9ECEF] rounded px-3 py-2 text-sm focus:outline-none focus:border-[#212529] resize-none"
+                className="text-[#212529] bg-white w-full border border-[#E9ECEF] rounded px-3 py-2 text-sm focus:outline-none focus:border-[#212529] resize-none"
               />
               <button
                 onClick={submitDispute}

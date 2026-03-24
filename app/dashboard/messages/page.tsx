@@ -547,7 +547,7 @@ export default function MessagesPage() {
                   type="date"
                   value={agreementForm.lease_start_date}
                   onChange={(e) => setAgreementForm(f => ({ ...f, lease_start_date: e.target.value }))}
-                  className="w-full text-sm px-3 py-2 border border-[#E9ECEF] rounded-lg focus:outline-none focus:ring-2 focus:ring-black/10 focus:border-[#212529]"
+                  className="text-[#212529] bg-white w-full text-sm px-3 py-2 border border-[#E9ECEF] rounded-lg focus:outline-none focus:ring-2 focus:ring-black/10 focus:border-[#212529]"
                 />
               </div>
               <div>
@@ -557,7 +557,7 @@ export default function MessagesPage() {
                   value={agreementForm.lease_end_date}
                   min={agreementForm.lease_start_date}
                   onChange={(e) => setAgreementForm(f => ({ ...f, lease_end_date: e.target.value }))}
-                  className="w-full text-sm px-3 py-2 border border-[#E9ECEF] rounded-lg focus:outline-none focus:ring-2 focus:ring-black/10 focus:border-[#212529]"
+                  className="text-[#212529] bg-white w-full text-sm px-3 py-2 border border-[#E9ECEF] rounded-lg focus:outline-none focus:ring-2 focus:ring-black/10 focus:border-[#212529]"
                 />
               </div>
             </div>
@@ -574,7 +574,7 @@ export default function MessagesPage() {
                   placeholder="e.g. 500"
                   value={agreementForm.monthly_rent}
                   onChange={(e) => setAgreementForm(f => ({ ...f, monthly_rent: e.target.value }))}
-                  className="w-full text-sm px-3 py-2 border border-[#E9ECEF] rounded-lg focus:outline-none focus:ring-2 focus:ring-black/10 focus:border-[#212529]"
+                  className="text-[#212529] bg-white w-full text-sm px-3 py-2 border border-[#E9ECEF] rounded-lg focus:outline-none focus:ring-2 focus:ring-black/10 focus:border-[#212529]"
                 />
               </div>
               <div>
@@ -586,7 +586,7 @@ export default function MessagesPage() {
                   placeholder="e.g. 1000"
                   value={agreementForm.deposit_amount}
                   onChange={(e) => setAgreementForm(f => ({ ...f, deposit_amount: e.target.value }))}
-                  className="w-full text-sm px-3 py-2 border border-[#E9ECEF] rounded-lg focus:outline-none focus:ring-2 focus:ring-black/10 focus:border-[#212529]"
+                  className="text-[#212529] bg-white w-full text-sm px-3 py-2 border border-[#E9ECEF] rounded-lg focus:outline-none focus:ring-2 focus:ring-black/10 focus:border-[#212529]"
                 />
               </div>
             </div>
@@ -598,7 +598,7 @@ export default function MessagesPage() {
                 placeholder="Special terms, conditions, etc."
                 value={agreementForm.notes}
                 onChange={(e) => setAgreementForm(f => ({ ...f, notes: e.target.value }))}
-                className="w-full text-sm px-3 py-2 border border-[#E9ECEF] rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-black/10 focus:border-[#212529]"
+                className="text-[#212529] bg-white w-full text-sm px-3 py-2 border border-[#E9ECEF] rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-black/10 focus:border-[#212529]"
               />
             </div>
 

@@ -96,7 +96,7 @@ export default function AgentContactForm({ agentId, agentName, propertyId }: Age
           type="text"
           value={formData.name}
           onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-          className="w-full px-4 py-2 border-2 border-[#E9ECEF] rounded-lg focus:border-[#212529] focus:outline-none transition-colors text-sm"
+          className="text-[#212529] bg-white w-full px-4 py-2 border-2 border-[#E9ECEF] rounded-lg focus:border-[#212529] focus:outline-none transition-colors text-sm"
           placeholder="Your full name"
           required
         />
@@ -110,7 +110,7 @@ export default function AgentContactForm({ agentId, agentName, propertyId }: Age
           type="email"
           value={formData.email}
           onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-          className="w-full px-4 py-2 border-2 border-[#E9ECEF] rounded-lg focus:border-[#212529] focus:outline-none transition-colors text-sm"
+          className="text-[#212529] bg-white w-full px-4 py-2 border-2 border-[#E9ECEF] rounded-lg focus:border-[#212529] focus:outline-none transition-colors text-sm"
           placeholder="your@email.com"
           required
         />
@@ -124,7 +124,7 @@ export default function AgentContactForm({ agentId, agentName, propertyId }: Age
           type="tel"
           value={formData.phone}
           onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-          className="w-full px-4 py-2 border-2 border-[#E9ECEF] rounded-lg focus:border-[#212529] focus:outline-none transition-colors text-sm"
+          className="text-[#212529] bg-white w-full px-4 py-2 border-2 border-[#E9ECEF] rounded-lg focus:border-[#212529] focus:outline-none transition-colors text-sm"
           placeholder="+263 ..."
         />
       </div>
@@ -136,7 +136,7 @@ export default function AgentContactForm({ agentId, agentName, propertyId }: Age
         <select
           value={formData.inquiry_type}
           onChange={(e) => setFormData({ ...formData, inquiry_type: e.target.value })}
-          className="w-full px-4 py-2 border-2 border-[#E9ECEF] rounded-lg focus:border-[#212529] focus:outline-none transition-colors text-sm"
+          className="text-[#212529] bg-white w-full px-4 py-2 border-2 border-[#E9ECEF] rounded-lg focus:border-[#212529] focus:outline-none transition-colors text-sm"
         >
           {Object.entries(INQUIRY_TYPE_LABELS).map(([key, label]) => (
             <option key={key} value={key.toLowerCase()}>{label}</option>
@@ -151,7 +151,7 @@ export default function AgentContactForm({ agentId, agentName, propertyId }: Age
         <textarea
           value={formData.message}
           onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-          className="w-full px-4 py-2 border-2 border-[#E9ECEF] rounded-lg focus:border-[#212529] focus:outline-none transition-colors text-sm resize-none"
+          className="text-[#212529] bg-white w-full px-4 py-2 border-2 border-[#E9ECEF] rounded-lg focus:border-[#212529] focus:outline-none transition-colors text-sm resize-none"
           rows={4}
           placeholder="Tell the agent what you're looking for..."
           required
