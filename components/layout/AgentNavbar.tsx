@@ -306,7 +306,7 @@ export function AgentNavbar({
             <div className="relative hidden md:block" ref={quickActionsRef}>
               <button
                 onClick={() => { setQuickActionsOpen(!quickActionsOpen); setActiveGroup(null) }}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#111827] text-white text-sm font-semibold hover:bg-black transition-colors"
+                className="flex items-center gap-1.5 px-3 py-1.5 text-sm font-semibold text-[#212529] border border-[#212529] rounded-lg hover:bg-[#212529] hover:text-white transition-colors"
               >
                 <Plus size={14} />
                 <span className="hidden lg:block">Quick Add</span>
