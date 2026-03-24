@@ -3,9 +3,9 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { 
-  Search, Home, User, MessageCircle, FileText, ArrowRight, 
-  ChevronDown, ChevronRight, Phone, Mail, MapPin, Building2, Activity,
-  Heart, Camera, Shield, Clock, CheckCircle, Users
+  Search, Home, MessageCircle, ArrowRight, 
+  ChevronDown, ChevronRight, Phone, Mail, MapPin,
+  Shield, CheckCircle, Users, Building2, Star, Zap
 } from 'lucide-react'
 
 interface FAQItem {
@@ -126,13 +126,57 @@ export default function HelpPage() {
     return matchesSearch && matchesCategory
   })
 
+  const POPULAR_SEARCHES = ['How to list a property', 'Contact a landlord', 'Verify my listing', 'Student housing']
+
+  const QUICK_LINKS = [
+    { href: '/dashboard/new-property', icon: Home,          label: 'List a property',  desc: 'Publish your listing in minutes' },
+    { href: '/search',                 icon: Search,         label: 'Find a home',       desc: 'Browse properties across Zimbabwe' },
+    { href: '/dashboard/messages',     icon: MessageCircle,  label: 'My messages',       desc: 'View conversations & inquiries' },
+    { href: '/contact',                icon: Phone,          label: 'Talk to us',        desc: 'Speak with our support team' },
+  ]
+
+  const TOPIC_CARDS = [
+    {
+      icon: Search,
+      title: 'For Renters',
+      desc: 'Search, save, and contact landlords easily.',
+      points: ['Advanced search filters', 'Direct secure messaging', 'Map view with amenities'],
+      category: 'For Renters',
+    },
+    {
+      icon: Home,
+      title: 'For Landlords',
+      desc: 'List your properties and manage everything from one place.',
+      points: ['Free unlimited listings', '1GB fast photo uploads', 'Inquiry management'],
+      category: 'For Landlords',
+    },
+    {
+      icon: MapPin,
+      title: 'Platform Features',
+      desc: 'Maps, schools, healthcare, reviews, and more.',
+      points: ['Nearby schools & clinics', 'Interactive map view', 'Property reviews & ratings'],
+      category: 'Features',
+    },
+    {
+      icon: Shield,
+      title: 'Safety & Trust',
+      desc: 'Verified listings and fraud prevention built in.',
+      points: ['Verified landlord badges', 'Fraud protection tools', 'Report suspicious activity'],
+      category: 'Safety & Trust',
+    },
+  ]
+
   return (
     <div className="min-h-screen bg-white">
-      {/* Hero */}
-      <section className="border-b border-[#E9ECEF] bg-white py-12 md:py-16">
-        <div className="max-w-4xl mx-auto px-4">
+
+      {/* ── Hero ──────────────────────────────────────────────────────────── */}
+      <section className="relative overflow-hidden border-b border-[#E9ECEF] bg-[#F8F9FA]">
+        {/* subtle grid texture */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#E9ECEF_1px,transparent_1px),linear-gradient(to_bottom,#E9ECEF_1px,transparent_1px)] bg-[size:40px_40px] opacity-40 pointer-events-none" />
+
+        <div className="relative max-w-4xl mx-auto px-4 sm:px-6 py-14 md:py-20">
           {/* Breadcrumb */}
-          <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-sm text-[#495057] mb-6">
+          <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-sm text-[#6B7280] mb-6">
             <Link href="/" className="hover:text-[#212529] transition-colors">Home</Link>
             <ChevronRight size={14} className="text-[#ADB5BD] shrink-0" />
             <span className="text-[#212529] font-medium">Help</span>

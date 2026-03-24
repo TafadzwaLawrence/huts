@@ -332,8 +332,8 @@ export function AgentNavbar({
               )}
             </div>
 
-            {/* User menu */}
-            <div className="relative" ref={userMenuRef}>
+            {/* User menu — desktop only; mobile uses hamburger which has full account section */}
+            <div className="relative hidden md:block" ref={userMenuRef}>
               <button
                 onClick={() => { setUserMenuOpen(!userMenuOpen); setActiveGroup(null) }}
                 className="flex items-center gap-2 pl-2 pr-1 py-1 rounded-lg hover:bg-[#F9FAFB] transition-colors"

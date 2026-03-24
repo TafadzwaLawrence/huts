@@ -15,7 +15,7 @@ import {
 
 type Props = { params: { slug: string } }
 
-// Fetch by slug first, fall back to user_id
+// Fetch by slug first, then fall back to id or user_id (handles legacy/UUID links)
 async function getAgent(slugOrId: string) {
   const supabase = await createClient()
   const select = `
@@ -24,22 +24,33 @@ async function getAgent(slugOrId: string) {
     agent_service_areas (city, is_primary)
   `
 
+  // 1. Try slug (preferred — human-readable URL)
   const { data: bySlug } = await supabase
     .from('agents')
     .select(select)
     .eq('slug', slugOrId)
     .eq('status', 'active')
-    .single()
+    .maybeSingle()
 
   if (bySlug) return bySlug
 
-  // Try matching user_id (legacy links)
+  // 2. Try agent primary key id (links generated with agent.id)
+  const { data: byId } = await supabase
+    .from('agents')
+    .select(select)
+    .eq('id', slugOrId)
+    .eq('status', 'active')
+    .maybeSingle()
+
+  if (byId) return byId
+
+  // 3. Try user_id (legacy links generated with agent.user_id)
   const { data: byUserId } = await supabase
     .from('agents')
     .select(select)
     .eq('user_id', slugOrId)
     .eq('status', 'active')
-    .single()
+    .maybeSingle()
 
   return byUserId ?? null
 }

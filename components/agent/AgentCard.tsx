@@ -36,7 +36,7 @@ export default function AgentCard({ agentProfile, landlordName, landlordAvatar }
   const avatarUrl = agentProfile.profile_image_url || landlordAvatar
   const profileHref = agentProfile.slug
     ? `/agent/${agentProfile.slug}`
-    : `/agent/${agentProfile.user_id}`
+    : `/agent/${agentProfile.id}`
 
   return (
     <div className="bg-[#F8F9FA] border-2 border-[#E9ECEF] rounded-2xl p-6 mb-6">

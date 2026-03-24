@@ -260,7 +260,7 @@ export default async function FindAgentPage({ searchParams }: { searchParams: Se
               const primaryArea = serviceAreas.find((a: any) => a.is_primary)?.city || serviceAreas[0]?.city
               const displayName = agent.business_name || profile?.full_name || 'Agent'
               const avatarUrl = agent.profile_image_url || profile?.avatar_url
-              const href = agent.slug ? `/agent/${agent.slug}` : `/agent/${agent.user_id}`
+              const href = agent.slug ? `/agent/${agent.slug}` : `/agent/${agent.id}`
 
               return (
                 <Link
