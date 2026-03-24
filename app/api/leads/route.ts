@@ -68,7 +68,7 @@ export async function GET(request: Request) {
     let query = supabase
       .from('leads')
       .select('*', { count: 'exact' })
-      .eq('assigned_to', agent.id)
+      .eq('assigned_agent_id', agent.id)
 
     // Filter by status
     if (statusParam) {
@@ -127,7 +127,7 @@ export async function GET(request: Request) {
           .eq('lead_id', lead.id)
           .order('assigned_at', { ascending: false })
           .limit(1)
-          .single()
+          .maybeSingle()
 
         return {
           ...lead,
