@@ -28,6 +28,9 @@ import {
   Handshake,
   Home,
   Building2,
+  BookOpen,
+  MapPin,
+  HelpCircle,
 } from 'lucide-react'
 
 interface AgentNavbarProps {
@@ -87,6 +90,15 @@ const PORTAL_GROUPS: PortalNavGroup[] = [
     items: [
       { label: 'My Properties',   href: '/agent/my-properties',   icon: Home,       description: 'Manage all listed properties' },
       { label: 'List Property',   href: '/agent/new-property',    icon: Building2,  description: 'List a new property for clients' },
+    ],
+  },
+  {
+    label: 'Resources',
+    activePatterns: ['/agent/resources'],
+    items: [
+      { label: 'Agent Resources', href: '/agent/resources',       icon: BookOpen,   description: 'Tools, workflows, and FAQs for agents' },
+      { label: 'Area Guides',     href: '/areas',                 icon: MapPin,     description: 'Neighbourhood insights to share with clients' },
+      { label: 'Agent Support',   href: '/contact',               icon: HelpCircle, description: 'Get help from the Huts agent support team' },
     ],
   },
 ]
