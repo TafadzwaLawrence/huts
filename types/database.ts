@@ -70,6 +70,7 @@ export interface Database {
         Row: {
           id: string
           user_id: string
+          agent_id: string | null
           title: string
           description: string | null
           address: string
@@ -112,6 +113,7 @@ export interface Database {
         Insert: {
           id?: string
           user_id: string
+          agent_id?: string | null
           title: string
           description?: string | null
           address: string
@@ -154,6 +156,7 @@ export interface Database {
         Update: {
           id?: string
           user_id?: string
+          agent_id?: string | null
           title?: string
           description?: string | null
           address?: string

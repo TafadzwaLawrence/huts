@@ -26,6 +26,8 @@ import {
   Star,
   TrendingUp,
   Handshake,
+  Home,
+  Building2,
 } from 'lucide-react'
 
 interface AgentNavbarProps {
@@ -79,9 +81,18 @@ const PORTAL_GROUPS: PortalNavGroup[] = [
       { label: 'Calendar',  href: '/agent/calendar',  icon: Calendar,      description: 'Schedule viewings and appointments'       },
     ],
   },
+  {
+    label: 'Properties',
+    activePatterns: ['/agent/new-property', '/agent/my-properties', '/agent/edit-property'],
+    items: [
+      { label: 'My Properties',   href: '/agent/my-properties',   icon: Home,       description: 'Manage all listed properties' },
+      { label: 'List Property',   href: '/agent/new-property',    icon: Building2,  description: 'List a new property for clients' },
+    ],
+  },
 ]
 
 const QUICK_ACTIONS = [
+  { href: '/agent/new-property',       label: 'List Property',       icon: Plus },
   { href: '/agent/leads?new=1',        label: 'Add Lead',            icon: Inbox },
   { href: '/agent/calendar?new=1',     label: 'Schedule Appointment', icon: Calendar },
   { href: '/agent/transactions?new=1', label: 'New Transaction',      icon: FileText },
