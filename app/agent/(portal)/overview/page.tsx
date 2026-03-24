@@ -113,17 +113,17 @@ export default async function AgentOverviewPage() {
     supabase
       .from('leads')
       .select('id', { count: 'exact', head: true })
-      .eq('assigned_to', agent.id)
+      .eq('assigned_agent_id', agent.id)
       .in('status', ['new', 'assigned']),
     supabase
       .from('leads')
       .select('id', { count: 'exact', head: true })
-      .eq('assigned_to', agent.id)
+      .eq('assigned_agent_id', agent.id)
       .in('status', ['claimed', 'contacted', 'in_progress']),
     supabase
       .from('leads')
       .select('id', { count: 'exact', head: true })
-      .eq('assigned_to', agent.id)
+      .eq('assigned_agent_id', agent.id)
       .eq('status', 'converted')
       .gte('updated_at', monthStart),
     supabase
@@ -141,7 +141,7 @@ export default async function AgentOverviewPage() {
     supabase
       .from('leads')
       .select('id, lead_type, contact_name, contact_email, status, lead_score, preferred_areas, created_at')
-      .eq('assigned_to', agent.id)
+      .eq('assigned_agent_id', agent.id)
       .in('status', ['new', 'assigned', 'claimed', 'contacted', 'in_progress'])
       .order('lead_score', { ascending: false })
       .limit(5),

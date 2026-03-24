@@ -151,7 +151,7 @@ export function AgentNavbar({
       const { count, error } = await supabase
         .from('leads')
         .select('id', { count: 'exact', head: true })
-        .eq('assigned_to', agentId)
+        .eq('assigned_agent_id', agentId)
         .in('status', ['assigned', 'new'])
       if (!error) setNewLeadCount(count ?? 0)
     } catch {
@@ -163,7 +163,7 @@ export function AgentNavbar({
     fetchNewLeads()
     const channel = supabase
       .channel('agent-leads')
-      .on('postgres_changes', { event: '*', schema: 'public', table: 'leads', filter: `assigned_to=eq.${agentId}` }, () => fetchNewLeads())
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'leads', filter: `assigned_agent_id=eq.${agentId}` }, () => fetchNewLeads())
       .subscribe()
     return () => { supabase.removeChannel(channel) }
   }, [fetchNewLeads, supabase, agentId])
