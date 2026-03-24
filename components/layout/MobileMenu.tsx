@@ -40,7 +40,7 @@ export function MobileMenu({ isLoggedIn, userName, userEmail, userAvatar, userIn
   const agentLinks = [
     { href: '/find-agent', label: 'Find an agent', icon: User },
     { href: '/agents/signup', label: 'Become an agent', icon: PlusCircle },
-    { href: '/help', label: 'Agent resources', icon: HelpCircle },
+    { href: '/agent/resources', label: 'Agent resources', icon: HelpCircle },
   ]
 
   const userLinks = isLoggedIn
