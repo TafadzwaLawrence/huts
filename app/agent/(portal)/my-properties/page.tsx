@@ -38,7 +38,7 @@ interface Property {
   city: string | null
   address: string | null
   property_images: Array<{ url: string; is_primary: boolean }>
-  user: { full_name: string }
+  user: Array<{ full_name: string }> | { full_name: string } | null
 }
 
 export default function AgentMyPropertiesPage() {
@@ -242,7 +242,7 @@ export default function AgentMyPropertiesPage() {
 
                     {/* Owner & Location */}
                     <p className="text-xs text-[#ADB5BD] mb-3">
-                      {property.user?.full_name}
+                      {Array.isArray(property.user) ? property.user[0]?.full_name : property.user?.full_name}
                     </p>
                     <div className="flex items-center text-[#495057] text-sm mb-3">
                       <MapPin size={14} className="mr-1 flex-shrink-0" />
