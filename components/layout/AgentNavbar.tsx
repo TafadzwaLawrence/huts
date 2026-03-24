@@ -233,9 +233,6 @@ export function AgentNavbar({
           {/* Logo */}
           <Link href="/agent/overview" className="flex items-center gap-2 shrink-0 mr-4 group">
             <Image src="/logo.svg" alt="Huts" width={80} height={28} className="h-7 w-auto transition-opacity group-hover:opacity-75" />
-            <span className="text-[10px] font-semibold text-[#ADB5BD] uppercase tracking-widest hidden sm:block select-none">
-              Agent Portal
-            </span>
           </Link>
 
           {/* ── Desktop nav ─────────────────────────────────────────────── */}
