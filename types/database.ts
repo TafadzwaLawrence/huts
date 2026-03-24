@@ -539,15 +539,18 @@ export interface Database {
           budget_min: number | null
           budget_max: number | null
           preferred_areas: string[] | null
-          specializations_needed: string[] | null
           timeline: string | null
           financing_status: string | null
-          assigned_agent_id: string | null
-          assigned_team_id: string | null
-          assignment_mode: string | null
+          assigned_to: string | null
+          team_id: string | null
+          source: string
           claim_deadline_at: string | null
+          claimed_at: string | null
           expires_at: string | null
+          auto_assigned_at: string | null
           lead_score: number | null
+          profile_completeness_pct: number | null
+          agent_notes: string | null
           created_at: string
           updated_at: string
         }
@@ -563,15 +566,18 @@ export interface Database {
           budget_min?: number | null
           budget_max?: number | null
           preferred_areas?: string[] | null
-          specializations_needed?: string[] | null
           timeline?: string | null
           financing_status?: string | null
-          assigned_agent_id?: string | null
-          assigned_team_id?: string | null
-          assignment_mode?: string | null
+          assigned_to?: string | null
+          team_id?: string | null
+          source?: string
           claim_deadline_at?: string | null
+          claimed_at?: string | null
           expires_at?: string | null
+          auto_assigned_at?: string | null
           lead_score?: number | null
+          profile_completeness_pct?: number | null
+          agent_notes?: string | null
           created_at?: string
           updated_at?: string
         }
@@ -587,15 +593,18 @@ export interface Database {
           budget_min?: number | null
           budget_max?: number | null
           preferred_areas?: string[] | null
-          specializations_needed?: string[] | null
           timeline?: string | null
           financing_status?: string | null
-          assigned_agent_id?: string | null
-          assigned_team_id?: string | null
-          assignment_mode?: string | null
+          assigned_to?: string | null
+          team_id?: string | null
+          source?: string
           claim_deadline_at?: string | null
+          claimed_at?: string | null
           expires_at?: string | null
+          auto_assigned_at?: string | null
           lead_score?: number | null
+          profile_completeness_pct?: number | null
+          agent_notes?: string | null
           created_at?: string
           updated_at?: string
         }

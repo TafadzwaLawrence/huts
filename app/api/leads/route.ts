@@ -68,7 +68,7 @@ export async function GET(request: Request) {
     let query = supabase
       .from('leads')
       .select('*', { count: 'exact' })
-      .eq('assigned_agent_id', agent.id)
+      .eq('assigned_to', agent.id)
 
     // Filter by status
     if (statusParam) {
@@ -120,18 +120,17 @@ export async function GET(request: Request) {
     // 8. Enrich response with agent and distribution info
     const leadsWithDetails = await Promise.all(
       (leads || []).map(async (lead) => {
-        // Get distribution history
-        const { data: distHistory } = await supabase
-          .from('lead_distribution_history')
-          .select('*')
-          .eq('lead_id', lead.id)
-          .order('assigned_at', { ascending: false })
-          .limit(1)
-          .maybeSingle()
-
-        return {
-          ...lead,
-          distributionInfo: distHistory,
+        try {
+          const { data: distHistory } = await supabase
+            .from('lead_distribution_history')
+            .select('*')
+            .eq('lead_id', lead.id)
+            .order('assigned_at', { ascending: false })
+            .limit(1)
+            .maybeSingle()
+          return { ...lead, distributionInfo: distHistory }
+        } catch {
+          return { ...lead, distributionInfo: null }
         }
       }),
     )
