@@ -4,6 +4,7 @@ import { MobileMenu } from './MobileMenu'
 import { NotificationDropdown } from './NotificationDropdown'
 import { UserMenu } from './UserMenu'
 import { ScrollHeader, NavLinks, MegaNav, AgentsDropdown } from './NavbarClient'
+import { AgentNavbar } from './AgentNavbar'
 
 export async function Navbar() {
   const supabase = await createClient()
@@ -18,6 +19,30 @@ export async function Navbar() {
       .eq('id', user.id)
       .single()
     profile = data
+  }
+
+  // If user is an agent, render AgentNavbar on all pages
+  if (user && profile?.role === 'agent') {
+    const { data: agent } = await supabase
+      .from('agents')
+      .select('id, is_premier, slug, avg_rating, total_reviews, agent_type')
+      .eq('user_id', user.id)
+      .maybeSingle()
+
+    if (agent) {
+      return (
+        <AgentNavbar
+          user={{ id: user.id, email: user.email }}
+          profile={profile}
+          agentId={agent.id}
+          isPremier={agent.is_premier ?? false}
+          agentSlug={agent.slug ?? null}
+          avgRating={agent.avg_rating ?? null}
+          totalReviews={agent.total_reviews ?? null}
+          agentType={agent.agent_type ?? null}
+        />
+      )
+    }
   }
   
   const isLandlord = profile?.role === 'landlord'

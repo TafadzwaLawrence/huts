@@ -19,7 +19,7 @@ export function LayoutChrome({ children, navbar, footer, chatWidget }: LayoutChr
   const isAgentsSignup = pathname.startsWith('/agents/signup')
   // Agent portal has its own AgentNavbar — hide global chrome for portal routes
   // (public agent profiles at /agent/[slug] are NOT in this list and keep the global chrome)
-  const isAgentPortal = /^\/agent\/(overview|leads|clients|transactions|commissions|messages|calendar|profile)(\/|$)/.test(pathname)
+  const isAgentPortal = /^\/agent\/(overview|leads|clients|transactions|commissions|messages|calendar|profile|new-property|my-properties|edit-property)(\/|$)/.test(pathname)
   const hideChrome = isAdminRoute || isAuthRoute || isAgentsSignup || isAgentPortal
 
   return (
