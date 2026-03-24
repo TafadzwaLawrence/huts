@@ -92,7 +92,10 @@ export async function GET(request: NextRequest) {
 
     const { data: transactions, error } = await query
 
-    if (error) throw error
+    if (error) {
+      console.error('Supabase query error:', JSON.stringify(error))
+      throw error
+    }
 
     // Transform the data to match our types
     const transformedTransactions: TransactionWithParticipants[] = transactions.map((t: any) => ({
