@@ -157,7 +157,8 @@ export default async function PropertyPage({ params }: { params: Promise<{ slug:
     .select(`
       *,
       property_images(id, url, is_primary, order, alt_text),
-      profiles:user_id(id, full_name, avatar_url, phone, email)
+      profiles:user_id(id, full_name, avatar_url, phone, email),
+      listing_agent:agent_id(id, slug, profiles(full_name, avatar_url))
     `)
     .eq('slug', slug)
     .single()
@@ -169,7 +170,8 @@ export default async function PropertyPage({ params }: { params: Promise<{ slug:
       .select(`
         *,
         property_images(id, url, is_primary, order, alt_text),
-        profiles:user_id(id, full_name, avatar_url, phone, email)
+        profiles:user_id(id, full_name, avatar_url, phone, email),
+        listing_agent:agent_id(id, slug, profiles(full_name, avatar_url))
       `)
       .eq('id', slug)
       .single()
@@ -270,6 +272,7 @@ export default async function PropertyPage({ params }: { params: Promise<{ slug:
         currentUserId={user?.id}
         canReview={canReview}
         agentProfile={agentProfile}
+        listingAgent={(property as any).listing_agent}
       />
     </div>
   )

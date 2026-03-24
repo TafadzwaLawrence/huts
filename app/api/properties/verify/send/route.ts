@@ -24,21 +24,35 @@ export async function POST(request: Request) {
     }
 
     // Fetch the property with its details
+    // Allow both owner AND the agent who listed it to trigger verification
     console.log('[Verification] Fetching property:', propertyId, 'for user:', user.id)
+
+    // First get the agent id for this user (if they are an agent)
+    const { data: agentRow } = await supabase
+      .from('agents')
+      .select('id')
+      .eq('user_id', user.id)
+      .maybeSingle()
+
     const { data: property, error: propertyError } = await supabase
       .from('properties')
       .select(`
         *,
         property_images(url, is_primary),
-        profiles!properties_user_id_fkey(name, email)
+        profiles!properties_user_id_fkey(name, email),
+        agents!properties_agent_id_fkey(id, profiles(name, email))
       `)
       .eq('id', propertyId)
-      .eq('user_id', user.id)
       .single()
 
+    // Verify the requester is either the owner OR the listing agent
     if (propertyError || !property) {
       console.error('[Verification] Property fetch error:', propertyError)
       return NextResponse.json({ error: 'Property not found', details: propertyError?.message }, { status: 404 })
+    }
+
+    if (property.user_id !== user.id && (!agentRow || property.agent_id !== agentRow.id)) {
+      return NextResponse.json({ error: 'Access denied' }, { status: 403 })
     }
 
     // Get or generate verification token
@@ -106,6 +120,14 @@ export async function POST(request: Request) {
     const ownerName = ownerProfile?.name || 'Unknown'
     const ownerEmail = ownerProfile?.email || user.email || 'Unknown'
 
+    // Get agent info (if property was listed by an agent)
+    const agentRecord = property.agents as any
+    const agentProfile = Array.isArray(agentRecord?.profiles)
+      ? agentRecord.profiles[0]
+      : agentRecord?.profiles
+    const agentName: string | null = agentProfile?.name || null
+    const agentEmail: string | null = agentProfile?.email || null
+
     // Send verification email to admin
     let resend
     try {
@@ -126,6 +148,8 @@ export async function POST(request: Request) {
       baths: property.bathrooms || 0,
       ownerName,
       ownerEmail,
+      agentName,
+      agentEmail,
       propertyUrl,
       approveUrl,
       rejectUrl,

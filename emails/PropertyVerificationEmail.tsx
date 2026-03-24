@@ -26,6 +26,8 @@ interface PropertyVerificationEmailProps {
   baths: number
   ownerName: string
   ownerEmail: string
+  agentName?: string | null
+  agentEmail?: string | null
   propertyUrl: string
   approveUrl: string
   rejectUrl: string
@@ -43,6 +45,8 @@ export const PropertyVerificationEmail = ({
   baths,
   ownerName,
   ownerEmail,
+  agentName,
+  agentEmail,
   propertyUrl,
   approveUrl,
   rejectUrl,
@@ -132,6 +136,25 @@ export const PropertyVerificationEmail = ({
               <Text style={value}>{ownerEmail}</Text>
             </Section>
           </Section>
+
+          {/* Agent Info (only shown when property was listed by an agent) */}
+          {agentName && (
+            <Section style={ownerBox}>
+              <Text style={detailsTitle}>Listed By Agent</Text>
+
+              <Section style={detailRow}>
+                <Text style={label}>Agent</Text>
+                <Text style={value}>{agentName}</Text>
+              </Section>
+
+              {agentEmail && (
+                <Section style={detailRow}>
+                  <Text style={label}>Email</Text>
+                  <Text style={value}>{agentEmail}</Text>
+                </Section>
+              )}
+            </Section>
+          )}
 
           <Text style={instructionText}>
             Please contact the property owner to verify this listing is

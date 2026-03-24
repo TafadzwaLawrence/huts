@@ -25,6 +25,7 @@ interface PropertyDetailClientProps {
   currentUserId?: string
   canReview: boolean
   agentProfile?: any
+  listingAgent?: any
 }
 
 const AMENITY_ICONS: Record<string, string> = {
@@ -40,7 +41,7 @@ const AMENITY_ICONS: Record<string, string> = {
   'Storage': 'storage',
 }
 
-export default function PropertyDetailClient({ property, slug, currentUserId, canReview, agentProfile }: PropertyDetailClientProps) {
+export default function PropertyDetailClient({ property, slug, currentUserId, canReview, agentProfile, listingAgent }: PropertyDetailClientProps) {
   const contactRef = useRef<HTMLDivElement>(null)
 
   const scrollToContact = () => {
@@ -197,6 +198,37 @@ export default function PropertyDetailClient({ property, slug, currentUserId, ca
                   landlordAvatar={property.profiles?.avatar_url}
                 />
               )}
+
+              {/* Listing agent badge (when an agent listed on behalf of owner) */}
+              {listingAgent && !agentProfile && (() => {
+                const agentProf = Array.isArray(listingAgent?.profiles)
+                  ? listingAgent.profiles[0]
+                  : listingAgent?.profiles
+                const agentName = agentProf?.full_name
+                const agentSlug = listingAgent?.slug
+                if (!agentName) return null
+                return (
+                  <div className="border border-[#E9ECEF] rounded-xl p-4 bg-[#F8F9FA] flex items-center gap-3">
+                    {agentProf?.avatar_url ? (
+                      <img src={agentProf.avatar_url} alt={agentName} className="w-10 h-10 rounded-full object-cover shrink-0" />
+                    ) : (
+                      <div className="w-10 h-10 rounded-full bg-[#212529] text-white text-sm font-semibold flex items-center justify-center shrink-0">
+                        {agentName.charAt(0).toUpperCase()}
+                      </div>
+                    )}
+                    <div className="min-w-0 flex-1">
+                      <p className="text-xs text-[#ADB5BD] font-medium">Listed by Agent</p>
+                      {agentSlug ? (
+                        <a href={`/agent/${agentSlug}`} className="text-sm font-semibold text-[#212529] hover:underline truncate block">
+                          {agentName}
+                        </a>
+                      ) : (
+                        <p className="text-sm font-semibold text-[#212529] truncate">{agentName}</p>
+                      )}
+                    </div>
+                  </div>
+                )
+              })()}
 
               {/* Contact card */}
               <ContactSidebar
