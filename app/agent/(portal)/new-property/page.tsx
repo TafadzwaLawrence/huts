@@ -702,7 +702,7 @@ export default function AgentNewPropertyPage() {
                 <LocationPicker
                   lat={formData.lat}
                   lng={formData.lng}
-                  onChange={(lat, lng) => setFormData(prev => ({ ...prev, lat, lng }))}
+                  onLocationChange={(lat, lng) => setFormData(prev => ({ ...prev, lat, lng }))}
                 />
                 {errors.location && <p className="text-sm text-red-600 mt-2">{errors.location}</p>}
               </div>

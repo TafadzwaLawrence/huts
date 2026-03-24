@@ -544,7 +544,7 @@ export default function AgentEditPropertyPage() {
               <LocationPicker
                 lat={formData.lat}
                 lng={formData.lng}
-                onChange={(lat, lng) => setFormData(prev => ({ ...prev, lat, lng }))}
+                onLocationChange={(lat, lng) => setFormData(prev => ({ ...prev, lat, lng }))}
               />
             </div>
           </div>
