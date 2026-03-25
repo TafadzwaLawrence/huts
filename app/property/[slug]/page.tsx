@@ -158,7 +158,7 @@ export default async function PropertyPage({ params }: { params: Promise<{ slug:
       *,
       property_images(id, url, is_primary, order, alt_text),
       profiles:user_id(id, full_name, avatar_url, phone, email),
-      listing_agent:agent_id(id, slug, profiles(full_name, avatar_url))
+      listing_agent:agent_id(id, slug, user_id)
     `)
     .eq('slug', slug)
     .single()
@@ -171,7 +171,7 @@ export default async function PropertyPage({ params }: { params: Promise<{ slug:
         *,
         property_images(id, url, is_primary, order, alt_text),
         profiles:user_id(id, full_name, avatar_url, phone, email),
-        listing_agent:agent_id(id, slug, profiles(full_name, avatar_url))
+        listing_agent:agent_id(id, slug, user_id)
       `)
       .eq('id', slug)
       .single()
@@ -181,6 +181,21 @@ export default async function PropertyPage({ params }: { params: Promise<{ slug:
 
   if (error || !property) {
     notFound()
+  }
+
+  // Fetch listing agent's profile separately — agents.user_id → auth.users, not
+  // profiles, so PostgREST can't do this as a nested join
+  let listingAgentWithProfile: Record<string, unknown> | null = null
+  const rawAgent = (property as any).listing_agent
+  if (rawAgent?.user_id) {
+    const { data: agentProfileData } = await supabase
+      .from('profiles')
+      .select('full_name, avatar_url')
+      .eq('id', rawAgent.user_id)
+      .single()
+    listingAgentWithProfile = { ...rawAgent, profiles: agentProfileData }
+  } else if (rawAgent) {
+    listingAgentWithProfile = { ...rawAgent, profiles: null }
   }
 
   // Check if landlord is also an agent
@@ -272,7 +287,7 @@ export default async function PropertyPage({ params }: { params: Promise<{ slug:
         currentUserId={user?.id}
         canReview={canReview}
         agentProfile={agentProfile}
-        listingAgent={(property as any).listing_agent}
+        listingAgent={listingAgentWithProfile}
       />
     </div>
   )
