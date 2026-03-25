@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { usePathname, useRouter } from 'next/navigation'
 import { useState, useEffect, useCallback, useRef } from 'react'
 import { createClient } from '@/lib/supabase/client'
+import { NotificationDropdown } from '@/components/layout/NotificationDropdown'
 import {
   LayoutDashboard,
   Inbox,
@@ -17,7 +18,6 @@ import {
   Award,
   Menu,
   X,
-  Bell,
   FileText,
   MessageSquare,
   DollarSign,
@@ -141,6 +141,7 @@ export function AgentNavbar({
   const [activeGroup, setActiveGroup]       = useState<string | null>(null)
   const [displayGroup, setDisplayGroup]     = useState<string | null>(null)
   const [newLeadCount, setNewLeadCount]     = useState(0)
+  const [unreadNotifCount, setUnreadNotifCount] = useState(0)
   const [signingOut, setSigningOut]         = useState(false)
 
   const hideRef          = useRef<ReturnType<typeof setTimeout> | null>(null)
@@ -312,15 +313,8 @@ export function AgentNavbar({
               </span>
             )}
 
-            {/* Lead bell (mobile) */}
-            {newLeadCount > 0 && (
-              <Link href="/agent/leads" className="relative md:hidden p-1.5 text-[#495057] hover:text-[#212529]">
-                <Bell size={18} />
-                <span className="absolute top-0 right-0 w-3.5 h-3.5 bg-red-500 text-white text-[9px] font-bold rounded-full flex items-center justify-center">
-                  {newLeadCount > 9 ? '9+' : newLeadCount}
-                </span>
-              </Link>
-            )}
+            {/* Notifications */}
+            <NotificationDropdown onUnreadCountChange={setUnreadNotifCount} />
 
             {/* Quick Add */}
             <div className="relative hidden md:block" ref={quickActionsRef}>

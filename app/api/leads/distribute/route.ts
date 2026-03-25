@@ -279,7 +279,42 @@ export async function POST(request: Request) {
       // Not critical - continue without logging
     }
 
-    // 9. Return success response
+    // 9. Notify the assigned agent (non-blocking — DB trigger also fires but
+    //    the API call gives us richer context for the notification description)
+    try {
+      const { data: agentProfile } = await supabase
+        .from('agents')
+        .select('user_id')
+        .eq('id', selectedAgent.id)
+        .single()
+
+      if (agentProfile?.user_id) {
+        const leadTypeLabel =
+          body.leadType === 'buyer_lead'         ? 'Buyer Lead' :
+          body.leadType === 'seller_lead'         ? 'Seller Lead' :
+          body.leadType === 'rental_lead'         ? 'Rental Lead' :
+          body.leadType === 'property_valuation'  ? 'Valuation Request' :
+          'New Lead'
+
+        await supabase.rpc('create_notification', {
+          p_user_id:    agentProfile.user_id,
+          p_type:       'lead',
+          p_title:      `${leadTypeLabel} Assigned — Claim Now`,
+          p_description:`${body.contactName} needs help. You have 5 minutes to claim this lead.`,
+          p_link:       '/agent/leads',
+          p_metadata:   {
+            lead_id:           newLead.id,
+            lead_type:         body.leadType,
+            lead_score:        adjustedLeadScore,
+            claim_deadline_at: claimDeadlineAt.toISOString(),
+          },
+        })
+      }
+    } catch (notifErr) {
+      console.error('Lead notification error (non-critical):', notifErr)
+    }
+
+    // 10. Return success response
     return NextResponse.json(
       {
         leadId: newLead.id,

@@ -5,13 +5,13 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import {
   Bell, MessageSquare, FileQuestion, Star, Home,
-  Settings, Check, Loader2, X,
+  Settings, Check, Loader2, X, Inbox, Calendar, DollarSign, Users,
 } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 
 interface Notification {
   id: string
-  type: 'message' | 'inquiry' | 'review' | 'property_update' | 'system'
+  type: 'message' | 'inquiry' | 'review' | 'property_update' | 'system' | 'lead' | 'appointment' | 'commission' | 'client_update'
   title: string
   description: string | null
   link: string | null
@@ -24,6 +24,15 @@ interface Notification {
     sender_id?: string
     review_id?: string
     rating?: number
+    lead_id?: string
+    lead_type?: string
+    lead_score?: number
+    claim_deadline_at?: string
+    appointment_id?: string
+    appointment_type?: string
+    scheduled_at?: string
+    client_id?: string
+    new_status?: string
   }
 }
 
@@ -43,11 +52,15 @@ function timeAgo(dateString: string): string {
 }
 
 const TYPE_CONFIG = {
-  message: { Icon: MessageSquare, label: 'Message', bg: 'bg-[#212529]', text: 'text-white' },
-  inquiry: { Icon: FileQuestion, label: 'Inquiry', bg: 'bg-[#495057]', text: 'text-white' },
-  review: { Icon: Star, label: 'Review', bg: 'bg-[#212529]', text: 'text-white' },
-  property_update: { Icon: Home, label: 'Update', bg: 'bg-[#495057]', text: 'text-white' },
-  system: { Icon: Bell, label: 'System', bg: 'bg-[#ADB5BD]', text: 'text-white' },
+  message:        { Icon: MessageSquare, label: 'Message',       bg: 'bg-[#212529]', text: 'text-white' },
+  inquiry:        { Icon: FileQuestion,  label: 'Inquiry',        bg: 'bg-[#495057]', text: 'text-white' },
+  review:         { Icon: Star,          label: 'Review',         bg: 'bg-[#212529]', text: 'text-white' },
+  property_update:{ Icon: Home,          label: 'Update',         bg: 'bg-[#495057]', text: 'text-white' },
+  system:         { Icon: Bell,          label: 'System',         bg: 'bg-[#ADB5BD]', text: 'text-white' },
+  lead:           { Icon: Inbox,         label: 'New Lead',       bg: 'bg-[#111827]', text: 'text-white' },
+  appointment:    { Icon: Calendar,      label: 'Appointment',    bg: 'bg-[#212529]', text: 'text-white' },
+  commission:     { Icon: DollarSign,    label: 'Commission',     bg: 'bg-[#212529]', text: 'text-white' },
+  client_update:  { Icon: Users,         label: 'Client',         bg: 'bg-[#495057]', text: 'text-white' },
 } as const
 
 export function NotificationDropdown({ onUnreadCountChange }: NotificationDropdownProps) {
