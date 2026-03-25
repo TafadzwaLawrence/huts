@@ -1,9 +1,10 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
-import { ArrowRight, User } from 'lucide-react'
+import { ArrowRight, User, Home, Building2 } from 'lucide-react'
 import { ICON_SIZES } from '@/lib/constants'
 import HomeSearchBar from '@/components/search/HomeSearchBar'
+import { createClient } from '@/lib/supabase/server'
 
 export const metadata: Metadata = {
   title: 'Huts — Find Properties for Rent & Sale in Zimbabwe',
@@ -23,6 +24,22 @@ export const metadata: Metadata = {
 export const revalidate = 60
 
 export default async function HomePage() {
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+
+  let profile: { name: string | null; role: string | null; avatar_url: string | null } | null = null
+  if (user) {
+    const { data } = await supabase
+      .from('profiles')
+      .select('name, role, avatar_url')
+      .eq('id', user.id)
+      .single()
+    profile = data
+  }
+
+  const isLandlord = profile?.role === 'landlord'
+  const firstName = profile?.name?.split(' ')[0] ?? 'there'
+
   return (
     <div>
       {/* HERO SECTION */}
@@ -62,25 +79,63 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* GET HOME RECOMMENDATIONS */}
+      {/* GET HOME RECOMMENDATIONS / WELCOME BANNER */}
       <section className="py-8 bg-white border-t border-[#E9ECEF]">
         <div className="container-main">
           <div className="max-w-2xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 bg-[#F8F9FA] rounded-xl px-6 py-5 border border-[#E9ECEF]">
-            <div className="flex items-center gap-4">
-              <div className="w-10 h-10 bg-[#212529] rounded-full flex items-center justify-center flex-shrink-0">
-                <User size={ICON_SIZES.lg} className="text-white" />
-              </div>
-              <div>
-                <h2 className="text-sm font-bold text-[#212529]">Get home recommendations</h2>
-                <p className="text-xs text-[#495057]">Sign in for a more personalized experience.</p>
-              </div>
-            </div>
-            <Link
-              href="/auth/signup"
-              className="text-sm font-semibold text-[#212529] border-2 border-[#212529] px-5 py-2 rounded-lg hover:bg-[#212529] hover:text-white transition-colors whitespace-nowrap"
-            >
-              Sign in
-            </Link>
+            {user && profile ? (
+              <>
+                <div className="flex items-center gap-4">
+                  <div className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 overflow-hidden bg-[#212529]">
+                    {profile.avatar_url ? (
+                      <Image
+                        src={profile.avatar_url}
+                        alt={profile.name ?? 'User'}
+                        width={40}
+                        height={40}
+                        className="object-cover w-full h-full"
+                      />
+                    ) : isLandlord ? (
+                      <Building2 size={ICON_SIZES.lg} className="text-white" />
+                    ) : (
+                      <Home size={ICON_SIZES.lg} className="text-white" />
+                    )}
+                  </div>
+                  <div>
+                    <h2 className="text-sm font-bold text-[#212529]">Welcome back, {firstName}!</h2>
+                    {isLandlord ? (
+                      <p className="text-xs text-[#495057]">Manage your listings, track inquiries and grow your portfolio.</p>
+                    ) : (
+                      <p className="text-xs text-[#495057]">Continue your search — your perfect home is waiting.</p>
+                    )}
+                  </div>
+                </div>
+                <Link
+                  href={isLandlord ? '/dashboard/my-properties' : '/search'}
+                  className="text-sm font-semibold text-[#212529] border-2 border-[#212529] px-5 py-2 rounded-lg hover:bg-[#212529] hover:text-white transition-colors whitespace-nowrap"
+                >
+                  {isLandlord ? 'My properties' : 'Browse homes'}
+                </Link>
+              </>
+            ) : (
+              <>
+                <div className="flex items-center gap-4">
+                  <div className="w-10 h-10 bg-[#212529] rounded-full flex items-center justify-center flex-shrink-0">
+                    <User size={ICON_SIZES.lg} className="text-white" />
+                  </div>
+                  <div>
+                    <h2 className="text-sm font-bold text-[#212529]">Get home recommendations</h2>
+                    <p className="text-xs text-[#495057]">Sign in for a more personalized experience.</p>
+                  </div>
+                </div>
+                <Link
+                  href="/auth/signup"
+                  className="text-sm font-semibold text-[#212529] border-2 border-[#212529] px-5 py-2 rounded-lg hover:bg-[#212529] hover:text-white transition-colors whitespace-nowrap"
+                >
+                  Sign in
+                </Link>
+              </>
+            )}
           </div>
         </div>
       </section>
