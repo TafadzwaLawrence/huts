@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Search, TrendingUp, Home, ArrowRight, MapPin, DollarSign, BarChart3, Loader2 } from 'lucide-react'
+import { Search, TrendingUp, Home, ArrowRight, MapPin, DollarSign, BarChart3, Loader2, ChevronRight } from 'lucide-react'
 import Link from 'next/link'
 import Image from 'next/image'
 
@@ -67,17 +67,27 @@ export default function HomeValuePage() {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Hero */}
-      <section className="bg-[#F8F9FA] border-b border-[#E9ECEF]">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 text-center">
-          <h1 className="text-3xl md:text-5xl font-bold text-[#212529] tracking-tight mb-4">
+      {/* Header */}
+      <div className="border-b border-[#E9ECEF]">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-10">
+          <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-[#ADB5BD] mb-6">
+            <Link href="/" className="hover:text-[#495057] transition-colors">Home</Link>
+            <ChevronRight size={11} />
+            <span className="text-[#495057]">Home Value Estimator</span>
+          </nav>
+          <h1 className="text-2xl md:text-3xl font-bold text-[#212529] mb-1">
             How much is your home worth?
           </h1>
-          <p className="text-lg text-[#495057] mb-10 max-w-2xl mx-auto">
-            Get a free property valuation based on comparable listings in your area.
+          <p className="text-sm text-[#ADB5BD]">
+            Get a free property valuation based on comparable listings in your area
           </p>
+        </div>
+      </div>
 
-          <form onSubmit={handleSearch} className="max-w-2xl mx-auto">
+      {/* Search Section */}
+      <section className="border-b border-[#E9ECEF] bg-[#F8F9FA]">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+          <form onSubmit={handleSearch} className="max-w-3xl mx-auto">
             <div className="flex flex-col sm:flex-row gap-3">
               <div className="relative flex-1">
                 <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 text-[#ADB5BD]" size={18} />
@@ -92,7 +102,7 @@ export default function HomeValuePage() {
               <select
                 value={city}
                 onChange={(e) => setCity(e.target.value)}
-                className="text-[#212529] px-4 py-4 text-base bg-white border-2 border-[#E9ECEF] rounded-xl focus:outline-none focus:border-[#212529]"
+                className="text-[#212529] px-4 py-4 text-base bg-white border-2 border-[#E9ECEF] rounded-xl focus:outline-none focus:border-[#212529] transition-colors"
               >
                 <option value="Harare">Harare</option>
                 <option value="Bulawayo">Bulawayo</option>
@@ -103,30 +113,31 @@ export default function HomeValuePage() {
               <button
                 type="submit"
                 disabled={loading || !address.trim()}
-                className="px-8 py-4 bg-[#212529] text-white font-semibold rounded-xl hover:bg-black transition-colors disabled:opacity-50"
+                className="px-8 py-4 bg-[#212529] text-white font-semibold rounded-xl hover:bg-black transition-colors disabled:opacity-50 whitespace-nowrap"
               >
                 {loading ? <Loader2 className="animate-spin mx-auto" size={20} /> : 'Get Estimate'}
               </button>
             </div>
-          </form>
 
-          {error && (
-            <p className="mt-4 text-sm text-red-600">{error}</p>
-          )}
+            {error && (
+              <p className="mt-3 text-sm text-red-600">{error}</p>
+            )}
+          </form>
         </div>
       </section>
 
-      {/* Results */}
+
+      {/* Results - Valuation Card */}
       {result && (
-        <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           {/* Estimate card */}
-          <div className="bg-[#F8F9FA] border-2 border-[#E9ECEF] rounded-2xl p-8 mb-10 text-center">
-            <p className="text-sm font-medium text-[#ADB5BD] uppercase tracking-wider mb-2">Estimated Value</p>
+          <div className="bg-[#F8F9FA] border border-[#E9ECEF] rounded-xl p-8 mb-10 text-center">
+            <p className="text-xs font-medium text-[#ADB5BD] uppercase tracking-wider mb-2">Estimated Value</p>
             <p className="text-4xl md:text-5xl font-bold text-[#212529] mb-3">
               {formatPrice(result.estimated_value)}
             </p>
-            <div className="flex items-center justify-center gap-2 text-sm text-[#495057]">
-              <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs font-medium ${
+            <div className="flex flex-wrap items-center justify-center gap-2 text-sm text-[#495057]">
+              <span className={`inline-flex items-center gap-1 px-2.5 py-1 rounded text-xs font-medium ${
                 result.confidence === 'high'
                   ? 'bg-green-100 text-green-800'
                   : result.confidence === 'medium'
@@ -141,33 +152,36 @@ export default function HomeValuePage() {
           </div>
 
           {/* Market stats */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
-            {[
-              { label: 'Avg. Price', value: formatPrice(result.market_stats.avg_price), icon: DollarSign },
-              { label: 'Median Price', value: formatPrice(result.market_stats.median_price), icon: BarChart3 },
-              { label: 'Price/sqft', value: formatPrice(result.market_stats.avg_sqft_price), icon: TrendingUp },
-              { label: 'Active Listings', value: result.market_stats.total_listings.toString(), icon: Home },
-            ].map((stat) => (
-              <div key={stat.label} className="bg-white border border-[#E9ECEF] rounded-xl p-5">
-                <stat.icon size={18} className="text-[#ADB5BD] mb-2" />
-                <p className="text-xs text-[#ADB5BD] font-medium mb-1">{stat.label}</p>
-                <p className="text-lg font-bold text-[#212529]">{stat.value}</p>
-              </div>
-            ))}
+          <div className="mb-12">
+            <h2 className="text-lg font-bold text-[#212529] mb-6">Market Statistics</h2>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              {[
+                { label: 'Avg. Price', value: formatPrice(result.market_stats.avg_price), icon: DollarSign },
+                { label: 'Median Price', value: formatPrice(result.market_stats.median_price), icon: BarChart3 },
+                { label: 'Price/sqft', value: formatPrice(result.market_stats.avg_sqft_price), icon: TrendingUp },
+                { label: 'Active Listings', value: result.market_stats.total_listings.toString(), icon: Home },
+              ].map((stat) => (
+                <div key={stat.label} className="bg-white border border-[#E9ECEF] rounded-lg p-4">
+                  <stat.icon size={16} className="text-[#ADB5BD] mb-2" />
+                  <p className="text-xs text-[#ADB5BD] font-medium mb-1">{stat.label}</p>
+                  <p className="text-base font-bold text-[#212529]">{stat.value}</p>
+                </div>
+              ))}
+            </div>
           </div>
 
           {/* Comparable properties */}
           {result.comparables.length > 0 && (
             <div>
-              <h2 className="text-xl font-bold text-[#212529] mb-6">Comparable Properties</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+              <h2 className="text-lg font-bold text-[#212529] mb-6">Comparable Properties</h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {result.comparables.map((comp) => (
                   <Link
                     key={comp.id}
                     href={`/property/${comp.slug}`}
-                    className="border border-[#E9ECEF] rounded-xl overflow-hidden hover:border-[#212529] transition-colors group"
+                    className="group bg-white border border-[#E9ECEF] rounded-lg overflow-hidden hover:border-[#212529] transition-all"
                   >
-                    <div className="h-40 bg-[#E9ECEF] relative">
+                    <div className="h-40 bg-[#E9ECEF] relative overflow-hidden">
                       {comp.primary_image && (
                         <Image
                           src={comp.primary_image}
@@ -182,7 +196,7 @@ export default function HomeValuePage() {
                     </div>
                     <div className="p-4">
                       <h3 className="text-sm font-semibold text-[#212529] truncate mb-1">{comp.title}</h3>
-                      <p className="text-xs text-[#ADB5BD] mb-2">{comp.area}</p>
+                      <p className="text-xs text-[#ADB5BD] mb-3">{comp.area}</p>
                       <div className="flex gap-3 text-xs text-[#495057]">
                         <span><b>{comp.bedrooms}</b> bd</span>
                         <span><b>{comp.bathrooms}</b> ba</span>
@@ -199,9 +213,12 @@ export default function HomeValuePage() {
 
       {/* How it works - shown when no results */}
       {!result && !loading && (
-        <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-          <h2 className="text-2xl font-bold text-[#212529] text-center mb-10">How it works</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+          <div className="text-center mb-12">
+            <h2 className="text-2xl font-bold text-[#212529] mb-2">How it works</h2>
+            <p className="text-sm text-[#ADB5BD]">Get your free home valuation in three simple steps</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
             {[
               { step: '1', title: 'Enter your address', desc: 'Tell us your neighborhood or specific address to get started.' },
               { step: '2', title: 'We analyze the market', desc: 'We compare similar properties that are currently listed or recently sold.' },
@@ -217,10 +234,28 @@ export default function HomeValuePage() {
             ))}
           </div>
 
-          <div className="mt-12 text-center">
+          <div className="bg-[#F8F9FA] border border-[#E9ECEF] rounded-lg p-8 text-center mb-8">
+            <h3 className="text-lg font-semibold text-[#212529] mb-2">Why use our home value estimator?</h3>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-6">
+              <div>
+                <p className="text-sm font-medium text-[#212529] mb-1">Free & Instant</p>
+                <p className="text-xs text-[#495057]">No registration required</p>
+              </div>
+              <div>
+                <p className="text-sm font-medium text-[#212529] mb-1">Data-Driven</p>
+                <p className="text-xs text-[#495057]">Based on real market data</p>
+              </div>
+              <div>
+                <p className="text-sm font-medium text-[#212529] mb-1">Accurate</p>
+                <p className="text-xs text-[#495057]">Comparable property analysis</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="text-center">
             <Link
               href="/search?type=sale"
-              className="inline-flex items-center gap-2 text-sm font-medium text-[#212529] hover:underline"
+              className="inline-flex items-center gap-2 text-sm font-medium text-[#212529] hover:text-black transition-colors"
             >
               Browse homes for sale <ArrowRight size={16} />
             </Link>
