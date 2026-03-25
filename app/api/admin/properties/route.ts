@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { revalidatePath } from 'next/cache'
 import { createClient, createAdminClient } from '@/lib/supabase/server'
 import { logAdminActivity } from '@/lib/admin'
 
@@ -75,6 +76,13 @@ export async function PATCH(request: NextRequest) {
 
     const admin = createAdminClient()
 
+    // Fetch slug before update so we can revalidate the correct paths
+    const { data: existing } = await admin
+      .from('properties')
+      .select('slug')
+      .eq('id', propertyId)
+      .single()
+
     const updateData: Record<string, unknown> = {
       verification_status: action === 'approve' ? 'approved' : 'rejected',
       verified_at: new Date().toISOString(),
@@ -93,6 +101,15 @@ export async function PATCH(request: NextRequest) {
       .eq('id', propertyId)
 
     if (error) throw error
+
+    // Bust ISR cache so the property page reflects the new status immediately
+    revalidatePath(`/property/${propertyId}`)
+    if (existing?.slug && existing.slug !== propertyId) {
+      revalidatePath(`/property/${existing.slug}`)
+    }
+    // Also revalidate listing pages that show active properties
+    revalidatePath('/')
+    revalidatePath('/search')
 
     // Log the admin action
     await logAdminActivity({
