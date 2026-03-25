@@ -1,7 +1,7 @@
 import { Metadata } from 'next'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/server'
-import { MapPin, ArrowRight, TrendingUp, Search, Home, DollarSign } from 'lucide-react'
+import { MapPin, ArrowRight, TrendingUp, Search, Home, DollarSign, ChevronRight } from 'lucide-react'
 import AreaSearchClient from '@/components/areas/AreaSearchClient'
 import AreasMapSearch from '@/components/areas/AreasMapSearch'
 
@@ -64,60 +64,38 @@ export default async function AreasPage() {
     <>
       <AreaSearchClient />
       <div className="min-h-screen bg-white">
-        {/* Hero Section - Zillow Style */}
-        <section className="bg-white border-b border-[#E9ECEF]">
-          <div className="container-main max-w-7xl py-8 md:py-12 px-4">
-            {/* Title */}
-            <div className="mb-6">
-              <h1 className="text-3xl md:text-4xl font-bold text-[#212529] mb-3">
-                Explore Neighborhoods
-              </h1>
-              <p className="text-base text-[#495057] max-w-2xl">
-                Browse {totalProperties.toLocaleString()} properties across {activeAreas} neighborhoods. Find local insights, market trends, and your perfect area.
-              </p>
-            </div>
-
-            {/* Interactive Map Search */}
-            <AreasMapSearch properties={properties || []} />
-
-            {/* Market Stats */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8">
-              <div className="bg-white border border-[#E9ECEF] rounded-lg p-6 hover:border-[#212529] transition-all">
-                <p className="text-3xl font-bold text-[#212529] mb-1">{activeAreas}</p>
-                <p className="text-sm text-[#495057]">Active Areas</p>
-              </div>
-              <div className="bg-white border border-[#E9ECEF] rounded-lg p-6 hover:border-[#212529] transition-all">
-                <p className="text-3xl font-bold text-[#212529] mb-1">{totalProperties.toLocaleString()}</p>
-                <p className="text-sm text-[#495057]">Total Properties</p>
-              </div>
-              <div className="bg-white border border-[#E9ECEF] rounded-lg p-6 hover:border-[#212529] transition-all">
-                <p className="text-3xl font-bold text-[#212529] mb-1">
-                  ${Math.round(avgPriceOverall / 100).toLocaleString()}
-                </p>
-                <p className="text-sm text-[#495057]">Avg Monthly Rent</p>
-              </div>
-            </div>
+        {/* Header */}
+        <div className="border-b border-[#E9ECEF]">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-10">
+            <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-[#ADB5BD] mb-6">
+              <Link href="/" className="hover:text-[#495057] transition-colors">Home</Link>
+              <ChevronRight size={11} />
+              <span className="text-[#495057]">Neighborhoods</span>
+            </nav>
+            <h1 className="text-2xl md:text-3xl font-bold text-[#212529] mb-1">
+              Explore neighborhoods
+            </h1>
+            <p className="text-sm text-[#ADB5BD]">
+              Browse properties across {activeAreas} neighborhoods. Find local insights and your perfect area.
+            </p>
           </div>
-        </section>
+        </div>
 
         {/* Featured Areas (Top 3 by Property Count) */}
         {areas && areas.length > 0 && (
           <section className="py-12 md:py-16 bg-[#F8F9FA]">
-            <div className="container-main max-w-7xl">
-              <div className="flex items-center justify-between mb-8">
-                <div>
-                  <h2 className="text-3xl font-bold text-[#212529] mb-2">Most Popular Neighborhoods</h2>
-                  <p className="text-[#495057]">Top areas with the most available properties</p>
-                </div>
-                <TrendingUp size={28} className="text-[#212529]" />
+            <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="mb-8">
+                <h2 className="text-lg font-bold text-[#212529] mb-2">Most Popular Neighborhoods</h2>
+                <p className="text-sm text-[#ADB5BD]">Top areas with the most available properties</p>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {areas.slice(0, 3).map((area, index) => (
                   <Link
                     key={area.id}
                     href={`/areas/${area.slug}`}
-                    className="group relative bg-white border-2 border-[#212529] rounded-xl p-6 hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 overflow-hidden"
+                    className="group relative bg-white border border-[#E9ECEF] rounded-lg p-6 hover:border-[#212529] hover:shadow-md transition-all duration-300 overflow-hidden"
                   >
                     {/* Rank Badge */}
                     <div className="absolute top-4 right-4 w-10 h-10 bg-[#212529] text-white rounded-full flex items-center justify-center font-bold text-lg">
@@ -126,26 +104,26 @@ export default async function AreasPage() {
 
                     {/* Content */}
                     <div className="mb-6">
-                      <h3 className="text-2xl font-bold text-[#212529] mb-2 pr-12">
+                      <h3 className="text-xl font-bold text-[#212529] mb-2 pr-12">
                         {area.name}
                       </h3>
-                      <div className="flex items-center text-sm text-[#495057] mb-4">
+                      <div className="flex items-center text-sm text-[#495057] mb-3">
                         <MapPin size={14} className="mr-1.5 text-[#ADB5BD]" />
                         {area.city}
                       </div>
                       {area.description && (
-                        <p className="text-sm text-[#495057] line-clamp-3 leading-relaxed mb-4">
+                        <p className="text-sm text-[#495057] line-clamp-2 leading-relaxed">
                           {area.description}
                         </p>
                       )}
                     </div>
 
                     {/* Stats */}
-                    <div className="grid grid-cols-2 gap-4 pt-4 border-t-2 border-[#F8F9FA]">
+                    <div className="grid grid-cols-2 gap-4 pt-4 border-t border-[#E9ECEF]">
                       <div>
                         <div className="flex items-center gap-1.5 mb-1">
-                          <Home size={18} className="text-[#212529]" />
-                          <span className="text-2xl font-bold text-[#212529]">
+                          <Home size={16} className="text-[#212529]" />
+                          <span className="text-xl font-bold text-[#212529]">
                             {area.property_count}
                           </span>
                         </div>
@@ -153,8 +131,8 @@ export default async function AreasPage() {
                       </div>
                       <div>
                         <div className="flex items-center gap-1.5 mb-1">
-                          <DollarSign size={18} className="text-[#212529]" />
-                          <span className="text-2xl font-bold text-[#212529]">
+                          <DollarSign size={16} className="text-[#212529]" />
+                          <span className="text-xl font-bold text-[#212529]">
                             {area.avg_rent 
                               ? `$${Math.round(area.avg_rent / 100).toLocaleString()}`
                               : '—'
@@ -166,9 +144,9 @@ export default async function AreasPage() {
                     </div>
 
                     {/* Arrow */}
-                    <div className="mt-6 flex items-center justify-between text-sm font-semibold text-[#212529]">
-                      <span>Explore neighborhood</span>
-                      <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+                    <div className="mt-4 flex items-center justify-between text-sm font-medium text-[#212529]">
+                      <span>View details</span>
+                      <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
                     </div>
                   </Link>
                 ))}
@@ -178,17 +156,15 @@ export default async function AreasPage() {
         )}
 
         {/* All Areas Grid */}
-        <section className="py-16 md:py-20">
-          <div className="container-main max-w-7xl">
-            <div className="flex items-center justify-between mb-8">
-              <div>
-                <h2 className="text-3xl font-bold text-[#212529] mb-2">All Neighborhoods</h2>
-                <p className="text-[#495057]">Browse all {areas?.length || 0} areas in Zimbabwe</p>
-              </div>
+        <section className="py-12 md:py-16">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="mb-8">
+              <h2 className="text-lg font-bold text-[#212529] mb-2">All Neighborhoods</h2>
+              <p className="text-sm text-[#ADB5BD]">Browse all {areas?.length || 0} areas in Zimbabwe</p>
             </div>
 
             {areas && areas.length > 0 ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5" id="areas-grid">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4" id="areas-grid">
                 {areas.map((area) => {
                   const priceLevel = area.avg_rent 
                     ? area.avg_rent / 100 > 600 ? 'Premium' 
@@ -200,12 +176,12 @@ export default async function AreasPage() {
                     <Link
                       key={area.id}
                       href={`/areas/${area.slug}`}
-                      className="group block bg-white border-2 border-[#E9ECEF] rounded-xl p-5 hover:border-[#212529] hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+                      className="group block bg-white border border-[#E9ECEF] rounded-lg p-4 hover:border-[#212529] hover:shadow-md transition-all duration-300"
                     >
                       {/* Header */}
                       <div className="mb-4">
                         <div className="flex items-start justify-between mb-2">
-                          <h3 className="text-lg font-bold text-[#212529] group-hover:underline underline-offset-2 leading-tight">
+                          <h3 className="text-base font-bold text-[#212529] group-hover:underline underline-offset-2 leading-tight">
                             {area.name}
                           </h3>
                           {priceLevel && (
@@ -226,13 +202,13 @@ export default async function AreasPage() {
 
                       {/* Description */}
                       {area.description && (
-                        <p className="text-xs text-[#495057] mb-4 line-clamp-2 leading-relaxed min-h-[2.5rem]">
+                        <p className="text-xs text-[#495057] mb-3 line-clamp-2 leading-relaxed min-h-[2rem]">
                           {area.description}
                         </p>
                       )}
 
                       {/* Stats */}
-                      <div className="grid grid-cols-2 gap-3 pt-4 border-t-2 border-[#F8F9FA]">
+                      <div className="grid grid-cols-2 gap-3 pt-3 border-t border-[#E9ECEF]">
                         <div>
                           <div className="flex items-center gap-1 mb-0.5">
                             <Home size={14} className="text-[#ADB5BD]" />
@@ -257,7 +233,7 @@ export default async function AreasPage() {
                       </div>
 
                       {/* Arrow */}
-                      <div className="mt-4 pt-3 border-t-2 border-[#F8F9FA] flex items-center justify-between text-xs font-semibold text-[#212529]">
+                      <div className="mt-3 pt-3 border-t border-[#E9ECEF] flex items-center justify-between text-xs font-medium text-[#212529]">
                         <span>View details</span>
                         <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
                       </div>
@@ -267,16 +243,16 @@ export default async function AreasPage() {
               </div>
             ) : (
               /* Empty State */
-              <div className="text-center py-20">
-                <MapPin size={48} className="mx-auto text-[#ADB5BD] mb-4" />
-                <h3 className="text-xl font-bold text-[#212529] mb-2">No area guides yet</h3>
-                <p className="text-[#495057] mb-6">Check back soon for local neighborhood guides</p>
+              <div className="text-center py-16">
+                <MapPin size={40} className="mx-auto text-[#ADB5BD] mb-4" />
+                <h3 className="text-lg font-bold text-[#212529] mb-2">No area guides yet</h3>
+                <p className="text-sm text-[#495057] mb-6">Check back soon for local neighborhood guides</p>
                 <Link
                   href="/search"
-                  className="inline-flex items-center gap-2 bg-[#212529] text-white px-6 py-3 rounded-lg font-medium hover:bg-black hover:shadow-xl transition-all"
+                  className="inline-flex items-center gap-2 bg-[#212529] text-white px-6 py-3 rounded-lg font-medium hover:bg-black transition-colors"
                 >
                   Browse All Properties
-                  <ArrowRight size={18} />
+                  <ArrowRight size={16} />
                 </Link>
               </div>
             )}
@@ -284,20 +260,20 @@ export default async function AreasPage() {
         </section>
 
         {/* CTA Section */}
-        <section className="py-16 md:py-20 bg-[#F8F9FA] border-t border-[#E9ECEF]">
-          <div className="container-main text-center max-w-3xl">
-            <h2 className="text-3xl font-bold text-[#212529] mb-4">
+        <section className="border-t border-[#E9ECEF] py-12 md:py-16">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 className="text-2xl font-bold text-[#212529] mb-3">
               Don&apos;t see your area?
             </h2>
-            <p className="text-lg text-[#495057] mb-8">
+            <p className="text-sm text-[#ADB5BD] mb-8">
               Search all properties across the city or contact us to add your neighborhood
             </p>
             <Link
               href="/search"
-              className="inline-flex items-center gap-2 bg-[#212529] text-white px-8 py-4 rounded-lg font-semibold hover:bg-black hover:shadow-xl transition-all"
+              className="inline-flex items-center gap-2 bg-[#212529] text-white px-8 py-3 rounded-lg font-medium hover:bg-black transition-colors"
             >
               Search All Properties
-              <ArrowRight size={20} />
+              <ArrowRight size={16} />
             </Link>
           </div>
         </section>
