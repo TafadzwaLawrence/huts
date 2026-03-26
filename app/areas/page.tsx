@@ -1,9 +1,9 @@
 import { Metadata } from 'next'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/server'
-import { MapPin, ArrowRight, TrendingUp, Search, Home, DollarSign, ChevronRight } from 'lucide-react'
-import AreaSearchClient from '@/components/areas/AreaSearchClient'
+import { MapPin, ArrowRight, Home, ChevronRight } from 'lucide-react'
 import AreasMapSearch from '@/components/areas/AreasMapSearch'
+import NeighborhoodsGrid from '@/components/areas/NeighborhoodsGrid'
 
 export const metadata: Metadata = {
   title: 'Browse Neighborhoods — Rentals & Homes by Area | Huts',
@@ -62,7 +62,6 @@ export default async function AreasPage() {
 
   return (
     <>
-      <AreaSearchClient />
       <div className="min-h-screen bg-white">
         {/* Header */}
         <div className="border-b border-[#E9ECEF]">
@@ -155,92 +154,16 @@ export default async function AreasPage() {
           </section>
         )}
 
-        {/* All Areas Grid */}
+        {/* All Neighborhoods — city-tabbed compact browser */}
         <section className="py-12 md:py-16">
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="mb-8">
-              <h2 className="text-lg font-bold text-[#212529] mb-2">All Neighborhoods</h2>
-              <p className="text-sm text-[#ADB5BD]">Browse all {areas?.length || 0} areas in Zimbabwe</p>
+              <h2 className="text-lg font-bold text-[#212529] mb-1">All Neighborhoods</h2>
+              <p className="text-sm text-[#ADB5BD]">Browse all {areas?.length || 0} areas across Zimbabwe</p>
             </div>
 
             {areas && areas.length > 0 ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4" id="areas-grid">
-                {areas.map((area) => {
-                  const priceLevel = area.avg_rent 
-                    ? area.avg_rent / 100 > 600 ? 'Premium' 
-                      : area.avg_rent / 100 > 300 ? 'Mid-Range' 
-                      : 'Affordable'
-                    : null
-
-                  return (
-                    <Link
-                      key={area.id}
-                      href={`/areas/${area.slug}`}
-                      className="group block bg-white border border-[#E9ECEF] rounded-lg p-4 hover:border-[#212529] hover:shadow-md transition-all duration-300"
-                    >
-                      {/* Header */}
-                      <div className="mb-4">
-                        <div className="flex items-start justify-between mb-2">
-                          <h3 className="text-base font-bold text-[#212529] group-hover:underline underline-offset-2 leading-tight">
-                            {area.name}
-                          </h3>
-                          {priceLevel && (
-                            <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full whitespace-nowrap ${
-                              priceLevel === 'Premium' ? 'bg-[#212529] text-white' :
-                              priceLevel === 'Mid-Range' ? 'bg-[#495057] text-white' :
-                              'bg-[#E9ECEF] text-[#495057]'
-                            }`}>
-                              {priceLevel}
-                            </span>
-                          )}
-                        </div>
-                        <div className="flex items-center text-xs text-[#495057]">
-                          <MapPin size={12} className="mr-1 text-[#ADB5BD]" />
-                          {area.city}
-                        </div>
-                      </div>
-
-                      {/* Description */}
-                      {area.description && (
-                        <p className="text-xs text-[#495057] mb-3 line-clamp-2 leading-relaxed min-h-[2rem]">
-                          {area.description}
-                        </p>
-                      )}
-
-                      {/* Stats */}
-                      <div className="grid grid-cols-2 gap-3 pt-3 border-t border-[#E9ECEF]">
-                        <div>
-                          <div className="flex items-center gap-1 mb-0.5">
-                            <Home size={14} className="text-[#ADB5BD]" />
-                            <span className="text-lg font-bold text-[#212529]">
-                              {area.property_count || 0}
-                            </span>
-                          </div>
-                          <p className="text-[10px] text-[#ADB5BD] font-medium">Properties</p>
-                        </div>
-                        <div>
-                          <div className="flex items-center gap-1 mb-0.5">
-                            <DollarSign size={14} className="text-[#ADB5BD]" />
-                            <span className="text-lg font-bold text-[#212529]">
-                              {area.avg_rent 
-                                ? `$${Math.round(area.avg_rent / 100).toLocaleString()}`
-                                : '—'
-                              }
-                            </span>
-                          </div>
-                          <p className="text-[10px] text-[#ADB5BD] font-medium">Avg Rent</p>
-                        </div>
-                      </div>
-
-                      {/* Arrow */}
-                      <div className="mt-3 pt-3 border-t border-[#E9ECEF] flex items-center justify-between text-xs font-medium text-[#212529]">
-                        <span>View details</span>
-                        <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
-                      </div>
-                    </Link>
-                  )
-                })}
-              </div>
+              <NeighborhoodsGrid areas={areas} />
             ) : (
               /* Empty State */
               <div className="text-center py-16">
