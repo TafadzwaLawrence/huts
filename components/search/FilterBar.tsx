@@ -136,6 +136,7 @@ export function FilterBar({
   resultCount,
   sort,
   onSortChange,
+  onSaveSearch,
 }: FilterBarProps) {
   const hasActiveFilters = filters.minPrice || filters.maxPrice || filters.beds || filters.baths || filters.minSqft || filters.maxSqft || filters.propertyType !== 'all' || filters.studentHousingOnly
   const activeFilterCount = [filters.minPrice, filters.maxPrice, filters.beds, filters.baths, filters.minSqft, filters.maxSqft, filters.studentHousingOnly ? '1' : ''].filter(Boolean).length + (filters.propertyType !== 'all' ? 1 : 0)
@@ -404,7 +405,7 @@ export function FilterBar({
         </div>
       </Dropdown>
 
-      {/* Clear Filters */}}
+      {/* Clear Filters */}
       {hasActiveFilters && (
         <button
           onClick={onClearFilters}

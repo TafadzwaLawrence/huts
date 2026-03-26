@@ -464,7 +464,7 @@ export default function SearchPage() {
           </div>
         )}
 
-        {/* Listings Panel - On mobile: stacked below map, On desktop: Zillow style on right */
+        {/* Listings Panel - On mobile: stacked below map, On desktop: Zillow style on right */}
         {(isMobile || effectiveView !== 'map') && (
           <div ref={listingsPanelRef} className={`overflow-y-auto bg-white ${
             isMobile 
