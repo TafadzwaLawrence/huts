@@ -1167,12 +1167,21 @@ export default function NewPropertyPage() {
                     <LocationPicker
                       lat={formData.lat || undefined}
                       lng={formData.lng || undefined}
-                      onLocationChange={(lat, lng, address) => {
+                      onLocationChange={(lat, lng, _fullAddress, parsed) => {
+                        if (lat === 0 && lng === 0) {
+                          setFormData(prev => ({ ...prev, lat: 0, lng: 0 }))
+                          return
+                        }
                         setFormData(prev => ({
                           ...prev,
                           lat,
                           lng,
-                          ...(address && !prev.address ? { address: address.split(',')[0] } : {}),
+                          // Autofill each field only if still empty (don't overwrite user edits)
+                          ...(parsed?.road && !prev.address        ? { address: parsed.road }       : {}),
+                          ...(parsed?.city && !prev.city           ? { city: parsed.city }           : {}),
+                          ...(parsed?.suburb && !prev.neighborhood ? { neighborhood: parsed.suburb } : {}),
+                          ...(parsed?.state && !prev.stateProvince ? { stateProvince: parsed.state } : {}),
+                          ...(parsed?.postcode && !prev.zipCode    ? { zipCode: parsed.postcode }    : {}),
                         }))
                         setErrors(prev => ({ ...prev, location: '' }))
                       }}

@@ -19,10 +19,19 @@ const DefaultIcon = L.icon({
 
 L.Marker.prototype.options.icon = DefaultIcon
 
+export interface ParsedAddress {
+  fullAddress: string
+  road?: string
+  suburb?: string
+  city?: string
+  state?: string
+  postcode?: string
+}
+
 interface LocationPickerProps {
   lat?: number
   lng?: number
-  onLocationChange: (lat: number, lng: number, address?: string) => void
+  onLocationChange: (lat: number, lng: number, address?: string, parsed?: ParsedAddress) => void
   className?: string
 }
 
@@ -108,11 +117,27 @@ export default function LocationPicker({ lat, lng, onLocationChange, className }
   const reverseGeocode = async (lat: number, lng: number) => {
     try {
       const response = await fetch(
-        `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`
+        `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&addressdetails=1`
       )
       const data = await response.json()
       if (data.display_name) {
-        onLocationChange(lat, lng, data.display_name)
+        const a = data.address || {}
+        const road = a.road || a.pedestrian || a.footway || a.path || ''
+        const houseNumber = a.house_number || ''
+        const roadFull = houseNumber ? `${houseNumber} ${road}` : road
+        const suburb = a.suburb || a.neighbourhood || a.quarter || a.village || ''
+        const city = a.city || a.town || a.municipality || a.county || ''
+        const state = a.state || a.region || ''
+        const postcode = a.postcode || ''
+        const parsed: ParsedAddress = {
+          fullAddress: data.display_name,
+          road: roadFull || undefined,
+          suburb: suburb || undefined,
+          city: city || undefined,
+          state: state || undefined,
+          postcode: postcode || undefined,
+        }
+        onLocationChange(lat, lng, data.display_name, parsed)
       }
     } catch (error) {
       console.error('Reverse geocode error:', error)
@@ -140,13 +165,14 @@ export default function LocationPicker({ lat, lng, onLocationChange, className }
     const newLat = parseFloat(result.lat)
     const newLng = parseFloat(result.lon)
     setPosition([newLat, newLng])
-    onLocationChange(newLat, newLng, result.display_name)
     setSearchResults([])
     setSearchQuery(result.display_name.split(',')[0])
 
     if (mapRef.current) {
       placeMarker(mapRef.current, newLat, newLng)
     }
+    // Reverse geocode the selected result to get full structured address
+    reverseGeocode(newLat, newLng)
   }
 
   const getCurrentLocation = () => {
@@ -160,7 +186,6 @@ export default function LocationPicker({ lat, lng, onLocationChange, className }
       (pos) => {
         const { latitude, longitude } = pos.coords
         setPosition([latitude, longitude])
-        onLocationChange(latitude, longitude)
         reverseGeocode(latitude, longitude)
 
         if (mapRef.current) {
