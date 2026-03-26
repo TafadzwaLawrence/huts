@@ -30,7 +30,10 @@ import {
   Loader2,
   GraduationCap,
   User,
+  Search,
 } from 'lucide-react'
+
+import type { ParsedAddress } from '@/components/property/LocationPicker'
 
 const LocationPicker = dynamic(() => import('@/components/property/LocationPicker'), {
   ssr: false,
@@ -93,6 +96,9 @@ export default function AgentNewPropertyPage() {
 
   const [images, setImages] = useState<File[]>([])
   const [imagePreviews, setImagePreviews] = useState<string[]>([])
+  const [isDragging, setIsDragging] = useState(false)
+  const [coverImageIndex, setCoverImageIndex] = useState(0)
+  const [ownerSearch, setOwnerSearch] = useState('')
 
   // Load agents and property owners on mount
   useEffect(() => {
@@ -161,6 +167,41 @@ export default function AgentNewPropertyPage() {
   const removeImage = (index: number) => {
     setImages(prev => prev.filter((_, i) => i !== index))
     setImagePreviews(prev => prev.filter((_, i) => i !== index))
+    if (coverImageIndex >= index && coverImageIndex > 0) setCoverImageIndex(prev => prev - 1)
+  }
+
+  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault()
+    setIsDragging(false)
+    const files = Array.from(e.dataTransfer.files).filter(f => f.type.startsWith('image/'))
+    if (files.length + images.length > 10) {
+      toast.error('Maximum 10 images allowed')
+      return
+    }
+    setImages(prev => [...prev, ...files])
+    files.forEach(file => {
+      const reader = new FileReader()
+      reader.onloadend = () => {
+        setImagePreviews(prev => [...prev, reader.result as string])
+      }
+      reader.readAsDataURL(file)
+    })
+  }
+
+  const makeCover = (index: number) => {
+    setImages(prev => {
+      const next = [...prev]
+      const [item] = next.splice(index, 1)
+      next.unshift(item)
+      return next
+    })
+    setImagePreviews(prev => {
+      const next = [...prev]
+      const [item] = next.splice(index, 1)
+      next.unshift(item)
+      return next
+    })
+    setCoverImageIndex(0)
   }
 
   const toggleAmenity = (amenity: string) => {
@@ -384,9 +425,12 @@ export default function AgentNewPropertyPage() {
   ]
 
   const AMENITIES = [
-    'WiFi', 'Parking', 'Pool', 'Gym', 'Laundry', 'Pet-friendly',
-    'Furnished', 'Air conditioning', 'Heating', 'Balcony',
-    'Garden', 'Security', 'Elevator', 'Storage',
+    'Borehole', 'City Water', 'Solar Power', 'Generator/Inverter',
+    'DSTV Connection', 'Fibre Internet', 'Electric Fence',
+    'Alarm System', "Servant's Quarters", 'Carport',
+    'Wired Perimeter Fence', 'Prepaid Electricity', 'Swimming Pool',
+    'Garden', 'Parking', 'Furnished', 'Air Conditioning',
+    'Pet-friendly', 'Laundry', 'Security Guard',
   ]
 
   return (
@@ -411,12 +455,40 @@ export default function AgentNewPropertyPage() {
             </Link>
           </div>
 
-          {/* Progress Bar */}
-          <div className="relative h-1 bg-[#E9ECEF] rounded-full overflow-hidden">
-            <div
-              className="h-full bg-[#212529] transition-all duration-300"
-              style={{ width: `${progress}%` }}
-            />
+          {/* Step Indicators */}
+          <div className="flex items-center justify-between relative mt-2 pb-4">
+            <div className="absolute left-4 right-4 top-4 h-1 bg-[#E9ECEF] rounded-full -z-0">
+              <div
+                className="h-full bg-[#212529] transition-all duration-300 rounded-full"
+                style={{ width: `${progress}%` }}
+              />
+            </div>
+            {stepLabels.map((s, i) => {
+              const Icon = s.icon
+              const isCompleted = i < step
+              const isCurrent = i === step
+              return (
+                <button
+                  key={i}
+                  type="button"
+                  onClick={() => { if (isCompleted) setStep(i) }}
+                  className={`relative z-10 flex flex-col items-center gap-1 ${isCompleted ? 'cursor-pointer' : 'cursor-default'}`}
+                >
+                  <div className={`w-8 h-8 rounded-full flex items-center justify-center border-2 transition-all ${
+                    isCompleted ? 'bg-[#212529] border-[#212529] text-white' :
+                    isCurrent ? 'bg-white border-[#212529] text-[#212529]' :
+                    'bg-white border-[#E9ECEF] text-[#ADB5BD]'
+                  }`}>
+                    {isCompleted ? <Check size={14} /> : <Icon size={14} />}
+                  </div>
+                  <span className={`text-[10px] font-medium hidden sm:block ${
+                    isCurrent ? 'text-[#212529]' : isCompleted ? 'text-[#495057]' : 'text-[#ADB5BD]'
+                  }`}>
+                    {s.label}
+                  </span>
+                </button>
+              )
+            })}
           </div>
         </div>
       </div>
@@ -428,23 +500,57 @@ export default function AgentNewPropertyPage() {
           {step === 0 && (
             <div className="space-y-6">
               <div>
-                <label className="block text-sm font-semibold text-[#212529] mb-3">
-                  Select Property Owner
-                </label>
-                <select
-                  value={selectedOwnerId}
-                  onChange={(e) => setSelectedOwnerId(e.target.value)}
-                  className="w-full px-4 py-3 border border-[#E9ECEF] rounded-lg text-[#212529] bg-white focus:outline-none focus:ring-2 focus:ring-[#212529]"
-                >
-                  <option value="">Choose owner...</option>
-                  {owners.map(owner => (
-                    <option key={owner.id} value={owner.id}>
-                      {owner.full_name} ({owner.email})
-                    </option>
-                  ))}
-                </select>
+                <h2 className="text-lg font-bold text-[#212529] mb-1">Select Property Owner</h2>
+                <p className="text-sm text-[#ADB5BD] mb-4">Choose the client this property belongs to</p>
+                <div className="relative mb-4">
+                  <input
+                    type="text"
+                    placeholder="Search by name or email..."
+                    value={ownerSearch}
+                    onChange={e => setOwnerSearch(e.target.value)}
+                    className="w-full px-4 py-3 pl-10 border border-[#E9ECEF] rounded-lg text-[#212529] bg-white focus:outline-none focus:ring-2 focus:ring-[#212529]"
+                  />
+                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-[#ADB5BD] w-4 h-4" />
+                </div>
+                <div className="space-y-2 max-h-80 overflow-y-auto pr-1">
+                  {owners
+                    .filter(o =>
+                      o.full_name?.toLowerCase().includes(ownerSearch.toLowerCase()) ||
+                      o.email?.toLowerCase().includes(ownerSearch.toLowerCase())
+                    )
+                    .map(owner => (
+                      <button
+                        key={owner.id}
+                        type="button"
+                        onClick={() => setSelectedOwnerId(owner.id)}
+                        className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg border-2 text-left transition-all ${
+                          selectedOwnerId === owner.id
+                            ? 'border-[#212529] bg-[#F8F9FA]'
+                            : 'border-[#E9ECEF] bg-white hover:border-[#212529]'
+                        }`}
+                      >
+                        <div className="flex-shrink-0 w-9 h-9 rounded-full bg-[#212529] text-white flex items-center justify-center font-semibold text-sm">
+                          {owner.full_name?.charAt(0)?.toUpperCase() || '?'}
+                        </div>
+                        <div className="min-w-0 flex-1">
+                          <p className="font-semibold text-[#212529] text-sm truncate">{owner.full_name}</p>
+                          <p className="text-xs text-[#ADB5BD] truncate">{owner.email}</p>
+                        </div>
+                        {selectedOwnerId === owner.id && (
+                          <Check className="flex-shrink-0 text-[#212529]" size={16} />
+                        )}
+                      </button>
+                    ))
+                  }
+                  {owners.filter(o =>
+                    o.full_name?.toLowerCase().includes(ownerSearch.toLowerCase()) ||
+                    o.email?.toLowerCase().includes(ownerSearch.toLowerCase())
+                  ).length === 0 && (
+                    <p className="text-center text-sm text-[#ADB5BD] py-6">No owners found</p>
+                  )}
+                </div>
                 {errors.owner && (
-                  <p className="text-sm text-red-600 mt-2 flex items-center gap-1">
+                  <p className="text-sm text-red-600 mt-3 flex items-center gap-1">
                     <AlertCircle size={16} /> {errors.owner}
                   </p>
                 )}
@@ -456,13 +562,22 @@ export default function AgentNewPropertyPage() {
           {step === 1 && (
             <div className="space-y-6">
               <div>
-                <label className="block text-sm font-semibold text-[#212529] mb-4">
-                  What are you listing?
-                </label>
-                <div className="grid grid-cols-2 gap-4">
+                <h2 className="text-lg font-bold text-[#212529] mb-1">What are you listing?</h2>
+                <p className="text-sm text-[#ADB5BD] mb-6">Select the listing type for this property</p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   {[
-                    { value: 'rent', label: 'For Rent', icon: Home },
-                    { value: 'sale', label: 'For Sale', icon: Building2 },
+                    {
+                      value: 'rent',
+                      label: 'For Rent',
+                      icon: Home,
+                      features: ['Monthly rental income', 'Long & short-term leases', 'Security deposit', 'Tenant screening'],
+                    },
+                    {
+                      value: 'sale',
+                      label: 'For Sale',
+                      icon: Building2,
+                      features: ['One-time sale price', 'Mortgage calculator', 'Year built & lot size', 'Garage spaces'],
+                    },
                   ].map(option => {
                     const Icon = option.icon
                     return (
@@ -470,14 +585,26 @@ export default function AgentNewPropertyPage() {
                         key={option.value}
                         type="button"
                         onClick={() => setFormData(prev => ({ ...prev, listingType: option.value as 'rent' | 'sale' }))}
-                        className={`p-6 rounded-lg border-2 transition-all ${
+                        className={`p-6 rounded-xl border-2 text-left transition-all ${
                           formData.listingType === option.value
                             ? 'border-[#212529] bg-[#F8F9FA]'
                             : 'border-[#E9ECEF] bg-white hover:border-[#212529]'
                         }`}
                       >
-                        <Icon className="w-8 h-8 mx-auto mb-2 text-[#212529]" />
-                        <p className="font-semibold text-[#212529]">{option.label}</p>
+                        <div className={`inline-flex items-center justify-center w-12 h-12 rounded-xl mb-4 ${
+                          formData.listingType === option.value ? 'bg-[#212529] text-white' : 'bg-[#F8F9FA] text-[#212529]'
+                        }`}>
+                          <Icon className="w-6 h-6" />
+                        </div>
+                        <p className="font-bold text-[#212529] text-lg mb-3">{option.label}</p>
+                        <ul className="space-y-1.5">
+                          {option.features.map(f => (
+                            <li key={f} className="flex items-center gap-2 text-sm text-[#495057]">
+                              <Check size={14} className="text-[#212529] flex-shrink-0" />
+                              {f}
+                            </li>
+                          ))}
+                        </ul>
                       </button>
                     )
                   })}
@@ -498,10 +625,16 @@ export default function AgentNewPropertyPage() {
                   name="title"
                   value={formData.title}
                   onChange={handleInputChange}
+                  maxLength={80}
                   placeholder="Cozy 2BR Apartment in Downtown"
                   className="w-full px-4 py-3 border border-[#E9ECEF] rounded-lg text-[#212529] bg-white focus:outline-none focus:ring-2 focus:ring-[#212529]"
                 />
-                {errors.title && <p className="text-sm text-red-600 mt-2">{errors.title}</p>}
+                <div className="flex justify-between items-center mt-1">
+                  {errors.title ? <p className="text-sm text-red-600">{errors.title}</p> : <span />}
+                  <span className={`text-xs ${formData.title.length > 70 ? 'text-red-500 font-medium' : 'text-[#ADB5BD]'}`}>
+                    {formData.title.length}/80
+                  </span>
+                </div>
               </div>
 
               <div>
@@ -534,8 +667,14 @@ export default function AgentNewPropertyPage() {
                   onChange={handleInputChange}
                   placeholder="Tell potential renters/buyers about this property..."
                   rows={4}
+                  maxLength={2000}
                   className="w-full px-4 py-3 border border-[#E9ECEF] rounded-lg text-[#212529] bg-white focus:outline-none focus:ring-2 focus:ring-[#212529]"
                 />
+                <div className="flex justify-end mt-1">
+                  <span className={`text-xs ${formData.description.length > 1800 ? 'text-red-500 font-medium' : 'text-[#ADB5BD]'}`}>
+                    {formData.description.length}/2000
+                  </span>
+                </div>
               </div>
             </div>
           )}
@@ -561,6 +700,12 @@ export default function AgentNewPropertyPage() {
                     />
                   </div>
                   {errors.price && <p className="text-sm text-red-600 mt-2">{errors.price}</p>}
+                  {formData.price && parseFloat(formData.price) > 0 && (
+                    <p className="text-sm text-[#495057] mt-2 font-medium">
+                      USD {parseFloat(formData.price).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
+                      {formData.listingType === 'rent' ? ' / month' : ' sale price'}
+                    </p>
+                  )}
                 </div>
 
                 {formData.listingType === 'rent' && (
@@ -589,14 +734,19 @@ export default function AgentNewPropertyPage() {
                   <label className="block text-sm font-semibold text-[#212529] mb-2">
                     Bedrooms *
                   </label>
-                  <input
-                    type="number"
-                    name="beds"
-                    value={formData.beds}
-                    onChange={handleInputChange}
-                    min="0"
-                    className="w-full px-4 py-3 border border-[#E9ECEF] rounded-lg text-[#212529] bg-white focus:outline-none focus:ring-2 focus:ring-[#212529]"
-                  />
+                  <div className="flex items-center border border-[#E9ECEF] rounded-lg overflow-hidden">
+                    <button
+                      type="button"
+                      onClick={() => setFormData(prev => ({ ...prev, beds: String(Math.max(0, parseInt(prev.beds || '0') - 1)) }))}
+                      className="px-4 py-3 text-[#212529] hover:bg-[#F8F9FA] font-bold text-lg border-r border-[#E9ECEF]"
+                    >−</button>
+                    <span className="flex-1 text-center py-3 font-medium text-[#212529]">{formData.beds || '0'}</span>
+                    <button
+                      type="button"
+                      onClick={() => setFormData(prev => ({ ...prev, beds: String(parseInt(prev.beds || '0') + 1) }))}
+                      className="px-4 py-3 text-[#212529] hover:bg-[#F8F9FA] font-bold text-lg border-l border-[#E9ECEF]"
+                    >+</button>
+                  </div>
                   {errors.beds && <p className="text-sm text-red-600 mt-2">{errors.beds}</p>}
                 </div>
 
@@ -604,15 +754,19 @@ export default function AgentNewPropertyPage() {
                   <label className="block text-sm font-semibold text-[#212529] mb-2">
                     Bathrooms *
                   </label>
-                  <input
-                    type="number"
-                    name="baths"
-                    value={formData.baths}
-                    onChange={handleInputChange}
-                    min="0"
-                    step="0.5"
-                    className="w-full px-4 py-3 border border-[#E9ECEF] rounded-lg text-[#212529] bg-white focus:outline-none focus:ring-2 focus:ring-[#212529]"
-                  />
+                  <div className="flex items-center border border-[#E9ECEF] rounded-lg overflow-hidden">
+                    <button
+                      type="button"
+                      onClick={() => setFormData(prev => ({ ...prev, baths: String(Math.max(0, parseFloat(prev.baths || '0') - 0.5)) }))}
+                      className="px-4 py-3 text-[#212529] hover:bg-[#F8F9FA] font-bold text-lg border-r border-[#E9ECEF]"
+                    >−</button>
+                    <span className="flex-1 text-center py-3 font-medium text-[#212529]">{formData.baths || '0'}</span>
+                    <button
+                      type="button"
+                      onClick={() => setFormData(prev => ({ ...prev, baths: String(parseFloat(prev.baths || '0') + 0.5) }))}
+                      className="px-4 py-3 text-[#212529] hover:bg-[#F8F9FA] font-bold text-lg border-l border-[#E9ECEF]"
+                    >+</button>
+                  </div>
                   {errors.baths && <p className="text-sm text-red-600 mt-2">{errors.baths}</p>}
                 </div>
 
@@ -661,9 +815,19 @@ export default function AgentNewPropertyPage() {
                     name="city"
                     value={formData.city}
                     onChange={handleInputChange}
-                    placeholder="New York"
+                    placeholder="Harare"
+                    list="zw-cities-agent"
                     className="w-full px-4 py-3 border border-[#E9ECEF] rounded-lg text-[#212529] bg-white focus:outline-none focus:ring-2 focus:ring-[#212529]"
                   />
+                  <datalist id="zw-cities-agent">
+                    <option value="Harare" /><option value="Bulawayo" /><option value="Chitungwiza" />
+                    <option value="Mutare" /><option value="Gweru" /><option value="Kwekwe" />
+                    <option value="Kadoma" /><option value="Masvingo" /><option value="Chinhoyi" />
+                    <option value="Norton" /><option value="Marondera" /><option value="Ruwa" />
+                    <option value="Chegutu" /><option value="Zvishavane" /><option value="Bindura" />
+                    <option value="Beitbridge" /><option value="Redcliff" /><option value="Victoria Falls" />
+                    <option value="Hwange" /><option value="Kariba" />
+                  </datalist>
                   {errors.city && <p className="text-sm text-red-600 mt-2">{errors.city}</p>}
                 </div>
               </div>
@@ -702,7 +866,18 @@ export default function AgentNewPropertyPage() {
                 <LocationPicker
                   lat={formData.lat}
                   lng={formData.lng}
-                  onLocationChange={(lat, lng) => setFormData(prev => ({ ...prev, lat, lng }))}
+                  onLocationChange={(lat, lng, _address, parsed) => {
+                    setFormData(prev => ({
+                      ...prev,
+                      lat,
+                      lng,
+                      address: prev.address || (parsed?.road ?? ''),
+                      city: prev.city || parsed?.city || '',
+                      neighborhood: prev.neighborhood || parsed?.suburb || '',
+                      stateProvince: prev.stateProvince || parsed?.state || '',
+                      zipCode: prev.zipCode || parsed?.postcode || '',
+                    }))
+                  }}
                 />
                 {errors.location && <p className="text-sm text-red-600 mt-2">{errors.location}</p>}
               </div>
@@ -716,7 +891,14 @@ export default function AgentNewPropertyPage() {
                 <label className="block text-sm font-semibold text-[#212529] mb-3">
                   Upload Photos (max 10) *
                 </label>
-                <div className="border-2 border-dashed border-[#E9ECEF] rounded-lg p-8 text-center cursor-pointer hover:border-[#212529] transition-colors">
+                <div
+                  onDrop={handleDrop}
+                  onDragOver={e => { e.preventDefault(); setIsDragging(true) }}
+                  onDragLeave={() => setIsDragging(false)}
+                  className={`border-2 border-dashed rounded-lg p-8 text-center transition-colors ${
+                    isDragging ? 'border-[#212529] bg-[#F8F9FA]' : 'border-[#E9ECEF] hover:border-[#212529]'
+                  }`}
+                >
                   <input
                     type="file"
                     multiple
@@ -727,16 +909,37 @@ export default function AgentNewPropertyPage() {
                   />
                   <label htmlFor="image-input" className="cursor-pointer">
                     <Upload className="w-8 h-8 mx-auto mb-2 text-[#ADB5BD]" />
-                    <p className="text-[#212529] font-semibold">Click to upload or drag and drop</p>
+                    <p className="text-[#212529] font-semibold">
+                      {isDragging ? 'Drop images here' : 'Click to upload or drag and drop'}
+                    </p>
                     <p className="text-[#ADB5BD] text-sm">PNG, JPG (max 10 images)</p>
+                    {images.length > 0 && (
+                      <span className="mt-2 inline-block px-2 py-0.5 bg-[#212529] text-white text-xs rounded-full">
+                        {images.length} / 10 photo{images.length !== 1 ? 's' : ''}
+                      </span>
+                    )}
                   </label>
                 </div>
 
                 {images.length > 0 && (
                   <div className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-4">
                     {imagePreviews.map((preview, index) => (
-                      <div key={index} className="relative">
+                      <div key={index} className="relative group">
                         <img src={preview} alt={`Preview ${index}`} className="w-full h-32 object-cover rounded-lg" />
+                        {index === 0 && (
+                          <div className="absolute top-1 left-1 bg-[#212529] text-white text-[10px] font-semibold px-1.5 py-0.5 rounded">
+                            Cover
+                          </div>
+                        )}
+                        {index !== 0 && (
+                          <button
+                            type="button"
+                            onClick={() => makeCover(index)}
+                            className="absolute bottom-1 left-1 opacity-0 group-hover:opacity-100 bg-black/75 text-white text-[10px] px-1.5 py-0.5 rounded transition-opacity"
+                          >
+                            Set cover
+                          </button>
+                        )}
                         <button
                           type="button"
                           onClick={() => removeImage(index)}
