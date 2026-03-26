@@ -1,7 +1,7 @@
 import { Metadata } from 'next'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/server'
-import { MapPin, ArrowRight, Home, ChevronRight } from 'lucide-react'
+import { MapPin, ArrowRight, Home, DollarSign, ChevronRight } from 'lucide-react'
 import AreasMapSearch from '@/components/areas/AreasMapSearch'
 import NeighborhoodsGrid from '@/components/areas/NeighborhoodsGrid'
 
