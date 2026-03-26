@@ -3,6 +3,8 @@ import { createClient } from '@/lib/supabase/server'
 import { isValidTransition, validateTransitionFields, getNextStateFromAction } from '@/lib/transaction-workflow'
 import type { Database } from '@/types/database'
 
+export const dynamic = 'force-dynamic'
+
 interface TransitionRequest {
   toState: string
   actionType: string

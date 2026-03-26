@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 
+export const dynamic = 'force-dynamic'
+
 // GET /api/landlord/financial-summary
 // Cross-property income overview for the authenticated landlord
 export async function GET(_request: NextRequest) {

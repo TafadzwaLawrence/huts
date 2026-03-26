@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 
+export const dynamic = 'force-dynamic'
+
 // PATCH /api/agreements/[id] – terminate or complete an agreement
 export async function PATCH(
   request: NextRequest,

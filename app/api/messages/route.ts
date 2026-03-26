@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 import type { CreateMessageThreadRequest, SendMessageRequest } from '@/types'
 
+export const dynamic = 'force-dynamic'
+
 // GET /api/messages - Get message threads for current user
 export async function GET(request: NextRequest) {
   try {

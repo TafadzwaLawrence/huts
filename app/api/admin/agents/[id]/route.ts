@@ -4,6 +4,8 @@ import { resend } from '@/lib/resend'
 import { AgentVerificationEmail } from '@/emails/AgentVerificationEmail'
 import * as React from 'react'
 
+export const dynamic = 'force-dynamic'
+
 const ADMIN_EMAILS = (process.env.ADMIN_EMAILS || 'chitangalawrence03@gmail.com')
   .split(',')
   .map(e => e.trim())

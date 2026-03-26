@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 
+export const dynamic = 'force-dynamic'
+
 const VALID_SORT_OPTIONS = ['newest', 'price_asc', 'price_desc', 'bedrooms_desc', 'bathrooms_desc', 'square_feet_desc'] as const
 type SortOption = typeof VALID_SORT_OPTIONS[number]
 

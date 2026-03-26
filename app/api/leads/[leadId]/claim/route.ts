@@ -15,6 +15,8 @@ import { createClient } from '@/lib/supabase/server'
 import { NextResponse } from 'next/server'
 import { getClaimWindowSecondsRemaining, isClaimWindowOpen } from '@/lib/agent-metrics'
 
+export const dynamic = 'force-dynamic'
+
 interface RouteParams {
   params: {
     leadId: string

@@ -4,6 +4,8 @@ import { getResend } from '@/lib/resend'
 import { PropertyVerificationEmail } from '@/emails/PropertyVerificationEmail'
 import { formatPrice, formatSalePrice } from '@/lib/utils'
 
+export const dynamic = 'force-dynamic'
+
 const ADMIN_EMAIL = 'chitangalawrence03@gmail.com'
 const BASE_URL = process.env.NEXT_PUBLIC_APP_URL || 'https://www.huts.co.zw'
 

@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 import type { Database } from '@/types/database'
 
+export const dynamic = 'force-dynamic'
+
 interface DocumentUploadRequest {
   title: string
   document_type: string

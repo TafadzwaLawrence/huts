@@ -1,6 +1,8 @@
 import { createClient } from '@/lib/supabase/server'
 import { NextResponse } from 'next/server'
 import { 
+export const dynamic = 'force-dynamic'
+
   getPropertyEngagement, 
   getMarketAnalysis, 
   calculateListingQuality,

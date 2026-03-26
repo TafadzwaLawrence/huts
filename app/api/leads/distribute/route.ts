@@ -36,6 +36,8 @@ import type {
 } from '@/types/agent-system'
 import { AssignmentMode } from '@/types/agent-system'
 
+export const dynamic = 'force-dynamic'
+
 // Type for agents in assignment pool
 interface AgentForAssignment {
   id: string

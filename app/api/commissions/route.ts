@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 import type { CreateCommissionRequest, UpdateCommissionRequest } from '@/types'
 
+export const dynamic = 'force-dynamic'
+
 // GET /api/commissions - Get commissions for current agent
 export async function GET(request: NextRequest) {
   try {

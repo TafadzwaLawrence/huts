@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 import { generateStatement } from '@/lib/financial-engine'
 
+export const dynamic = 'force-dynamic'
+
 // GET /api/agreements/[id]/statement – fetch or generate a monthly statement
 // Query params: ?period=2025-03 (YYYY-MM, defaults to current month)
 export async function GET(

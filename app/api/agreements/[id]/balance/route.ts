@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 import { calculateBalance } from '@/lib/financial-engine'
 
+export const dynamic = 'force-dynamic'
+
 // GET /api/agreements/[id]/balance
 export async function GET(
   _request: NextRequest,
