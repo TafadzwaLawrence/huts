@@ -1,12 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 import type {
-export const dynamic = 'force-dynamic'
-
   CreateTransactionRequest,
   UpdateTransactionRequest,
   TransactionWithParticipants
 } from '@/types'
+
+export const dynamic = 'force-dynamic'
 
 // GET /api/transactions - List transactions for current user
 export async function GET(request: NextRequest) {
