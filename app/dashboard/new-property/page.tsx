@@ -101,6 +101,7 @@ export default function NewPropertyPage() {
 
   const [images, setImages] = useState<File[]>([])
   const [imagePreviews, setImagePreviews] = useState<string[]>([])
+  const [isDragging, setIsDragging] = useState(false)
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target
@@ -129,6 +130,28 @@ export default function NewPropertyPage() {
   const removeImage = (index: number) => {
     setImages(prev => prev.filter((_, i) => i !== index))
     setImagePreviews(prev => prev.filter((_, i) => i !== index))
+  }
+
+  const makeCover = (index: number) => {
+    setImages(prev => { const a = [...prev]; const [item] = a.splice(index, 1); a.unshift(item); return a })
+    setImagePreviews(prev => { const a = [...prev]; const [item] = a.splice(index, 1); a.unshift(item); return a })
+  }
+
+  const handleDrop = (e: React.DragEvent) => {
+    e.preventDefault()
+    setIsDragging(false)
+    const files = Array.from(e.dataTransfer.files).filter(f => f.type.startsWith('image/'))
+    if (!files.length) return
+    if (files.length + images.length > 10) {
+      toast.error('Maximum 10 images allowed')
+      return
+    }
+    setImages(prev => [...prev, ...files])
+    files.forEach(file => {
+      const reader = new FileReader()
+      reader.onloadend = () => setImagePreviews(prev => [...prev, reader.result as string])
+      reader.readAsDataURL(file)
+    })
   }
 
   const toggleAmenity = (amenity: string) => {
@@ -311,9 +334,12 @@ export default function NewPropertyPage() {
   }
 
   const AMENITIES = [
-    'WiFi', 'Parking', 'Pool', 'Gym', 'Laundry', 'Pet-friendly',
-    'Furnished', 'Air conditioning', 'Heating', 'Balcony',
-    'Garden', 'Security', 'Elevator', 'Storage',
+    'WiFi', 'Parking', 'Swimming Pool', 'Gym', 'Laundry', 'Pet-friendly',
+    'Furnished', 'Air Conditioning', 'Balcony', 'Garden',
+    'Security Guard', 'Alarm System', 'Electric Fence', 'Wired Perimeter Fence',
+    'Borehole', 'City Water', 'Solar Power', 'Generator / Inverter',
+    'DSTV Connection', 'Prepaid Electricity', 'Servant\u2019s Quarters',
+    'Garage', 'Carport', 'Elevator', 'Storage',
   ]
 
   // Validate current step
@@ -413,7 +439,12 @@ export default function NewPropertyPage() {
                 const Icon = s.icon
                 
                 return (
-                  <div key={i} className="flex flex-col items-center gap-1.5 flex-1">
+                  <button
+                    key={i}
+                    type="button"
+                    onClick={() => isCompleted && setStep(stepNum)}
+                    className={`flex flex-col items-center gap-1.5 flex-1 ${isCompleted ? 'cursor-pointer' : 'cursor-default'}`}
+                  >
                     <Icon 
                       size={ICON_SIZES.md} 
                       className={`transition-colors ${
@@ -421,11 +452,11 @@ export default function NewPropertyPage() {
                       }`} 
                     />
                     <span className={`text-[10px] sm:text-xs font-medium transition-colors ${
-                      isActive ? 'text-[#212529] font-semibold' : isCompleted ? 'text-[#495057]' : 'text-[#ADB5BD]'
+                      isActive ? 'text-[#212529] font-semibold' : isCompleted ? 'text-[#495057] hover:text-[#212529]' : 'text-[#ADB5BD]'
                     }`}>
                       {s.label}
                     </span>
-                  </div>
+                  </button>
                 )
               })}
             </div>
@@ -596,20 +627,24 @@ export default function NewPropertyPage() {
                     type="text"
                     value={formData.title}
                     onChange={handleInputChange}
+                    maxLength={80}
                     className={`w-full px-4 py-3.5 border-2 rounded-xl text-[#212529] bg-white placeholder:text-[#ADB5BD] focus:outline-none transition-colors ${
                       errors.title ? 'border-[#FF6B6B]' : 'border-[#E9ECEF] focus:border-[#212529]'
                     }`}
                     placeholder="e.g., Modern 2BR Apartment in Avondale"
                   />
-                  {errors.title ? (
-                    <p className="mt-2 text-sm text-[#FF6B6B] flex items-center gap-1">
-                      <AlertCircle size={ICON_SIZES.sm} /> {errors.title}
-                    </p>
-                  ) : (
-                    <p className="mt-2 text-xs text-[#ADB5BD]">
-                      A catchy title helps your listing stand out
-                    </p>
-                  )}
+                  <div className="flex items-center justify-between mt-2">
+                    {errors.title ? (
+                      <p className="text-sm text-[#FF6B6B] flex items-center gap-1">
+                        <AlertCircle size={ICON_SIZES.sm} /> {errors.title}
+                      </p>
+                    ) : (
+                      <p className="text-xs text-[#ADB5BD]">A catchy title helps your listing stand out</p>
+                    )}
+                    <p className={`text-xs tabular-nums ml-auto ${
+                      formData.title.length > 70 ? 'text-[#FF6B6B]' : 'text-[#ADB5BD]'
+                    }`}>{formData.title.length}/80</p>
+                  </div>
                 </div>
 
                 {/* Description */}
@@ -623,12 +658,15 @@ export default function NewPropertyPage() {
                     rows={4}
                     value={formData.description}
                     onChange={handleInputChange}
+                    maxLength={2000}
                     className="w-full px-4 py-3.5 border-2 border-[#E9ECEF] rounded-xl text-[#212529] bg-white placeholder:text-[#ADB5BD] focus:outline-none focus:border-[#212529] transition-colors resize-none"
                     placeholder="Describe the property, its features, nearby amenities..."
                   />
                   <div className="flex justify-between mt-2">
                     <p className="text-xs text-[#ADB5BD]">Optional but recommended</p>
-                    <p className="text-xs text-[#ADB5BD] tabular-nums">{formData.description.length}/2000</p>
+                    <p className={`text-xs tabular-nums ${
+                      formData.description.length > 1800 ? 'text-[#FF6B6B]' : 'text-[#ADB5BD]'
+                    }`}>{formData.description.length}/2000</p>
                   </div>
                 </div>
 
@@ -702,11 +740,18 @@ export default function NewPropertyPage() {
                       <span className="absolute right-4 top-1/2 -translate-y-1/2 text-sm text-[#ADB5BD] font-medium">/month</span>
                     )}
                   </div>
-                  {errors.price && (
+                  {errors.price ? (
                     <p className="mt-2 text-sm text-[#FF6B6B] flex items-center gap-1">
                       <AlertCircle size={ICON_SIZES.sm} /> {errors.price}
                     </p>
-                  )}
+                  ) : formData.price && parseFloat(formData.price) > 0 ? (
+                    <p className="mt-2 text-xs text-[#495057] font-medium">
+                      {formData.listingType === 'rent'
+                        ? `USD ${parseFloat(formData.price).toLocaleString('en-US', { minimumFractionDigits: 0 })} / month`
+                        : `USD ${parseFloat(formData.price).toLocaleString('en-US', { minimumFractionDigits: 0 })} sale price`
+                      }
+                    </p>
+                  ) : null}
                 </div>
 
                 {/* Security Deposit (Rent only) */}
@@ -737,41 +782,33 @@ export default function NewPropertyPage() {
                 <div>
                   <h3 className="text-sm font-semibold text-[#212529] mb-4">Property Specifications</h3>
                   <div className="grid grid-cols-3 gap-3">
+                    {/* Beds stepper */}
                     <div>
-                      <label htmlFor="beds" className="block text-xs font-medium text-[#495057] mb-2 flex items-center gap-1.5">
+                      <label className="block text-xs font-medium text-[#495057] mb-2 flex items-center gap-1.5">
                         <Bed size={ICON_SIZES.xs} /> Beds <span className="text-[#FF6B6B]">*</span>
                       </label>
-                      <input
-                        id="beds"
-                        name="beds"
-                        type="number"
-                        min="0"
-                        value={formData.beds}
-                        onChange={handleInputChange}
-                        className={`w-full px-3 py-3.5 border-2 rounded-xl text-[#212529] text-center text-lg font-bold bg-white placeholder:text-[#ADB5BD] placeholder:font-normal ${
-                          errors.beds ? 'border-[#FF6B6B]' : 'border-[#E9ECEF] focus:border-[#212529]'
-                        } focus:outline-none transition-colors`}
-                        placeholder="2"
-                      />
+                      <div className={`flex items-center border-2 rounded-xl overflow-hidden ${
+                        errors.beds ? 'border-[#FF6B6B]' : 'border-[#E9ECEF]'
+                      }`}>
+                        <button type="button" onClick={() => setFormData(p => ({ ...p, beds: String(Math.max(0, parseInt(p.beds || '0') - 1)) }))} className="px-3 py-3 text-[#495057] hover:bg-[#F8F9FA] text-lg font-bold transition-colors">−</button>
+                        <span className="flex-1 text-center text-lg font-bold text-[#212529]">{formData.beds || '0'}</span>
+                        <button type="button" onClick={() => setFormData(p => ({ ...p, beds: String(parseInt(p.beds || '0') + 1) }))} className="px-3 py-3 text-[#495057] hover:bg-[#F8F9FA] text-lg font-bold transition-colors">+</button>
+                      </div>
                     </div>
+                    {/* Baths stepper */}
                     <div>
-                      <label htmlFor="baths" className="block text-xs font-medium text-[#495057] mb-2 flex items-center gap-1.5">
+                      <label className="block text-xs font-medium text-[#495057] mb-2 flex items-center gap-1.5">
                         <Bath size={ICON_SIZES.xs} /> Baths <span className="text-[#FF6B6B]">*</span>
                       </label>
-                      <input
-                        id="baths"
-                        name="baths"
-                        type="number"
-                        min="0"
-                        step="0.5"
-                        value={formData.baths}
-                        onChange={handleInputChange}
-                        className={`w-full px-3 py-3.5 border-2 rounded-xl text-[#212529] text-center text-lg font-bold bg-white placeholder:text-[#ADB5BD] placeholder:font-normal ${
-                          errors.baths ? 'border-[#FF6B6B]' : 'border-[#E9ECEF] focus:border-[#212529]'
-                        } focus:outline-none transition-colors`}
-                        placeholder="1"
-                      />
+                      <div className={`flex items-center border-2 rounded-xl overflow-hidden ${
+                        errors.baths ? 'border-[#FF6B6B]' : 'border-[#E9ECEF]'
+                      }`}>
+                        <button type="button" onClick={() => setFormData(p => ({ ...p, baths: String(Math.max(0, parseFloat(p.baths || '0') - 0.5)) }))} className="px-3 py-3 text-[#495057] hover:bg-[#F8F9FA] text-lg font-bold transition-colors">−</button>
+                        <span className="flex-1 text-center text-lg font-bold text-[#212529]">{formData.baths || '0'}</span>
+                        <button type="button" onClick={() => setFormData(p => ({ ...p, baths: String(parseFloat(p.baths || '0') + 0.5) }))} className="px-3 py-3 text-[#495057] hover:bg-[#F8F9FA] text-lg font-bold transition-colors">+</button>
+                      </div>
                     </div>
+                    {/* Sqft */}
                     <div>
                       <label htmlFor="sqft" className="block text-xs font-medium text-[#495057] mb-2 flex items-center gap-1.5">
                         <Square size={ICON_SIZES.xs} /> Sqft
@@ -788,6 +825,11 @@ export default function NewPropertyPage() {
                       />
                     </div>
                   </div>
+                  {(errors.beds || errors.baths) && (
+                    <p className="mt-2 text-sm text-[#FF6B6B] flex items-center gap-1">
+                      <AlertCircle size={ICON_SIZES.sm} /> {errors.beds || errors.baths}
+                    </p>
+                  )}
                 </div>
 
                 {/* Student housing-specific fields */}
@@ -1049,6 +1091,7 @@ export default function NewPropertyPage() {
                       id="city"
                       name="city"
                       type="text"
+                      list="zw-cities"
                       value={formData.city}
                       onChange={handleInputChange}
                       className={`w-full px-4 py-3.5 border-2 rounded-xl text-[#212529] bg-white placeholder:text-[#ADB5BD] focus:outline-none transition-colors ${
@@ -1056,6 +1099,9 @@ export default function NewPropertyPage() {
                       }`}
                       placeholder="Harare"
                     />
+                    <datalist id="zw-cities">
+                      {['Harare','Bulawayo','Mutare','Gweru','Kwekwe','Kadoma','Masvingo','Chinhoyi','Marondera','Norton','Chegutu','Ruwa','Bindura','Zvishavane','Redcliff','Beitbridge','Kariba','Victoria Falls','Hwange','Rusape'].map(c => <option key={c} value={c} />)}
+                    </datalist>
                   </div>
                   <div>
                     <label htmlFor="neighborhood" className="block text-sm font-semibold text-[#212529] mb-2">
@@ -1167,7 +1213,16 @@ export default function NewPropertyPage() {
                     </div>
                   )}
 
-                  <label className="block w-full border-2 border-dashed border-[#E9ECEF] rounded-xl p-8 md:p-10 text-center hover:border-[#212529] transition-colors cursor-pointer bg-[#FAFAFA] hover:bg-white group">
+                  <label
+                    className={`block w-full border-2 border-dashed rounded-xl p-8 md:p-10 text-center transition-colors cursor-pointer group ${
+                      isDragging
+                        ? 'border-[#212529] bg-[#212529]/5'
+                        : 'border-[#E9ECEF] bg-[#FAFAFA] hover:border-[#212529] hover:bg-white'
+                    }`}
+                    onDragOver={(e) => { e.preventDefault(); setIsDragging(true) }}
+                    onDragLeave={() => setIsDragging(false)}
+                    onDrop={handleDrop}
+                  >
                     <input
                       type="file"
                       accept="image/*"
@@ -1175,37 +1230,55 @@ export default function NewPropertyPage() {
                       onChange={handleImageSelect}
                       className="hidden"
                     />
-                    <div className="w-12 h-12 rounded-full bg-[#E9ECEF] flex items-center justify-center mx-auto mb-3 group-hover:bg-[#212529] transition-colors">
-                      <Upload size={ICON_SIZES.lg} className="text-[#495057] group-hover:text-white transition-colors" />
+                    <div className={`w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-3 transition-colors ${
+                      isDragging ? 'bg-[#212529]' : 'bg-[#E9ECEF] group-hover:bg-[#212529]'
+                    }`}>
+                      <Upload size={ICON_SIZES.lg} className={`transition-colors ${
+                        isDragging ? 'text-white' : 'text-[#495057] group-hover:text-white'
+                      }`} />
                     </div>
-                    <p className="text-[#212529] font-semibold text-sm mb-1">Click to upload or drag & drop</p>
-                    <p className="text-xs text-[#ADB5BD]">PNG, JPG, WEBP up to 10MB each</p>
+                    <p className="text-[#212529] font-semibold text-sm mb-1">
+                      {isDragging ? 'Drop images here' : 'Click to upload or drag & drop'}
+                    </p>
+                    <p className="text-xs text-[#ADB5BD]">PNG, JPG, WEBP up to 10MB each · max 10 photos</p>
                   </label>
 
                   {imagePreviews.length > 0 && (
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-2.5 mt-4">
-                      {imagePreviews.map((preview, index) => (
-                        <div key={index} className="relative group aspect-square">
-                          <img
-                            src={preview}
-                            alt={`Preview ${index + 1}`}
-                            className="w-full h-full object-cover rounded-xl border border-[#E9ECEF]"
-                          />
-                          <button
-                            type="button"
-                            onClick={() => removeImage(index)}
-                            className="absolute top-2 right-2 p-1.5 bg-black/60 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity hover:bg-black/80"
-                          >
-                            <X size={ICON_SIZES.xs} />
-                          </button>
-                          {index === 0 && (
-                            <div className="absolute bottom-2 left-2 bg-[#212529] text-white text-[10px] font-semibold px-2 py-0.5 rounded-md tracking-wide uppercase">
-                              Cover
-                            </div>
-                          )}
-                        </div>
-                      ))}
-                    </div>
+                    <>
+                      <p className="mt-3 text-xs text-[#ADB5BD]">{images.length}/10 photos · Click "Set cover" to change the cover photo</p>
+                      <div className="grid grid-cols-2 md:grid-cols-4 gap-2.5 mt-2">
+                        {imagePreviews.map((preview, index) => (
+                          <div key={index} className="relative group aspect-square">
+                            <img
+                              src={preview}
+                              alt={`Preview ${index + 1}`}
+                              className="w-full h-full object-cover rounded-xl border border-[#E9ECEF]"
+                            />
+                            {/* Remove */}
+                            <button
+                              type="button"
+                              onClick={() => removeImage(index)}
+                              className="absolute top-2 right-2 p-1.5 bg-black/60 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity hover:bg-black/80"
+                            >
+                              <X size={ICON_SIZES.xs} />
+                            </button>
+                            {index === 0 ? (
+                              <div className="absolute bottom-2 left-2 bg-[#212529] text-white text-[10px] font-semibold px-2 py-0.5 rounded-md tracking-wide uppercase">
+                                Cover
+                              </div>
+                            ) : (
+                              <button
+                                type="button"
+                                onClick={() => makeCover(index)}
+                                className="absolute bottom-2 left-2 bg-black/60 text-white text-[10px] font-semibold px-2 py-0.5 rounded-md opacity-0 group-hover:opacity-100 transition-opacity hover:bg-black/80 whitespace-nowrap"
+                              >
+                                Set cover
+                              </button>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    </>
                   )}
                 </div>
 
