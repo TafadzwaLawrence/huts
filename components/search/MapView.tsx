@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+import { toast } from 'sonner'
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 import 'leaflet.markercluster/dist/MarkerCluster.css'
@@ -57,8 +58,11 @@ export default function MapView({ properties, schools = [], healthcareFacilities
   const schoolMarkersRef = useRef<{ [key: string]: L.Marker }>({})
   const healthcareMarkersRef = useRef<{ [key: string]: L.Marker }>({})
   const clusterGroupRef = useRef<L.MarkerClusterGroup | null>(null)
+  const schoolClusterGroupRef = useRef<L.MarkerClusterGroup | null>(null)
+  const healthcareClusterGroupRef = useRef<L.MarkerClusterGroup | null>(null)
   const [showZoomHint, setShowZoomHint] = useState(false)
-  const [schoolsControlExpanded, setSchoolsControlExpanded] = useState(showSchools)
+  const [showHealthcare, setShowHealthcare] = useState(true)
+  const [overlayExpanded, setOverlayExpanded] = useState(showSchools)
   const [isLoadingSchools, setIsLoadingSchools] = useState(false)
   const [isLocating, setIsLocating] = useState(false)
   const userLocationCircleRef = useRef<L.CircleMarker | null>(null)
@@ -71,10 +75,22 @@ export default function MapView({ properties, schools = [], healthcareFacilities
   const onPropertySelectRef = useRef(onPropertySelect)
   onPropertySelectRef.current = onPropertySelect
 
+  // Sanitise a string for safe use inside HTML attributes and text nodes
+  const sanitize = (str: string) =>
+    str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#x27;')
+
+  // Fit map to current property results
+  const fitToResults = () => {
+    const map = mapRef.current
+    if (!map || properties.length === 0) return
+    const bounds = L.latLngBounds(properties.map((p) => [p.lat, p.lng]))
+    map.fitBounds(bounds, { padding: [40, 40], maxZoom: 15 })
+  }
+
   // Get user's live location
   const getUserLocation = () => {
     if (!navigator.geolocation) {
-      alert('Geolocation is not supported by your browser')
+      toast.error('Geolocation is not supported by your browser')
       return
     }
 
@@ -119,7 +135,7 @@ export default function MapView({ properties, schools = [], healthcareFacilities
           2: 'Could not determine your location. Please try again.',
           3: 'Location request timed out. Please try again.',
         }
-        alert(messages[error.code] || 'Unable to get your location.')
+        toast.error(messages[error.code] || 'Unable to get your location.')
         setIsLocating(false)
       },
       { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 }
@@ -168,6 +184,43 @@ export default function MapView({ properties, schools = [], healthcareFacilities
     })
     map.addLayer(clusterGroup)
     clusterGroupRef.current = clusterGroup
+
+    // School cluster group
+    const schoolClusterGroup = L.markerClusterGroup({
+      showCoverageOnHover: false,
+      maxClusterRadius: 40,
+      spiderfyOnMaxZoom: true,
+      disableClusteringAtZoom: 16,
+      iconCreateFunction: (cluster) => {
+        const count = cluster.getChildCount()
+        return L.divIcon({
+          html: `<div class="cluster-marker cluster-school"><span>${count}</span></div>`,
+          className: 'custom-cluster-icon',
+          iconSize: L.point(32, 32),
+        })
+      },
+    })
+    map.addLayer(schoolClusterGroup)
+    schoolClusterGroupRef.current = schoolClusterGroup
+
+    // Healthcare cluster group
+    const healthcareClusterGroup = L.markerClusterGroup({
+      showCoverageOnHover: false,
+      maxClusterRadius: 40,
+      spiderfyOnMaxZoom: true,
+      disableClusteringAtZoom: 16,
+      iconCreateFunction: (cluster) => {
+        const count = cluster.getChildCount()
+        return L.divIcon({
+          html: `<div class="cluster-marker cluster-healthcare"><span>${count}</span></div>`,
+          className: 'custom-cluster-icon',
+          iconSize: L.point(32, 32),
+        })
+      },
+    })
+    map.addLayer(healthcareClusterGroup)
+    healthcareClusterGroupRef.current = healthcareClusterGroup
+
     mapRef.current = map
 
     // Zoom hint
@@ -210,6 +263,8 @@ export default function MapView({ properties, schools = [], healthcareFacilities
       map.remove()
       mapRef.current = null
       clusterGroupRef.current = null
+      schoolClusterGroupRef.current = null
+      healthcareClusterGroupRef.current = null
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -241,22 +296,27 @@ export default function MapView({ properties, schools = [], healthcareFacilities
 
       const marker = L.marker([property.lat, property.lng], { icon })
 
-      // Popup
+      // Popup — all user data sanitised to prevent XSS
       const primaryImage = property.property_images.find(img => img.is_primary) || property.property_images[0]
       const imageUrl = primaryImage?.url || ''
       const formattedPrice = `$${(price / 100).toLocaleString()}`
+      const safeTitle = sanitize(property.title)
+      const safeArea = property.area ? sanitize(property.area) + ', ' : ''
+      const safeCity = sanitize(property.city)
+      const safeSlug = sanitize(property.slug || property.id)
+      const safeImageUrl = imageUrl.startsWith('http') ? imageUrl : ''
       marker.bindPopup(`
         <div class="p-2 min-w-[220px]">
-          ${imageUrl ? `<img src="${imageUrl}" alt="${property.title}" class="w-full h-28 object-cover rounded-md mb-2" />` : ''}
+          ${safeImageUrl ? `<img src="${safeImageUrl}" alt="${safeTitle}" width="220" height="112" class="w-full h-28 object-cover rounded-md mb-2" loading="lazy" />` : ''}
           <div class="font-bold text-[#212529] mb-0.5">${formattedPrice}${!isSale ? '/mo' : ''}</div>
-          <div class="font-semibold text-sm text-[#212529] mb-0.5 line-clamp-1">${property.title}</div>
-          <div class="text-xs text-[#495057] mb-2">${property.area ? property.area + ', ' : ''}${property.city}</div>
+          <div class="font-semibold text-sm text-[#212529] mb-0.5 line-clamp-1">${safeTitle}</div>
+          <div class="text-xs text-[#495057] mb-2">${safeArea}${safeCity}</div>
           <div class="flex gap-3 text-xs text-[#495057] mb-2">
             <span>${property.bedrooms} bd</span>
             <span>${property.bathrooms} ba</span>
             ${property.square_feet ? `<span>${property.square_feet} sqft</span>` : ''}
           </div>
-          <a href="/property/${property.slug || property.id}" class="block text-center bg-[#212529] text-white py-1.5 rounded-md text-xs font-medium hover:bg-black transition-colors">View</a>
+          <a href="/property/${safeSlug}" class="block text-center bg-[#212529] text-white py-1.5 rounded-md text-xs font-medium hover:bg-black transition-colors">View</a>
         </div>
       `, { maxWidth: 260, className: 'custom-popup' })
 
@@ -276,13 +336,12 @@ export default function MapView({ properties, schools = [], healthcareFacilities
     }
   }, [properties, selectedProperty])
 
-  // Update school markers when schools change
+  // Update school markers when schools change — uses cluster group
   useEffect(() => {
-    if (!mapRef.current) return
-    const map = mapRef.current
+    const schoolClusterGroup = schoolClusterGroupRef.current
+    if (!schoolClusterGroup) return
 
-    // Clear previous school markers
-    Object.values(schoolMarkersRef.current).forEach(marker => marker.remove())
+    schoolClusterGroup.clearLayers()
     schoolMarkersRef.current = {}
 
     if (!schools || schools.length === 0) {
@@ -290,112 +349,97 @@ export default function MapView({ properties, schools = [], healthcareFacilities
       return
     }
 
-    // Show loading state
     setIsLoadingSchools(true)
 
-    // Use requestAnimationFrame to allow UI to update before rendering markers
     requestAnimationFrame(() => {
-      schools.forEach((school) => {
-      // School icon colors based on level
       const iconColors: Record<string, { bg: string; border: string; icon: string }> = {
-        primary: { bg: '#3B82F6', border: '#1E40AF', icon: '🏫' }, // Blue
-        secondary: { bg: '#10B981', border: '#047857', icon: '🎓' }, // Green
-        tertiary: { bg: '#8B5CF6', border: '#5B21B6', icon: '🎓' }, // Purple
-        combined: { bg: '#F59E0B', border: '#B45309', icon: '🏫' }, // Amber
+        primary:   { bg: '#3B82F6', border: '#1E40AF', icon: '🏫' },
+        secondary: { bg: '#10B981', border: '#047857', icon: '🎓' },
+        tertiary:  { bg: '#8B5CF6', border: '#5B21B6', icon: '🎓' },
+        combined:  { bg: '#F59E0B', border: '#B45309', icon: '🏫' },
       }
-
-      const colors = iconColors[school.school_level] || iconColors.primary
-
-      const icon = L.divIcon({
-        className: 'school-marker',
-        html: `
-          <div class="sm sm-${school.school_level}" style="background: ${colors.bg}; border-color: ${colors.border};">
-            <span class="sm-icon">${colors.icon}</span>
-          </div>
-        `,
-        iconSize: [18, 18],
-        iconAnchor: [9, 18],
-      })
-
-      const marker = L.marker([school.lat, school.lng], { icon })
-
-      // Popup
       const levelLabel: Record<string, string> = {
-        primary: 'Primary School',
+        primary:   'Primary School',
         secondary: 'Secondary School',
-        tertiary: 'University/College',
-        combined: 'Combined School',
+        tertiary:  'University/College',
+        combined:  'Combined School',
       }
 
-      marker.bindPopup(`
-        <div class="p-2 min-w-[200px]">
-          <div class="font-bold text-[#212529] mb-1">${school.name}</div>
-          <div class="text-xs text-[#495057] mb-2">${levelLabel[school.school_level] || 'School'}</div>
-          ${school.address ? `<div class="text-xs text-[#495057] mb-1">${school.address}</div>` : ''}
-          ${school.rating ? `<div class="text-xs text-[#495057] mb-2">Rating: ${school.rating}/10</div>` : ''}
-          ${school.phone || school.website ? '<div class="border-t border-[#E9ECEF] pt-2 mt-2">' : ''}
-          ${school.phone ? `<div class="text-xs text-[#495057] mb-1">📞 ${school.phone}</div>` : ''}
-          ${school.website ? `<a href="${school.website}" target="_blank" rel="noopener" class="text-xs text-[#006AFF] hover:underline">Visit website →</a>` : ''}
-          ${school.phone || school.website ? '</div>' : ''}
-        </div>
-      `, { maxWidth: 240, className: 'custom-popup' })
-
-      marker.addTo(map)
-      schoolMarkersRef.current[school.id] = marker
-    })
-
-      // Hide loading state after markers are rendered
+      schools.forEach((school) => {
+        const colors = iconColors[school.school_level] || iconColors.primary
+        const safeLevel = sanitize(school.school_level || '')
+        const icon = L.divIcon({
+          className: 'school-marker',
+          html: `<div class="sm sm-${safeLevel}" style="background: ${colors.bg}; border-color: ${colors.border};"><span class="sm-icon">${colors.icon}</span></div>`,
+          iconSize: [18, 18],
+          iconAnchor: [9, 18],
+        })
+        const marker = L.marker([school.lat, school.lng], { icon })
+        const safeName    = sanitize(school.name || '')
+        const safeAddress = school.address ? `<div class="text-xs text-[#495057] mb-1">${sanitize(school.address)}</div>` : ''
+        const safePhone   = school.phone ? `<div class="text-xs text-[#495057] mb-1">📞 ${sanitize(school.phone)}</div>` : ''
+        const safeWebsite = school.website && school.website.startsWith('http')
+          ? `<a href="${sanitize(school.website)}" target="_blank" rel="noopener noreferrer" class="text-xs text-[#006AFF] hover:underline">Visit website →</a>`
+          : ''
+        marker.bindPopup(`
+          <div class="p-2 min-w-[200px]">
+            <div class="font-bold text-[#212529] mb-1">${safeName}</div>
+            <div class="text-xs text-[#495057] mb-2">${levelLabel[school.school_level] || 'School'}</div>
+            ${safeAddress}
+            ${school.rating ? `<div class="text-xs text-[#495057] mb-2">Rating: ${Number(school.rating).toFixed(1)}/10</div>` : ''}
+            ${safePhone || safeWebsite ? `<div class="border-t border-[#E9ECEF] pt-2 mt-2">${safePhone}${safeWebsite}</div>` : ''}
+          </div>
+        `, { maxWidth: 240, className: 'custom-popup' })
+        schoolClusterGroup.addLayer(marker)
+        schoolMarkersRef.current[school.id] = marker
+      })
       setTimeout(() => setIsLoadingSchools(false), 300)
     })
   }, [schools])
 
-  // Update healthcare markers when facilities change
+  // Show/hide healthcare cluster group when toggle changes
   useEffect(() => {
-    if (!mapRef.current) return
     const map = mapRef.current
+    const hcGroup = healthcareClusterGroupRef.current
+    if (!map || !hcGroup) return
+    if (showHealthcare) {
+      if (!map.hasLayer(hcGroup)) map.addLayer(hcGroup)
+    } else {
+      if (map.hasLayer(hcGroup)) map.removeLayer(hcGroup)
+    }
+  }, [showHealthcare])
 
-    // Clear previous healthcare markers
-    Object.values(healthcareMarkersRef.current).forEach(marker => marker.remove())
+  // Update healthcare markers when facilities change — uses cluster group
+  useEffect(() => {
+    const healthcareClusterGroup = healthcareClusterGroupRef.current
+    if (!healthcareClusterGroup) return
+
+    healthcareClusterGroup.clearLayers()
     healthcareMarkersRef.current = {}
 
     if (!healthcareFacilities || healthcareFacilities.length === 0) return
 
     healthcareFacilities.forEach((facility) => {
-      // Healthcare icon - red cross
       const icon = L.divIcon({
         className: 'healthcare-marker',
-        html: `
-          <div style="
-            width: 14px;
-            height: 14px;
-            background: #EF4444;
-            border: 1.5px solid #B91C1C;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 9px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
-          ">
-            <span style="color: white; font-weight: bold;">+</span>
-          </div>
-        `,
+        html: `<div style="width:14px;height:14px;background:#EF4444;border:1.5px solid #B91C1C;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;box-shadow:0 1px 3px rgba(0,0,0,0.2);"><span style="color:white;font-weight:bold;">+</span></div>`,
         iconSize: [14, 14],
         iconAnchor: [7, 7],
       })
-
       const marker = L.marker([facility.latitude, facility.longitude], { icon })
-
+      const safeName     = sanitize(facility.name || '')
+      const safeType     = sanitize(facility.facility_type || 'Healthcare Facility')
+      const safeDistrict = sanitize(facility.district || '')
+      const safeProvince = sanitize(facility.province || '')
       marker.bindPopup(`
         <div class="p-2 min-w-[200px]">
-          <div class="font-bold text-[#212529] mb-1">${facility.name}</div>
-          <div class="text-xs text-[#495057] mb-2">${facility.facility_type || 'Healthcare Facility'}</div>
-          <div class="text-xs text-[#495057] mb-1">${facility.district}, ${facility.province}</div>
-          ${facility.year_built && facility.year_built > 0 ? `<div class="text-xs text-[#495057]">Built: ${facility.year_built}</div>` : ''}
+          <div class="font-bold text-[#212529] mb-1">${safeName}</div>
+          <div class="text-xs text-[#495057] mb-2">${safeType}</div>
+          <div class="text-xs text-[#495057] mb-1">${safeDistrict}, ${safeProvince}</div>
+          ${facility.year_built && facility.year_built > 0 ? `<div class="text-xs text-[#495057]">Built: ${Number(facility.year_built)}</div>` : ''}
         </div>
       `, { maxWidth: 240, className: 'custom-popup' })
-
-      marker.addTo(map)
+      healthcareClusterGroup.addLayer(marker)
       healthcareMarkersRef.current[facility.id] = marker
     })
   }, [healthcareFacilities])
@@ -410,6 +454,28 @@ export default function MapView({ properties, schools = [], healthcareFacilities
           <p className="text-sm font-semibold text-[#212529]">Zoom in to see homes</p>
           <p className="text-xs text-[#495057] mt-1">Or adjust your filters</p>
         </div>
+      )}
+
+      {/* Result count pill */}
+      {properties.length > 0 && (
+        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-[400] pointer-events-none">
+          <div className="bg-white/95 backdrop-blur-sm border border-[#E9ECEF] rounded-full px-3 py-1.5 shadow-md text-xs text-[#495057]">
+            <span className="font-semibold text-[#212529]">{properties.length}</span> homes on map
+          </div>
+        </div>
+      )}
+
+      {/* Fit to results button */}
+      {properties.length > 0 && (
+        <button
+          onClick={fitToResults}
+          title="Fit map to all results"
+          className="absolute bottom-[3.75rem] right-4 z-[400] w-9 h-9 bg-white rounded-lg shadow-lg border border-[#E9ECEF] flex items-center justify-center hover:bg-[#F8F9FA] transition-colors"
+        >
+          <svg className="h-4 w-4 text-[#495057]" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M4 8V4h4M20 8V4h-4M4 16v4h4M20 16v4h-4" />
+          </svg>
+        </button>
       )}
 
       {/* Live location button */}
@@ -432,84 +498,97 @@ export default function MapView({ properties, schools = [], healthcareFacilities
         )}
       </button>
 
-      {/* Schools control overlay - positioned opposite zoom controls (top-right vs top-left zoom) */}
+      {/* Layers control overlay */}
       <div className="absolute top-4 right-4 z-[400] pointer-events-auto">
         <div className="bg-white rounded-lg shadow-lg border border-[#E9ECEF] overflow-hidden min-w-[160px]">
           {/* Header */}
           <button
-            onClick={() => setSchoolsControlExpanded(!schoolsControlExpanded)}
+            onClick={() => setOverlayExpanded(!overlayExpanded)}
             className="w-full px-3 py-2 flex items-center justify-between gap-2 hover:bg-[#F8F9FA] transition-colors"
           >
             <div className="flex items-center gap-1.5">
-              <span className="text-base">🏫</span>
-              <span className="text-sm font-semibold text-[#212529]">Schools</span>
+              <svg className="w-3.5 h-3.5 text-[#495057]" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 16l4.553-2.276A1 1 0 0021 19.382V8.618a1 1 0 00-.553-.894L15 5m0 16V5m0 0L9 7" />
+              </svg>
+              <span className="text-sm font-semibold text-[#212529]">Layers</span>
               {isLoadingSchools && showSchools && (
                 <svg className="animate-spin h-3 w-3 text-[#495057]" fill="none" viewBox="0 0 24 24">
-                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
                 </svg>
               )}
             </div>
             <svg
-              className={`w-3.5 h-3.5 text-[#495057] transition-transform ${schoolsControlExpanded ? 'rotate-180' : ''}`}
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
+              className={`w-3.5 h-3.5 text-[#495057] transition-transform ${overlayExpanded ? 'rotate-180' : ''}`}
+              fill="none" stroke="currentColor" viewBox="0 0 24 24"
             >
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
             </svg>
           </button>
 
-          {/* Expanded content */}
-          {schoolsControlExpanded && (
-            <div className="px-3 py-2 border-t border-[#E9ECEF] space-y-2">
-              {/* Main toggle */}
-              <label className="flex items-center gap-2 cursor-pointer">
-                <input
-                  type="checkbox"
-                  checked={showSchools}
-                  onChange={(e) => {
-                    const newShowSchools = e.target.checked
-                    onSchoolFilterChange(newShowSchools, schoolLevels)
-                  }}
-                  className="w-3.5 h-3.5 rounded border-[#E9ECEF] text-[#212529] focus:ring-[#212529] focus:ring-offset-0 cursor-pointer"
-                />
-                <span className="text-xs text-[#212529] font-medium">Show on map</span>
-              </label>
+          {overlayExpanded && (
+            <div className="px-3 py-2 border-t border-[#E9ECEF] space-y-3">
 
-              {/* Level filters */}
-              {showSchools && (
-                <div className="pt-1.5 border-t border-[#E9ECEF] space-y-1.5">
-                  <p className="text-[10px] font-semibold text-[#495057] uppercase tracking-wide mb-1">Level</p>
-                  {[
-                    { value: 'primary', label: 'Primary', emoji: '🏫' },
-                    { value: 'secondary', label: 'Secondary', emoji: '🎓' },
-                    { value: 'tertiary', label: 'University', emoji: '🎓' },
-                    { value: 'combined', label: 'Combined', emoji: '🏫' },
-                  ].map((level) => {
-                    const currentLevels = schoolLevels.split(',').filter(Boolean)
-                    const isChecked = currentLevels.includes(level.value)
-                    return (
-                      <label key={level.value} className="flex items-center gap-2 cursor-pointer group">
-                        <input
-                          type="checkbox"
-                          checked={isChecked}
-                          onChange={(e) => {
-                            const levels = schoolLevels.split(',').filter(Boolean)
-                            const newLevels = e.target.checked
-                              ? [...levels, level.value]
-                              : levels.filter((l) => l !== level.value)
-                            onSchoolFilterChange(showSchools, newLevels.join(','))
-                          }}
-                          className="w-3.5 h-3.5 rounded border-[#E9ECEF] text-[#212529] focus:ring-[#212529] focus:ring-offset-0 cursor-pointer"
-                        />
-                        <span className="text-xs">{level.emoji}</span>
-                        <span className="text-xs text-[#495057] group-hover:text-[#212529] transition-colors">{level.label}</span>
-                      </label>
-                    )
-                  })}
-                </div>
-              )}
+              {/* Healthcare toggle */}
+              <div>
+                <label className="flex items-center gap-2 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={showHealthcare}
+                    onChange={(e) => setShowHealthcare(e.target.checked)}
+                    className="w-3.5 h-3.5 rounded border-[#E9ECEF] text-[#212529] focus:ring-[#212529] focus:ring-offset-0 cursor-pointer"
+                  />
+                  <span className="text-xs">🏥</span>
+                  <span className="text-xs text-[#212529] font-medium">Healthcare</span>
+                </label>
+              </div>
+
+              {/* Schools section */}
+              <div className="border-t border-[#E9ECEF] pt-2">
+                <label className="flex items-center gap-2 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={showSchools}
+                    onChange={(e) => onSchoolFilterChange(e.target.checked, schoolLevels)}
+                    className="w-3.5 h-3.5 rounded border-[#E9ECEF] text-[#212529] focus:ring-[#212529] focus:ring-offset-0 cursor-pointer"
+                  />
+                  <span className="text-xs">🏫</span>
+                  <span className="text-xs text-[#212529] font-medium">Schools</span>
+                </label>
+
+                {showSchools && (
+                  <div className="pt-1.5 pl-5 space-y-1.5">
+                    <p className="text-[10px] font-semibold text-[#495057] uppercase tracking-wide mb-1">Level</p>
+                    {[
+                      { value: 'primary',   label: 'Primary',    emoji: '🏫' },
+                      { value: 'secondary', label: 'Secondary',  emoji: '🎓' },
+                      { value: 'tertiary',  label: 'University', emoji: '🎓' },
+                      { value: 'combined',  label: 'Combined',   emoji: '🏫' },
+                    ].map((level) => {
+                      const currentLevels = schoolLevels.split(',').filter(Boolean)
+                      const isChecked = currentLevels.includes(level.value)
+                      return (
+                        <label key={level.value} className="flex items-center gap-2 cursor-pointer group">
+                          <input
+                            type="checkbox"
+                            checked={isChecked}
+                            onChange={(e) => {
+                              const levels = schoolLevels.split(',').filter(Boolean)
+                              const newLevels = e.target.checked
+                                ? [...levels, level.value]
+                                : levels.filter((l) => l !== level.value)
+                              onSchoolFilterChange(showSchools, newLevels.join(','))
+                            }}
+                            className="w-3.5 h-3.5 rounded border-[#E9ECEF] text-[#212529] focus:ring-[#212529] focus:ring-offset-0 cursor-pointer"
+                          />
+                          <span className="text-xs">{level.emoji}</span>
+                          <span className="text-xs text-[#495057] group-hover:text-[#212529] transition-colors">{level.label}</span>
+                        </label>
+                      )
+                    })}
+                  </div>
+                )}
+              </div>
             </div>
           )}
         </div>
@@ -630,6 +709,44 @@ export default function MapView({ properties, schools = [], healthcareFacilities
           height: 56px; 
           font-size: 17px;
           border-width: 3.5px;
+        }
+        .cluster-school {
+          background: linear-gradient(135deg, #3B82F6 0%, #1E40AF 100%);
+          border: 2.5px solid #fff;
+          border-radius: 50%;
+          width: 32px;
+          height: 32px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 11px;
+          font-weight: 800;
+          color: #fff;
+          box-shadow: 0 2px 8px rgba(59, 130, 246, 0.4);
+          cursor: pointer;
+          transition: all 0.2s ease;
+        }
+        .cluster-school:hover {
+          transform: scale(1.2);
+        }
+        .cluster-healthcare {
+          background: linear-gradient(135deg, #EF4444 0%, #B91C1C 100%);
+          border: 2.5px solid #fff;
+          border-radius: 50%;
+          width: 32px;
+          height: 32px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 11px;
+          font-weight: 800;
+          color: #fff;
+          box-shadow: 0 2px 8px rgba(239, 68, 68, 0.4);
+          cursor: pointer;
+          transition: all 0.2s ease;
+        }
+        .cluster-healthcare:hover {
+          transform: scale(1.2);
         }
         
         /* Popup styling */
