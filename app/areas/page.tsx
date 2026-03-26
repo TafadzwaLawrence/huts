@@ -181,25 +181,6 @@ export default async function AreasPage() {
             )}
           </div>
         </section>
-
-        {/* CTA Section */}
-        <section className="border-t border-[#E9ECEF] py-12 md:py-16">
-          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 className="text-2xl font-bold text-[#212529] mb-3">
-              Don&apos;t see your area?
-            </h2>
-            <p className="text-sm text-[#ADB5BD] mb-8">
-              Search all properties across the city or contact us to add your neighborhood
-            </p>
-            <Link
-              href="/search"
-              className="inline-flex items-center gap-2 bg-[#212529] text-white px-8 py-3 rounded-lg font-medium hover:bg-black transition-colors"
-            >
-              Search All Properties
-              <ArrowRight size={16} />
-            </Link>
-          </div>
-        </section>
       </div>
     </>
   )
