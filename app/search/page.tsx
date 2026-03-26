@@ -73,6 +73,8 @@ export default function SearchPage() {
     maxPrice: searchParams.get('maxPrice') || '',
     beds: searchParams.get('beds') || '',
     baths: searchParams.get('baths') || '',
+    minSqft: searchParams.get('minSqft') || '',
+    maxSqft: searchParams.get('maxSqft') || '',
     propertyType: searchParams.get('propertyType') || 'all',
     studentHousingOnly: searchParams.get('student') === '1',
     showSchools: searchParams.get('showSchools') === '1',
@@ -91,6 +93,7 @@ export default function SearchPage() {
   const [mapBounds, setMapBounds] = useState<{ north: number; south: number; east: number; west: number } | null>(null)
   const isInitialMount = useRef(true)
   const abortRef = useRef<AbortController | null>(null)
+  const listingsPanelRef = useRef<HTMLDivElement>(null)
   
   // Save search states
   const [saveModalOpen, setSaveModalOpen] = useState(false)
@@ -138,7 +141,7 @@ export default function SearchPage() {
       }, 1500)
     } catch (error) {
       console.error('Save search error:', error)
-      alert('Failed to save search. Please try again.')
+      toast.error('Failed to save search. Please try again.')
     } finally {
       setSavingSearch(false)
     }
@@ -154,6 +157,8 @@ export default function SearchPage() {
     if (filters.maxPrice) params.set('maxPrice', filters.maxPrice)
     if (filters.beds) params.set('beds', filters.beds)
     if (filters.baths) params.set('baths', filters.baths)
+    if (filters.minSqft) params.set('minSqft', filters.minSqft)
+    if (filters.maxSqft) params.set('maxSqft', filters.maxSqft)
     if (filters.propertyType !== 'all') params.set('propertyType', filters.propertyType)
     if (filters.studentHousingOnly) params.set('student', '1')
     if (filters.showSchools) params.set('showSchools', '1')
@@ -278,6 +283,8 @@ export default function SearchPage() {
     if (filters.maxPrice) params.set('maxPrice', filters.maxPrice)
     if (filters.beds) params.set('beds', filters.beds)
     if (filters.baths) params.set('baths', filters.baths)
+    if (filters.minSqft) params.set('minSqft', filters.minSqft)
+    if (filters.maxSqft) params.set('maxSqft', filters.maxSqft)
     if (filters.propertyType !== 'all') params.set('propertyType', filters.propertyType)
     if (filters.studentHousingOnly) params.set('student', '1')
     if (sort !== 'newest') params.set('sort', sort)
@@ -294,6 +301,11 @@ export default function SearchPage() {
   useEffect(() => {
     setPage(1)
   }, [listingType, filters, sort, debouncedBounds])
+
+  // Scroll listings panel to top on page change
+  useEffect(() => {
+    listingsPanelRef.current?.scrollTo({ top: 0, behavior: 'smooth' })
+  }, [page])
 
   // Sync listing type from URL
   useEffect(() => {
@@ -315,6 +327,8 @@ export default function SearchPage() {
       maxPrice: '',
       beds: '',
       baths: '',
+      minSqft: '',
+      maxSqft: '',
       propertyType: 'all',
       studentHousingOnly: false,
       showSchools: false,
@@ -355,6 +369,8 @@ export default function SearchPage() {
                 maxPrice: filters.maxPrice,
                 beds: filters.beds,
                 baths: filters.baths,
+                minSqft: filters.minSqft,
+                maxSqft: filters.maxSqft,
                 propertyType: filters.propertyType,
                 studentHousingOnly: filters.studentHousingOnly,
               }}
@@ -363,6 +379,7 @@ export default function SearchPage() {
               resultCount={total}
               sort={sort}
               onSortChange={setSort}
+              onSaveSearch={() => setSaveModalOpen(true)}
             />
           </div>
 
@@ -431,12 +448,25 @@ export default function SearchPage() {
               schoolLevels={filters.schoolLevels}
               onSchoolFilterChange={handleSchoolFilterChange}
             />
+            {!isMobile && effectiveView === 'map' && (
+              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-[1000] bg-white border border-[#E9ECEF] rounded-full px-4 py-2 shadow-md flex items-center gap-2 text-xs text-[#495057]">
+                <label className="flex items-center gap-1.5 cursor-pointer select-none">
+                  <input
+                    type="checkbox"
+                    checked={searchMoveMap}
+                    onChange={(e) => setSearchMoveMap(e.target.checked)}
+                    className="rounded border-[#ADB5BD] text-[#212529] focus:ring-[#212529] w-3.5 h-3.5"
+                  />
+                  Search as I move the map
+                </label>
+              </div>
+            )}
           </div>
         )}
 
-        {/* Listings Panel - On mobile: stacked below map, On desktop: Zillow style on right */}
+        {/* Listings Panel - On mobile: stacked below map, On desktop: Zillow style on right */
         {(isMobile || effectiveView !== 'map') && (
-          <div className={`overflow-y-auto bg-white ${
+          <div ref={listingsPanelRef} className={`overflow-y-auto bg-white ${
             isMobile 
               ? 'flex-1' 
               : effectiveView === 'split' 
@@ -459,31 +489,17 @@ export default function SearchPage() {
             )}
 
             {/* Result header */}
-            <div className="px-4 pt-3 pb-1 flex items-center justify-between">
-              <div>
-                <h1 className="text-base font-bold text-[#212529]">
-                  {searchParams.get('q') || searchParams.get('neighborhood') || searchParams.get('city')
-                    ? `${searchParams.get('q') || searchParams.get('neighborhood') || searchParams.get('city')} Real Estate`
-                    : 'Zimbabwe Real Estate'}
-                </h1>
-                {!loading && (
-                  <p className="text-xs text-[#495057] mt-0.5">
-                    <span className="font-semibold text-[#212529]">{total.toLocaleString()}</span> results
-                  </p>
-                )}
-              </div>
-              <select
-                value={sort}
-                onChange={(e) => setSort(e.target.value)}
-                className="text-xs text-[#495057] bg-transparent border-none outline-none cursor-pointer font-medium"
-                aria-label="Sort listings"
-              >
-                <option value="newest">Sort: Newest</option>
-                <option value="price_asc">Price: Low to High</option>
-                <option value="price_desc">Price: High to Low</option>
-                <option value="beds_desc">Sort: Bedrooms</option>
-                <option value="sqft_desc">Sort: Sq Ft</option>
-              </select>
+            <div className="px-4 pt-3 pb-1">
+              <p className="text-base font-bold text-[#212529]">
+                {searchParams.get('q') || searchParams.get('neighborhood') || searchParams.get('city')
+                  ? `${searchParams.get('q') || searchParams.get('neighborhood') || searchParams.get('city')} Real Estate`
+                  : 'Zimbabwe Real Estate'}
+              </p>
+              {!loading && (
+                <p aria-live="polite" aria-atomic="true" className="text-xs text-[#495057] mt-0.5">
+                  <span className="font-semibold text-[#212529]">{total.toLocaleString()}</span> results
+                </p>
+              )}
             </div>
 
             {loading ? (
@@ -530,7 +546,10 @@ export default function SearchPage() {
                   </ul>
                 </div>
 
-                <button className="mt-6 inline-flex items-center gap-1.5 px-4 py-2 text-sm font-semibold text-[#212529] border border-[#E9ECEF] rounded-lg hover:border-[#212529] transition-colors">
+                <button
+                  onClick={() => setSaveModalOpen(true)}
+                  className="mt-6 inline-flex items-center gap-1.5 px-4 py-2 text-sm font-semibold text-[#212529] border border-[#E9ECEF] rounded-lg hover:border-[#212529] transition-colors"
+                >
                   <Bell size={14} />
                   Save this search to get alerts
                 </button>

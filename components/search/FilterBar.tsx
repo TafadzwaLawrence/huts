@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useRef, useEffect } from 'react'
-import { ChevronDown, X, SlidersHorizontal } from 'lucide-react'
+import { Bell, ChevronDown, X, SlidersHorizontal } from 'lucide-react'
 import { ICON_SIZES } from '@/lib/constants'
 import { BottomSheet } from '@/components/ui/BottomSheet'
 
@@ -13,6 +13,8 @@ interface FilterBarProps {
     maxPrice: string
     beds: string
     baths: string
+    minSqft: string
+    maxSqft: string
     propertyType: string
     studentHousingOnly: boolean
   }
@@ -21,6 +23,7 @@ interface FilterBarProps {
   resultCount: number
   sort: string
   onSortChange: (sort: string) => void
+  onSaveSearch?: () => void
 }
 
 function Dropdown({ label, active, children, onApply }: { label: string; active?: boolean; children: React.ReactNode; onApply?: () => void }) {
@@ -34,7 +37,9 @@ function Dropdown({ label, active, children, onApply }: { label: string; active?
   useEffect(() => {
     if (open && buttonRef.current) {
       const rect = buttonRef.current.getBoundingClientRect()
-      setPos({ top: rect.bottom + 8, left: rect.left })
+      const panelWidth = 280
+      const left = Math.min(rect.left, window.innerWidth - panelWidth - 16)
+      setPos({ top: rect.bottom + 8, left })
       // Start animation after position is set
       requestAnimationFrame(() => setIsAnimating(true))
     } else {
@@ -132,7 +137,8 @@ export function FilterBar({
   sort,
   onSortChange,
 }: FilterBarProps) {
-  const hasActiveFilters = filters.minPrice || filters.maxPrice || filters.beds || filters.baths || filters.propertyType !== 'all' || filters.studentHousingOnly
+  const hasActiveFilters = filters.minPrice || filters.maxPrice || filters.beds || filters.baths || filters.minSqft || filters.maxSqft || filters.propertyType !== 'all' || filters.studentHousingOnly
+  const activeFilterCount = [filters.minPrice, filters.maxPrice, filters.beds, filters.baths, filters.minSqft, filters.maxSqft, filters.studentHousingOnly ? '1' : ''].filter(Boolean).length + (filters.propertyType !== 'all' ? 1 : 0)
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
 
   return (
@@ -324,8 +330,81 @@ export function FilterBar({
       </Dropdown>
 
       {/* Sort */}
+      <Dropdown label="Sort" active={sort !== 'newest'}>
+        <div className="space-y-1">
+          {[
+            { value: 'newest', label: 'Newest first' },
+            { value: 'price_asc', label: 'Price: Low to High' },
+            { value: 'price_desc', label: 'Price: High to Low' },
+            { value: 'beds_desc', label: 'Most Bedrooms' },
+            { value: 'sqft_desc', label: 'Largest first' },
+          ].map((opt) => (
+            <button
+              key={opt.value}
+              onClick={() => onSortChange(opt.value)}
+              className={`flex items-center justify-between w-full px-3 py-2.5 text-sm rounded-lg transition-all ${
+                sort === opt.value
+                  ? 'bg-[#212529] text-white font-medium'
+                  : 'text-[#495057] hover:bg-[#F8F9FA]'
+              }`}
+            >
+              <span>{opt.label}</span>
+              {sort === opt.value && (
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M13.3337 4L6.00033 11.3333L2.66699 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              )}
+            </button>
+          ))}
+        </div>
+      </Dropdown>
 
-      {/* Clear Filters */}
+      {/* Sq Ft */}
+      <Dropdown label="Sq Ft" active={!!(filters.minSqft || filters.maxSqft)}>
+        <div className="space-y-3">
+          <div>
+            <label className="text-xs font-medium text-[#495057] block mb-1.5">Min sq ft</label>
+            <input
+              type="number"
+              value={filters.minSqft}
+              onChange={(e) => onFilterChange('minSqft', e.target.value)}
+              placeholder="No min"
+              className="text-[#212529] bg-white w-full px-3 py-2 text-sm border border-[#E9ECEF] rounded-lg focus:border-[#212529] focus:ring-1 focus:ring-[#212529] outline-none transition-all"
+            />
+          </div>
+          <div>
+            <label className="text-xs font-medium text-[#495057] block mb-1.5">Max sq ft</label>
+            <input
+              type="number"
+              value={filters.maxSqft}
+              onChange={(e) => onFilterChange('maxSqft', e.target.value)}
+              placeholder="No max"
+              className="text-[#212529] bg-white w-full px-3 py-2 text-sm border border-[#E9ECEF] rounded-lg focus:border-[#212529] focus:ring-1 focus:ring-[#212529] outline-none transition-all"
+            />
+          </div>
+          <div className="pt-2 border-t border-[#E9ECEF]">
+            <p className="text-xs text-[#ADB5BD] mb-2">Quick select</p>
+            <div className="grid grid-cols-2 gap-2">
+              {[
+                { label: '500+ sqft', min: '500', max: '' },
+                { label: '1,000+ sqft', min: '1000', max: '' },
+                { label: '1,500+ sqft', min: '1500', max: '' },
+                { label: '2,000+ sqft', min: '2000', max: '' },
+              ].map((opt) => (
+                <button
+                  key={opt.label}
+                  onClick={() => { onFilterChange('minSqft', opt.min); onFilterChange('maxSqft', opt.max) }}
+                  className="px-2.5 py-1.5 text-xs text-[#495057] bg-[#F8F9FA] rounded-md hover:bg-[#E9ECEF] transition-colors"
+                >
+                  {opt.label}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      </Dropdown>
+
+      {/* Clear Filters */}}
       {hasActiveFilters && (
         <button
           onClick={onClearFilters}
@@ -367,7 +446,7 @@ export function FilterBar({
         >
           <SlidersHorizontal size={14} />
           Filters
-          {hasActiveFilters && <span className="w-1.5 h-1.5 bg-white rounded-full" />}
+          {hasActiveFilters && <span className="text-xs font-bold">{activeFilterCount}</span>}
         </button>
 
         <div className="ml-auto text-xs text-[#495057]">
@@ -470,6 +549,27 @@ export function FilterBar({
             </div>
           </div>
 
+          {/* Sq Ft */}
+          <div>
+            <label className="text-sm font-semibold text-[#212529] block mb-2">Square Footage</label>
+            <div className="grid grid-cols-2 gap-3">
+              <input
+                type="number"
+                value={filters.minSqft}
+                onChange={(e) => onFilterChange('minSqft', e.target.value)}
+                placeholder="Min sqft"
+                className="text-[#212529] bg-white w-full px-3 py-2.5 text-sm border border-[#E9ECEF] rounded-lg focus:border-[#212529] outline-none"
+              />
+              <input
+                type="number"
+                value={filters.maxSqft}
+                onChange={(e) => onFilterChange('maxSqft', e.target.value)}
+                placeholder="Max sqft"
+                className="text-[#212529] bg-white w-full px-3 py-2.5 text-sm border border-[#E9ECEF] rounded-lg focus:border-[#212529] outline-none"
+              />
+            </div>
+          </div>
+
           {/* Sort */}
           <div>
             <label className="text-sm font-semibold text-[#212529] block mb-2">Sort by</label>
@@ -496,19 +596,30 @@ export function FilterBar({
           </div>
 
           {/* Actions */}
-          <div className="flex gap-3 pt-4 border-t border-[#E9ECEF]">
-            <button
-              onClick={() => { onClearFilters(); setMobileFiltersOpen(false) }}
-              className="flex-1 py-3 text-sm font-medium text-[#495057] border border-[#E9ECEF] rounded-lg"
-            >
-              Clear All
-            </button>
-            <button
-              onClick={() => setMobileFiltersOpen(false)}
-              className="flex-1 py-3 text-sm font-semibold text-white bg-[#212529] rounded-lg"
-            >
-              Show {resultCount.toLocaleString()} Results
-            </button>
+          <div className="space-y-3 pt-4 border-t border-[#E9ECEF]">
+            <div className="flex gap-3">
+              <button
+                onClick={() => { onClearFilters(); setMobileFiltersOpen(false) }}
+                className="flex-1 py-3 text-sm font-medium text-[#495057] border border-[#E9ECEF] rounded-lg"
+              >
+                Clear All
+              </button>
+              <button
+                onClick={() => setMobileFiltersOpen(false)}
+                className="flex-1 py-3 text-sm font-semibold text-white bg-[#212529] rounded-lg"
+              >
+                Show {resultCount.toLocaleString()} Results
+              </button>
+            </div>
+            {onSaveSearch && (
+              <button
+                onClick={() => { setMobileFiltersOpen(false); onSaveSearch() }}
+                className="w-full py-2.5 text-sm font-medium text-[#495057] flex items-center justify-center gap-1.5 hover:text-[#212529] transition-colors"
+              >
+                <Bell size={14} />
+                Save this search
+              </button>
+            )}
           </div>
         </div>
       </BottomSheet>

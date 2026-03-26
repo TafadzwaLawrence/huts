@@ -77,21 +77,19 @@ export async function GET(request: NextRequest) {
     query = query.eq('property_type', 'student')
   }
 
-  // Price filters (convert dollars to cents)
+  // Price filters (values passed as cents from the UI)
   if (minPrice > 0) {
-    const minCents = minPrice * 100
     if (listingType === 'sale') {
-      query = query.gte('sale_price', minCents)
+      query = query.gte('sale_price', minPrice)
     } else {
-      query = query.gte('price', minCents)
+      query = query.gte('price', minPrice)
     }
   }
   if (maxPrice > 0) {
-    const maxCents = maxPrice * 100
     if (listingType === 'sale') {
-      query = query.lte('sale_price', maxCents)
+      query = query.lte('sale_price', maxPrice)
     } else {
-      query = query.lte('price', maxCents)
+      query = query.lte('price', maxPrice)
     }
   }
 

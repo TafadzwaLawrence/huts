@@ -68,9 +68,9 @@ export default async function SearchLayout({
       {/* Server-rendered SEO content — crawlable by search engines */}
       <section className="bg-[#F8F9FA] border-t border-[#E9ECEF] py-12 md:py-16">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-2xl md:text-3xl font-bold text-[#212529] mb-4">
+          <h1 className="text-2xl md:text-3xl font-bold text-[#212529] mb-4">
             Browse {totalCount || 0}+ Properties Across Zimbabwe
-          </h2>
+          </h1>
           <p className="text-[#495057] mb-8 max-w-2xl">
             Discover verified rental properties and homes for sale in Zimbabwe&apos;s most popular neighborhoods. 
             Filter by location, price, bedrooms, and property type to find your perfect home.
