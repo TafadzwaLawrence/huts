@@ -235,34 +235,37 @@ export function CreateTransactionModal({ isOpen, onClose }: CreateTransactionMod
           )}
 
           {step === 2 && (
-            <div className="space-y-6">
+            <div className="space-y-5">
               <div>
-                <label className="block text-sm font-medium text-[#212529] mb-2">
-                  Add Participants
+                <label className="block text-sm font-semibold text-[#212529] mb-2">
+                  Search &amp; Add Participants
                 </label>
                 <div className="relative">
-                  <Search size={18} className="absolute left-3 top-3 text-dark-gray" />
+                  <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#ADB5BD]" />
                   <input
                     type="text"
                     placeholder="Search by name or email..."
                     onChange={(e) => searchProfiles(e.target.value)}
-                    className="text-[#212529] bg-white w-full pl-10 pr-3 py-2 border border-light-gray rounded-md focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent"
+                    className="w-full pl-9 pr-4 py-3 border border-[#E9ECEF] rounded-lg text-[#212529] bg-white focus:outline-none focus:ring-2 focus:ring-[#212529] transition-colors"
                   />
                 </div>
 
                 {searchResults.length > 0 && (
-                  <div className="mt-2 border border-[#E9ECEF] rounded-md max-h-40 overflow-y-auto">
+                  <div className="mt-2 border border-[#E9ECEF] rounded-xl overflow-hidden shadow-sm">
                     {searchResults.map((profile) => (
                       <button
                         key={profile.id}
                         onClick={() => addParticipant(profile)}
-                        className="w-full px-3 py-2 text-left hover:bg-[#E9ECEF] flex items-center gap-3 text-[#212529]"
+                        className="w-full px-4 py-3 text-left hover:bg-[#F8F9FA] flex items-center gap-3 text-[#212529] border-b border-[#F3F4F6] last:border-0 transition-colors"
                       >
-                        <User size={16} />
-                        <div>
-                          <div className="font-medium">{profile.full_name}</div>
-                          <div className="text-sm text-[#495057]">{profile.email}</div>
+                        <div className="w-8 h-8 rounded-full bg-[#212529] text-white flex items-center justify-center text-xs font-semibold flex-shrink-0">
+                          {profile.full_name?.charAt(0)?.toUpperCase() || '?'}
                         </div>
+                        <div>
+                          <div className="text-sm font-semibold">{profile.full_name}</div>
+                          <div className="text-xs text-[#6B7280]">{profile.email}</div>
+                        </div>
+                        <Plus size={14} className="ml-auto text-[#ADB5BD]" />
                       </button>
                     ))}
                   </div>
@@ -270,21 +273,23 @@ export function CreateTransactionModal({ isOpen, onClose }: CreateTransactionMod
               </div>
 
               {participants.length > 0 && (
-                <div className="space-y-3">
-                  <h4 className="font-medium text-[#212529]">Participants</h4>
+                <div className="space-y-2">
+                  <h4 className="text-sm font-semibold text-[#212529]">Added Participants ({participants.length})</h4>
                   {participants.map((participant) => (
-                    <div key={participant.profile.id} className="flex items-center gap-3 p-3 border border-[#E9ECEF] rounded-md">
-                      <User size={16} className="text-[#495057]" />
-                      <div className="flex-1">
-                        <div className="font-medium text-[#212529]">{participant.profile.full_name}</div>
-                        <div className="text-sm text-[#495057]">{participant.profile.email}</div>
+                    <div key={participant.profile.id} className="flex items-center gap-3 p-3 border border-[#E9ECEF] rounded-xl bg-[#F8F9FA]">
+                      <div className="w-8 h-8 rounded-full bg-[#212529] text-white flex items-center justify-center text-xs font-semibold flex-shrink-0">
+                        {participant.profile.full_name?.charAt(0)?.toUpperCase() || '?'}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <div className="text-sm font-semibold text-[#212529] truncate">{participant.profile.full_name}</div>
+                        <div className="text-xs text-[#6B7280] truncate">{participant.profile.email}</div>
                       </div>
                       <select
                         value={participant.role}
                         onChange={(e) => updateParticipant(participant.profile.id, {
-                          role: e.target.value as 'listing_agent' | 'selling_agent' | 'buyer_agent' | 'buyer' | 'seller' | 'landlord' | 'tenant' | 'coordinator'
+                          role: e.target.value as typeof participant.role
                         })}
-                        className="px-2 py-1 border border-[#E9ECEF] rounded text-sm text-[#212529] bg-white"
+                        className="px-2 py-1.5 border border-[#E9ECEF] rounded-lg text-xs text-[#212529] bg-white focus:outline-none focus:ring-1 focus:ring-[#212529]"
                       >
                         <option value="buyer">Buyer</option>
                         <option value="seller">Seller</option>
@@ -298,19 +303,19 @@ export function CreateTransactionModal({ isOpen, onClose }: CreateTransactionMod
                       {(participant.role.includes('agent')) && (
                         <input
                           type="number"
-                          placeholder="Commission %"
+                          placeholder="%"
                           value={participant.commission_split_pct || ''}
                           onChange={(e) => updateParticipant(participant.profile.id, {
                             commission_split_pct: parseFloat(e.target.value) || 0
                           })}
-                          className="w-20 px-2 py-1 border border-[#E9ECEF] rounded text-sm text-[#212529] bg-white"
+                          className="w-14 px-2 py-1.5 border border-[#E9ECEF] rounded-lg text-xs text-[#212529] bg-white focus:outline-none"
                         />
                       )}
                       <button
                         onClick={() => removeParticipant(participant.profile.id)}
-                        className="text-red-600 hover:text-red-800"
+                        className="text-[#EF4444] hover:text-red-700 p-1"
                       >
-                        <X size={16} />
+                        <X size={14} />
                       </button>
                     </div>
                   ))}
@@ -318,29 +323,29 @@ export function CreateTransactionModal({ isOpen, onClose }: CreateTransactionMod
               )}
 
               <div>
-                <label className="block text-sm font-medium text-[#212529] mb-2">
-                  Notes (Optional)
+                <label className="block text-sm font-semibold text-[#212529] mb-2">
+                  Notes <span className="font-normal text-[#9CA3AF]">(optional)</span>
                 </label>
                 <textarea
                   value={notes}
                   onChange={(e) => setNotes(e.target.value)}
                   placeholder="Add any additional notes..."
                   rows={3}
-                  className="text-[#212529] bg-white w-full px-3 py-2 border border-light-gray rounded-md focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent"
+                  className="w-full px-4 py-3 border border-[#E9ECEF] rounded-lg text-[#212529] bg-white focus:outline-none focus:ring-2 focus:ring-[#212529] transition-colors"
                 />
               </div>
 
               <div className="flex gap-3">
                 <button
                   onClick={() => setStep(1)}
-                  className="flex-1 border border-[#495057] text-[#212529] py-2 px-4 rounded-md hover:bg-[#E9ECEF]"
+                  className="flex-1 border border-[#E9ECEF] text-[#212529] py-3 px-4 rounded-lg hover:border-[#212529] font-medium transition-colors"
                 >
                   Back
                 </button>
                 <button
                   onClick={handleSubmit}
                   disabled={loading || participants.length === 0}
-                  className="flex-1 bg-black text-white py-2 px-4 rounded-md hover:bg-[#212529] disabled:opacity-40 disabled:cursor-not-allowed"
+                  className="flex-1 bg-[#212529] text-white py-3 px-4 rounded-lg hover:bg-black disabled:opacity-40 disabled:cursor-not-allowed font-medium transition-colors"
                 >
                   {loading ? 'Creating...' : 'Create Transaction'}
                 </button>
