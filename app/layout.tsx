@@ -109,6 +109,19 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={googleSans.variable} suppressHydrationWarning>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function(c,l,a,r,i,t,y){
+                c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+                t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/w2csrywisj";
+                y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+              })(window, document, "clarity", "script", "w2csrywisj");
+            `,
+          }}
+        ></script>
+      </head>
       <body className={googleSans.className} suppressHydrationWarning>
         {/* JSON-LD Structured Data for Organization */}
         <OrganizationStructuredData />
