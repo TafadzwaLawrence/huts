@@ -110,6 +110,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={googleSans.variable} suppressHydrationWarning>
       <head>
+        <meta name="ahrefs-site-verification" content="7498c7033a95c6a6210a2599e55cb4938569e7e04c7d61c40b83cb24848a6797" />
         <script
           dangerouslySetInnerHTML={{
             __html: `
