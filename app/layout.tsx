@@ -121,6 +121,7 @@ export default function RootLayout({
             `,
           }}
         ></script>
+        <script src="https://analytics.ahrefs.com/analytics.js" data-key="ZBeB92jKZFhBHomRF9l5KQ" async></script>
       </head>
       <body className={googleSans.className} suppressHydrationWarning>
         {/* JSON-LD Structured Data for Organization */}
