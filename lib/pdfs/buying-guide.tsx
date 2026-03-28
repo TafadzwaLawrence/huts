@@ -193,7 +193,7 @@ export function BuyingGuidePDF({ buyerName = 'Friend' }: BuyingGuidePDFProps) {
         <Text style={styles.bulletPoint}>• Conveyancer sends you certified copy of deed</Text>
         <Text style={styles.bulletPoint}>• Keys handed over; property is yours!</Text>
 
-        <Text style={styles.paragraph} style={{ marginTop: 20 }}>
+        <Text style={{ ...styles.paragraph, marginTop: 20 }}>
           Timeline: Typically 30–60 days from offer to transfer completion.
         </Text>
       </Page>
@@ -248,33 +248,33 @@ export function BuyingGuidePDF({ buyerName = 'Friend' }: BuyingGuidePDFProps) {
         <Text style={styles.bulletPoint}>• Deed issued under different name + power of attorney (high fraud risk)</Text>
         <Text style={styles.bulletPoint}>• Cession (property transferred via assignment) — verify legality with conveyancer</Text>
         <Text style={styles.bulletPoint}>• Property listed under company/trust — requires additional scrutiny</Text>
-        <Text style={styles.paragraph} style={{ marginTop: 8 }}>Action: ALWAYS have conveyancer verify deed at Deeds Registry before signing offer.</Text>
+        <Text style={{ ...styles.paragraph, marginTop: 8 }}>Action: ALWAYS have conveyancer verify deed at Deeds Registry before signing offer.</Text>
 
         <Text style={styles.heading}>🚩 Unpaid Rates & Utilities</Text>
         <Text style={styles.bulletPoint}>• Municipal rates arrears (could be hundreds or thousands USD)</Text>
         <Text style={styles.bulletPoint}>• ZESA (electricity) debt — council can disconnect post-purchase</Text>
         <Text style={styles.bulletPoint}>• Water (ZINWA) arrears — seller's obligation, not yours (usually)</Text>
         <Text style={styles.bulletPoint}>• Property tax liens — buyer can inherit liability</Text>
-        <Text style={styles.paragraph} style={{ marginTop: 8 }}>Action: Require rates clearance certificate from council. Ask seller to provide ZESA, ZINWA reconciliation statements.</Text>
+        <Text style={{ ...styles.paragraph, marginTop: 8 }}>Action: Require rates clearance certificate from council. Ask seller to provide ZESA, ZINWA reconciliation statements.</Text>
 
         <Text style={styles.heading}>🚩 Boundary & Easement Disputes</Text>
         <Text style={styles.bulletPoint}>• Neighbor disputes over boundary lines</Text>
         <Text style={styles.bulletPoint}>• Easements (rights-of-way) not disclosed</Text>
         <Text style={styles.bulletPoint}>• Encroachments (seller's fence on neighbor's land, neighbor's structure on your property)</Text>
-        <Text style={styles.paragraph} style={{ marginTop: 8 }}>Action: Hire surveyor to verify boundaries (~USD 200–400). Walk property with neighbors to confirm agreement.</Text>
+        <Text style={{ ...styles.paragraph, marginTop: 8 }}>Action: Hire surveyor to verify boundaries (~USD 200–400). Walk property with neighbors to confirm agreement.</Text>
 
         <Text style={styles.heading}>🚩 Structural & Hidden Defects</Text>
         <Text style={styles.bulletPoint}>• Foundation cracks or settlement issues</Text>
         <Text style={styles.bulletPoint}>• Roof leaks, water damage, rot (expensive to repair)</Text>
         <Text style={styles.bulletPoint}>• Electrical wiring outdated/unsafe</Text>
         <Text style={styles.bulletPoint}>• Plumbing issues (corroded pipes, lead pipes in old houses)</Text>
-        <Text style={styles.paragraph} style={{ marginTop: 8 }}>Action: Hire qualified home inspector. Request full disclosure from seller of known defects.</Text>
+        <Text style={{ ...styles.paragraph, marginTop: 8 }}>Action: Hire qualified home inspector. Request full disclosure from seller of known defects.</Text>
 
         <Text style={styles.heading}>🚩 Zoning & Legal Restrictions</Text>
         <Text style={styles.bulletPoint}>• Property zoned for residential, but seller running business from it</Text>
         <Text style={styles.bulletPoint}>• Local council restrictions (no extensions without approval)</Text>
         <Text style={styles.bulletPoint}>• Mortgage restrictions (lender won't allow short-term rentals, business use)</Text>
-        <Text style={styles.paragraph} style={{ marginTop: 8 }}>Action: Verify zoning with local council. Review mortgage terms for permitted uses.</Text>
+        <Text style={{ ...styles.paragraph, marginTop: 8 }}>Action: Verify zoning with local council. Review mortgage terms for permitted uses.</Text>
       </Page>
 
       {/* Chapter 4: City-Specific Guides */}
@@ -377,7 +377,7 @@ export function BuyingGuidePDF({ buyerName = 'Friend' }: BuyingGuidePDFProps) {
           5. Get your finances in order — pre-approval strengthens your position
         </Text>
 
-        <Text style={styles.paragraph} style={{ marginTop: 25 }}>
+        <Text style={{ ...styles.paragraph, marginTop: 25 }}>
           For personalized guidance and to browse verified properties, visit Huts at www.huts.co.zw.
         </Text>
 

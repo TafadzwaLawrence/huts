@@ -54,7 +54,7 @@ export default function BuyingGuideForm({ onSuccess, compact = false }: BuyingGu
       }
 
       toast.success('Success!', {
-        description: 'Check your email for the free guide. You'll receive the first email within a few minutes.',
+        description: "Check your email for the free guide. You'll receive the first email within a few minutes.",
       })
 
       reset()

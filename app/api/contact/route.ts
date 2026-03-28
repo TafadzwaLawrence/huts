@@ -117,7 +117,7 @@ async function triggerLeadMagnetSequence(leadId: string, email: string, firstNam
       from: 'Huts <noreply@huts.co.zw>',
       to: email,
       subject: "Welcome! Here's Your Free Property Buying Guide",
-      react: BuyingGuideWelcomeEmail({ buyerName: firstName }),
+      react: BuyingGuideWelcomeEmail({ buyerName: firstName, guideDownloadUrl: '' }),
     })
 
     if (welcomeError) {
