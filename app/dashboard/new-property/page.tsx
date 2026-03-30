@@ -62,6 +62,7 @@ export default function NewPropertyPage() {
     
     // Pricing
     price: '',        // Monthly rent (for rent) OR sale price (for sale)
+    rentalPeriod: 'monthly' as 'monthly' | 'nightly',  // Rental period for rent listings
     deposit: '',      // Security deposit (rent only)
     
     // Details
@@ -232,9 +233,10 @@ export default function NewPropertyPage() {
           listing_type: formData.listingType,
           status: 'active',
           verification_status: 'pending',
-          // For rent: price is monthly rent. For sale: price is NULL, sale_price is the price
+          // For rent: price is monthly/nightly rent. For sale: price is NULL, sale_price is the price
           price: formData.listingType === 'rent' ? priceValue : null,
           sale_price: formData.listingType === 'sale' ? priceValue : null,
+          rental_period: formData.listingType === 'rent' ? formData.rentalPeriod : null,
           deposit: formData.listingType === 'rent' ? depositInCents : null,
           bedrooms: parseInt(formData.beds),
           bathrooms: parseFloat(formData.baths),
@@ -719,7 +721,7 @@ export default function NewPropertyPage() {
                 {/* Price */}
                 <div>
                   <label htmlFor="price" className="block text-sm font-semibold text-[#212529] mb-2">
-                    {formData.listingType === 'rent' ? 'Monthly Rent' : 'Sale Price'} <span className="text-[#FF6B6B]">*</span>
+                    {formData.listingType === 'rent' ? 'Rental Price' : 'Sale Price'} <span className="text-[#FF6B6B]">*</span>
                   </label>
                   <div className="relative">
                     <span className="absolute left-4 top-1/2 -translate-y-1/2 text-[#495057] font-semibold text-lg">$</span>
@@ -737,7 +739,9 @@ export default function NewPropertyPage() {
                       placeholder={formData.listingType === 'rent' ? '1,200' : '250,000'}
                     />
                     {formData.listingType === 'rent' && (
-                      <span className="absolute right-4 top-1/2 -translate-y-1/2 text-sm text-[#ADB5BD] font-medium">/month</span>
+                      <span className="absolute right-4 top-1/2 -translate-y-1/2 text-sm text-[#ADB5BD] font-medium">
+                        /{formData.rentalPeriod === 'monthly' ? 'month' : 'night'}
+                      </span>
                     )}
                   </div>
                   {errors.price ? (
@@ -747,12 +751,54 @@ export default function NewPropertyPage() {
                   ) : formData.price && parseFloat(formData.price) > 0 ? (
                     <p className="mt-2 text-xs text-[#495057] font-medium">
                       {formData.listingType === 'rent'
-                        ? `USD ${parseFloat(formData.price).toLocaleString('en-US', { minimumFractionDigits: 0 })} / month`
+                        ? `USD ${parseFloat(formData.price).toLocaleString('en-US', { minimumFractionDigits: 0 })} / ${formData.rentalPeriod === 'monthly' ? 'month' : 'night'}`
                         : `USD ${parseFloat(formData.price).toLocaleString('en-US', { minimumFractionDigits: 0 })} sale price`
                       }
                     </p>
                   ) : null}
                 </div>
+
+                {/* Rental Period (Rent only) */}
+                {formData.listingType === 'rent' && (
+                  <div>
+                    <label className="block text-sm font-semibold text-[#212529] mb-3">
+                      Rental Period <span className="text-[#FF6B6B]">*</span>
+                    </label>
+                    <div className="grid grid-cols-2 gap-3">
+                      {[
+                        { value: 'monthly' as const, label: 'Monthly Rental', description: 'Traditional monthly lease' },
+                        { value: 'nightly' as const, label: 'Nightly Rental', description: 'Short-term nightly bookings' },
+                      ].map(({ value, label, description }) => (
+                        <button
+                          key={value}
+                          type="button"
+                          onClick={() => setFormData(prev => ({ ...prev, rentalPeriod: value }))}
+                          className={`p-4 rounded-xl border-2 text-left transition-all ${
+                            formData.rentalPeriod === value
+                              ? 'border-[#212529] bg-[#F8F9FA]'
+                              : 'border-[#E9ECEF] bg-white hover:border-[#495057]'
+                          }`}
+                        >
+                          <div className="flex items-start gap-3">
+                            <div className={`w-5 h-5 rounded-full border-2 mt-1 flex items-center justify-center transition-all ${
+                              formData.rentalPeriod === value
+                                ? 'border-[#212529] bg-[#212529]'
+                                : 'border-[#ADB5BD]'
+                            }`}>
+                              {formData.rentalPeriod === value && (
+                                <Check size={14} className="text-white" strokeWidth={3} />
+                              )}
+                            </div>
+                            <div>
+                              <h4 className="font-semibold text-[#212529] text-sm">{label}</h4>
+                              <p className="text-xs text-[#ADB5BD] mt-1">{description}</p>
+                            </div>
+                          </div>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
 
                 {/* Security Deposit (Rent only) */}
                 {formData.listingType === 'rent' && (

@@ -1,7 +1,7 @@
 'use client'
 
 import { MapPin, Bed, Bath, Square, Car } from 'lucide-react'
-import { formatPrice, formatSalePrice } from '@/lib/utils'
+import { formatPrice, formatNightlyPrice, formatSalePrice } from '@/lib/utils'
 import PropertyActions from './PropertyActions'
 
 interface PropertyHeaderProps {
@@ -15,6 +15,7 @@ interface PropertyHeaderProps {
     price?: number | null
     sale_price?: number | null
     listing_type?: string | null
+    rental_period?: string | null
     bedrooms: number
     bathrooms: number
     square_feet?: number | null
@@ -29,6 +30,8 @@ interface PropertyHeaderProps {
 export default function PropertyHeader({ property, slug }: PropertyHeaderProps) {
   const isRental = property.listing_type === 'rent' || (!property.listing_type && property.price)
   const isSale = property.listing_type === 'sale' || !!property.sale_price
+  const isNightlyRental = isRental && property.rental_period === 'nightly'
+  const isMonthlyRental = isRental && (!property.rental_period || property.rental_period === 'monthly')
 
   const locationParts: string[] = []
   if (property.area && property.area !== property.city) {
@@ -51,13 +54,13 @@ export default function PropertyHeader({ property, slug }: PropertyHeaderProps) 
         <div>
           <div className="flex items-baseline gap-2">
             <span className="text-3xl md:text-4xl font-bold text-[#212529] tracking-tight">
-              {isSale ? formatSalePrice(property.sale_price ?? 0) : formatPrice(property.price ?? 0)}
+              {isSale ? formatSalePrice(property.sale_price ?? 0) : isNightlyRental ? formatNightlyPrice(property.price ?? 0) : formatPrice(property.price ?? 0)}
             </span>
             {isRental && !isSale && (
-              <span className="text-base text-[#ADB5BD] font-medium">/mo</span>
+              <span className="text-base text-[#ADB5BD] font-medium">{isNightlyRental ? '/night' : '/month'}</span>
             )}
           </div>
-          {property.deposit && isRental && (
+          {property.deposit && isMonthlyRental && (
             <p className="text-sm text-[#495057] mt-1">
               Deposit: {formatPrice(property.deposit)}
             </p>
@@ -69,7 +72,7 @@ export default function PropertyHeader({ property, slug }: PropertyHeaderProps) 
           <PropertyActions
             propertyId={property.id}
             propertyTitle={property.title}
-            propertyDescription={property.description || `${property.bedrooms} bed, ${property.bathrooms} bath ${propertyTypeDisplay} in ${property.city}`}
+            propertyDescription={property.description || `${property.bedrooms} bed, ${property.bathrooms} bath ${property.property_type || 'property'} in ${property.city}`}
           />
         </div>
       </div>

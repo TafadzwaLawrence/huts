@@ -35,7 +35,7 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://www.huts.co.zw'),
   title: {
     template: '%s | Huts',
-    default: 'Huts — Find Your Perfect Rental in Zimbabwe',
+    default: 'Huts — Find Your Perfect Home in Zimbabwe',
   },
   description: 'Find apartments, houses, and rooms for rent or sale across Zimbabwe. Browse verified properties in Harare, Bulawayo, and beyond. Your home is waiting.',
   keywords: [
@@ -70,7 +70,7 @@ export const metadata: Metadata = {
     siteName: 'Huts',
     locale: 'en_ZW',
     type: 'website',
-    title: 'Huts — Find Your Perfect Rental in Zimbabwe',
+    title: 'Huts — Find Your Perfect Home in Zimbabwe',
     description: 'Find apartments, houses, and rooms for rent or sale across Zimbabwe. Browse verified properties in Harare, Bulawayo, and beyond. Your home is waiting.',
     url: 'https://www.huts.co.zw',
     images: [
@@ -85,7 +85,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     site: '@HutsZw',
-    title: 'Huts — Find Your Perfect Rental in Zimbabwe',
+    title: 'Huts — Find Your Perfect Home in Zimbabwe',
     description: 'Find apartments, houses, and rooms for rent or sale across Zimbabwe. Browse verified properties in Harare, Bulawayo, and beyond.',
     creator: '@HutsZw',
     images: ['https://www.huts.co.zw/opengraph-image'],

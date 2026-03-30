@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { MapPin, Heart, Home, Camera, Sofa, Users, Zap } from 'lucide-react'
 import { PropertyWithImages, isRentalProperty, isSaleProperty, isStudentProperty } from '@/types'
-import { formatPrice, formatSalePrice } from '@/lib/utils'
+import { formatPrice, formatNightlyPrice, formatSalePrice } from '@/lib/utils'
 import { ICON_SIZES } from '@/lib/constants'
 import { ImageCarousel } from './ImageCarousel'
 import { useState } from 'react'
@@ -27,7 +27,9 @@ export function PropertyCard({ property, compact = false }: PropertyCardProps) {
   }))
 
   const priceDisplay = isRentalProperty(property) && property.price
-    ? `${formatPrice(property.price)}/mo`
+    ? property.rental_period === 'nightly'
+      ? `${formatNightlyPrice(property.price)}/night`
+      : `${formatPrice(property.price)}/mo`
     : isSaleProperty(property) && property.sale_price
     ? formatSalePrice(property.sale_price)
     : null

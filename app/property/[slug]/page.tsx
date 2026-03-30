@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { createClient, createStaticClient } from '@/lib/supabase/server'
-import { formatPrice, formatSalePrice } from '@/lib/utils'
+import { formatPrice, formatNightlyPrice, formatSalePrice } from '@/lib/utils'
 import { ChevronRight } from 'lucide-react'
 import PropertyGallery from '@/components/property/PropertyGallery'
 import PropertyDetailClient from '@/components/property/PropertyDetailClient'
@@ -64,6 +64,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     const isSale = property.listing_type === 'sale' || property.sale_price
     const priceDisplay = isSale 
       ? formatSalePrice(property.sale_price) 
+      : property.rental_period === 'nightly'
+      ? formatNightlyPrice(property.price) + '/night'
       : formatPrice(property.price) + '/month'
     const listingType = isSale ? 'For Sale' : 'For Rent'
 

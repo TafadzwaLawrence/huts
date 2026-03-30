@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   keywords: ['rent house Zimbabwe', 'buy property Zimbabwe', 'apartments Harare', 'houses Bulawayo', 'property search Zimbabwe', 'accommodation Zimbabwe'],
   openGraph: {
     title: 'Search Properties for Rent & Sale | Huts',
-    description: 'Find your perfect rental or home for sale in Zimbabwe. Filter by city, price, bedrooms, and more.',
+    description: 'Find your perfect home in Zimbabwe. Filter by city, price, bedrooms, and more.',
     url: 'https://www.huts.co.zw/search',
   },
   alternates: {

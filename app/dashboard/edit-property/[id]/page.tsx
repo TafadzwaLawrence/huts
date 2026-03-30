@@ -114,6 +114,7 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
     description: '',
     propertyType: 'apartment' as 'apartment' | 'house' | 'studio' | 'room' | 'townhouse' | 'condo' | 'student',
     price: '',
+    rentalPeriod: 'monthly' as 'monthly' | 'nightly',
     deposit: '',
     beds: '',
     baths: '',
@@ -205,6 +206,7 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
         description: property.description || '',
         propertyType: property.property_type || 'apartment',
         price: priceValue,
+        rentalPeriod: property.rental_period || 'monthly',
         deposit: property.deposit ? (property.deposit / 100).toString() : '',
         beds: property.bedrooms?.toString() || '',
         baths: property.bathrooms?.toString() || '',
@@ -458,6 +460,7 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
           status: formData.status,
           price: formData.listingType === 'rent' ? priceValue : null,
           sale_price: formData.listingType === 'sale' ? priceValue : null,
+          rental_period: formData.listingType === 'rent' ? formData.rentalPeriod : null,
           deposit: formData.listingType === 'rent' ? depositInCents : null,
           bedrooms: parseInt(formData.beds),
           bathrooms: parseFloat(formData.baths),
@@ -950,7 +953,7 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
               {/* Price */}
               <div data-error={!!errors.price || undefined}>
                 <label htmlFor="price" className="block text-sm font-semibold text-[#212529] mb-2">
-                  {formData.listingType === 'rent' ? 'Monthly Rent' : 'Sale Price'} <span className="text-[#FF6B6B]">*</span>
+                  {formData.listingType === 'rent' ? 'Rental Price' : 'Sale Price'} <span className="text-[#FF6B6B]">*</span>
                 </label>
                 <div className="relative">
                   <span className="absolute left-4 top-1/2 -translate-y-1/2 text-[#495057] font-semibold text-lg">$</span>
@@ -969,7 +972,9 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
                     placeholder={formData.listingType === 'rent' ? '1,200' : '250,000'}
                   />
                   {formData.listingType === 'rent' && (
-                    <span className="absolute right-4 top-1/2 -translate-y-1/2 text-sm text-[#ADB5BD] font-medium">/month</span>
+                    <span className="absolute right-4 top-1/2 -translate-y-1/2 text-sm text-[#ADB5BD] font-medium">
+                      /{formData.rentalPeriod === 'monthly' ? 'month' : 'night'}
+                    </span>
                   )}
                 </div>
                 {errors.price && (
@@ -978,6 +983,51 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
                   </p>
                 )}
               </div>
+
+              {/* Rental Period (Rent only) */}
+              {formData.listingType === 'rent' && (
+                <div>
+                  <label className="block text-sm font-semibold text-[#212529] mb-3">
+                    Rental Period <span className="text-[#FF6B6B]">*</span>
+                  </label>
+                  <div className="grid grid-cols-2 gap-3">
+                    {[
+                      { value: 'monthly' as const, label: 'Monthly Rental', description: 'Traditional monthly lease' },
+                      { value: 'nightly' as const, label: 'Nightly Rental', description: 'Short-term nightly bookings' },
+                    ].map(({ value, label, description }) => (
+                      <button
+                        key={value}
+                        type="button"
+                        onClick={() => {
+                          setFormData(prev => ({ ...prev, rentalPeriod: value }))
+                          setHasChanges(true)
+                        }}
+                        className={`p-4 rounded-xl border-2 text-left transition-all ${
+                          formData.rentalPeriod === value
+                            ? 'border-[#212529] bg-[#F8F9FA]'
+                            : 'border-[#E9ECEF] bg-white hover:border-[#495057]'
+                        }`}
+                      >
+                        <div className="flex items-start gap-3">
+                          <div className={`w-5 h-5 rounded-full border-2 mt-1 flex items-center justify-center transition-all ${
+                            formData.rentalPeriod === value
+                              ? 'border-[#212529] bg-[#212529]'
+                              : 'border-[#ADB5BD]'
+                          }`}>
+                            {formData.rentalPeriod === value && (
+                              <Check size={14} className="text-white" strokeWidth={3} />
+                            )}
+                          </div>
+                          <div>
+                            <h4 className="font-semibold text-[#212529] text-sm">{label}</h4>
+                            <p className="text-xs text-[#ADB5BD] mt-1">{description}</p>
+                          </div>
+                        </div>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
 
               {/* Security Deposit (Rent only) */}
               {formData.listingType === 'rent' && (

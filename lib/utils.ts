@@ -9,6 +9,10 @@ export function formatPrice(cents: number): string {
   return `$${(cents / 100).toLocaleString()}`
 }
 
+export function formatNightlyPrice(cents: number): string {
+  return `$${(cents / 100).toLocaleString()}`
+}
+
 export function formatSalePrice(cents: number): string {
   const dollars = cents / 100
   if (dollars >= 1_000_000) {

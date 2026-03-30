@@ -48,7 +48,7 @@ const NAV_GROUPS: NavItemGroup[] = [
     viewAllHref: '/search?type=rent',
     activePatterns: ['type=rent', '/student'],
     items: [
-      { label: 'All Rentals',     href: '/search?type=rent',                          icon: Building2,     description: 'Find your perfect rental home'                  },
+      { label: 'All Rentals',     href: '/search?type=rent',                          icon: Building2,     description: 'Find your perfect home'                  },
       { label: 'Apartments',      href: '/search?type=rent&propertyType=apartment',   icon: Layers,        description: 'Apartment listings across Zimbabwe'             },
       { label: 'Houses',          href: '/search?type=rent&propertyType=house',       icon: Home,          description: 'Standalone houses available to rent'            },
       { label: 'Student Housing', href: '/student-housing',                           icon: GraduationCap, description: 'Purpose-built student accommodation'            },

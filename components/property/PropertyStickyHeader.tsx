@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { formatPrice, formatSalePrice } from '@/lib/utils'
+import { formatPrice, formatNightlyPrice, formatSalePrice } from '@/lib/utils'
 import { Heart, Share2 } from 'lucide-react'
 
 interface PropertyStickyHeaderProps {
@@ -11,6 +11,7 @@ interface PropertyStickyHeaderProps {
     price?: number | null
     sale_price?: number | null
     listing_type?: string | null
+    rental_period?: string | null
     bedrooms: number
     bathrooms: number
     square_feet?: number | null
@@ -34,6 +35,8 @@ export default function PropertyStickyHeader({ property, onContact }: PropertySt
 
   const isSale = property.listing_type === 'sale' || !!property.sale_price
   const isRental = !isSale
+  const isNightlyRental = isRental && property.rental_period === 'nightly'
+  const isMonthlyRental = isRental && (!property.rental_period || property.rental_period === 'monthly')
 
   if (!visible) return null
 
@@ -44,8 +47,8 @@ export default function PropertyStickyHeader({ property, onContact }: PropertySt
           {/* Left: price + stats */}
           <div className="flex items-center gap-4 min-w-0">
             <span className="text-lg font-bold text-[#212529] whitespace-nowrap">
-              {isSale ? formatSalePrice(property.sale_price ?? 0) : formatPrice(property.price ?? 0)}
-              {isRental && <span className="text-sm font-normal text-[#ADB5BD]">/mo</span>}
+              {isSale ? formatSalePrice(property.sale_price ?? 0) : isNightlyRental ? formatNightlyPrice(property.price ?? 0) : formatPrice(property.price ?? 0)}
+              {isRental && <span className="text-sm font-normal text-[#ADB5BD]">{isNightlyRental ? '/night' : '/mo'}</span>}
             </span>
             <div className="hidden sm:flex items-center gap-2 text-sm text-[#495057]">
               <span><b>{property.bedrooms}</b> bd</span>
