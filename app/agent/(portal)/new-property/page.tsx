@@ -367,19 +367,19 @@ export default function AgentNewPropertyPage() {
       if (!formData.propertyType) newErrors.propertyType = 'Property type is required'
     }
 
-    if (stepNumber === 2) {
+    if (stepNumber === 3) {
       if (!formData.price || parseFloat(formData.price) <= 0) newErrors.price = 'Valid price is required'
       if (!formData.beds) newErrors.beds = 'Bedrooms is required'
       if (!formData.baths) newErrors.baths = 'Bathrooms is required'
     }
 
-    if (stepNumber === 3) {
+    if (stepNumber === 4) {
       if (!formData.address.trim()) newErrors.address = 'Address is required'
       if (!formData.city.trim()) newErrors.city = 'City is required'
       if (!formData.lat || !formData.lng) newErrors.location = 'Please select location on map'
     }
 
-    if (stepNumber === 4) {
+    if (stepNumber === 5) {
       if (images.length === 0) newErrors.images = 'At least one image is required'
     }
 
