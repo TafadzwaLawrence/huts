@@ -89,6 +89,10 @@ export default function PropertyStructuredData({
 
   // Rental-specific schema
   if (isRental) {
+    const isNightly = property.rental_period === 'nightly'
+    const rentalPrice = isNightly ? property.nightly_price : property.price
+    const unitText = isNightly ? 'NIGHT' : 'MONTH'
+    
     const schema = {
       '@context': 'https://schema.org',
       '@graph': [
@@ -103,14 +107,14 @@ export default function PropertyStructuredData({
           '@type': 'Offer',
           '@id': `${propertyUrl}#offer`,
           itemOffered: { '@id': `${propertyUrl}#property` },
-          price: property.price,
+          price: rentalPrice,
           priceCurrency: 'USD',
           availability: 'https://schema.org/InStock',
           priceSpecification: {
             '@type': 'UnitPriceSpecification',
-            price: property.price,
+            price: rentalPrice,
             priceCurrency: 'USD',
-            unitText: 'MONTH',
+            unitText,
           },
           ...(sellerEntity ? { seller: sellerEntity } : {}),
         },

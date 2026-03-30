@@ -47,7 +47,7 @@ export default function PropertyStickyHeader({ property, onContact }: PropertySt
           {/* Left: price + stats */}
           <div className="flex items-center gap-4 min-w-0">
             <span className="text-lg font-bold text-[#212529] whitespace-nowrap">
-              {isSale ? formatSalePrice(property.sale_price ?? 0) : isNightlyRental ? formatNightlyPrice(property.price ?? 0) : formatPrice(property.price ?? 0)}
+              {isSale ? formatSalePrice(property.sale_price ?? 0) : isNightlyRental ? formatNightlyPrice(property.nightly_price ?? 0) : formatPrice(property.price ?? 0)}
               {isRental && <span className="text-sm font-normal text-[#ADB5BD]">{isNightlyRental ? '/night' : '/mo'}</span>}
             </span>
             <div className="hidden sm:flex items-center gap-2 text-sm text-[#495057]">

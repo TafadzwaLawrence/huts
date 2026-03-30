@@ -42,6 +42,7 @@ interface Property {
   property_type: string
   listing_type: 'rent' | 'sale'
   price: number | null
+  nightly_price: number | null
   sale_price: number | null
   deposit: number | null
   rental_period: 'monthly' | 'nightly' | null
@@ -86,6 +87,7 @@ export default function AgentEditPropertyPage() {
     description: '',
     propertyType: 'apartment' as string,
     price: '',
+    nightly_price: '',
     deposit: '',
     rentalPeriod: 'monthly' as 'monthly' | 'nightly',
     beds: '',
@@ -163,7 +165,8 @@ export default function AgentEditPropertyPage() {
           title: prop.title || '',
           description: prop.description || '',
           propertyType: prop.property_type || 'apartment',
-          price: prop.listing_type === 'rent' && prop.price ? (prop.price / 100).toString() : '',
+          price: prop.listing_type === 'rent' && prop.price ? (prop.price / 100).toString() : (prop.listing_type === 'sale' && prop.sale_price ? (prop.sale_price / 100).toString() : ''),
+          nightly_price: prop.listing_type === 'rent' && prop.nightly_price ? (prop.nightly_price / 100).toString() : '',
           deposit: prop.listing_type === 'rent' && prop.deposit ? (prop.deposit / 100).toString() : '',
           rentalPeriod: prop.rental_period || 'monthly',
           beds: prop.bedrooms?.toString() || '',
@@ -282,7 +285,18 @@ export default function AgentEditPropertyPage() {
       // Validate required fields with clear feedback
       const requiredFields: string[] = []
       if (!formData.title.trim()) requiredFields.push('title')
-      if (!formData.price.trim()) requiredFields.push('price')
+      
+      // Price validation based on listing type and rental period
+      if (property.listing_type === 'rent') {
+        if (formData.rentalPeriod === 'monthly') {
+          if (!formData.price.trim()) requiredFields.push('monthly price')
+        } else {
+          if (!formData.nightly_price.trim()) requiredFields.push('nightly price')
+        }
+      } else {
+        if (!formData.price.trim()) requiredFields.push('sale price')
+      }
+      
       if (!formData.beds.trim()) requiredFields.push('bedrooms')
       if (!formData.baths.trim()) requiredFields.push('bathrooms')
       if (!formData.address.trim()) requiredFields.push('address')
@@ -294,7 +308,12 @@ export default function AgentEditPropertyPage() {
         return
       }
 
-      const priceValue = Math.round(parseFloat(formData.price) * 100)
+      const priceValue = property.listing_type === 'rent' && formData.rentalPeriod === 'nightly' 
+        ? null 
+        : formData.price ? Math.round(parseFloat(formData.price) * 100) : null
+      const nightlyPriceValue = property.listing_type === 'rent' && formData.rentalPeriod === 'nightly'
+        ? Math.round(parseFloat(formData.nightly_price) * 100)
+        : null
       const depositInCents = formData.deposit ? Math.round(parseFloat(formData.deposit) * 100) : null
 
       // Update property
@@ -304,7 +323,8 @@ export default function AgentEditPropertyPage() {
           title: formData.title,
           description: formData.description,
           property_type: formData.propertyType,
-          price: property.listing_type === 'rent' ? priceValue : null,
+          price: property.listing_type === 'rent' && formData.rentalPeriod === 'monthly' ? priceValue : (property.listing_type === 'sale' ? priceValue : null),
+          nightly_price: nightlyPriceValue,
           sale_price: property.listing_type === 'sale' ? priceValue : null,
           deposit: property.listing_type === 'rent' ? depositInCents : null,
           rental_period: property.listing_type === 'rent' ? formData.rentalPeriod : null,
@@ -515,10 +535,11 @@ export default function AgentEditPropertyPage() {
               <span className="text-base">$</span> Pricing & Details
             </h2>
             <div className="space-y-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {/* Price fields - conditional based on listing type and rental period */}
+              {property.listing_type === 'rent' && formData.rentalPeriod === 'monthly' && (
                 <div>
                   <label className="block text-sm font-semibold text-[#212529] mb-2">
-                    {property.listing_type === 'rent' ? 'Monthly Rent' : 'Sale Price'} *
+                    Monthly Rent *
                   </label>
                   <div className="flex items-center border border-[#E9ECEF] rounded-lg overflow-hidden focus-within:ring-2 focus-within:ring-[#212529]">
                     <span className="px-3 py-3 text-[#495057] bg-[#F8F9FA] border-r border-[#E9ECEF] text-sm font-medium">USD</span>
@@ -527,36 +548,89 @@ export default function AgentEditPropertyPage() {
                       name="price"
                       value={formData.price}
                       onChange={handleInputChange}
+                      placeholder="1,200"
+                      step="0.01"
+                      className="flex-1 px-4 py-3 text-[#212529] bg-white focus:outline-none"
+                    />
+                    <span className="px-3 py-3 text-[#495057] bg-[#F8F9FA] border-l border-[#E9ECEF] text-sm font-medium">/mo</span>
+                  </div>
+                  {formData.price && parseFloat(formData.price) > 0 && (
+                    <p className="text-sm text-[#495057] mt-1.5 font-medium">
+                      USD {parseFloat(formData.price).toLocaleString('en-US', { minimumFractionDigits: 0 })} per month
+                    </p>
+                  )}
+                </div>
+              )}
+
+              {property.listing_type === 'rent' && formData.rentalPeriod === 'nightly' && (
+                <div>
+                  <label className="block text-sm font-semibold text-[#212529] mb-2">
+                    Nightly Rate *
+                  </label>
+                  <div className="flex items-center border border-[#E9ECEF] rounded-lg overflow-hidden focus-within:ring-2 focus-within:ring-[#212529]">
+                    <span className="px-3 py-3 text-[#495057] bg-[#F8F9FA] border-r border-[#E9ECEF] text-sm font-medium">USD</span>
+                    <input
+                      type="number"
+                      name="nightly_price"
+                      value={formData.nightly_price}
+                      onChange={handleInputChange}
+                      placeholder="45"
+                      step="0.01"
+                      className="flex-1 px-4 py-3 text-[#212529] bg-white focus:outline-none"
+                    />
+                    <span className="px-3 py-3 text-[#495057] bg-[#F8F9FA] border-l border-[#E9ECEF] text-sm font-medium">/ni</span>
+                  </div>
+                  {formData.nightly_price && parseFloat(formData.nightly_price) > 0 && (
+                    <p className="text-sm text-[#495057] mt-1.5 font-medium">
+                      USD {parseFloat(formData.nightly_price).toLocaleString('en-US', { minimumFractionDigits: 0 })} per night
+                    </p>
+                  )}
+                </div>
+              )}
+
+              {property.listing_type === 'sale' && (
+                <div>
+                  <label className="block text-sm font-semibold text-[#212529] mb-2">
+                    Sale Price *
+                  </label>
+                  <div className="flex items-center border border-[#E9ECEF] rounded-lg overflow-hidden focus-within:ring-2 focus-within:ring-[#212529]">
+                    <span className="px-3 py-3 text-[#495057] bg-[#F8F9FA] border-r border-[#E9ECEF] text-sm font-medium">USD</span>
+                    <input
+                      type="number"
+                      name="price"
+                      value={formData.price}
+                      onChange={handleInputChange}
+                      placeholder="250,000"
                       step="0.01"
                       className="flex-1 px-4 py-3 text-[#212529] bg-white focus:outline-none"
                     />
                   </div>
                   {formData.price && parseFloat(formData.price) > 0 && (
                     <p className="text-sm text-[#495057] mt-1.5 font-medium">
-                      USD {parseFloat(formData.price).toLocaleString('en-US', { minimumFractionDigits: 0 })}
-                      {property.listing_type === 'rent' ? ' / month' : ' sale price'}
+                      USD {parseFloat(formData.price).toLocaleString('en-US', { minimumFractionDigits: 0 })} asking price
                     </p>
                   )}
                 </div>
-                {property.listing_type === 'rent' && (
-                  <div>
-                    <label className="block text-sm font-semibold text-[#212529] mb-2">
-                      Security Deposit
-                    </label>
-                    <div className="flex items-center border border-[#E9ECEF] rounded-lg overflow-hidden focus-within:ring-2 focus-within:ring-[#212529]">
-                      <span className="px-3 py-3 text-[#495057] bg-[#F8F9FA] border-r border-[#E9ECEF] text-sm font-medium">USD</span>
-                      <input
-                        type="number"
-                        name="deposit"
-                        value={formData.deposit}
-                        onChange={handleInputChange}
-                        step="0.01"
-                        className="flex-1 px-4 py-3 text-[#212529] bg-white focus:outline-none"
-                      />
-                    </div>
+              )}
+
+              {property.listing_type === 'rent' && (
+                <div>
+                  <label className="block text-sm font-semibold text-[#212529] mb-2">
+                    Security Deposit
+                  </label>
+                  <div className="flex items-center border border-[#E9ECEF] rounded-lg overflow-hidden focus-within:ring-2 focus-within:ring-[#212529]">
+                    <span className="px-3 py-3 text-[#495057] bg-[#F8F9FA] border-r border-[#E9ECEF] text-sm font-medium">USD</span>
+                    <input
+                      type="number"
+                      name="deposit"
+                      value={formData.deposit}
+                      onChange={handleInputChange}
+                      step="0.01"
+                      className="flex-1 px-4 py-3 text-[#212529] bg-white focus:outline-none"
+                    />
                   </div>
-                )}
-              </div>
+                </div>
+              )}
 
               {/* Rental Period (Rent only) */}
               {property.listing_type === 'rent' && (

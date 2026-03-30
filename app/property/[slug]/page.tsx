@@ -64,8 +64,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     const isSale = property.listing_type === 'sale' || property.sale_price
     const priceDisplay = isSale 
       ? formatSalePrice(property.sale_price) 
-      : property.rental_period === 'nightly'
-      ? formatNightlyPrice(property.price) + '/night'
+      : property.rental_period === 'nightly' && property.nightly_price
+      ? formatNightlyPrice(property.nightly_price) + '/night'
       : formatPrice(property.price) + '/month'
     const listingType = isSale ? 'For Sale' : 'For Rent'
 

@@ -26,10 +26,10 @@ export function PropertyCard({ property, compact = false }: PropertyCardProps) {
     alt_text: property.title,
   }))
 
-  const priceDisplay = isRentalProperty(property) && property.price
-    ? property.rental_period === 'nightly'
-      ? `${formatNightlyPrice(property.price)}/night`
-      : `${formatPrice(property.price)}/mo`
+  const priceDisplay = isRentalProperty(property)
+    ? property.rental_period === 'nightly' && property.nightly_price
+      ? `${formatNightlyPrice(property.nightly_price)}/night`
+      : property.price ? `${formatPrice(property.price)}/mo` : null
     : isSaleProperty(property) && property.sale_price
     ? formatSalePrice(property.sale_price)
     : null

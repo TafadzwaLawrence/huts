@@ -298,7 +298,8 @@ export default function AgentNewPropertyPage() {
           listing_type: formData.listingType,
           status: 'active',
           verification_status: 'pending',
-          price: formData.listingType === 'rent' ? priceValue : null,
+          price: formData.listingType === 'rent' && formData.rentalPeriod === 'monthly' ? priceValue : (formData.listingType === 'sale' ? priceValue : null),
+          nightly_price: nightlyPriceValue,
           sale_price: formData.listingType === 'sale' ? priceValue : null,
           deposit: formData.listingType === 'rent' ? depositInCents : null,
           rental_period: formData.listingType === 'rent' ? formData.rentalPeriod : null,
@@ -636,10 +637,11 @@ export default function AgentNewPropertyPage() {
           {/* Step 3: Pricing & Details (was step 4) */}
           {step === 3 && (
             <div className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {/* Price fields - conditional based on listing type and rental period */}
+              {formData.listingType === 'rent' && formData.rentalPeriod === 'monthly' && (
                 <div>
                   <label className="block text-sm font-semibold text-[#212529] mb-2">
-                    {formData.listingType === 'rent' ? 'Monthly Rent' : 'Sale Price'} *
+                    Monthly Rent *
                   </label>
                   <div className="flex items-center">
                     <span className="text-[#495057] mr-2">$</span>
@@ -648,7 +650,61 @@ export default function AgentNewPropertyPage() {
                       name="price"
                       value={formData.price}
                       onChange={handleInputChange}
-                      placeholder="0"
+                      placeholder="1,200"
+                      step="0.01"
+                      className="flex-1 px-4 py-3 border border-[#E9ECEF] rounded-lg text-[#212529] bg-white focus:outline-none focus:ring-2 focus:ring-[#212529]"
+                    />
+                    <span className="text-[#495057] ml-2 text-sm font-medium">/month</span>
+                  </div>
+                  {errors.price && <p className="text-sm text-red-600 mt-2">{errors.price}</p>}
+                  {formData.price && parseFloat(formData.price) > 0 && (
+                    <p className="text-sm text-[#495057] mt-2 font-medium">
+                      USD {parseFloat(formData.price).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })} per month
+                    </p>
+                  )}
+                </div>
+              )}
+
+              {formData.listingType === 'rent' && formData.rentalPeriod === 'nightly' && (
+                <div>
+                  <label className="block text-sm font-semibold text-[#212529] mb-2">
+                    Nightly Rate *
+                  </label>
+                  <div className="flex items-center">
+                    <span className="text-[#495057] mr-2">$</span>
+                    <input
+                      type="number"
+                      name="nightly_price"
+                      value={formData.nightly_price}
+                      onChange={handleInputChange}
+                      placeholder="45"
+                      step="0.01"
+                      className="flex-1 px-4 py-3 border border-[#E9ECEF] rounded-lg text-[#212529] bg-white focus:outline-none focus:ring-2 focus:ring-[#212529]"
+                    />
+                    <span className="text-[#495057] ml-2 text-sm font-medium">/night</span>
+                  </div>
+                  {errors.nightly_price && <p className="text-sm text-red-600 mt-2">{errors.nightly_price}</p>}
+                  {formData.nightly_price && parseFloat(formData.nightly_price) > 0 && (
+                    <p className="text-sm text-[#495057] mt-2 font-medium">
+                      USD {parseFloat(formData.nightly_price).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })} per night
+                    </p>
+                  )}
+                </div>
+              )}
+
+              {formData.listingType === 'sale' && (
+                <div>
+                  <label className="block text-sm font-semibold text-[#212529] mb-2">
+                    Sale Price *
+                  </label>
+                  <div className="flex items-center">
+                    <span className="text-[#495057] mr-2">$</span>
+                    <input
+                      type="number"
+                      name="price"
+                      value={formData.price}
+                      onChange={handleInputChange}
+                      placeholder="250,000"
                       step="0.01"
                       className="flex-1 px-4 py-3 border border-[#E9ECEF] rounded-lg text-[#212529] bg-white focus:outline-none focus:ring-2 focus:ring-[#212529]"
                     />
@@ -656,32 +712,33 @@ export default function AgentNewPropertyPage() {
                   {errors.price && <p className="text-sm text-red-600 mt-2">{errors.price}</p>}
                   {formData.price && parseFloat(formData.price) > 0 && (
                     <p className="text-sm text-[#495057] mt-2 font-medium">
-                      USD {parseFloat(formData.price).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
-                      {formData.listingType === 'rent' ? ' / month' : ' sale price'}
+                      USD {parseFloat(formData.price).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })} asking price
                     </p>
                   )}
                 </div>
+              )}
 
-                {formData.listingType === 'rent' && (
-                  <div>
-                    <label className="block text-sm font-semibold text-[#212529] mb-2">
-                      Security Deposit
-                    </label>
-                    <div className="flex items-center">
-                      <span className="text-[#495057] mr-2">$</span>
-                      <input
-                        type="number"
-                        name="deposit"
-                        value={formData.deposit}
-                        onChange={handleInputChange}
-                        placeholder="0"
-                        step="0.01"
-                        className="flex-1 px-4 py-3 border border-[#E9ECEF] rounded-lg text-[#212529] bg-white focus:outline-none focus:ring-2 focus:ring-[#212529]"
-                      />
-                    </div>
+              {formData.listingType === 'rent' && (
+                <div>
+                  <label className="block text-sm font-semibold text-[#212529] mb-2">
+                    Security Deposit
+                  </label>
+                  <div className="flex items-center">
+                    <span className="text-[#495057] mr-2">$</span>
+                    <input
+                      type="number"
+                      name="deposit"
+                      value={formData.deposit}
+                      onChange={handleInputChange}
+                      placeholder="0"
+                      step="0.01"
+                      className="flex-1 px-4 py-3 border border-[#E9ECEF] rounded-lg text-[#212529] bg-white focus:outline-none focus:ring-2 focus:ring-[#212529]"
+                    />
                   </div>
-                )}
-              </div>
+                </div>
+              )}
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 
               {/* Rental Period (Rent only) */}
               {formData.listingType === 'rent' && (

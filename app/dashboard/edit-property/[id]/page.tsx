@@ -114,6 +114,7 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
     description: '',
     propertyType: 'apartment' as 'apartment' | 'house' | 'studio' | 'room' | 'townhouse' | 'condo' | 'student',
     price: '',
+    nightly_price: '',
     rentalPeriod: 'monthly' as 'monthly' | 'nightly',
     deposit: '',
     beds: '',
@@ -206,6 +207,7 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
         description: property.description || '',
         propertyType: property.property_type || 'apartment',
         price: priceValue,
+        nightly_price: property.nightly_price ? (property.nightly_price / 100).toString() : '',
         rentalPeriod: property.rental_period || 'monthly',
         deposit: property.deposit ? (property.deposit / 100).toString() : '',
         beds: property.bedrooms?.toString() || '',
@@ -412,7 +414,18 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
 
     if (!formData.title.trim()) newErrors.title = 'Title is required'
     if (formData.description.length > 2000) newErrors.description = 'Description must be 2000 characters or less'
-    if (!formData.price || parseFloat(formData.price) <= 0) newErrors.price = 'A valid price is required'
+    
+    // Price validation based on listing type and rental period
+    if (formData.listingType === 'rent') {
+      if (formData.rentalPeriod === 'monthly') {
+        if (!formData.price || parseFloat(formData.price) <= 0) newErrors.price = 'A valid monthly price is required'
+      } else {
+        if (!formData.nightly_price || parseFloat(formData.nightly_price) <= 0) newErrors.nightly_price = 'A valid nightly price is required'
+      }
+    } else {
+      if (!formData.price || parseFloat(formData.price) <= 0) newErrors.price = 'A valid sale price is required'
+    }
+    
     if (!formData.beds) newErrors.beds = 'Required'
     if (!formData.baths) newErrors.baths = 'Required'
     if (!formData.address.trim()) newErrors.address = 'Address is required'
@@ -440,7 +453,12 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
         return
       }
 
-      const priceValue = Math.round(parseFloat(formData.price) * 100)
+      const priceValue = formData.listingType === 'rent' && formData.rentalPeriod === 'nightly' 
+        ? null 
+        : formData.price ? Math.round(parseFloat(formData.price) * 100) : null
+      const nightlyPriceValue = formData.listingType === 'rent' && formData.rentalPeriod === 'nightly'
+        ? Math.round(parseFloat(formData.nightly_price) * 100)
+        : null
       const depositInCents = formData.deposit ? Math.round(parseFloat(formData.deposit) * 100) : null
 
       // Parse nearby universities
@@ -458,7 +476,8 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
           property_type: formData.propertyType,
           listing_type: formData.listingType,
           status: formData.status,
-          price: formData.listingType === 'rent' ? priceValue : null,
+          price: formData.listingType === 'rent' && formData.rentalPeriod === 'monthly' ? priceValue : (formData.listingType === 'sale' ? priceValue : null),
+          nightly_price: nightlyPriceValue,
           sale_price: formData.listingType === 'sale' ? priceValue : null,
           rental_period: formData.listingType === 'rent' ? formData.rentalPeriod : null,
           deposit: formData.listingType === 'rent' ? depositInCents : null,
@@ -950,39 +969,100 @@ export default function EditPropertyPage({ params }: { params: Promise<{ id: str
             </div>
 
             <div className="space-y-6">
-              {/* Price */}
-              <div data-error={!!errors.price || undefined}>
-                <label htmlFor="price" className="block text-sm font-semibold text-[#212529] mb-2">
-                  {formData.listingType === 'rent' ? 'Rental Price' : 'Sale Price'} <span className="text-[#FF6B6B]">*</span>
-                </label>
-                <div className="relative">
-                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-[#495057] font-semibold text-lg">$</span>
-                  <input
-                    id="price"
-                    name="price"
-                    type="number"
-                    required
-                    min="0"
-                    step="0.01"
-                    value={formData.price}
-                    onChange={handleInputChange}
-                    className={`w-full pl-10 pr-4 py-4 border-2 rounded-xl text-[#212529] text-2xl font-bold bg-white placeholder:text-[#ADB5BD] placeholder:font-normal focus:outline-none transition-colors ${
-                      errors.price ? 'border-[#FF6B6B]' : 'border-[#E9ECEF] focus:border-[#212529]'
-                    }`}
-                    placeholder={formData.listingType === 'rent' ? '1,200' : '250,000'}
-                  />
-                  {formData.listingType === 'rent' && (
-                    <span className="absolute right-4 top-1/2 -translate-y-1/2 text-sm text-[#ADB5BD] font-medium">
-                      /{formData.rentalPeriod === 'monthly' ? 'month' : 'night'}
-                    </span>
+              {/* Price - Monthly Rentals */}
+              {formData.listingType === 'rent' && formData.rentalPeriod === 'monthly' && (
+                <div data-error={!!errors.price || undefined}>
+                  <label htmlFor="price" className="block text-sm font-semibold text-[#212529] mb-2">
+                    Monthly Rent <span className="text-[#FF6B6B]">*</span>
+                  </label>
+                  <div className="relative">
+                    <span className="absolute left-4 top-1/2 -translate-y-1/2 text-[#495057] font-semibold text-lg">$</span>
+                    <input
+                      id="price"
+                      name="price"
+                      type="number"
+                      required
+                      min="0"
+                      step="0.01"
+                      value={formData.price}
+                      onChange={handleInputChange}
+                      className={`w-full pl-10 pr-4 py-4 border-2 rounded-xl text-[#212529] text-2xl font-bold bg-white placeholder:text-[#ADB5BD] placeholder:font-normal focus:outline-none transition-colors ${
+                        errors.price ? 'border-[#FF6B6B]' : 'border-[#E9ECEF] focus:border-[#212529]'
+                      }`}
+                      placeholder="1,200"
+                    />
+                    <span className="absolute right-4 top-1/2 -translate-y-1/2 text-sm text-[#ADB5BD] font-medium">/month</span>
+                  </div>
+                  {errors.price && (
+                    <p className="mt-2 text-sm text-[#FF6B6B] flex items-center gap-1">
+                      <AlertCircle size={14} /> {errors.price}
+                    </p>
                   )}
                 </div>
-                {errors.price && (
-                  <p className="mt-2 text-sm text-[#FF6B6B] flex items-center gap-1">
-                    <AlertCircle size={14} /> {errors.price}
-                  </p>
-                )}
-              </div>
+              )}
+
+              {/* Price - Nightly Rentals */}
+              {formData.listingType === 'rent' && formData.rentalPeriod === 'nightly' && (
+                <div data-error={!!errors.nightly_price || undefined}>
+                  <label htmlFor="nightly_price" className="block text-sm font-semibold text-[#212529] mb-2">
+                    Nightly Rate <span className="text-[#FF6B6B]">*</span>
+                  </label>
+                  <div className="relative">
+                    <span className="absolute left-4 top-1/2 -translate-y-1/2 text-[#495057] font-semibold text-lg">$</span>
+                    <input
+                      id="nightly_price"
+                      name="nightly_price"
+                      type="number"
+                      required
+                      min="0"
+                      step="0.01"
+                      value={formData.nightly_price}
+                      onChange={handleInputChange}
+                      className={`w-full pl-10 pr-4 py-4 border-2 rounded-xl text-[#212529] text-2xl font-bold bg-white placeholder:text-[#ADB5BD] placeholder:font-normal focus:outline-none transition-colors ${
+                        errors.nightly_price ? 'border-[#FF6B6B]' : 'border-[#E9ECEF] focus:border-[#212529]'
+                      }`}
+                      placeholder="45"
+                    />
+                    <span className="absolute right-4 top-1/2 -translate-y-1/2 text-sm text-[#ADB5BD] font-medium">/night</span>
+                  </div>
+                  {errors.nightly_price && (
+                    <p className="mt-2 text-sm text-[#FF6B6B] flex items-center gap-1">
+                      <AlertCircle size={14} /> {errors.nightly_price}
+                    </p>
+                  )}
+                </div>
+              )}
+
+              {/* Price - Sale Properties */}
+              {formData.listingType === 'sale' && (
+                <div data-error={!!errors.price || undefined}>
+                  <label htmlFor="price" className="block text-sm font-semibold text-[#212529] mb-2">
+                    Sale Price <span className="text-[#FF6B6B]">*</span>
+                  </label>
+                  <div className="relative">
+                    <span className="absolute left-4 top-1/2 -translate-y-1/2 text-[#495057] font-semibold text-lg">$</span>
+                    <input
+                      id="price"
+                      name="price"
+                      type="number"
+                      required
+                      min="0"
+                      step="0.01"
+                      value={formData.price}
+                      onChange={handleInputChange}
+                      className={`w-full pl-10 pr-4 py-4 border-2 rounded-xl text-[#212529] text-2xl font-bold bg-white placeholder:text-[#ADB5BD] placeholder:font-normal focus:outline-none transition-colors ${
+                        errors.price ? 'border-[#FF6B6B]' : 'border-[#E9ECEF] focus:border-[#212529]'
+                      }`}
+                      placeholder="250,000"
+                    />
+                  </div>
+                  {errors.price && (
+                    <p className="mt-2 text-sm text-[#FF6B6B] flex items-center gap-1">
+                      <AlertCircle size={14} /> {errors.price}
+                    </p>
+                  )}
+                </div>
+              )}
 
               {/* Rental Period (Rent only) */}
               {formData.listingType === 'rent' && (
