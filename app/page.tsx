@@ -80,7 +80,7 @@ export default async function HomePage() {
       `, { count: 'exact' })
       .eq('verification_status', 'approved')
       .order('created_at', { ascending: false })
-      .limit(12)
+      .limit(3)
 
     console.log('[DEBUG] Properties fetch result:', { 
       count, 
