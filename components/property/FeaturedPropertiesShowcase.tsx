@@ -123,7 +123,9 @@ export default function FeaturedPropertiesShowcase({ properties }: { properties:
                       <Bath size={14} />
                       {property.bathrooms} ba
                     </span>
-                    <span>{property.square_feet.toLocaleString()} sqft</span>
+                                        {property.square_feet && property.square_feet > 0 && (
+                      <span>{property.square_feet.toLocaleString()} sqft</span>
+                    )}
                   </div>
 
                   {/* Address */}
