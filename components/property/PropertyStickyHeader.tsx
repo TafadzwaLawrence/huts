@@ -9,6 +9,7 @@ interface PropertyStickyHeaderProps {
     id: string
     title: string
     price?: number | null
+    nightly_price?: number | null
     sale_price?: number | null
     listing_type?: string | null
     rental_period?: string | null
