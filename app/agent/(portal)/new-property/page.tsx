@@ -64,6 +64,7 @@ export default function AgentNewPropertyPage() {
     propertyType: 'apartment' as 'apartment' | 'house' | 'studio' | 'room' | 'townhouse' | 'condo' | 'student',
     price: '',
     deposit: '',
+    rentalPeriod: 'monthly' as 'monthly' | 'nightly',
     beds: '',
     baths: '',
     sqft: '',
@@ -271,6 +272,7 @@ export default function AgentNewPropertyPage() {
           price: formData.listingType === 'rent' ? priceValue : null,
           sale_price: formData.listingType === 'sale' ? priceValue : null,
           deposit: formData.listingType === 'rent' ? depositInCents : null,
+          rental_period: formData.listingType === 'rent' ? formData.rentalPeriod : null,
           bedrooms: parseInt(formData.beds),
           bathrooms: parseFloat(formData.baths),
           square_feet: formData.sqft ? parseInt(formData.sqft) : null,
@@ -651,6 +653,48 @@ export default function AgentNewPropertyPage() {
                   </div>
                 )}
               </div>
+
+              {/* Rental Period (Rent only) */}
+              {formData.listingType === 'rent' && (
+                <div>
+                  <label className="block text-sm font-semibold text-[#212529] mb-3">
+                    Rental Period <span className="text-[#FF6B6B]">*</span>
+                  </label>
+                  <div className="grid grid-cols-2 gap-3">
+                    {[
+                      { value: 'monthly' as const, label: 'Monthly Rental', description: 'Traditional monthly lease' },
+                      { value: 'nightly' as const, label: 'Nightly Rental', description: 'Short-term nightly bookings' },
+                    ].map(({ value, label, description }) => (
+                      <button
+                        key={value}
+                        type="button"
+                        onClick={() => setFormData(prev => ({ ...prev, rentalPeriod: value }))}
+                        className={`p-4 rounded-xl border-2 text-left transition-all ${
+                          formData.rentalPeriod === value
+                            ? 'border-[#212529] bg-[#F8F9FA]'
+                            : 'border-[#E9ECEF] bg-white hover:border-[#495057]'
+                        }`}
+                      >
+                        <div className="flex items-start gap-3">
+                          <div className={`w-5 h-5 rounded-full border-2 mt-1 flex items-center justify-center transition-all ${
+                            formData.rentalPeriod === value
+                              ? 'border-[#212529] bg-[#212529]'
+                              : 'border-[#ADB5BD]'
+                          }`}>
+                            {formData.rentalPeriod === value && (
+                              <Check size={14} className="text-white" strokeWidth={3} />
+                            )}
+                          </div>
+                          <div>
+                            <h4 className="font-semibold text-[#212529] text-sm">{label}</h4>
+                            <p className="text-xs text-[#ADB5BD] mt-1">{description}</p>
+                          </div>
+                        </div>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
 
               <div className="grid grid-cols-3 gap-4">
                 <div>
