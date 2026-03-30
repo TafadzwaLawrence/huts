@@ -41,6 +41,48 @@ export default async function HomePage() {
   const isLandlord = profile?.role === 'landlord'
   const firstName = profile?.name?.split(' ')[0] ?? 'there'
 
+  // Fetch featured properties for the carousel
+  const { data: featuredProperties } = await supabase
+    .from('properties')
+    .select(`
+      id,
+      slug,
+      title,
+      price,
+      sale_price,
+      bedrooms,
+      bathrooms,
+      square_feet,
+      address,
+      city,
+      listing_type,
+      status,
+      verification_status,
+      created_at,
+      property_images!inner(is_primary)
+    `)
+    .eq('status', 'active')
+    .eq('verification_status', 'verified')
+    .eq('property_images.is_primary', true)
+    .order('created_at', { ascending: false })
+    .limit(8)
+
+  // Transform the data to match our component interface
+  const transformedProperties = (featuredProperties || []).map(property => ({
+    id: property.id,
+    slug: property.slug,
+    title: property.title,
+    price: property.price,
+    sale_price: property.sale_price,
+    bedrooms: property.bedrooms,
+    bathrooms: property.bathrooms,
+    square_feet: property.square_feet,
+    address: property.address,
+    city: property.city,
+    listing_type: property.listing_type,
+    primary_image: property.property_images?.[0]?.url || '',
+  }))
+
   return (
     <div>
       {/* HERO SECTION */}
