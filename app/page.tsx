@@ -65,7 +65,6 @@ export default async function HomePage() {
         verification_status,
         created_at
       `)
-      .eq('status', 'active')
       .eq('verification_status', 'verified')
       .order('created_at', { ascending: false })
       .limit(12)
