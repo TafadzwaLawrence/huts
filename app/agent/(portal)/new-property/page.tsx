@@ -54,7 +54,7 @@ export default function AgentNewPropertyPage() {
   const [selectedOwnerId, setSelectedOwnerId] = useState('')
   const [agentId, setAgentId] = useState<string | null>(null)
 
-  const totalSteps = 5 // Removed owner selection step
+  const totalSteps = 6 // 6 total (step 0 skipped, steps 1-5 shown)
 
   // Form data (same as landlord form)
   const [formData, setFormData] = useState({
