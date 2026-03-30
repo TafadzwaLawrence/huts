@@ -953,6 +953,33 @@ export default function AgentNewPropertyPage() {
                 )}
                 {errors.images && <p className="text-sm text-red-600 mt-2">{errors.images}</p>}
               </div>
+
+              {/* Amenities */}
+              <div className="border border-[#E9ECEF] rounded-xl p-4">
+                <h3 className="text-sm font-semibold text-[#212529] mb-2">Amenities</h3>
+                <p className="text-xs text-[#ADB5BD] mb-3">Select all amenities that apply</p>
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
+                  {AMENITIES.map(amenity => (
+                    <button
+                      key={amenity}
+                      type="button"
+                      onClick={() => toggleAmenity(amenity)}
+                      className={`flex items-center gap-2 px-3 py-2 rounded-lg border-2 transition-all text-sm font-medium ${
+                        formData.amenities.includes(amenity)
+                          ? 'border-[#212529] bg-[#212529] text-white'
+                          : 'border-[#E9ECEF] bg-white text-[#495057] hover:border-[#212529]'
+                      }`}
+                    >
+                      {formData.amenities.includes(amenity) && <Check size={ICON_SIZES.sm} />}
+                      {amenity}
+                    </button>
+                  ))}
+                </div>
+
+                {formData.amenities.length > 0 && (
+                  <p className="text-xs text-[#ADB5BD] mt-3">{formData.amenities.length} amenit{formData.amenities.length === 1 ? 'y' : 'ies'} selected</p>
+                )}
+              </div>
             </div>
           )}
 

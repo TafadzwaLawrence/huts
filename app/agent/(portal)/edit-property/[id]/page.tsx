@@ -276,9 +276,17 @@ export default function AgentEditPropertyPage() {
     setSaving(true)
 
     try {
-      // Validate required fields
-      if (!formData.title || !formData.price || !formData.beds || !formData.baths || !formData.address || !formData.city) {
-        toast.error('Please fill in all required fields')
+      // Validate required fields with clear feedback
+      const requiredFields: string[] = []
+      if (!formData.title.trim()) requiredFields.push('title')
+      if (!formData.price.trim()) requiredFields.push('price')
+      if (!formData.beds.trim()) requiredFields.push('bedrooms')
+      if (!formData.baths.trim()) requiredFields.push('bathrooms')
+      if (!formData.address.trim()) requiredFields.push('address')
+      if (!formData.city.trim()) requiredFields.push('city')
+
+      if (requiredFields.length > 0) {
+        toast.error(`Please fill in the following required field(s): ${requiredFields.join(', ')}`)
         setSaving(false)
         return
       }
