@@ -59,7 +59,7 @@ export default async function HomePage() {
       status,
       verification_status,
       created_at,
-      property_images!inner(is_primary)
+      property_images!inner(is_primary, url)
     `)
     .eq('status', 'active')
     .eq('verification_status', 'verified')
