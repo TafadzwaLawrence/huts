@@ -59,29 +59,36 @@ export default async function HomePage() {
       status,
       verification_status,
       created_at,
-      property_images!inner(is_primary, url)
+      property_images(url, is_primary)
     `)
     .eq('status', 'active')
     .eq('verification_status', 'verified')
-    .eq('property_images.is_primary', true)
     .order('created_at', { ascending: false })
-    .limit(8)
+    .limit(12)
 
   // Transform the data to match our component interface
-  const transformedProperties = (featuredProperties || []).map(property => ({
-    id: property.id,
-    slug: property.slug,
-    title: property.title,
-    price: property.price,
-    sale_price: property.sale_price,
-    bedrooms: property.bedrooms,
-    bathrooms: property.bathrooms,
-    square_feet: property.square_feet,
-    address: property.address,
-    city: property.city,
-    listing_type: property.listing_type,
-    primary_image: property.property_images?.[0]?.url || '',
-  }))
+  const transformedProperties = (featuredProperties || [])
+    .map(property => {
+      // Find the primary image
+      const primaryImage = (property.property_images as any[])?.find((img: any) => img.is_primary)?.url || 
+                          (property.property_images as any[])?.[0]?.url || ''
+      
+      return {
+        id: property.id,
+        slug: property.slug,
+        title: property.title,
+        price: property.price,
+        sale_price: property.sale_price,
+        bedrooms: property.bedrooms,
+        bathrooms: property.bathrooms,
+        square_feet: property.square_feet,
+        address: property.address,
+        city: property.city,
+        listing_type: property.listing_type,
+        primary_image: primaryImage,
+      }
+    })
+    .filter(p => p.primary_image) // Only include properties with images
 
   return (
     <div>
