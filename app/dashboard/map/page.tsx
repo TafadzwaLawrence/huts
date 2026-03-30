@@ -205,7 +205,11 @@ export default function DashboardMapPage() {
                       <div className="flex items-center gap-3 mt-2 text-sm text-[#495057]">
                         <span className="flex items-center gap-1">
                           <DollarSign size={14} />
-                          {formatPrice(property.price)}/mo
+                          {property.listing_type === 'rent' && property.rental_period === 'nightly'
+                            ? formatPrice(property.nightly_price ?? property.price ?? 0) + '/night'
+                            : property.listing_type === 'rent'
+                            ? formatPrice(property.price ?? 0) + '/mo'
+                            : formatPrice(property.sale_price ?? 0)}
                         </span>
                         <span className="flex items-center gap-1">
                           <Bed size={14} />

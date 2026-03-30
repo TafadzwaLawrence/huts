@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { createClient } from '@/lib/supabase/client'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
-import { formatPrice } from '@/lib/utils'
+import { formatPrice, formatNightlyPrice, formatSalePrice } from '@/lib/utils'
 import { ICON_SIZES } from '@/lib/constants'
 import {
   Plus,
@@ -28,6 +28,8 @@ interface Property {
   slug: string
   property_type: string
   listing_type: 'rent' | 'sale'
+  rental_period?: 'monthly' | 'nightly' | null
+  nightly_price?: number | null
   status: 'active' | 'inactive' | 'draft'
   verification_status: string
   price: number | null
@@ -73,7 +75,7 @@ export default function AgentMyPropertiesPage() {
 
         setAgentId(agent.id)
 
-        // Load properties where agent_id = current agent
+        // Load properties where agent_id = current agent OR user_id = current user (for existing entries without agent_id)
         const { data: props, error } = await supabase
           .from('properties')
           .select(`
@@ -82,6 +84,8 @@ export default function AgentMyPropertiesPage() {
             slug,
             property_type,
             listing_type,
+            rental_period,
+            nightly_price,
             status,
             verification_status,
             price,
@@ -94,7 +98,7 @@ export default function AgentMyPropertiesPage() {
             user:user_id(full_name),
             property_images(url, is_primary)
           `)
-          .eq('agent_id', agent.id)
+          .or(`agent_id.eq.${agent.id},user_id.eq.${user.id}`)
           .order('created_at', { ascending: false })
 
         if (error) throw error
@@ -255,8 +259,10 @@ export default function AgentMyPropertiesPage() {
                     <div className="mb-3 pb-3 border-b border-[#E9ECEF]">
                       <p className="font-semibold text-[#212529]">
                         {property.listing_type === 'rent'
-                          ? formatPrice(property.price || 0) + '/mo'
-                          : formatPrice(property.sale_price || 0)}
+                          ? property.rental_period === 'nightly'
+                            ? formatNightlyPrice(property.nightly_price ?? property.price ?? 0) + '/night'
+                            : formatPrice(property.price ?? 0) + '/mo'
+                          : formatSalePrice(property.sale_price ?? 0)}
                       </p>
                     </div>
 

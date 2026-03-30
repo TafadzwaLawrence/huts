@@ -164,6 +164,8 @@ export default function PropertyDetailClient({ property, slug, currentUserId, ca
               listingType={property.listing_type}
               price={property.price}
               salePrice={property.sale_price}
+              rentalPeriod={property.rental_period}
+              nightlyPrice={property.nightly_price}
               beds={property.bedrooms}
             />
 

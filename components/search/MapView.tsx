@@ -13,6 +13,8 @@ interface Property {
   title: string
   slug: string
   listing_type: 'rent' | 'sale' | null
+  rental_period?: 'monthly' | 'nightly' | null
+  nightly_price?: number | null
   price: number | null
   sale_price: number | null
   bedrooms: number
@@ -284,14 +286,20 @@ export default function MapView({ properties, schools = [], healthcareFacilities
     properties.forEach((property) => {
       const isSelected = property.id === selectedProperty
       const isSale = property.listing_type === 'sale'
-      const price = isSale ? (property.sale_price || 0) : (property.price || 0)
-      const priceLabel = formatMarkerPrice(price, isSale)
+      const isNightly = property.listing_type === 'rent' && property.rental_period === 'nightly' && property.nightly_price != null
+      const priceCents = isSale
+        ? property.sale_price ?? 0
+        : isNightly
+        ? property.nightly_price ?? 0
+        : property.price ?? 0
+      const priceLabel = formatMarkerPrice(priceCents, isSale)
 
+      const priceSuffix = isSale ? '' : isNightly ? '/night' : '/mo'
       const icon = L.divIcon({
         className: 'price-marker',
-        html: `<div class="pm ${isSelected ? 'pm-active' : ''} ${isSale ? 'pm-sale' : 'pm-rent'}">${priceLabel}</div>`,
-        iconSize: [80, 36],
-        iconAnchor: [40, 36],
+        html: `<div class="pm ${isSelected ? 'pm-active' : ''} ${isSale ? 'pm-sale' : 'pm-rent'}">${priceLabel}${priceSuffix}</div>`,
+        iconSize: [90, 36],
+        iconAnchor: [45, 36],
       })
 
       const marker = L.marker([property.lat, property.lng], { icon })
@@ -299,7 +307,8 @@ export default function MapView({ properties, schools = [], healthcareFacilities
       // Popup — all user data sanitised to prevent XSS
       const primaryImage = property.property_images.find(img => img.is_primary) || property.property_images[0]
       const imageUrl = primaryImage?.url || ''
-      const formattedPrice = `$${(price / 100).toLocaleString()}`
+      const formattedPrice = `$${(priceCents / 100).toLocaleString()}`
+      const popupPriceSuffix = isSale ? '' : isNightly ? '/night' : '/mo'
       const safeTitle = sanitize(property.title)
       const safeArea = property.area ? sanitize(property.area) + ', ' : ''
       const safeCity = sanitize(property.city)
@@ -308,7 +317,7 @@ export default function MapView({ properties, schools = [], healthcareFacilities
       marker.bindPopup(`
         <div class="p-2 min-w-[220px]">
           ${safeImageUrl ? `<img src="${safeImageUrl}" alt="${safeTitle}" width="220" height="112" class="w-full h-28 object-cover rounded-md mb-2" loading="lazy" />` : ''}
-          <div class="font-bold text-[#212529] mb-0.5">${formattedPrice}${!isSale ? '/mo' : ''}</div>
+          <div class="font-bold text-[#212529] mb-0.5">${formattedPrice}${popupPriceSuffix}</div>
           <div class="font-semibold text-sm text-[#212529] mb-0.5 line-clamp-1">${safeTitle}</div>
           <div class="text-xs text-[#495057] mb-2">${safeArea}${safeCity}</div>
           <div class="flex gap-3 text-xs text-[#495057] mb-2">

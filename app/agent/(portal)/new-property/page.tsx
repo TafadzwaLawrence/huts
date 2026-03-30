@@ -48,6 +48,7 @@ export default function NewPropertyPage() {
   const [loading, setLoading] = useState(false)
   const [step, setStep] = useState(1)
   const [errors, setErrors] = useState<Record<string, string>>({})
+  const [agentId, setAgentId] = useState<string | null>(null)
   const totalSteps = 5
 
   // Form data
@@ -138,6 +139,33 @@ export default function NewPropertyPage() {
     setImages(prev => { const a = [...prev]; const [item] = a.splice(index, 1); a.unshift(item); return a })
     setImagePreviews(prev => { const a = [...prev]; const [item] = a.splice(index, 1); a.unshift(item); return a })
   }
+
+  // Fetch associated agent record once so we can attach agent_id on property insertion
+  useEffect(() => {
+    const loadAgent = async () => {
+      const { data: { user } } = await supabase.auth.getUser()
+      if (!user) {
+        router.push('/auth/signup')
+        return
+      }
+
+      const { data: agent, error } = await supabase
+        .from('agents')
+        .select('id')
+        .eq('user_id', user.id)
+        .single()
+
+      if (error || !agent) {
+        toast.error('Agent profile not found. Please complete your agent setup.')
+        router.push('/agent/profile')
+        return
+      }
+
+      setAgentId(agent.id)
+    }
+
+    loadAgent()
+  }, [supabase, router])
 
   const handleDrop = (e: React.DragEvent) => {
     e.preventDefault()
@@ -262,6 +290,12 @@ export default function NewPropertyPage() {
         .filter(uni => uni.length > 0)
         .map(name => ({ name })) // Simple object with name field
 
+      if (!agentId) {
+        toast.error('Agent information not available. Please refresh and try again.')
+        setLoading(false)
+        return
+      }
+
       // Create property
       // Generate slug from title
       const slug = formData.title
@@ -274,6 +308,7 @@ export default function NewPropertyPage() {
         .from('properties')
         .insert({
           user_id: user.id,
+          agent_id: agentId,
           slug,
           title: formData.title,
           description: formData.description,

@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { MapPin, Bed, Bath, Square, ChevronLeft, ChevronRight } from 'lucide-react'
 import Image from 'next/image'
-import { formatPrice, formatSalePrice } from '@/lib/utils'
+import { formatPrice, formatSalePrice, formatNightlyPrice } from '@/lib/utils'
 
 interface SimilarProperty {
   id: string
@@ -12,7 +12,9 @@ interface SimilarProperty {
   slug?: string | null
   price?: number | null
   sale_price?: number | null
-  listing_type?: string | null
+  listing_type?: 'rent' | 'sale' | null
+  rental_period?: 'monthly' | 'nightly' | null
+  nightly_price?: number | null
   bedrooms: number
   bathrooms: number
   square_feet?: number | null
@@ -24,13 +26,15 @@ interface SimilarProperty {
 interface SimilarHomesProps {
   propertyId: string
   city: string
-  listingType?: string | null
+  listingType?: 'rent' | 'sale' | null
   price?: number | null
   salePrice?: number | null
+  rentalPeriod?: 'monthly' | 'nightly' | null
+  nightlyPrice?: number | null
   beds?: number
 }
 
-export default function SimilarHomes({ propertyId, city, listingType, price, salePrice, beds }: SimilarHomesProps) {
+export default function SimilarHomes({ propertyId, city, listingType, price, salePrice, rentalPeriod, nightlyPrice, beds }: SimilarHomesProps) {
   const [properties, setProperties] = useState<SimilarProperty[]>([])
   const [loading, setLoading] = useState(true)
   const [scrollPos, setScrollPos] = useState(0)
@@ -44,6 +48,8 @@ export default function SimilarHomes({ propertyId, city, listingType, price, sal
           ...(listingType && { listingType }),
           ...(price && { price: String(price) }),
           ...(salePrice && { salePrice: String(salePrice) }),
+          ...(rentalPeriod && { rentalPeriod }),
+          ...(nightlyPrice && { nightlyPrice: String(nightlyPrice) }),
           ...(beds && { beds: String(beds) }),
         })
         const res = await fetch(`/api/properties/similar?${params}`)
@@ -141,8 +147,11 @@ export default function SimilarHomes({ propertyId, city, listingType, price, sal
                     </div>
                   )}
                   <div className="absolute top-2 left-2 bg-black/80 text-white px-2 py-0.5 rounded text-xs font-bold">
-                    {isSale ? formatSalePrice(prop.sale_price ?? 0) : formatPrice(prop.price ?? 0)}
-                    {!isSale && <span className="font-normal">/mo</span>}
+                    {isSale
+                      ? formatSalePrice(prop.sale_price ?? 0)
+                      : prop.listing_type === 'rent' && prop.rental_period === 'nightly'
+                      ? formatPrice(prop.nightly_price ?? prop.price ?? 0) + '/night'
+                      : formatPrice(prop.price ?? 0) + '/mo'}
                   </div>
                 </div>
                 <div className="text-xs text-[#495057] flex items-center gap-2 mb-0.5">
