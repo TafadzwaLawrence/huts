@@ -26,7 +26,7 @@ export async function GET(request: Request) {
     // Get market overview
     const { data: activeListings, count } = await supabase
       .from('properties')
-      .select('price, sale_price, bedrooms, bathrooms, square_feet, property_type, area', { count: 'exact' })
+      .select('price, nightly_price, sale_price, rental_period, bedrooms, bathrooms, square_feet, property_type, area', { count: 'exact' })
       .eq('city', city)
       .eq('listing_type', listingType)
       .eq('status', 'active')
@@ -48,7 +48,7 @@ export async function GET(request: Request) {
 
     // Get prices
     const prices = activeListings
-      .map(p => listingType === 'sale' ? p.sale_price : p.price)
+      .map(p => listingType === 'sale' ? p.sale_price : (p.rental_period === 'nightly' ? p.nightly_price : p.price))
       .filter((p): p is number => p !== null && p > 0)
       .sort((a, b) => a - b)
 
@@ -66,7 +66,7 @@ export async function GET(request: Request) {
     
     for (const listing of activeListings) {
       const beds = listing.bedrooms.toString()
-      const price = listingType === 'sale' ? listing.sale_price : listing.price
+      const price = listingType === 'sale' ? listing.sale_price : (listing.rental_period === 'nightly' ? listing.nightly_price : listing.price)
       if (!bedroomGroups[beds]) bedroomGroups[beds] = []
       if (price) bedroomGroups[beds].push(price)
     }
@@ -86,7 +86,7 @@ export async function GET(request: Request) {
     
     for (const listing of activeListings) {
       const type = listing.property_type
-      const price = listingType === 'sale' ? listing.sale_price : listing.price
+      const price = listingType === 'sale' ? listing.sale_price : (listing.rental_period === 'nightly' ? listing.nightly_price : listing.price)
       if (!typeGroups[type]) typeGroups[type] = []
       if (price) typeGroups[type].push(price)
     }

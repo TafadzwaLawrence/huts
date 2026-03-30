@@ -82,6 +82,7 @@ export interface Database {
           rental_period: 'monthly' | 'nightly' | null
           status: string
           price: number | null
+          nightly_price: number | null
           sale_price: number | null
           bedrooms: number | null
           bathrooms: number | null
@@ -126,6 +127,7 @@ export interface Database {
           rental_period?: 'monthly' | 'nightly' | null
           status?: string
           price?: number | null
+          nightly_price?: number | null
           sale_price?: number | null
           bedrooms?: number | null
           bathrooms?: number | null
@@ -170,6 +172,7 @@ export interface Database {
           rental_period?: 'monthly' | 'nightly' | null
           status?: string
           price?: number | null
+          nightly_price?: number | null
           sale_price?: number | null
           bedrooms?: number | null
           bathrooms?: number | null
@@ -335,7 +338,7 @@ export interface Database {
           id?: string
           property_id: string
           renter_id?: string | null
-          landlord_id: string
+          landlord_id?: string
           last_message_at?: string | null
           created_at?: string
           updated_at?: string
@@ -636,9 +639,9 @@ export interface Database {
           id?: string
           agent_id: string
           name: string
-          email: string
+          email?: string
           phone?: string | null
-          client_type: string
+          client_type?: string
           budget_min?: number | null
           budget_max?: number | null
           preferred_locations?: string[] | null
@@ -676,8 +679,8 @@ export interface Database {
         Insert: {
           id?: string
           client_id: string
-          agent_id: string
-          note_text: string
+          agent_id?: string
+          note_text?: string
           created_at?: string
           updated_at?: string
         }
@@ -708,10 +711,10 @@ export interface Database {
           lead_id: string
           assigned_agent_id?: string | null
           assigned_team_id?: string | null
-          assignment_mode: string
+          assignment_mode?: string
           assignment_reason?: string | null
-          claim_deadline_at: string
-          expires_at: string
+          claim_deadline_at?: string
+          expires_at?: string
           created_at?: string
         }
         Update: {
@@ -747,9 +750,9 @@ export interface Database {
           agent_id: string
           client_id?: string | null
           property_id?: string | null
-          appointment_type: string
+          appointment_type?: string
           status?: string
-          scheduled_at: string
+          scheduled_at?: string
           duration_minutes?: number | null
           location?: string | null
           notes?: string | null
@@ -828,7 +831,7 @@ export interface Database {
         Insert: {
           id?: string
           property_id: string
-          transaction_type: 'sale' | 'rental' | 'lease'
+          transaction_type?: 'sale' | 'rental' | 'lease'
           status?: 'active' | 'pending_offer' | 'under_contract' | 'closed' | 'cancelled' | 'expired'
           listing_price?: number | null
           offer_price?: number | null
@@ -892,7 +895,7 @@ export interface Database {
           id?: string
           transaction_id: string
           profile_id: string
-          role: 'listing_agent' | 'selling_agent' | 'buyer_agent' | 'buyer' | 'seller' | 'landlord' | 'tenant' | 'coordinator'
+          role?: 'listing_agent' | 'selling_agent' | 'buyer_agent' | 'buyer' | 'seller' | 'landlord' | 'tenant' | 'coordinator'
           commission_split_pct?: number | null
           commission_amount?: number | null
           can_contact?: boolean
@@ -936,11 +939,11 @@ export interface Database {
           id?: string
           transaction_id: string
           uploaded_by: string
-          document_type: 'contract' | 'disclosure' | 'addendum' | 'inspection_report' | 'appraisal' | 'closing_statement' | 'other'
-          title: string
+          document_type?: 'contract' | 'disclosure' | 'addendum' | 'inspection_report' | 'appraisal' | 'closing_statement' | 'other'
+          title?: string
           description?: string | null
-          file_path: string
-          file_name: string
+          file_path?: string
+          file_name?: string
           file_size_bytes?: number | null
           mime_type?: string | null
           is_private?: boolean

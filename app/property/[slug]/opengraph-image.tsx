@@ -1,6 +1,6 @@
 import { ImageResponse } from 'next/og'
 import { createStaticClient } from '@/lib/supabase/server'
-import { formatPrice, formatSalePrice } from '@/lib/utils'
+import { formatPrice, formatNightlyPrice, formatSalePrice } from '@/lib/utils'
 import { BRAND } from '@/lib/brand'
 import { loadFonts } from '@/lib/og-fonts'
 import { brandedCard, propertyCard, loadLogo } from '@/lib/og-templates'
@@ -15,7 +15,7 @@ export default async function Image({ params }: { params: Promise<{ slug: string
   // Fetch property by slug then ID (with properly ordered images)
   let { data: property } = await supabase
     .from('properties')
-    .select('title, price, sale_price, listing_type, city, bedrooms, bathrooms, square_feet, property_images(url, is_primary, order)')
+    .select('title, price, nightly_price, sale_price, listing_type, rental_period, city, bedrooms, bathrooms, square_feet, property_images(url, is_primary, order)')
     .eq('slug', slug)
     .order('is_primary', { ascending: false, referencedTable: 'property_images' })
     .order('order', { ascending: true, referencedTable: 'property_images' })
@@ -24,7 +24,7 @@ export default async function Image({ params }: { params: Promise<{ slug: string
   if (!property) {
     const result = await supabase
       .from('properties')
-      .select('title, price, sale_price, listing_type, city, bedrooms, bathrooms, square_feet, property_images(url, is_primary, order)')
+      .select('title, price, nightly_price, sale_price, listing_type, rental_period, city, bedrooms, bathrooms, square_feet, property_images(url, is_primary, order)')
       .eq('id', slug)
       .order('is_primary', { ascending: false, referencedTable: 'property_images' })
       .order('order', { ascending: true, referencedTable: 'property_images' })
@@ -46,8 +46,11 @@ export default async function Image({ params }: { params: Promise<{ slug: string
   }
 
   const isRental = property.listing_type === 'rent'
+  const isNightly = isRental && property.rental_period === 'nightly'
   const priceDisplay = isRental
-    ? `${formatPrice(property.price)}/mo`
+    ? isNightly
+      ? `${formatNightlyPrice(property.nightly_price ?? property.price)}/night`
+      : `${formatPrice(property.price ?? property.nightly_price)}/mo`
     : formatSalePrice(property.sale_price)
 
   // Get the primary image or first ordered image

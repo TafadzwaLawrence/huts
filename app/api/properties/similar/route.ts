@@ -12,6 +12,7 @@ export async function GET(request: Request) {
     const price = searchParams.get('price')
     const salePrice = searchParams.get('salePrice')
     const beds = searchParams.get('beds')
+    const rentalPeriod = searchParams.get('rentalPeriod')
 
     if (!propertyId || !city) {
       return NextResponse.json({ error: 'Missing required params' }, { status: 400 })
@@ -21,7 +22,7 @@ export async function GET(request: Request) {
 
     let query = supabase
       .from('properties')
-      .select('id, title, slug, price, sale_price, listing_type, bedrooms, bathrooms, square_feet, city, area, property_images(url, is_primary)')
+      .select('id, title, slug, price, nightly_price, sale_price, listing_type, rental_period, bedrooms, bathrooms, square_feet, city, area, property_images(url, is_primary)')
       .eq('status', 'active')
       .eq('verification_status', 'approved')
       .neq('id', propertyId)
@@ -40,9 +41,17 @@ export async function GET(request: Request) {
         .lte('sale_price', Math.round(p * 1.4))
     } else if (price) {
       const p = parseInt(price)
-      query = query
-        .gte('price', Math.round(p * 0.6))
-        .lte('price', Math.round(p * 1.4))
+      // If rentalPeriod === 'nightly', filter by nightly_price
+      if (rentalPeriod === 'nightly') {
+        query = query
+          .gte('nightly_price', Math.round(p * 0.6))
+          .lte('nightly_price', Math.round(p * 1.4))
+          .eq('rental_period', 'nightly')
+      } else {
+        query = query
+          .gte('price', Math.round(p * 0.6))
+          .lte('price', Math.round(p * 1.4))
+      }
     }
 
     // Same bedroom count ±1
