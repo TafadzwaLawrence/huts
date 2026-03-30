@@ -183,6 +183,9 @@ export default async function HomePage() {
         </div>
       </section>
 
+      {/* FEATURED PROPERTIES SHOWCASE */}
+      <FeaturedPropertiesShowcase properties={transformedProperties} />
+
       {/* ACTION CARDS — Zillow style */}
       <section className="py-12 md:py-16 bg-white">
         <div className="container-main">
