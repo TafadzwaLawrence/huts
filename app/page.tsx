@@ -46,7 +46,8 @@ export default async function HomePage() {
   let fetchError: string | null = null
   
   try {
-    const { data: featuredProperties, error } = await supabase
+    // First, fetch the properties
+    const { data: featuredProperties, error: propertiesError } = await supabase
       .from('properties')
       .select(`
         id,
@@ -62,24 +63,48 @@ export default async function HomePage() {
         listing_type,
         status,
         verification_status,
-        created_at,
-        property_images(url, is_primary)
+        created_at
       `)
       .eq('status', 'active')
       .eq('verification_status', 'verified')
       .order('created_at', { ascending: false })
       .limit(12)
 
-    if (error) {
-      console.error('Error fetching featured properties:', error)
-      fetchError = error.message
-    } else {
-      // Transform the data to match our component interface
-      transformedProperties = (featuredProperties || [])
+    if (propertiesError) {
+      console.error('Error fetching featured properties:', propertiesError)
+      fetchError = propertiesError.message
+    } else if (featuredProperties && featuredProperties.length > 0) {
+      // Get all property IDs
+      const propertyIds = featuredProperties.map(p => p.id)
+      
+      // Fetch images for these properties in a separate query
+      const { data: allImages, error: imagesError } = await supabase
+        .from('property_images')
+        .select('property_id, url, is_primary')
+        .in('property_id', propertyIds)
+        .order('is_primary', { ascending: false })
+      
+      if (imagesError) {
+        console.error('Error fetching property images:', imagesError)
+      }
+      
+      // Create a map of property_id -> images
+      const imagesByProperty: Record<string, any[]> = {}
+      if (allImages) {
+        for (const img of allImages) {
+          if (!imagesByProperty[img.property_id]) {
+            imagesByProperty[img.property_id] = []
+          }
+          imagesByProperty[img.property_id].push(img)
+        }
+      }
+      
+      // Transform the data
+      transformedProperties = featuredProperties
         .map(property => {
-          // Find the primary image
-          const primaryImage = (property.property_images as any[])?.find((img: any) => img.is_primary)?.url || 
-                              (property.property_images as any[])?.[0]?.url || ''
+          const propertyImages = imagesByProperty[property.id] || []
+          const primaryImage = propertyImages.find(img => img.is_primary)?.url || 
+                              propertyImages[0]?.url || ''
           
           return {
             id: property.id,
