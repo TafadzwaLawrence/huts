@@ -286,7 +286,11 @@ export default function DashboardMapPage() {
                     </p>
                     <div className="flex items-center justify-between">
                       <span className="font-bold text-[#212529]">
-                        {formatPrice(property.price)}/mo
+                        {property.listing_type === 'rent' && property.rental_period === 'nightly'
+                          ? formatPrice(property.nightly_price ?? property.price ?? 0) + '/night'
+                          : property.listing_type === 'rent'
+                          ? formatPrice(property.price ?? 0) + '/mo'
+                          : formatPrice(property.sale_price ?? 0)}
                       </span>
                       <Link
                         href={`/property/${property.slug || property.id}`}
