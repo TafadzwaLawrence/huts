@@ -47,7 +47,8 @@ export default async function HomePage() {
   
   try {
     // First, fetch the properties
-    const { data: featuredProperties, error: propertiesError } = await supabase
+    console.log('[DEBUG] Starting property fetch...')
+    const { data: featuredProperties, error: propertiesError, count } = await supabase
       .from('properties')
       .select(`
         id,
@@ -64,10 +65,16 @@ export default async function HomePage() {
         status,
         verification_status,
         created_at
-      `)
+      `, { count: 'exact' })
       .eq('verification_status', 'verified')
       .order('created_at', { ascending: false })
       .limit(12)
+
+    console.log('[DEBUG] Properties fetch result:', { 
+      count, 
+      dataLength: featuredProperties?.length || 0,
+      error: propertiesError?.message || null 
+    })
 
     if (propertiesError) {
       console.error('Error fetching featured properties:', propertiesError)
@@ -75,6 +82,7 @@ export default async function HomePage() {
     } else if (featuredProperties && featuredProperties.length > 0) {
       // Get all property IDs
       const propertyIds = featuredProperties.map(p => p.id)
+      console.log('[DEBUG] Property IDs to fetch images for:', propertyIds)
       
       // Fetch images for these properties in a separate query
       const { data: allImages, error: imagesError } = await supabase
@@ -82,6 +90,11 @@ export default async function HomePage() {
         .select('property_id, url, is_primary')
         .in('property_id', propertyIds)
         .order('is_primary', { ascending: false })
+      
+      console.log('[DEBUG] Images fetch result:', {
+        imagesCount: allImages?.length || 0,
+        error: imagesError?.message || null
+      })
       
       if (imagesError) {
         console.error('Error fetching property images:', imagesError)
@@ -98,12 +111,16 @@ export default async function HomePage() {
         }
       }
       
+      console.log('[DEBUG] Images by property map:', Object.keys(imagesByProperty).length, 'properties have images')
+      
       // Transform the data
       transformedProperties = featuredProperties
         .map(property => {
           const propertyImages = imagesByProperty[property.id] || []
           const primaryImage = propertyImages.find(img => img.is_primary)?.url || 
                               propertyImages[0]?.url || ''
+          
+          console.log(`[DEBUG] Property ${property.id}: has ${propertyImages.length} images, primary: ${primaryImage ? 'yes' : 'no'}`)
           
           return {
             id: property.id,
@@ -121,6 +138,10 @@ export default async function HomePage() {
           }
         })
         .filter(p => p.primary_image) // Only include properties with images
+      
+      console.log('[DEBUG] Final transformed properties count:', transformedProperties.length)
+    } else {
+      console.log('[DEBUG] No featured properties found (empty array)')
     }
   } catch (err) {
     console.error('Exception fetching featured properties:', err)
