@@ -148,7 +148,7 @@ export default function AgentEditPropertyPage() {
             property_images(id, url, is_primary, order)
           `)
           .eq('id', propertyId)
-          .eq('agent_id', agent.id)
+          .or(`agent_id.eq.${agent.id},user_id.eq.${user.id}`)
           .single()
 
         if (error) throw error
