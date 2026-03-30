@@ -48,6 +48,16 @@ export default async function HomePage() {
   try {
     // First, fetch the properties
     console.log('[DEBUG] Starting property fetch...')
+    console.log('[DEBUG] Supabase URL:', process.env.NEXT_PUBLIC_SUPABASE_URL?.slice(0, 20) + '...')
+    
+    // Test basic connectivity first
+    const { data: testData, error: testError } = await supabase
+      .from('properties')
+      .select('count')
+      .limit(1)
+    console.log('[DEBUG] Basic connectivity test:', { testData, testError: testError?.message })
+    
+    // Now fetch with the filter
     const { data: featuredProperties, error: propertiesError, count } = await supabase
       .from('properties')
       .select(`
@@ -73,7 +83,8 @@ export default async function HomePage() {
     console.log('[DEBUG] Properties fetch result:', { 
       count, 
       dataLength: featuredProperties?.length || 0,
-      error: propertiesError?.message || null 
+      error: propertiesError?.message || null,
+      firstFew: featuredProperties?.slice(0, 2) || []
     })
 
     if (propertiesError) {
