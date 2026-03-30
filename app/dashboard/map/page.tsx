@@ -28,7 +28,11 @@ interface Property {
   id: string
   slug: string
   title: string
-  price: number
+  price: number | null
+  nightly_price: number | null
+  sale_price: number | null
+  listing_type: 'rent' | 'sale' | null
+  rental_period: 'monthly' | 'nightly' | null
   bedrooms: number
   bathrooms: number
   lat: number
@@ -74,6 +78,10 @@ export default function DashboardMapPage() {
           slug,
           title,
           price,
+          nightly_price,
+          sale_price,
+          listing_type,
+          rental_period,
           bedrooms,
           bathrooms,
           lat,
