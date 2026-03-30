@@ -205,10 +205,10 @@ export default function MyPropertiesList({ properties }: { properties: PropertyW
           <ShieldAlert size={20} className="text-[#f59f00] flex-shrink-0" />
           <div className="flex-1 min-w-0">
             <p className="text-sm font-semibold text-[#212529]">
-              {stats.pending} {stats.pending === 1 ? 'property' : 'properties'} pending verification
+              {stats.pending} {stats.pending === 1 ? 'property' : 'properties'} under admin review
             </p>
             <p className="text-xs text-[#495057] mt-0.5">
-              Usually reviewed within 24 hours.
+              Properties are reviewed within 24 hours. Listings marked "Active" are visible to renters/buyers.
             </p>
           </div>
         </div>
@@ -320,7 +320,7 @@ export default function MyPropertiesList({ properties }: { properties: PropertyW
                       {v === 'pending' && <ShieldAlert size={12} />}
                       {v === 'approved' && <ShieldCheck size={12} />}
                       {v === 'rejected' && <ShieldX size={12} />}
-                      {v === 'all' ? 'All' : `${v.charAt(0).toUpperCase() + v.slice(1)} (${count})`}
+                      {v === 'all' ? 'All' : v === 'pending' ? `Under Review (${count})` : v === 'approved' ? `Approved (${count})` : `Rejected (${count})`}
                     </button>
                   )
                 })}
@@ -427,7 +427,7 @@ export default function MyPropertiesList({ properties }: { properties: PropertyW
                             : 'bg-[#FF6B6B]/90 text-white'
                         }`}>
                           {isPending ? <ShieldAlert size={10} /> : <ShieldX size={10} />}
-                          {isPending ? 'Pending' : 'Rejected'}
+                          {isPending ? 'Under Review' : 'Rejected'}
                         </span>
                       )}
                     </div>
