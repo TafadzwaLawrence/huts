@@ -46,5 +46,7 @@ CHECK (
 COMMENT ON COLUMN properties.rental_period IS 
 'Rental period type for rent listings. Monthly rentals charge price per month. Nightly rentals charge price per night. Only valid for listing_type = ''rent''. Defaults to ''monthly'' for backward compatibility.';
 
+
 COMMENT ON TYPE rental_period_enum IS
 'Enum type for property rental periods. Monthly: traditional monthly lease. Nightly: short-term nightly bookings (e.g., Airbnb-style).';
+         

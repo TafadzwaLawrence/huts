@@ -79,6 +79,7 @@ export interface Database {
           latitude: number | null
           longitude: number | null
           listing_type: 'rent' | 'sale'
+          rental_period: 'monthly' | 'nightly' | null
           status: string
           price: number | null
           sale_price: number | null
@@ -122,6 +123,7 @@ export interface Database {
           latitude?: number | null
           longitude?: number | null
           listing_type: 'rent' | 'sale'
+          rental_period?: 'monthly' | 'nightly' | null
           status?: string
           price?: number | null
           sale_price?: number | null
@@ -165,6 +167,7 @@ export interface Database {
           latitude?: number | null
           longitude?: number | null
           listing_type?: 'rent' | 'sale'
+          rental_period?: 'monthly' | 'nightly' | null
           status?: string
           price?: number | null
           sale_price?: number | null

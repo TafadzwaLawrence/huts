@@ -12,6 +12,7 @@ import {
 } from '@react-email/components'
 import * as React from 'react'
 
+
 interface AgentVerificationEmailProps {
   agentName: string
   agentType: string
