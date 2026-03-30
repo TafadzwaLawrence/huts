@@ -42,53 +42,66 @@ export default async function HomePage() {
   const firstName = profile?.name?.split(' ')[0] ?? 'there'
 
   // Fetch featured properties for the carousel
-  const { data: featuredProperties } = await supabase
-    .from('properties')
-    .select(`
-      id,
-      slug,
-      title,
-      price,
-      sale_price,
-      bedrooms,
-      bathrooms,
-      square_feet,
-      address,
-      city,
-      listing_type,
-      status,
-      verification_status,
-      created_at,
-      property_images(url, is_primary)
-    `)
-    .eq('status', 'active')
-    .eq('verification_status', 'verified')
-    .order('created_at', { ascending: false })
-    .limit(12)
+  let transformedProperties: any[] = []
+  let fetchError: string | null = null
+  
+  try {
+    const { data: featuredProperties, error } = await supabase
+      .from('properties')
+      .select(`
+        id,
+        slug,
+        title,
+        price,
+        sale_price,
+        bedrooms,
+        bathrooms,
+        square_feet,
+        address,
+        city,
+        listing_type,
+        status,
+        verification_status,
+        created_at,
+        property_images(url, is_primary)
+      `)
+      .eq('status', 'active')
+      .eq('verification_status', 'verified')
+      .order('created_at', { ascending: false })
+      .limit(12)
 
-  // Transform the data to match our component interface
-  const transformedProperties = (featuredProperties || [])
-    .map(property => {
-      // Find the primary image
-      const primaryImage = (property.property_images as any[])?.find((img: any) => img.is_primary)?.url || 
-                          (property.property_images as any[])?.[0]?.url || ''
-      
-      return {
-        id: property.id,
-        slug: property.slug,
-        title: property.title,
-        price: property.price,
-        sale_price: property.sale_price,
-        bedrooms: property.bedrooms,
-        bathrooms: property.bathrooms,
-        square_feet: property.square_feet,
-        address: property.address,
-        city: property.city,
-        listing_type: property.listing_type,
-        primary_image: primaryImage,
-      }
-    })
-    .filter(p => p.primary_image) // Only include properties with images
+    if (error) {
+      console.error('Error fetching featured properties:', error)
+      fetchError = error.message
+    } else {
+      // Transform the data to match our component interface
+      transformedProperties = (featuredProperties || [])
+        .map(property => {
+          // Find the primary image
+          const primaryImage = (property.property_images as any[])?.find((img: any) => img.is_primary)?.url || 
+                              (property.property_images as any[])?.[0]?.url || ''
+          
+          return {
+            id: property.id,
+            slug: property.slug,
+            title: property.title,
+            price: property.price,
+            sale_price: property.sale_price,
+            bedrooms: property.bedrooms,
+            bathrooms: property.bathrooms,
+            square_feet: property.square_feet,
+            address: property.address,
+            city: property.city,
+            listing_type: property.listing_type,
+            primary_image: primaryImage,
+          }
+        })
+        .filter(p => p.primary_image) // Only include properties with images
+    }
+  } catch (err) {
+    console.error('Exception fetching featured properties:', err)
+    fetchError = err instanceof Error ? err.message : 'Unknown error'
+  }
 
   return (
     <div>

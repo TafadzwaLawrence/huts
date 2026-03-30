@@ -58,7 +58,36 @@ export default function FeaturedPropertiesShowcase({ properties }: { properties:
     return () => clearTimeout(timeout)
   }, [isAutoPlay])
 
-  if (properties.length === 0) return null
+  if (properties.length === 0) {
+    return (
+      <section className="py-12 md:py-16 bg-white">
+        <div className="container-main">
+          <div className="mb-8">
+            <h2 className="text-3xl md:text-4xl font-bold text-[#212529] text-center">
+              Featured Properties
+            </h2>
+            <p className="text-center text-[#495057] mt-2">
+              Explore recently listed homes and rentals
+            </p>
+          </div>
+          <div className="bg-[#F8F9FA] rounded-2xl p-12 text-center border border-[#E9ECEF]">
+            <p className="text-[#6C757D] text-lg">
+              No featured properties available at the moment.
+            </p>
+            <p className="text-[#ADB5BD] mt-2">
+              Check back soon or browse all listings.
+            </p>
+            <Link
+              href="/search"
+              className="inline-block mt-6 px-6 py-3 bg-[#212529] text-white font-semibold rounded-lg hover:bg-[#343A40] transition-colors"
+            >
+              Browse All Properties
+            </Link>
+          </div>
+        </div>
+      </section>
+    )
+  }
 
   const property = properties[currentIndex]
 
