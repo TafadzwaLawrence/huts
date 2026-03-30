@@ -76,7 +76,7 @@ export default async function HomePage() {
         verification_status,
         created_at
       `, { count: 'exact' })
-      .eq('verification_status', 'verified')
+      .eq('verification_status', 'approved')
       .order('created_at', { ascending: false })
       .limit(12)
 
