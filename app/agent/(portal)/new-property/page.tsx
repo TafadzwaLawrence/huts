@@ -185,21 +185,63 @@ export default function NewPropertyPage() {
         return
       }
 
-      // Validate required fields
-      if (!formData.title || !formData.price || !formData.beds || !formData.baths || !formData.address || !formData.city) {
-        toast.error('Please fill in all required fields')
-        setLoading(false)
-        return
+      // Build detailed validation errors
+      const newErrors: Record<string, string> = {}
+
+      // Validate basic fields
+      if (!formData.title?.trim()) {
+        newErrors.title = 'Property title is required'
+      }
+      if (!formData.propertyType) {
+        newErrors.propertyType = 'Property type is required'
+      }
+      if (!formData.beds) {
+        newErrors.beds = 'Number of bedrooms is required'
+      }
+      if (!formData.baths) {
+        newErrors.baths = 'Number of bathrooms is required'
+      }
+      if (!formData.address?.trim()) {
+        newErrors.address = 'Address is required'
+      }
+      if (!formData.city?.trim()) {
+        newErrors.city = 'City is required'
       }
 
+      // Validate price based on listing type and rental period
+      if (formData.listingType === 'rent') {
+        if (formData.rentalPeriod === 'monthly') {
+          if (!formData.price || parseFloat(formData.price) <= 0) {
+            newErrors.price = 'Monthly rent amount is required'
+          }
+        } else {
+          if (!formData.nightly_price || parseFloat(formData.nightly_price) <= 0) {
+            newErrors.nightly_price = 'Nightly rate is required'
+          }
+        }
+      } else {
+        if (!formData.price || parseFloat(formData.price) <= 0) {
+          newErrors.price = 'Sale price is required'
+        }
+      }
+
+      // Validate location
       if (!formData.lat || !formData.lng) {
-        toast.error('Please select a location on the map')
-        setLoading(false)
-        return
+        newErrors.location = 'Please select a location on the map'
       }
 
+      // Validate images
       if (images.length === 0) {
-        toast.error('Please add at least one image')
+        newErrors.images = 'At least one property image is required'
+      }
+
+      // If there are errors, show them and don't proceed
+      if (Object.keys(newErrors).length > 0) {
+        setErrors(newErrors)
+        
+        // Show toast with first error
+        const firstError = Object.values(newErrors)[0]
+        toast.error(firstError)
         setLoading(false)
         return
       }
