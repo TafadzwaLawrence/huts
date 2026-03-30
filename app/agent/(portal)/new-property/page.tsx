@@ -21,16 +21,11 @@ import {
   ArrowLeft,
   X,
   Check,
-  AlertCircle,
   Image as ImageIcon,
   Building2,
   Tag,
-  Calendar,
-  Car,
   Loader2,
   GraduationCap,
-  User,
-  Search,
 } from 'lucide-react'
 
 import type { ParsedAddress } from '@/components/property/LocationPicker'
@@ -54,13 +49,12 @@ export default function AgentNewPropertyPage() {
   const router = useRouter()
   const supabase = createClient()
   const [loading, setLoading] = useState(false)
-  const [step, setStep] = useState(0) // 0 = select owner, 1-5 = form steps
+  const [step, setStep] = useState(1) // Start from step 1 (no owner selection - agent is always the owner)
   const [errors, setErrors] = useState<Record<string, string>>({})
-  const [owners, setOwners] = useState<PropertyOwner[]>([])
   const [selectedOwnerId, setSelectedOwnerId] = useState('')
   const [agentId, setAgentId] = useState<string | null>(null)
 
-  const totalSteps = 6 // 0 + 5 form steps
+  const totalSteps = 5 // Removed owner selection step
 
   // Form data (same as landlord form)
   const [formData, setFormData] = useState({
@@ -100,7 +94,7 @@ export default function AgentNewPropertyPage() {
   const [coverImageIndex, setCoverImageIndex] = useState(0)
   const [ownerSearch, setOwnerSearch] = useState('')
 
-  // Load agents and property owners on mount
+  // Load agent on mount and auto-set agent as property owner
   useEffect(() => {
     const init = async () => {
       try {
@@ -125,14 +119,8 @@ export default function AgentNewPropertyPage() {
         }
 
         setAgentId(agent.id)
-
-        // Load all users (property owners)
-        const { data: users } = await supabase
-          .from('profiles')
-          .select('id, full_name, email')
-          .order('full_name')
-
-        setOwners(users || [])
+        // Agent is always the owner of properties they list
+        setSelectedOwnerId(user.id)
       } catch (error) {
         console.error('Init error:', error)
         toast.error('Failed to load form')
@@ -370,12 +358,8 @@ export default function AgentNewPropertyPage() {
   const validateStep = (stepNumber: number): boolean => {
     const newErrors: Record<string, string> = {}
 
-    if (stepNumber === 0) {
-      if (!selectedOwnerId) newErrors.owner = 'Please select a property owner'
-    }
-
     if (stepNumber === 1) {
-      // No validation needed
+      // No validation needed for listing type selection
     }
 
     if (stepNumber === 2) {
@@ -383,19 +367,19 @@ export default function AgentNewPropertyPage() {
       if (!formData.propertyType) newErrors.propertyType = 'Property type is required'
     }
 
-    if (stepNumber === 3) {
+    if (stepNumber === 2) {
       if (!formData.price || parseFloat(formData.price) <= 0) newErrors.price = 'Valid price is required'
       if (!formData.beds) newErrors.beds = 'Bedrooms is required'
       if (!formData.baths) newErrors.baths = 'Bathrooms is required'
     }
 
-    if (stepNumber === 4) {
+    if (stepNumber === 3) {
       if (!formData.address.trim()) newErrors.address = 'Address is required'
       if (!formData.city.trim()) newErrors.city = 'City is required'
       if (!formData.lat || !formData.lng) newErrors.location = 'Please select location on map'
     }
 
-    if (stepNumber === 5) {
+    if (stepNumber === 4) {
       if (images.length === 0) newErrors.images = 'At least one image is required'
     }
 
@@ -410,13 +394,12 @@ export default function AgentNewPropertyPage() {
   }
 
   const prevStep = () => {
-    setStep(prev => Math.max(prev - 1, 0))
+    setStep(prev => Math.max(prev - 1, 1)) // Don't go below step 1 (skip step 0)
   }
 
-  const progress = ((step) / (totalSteps - 1)) * 100
+  const progress = ((step - 1) / (totalSteps - 1)) * 100
 
   const stepLabels = [
-    { label: 'Owner', icon: User },
     { label: 'Type', icon: Tag },
     { label: 'Details', icon: Building2 },
     { label: 'Pricing', icon: DollarSign },
@@ -444,7 +427,7 @@ export default function AgentNewPropertyPage() {
                 List Property
               </h1>
               <p className="text-xs text-[#ADB5BD] mt-1 font-medium">
-                Step {step + 1} of {totalSteps}
+                Step {step} of 5
               </p>
             </div>
             <Link
@@ -465,13 +448,15 @@ export default function AgentNewPropertyPage() {
             </div>
             {stepLabels.map((s, i) => {
               const Icon = s.icon
-              const isCompleted = i < step
-              const isCurrent = i === step
+              // i is 0-4 for button indices, but step is 1-5, so adjust
+              const stepNumber = i + 1
+              const isCompleted = stepNumber < step
+              const isCurrent = stepNumber === step
               return (
                 <button
                   key={i}
                   type="button"
-                  onClick={() => { if (isCompleted) setStep(i) }}
+                  onClick={() => { if (isCompleted) setStep(stepNumber) }}
                   className={`relative z-10 flex flex-col items-center gap-1 ${isCompleted ? 'cursor-pointer' : 'cursor-default'}`}
                 >
                   <div className={`w-8 h-8 rounded-full flex items-center justify-center border-2 transition-all ${
@@ -496,68 +481,6 @@ export default function AgentNewPropertyPage() {
       {/* Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <form onSubmit={handleSubmit}>
-          {/* Step 0: Select Owner */}
-          {step === 0 && (
-            <div className="space-y-6">
-              <div>
-                <h2 className="text-lg font-bold text-[#212529] mb-1">Select Property Owner</h2>
-                <p className="text-sm text-[#ADB5BD] mb-4">Choose the client this property belongs to</p>
-                <div className="relative mb-4">
-                  <input
-                    type="text"
-                    placeholder="Search by name or email..."
-                    value={ownerSearch}
-                    onChange={e => setOwnerSearch(e.target.value)}
-                    className="w-full px-4 py-3 pl-10 border border-[#E9ECEF] rounded-lg text-[#212529] bg-white focus:outline-none focus:ring-2 focus:ring-[#212529]"
-                  />
-                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-[#ADB5BD] w-4 h-4" />
-                </div>
-                <div className="space-y-2 max-h-80 overflow-y-auto pr-1">
-                  {owners
-                    .filter(o =>
-                      o.full_name?.toLowerCase().includes(ownerSearch.toLowerCase()) ||
-                      o.email?.toLowerCase().includes(ownerSearch.toLowerCase())
-                    )
-                    .map(owner => (
-                      <button
-                        key={owner.id}
-                        type="button"
-                        onClick={() => setSelectedOwnerId(owner.id)}
-                        className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg border-2 text-left transition-all ${
-                          selectedOwnerId === owner.id
-                            ? 'border-[#212529] bg-[#F8F9FA]'
-                            : 'border-[#E9ECEF] bg-white hover:border-[#212529]'
-                        }`}
-                      >
-                        <div className="flex-shrink-0 w-9 h-9 rounded-full bg-[#212529] text-white flex items-center justify-center font-semibold text-sm">
-                          {owner.full_name?.charAt(0)?.toUpperCase() || '?'}
-                        </div>
-                        <div className="min-w-0 flex-1">
-                          <p className="font-semibold text-[#212529] text-sm truncate">{owner.full_name}</p>
-                          <p className="text-xs text-[#ADB5BD] truncate">{owner.email}</p>
-                        </div>
-                        {selectedOwnerId === owner.id && (
-                          <Check className="flex-shrink-0 text-[#212529]" size={16} />
-                        )}
-                      </button>
-                    ))
-                  }
-                  {owners.filter(o =>
-                    o.full_name?.toLowerCase().includes(ownerSearch.toLowerCase()) ||
-                    o.email?.toLowerCase().includes(ownerSearch.toLowerCase())
-                  ).length === 0 && (
-                    <p className="text-center text-sm text-[#ADB5BD] py-6">No owners found</p>
-                  )}
-                </div>
-                {errors.owner && (
-                  <p className="text-sm text-red-600 mt-3 flex items-center gap-1">
-                    <AlertCircle size={16} /> {errors.owner}
-                  </p>
-                )}
-              </div>
-            </div>
-          )}
-
           {/* Step 1: Listing Type */}
           {step === 1 && (
             <div className="space-y-6">
@@ -613,7 +536,7 @@ export default function AgentNewPropertyPage() {
             </div>
           )}
 
-          {/* Step 2: Details */}
+          {/* Step 2: Details (was step 3) */}
           {step === 2 && (
             <div className="space-y-6">
               <div>
@@ -679,7 +602,7 @@ export default function AgentNewPropertyPage() {
             </div>
           )}
 
-          {/* Step 3: Pricing & Details */}
+          {/* Step 3: Pricing & Details (was step 4) */}
           {step === 3 && (
             <div className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -787,7 +710,7 @@ export default function AgentNewPropertyPage() {
             </div>
           )}
 
-          {/* Step 4: Location */}
+          {/* Step 4: Location (was step 5) */}
           {step === 4 && (
             <div className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -884,7 +807,7 @@ export default function AgentNewPropertyPage() {
             </div>
           )}
 
-          {/* Step 5: Photos */}
+          {/* Step 5: Photos & Amenities (was step 6) */}
           {step === 5 && (
             <div className="space-y-6">
               <div>
@@ -988,7 +911,7 @@ export default function AgentNewPropertyPage() {
             <button
               type="button"
               onClick={prevStep}
-              disabled={step === 0}
+              disabled={step === 1}
               className="flex items-center gap-2 px-6 py-3 border border-[#E9ECEF] text-[#495057] rounded-lg hover:border-[#212529] hover:text-[#212529] disabled:opacity-50 disabled:cursor-not-allowed transition-all"
             >
               <ArrowLeft size={16} /> Back
