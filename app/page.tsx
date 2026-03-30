@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { ArrowRight, User, Home, Building2 } from 'lucide-react'
 import { ICON_SIZES } from '@/lib/constants'
 import HomeSearchBar from '@/components/search/HomeSearchBar'
+import FeaturedPropertiesShowcase from '@/components/property/FeaturedPropertiesShowcase'
 import { createClient } from '@/lib/supabase/server'
 
 export const metadata: Metadata = {

@@ -8,6 +8,7 @@ import {
   Settings, Check, Loader2, X, Inbox, Calendar, DollarSign, Users,
 } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
+import { handleApiAuthError } from '@/lib/utils'
 
 interface Notification {
   id: string
@@ -79,6 +80,7 @@ export function NotificationDropdown({ onUnreadCountChange }: NotificationDropdo
   const fetchNotifications = useCallback(async () => {
     try {
       const response = await fetch('/api/notifications')
+      if (await handleApiAuthError(response, router)) return
       if (response.ok) {
         const data = await response.json()
         setNotifications(data.notifications || [])
@@ -89,7 +91,7 @@ export function NotificationDropdown({ onUnreadCountChange }: NotificationDropdo
     } finally {
       setIsLoading(false)
     }
-  }, [updateUnread])
+  }, [updateUnread, router])
 
   useEffect(() => {
     let isMounted = true
@@ -139,11 +141,12 @@ export function NotificationDropdown({ onUnreadCountChange }: NotificationDropdo
 
   const markAsRead = async (id: string) => {
     try {
-      await fetch('/api/notifications', {
+      const response = await fetch('/api/notifications', {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ notificationId: id }),
       })
+      if (await handleApiAuthError(response, router)) return
       setNotifications(prev => prev.map(n => n.id === id ? { ...n, read_at: new Date().toISOString() } : n))
       updateUnread(Math.max(0, unreadCount - 1))
     } catch (error) {
@@ -153,11 +156,12 @@ export function NotificationDropdown({ onUnreadCountChange }: NotificationDropdo
 
   const markAllAsRead = async () => {
     try {
-      await fetch('/api/notifications', {
+      const response = await fetch('/api/notifications', {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ markAll: true }),
       })
+      if (await handleApiAuthError(response, router)) return
       setNotifications(prev => prev.map(n => ({ ...n, read_at: new Date().toISOString() })))
       updateUnread(0)
     } catch (error) {

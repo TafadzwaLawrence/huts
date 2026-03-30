@@ -67,3 +67,12 @@ export function formatDate(date: string): string {
     day: 'numeric',
   })
 }
+
+export async function handleApiAuthError(response: Response, router: any): Promise<boolean> {
+  if (response.status === 401 || response.status === 403) {
+    console.warn('Authentication failed, redirecting to login')
+    router.push('/auth/signin')
+    return true
+  }
+  return false
+}

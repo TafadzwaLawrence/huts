@@ -137,7 +137,6 @@ export default function AgentProfileEditPage() {
           certifications: formData.certifications.length > 0 ? formData.certifications : null,
           specializations: formData.specializations.length > 0 ? formData.specializations : null,
           languages: formData.languages.length > 0 ? formData.languages : ['English'],
-          service_areas: formData.service_areas.length > 0 ? formData.service_areas : null,
           updated_at: new Date().toISOString(),
         })
         .eq('id', agentProfile.id)
