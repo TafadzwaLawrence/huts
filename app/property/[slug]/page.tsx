@@ -39,7 +39,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     // First try by slug
     let { data: property } = await supabase
       .from('properties')
-      .select('title, description, city, price, sale_price, listing_type, bedrooms, bathrooms, property_type, property_images(url), created_at, updated_at, published_at')
+      .select('title, description, city, price, sale_price, listing_type, rental_period, bedrooms, bathrooms, property_type, property_images(url), created_at, updated_at, published_at')
       .eq('slug', slug)
       .single()
 
@@ -47,7 +47,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     if (!property) {
       const result = await supabase
         .from('properties')
-        .select('title, description, city, price, sale_price, listing_type, bedrooms, bathrooms, property_type, property_images(url), created_at, updated_at, published_at')
+        .select('title, description, city, price, sale_price, listing_type, rental_period, bedrooms, bathrooms, property_type, property_images(url), created_at, updated_at, published_at')
         .eq('id', slug)
         .single()
       property = result.data
