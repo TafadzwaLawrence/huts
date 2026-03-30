@@ -27,9 +27,15 @@ export function PropertyCard({ property, compact = false }: PropertyCardProps) {
   }))
 
   const priceDisplay = isRentalProperty(property)
-    ? property.rental_period === 'nightly' && property.nightly_price
-      ? `${formatNightlyPrice(property.nightly_price)}/night`
-      : property.price ? `${formatPrice(property.price)}/mo` : null
+    ? (property.rental_period === 'nightly' || property.nightly_price)
+      ? property.nightly_price
+        ? `${formatNightlyPrice(property.nightly_price)}/night`
+        : property.price
+        ? `${formatPrice(property.price)}/mo`
+        : null
+      : property.price
+      ? `${formatPrice(property.price)}/mo`
+      : null
     : isSaleProperty(property) && property.sale_price
     ? formatSalePrice(property.sale_price)
     : null

@@ -42,7 +42,9 @@ export async function GET(request: NextRequest) {
       title,
       slug,
       listing_type,
+      rental_period,
       price,
+      nightly_price,
       sale_price,
       bedrooms,
       bathrooms,
@@ -83,15 +85,19 @@ export async function GET(request: NextRequest) {
   if (minPrice > 0) {
     if (listingType === 'sale') {
       query = query.gte('sale_price', minPrice)
+    } else if (listingType === 'rent') {
+      query = query.or(`price.gte.${minPrice},nightly_price.gte.${minPrice}`)
     } else {
-      query = query.gte('price', minPrice)
+      query = query.or(`sale_price.gte.${minPrice},price.gte.${minPrice},nightly_price.gte.${minPrice}`)
     }
   }
   if (maxPrice > 0) {
     if (listingType === 'sale') {
       query = query.lte('sale_price', maxPrice)
+    } else if (listingType === 'rent') {
+      query = query.or(`price.lte.${maxPrice},nightly_price.lte.${maxPrice}`)
     } else {
-      query = query.lte('price', maxPrice)
+      query = query.or(`sale_price.lte.${maxPrice},price.lte.${maxPrice},nightly_price.lte.${maxPrice}`)
     }
   }
 

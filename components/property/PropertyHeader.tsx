@@ -16,6 +16,7 @@ interface PropertyHeaderProps {
     sale_price?: number | null
     listing_type?: string | null
     rental_period?: string | null
+    nightly_price?: number | null
     bedrooms: number
     bathrooms: number
     square_feet?: number | null
@@ -54,7 +55,11 @@ export default function PropertyHeader({ property, slug }: PropertyHeaderProps) 
         <div>
           <div className="flex items-baseline gap-2">
             <span className="text-3xl md:text-4xl font-bold text-[#212529] tracking-tight">
-              {isSale ? formatSalePrice(property.sale_price ?? 0) : isNightlyRental ? formatNightlyPrice(property.price ?? 0) : formatPrice(property.price ?? 0)}
+              {isSale
+                ? formatSalePrice(property.sale_price ?? 0)
+                : isNightlyRental
+                ? formatNightlyPrice(property.nightly_price ?? 0)
+                : formatPrice(property.price ?? 0)}
             </span>
             {isRental && !isSale && (
               <span className="text-base text-[#ADB5BD] font-medium">{isNightlyRental ? '/night' : '/month'}</span>
