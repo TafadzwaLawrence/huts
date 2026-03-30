@@ -63,6 +63,7 @@ export default function AgentNewPropertyPage() {
     description: '',
     propertyType: 'apartment' as 'apartment' | 'house' | 'studio' | 'room' | 'townhouse' | 'condo' | 'student',
     price: '',
+    nightly_price: '',
     deposit: '',
     rentalPeriod: 'monthly' as 'monthly' | 'nightly',
     beds: '',
@@ -220,10 +221,33 @@ export default function AgentNewPropertyPage() {
 
     try {
       // Validate required fields
-      if (!formData.title || !formData.price || !formData.beds || !formData.baths || !formData.address || !formData.city) {
+      if (!formData.title || !formData.beds || !formData.baths || !formData.address || !formData.city) {
         toast.error('Please fill in all required fields')
         setLoading(false)
         return
+      }
+
+      // Validate price based on listing type and rental period
+      if (formData.listingType === 'rent') {
+        if (formData.rentalPeriod === 'monthly') {
+          if (!formData.price || parseFloat(formData.price) <= 0) {
+            toast.error('Please enter a valid monthly price')
+            setLoading(false)
+            return
+          }
+        } else {
+          if (!formData.nightly_price || parseFloat(formData.nightly_price) <= 0) {
+            toast.error('Please enter a valid nightly price')
+            setLoading(false)
+            return
+          }
+        }
+      } else {
+        if (!formData.price || parseFloat(formData.price) <= 0) {
+          toast.error('Please enter a valid sale price')
+          setLoading(false)
+          return
+        }
       }
 
       if (!formData.lat || !formData.lng) {
@@ -238,8 +262,13 @@ export default function AgentNewPropertyPage() {
         return
       }
 
-      // Convert price to cents
-      const priceValue = Math.round(parseFloat(formData.price) * 100)
+      // Convert prices to cents
+      const priceValue = formData.listingType === 'rent' && formData.rentalPeriod === 'nightly' 
+        ? null 
+        : formData.price ? Math.round(parseFloat(formData.price) * 100) : null
+      const nightlyPriceValue = formData.listingType === 'rent' && formData.rentalPeriod === 'nightly'
+        ? Math.round(parseFloat(formData.nightly_price) * 100)
+        : null
       const depositInCents = formData.deposit ? Math.round(parseFloat(formData.deposit) * 100) : null
 
       // Parse nearby universities
