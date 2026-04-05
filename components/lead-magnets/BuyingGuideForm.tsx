@@ -1,15 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
-
-interface BuyingGuideFormData {
-  firstName: string
-  email: string
-  location: string
-  message?: string
-}
 
 interface BuyingGuideFormProps {
   onSuccess?: () => void
@@ -18,31 +10,62 @@ interface BuyingGuideFormProps {
 
 export default function BuyingGuideForm({ onSuccess, compact = false }: BuyingGuideFormProps) {
   const [loading, setLoading] = useState(false)
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm<BuyingGuideFormData>({
-    defaultValues: {
-      firstName: '',
-      email: '',
-      location: 'Harare',
-      message: '',
-    },
+  const [errors, setErrors] = useState<Record<string, string>>({})
+  const [formData, setFormData] = useState({
+    firstName: '',
+    email: '',
+    location: 'Harare',
+    message: '',
   })
 
-  const onSubmit = async (data: BuyingGuideFormData) => {
+  const validateForm = () => {
+    const newErrors: Record<string, string> = {}
+
+    if (!formData.firstName.trim()) {
+      newErrors.firstName = 'First name is required'
+    } else if (formData.firstName.trim().length < 2) {
+      newErrors.firstName = 'Minimum 2 characters'
+    }
+
+    if (!formData.email.trim()) {
+      newErrors.email = 'Email is required'
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      newErrors.email = 'Please enter a valid email'
+    }
+
+    if (!formData.location) {
+      newErrors.location = 'Location is required'
+    }
+
+    setErrors(newErrors)
+    return Object.keys(newErrors).length === 0
+  }
+
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target
+    setFormData((prev) => ({ ...prev, [name]: value }))
+    if (errors[name]) {
+      setErrors((prev) => ({ ...prev, [name]: '' }))
+    }
+  }
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+
+    if (!validateForm()) return
+
     setLoading(true)
     try {
       const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          firstName: data.firstName,
-          email: data.email,
-          location: data.location,
-          message: data.message,
+          firstName: formData.firstName,
+          email: formData.email,
+          location: formData.location,
+          message: formData.message,
           leadMagnetSource: 'buying_guide',
         }),
       })
@@ -57,7 +80,12 @@ export default function BuyingGuideForm({ onSuccess, compact = false }: BuyingGu
         description: "Check your email for the free guide. You'll receive the first email within a few minutes.",
       })
 
-      reset()
+      setFormData({
+        firstName: '',
+        email: '',
+        location: 'Harare',
+        message: '',
+      })
       if (onSuccess) {
         onSuccess()
       }
@@ -71,7 +99,7 @@ export default function BuyingGuideForm({ onSuccess, compact = false }: BuyingGu
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className={compact ? 'space-y-3' : 'space-y-4'}>
+    <form onSubmit={handleSubmit} className={compact ? 'space-y-3' : 'space-y-4'}>
       {/* First Name */}
       <div>
         <label htmlFor="firstName" className="block text-sm font-medium text-[#212529] mb-1">
@@ -81,16 +109,15 @@ export default function BuyingGuideForm({ onSuccess, compact = false }: BuyingGu
           id="firstName"
           type="text"
           placeholder="John"
-          {...register('firstName', {
-            required: 'First name is required',
-            minLength: { value: 2, message: 'Minimum 2 characters' },
-          })}
+          name="firstName"
+          value={formData.firstName}
+          onChange={handleInputChange}
           className={`w-full px-3 py-2 border border-[#E9ECEF] rounded-md focus:outline-none focus:ring-2 focus:ring-[#212529] focus:border-transparent ${
             errors.firstName ? 'border-[#FF6B6B]' : ''
           }`}
           disabled={loading}
         />
-        {errors.firstName && <span className="text-xs text-[#FF6B6B] mt-1 block">{errors.firstName.message}</span>}
+        {errors.firstName && <span className="text-xs text-[#FF6B6B] mt-1 block">{errors.firstName}</span>}
       </div>
 
       {/* Email */}
@@ -102,19 +129,15 @@ export default function BuyingGuideForm({ onSuccess, compact = false }: BuyingGu
           id="email"
           type="email"
           placeholder="john@example.com"
-          {...register('email', {
-            required: 'Email is required',
-            pattern: {
-              value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-              message: 'Please enter a valid email',
-            },
-          })}
+          name="email"
+          value={formData.email}
+          onChange={handleInputChange}
           className={`w-full px-3 py-2 border border-[#E9ECEF] rounded-md focus:outline-none focus:ring-2 focus:ring-[#212529] focus:border-transparent ${
             errors.email ? 'border-[#FF6B6B]' : ''
           }`}
           disabled={loading}
         />
-        {errors.email && <span className="text-xs text-[#FF6B6B] mt-1 block">{errors.email.message}</span>}
+        {errors.email && <span className="text-xs text-[#FF6B6B] mt-1 block">{errors.email}</span>}
       </div>
 
       {/* Location */}
@@ -124,7 +147,9 @@ export default function BuyingGuideForm({ onSuccess, compact = false }: BuyingGu
         </label>
         <select
           id="location"
-          {...register('location', { required: 'Location is required' })}
+          name="location"
+          value={formData.location}
+          onChange={handleInputChange}
           className={`w-full px-3 py-2 border border-[#E9ECEF] rounded-md focus:outline-none focus:ring-2 focus:ring-[#212529] focus:border-transparent ${
             errors.location ? 'border-[#FF6B6B]' : ''
           }`}
@@ -139,7 +164,7 @@ export default function BuyingGuideForm({ onSuccess, compact = false }: BuyingGu
           <option value="Victoria Falls">Victoria Falls</option>
           <option value="Other">Other</option>
         </select>
-        {errors.location && <span className="text-xs text-[#FF6B6B] mt-1 block">{errors.location.message}</span>}
+        {errors.location && <span className="text-xs text-[#FF6B6B] mt-1 block">{errors.location}</span>}
       </div>
 
       {/* Message (optional) */}
@@ -151,7 +176,9 @@ export default function BuyingGuideForm({ onSuccess, compact = false }: BuyingGu
           <textarea
             id="message"
             placeholder="Any questions or special interest areas?"
-            {...register('message')}
+            name="message"
+            value={formData.message}
+            onChange={handleInputChange}
             className="w-full px-3 py-2 border border-[#E9ECEF] rounded-md focus:outline-none focus:ring-2 focus:ring-[#212529] focus:border-transparent resize-none"
             rows={3}
             disabled={loading}

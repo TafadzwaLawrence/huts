@@ -1,4 +1,5 @@
 import { Resend } from 'resend'
+import LeadMagnetEmail from '@/emails/LeadMagnetEmail'
 
 // Initialize lazily to avoid build-time errors when env vars aren't available
 let _resend: Resend | null = null
@@ -19,3 +20,39 @@ export const resend = new Proxy({} as Resend, {
     return (getResend() as any)[prop]
   }
 })
+
+// Lead magnet email sending
+export interface SendLeadMagnetEmailProps {
+  email: string
+  name: string
+  leadMagnetTitle: string
+  downloadUrl: string
+  leadMagnetSlug: string
+}
+
+export async function sendLeadMagnetEmail({
+  email,
+  name,
+  leadMagnetTitle,
+  downloadUrl,
+  leadMagnetSlug,
+}: SendLeadMagnetEmailProps) {
+  try {
+    const result = await getResend().emails.send({
+      from: 'Huts <noreply@huts.zw>',
+      to: email,
+      subject: `Your Guide: ${leadMagnetTitle} is Ready! 📚`,
+      react: LeadMagnetEmail({
+        name,
+        leadMagnetTitle,
+        downloadUrl,
+        leadMagnetSlug,
+      }),
+    })
+
+    return result
+  } catch (error) {
+    console.error('[Resend] Send lead magnet email error:', error)
+    throw error
+  }
+}
