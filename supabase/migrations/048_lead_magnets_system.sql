@@ -258,7 +258,7 @@ INSERT INTO lead_magnets (slug, title, description, category, priority, gate_fie
 
 -- Create default email automation workflows
 INSERT INTO email_automation_workflows (name, trigger_lead_magnet_id, workflow_type, is_active)
-SELECT id, 'welcome' as workflow_type, TRUE
+SELECT CONCAT(title, ' - Welcome'), id, 'welcome', TRUE
 FROM lead_magnets
 WHERE slug IN ('buying-guide-zimbabwe', 'landlord-rental-yield', 'home-valuation-tool')
 ON CONFLICT DO NOTHING;

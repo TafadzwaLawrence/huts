@@ -43,6 +43,16 @@ const footerSections = [
     ],
   },
   {
+    title: 'Guides',
+    links: [
+      { label: 'Buying Guide', href: '/guides/buying-guide-zimbabwe' },
+      { label: 'Rental Yield', href: '/guides/landlord-rental-yield' },
+      { label: 'Home Valuation', href: '/guides/home-valuation-tool' },
+      { label: 'Relocation Guide', href: '/guides/relocation-guide' },
+      { label: 'All Guides', href: '/guides' },
+    ],
+  },
+  {
     title: 'Resources',
     links: [
       { label: 'Home Value', href: '/home-value' },
