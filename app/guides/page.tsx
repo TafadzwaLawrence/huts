@@ -109,18 +109,18 @@ export default function GuidesPage() {
   return (
     <div className="w-full">
       {/* Hero */}
-      <section className="bg-charcoal text-white py-16 sm:py-24">
+      <section className="bg-white py-16 sm:py-24">
         <div className="mx-auto max-w-6xl px-6">
           <div className="flex items-center gap-3 mb-4">
-            <BookOpen className="h-8 w-8" />
-            <span className="text-sm font-semibold uppercase tracking-wide">
+            <BookOpen className="h-8 w-8 text-black" />
+            <span className="text-sm font-semibold uppercase tracking-wide text-black">
               Free Guides
             </span>
           </div>
-          <h1 className="text-4xl font-bold sm:text-5xl mb-6">
+          <h1 className="text-4xl font-bold sm:text-5xl mb-6 text-black">
             Master Zimbabwe Real Estate
           </h1>
-          <p className="text-lg text-off-white max-w-2xl">
+          <p className="text-lg text-black max-w-2xl">
             Download our free guides packed with expert insights, practical
             checklists, and market data to help you buy, sell, or invest
             smarter.
@@ -129,12 +129,12 @@ export default function GuidesPage() {
       </section>
 
       {/* Quick Win Guides (Priority 1) */}
-      <section className="border-b border-light-gray py-16">
+      <section className="border-b border-light-gray bg-white py-16">
         <div className="mx-auto max-w-6xl px-6">
-          <h2 className="mb-2 text-3xl font-bold text-charcoal">
+          <h2 className="mb-2 text-3xl font-bold text-black">
             Start Here
           </h2>
-          <p className="mb-8 text-dark-gray">
+          <p className="mb-8 text-black">
             The 3 most essential guides to get your real estate journey started.
           </p>
 
@@ -147,12 +147,12 @@ export default function GuidesPage() {
       </section>
 
       {/* Secondary Guides */}
-      <section className="border-b border-light-gray bg-off-white py-16">
+      <section className="border-b border-light-gray bg-white py-16">
         <div className="mx-auto max-w-6xl px-6">
-          <h2 className="mb-2 text-3xl font-bold text-charcoal">
+          <h2 className="mb-2 text-3xl font-bold text-black">
             Go Deeper
           </h2>
-          <p className="mb-8 text-dark-gray">
+          <p className="mb-8 text-black">
             Advanced strategies and specialized tools for specific situations.
           </p>
 
@@ -165,12 +165,12 @@ export default function GuidesPage() {
       </section>
 
       {/* Bonus Guides */}
-      <section className="py-16">
+      <section className="bg-white py-16">
         <div className="mx-auto max-w-6xl px-6">
-          <h2 className="mb-2 text-3xl font-bold text-charcoal">
+          <h2 className="mb-2 text-3xl font-bold text-black">
             Bonus Resources
           </h2>
-          <p className="mb-8 text-dark-gray">
+          <p className="mb-8 text-black">
             Specialized guides and references for particular interests.
           </p>
 
@@ -183,12 +183,12 @@ export default function GuidesPage() {
       </section>
 
       {/* CTA */}
-      <section className="border-t border-light-gray bg-charcoal text-white py-16">
+      <section className="border-t border-light-gray bg-white py-16">
         <div className="mx-auto max-w-2xl px-6 text-center">
-          <h2 className="mb-4 text-3xl font-bold">
+          <h2 className="mb-4 text-3xl font-bold text-black">
             All guides are completely free.
           </h2>
-          <p className="mb-8 text-off-white">
+          <p className="mb-8 text-black">
             Download instantly and start making smarter real estate decisions
             today.
           </p>
@@ -217,22 +217,22 @@ function GuideCard({ guide, minimal = false }: GuideCardProps) {
         className={`h-full rounded-lg border-2 ${bgColor} p-6 hover:shadow-lg transition-all duration-300 cursor-pointer group`}
       >
         <div className="flex items-start justify-between mb-4">
-          <span className="inline-block bg-charcoal text-white text-xs font-semibold px-2 py-1 rounded">
+          <span className="inline-block bg-black text-white text-xs font-semibold px-2 py-1 rounded">
             {label}
           </span>
-          <ChevronRight className="text-charcoal opacity-0 group-hover:opacity-100 transition-opacity" />
+          <ChevronRight className="text-black opacity-0 group-hover:opacity-100 transition-opacity" />
         </div>
 
-        <h3 className="mb-2 font-bold text-charcoal text-lg group-hover:text-charcoal transition-colors">
+        <h3 className="mb-2 font-bold text-black text-lg group-hover:text-black transition-colors">
           {guide.title}
         </h3>
 
         {!minimal && (
-          <p className="text-dark-gray text-sm">{guide.description}</p>
+          <p className="text-black text-sm">{guide.description}</p>
         )}
 
         {!minimal && (
-          <div className="mt-4 flex items-center text-charcoal font-semibold text-sm">
+          <div className="mt-4 flex items-center text-black font-semibold text-sm">
             Download →
           </div>
         )}

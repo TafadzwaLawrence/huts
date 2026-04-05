@@ -75,15 +75,15 @@ export function LeadMagnetLandingPage({
           <div className="grid grid-cols-1 gap-12 md:grid-cols-2 md:items-center">
             {/* Left: Content */}
             <div>
-              <div className="mb-4 inline-block rounded bg-light-gray px-3 py-1 text-sm font-medium text-charcoal">
+              <div className="mb-4 inline-block rounded bg-light-gray px-3 py-1 text-sm font-medium text-black">
                 Free Downloadable Guide
               </div>
 
-              <h1 className="mb-6 text-4xl font-bold text-charcoal sm:text-5xl">
+              <h1 className="mb-6 text-4xl font-bold text-black sm:text-5xl">
                 {leadMagnet.title}
               </h1>
 
-              <p className="mb-8 text-lg text-charcoal">
+              <p className="mb-8 text-lg text-black">
                 {leadMagnet.description}
               </p>
 
@@ -92,8 +92,8 @@ export function LeadMagnetLandingPage({
                 <div className="mb-8 space-y-3">
                   {features.map((feature, i) => (
                     <div key={i} className="flex items-start gap-3">
-                      <CheckCircle className="mt-1 h-5 w-5 text-charcoal flex-shrink-0" />
-                      <p className="text-charcoal">{feature}</p>
+                      <CheckCircle className="mt-1 h-5 w-5 text-black flex-shrink-0" />
+                      <p className="text-black">{feature}</p>
                     </div>
                   ))}
                 </div>
@@ -104,7 +104,7 @@ export function LeadMagnetLandingPage({
                 <LeadMagnetButton leadMagnet={leadMagnet} text={cta} />
               </div>
 
-              <p className="mt-4 text-sm text-charcoal">
+              <p className="mt-4 text-sm text-black">
                 📧 Instant download. Join 10,000+ Zimbabweans making smarter
                 real estate decisions.
               </p>
@@ -130,22 +130,22 @@ export function LeadMagnetLandingPage({
         <div className="mx-auto max-w-6xl px-6">
           <div className="grid grid-cols-1 gap-8 sm:grid-cols-3">
             <div className="text-center">
-              <div className="mb-2 text-3xl font-bold text-charcoal">
+              <div className="mb-2 text-3xl font-bold text-black">
                 15K+
               </div>
-              <p className="text-charcoal">Users who found better deals</p>
+              <p className="text-black">Users who found better deals</p>
             </div>
             <div className="text-center">
-              <div className="mb-2 text-3xl font-bold text-charcoal">
+              <div className="mb-2 text-3xl font-bold text-black">
                 4.8/5
               </div>
-              <p className="text-charcoal">User satisfaction rating</p>
+              <p className="text-black">User satisfaction rating</p>
             </div>
             <div className="text-center">
-              <div className="mb-2 text-3xl font-bold text-charcoal">
+              <div className="mb-2 text-3xl font-bold text-black">
                 50+ pages
               </div>
-              <p className="text-charcoal">In-depth expertise</p>
+              <p className="text-black">In-depth expertise</p>
             </div>
           </div>
         </div>
@@ -154,37 +154,37 @@ export function LeadMagnetLandingPage({
       {/* What's Included */}
       <section className="border-t border-light-gray bg-white py-16">
         <div className="mx-auto max-w-6xl px-6">
-          <h2 className="mb-12 text-center text-3xl font-bold text-charcoal">
+          <h2 className="mb-12 text-center text-3xl font-bold text-black">
             What You&apos;ll Get
           </h2>
 
           <div className="grid grid-cols-1 gap-8 sm:grid-cols-3">
             <div className="rounded-lg border border-light-gray bg-white p-6">
-              <Award className="mb-4 h-8 w-8 text-charcoal" />
-              <h3 className="mb-2 font-semibold text-charcoal">
+              <Award className="mb-4 h-8 w-8 text-black" />
+              <h3 className="mb-2 font-semibold text-black">
                 Expert Insights
               </h3>
-              <p className="text-charcoal">
+              <p className="text-black">
                 Curated from top real estate professionals in Zimbabwe
               </p>
             </div>
 
             <div className="rounded-lg border border-light-gray bg-white p-6">
-              <Users className="mb-4 h-8 w-8 text-charcoal" />
-              <h3 className="mb-2 font-semibold text-charcoal">
+              <Users className="mb-4 h-8 w-8 text-black" />
+              <h3 className="mb-2 font-semibold text-black">
                 Practical Checklists
               </h3>
-              <p className="text-charcoal">
+              <p className="text-black">
                 Ready-to-use forms and guides you can apply immediately
               </p>
             </div>
 
             <div className="rounded-lg border border-light-gray bg-white p-6">
-              <TrendingUp className="mb-4 h-8 w-8 text-charcoal" />
-              <h3 className="mb-2 font-semibold text-charcoal">
+              <TrendingUp className="mb-4 h-8 w-8 text-black" />
+              <h3 className="mb-2 font-semibold text-black">
                 Market Data
               </h3>
-              <p className="text-charcoal">
+              <p className="text-black">
                 Real statistics and pricing from Zimbabwe&apos;s top markets
               </p>
             </div>
@@ -196,7 +196,7 @@ export function LeadMagnetLandingPage({
       {testimonials && testimonials.length > 0 && (
         <section className="border-t border-light-gray bg-white py-16">
           <div className="mx-auto max-w-6xl px-6">
-            <h2 className="mb-12 text-center text-3xl font-bold text-charcoal">
+            <h2 className="mb-12 text-center text-3xl font-bold text-black">
               What People Say
             </h2>
 
@@ -213,14 +213,14 @@ export function LeadMagnetLandingPage({
                       </span>
                     ))}
                   </div>
-                  <p className="mb-4 italic text-charcoal">
+                  <p className="mb-4 italic text-black">
                     &quot;{testimonial.text}&quot;
                   </p>
                   <div>
-                    <p className="font-semibold text-charcoal">
+                    <p className="font-semibold text-black">
                       {testimonial.author}
                     </p>
-                    <p className="text-sm text-charcoal">{testimonial.role}</p>
+                    <p className="text-sm text-black">{testimonial.role}</p>
                   </div>
                 </div>
               ))}
@@ -232,10 +232,10 @@ export function LeadMagnetLandingPage({
       {/* Final CTA */}
       <section className="border-t border-light-gray bg-white py-16">
         <div className="mx-auto max-w-2xl px-6 text-center">
-          <h2 className="mb-6 text-3xl font-bold text-charcoal">
+          <h2 className="mb-6 text-3xl font-bold text-black">
             Ready to Make Smart Real Estate Decisions?
           </h2>
-          <p className="mb-8 text-charcoal">
+          <p className="mb-8 text-black">
             Get your free guide and join thousands of Zimbabweans who have
             already transformed their property journey.
           </p>
