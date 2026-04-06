@@ -35,29 +35,34 @@ export default function FeaturedPropertiesShowcase({ properties }: { properties:
   const goToNext = () => setCurrentIndex(prev => Math.min(maxIndex, prev + 1))
 
   return (
-    <section className="py-8 bg-white">
+    <section className="py-16 bg-white">
       <div className="container-main">
+        {/* Header */}
+        <div className="mb-8 text-center">
+          <h2 className="text-3xl font-bold text-black mb-2">Featured Properties</h2>
+          <p className="text-dark-gray">Browse our handpicked selection of premium listings</p>
+        </div>
         <div className="relative">
           {/* Navigation */}
           {currentIndex > 0 && (
             <button
               onClick={goToPrevious}
-              className="absolute -left-2 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full bg-white shadow text-[#212529] hover:bg-gray-50"
+              className="absolute -left-4 top-1/2 -translate-y-1/2 z-10 p-2.5 rounded-full bg-black text-white shadow-lg hover:bg-charcoal hover:scale-110 transition-all duration-200"
             >
-              <ChevronLeft size={18} />
+              <ChevronLeft size={20} />
             </button>
           )}
           {currentIndex < maxIndex && (
             <button
               onClick={goToNext}
-              className="absolute -right-2 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full bg-white shadow text-[#212529] hover:bg-gray-50"
+              className="absolute -right-4 top-1/2 -translate-y-1/2 z-10 p-2.5 rounded-full bg-black text-white shadow-lg hover:bg-charcoal hover:scale-110 transition-all duration-200"
             >
-              <ChevronRight size={18} />
+              <ChevronRight size={20} />
             </button>
           )}
 
           {/* Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 px-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 px-6 pb-8">
             {visibleProperties.map((property) => (
               <Link
                 key={property.id}
@@ -69,11 +74,11 @@ export default function FeaturedPropertiesShowcase({ properties }: { properties:
                     src={property.primary_image}
                     alt={property.title}
                     fill
-                    className="object-cover group-hover:scale-105 transition-transform"
+                    className="object-cover group-hover:scale-110 transition-transform duration-300"
                     sizes="33vw"
                   />
                 </div>
-                <p className="text-lg font-semibold text-[#212529]">
+                <p className="text-2xl font-bold text-black">
                   {property.listing_type === 'sale' 
                     ? formatSalePrice(property.sale_price ?? 0)
                     : property.rental_period === 'nightly' && property.nightly_price
@@ -98,6 +103,22 @@ export default function FeaturedPropertiesShowcase({ properties }: { properties:
                   {property.city}
                 </p>
               </Link>
+            ))}
+          </div>
+
+          {/* Slide Indicators */}
+          <div className="flex justify-center gap-2 mt-8">
+            {Array.from({ length: maxIndex + 1 }).map((_, idx) => (
+              <button
+                key={idx}
+                onClick={() => setCurrentIndex(idx)}
+                className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                  idx === currentIndex
+                    ? 'bg-black w-8'
+                    : 'bg-light-gray hover:bg-dark-gray'
+                }`}
+                aria-label={`Go to slide ${idx + 1}`}
+              />
             ))}
           </div>
         </div>

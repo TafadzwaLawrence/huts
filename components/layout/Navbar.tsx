@@ -96,7 +96,7 @@ export async function Navbar() {
               <Link
                 key={href}
                 href={href}
-                className="px-3 py-1.5 text-sm text-[#585858] hover:text-[#212529] transition-colors"
+                className="px-3 py-1.5 text-sm text-black hover:text-[#212529] transition-colors"
               >
                 {label}
               </Link>

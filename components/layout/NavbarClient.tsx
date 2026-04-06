@@ -114,7 +114,7 @@ export function NavLinks({ links }: { links: NavLink[] }) {
           className={`relative h-[60px] inline-flex items-center px-3 text-sm font-bold transition-colors ${
             isActive(href)
               ? 'text-[#212529] after:absolute after:bottom-0 after:inset-x-1 after:h-[3px] after:bg-[#212529] after:rounded-t'
-              : 'text-[#585858] hover:text-[#212529]'
+              : 'text-black hover:text-[#212529]'
           }`}
         >
           {label}
