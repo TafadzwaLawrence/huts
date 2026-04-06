@@ -247,8 +247,8 @@ export default async function HomePage() {
                     <User size={ICON_SIZES.lg} className="text-white" />
                   </div>
                   <div>
-                    <h2 className="text-sm font-bold text-[#212529]">Get home recommendations</h2>
-                    <p className="text-xs text-[#495057]">Sign in for a more personalized experience.</p>
+                    <h2 className="text-sm font-bold text-black">Get home recommendations</h2>
+                    <p className="text-xs text-black">Sign in for a more personalized experience.</p>
                   </div>
                 </div>
                 <Link
