@@ -87,8 +87,8 @@ export default function FeaturedPropertiesShowcase({ properties }: { properties:
                   }
                 </p>
                 <div className="mt-3 space-y-1">
-                  <p className="text-sm font-semibold text-charcoal line-clamp-2">{property.title}</p>
-                  <p className="text-xs text-dark-gray">{property.address}</p>
+                  <p className="text-sm font-semibold text-black line-clamp-2">{property.title}</p>
+                  <p className="text-xs text-charcoal">{property.address}</p>
                   <div className="flex items-center gap-3 text-xs text-charcoal mt-2 pt-2 border-t border-light-gray">
                     <span className="flex items-center gap-1">
                       <Bed size={14} />
