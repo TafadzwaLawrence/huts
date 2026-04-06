@@ -42,12 +42,12 @@ export default function FeaturedPropertiesShowcase({ properties }: { properties:
           <h2 className="text-3xl font-bold text-black mb-2">Featured Properties</h2>
           <p className="text-black">Browse our handpicked selection of premium listings</p>
         </div>
-        <div className="relative px-8">
+        <div className="relative px-12">
           {/* Navigation */}
           {currentIndex > 0 && (
             <button
               onClick={goToPrevious}
-              className="absolute -left-6 top-1/2 -translate-y-1/2 z-10 p-3 rounded-full bg-black text-white shadow-lg hover:bg-charcoal hover:scale-110 transition-all duration-200"
+              className="absolute -left-10 top-1/2 -translate-y-1/2 z-10 p-3 rounded-full bg-black text-white shadow-lg hover:bg-charcoal hover:scale-110 transition-all duration-200"
             >
               <ChevronLeft size={20} />
             </button>
@@ -55,7 +55,7 @@ export default function FeaturedPropertiesShowcase({ properties }: { properties:
           {currentIndex < maxIndex && (
             <button
               onClick={goToNext}
-              className="absolute -right-6 top-1/2 -translate-y-1/2 z-10 p-3 rounded-full bg-black text-white shadow-lg hover:bg-charcoal hover:scale-110 transition-all duration-200"
+              className="absolute -right-10 top-1/2 -translate-y-1/2 z-10 p-3 rounded-full bg-black text-white shadow-lg hover:bg-charcoal hover:scale-110 transition-all duration-200"
             >
               <ChevronRight size={20} />
             </button>
