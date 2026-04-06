@@ -129,20 +129,20 @@ export default function FeaturedPropertiesShowcase({ properties }: { properties:
       <div className="container-main px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="mx-auto mb-10 max-w-3xl text-center">
-          <h2 id="featured-heading" className="text-3xl font-bold text-black mb-2">
+          <h2 id="featured-heading" className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">
             Featured Properties
           </h2>
-          <p className="mx-auto max-w-xl text-sm text-black leading-6">
+          <p className="mx-auto max-w-xl text-base text-gray-600 leading-relaxed">
             Browse our handpicked selection of premium listings
           </p>
         </div>
 
         <div className="relative px-0 sm:px-8 md:px-12">
-          {/* Navigation Buttons - Hidden on mobile, visible on tablet+ */}
+          {/* Navigation Buttons */}
           {!isPrevDisabled && (
             <button
               onClick={goToPrevious}
-              className="hidden sm:flex absolute -left-4 md:-left-10 top-1/2 -translate-y-1/2 z-10 p-2 md:p-3 rounded-full bg-black text-white shadow-lg hover:bg-charcoal hover:scale-110 active:scale-95 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2"
+              className="hidden sm:flex absolute -left-4 md:-left-10 top-1/2 -translate-y-1/2 z-10 p-2 md:p-3 rounded-full bg-white text-gray-900 shadow-lg border border-gray-200 hover:bg-gray-900 hover:text-white hover:border-gray-900 hover:scale-110 active:scale-95 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:ring-offset-2"
               aria-label="Previous properties"
               aria-disabled={isPrevDisabled}
             >
@@ -153,7 +153,7 @@ export default function FeaturedPropertiesShowcase({ properties }: { properties:
           {!isNextDisabled && (
             <button
               onClick={goToNext}
-              className="hidden sm:flex absolute -right-4 md:-right-10 top-1/2 -translate-y-1/2 z-10 p-2 md:p-3 rounded-full bg-black text-white shadow-lg hover:bg-charcoal hover:scale-110 active:scale-95 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2"
+              className="hidden sm:flex absolute -right-4 md:-right-10 top-1/2 -translate-y-1/2 z-10 p-2 md:p-3 rounded-full bg-white text-gray-900 shadow-lg border border-gray-200 hover:bg-gray-900 hover:text-white hover:border-gray-900 hover:scale-110 active:scale-95 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:ring-offset-2"
               aria-label="Next properties"
               aria-disabled={isNextDisabled}
             >
@@ -161,14 +161,13 @@ export default function FeaturedPropertiesShowcase({ properties }: { properties:
             </button>
           )}
 
-          {/* Cards Grid with Live Region for Screen Readers */}
+          {/* Cards Grid */}
           <div 
-            className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6"
+            className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8"
             aria-live="polite"
             aria-atomic="true"
           >
             {isLoading ? (
-              // Show skeleton loaders
               <>
                 <PropertyCardSkeleton />
                 <PropertyCardSkeleton />
@@ -179,9 +178,9 @@ export default function FeaturedPropertiesShowcase({ properties }: { properties:
                 <Link
                   key={property.id}
                   href={`/property/${property.slug}`}
-                  className="group block focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2 rounded-lg transition-shadow"
+                  className="group block focus:outline-none focus:ring-2 focus:ring-gray-900 focus:ring-offset-2 rounded-lg transition-shadow hover:shadow-lg"
                 >
-                  <div className="relative aspect-[4/3] rounded-lg overflow-hidden bg-gray-100 mb-3">
+                  <div className="relative aspect-[4/3] rounded-lg overflow-hidden bg-gray-100 mb-4">
                     <Image
                       src={property.primary_image}
                       alt={property.title}
@@ -195,28 +194,36 @@ export default function FeaturedPropertiesShowcase({ properties }: { properties:
                     />
                   </div>
                   
-                  <p className="text-2xl font-bold text-black mt-2">
+                  {/* Price - Most prominent */}
+                  <p className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">
                     {getPriceDisplay(property)}
                   </p>
                   
-                  <div className="mt-3 space-y-1">
-                    <p className="text-sm font-semibold text-black line-clamp-2">
+                  <div className="space-y-2">
+                    {/* Title - Secondary importance */}
+                    <p className="text-base font-semibold text-gray-800 line-clamp-2 group-hover:text-gray-900 transition-colors">
                       {property.title}
                     </p>
-                    <p className="text-sm text-black font-medium">
-                      {property.address}
+                    
+                    {/* Address - Tertiary / supporting info */}
+                    <p className="text-sm text-gray-500">
+                      {property.address}, {property.city}
                     </p>
-                    <div className="flex items-center gap-3 text-sm text-black mt-2 pt-2 border-t border-gray-100">
-                      <span className="flex items-center gap-1">
-                        <Bed size={14} />
-                        {property.bedrooms} {property.bedrooms === 1 ? 'bed' : 'beds'}
+                    
+                    {/* Property details - Subtle but readable */}
+                    <div className="flex items-center gap-4 text-sm text-gray-600 mt-3 pt-3 border-t border-gray-100">
+                      <span className="flex items-center gap-1.5">
+                        <Bed size={15} className="text-gray-400" />
+                        <span>{property.bedrooms} {property.bedrooms === 1 ? 'bed' : 'beds'}</span>
                       </span>
-                      <span className="flex items-center gap-1">
-                        <Bath size={14} />
-                        {property.bathrooms} {property.bathrooms === 1 ? 'bath' : 'baths'}
+                      <span className="flex items-center gap-1.5">
+                        <Bath size={15} className="text-gray-400" />
+                        <span>{property.bathrooms} {property.bathrooms === 1 ? 'bath' : 'baths'}</span>
                       </span>
                       {property.square_feet > 0 && (
-                        <span>{property.square_feet.toLocaleString()} sqft</span>
+                        <span className="text-gray-500">
+                          {property.square_feet.toLocaleString()} sqft
+                        </span>
                       )}
                     </div>
                   </div>
@@ -225,16 +232,16 @@ export default function FeaturedPropertiesShowcase({ properties }: { properties:
             )}
           </div>
 
-          {/* Slide Indicators - Only show if more than 3 properties */}
+          {/* Slide Indicators */}
           {maxIndex > 0 && (
-            <div className="flex justify-center gap-2 mt-8">
+            <div className="flex justify-center gap-2 mt-10">
               {Array.from({ length: maxIndex + 1 }).map((_, idx) => (
                 <button
                   key={idx}
                   onClick={() => setCurrentIndex(idx)}
-                  className={`transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2 ${
+                  className={`transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:ring-offset-2 ${
                     idx === currentIndex
-                      ? 'w-8 h-2 bg-black rounded-full'
+                      ? 'w-8 h-2 bg-gray-900 rounded-full'
                       : 'w-2 h-2 bg-gray-300 rounded-full hover:bg-gray-400'
                   }`}
                   aria-label={`Go to slide ${idx + 1}`}
@@ -245,7 +252,7 @@ export default function FeaturedPropertiesShowcase({ properties }: { properties:
           )}
 
           {/* Mobile Swipe Hint */}
-          <div className="text-center mt-4 sm:hidden">
+          <div className="text-center mt-6 sm:hidden">
             <p className="text-xs text-gray-400">← Swipe to see more →</p>
           </div>
         </div>
