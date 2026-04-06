@@ -4,16 +4,13 @@ import Image from 'next/image'
 import { 
   ChevronRight, 
   CheckCircle, 
-  Download,
   Clock,
   FileText,
   Users,
   Star,
-  TrendingUp,
-  Shield,
-  Calculator,
   ArrowRight,
-  BookOpen
+  BookOpen,
+  AlertCircle
 } from 'lucide-react'
 
 export const metadata: Metadata = {
@@ -36,16 +33,17 @@ export const metadata: Metadata = {
   },
 }
 
+// OPTIMIZED: Removed suburb-specific and overly detailed financing
 const features = [
   'Step-by-step buying process explained',
-  'Breakdown of all costs and fees involved',
+  'Complete breakdown of all costs and fees involved',
   'How to verify title deeds and check for red flags',
-  'Suburb-specific guides for Harare, Bulawayo, and major cities',
-  'Legal requirements and regulations',
-  'Tax implications and how to minimize costs',
-  'Checklist for your property inspection',
-  'Common mistakes to avoid',
-  'Financing options and mortgage tips',
+  'Legal requirements and regulations in Zimbabwe',
+  'Tax implications and how to minimize transfer costs',
+  'Comprehensive property inspection checklist',
+  'Common mistakes first-time buyers make',
+  'Overview of financing options and mortgage tips',
+  'Negotiation strategies that work in Zimbabwe',
 ]
 
 const testimonials = [
@@ -53,11 +51,13 @@ const testimonials = [
     author: 'John Mwemba',
     role: 'First-time Buyer, Harare',
     text: 'This guide saved me thousands. I avoided a property with serious title issues thanks to the red flags checklist.',
+    rating: 5,
   },
   {
     author: 'Sarah Ncube',
     role: 'Property Investor, Bulawayo',
-    text: 'The suburb rankings and market analysis were invaluable. Now I understand pricing better than ever.',
+    text: 'The cost breakdown alone was worth the download. Now I understand exactly what I need to budget for.',
+    rating: 5,
   },
 ]
 
@@ -107,20 +107,16 @@ export default function BuyingGuidePage() {
         </div>
       </div>
 
-      {/* Main Content - Two Column Layout */}
+      {/* Main Content */}
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
           {/* Left Column - Main Content */}
           <div className="lg:col-span-2 space-y-10">
             {/* Hero Image */}
-            <div className="relative aspect-[16/9] rounded-lg overflow-hidden border border-[#E9ECEF]">
-              <Image
-                src="/guides/buying-hero.jpg"
-                alt="Buying property in Zimbabwe guide"
-                fill
-                className="object-cover"
-                priority
-              />
+            <div className="relative aspect-[16/9] rounded-lg overflow-hidden border border-[#E9ECEF] bg-[#F8F9FA]">
+              <div className="absolute inset-0 flex items-center justify-center text-[#ADB5BD]">
+                <span className="text-sm">Guide cover image placeholder</span>
+              </div>
             </div>
 
             {/* What You'll Learn Section */}
@@ -136,8 +132,22 @@ export default function BuyingGuidePage() {
               </div>
             </section>
 
+            {/* Critical Warning Box */}
+            <section className="bg-[#F8F9FA] rounded-lg p-6 border-l-4 border-[#212529]">
+              <div className="flex gap-3">
+                <AlertCircle className="h-5 w-5 text-[#212529] flex-shrink-0 mt-0.5" />
+                <div>
+                  <h3 className="text-sm font-bold text-[#212529] mb-1">Critical: Title Deed Verification</h3>
+                  <p className="text-sm text-[#495057]">
+                    Title fraud is one of the biggest risks when buying property in Zimbabwe. 
+                    This guide shows you exactly how to verify ownership and spot red flags before signing anything.
+                  </p>
+                </div>
+              </div>
+            </section>
+
             {/* Why This Guide Section */}
-            <section className="bg-[#F8F9FA] rounded-lg p-6 border border-[#E9ECEF]">
+            <section className="bg-white rounded-lg p-6 border border-[#E9ECEF]">
               <h2 className="text-lg font-bold text-[#212529] mb-3">Why This Guide?</h2>
               <p className="text-sm text-[#495057] mb-4">
                 Buying property in Zimbabwe can be complex, especially for first-time buyers. 
@@ -150,36 +160,34 @@ export default function BuyingGuidePage() {
                   Written by local experts
                 </span>
                 <span className="flex items-center gap-1">
-                  <TrendingUp className="h-3.5 w-3.5" />
+                  <FileText className="h-3.5 w-3.5" />
                   Updated with 2025 data
                 </span>
               </div>
             </section>
 
             {/* Testimonials */}
-            {testimonials && testimonials.length > 0 && (
-              <section>
-                <h2 className="text-lg font-bold text-[#212529] mb-4">What Readers Say</h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {testimonials.map((testimonial, i) => (
-                    <div key={i} className="rounded-lg border border-[#E9ECEF] p-5 bg-white">
-                      <div className="flex gap-0.5 mb-3">
-                        {[...Array(5)].map((_, j) => (
-                          <Star key={j} className="h-3.5 w-3.5 fill-[#212529] text-[#212529]" />
-                        ))}
-                      </div>
-                      <p className="text-sm text-[#495057] mb-3 italic">
-                        "{testimonial.text}"
-                      </p>
-                      <div>
-                        <p className="text-sm font-semibold text-[#212529]">{testimonial.author}</p>
-                        <p className="text-xs text-[#ADB5BD]">{testimonial.role}</p>
-                      </div>
+            <section>
+              <h2 className="text-lg font-bold text-[#212529] mb-4">What Readers Say</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {testimonials.map((testimonial, i) => (
+                  <div key={i} className="rounded-lg border border-[#E9ECEF] p-5 bg-white">
+                    <div className="flex gap-0.5 mb-3">
+                      {[...Array(testimonial.rating)].map((_, j) => (
+                        <Star key={j} className="h-3.5 w-3.5 fill-[#212529] text-[#212529]" />
+                      ))}
                     </div>
-                  ))}
-                </div>
-              </section>
-            )}
+                    <p className="text-sm text-[#495057] mb-3 italic">
+                      "{testimonial.text}"
+                    </p>
+                    <div>
+                      <p className="text-sm font-semibold text-[#212529]">{testimonial.author}</p>
+                      <p className="text-xs text-[#ADB5BD]">{testimonial.role}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
           </div>
 
           {/* Right Column - Sticky CTA Card */}
@@ -201,7 +209,7 @@ export default function BuyingGuidePage() {
                 </div>
                 <div className="flex items-center gap-2 text-xs text-[#495057]">
                   <CheckCircle className="h-3.5 w-3.5 text-[#212529]" />
-                  <span>Unsubscribe anytime</span>
+                  <span>Updated for 2025</span>
                 </div>
               </div>
 
@@ -221,7 +229,13 @@ export default function BuyingGuidePage() {
       {/* Related Guides Section */}
       <div className="border-t border-[#E9ECEF] bg-[#F8F9FA] py-12 md:py-16">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-lg font-bold text-[#212529] mb-6">Related Guides</h2>
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-lg font-bold text-[#212529]">You Might Also Like</h2>
+            <Link href="/guides" className="text-xs text-[#495057] hover:text-[#212529] transition-colors flex items-center gap-1">
+              View all guides
+              <ArrowRight className="h-3 w-3" />
+            </Link>
+          </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <RelatedGuideCard
               title="Landlord's Guide to Maximizing Rental Yield"
@@ -245,13 +259,7 @@ export default function BuyingGuidePage() {
   )
 }
 
-interface RelatedGuideCardProps {
-  title: string
-  slug: string
-  readTime: string
-}
-
-function RelatedGuideCard({ title, slug, readTime }: RelatedGuideCardProps) {
+function RelatedGuideCard({ title, slug, readTime }: { title: string; slug: string; readTime: string }) {
   return (
     <Link href={`/guides/${slug}`}>
       <div className="group h-full cursor-pointer rounded-lg border border-[#E9ECEF] bg-white p-5 transition-all duration-300 hover:border-[#212529] hover:shadow-md">
