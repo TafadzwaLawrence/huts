@@ -11,7 +11,9 @@ import {
   ArrowRight,
   CheckCircle,
   Sparkles,
-  Download
+  Download,
+  MapPin,
+  Clock
 } from 'lucide-react'
 
 export const metadata: Metadata = {
@@ -123,30 +125,18 @@ const categoryConfig = {
   buyer: {
     label: 'For Buyers',
     icon: TrendingUp,
-    bgClass: 'bg-gray-50',
-    borderClass: 'border-gray-200',
-    badgeClass: 'bg-gray-900',
   },
   renter: {
     label: 'For Renters',
     icon: Shield,
-    bgClass: 'bg-gray-50',
-    borderClass: 'border-gray-200',
-    badgeClass: 'bg-gray-800',
   },
   landlord: {
     label: 'For Landlords',
     icon: Calculator,
-    bgClass: 'bg-gray-50',
-    borderClass: 'border-gray-200',
-    badgeClass: 'bg-gray-700',
   },
   agent: {
     label: 'For Agents',
     icon: Star,
-    bgClass: 'bg-gray-50',
-    borderClass: 'border-gray-200',
-    badgeClass: 'bg-gray-600',
   },
 }
 
@@ -157,42 +147,34 @@ export default function GuidesPage() {
 
   return (
     <div className="w-full bg-white">
-      {/* Hero Section - Modern Black & White */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-gray-50 to-white py-20 sm:py-28 lg:py-32">
-        {/* Background pattern */}
-        <div className="absolute inset-0 opacity-5">
-          <div className="absolute inset-0" style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-            backgroundRepeat: 'repeat',
-          }} />
-        </div>
-
-        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      {/* Hero Section - Pure B&W */}
+      <section className="border-b border-light-gray bg-white py-16 sm:py-24 lg:py-32">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-3xl text-center">
-            <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-gray-900 px-4 py-2 text-sm font-semibold text-white">
+            <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-black px-4 py-2 text-sm font-semibold text-white">
               <BookOpen className="h-4 w-4" />
               Free Educational Resources
             </div>
-            <h1 className="mb-6 text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl lg:text-6xl">
+            <h1 className="mb-6 text-4xl font-bold tracking-tight text-black sm:text-5xl lg:text-6xl">
               Master Zimbabwe Real Estate
             </h1>
-            <p className="mx-auto max-w-2xl text-lg leading-relaxed text-gray-600 sm:text-xl">
+            <p className="mx-auto max-w-2xl text-base leading-relaxed text-dark-gray sm:text-lg">
               Download free guides packed with expert insights, practical checklists, 
               and market data to help you buy, sell, or invest smarter.
             </p>
             
             {/* Trust indicators */}
             <div className="mt-8 flex flex-wrap justify-center gap-4">
-              <div className="flex items-center gap-2 text-sm text-gray-600">
-                <CheckCircle className="h-4 w-4 text-gray-900" />
+              <div className="flex items-center gap-2 text-sm text-dark-gray">
+                <CheckCircle className="h-4 w-4 text-black" />
                 <span>10+ Expert Guides</span>
               </div>
-              <div className="flex items-center gap-2 text-sm text-gray-600">
-                <CheckCircle className="h-4 w-4 text-gray-900" />
+              <div className="flex items-center gap-2 text-sm text-dark-gray">
+                <CheckCircle className="h-4 w-4 text-black" />
                 <span>Free Instant Download</span>
               </div>
-              <div className="flex items-center gap-2 text-sm text-gray-600">
-                <CheckCircle className="h-4 w-4 text-gray-900" />
+              <div className="flex items-center gap-2 text-sm text-dark-gray">
+                <CheckCircle className="h-4 w-4 text-black" />
                 <span>15,000+ Users</span>
               </div>
             </div>
@@ -201,17 +183,17 @@ export default function GuidesPage() {
       </section>
 
       {/* Quick Win Guides - Featured Section */}
-      <section className="border-t border-gray-100 bg-white py-16 sm:py-20">
+      <section className="border-b border-light-gray bg-white py-16 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mb-12 text-center">
-            <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-gray-100 px-3 py-1 text-sm font-semibold text-gray-900">
+            <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-light-gray px-3 py-1 text-sm font-semibold text-black">
               <Sparkles className="h-4 w-4" />
               Featured Resources
             </div>
-            <h2 className="mb-3 text-3xl font-bold text-gray-900 sm:text-4xl">
+            <h2 className="mb-3 text-3xl font-bold text-black sm:text-4xl">
               Start Here
             </h2>
-            <p className="mx-auto max-w-2xl text-gray-600">
+            <p className="mx-auto max-w-2xl text-dark-gray">
               The most essential guides to kickstart your real estate journey
             </p>
           </div>
@@ -225,13 +207,13 @@ export default function GuidesPage() {
       </section>
 
       {/* Secondary Guides */}
-      <section className="border-t border-gray-100 bg-gray-50 py-16 sm:py-20">
+      <section className="border-b border-light-gray bg-off-white py-16 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mb-12 text-center">
-            <h2 className="mb-3 text-3xl font-bold text-gray-900 sm:text-4xl">
+            <h2 className="mb-3 text-3xl font-bold text-black sm:text-4xl">
               Go Deeper
             </h2>
-            <p className="mx-auto max-w-2xl text-gray-600">
+            <p className="mx-auto max-w-2xl text-dark-gray">
               Advanced strategies and specialized tools for specific situations
             </p>
           </div>
@@ -245,13 +227,13 @@ export default function GuidesPage() {
       </section>
 
       {/* Bonus Guides */}
-      <section className="border-t border-gray-100 bg-white py-16 sm:py-20">
+      <section className="border-b border-light-gray bg-white py-16 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mb-12 text-center">
-            <h2 className="mb-3 text-3xl font-bold text-gray-900 sm:text-4xl">
+            <h2 className="mb-3 text-3xl font-bold text-black sm:text-4xl">
               Bonus Resources
             </h2>
-            <p className="mx-auto max-w-2xl text-gray-600">
+            <p className="mx-auto max-w-2xl text-dark-gray">
               Specialized guides and references for particular interests
             </p>
           </div>
@@ -264,31 +246,31 @@ export default function GuidesPage() {
         </div>
       </section>
 
-      {/* Final CTA Section */}
-      <section className="border-t border-gray-100 bg-gray-900 py-16 sm:py-20">
+      {/* Final CTA - Pure B&W */}
+      <section className="bg-black py-16 sm:py-20">
         <div className="mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
           <h2 className="mb-4 text-3xl font-bold text-white sm:text-4xl">
             All guides are completely free
           </h2>
-          <p className="mx-auto mb-8 max-w-2xl text-lg text-gray-300">
+          <p className="mx-auto mb-8 max-w-2xl text-base text-off-white sm:text-lg">
             Download instantly and start making smarter real estate decisions today.
             No credit card required, no spam.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
-            <div className="flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-sm text-gray-300">
+            <div className="flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-sm text-off-white">
               <Download className="h-4 w-4" />
               Instant Access
             </div>
-            <div className="flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-sm text-gray-300">
+            <div className="flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-sm text-off-white">
               <FileText className="h-4 w-4" />
               PDF Format
             </div>
-            <div className="flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-sm text-gray-300">
+            <div className="flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-sm text-off-white">
               <CheckCircle className="h-4 w-4" />
               No Email Required*
             </div>
           </div>
-          <p className="mt-6 text-sm text-gray-400">
+          <p className="mt-6 text-sm text-medium-gray">
             *Some premium guides may require email for access
           </p>
         </div>
@@ -310,45 +292,45 @@ function GuideCard({ guide, featured = false, compact = false }: GuideCardProps)
   if (featured) {
     return (
       <Link href={`/guides/${guide.slug}`}>
-        <div className="group h-full cursor-pointer rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+        <div className="group h-full cursor-pointer rounded-lg border border-light-gray bg-white p-6 transition-all duration-300 hover:border-charcoal hover:shadow-lg">
           {/* Category Badge */}
           <div className="mb-4 flex items-center justify-between">
-            <div className="inline-flex items-center gap-2 rounded-full bg-gray-100 px-3 py-1 text-xs font-semibold text-gray-900">
+            <div className="inline-flex items-center gap-2 rounded-full bg-light-gray px-3 py-1 text-xs font-semibold text-black">
               <Icon className="h-3 w-3" />
               {config.label}
             </div>
             {guide.popular && (
-              <div className="flex items-center gap-1 text-xs font-semibold text-gray-500">
-                <Star className="h-3 w-3 fill-gray-900 text-gray-900" />
+              <div className="flex items-center gap-1 text-xs font-semibold text-dark-gray">
+                <Star className="h-3 w-3 fill-black text-black" />
                 Popular
               </div>
             )}
           </div>
 
           {/* Title */}
-          <h3 className="mb-3 text-xl font-bold text-gray-900 group-hover:text-gray-700 transition-colors">
+          <h3 className="mb-3 text-xl font-bold text-black transition-colors group-hover:text-charcoal">
             {guide.title}
           </h3>
 
           {/* Description */}
-          <p className="mb-4 text-gray-600 line-clamp-2">
+          <p className="mb-4 text-dark-gray line-clamp-2">
             {guide.description}
           </p>
 
           {/* Meta Info */}
-          <div className="mb-4 flex items-center gap-3 text-sm text-gray-400">
+          <div className="mb-4 flex items-center gap-3 text-sm text-medium-gray">
             <span className="flex items-center gap-1">
-              <FileText className="h-3 w-3" />
+              <Clock className="h-3 w-3" />
               {guide.readTime}
             </span>
           </div>
 
           {/* CTA */}
-          <div className="flex items-center justify-between border-t border-gray-100 pt-4">
-            <span className="text-sm font-semibold text-gray-900 group-hover:text-gray-700 transition-colors">
+          <div className="flex items-center justify-between border-t border-light-gray pt-4">
+            <span className="text-sm font-semibold text-black transition-colors group-hover:text-charcoal">
               Download Free Guide
             </span>
-            <ArrowRight className="h-4 w-4 text-gray-900 group-hover:translate-x-1 transition-transform" />
+            <ArrowRight className="h-4 w-4 text-black transition-transform group-hover:translate-x-1" />
           </div>
         </div>
       </Link>
@@ -358,17 +340,17 @@ function GuideCard({ guide, featured = false, compact = false }: GuideCardProps)
   if (compact) {
     return (
       <Link href={`/guides/${guide.slug}`}>
-        <div className="group h-full cursor-pointer rounded-xl border border-gray-200 bg-white p-5 shadow-sm transition-all duration-300 hover:shadow-md hover:border-gray-300">
-          <div className="mb-3 inline-flex items-center gap-2 rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-semibold text-gray-900">
+        <div className="group h-full cursor-pointer rounded-lg border border-light-gray bg-white p-5 transition-all duration-300 hover:border-charcoal hover:shadow-md">
+          <div className="mb-3 inline-flex items-center gap-2 rounded-full bg-light-gray px-2.5 py-0.5 text-xs font-semibold text-black">
             <Icon className="h-3 w-3" />
             {config.label}
           </div>
-          <h3 className="mb-2 text-base font-bold text-gray-900 group-hover:text-gray-700 transition-colors line-clamp-2">
+          <h3 className="mb-2 text-base font-bold text-black transition-colors group-hover:text-charcoal line-clamp-2">
             {guide.title}
           </h3>
           <div className="flex items-center justify-between">
-            <span className="text-xs text-gray-400">{guide.readTime}</span>
-            <ChevronRight className="h-4 w-4 text-gray-400 group-hover:text-gray-900 group-hover:translate-x-1 transition-all" />
+            <span className="text-xs text-medium-gray">{guide.readTime}</span>
+            <ChevronRight className="h-4 w-4 text-medium-gray transition-all group-hover:text-black group-hover:translate-x-1" />
           </div>
         </div>
       </Link>
@@ -378,33 +360,33 @@ function GuideCard({ guide, featured = false, compact = false }: GuideCardProps)
   // Default card (secondary)
   return (
     <Link href={`/guides/${guide.slug}`}>
-      <div className="group flex h-full cursor-pointer flex-col rounded-xl border border-gray-200 bg-white p-6 shadow-sm transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+      <div className="group flex h-full cursor-pointer flex-col rounded-lg border border-light-gray bg-white p-6 transition-all duration-300 hover:border-charcoal hover:shadow-lg">
         <div className="mb-4 flex items-start justify-between">
-          <div className="inline-flex items-center gap-2 rounded-full bg-gray-100 px-3 py-1 text-xs font-semibold text-gray-900">
+          <div className="inline-flex items-center gap-2 rounded-full bg-light-gray px-3 py-1 text-xs font-semibold text-black">
             <Icon className="h-3 w-3" />
             {config.label}
           </div>
           {guide.popular && (
-            <div className="flex items-center gap-1 text-xs font-semibold text-gray-500">
-              <Star className="h-3 w-3 fill-gray-900 text-gray-900" />
+            <div className="flex items-center gap-1 text-xs font-semibold text-dark-gray">
+              <Star className="h-3 w-3 fill-black text-black" />
               Popular
             </div>
           )}
         </div>
 
-        <h3 className="mb-3 text-lg font-bold text-gray-900 group-hover:text-gray-700 transition-colors line-clamp-2">
+        <h3 className="mb-3 text-lg font-bold text-black transition-colors group-hover:text-charcoal line-clamp-2">
           {guide.title}
         </h3>
 
-        <p className="mb-4 text-sm text-gray-600 line-clamp-2 flex-1">
+        <p className="mb-4 text-sm text-dark-gray line-clamp-2 flex-1">
           {guide.description}
         </p>
 
-        <div className="flex items-center justify-between border-t border-gray-100 pt-4">
-          <span className="text-xs text-gray-400">{guide.readTime}</span>
-          <div className="flex items-center gap-1 text-sm font-semibold text-gray-900 group-hover:text-gray-700 transition-colors">
+        <div className="flex items-center justify-between border-t border-light-gray pt-4">
+          <span className="text-xs text-medium-gray">{guide.readTime}</span>
+          <div className="flex items-center gap-1 text-sm font-semibold text-black transition-colors group-hover:text-charcoal">
             Download
-            <ChevronRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+            <ChevronRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
           </div>
         </div>
       </div>
