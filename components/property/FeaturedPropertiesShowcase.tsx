@@ -28,8 +28,8 @@ export default function FeaturedPropertiesShowcase({ properties }: { properties:
 
   if (properties.length === 0) return null
 
-  const maxIndex = Math.max(0, properties.length - 1)
-  const visibleProperties = properties.slice(currentIndex, currentIndex + 1)
+  const maxIndex = Math.max(0, properties.length - 3)
+  const visibleProperties = properties.slice(currentIndex, currentIndex + 3)
 
   const goToPrevious = () => setCurrentIndex(prev => Math.max(0, prev - 1))
   const goToNext = () => setCurrentIndex(prev => Math.min(maxIndex, prev + 1))
@@ -62,12 +62,12 @@ export default function FeaturedPropertiesShowcase({ properties }: { properties:
           )}
 
           {/* Cards */}
-          <div className="flex justify-center px-6 pb-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 px-6 pb-8">
             {visibleProperties.map((property) => (
               <Link
                 key={property.id}
                 href={`/property/${property.slug}`}
-                className="group block w-full max-w-md"
+                className="group block"
               >
                 <div className="relative aspect-[4/3] rounded-lg overflow-hidden bg-gray-100 mb-3">
                   <Image
@@ -107,25 +107,20 @@ export default function FeaturedPropertiesShowcase({ properties }: { properties:
             ))}
           </div>
 
-          {/* Slide Counter and Indicators */}
-          <div className="flex flex-col items-center gap-4 mt-8">
-            <div className="text-sm text-charcoal font-semibold">
-              {currentIndex + 1} of {properties.length}
-            </div>
-            <div className="flex justify-center gap-2 flex-wrap">
-              {Array.from({ length: properties.length }).map((_, idx) => (
-                <button
-                  key={idx}
-                  onClick={() => setCurrentIndex(idx)}
-                  className={`transition-all duration-300 ${
-                    idx === currentIndex
-                      ? 'w-8 h-2 bg-black rounded-full'
-                      : 'w-2 h-2 bg-light-gray rounded-full hover:bg-dark-gray'
-                  }`}
-                  aria-label={`Go to property ${idx + 1}`}
-                />
-              ))}
-            </div>
+          {/* Slide Indicators */}
+          <div className="flex justify-center gap-2 mt-8">
+            {Array.from({ length: maxIndex + 1 }).map((_, idx) => (
+              <button
+                key={idx}
+                onClick={() => setCurrentIndex(idx)}
+                className={`transition-all duration-300 ${
+                  idx === currentIndex
+                    ? 'w-8 h-2 bg-black rounded-full'
+                    : 'w-2 h-2 bg-light-gray rounded-full hover:bg-dark-gray'
+                }`}
+                aria-label={`Go to slide ${idx + 1}`}
+              />
+            ))}
           </div>
         </div>
       </div>
