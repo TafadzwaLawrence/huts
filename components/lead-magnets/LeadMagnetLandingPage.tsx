@@ -143,7 +143,7 @@ export function LeadMagnetLandingPage({
   ]
 
   const displayFeatures = features && features.length > 0 ? features : defaultFeatures
-  const heroImageUrl = heroImage ?? '/pexels-jakubzerdzicki-31424880.jpg'
+  const heroImageUrl = '/pexels-jakubzerdzicki-31424880.jpg'
 
   // Stats data
   const stats = [
