@@ -42,12 +42,12 @@ export default function FeaturedPropertiesShowcase({ properties }: { properties:
           <h2 className="text-3xl font-bold text-black mb-2">Featured Properties</h2>
           <p className="text-black">Browse our handpicked selection of premium listings</p>
         </div>
-        <div className="relative">
+        <div className="relative px-8">
           {/* Navigation */}
           {currentIndex > 0 && (
             <button
               onClick={goToPrevious}
-              className="absolute -left-4 top-1/2 -translate-y-1/2 z-10 p-2.5 rounded-full bg-black text-white shadow-lg hover:bg-charcoal hover:scale-110 transition-all duration-200"
+              className="absolute -left-6 top-1/2 -translate-y-1/2 z-10 p-3 rounded-full bg-black text-white shadow-lg hover:bg-charcoal hover:scale-110 transition-all duration-200"
             >
               <ChevronLeft size={20} />
             </button>
@@ -55,14 +55,14 @@ export default function FeaturedPropertiesShowcase({ properties }: { properties:
           {currentIndex < maxIndex && (
             <button
               onClick={goToNext}
-              className="absolute -right-4 top-1/2 -translate-y-1/2 z-10 p-2.5 rounded-full bg-black text-white shadow-lg hover:bg-charcoal hover:scale-110 transition-all duration-200"
+              className="absolute -right-6 top-1/2 -translate-y-1/2 z-10 p-3 rounded-full bg-black text-white shadow-lg hover:bg-charcoal hover:scale-110 transition-all duration-200"
             >
               <ChevronRight size={20} />
             </button>
           )}
 
           {/* Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 px-6 pb-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {visibleProperties.map((property) => (
               <Link
                 key={property.id}
@@ -88,8 +88,8 @@ export default function FeaturedPropertiesShowcase({ properties }: { properties:
                 </p>
                 <div className="mt-3 space-y-1">
                   <p className="text-sm font-semibold text-black line-clamp-2">{property.title}</p>
-                  <p className="text-xs text-charcoal">{property.address}</p>
-                  <div className="flex items-center gap-3 text-xs text-charcoal mt-2 pt-2 border-t border-light-gray">
+                  <p className="text-sm text-black font-medium">{property.address}</p>
+                  <div className="flex items-center gap-3 text-sm text-black mt-2 pt-2 border-t border-light-gray">
                     <span className="flex items-center gap-1">
                       <Bed size={14} />
                       {property.bedrooms} bed
