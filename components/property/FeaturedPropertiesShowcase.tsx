@@ -40,7 +40,7 @@ export default function FeaturedPropertiesShowcase({ properties }: { properties:
         {/* Header */}
         <div className="mx-auto mb-10 max-w-3xl text-center">
           <h2 className="text-3xl font-bold text-black mb-2">Featured Properties</h2>
-          <p className="mx-auto max-w-xl text-sm text-dark-gray leading-6">
+          <p className="mx-auto max-w-xl text-sm text-black leading-6">
             Browse our handpicked selection of premium listings
           </p>
         </div>
