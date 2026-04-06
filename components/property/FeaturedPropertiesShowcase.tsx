@@ -86,15 +86,15 @@ export default function FeaturedPropertiesShowcase({ properties }: { properties:
                       : formatPrice(property.price ?? 0) + '/mo'
                   }
                 </p>
-                <div className="space-y-1 mt-2">
-                  <p className="text-sm text-charcoal font-semibold">{property.title}</p>
-                  <p className="text-sm text-gray-600">{property.address}</p>
-                  <div className="flex items-center gap-4 text-sm text-gray-500 pt-2">
-                    <span className="flex items-center gap-1">
+                <div className="space-y-2 mt-3">
+                  <p className="text-base font-bold text-black leading-snug">{property.title}</p>
+                  <p className="text-sm text-dark-gray">{property.address}</p>
+                  <div className="flex items-center gap-4 text-sm text-charcoal pt-1 border-t border-light-gray mt-2 pt-2">
+                    <span className="flex items-center gap-1 font-medium">
                       <Bed size={16} />
                       {property.bedrooms} bed
                     </span>
-                    <span className="flex items-center gap-1">
+                    <span className="flex items-center gap-1 font-medium">
                       <Bath size={16} />
                       {property.bathrooms} bath
                     </span>
