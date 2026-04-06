@@ -98,7 +98,7 @@ export function LeadMagnetLandingPage({
         </section>
 
         {/* Stats Skeleton */}
-        <section className="border-t border-gray-100 bg-white py-16">
+        {/* <section className="border-t border-gray-100 bg-white py-16">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 gap-8 sm:grid-cols-3">
               {[...Array(3)].map((_, i) => (
@@ -109,7 +109,7 @@ export function LeadMagnetLandingPage({
               ))}
             </div>
           </div>
-        </section>
+        </section> */}
       </div>
     )
   }
@@ -272,7 +272,7 @@ export function LeadMagnetLandingPage({
       </section>
 
       {/* Stats Section - Black & White Cards */}
-      <section className="border-t border-gray-100 bg-gray-50 py-16">
+      {/* <section className="border-t border-gray-100 bg-gray-50 py-16">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
             {stats.map((stat, i) => {
@@ -293,7 +293,7 @@ export function LeadMagnetLandingPage({
             })}
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* What's Included - Benefits Grid */}
       <section className="py-16 sm:py-24 bg-white">
