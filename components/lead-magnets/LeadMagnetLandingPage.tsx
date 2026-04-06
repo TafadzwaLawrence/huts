@@ -37,7 +37,7 @@ interface LeadMagnetLandingPageProps {
 
 export function LeadMagnetLandingPage({
   slug,
-  heroImage,
+  heroImage = '/pexels-jakubzerdzicki-31424880.jpg',
   testimonials,
   features,
   cta = 'Download Free Guide',
@@ -143,6 +143,7 @@ export function LeadMagnetLandingPage({
   ]
 
   const displayFeatures = features && features.length > 0 ? features : defaultFeatures
+  const heroImageUrl = heroImage ?? '/pexels-jakubzerdzicki-31424880.jpg'
 
   // Stats data
   const stats = [
@@ -241,19 +242,18 @@ export function LeadMagnetLandingPage({
             </div>
 
             {/* Right: Hero Image */}
-            {heroImage && (
-              <div className="relative lg:ml-8">
-                <div className="relative rounded-2xl shadow-2xl overflow-hidden border border-gray-200">
-                  <div className="absolute inset-0 bg-black/5 z-10 rounded-2xl" />
-                  <Image
-                    src={heroImage}
-                    alt={leadMagnet.title}
-                    width={600}
-                    height={600}
-                    className="h-auto w-full object-cover"
-                    priority
-                  />
-                </div>
+            <div className="relative lg:ml-8">
+              <div className="relative rounded-2xl shadow-2xl overflow-hidden border border-gray-200">
+                <div className="absolute inset-0 bg-black/5 z-10 rounded-2xl" />
+                <Image
+                  src={heroImageUrl}
+                  alt={leadMagnet.title}
+                  width={600}
+                  height={600}
+                  className="h-auto w-full object-cover"
+                  priority
+                />
+              </div>
                 {/* Floating badge - Black & White */}
                 {/* <div className="absolute -bottom-4 -left-4 rounded-xl bg-white p-3 shadow-lg border border-gray-200 md:-left-6 md:p-4">
                   <div className="flex items-center gap-2">
@@ -266,7 +266,6 @@ export function LeadMagnetLandingPage({
                   </div>
                 </div> */}
               </div>
-            )}
           </div>
         </div>
       </section>
