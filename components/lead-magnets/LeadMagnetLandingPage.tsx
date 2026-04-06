@@ -255,7 +255,7 @@ export function LeadMagnetLandingPage({
                   />
                 </div>
                 {/* Floating badge - Black & White */}
-                <div className="absolute -bottom-4 -left-4 rounded-xl bg-white p-3 shadow-lg border border-gray-200 md:-left-6 md:p-4">
+                {/* <div className="absolute -bottom-4 -left-4 rounded-xl bg-white p-3 shadow-lg border border-gray-200 md:-left-6 md:p-4">
                   <div className="flex items-center gap-2">
                     <div className="flex">
                       {[...Array(5)].map((_, i) => (
@@ -264,7 +264,7 @@ export function LeadMagnetLandingPage({
                     </div>
                     <span className="text-sm font-semibold text-gray-900">Trusted by 15,000+</span>
                   </div>
-                </div>
+                </div> */}
               </div>
             )}
           </div>
