@@ -8,19 +8,22 @@ export default function robots(): MetadataRoute.Robots {
         allow: [
           '/',
           '/search',
-          '/search?*',
-          '/property/',
-          '/areas/',
+          '/property',
+          '/areas',
           '/properties-for-rent-zimbabwe',
           '/rentals-in-harare',
           '/student-housing',
           '/rent-vs-buy',
           '/home-value',
+          '/about',
           '/contact',
           '/help',
           '/pricing',
           '/privacy',
           '/terms',
+          '/blog',
+          '/guides',
+          '/faq',
         ],
         disallow: [
           '/dashboard/',
@@ -29,21 +32,13 @@ export default function robots(): MetadataRoute.Robots {
           '/settings/',
           '/admin/',
           '/uploadthing/',
-        ],
-      },
-      {
-        userAgent: 'Googlebot',
-        allow: '/',
-        disallow: [
-          '/dashboard/',
-          '/api/',
-          '/auth/',
-          '/settings/',
-          '/admin/',
+          '/_next/',
+          '/*?*sort=*',      // Block sorting params
+          '/*?*page=*',      // Block pagination params
+          '/*?*filter=*',    // Block filter params
         ],
       },
     ],
     sitemap: 'https://www.huts.co.zw/sitemap.xml',
-    host: 'https://www.huts.co.zw',
   }
 }
