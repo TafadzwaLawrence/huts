@@ -92,11 +92,11 @@ export default function FeaturedPropertiesShowcase({ properties }: { properties:
                   <div className="flex items-center gap-3 text-xs text-charcoal mt-2 pt-2 border-t border-light-gray">
                     <span className="flex items-center gap-1">
                       <Bed size={14} />
-                      {property.bedrooms}
+                      {property.bedrooms} bed
                     </span>
                     <span className="flex items-center gap-1">
                       <Bath size={14} />
-                      {property.bathrooms}
+                      {property.bathrooms} bath
                     </span>
                     {property.square_feet > 0 && (
                       <span>{property.square_feet.toLocaleString()} sqft</span>
