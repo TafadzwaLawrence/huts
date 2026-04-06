@@ -1,49 +1,23 @@
 'use client'
 
-import { Metadata } from 'next'
 import Link from 'next/link'
-import Image from 'next/image'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { 
   ChevronRight, 
   CheckCircle, 
   Clock,
-  FileText,
   Users,
   Star,
   ArrowRight,
-  BookOpen,
-  Home,
-  MapPin,
-  TrendingUp,
-  DollarSign,
   Calculator,
   Building,
+  TrendingUp,
+  DollarSign,
   AlertCircle,
   Download
 } from 'lucide-react'
 
-export const metadata: Metadata = {
-  title: 'Free Home Valuation Tool | Zimbabwe Property Value Estimator | Huts',
-  description:
-    'Get an instant estimate of your Zimbabwe property value. Powered by real market data and thousands of comparable sales.',
-  keywords: [
-    'property valuation Zimbabwe',
-    'property value estimator',
-    'how much is my house worth',
-    'property appraisal',
-    'home value',
-  ],
-  openGraph: {
-    title: 'Home Valuation Tool - Instant Property Value Estimator',
-    description:
-      'Find out what your property is worth in seconds using our advanced valuation algorithm.',
-    type: 'article',
-    url: 'https://huts.co.zw/guides/home-valuation-tool',
-  },
-}
-
-// Zimbabwe city data with base values
+// City data
 const cities = [
   { name: 'Harare', baseValue: 120000, factor: 1.0 },
   { name: 'Borrowdale, Harare', baseValue: 250000, factor: 2.1 },
@@ -358,7 +332,7 @@ export default function ValuationToolPage() {
                   </div>
                   <div className="flex justify-between items-center text-sm border-b border-[#E9ECEF] pb-2">
                     <span className="text-[#495057]">Market Trend:</span>
-                    <span className="font-semibold text-[#212529] text-green-600">↑ +12% (YoY)</span>
+                    <span className="font-semibold text-[#212529]">↑ +12% (YoY)</span>
                   </div>
                 </div>
 
