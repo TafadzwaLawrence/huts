@@ -193,11 +193,6 @@ export function LeadMagnetLandingPage({
           <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:items-center">
             {/* Left: Content */}
             <div>
-              <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-gray-900 px-4 py-2 text-sm font-semibold text-white">
-                <Download className="h-4 w-4" />
-                Free Downloadable Guide
-              </div>
-
               <h1 className="mb-6 text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl lg:text-6xl">
                 {leadMagnet.title}
               </h1>
