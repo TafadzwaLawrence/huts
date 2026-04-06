@@ -1,9 +1,23 @@
 import { Metadata } from 'next'
-import { LeadMagnetLandingPage } from '@/components/lead-magnets/LeadMagnetLandingPage'
+import Link from 'next/link'
+import Image from 'next/image'
+import { 
+  ChevronRight, 
+  CheckCircle, 
+  Download,
+  Clock,
+  FileText,
+  Users,
+  Star,
+  TrendingUp,
+  Shield,
+  Calculator,
+  ArrowRight,
+  BookOpen
+} from 'lucide-react'
 
 export const metadata: Metadata = {
-  title:
-    'The Ultimate Guide to Buying Property in Zimbabwe | Huts',
+  title: 'The Ultimate Guide to Buying Property in Zimbabwe | Huts',
   description:
     'Complete step-by-step guide to property purchase process in Zimbabwe. Learn costs, legal requirements, red flags, and how to avoid costly mistakes.',
   keywords: [
@@ -14,12 +28,11 @@ export const metadata: Metadata = {
     'capital gains tax',
   ],
   openGraph: {
-    title:
-      'The Ultimate Guide to Buying Property in Zimbabwe',
+    title: 'The Ultimate Guide to Buying Property in Zimbabwe',
     description:
       'Master the property buying process with our comprehensive guide.',
     type: 'article',
-    url: 'https://huts.zw/guides/buying-guide-zimbabwe',
+    url: 'https://huts.co.zw/guides/buying-guide-zimbabwe',
   },
 }
 
@@ -50,12 +63,206 @@ const testimonials = [
 
 export default function BuyingGuidePage() {
   return (
-    <LeadMagnetLandingPage
-      slug="buying-guide-zimbabwe"
-      heroImage="/guides/buying-hero.jpg"
-      features={features}
-      testimonials={testimonials}
-      cta="Download Free Guide"
-    />
+    <div className="min-h-screen bg-white">
+      {/* Header with Breadcrumb */}
+      <div className="border-b border-[#E9ECEF]">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-10">
+          <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-[#ADB5BD] mb-6">
+            <Link href="/" className="hover:text-[#495057] transition-colors">Home</Link>
+            <ChevronRight size={11} />
+            <Link href="/guides" className="hover:text-[#495057] transition-colors">Guides</Link>
+            <ChevronRight size={11} />
+            <span className="text-[#495057]">Buying Guide</span>
+          </nav>
+          
+          <div className="max-w-3xl">
+            <div className="inline-flex items-center gap-2 rounded-full bg-[#F8F9FA] px-3 py-1 text-xs font-semibold text-[#212529] mb-4">
+              <BookOpen className="h-3 w-3" />
+              Free Downloadable Guide
+            </div>
+            <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#212529] mb-4">
+              The Ultimate Guide to Buying Property in Zimbabwe
+            </h1>
+            <p className="text-sm md:text-base text-[#495057] mb-6">
+              Complete step-by-step guide to property purchase process in Zimbabwe. 
+              Learn costs, legal requirements, red flags, and how to avoid costly mistakes.
+            </p>
+            
+            {/* Trust indicators */}
+            <div className="flex flex-wrap gap-4">
+              <div className="flex items-center gap-2 text-xs text-[#495057]">
+                <CheckCircle className="h-3.5 w-3.5 text-[#212529]" />
+                <span>15,000+ Downloads</span>
+              </div>
+              <div className="flex items-center gap-2 text-xs text-[#495057]">
+                <Clock className="h-3.5 w-3.5 text-[#212529]" />
+                <span>25 min read</span>
+              </div>
+              <div className="flex items-center gap-2 text-xs text-[#495057]">
+                <FileText className="h-3.5 w-3.5 text-[#212529]" />
+                <span>PDF Format</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Main Content - Two Column Layout */}
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+          {/* Left Column - Main Content */}
+          <div className="lg:col-span-2 space-y-10">
+            {/* Hero Image */}
+            <div className="relative aspect-[16/9] rounded-lg overflow-hidden border border-[#E9ECEF]">
+              <Image
+                src="/guides/buying-hero.jpg"
+                alt="Buying property in Zimbabwe guide"
+                fill
+                className="object-cover"
+                priority
+              />
+            </div>
+
+            {/* What You'll Learn Section */}
+            <section>
+              <h2 className="text-lg font-bold text-[#212529] mb-4">What You'll Learn</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                {features.map((feature, i) => (
+                  <div key={i} className="flex items-start gap-2">
+                    <CheckCircle className="h-4 w-4 text-[#212529] mt-0.5 flex-shrink-0" />
+                    <span className="text-sm text-[#495057]">{feature}</span>
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            {/* Why This Guide Section */}
+            <section className="bg-[#F8F9FA] rounded-lg p-6 border border-[#E9ECEF]">
+              <h2 className="text-lg font-bold text-[#212529] mb-3">Why This Guide?</h2>
+              <p className="text-sm text-[#495057] mb-4">
+                Buying property in Zimbabwe can be complex, especially for first-time buyers. 
+                This guide breaks down everything you need to know, from finding the right 
+                property to signing the final paperwork.
+              </p>
+              <div className="flex items-center gap-4 text-xs text-[#495057]">
+                <span className="flex items-center gap-1">
+                  <Users className="h-3.5 w-3.5" />
+                  Written by local experts
+                </span>
+                <span className="flex items-center gap-1">
+                  <TrendingUp className="h-3.5 w-3.5" />
+                  Updated with 2025 data
+                </span>
+              </div>
+            </section>
+
+            {/* Testimonials */}
+            {testimonials && testimonials.length > 0 && (
+              <section>
+                <h2 className="text-lg font-bold text-[#212529] mb-4">What Readers Say</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {testimonials.map((testimonial, i) => (
+                    <div key={i} className="rounded-lg border border-[#E9ECEF] p-5 bg-white">
+                      <div className="flex gap-0.5 mb-3">
+                        {[...Array(5)].map((_, j) => (
+                          <Star key={j} className="h-3.5 w-3.5 fill-[#212529] text-[#212529]" />
+                        ))}
+                      </div>
+                      <p className="text-sm text-[#495057] mb-3 italic">
+                        "{testimonial.text}"
+                      </p>
+                      <div>
+                        <p className="text-sm font-semibold text-[#212529]">{testimonial.author}</p>
+                        <p className="text-xs text-[#ADB5BD]">{testimonial.role}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </section>
+            )}
+          </div>
+
+          {/* Right Column - Sticky CTA Card */}
+          <div className="lg:col-span-1">
+            <div className="sticky top-8 rounded-lg border border-[#E9ECEF] bg-white p-6 shadow-sm">
+              <div className="text-center mb-6">
+                <div className="text-3xl font-bold text-[#212529] mb-2">Free Download</div>
+                <p className="text-xs text-[#ADB5BD]">Instant access • No credit card required</p>
+              </div>
+
+              <div className="space-y-3 mb-6">
+                <div className="flex items-center gap-2 text-xs text-[#495057]">
+                  <CheckCircle className="h-3.5 w-3.5 text-[#212529]" />
+                  <span>24/7 Instant Access</span>
+                </div>
+                <div className="flex items-center gap-2 text-xs text-[#495057]">
+                  <CheckCircle className="h-3.5 w-3.5 text-[#212529]" />
+                  <span>PDF Format - 25 pages</span>
+                </div>
+                <div className="flex items-center gap-2 text-xs text-[#495057]">
+                  <CheckCircle className="h-3.5 w-3.5 text-[#212529]" />
+                  <span>Unsubscribe anytime</span>
+                </div>
+              </div>
+
+              <button className="w-full bg-[#212529] text-white px-4 py-2.5 rounded-lg font-semibold text-sm hover:bg-[#495057] transition-colors mb-4">
+                Download Free Guide
+              </button>
+
+              <p className="text-[10px] text-center text-[#ADB5BD]">
+                By downloading, you agree to receive email updates. 
+                You can unsubscribe anytime.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Related Guides Section */}
+      <div className="border-t border-[#E9ECEF] bg-[#F8F9FA] py-12 md:py-16">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-lg font-bold text-[#212529] mb-6">Related Guides</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <RelatedGuideCard
+              title="Landlord's Guide to Maximizing Rental Yield"
+              slug="landlord-rental-yield"
+              readTime="12 min read"
+            />
+            <RelatedGuideCard
+              title="Home Valuation Tool & Property Estimator"
+              slug="home-valuation-tool"
+              readTime="8 min read"
+            />
+            <RelatedGuideCard
+              title="Zimbabwe Property Laws & Regulations Cheat Sheet"
+              slug="property-laws-cheat-sheet"
+              readTime="25 min read"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+interface RelatedGuideCardProps {
+  title: string
+  slug: string
+  readTime: string
+}
+
+function RelatedGuideCard({ title, slug, readTime }: RelatedGuideCardProps) {
+  return (
+    <Link href={`/guides/${slug}`}>
+      <div className="group h-full cursor-pointer rounded-lg border border-[#E9ECEF] bg-white p-5 transition-all duration-300 hover:border-[#212529] hover:shadow-md">
+        <h3 className="text-base font-bold text-[#212529] mb-2 transition-colors group-hover:text-[#495057] line-clamp-2">
+          {title}
+        </h3>
+        <div className="flex items-center justify-between">
+          <span className="text-xs text-[#ADB5BD]">{readTime}</span>
+          <ChevronRight className="h-4 w-4 text-[#ADB5BD] transition-all group-hover:text-[#212529] group-hover:translate-x-1" />
+        </div>
+      </div>
+    </Link>
   )
 }

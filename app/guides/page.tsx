@@ -2,17 +2,12 @@ import { Metadata } from 'next'
 import Link from 'next/link'
 import { 
   ChevronRight, 
-  BookOpen, 
   Star, 
   TrendingUp, 
   Shield, 
   Calculator,
-  FileText,
   ArrowRight,
-  CheckCircle,
-  Sparkles,
-  Download,
-  MapPin,
+
   Clock
 } from 'lucide-react'
 
