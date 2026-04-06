@@ -153,11 +153,11 @@ export function LeadMagnetLandingPage({
 
   // Benefits data - Black and white theme
   const benefits = [
-    {
-      icon: Award,
-      title: "Expert Insights",
-      description: "Curated from top real estate professionals with 20+ years of experience"
-    },
+    // {
+    //   icon: Award,
+    //   title: "Expert Insights",
+    //   description: "Curated from top real estate professionals with 20+ years of experience"
+    // },
     {
       icon: Shield,
       title: "Legal Protection",
