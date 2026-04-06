@@ -101,13 +101,13 @@ export function LeadMagnetCaptureForm({
     <>
       {/* Backdrop */}
       <div
-        className="fixed inset-0 bg-black/50 z-40"
+        className="fixed inset-0 bg-black/70 z-40 backdrop-blur-sm"
         onClick={() => handleOpenChange(false)}
       />
 
       {/* Modal */}
       <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-        <div className="bg-white rounded-lg shadow-xl w-full max-w-md max-h-[90vh] overflow-y-auto">
+        <div className="bg-white rounded-lg shadow-2xl w-full max-w-md max-h-[90vh] overflow-y-auto border border-light-gray">
           {/* Header */}
           <div className="border-b border-light-gray px-6 py-4 flex items-center justify-between">
             <div className="flex-1">
