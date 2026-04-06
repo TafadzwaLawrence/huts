@@ -49,8 +49,80 @@ export function LeadMagnetLandingPage({
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="animate-pulse">Loading guide...</div>
+      <div className="w-full bg-white">
+        {/* Hero Skeleton */}
+        <section className="bg-white py-16 sm:py-24">
+          <div className="mx-auto max-w-6xl px-6">
+            <div className="grid grid-cols-1 gap-12 md:grid-cols-2 md:items-center">
+              {/* Left: Content skeleton */}
+              <div>
+                <div className="mb-4 h-6 w-32 bg-light-gray rounded animate-pulse" />
+                <div className="mb-6 space-y-3">
+                  <div className="h-12 w-full bg-light-gray rounded animate-pulse" />
+                  <div className="h-12 w-5/6 bg-light-gray rounded animate-pulse" />
+                </div>
+                <div className="mb-8 space-y-3">
+                  <div className="h-4 w-full bg-light-gray rounded animate-pulse" />
+                  <div className="h-4 w-5/6 bg-light-gray rounded animate-pulse" />
+                </div>
+                <div className="mb-8 space-y-4">
+                  <div className="flex gap-3">
+                    <div className="h-5 w-5 bg-light-gray rounded-full animate-pulse" />
+                    <div className="h-4 flex-1 bg-light-gray rounded animate-pulse" />
+                  </div>
+                  <div className="flex gap-3">
+                    <div className="h-5 w-5 bg-light-gray rounded-full animate-pulse" />
+                    <div className="h-4 flex-1 bg-light-gray rounded animate-pulse" />
+                  </div>
+                  <div className="flex gap-3">
+                    <div className="h-5 w-5 bg-light-gray rounded-full animate-pulse" />
+                    <div className="h-4 flex-1 bg-light-gray rounded animate-pulse" />
+                  </div>
+                </div>
+                <div className="h-12 w-40 bg-light-gray rounded animate-pulse" />
+              </div>
+
+              {/* Right: Image skeleton */}
+              <div className="relative aspect-square overflow-hidden rounded-lg bg-light-gray animate-pulse" />
+            </div>
+          </div>
+        </section>
+
+        {/* Stats Skeleton */}
+        <section className="border-t border-light-gray bg-white py-12">
+          <div className="mx-auto max-w-6xl px-6">
+            <div className="grid grid-cols-1 gap-8 sm:grid-cols-3">
+              {[...Array(3)].map((_, i) => (
+                <div key={i} className="text-center">
+                  <div className="mb-2 h-8 w-16 bg-light-gray rounded animate-pulse mx-auto" />
+                  <div className="h-4 w-24 bg-light-gray rounded animate-pulse mx-auto" />
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Cards Skeleton */}
+        <section className="border-t border-light-gray bg-white py-16">
+          <div className="mx-auto max-w-6xl px-6">
+            <div className="mb-12 space-y-3">
+              <div className="h-8 w-40 bg-light-gray rounded animate-pulse" />
+              <div className="h-4 w-96 bg-light-gray rounded animate-pulse" />
+            </div>
+            <div className="grid grid-cols-1 gap-8 sm:grid-cols-3">
+              {[...Array(3)].map((_, i) => (
+                <div key={i} className="rounded-lg border border-light-gray bg-white p-6">
+                  <div className="mb-4 h-8 w-8 bg-light-gray rounded animate-pulse" />
+                  <div className="mb-2 h-5 w-24 bg-light-gray rounded animate-pulse" />
+                  <div className="space-y-2">
+                    <div className="h-4 w-full bg-light-gray rounded animate-pulse" />
+                    <div className="h-4 w-5/6 bg-light-gray rounded animate-pulse" />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
       </div>
     )
   }
