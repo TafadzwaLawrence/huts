@@ -166,11 +166,9 @@ export default async function DashboardOverviewPage() {
   const userName = profile?.full_name || user.email?.split('@')[0] || 'User'
   const firstName = userName.split(' ')[0]
   
-  // Time-based greeting
   const hour = new Date().getHours()
   const greeting = hour < 12 ? 'Good morning' : hour < 18 ? 'Good afternoon' : 'Good evening'
 
-  // Format the current date
   const today = new Date()
   const dateString = today.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })
 
@@ -190,7 +188,7 @@ export default async function DashboardOverviewPage() {
             {isLandlord ? (
               <Link
                 href="/dashboard/my-properties"
-                className="inline-flex items-center gap-2 px-4 py-2.5 bg-[#212529] text-white rounded-lg text-sm font-semibold hover:bg-black transition-colors"
+                className="inline-flex items-center gap-2 px-4 py-2.5 bg-[#212529] text-white rounded-lg text-sm font-semibold hover:bg-black transition-colors focus:outline-none focus:ring-2 focus:ring-[#212529] focus:ring-offset-1"
               >
                 <Building2 size={16} />
                 My Properties
@@ -198,7 +196,7 @@ export default async function DashboardOverviewPage() {
             ) : (
               <Link
                 href="/search"
-                className="inline-flex items-center gap-2 px-4 py-2.5 bg-[#212529] text-white rounded-lg text-sm font-semibold hover:bg-black transition-colors"
+                className="inline-flex items-center gap-2 px-4 py-2.5 bg-[#212529] text-white rounded-lg text-sm font-semibold hover:bg-black transition-colors focus:outline-none focus:ring-2 focus:ring-[#212529] focus:ring-offset-1"
               >
                 <Search size={16} />
                 Find a home
@@ -212,7 +210,7 @@ export default async function DashboardOverviewPage() {
           {/* Properties / Saved */}
           <Link 
             href={isLandlord ? '/dashboard/my-properties' : '/dashboard/saved'}
-            className="group bg-white rounded-lg border border-[#E9ECEF] p-5 hover:border-[#212529] hover:shadow-sm transition-all"
+            className="group bg-white rounded-lg border border-[#E9ECEF] p-5 hover:border-[#212529] hover:shadow-sm transition-all focus:outline-none focus:ring-2 focus:ring-[#212529] focus:ring-offset-1"
           >
             <div className="flex items-center justify-between mb-3">
               {isLandlord ? (
@@ -229,7 +227,7 @@ export default async function DashboardOverviewPage() {
           </Link>
 
           {/* Conversations */}
-          <OpenChatButton className="group bg-white rounded-lg border border-[#E9ECEF] p-5 hover:border-[#212529] hover:shadow-sm transition-all relative text-left cursor-pointer">
+          <OpenChatButton className="group bg-white rounded-lg border border-[#E9ECEF] p-5 hover:border-[#212529] hover:shadow-sm transition-all relative text-left cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#212529] focus:ring-offset-1">
             <div className="flex items-center justify-between mb-3">
               <MessageSquare size={20} className="text-[#495057]" />
               {(conversationCount || 0) > 0 ? (
@@ -259,7 +257,7 @@ export default async function DashboardOverviewPage() {
           {isLandlord ? (
             <Link 
               href="/dashboard/reviews"
-              className="group bg-white rounded-lg border border-[#E9ECEF] p-5 hover:border-[#212529] hover:shadow-sm transition-all"
+              className="group bg-white rounded-lg border border-[#E9ECEF] p-5 hover:border-[#212529] hover:shadow-sm transition-all focus:outline-none focus:ring-2 focus:ring-[#212529] focus:ring-offset-1"
             >
               <div className="flex items-center justify-between mb-3">
                 <Star size={20} className="text-[#495057]" />
@@ -271,7 +269,7 @@ export default async function DashboardOverviewPage() {
           ) : (
             <Link 
               href="/areas"
-              className="group bg-white rounded-lg border border-[#E9ECEF] p-5 hover:border-[#212529] hover:shadow-sm transition-all"
+              className="group bg-white rounded-lg border border-[#E9ECEF] p-5 hover:border-[#212529] hover:shadow-sm transition-all focus:outline-none focus:ring-2 focus:ring-[#212529] focus:ring-offset-1"
             >
               <div className="flex items-center justify-between mb-3">
                 <MapPin size={20} className="text-[#495057]" />
@@ -285,9 +283,9 @@ export default async function DashboardOverviewPage() {
 
         {/* Agent Dashboard Card */}
         {agentProfile && (
-          <div className="mb-8 bg-white rounded-xl border border-[#E9ECEF] overflow-hidden">
+          <div className="mb-8 bg-white rounded-lg border border-[#E9ECEF] overflow-hidden">
             {/* Card header */}
-            <div className="flex items-center justify-between px-5 py-4 border-b border-[#F1F3F5]">
+            <div className="flex items-center justify-between px-5 py-4 border-b border-[#E9ECEF]">
               <div className="flex items-center gap-2.5">
                 <span className="text-sm font-semibold text-[#212529]">
                   {(agentProfile.agent_type && AGENT_TYPE_LABELS[agentProfile.agent_type as keyof typeof AGENT_TYPE_LABELS]) || 'Agent'}
@@ -314,11 +312,11 @@ export default async function DashboardOverviewPage() {
               </div>
               <div className="flex items-center gap-3">
                 {agentProfile.status === 'active' && (
-                  <Link href="/dashboard/agent-inquiries" className="text-xs font-semibold text-[#212529] hover:underline flex items-center gap-1">
+                  <Link href="/dashboard/agent-inquiries" className="text-xs font-semibold text-[#212529] hover:underline flex items-center gap-1 focus:outline-none focus:ring-2 focus:ring-[#212529] focus:ring-offset-1 rounded">
                     All inquiries <ArrowRight size={12} />
                   </Link>
                 )}
-                <Link href="/dashboard/agent-profile" className="text-xs font-medium text-[#495057] hover:text-[#212529] transition-colors">
+                <Link href="/dashboard/agent-profile" className="text-xs font-medium text-[#495057] hover:text-[#212529] transition-colors focus:outline-none focus:ring-2 focus:ring-[#212529] focus:ring-offset-1 rounded">
                   Edit profile
                 </Link>
               </div>
@@ -339,7 +337,7 @@ export default async function DashboardOverviewPage() {
             {agentProfile.status === 'active' && (
               <div>
                 {/* Stats row */}
-                <div className="grid grid-cols-3 divide-x divide-[#F1F3F5] border-b border-[#F1F3F5]">
+                <div className="grid grid-cols-3 divide-x divide-[#E9ECEF] border-b border-[#E9ECEF]">
                   <div className="px-5 py-4">
                     <p className="text-2xl font-bold text-[#212529]">{totalAgentInquiries || 0}</p>
                     <p className="text-xs text-[#495057] mt-0.5">Total inquiries</p>
@@ -371,7 +369,7 @@ export default async function DashboardOverviewPage() {
                       {recentAgentInquiries.map((inq: any) => (
                         <div key={inq.id} className="flex items-center justify-between gap-3">
                           <div className="flex items-center gap-2.5 min-w-0">
-                            <div className="w-7 h-7 rounded-full bg-[#F1F3F5] flex items-center justify-center flex-shrink-0">
+                            <div className="w-7 h-7 rounded-full bg-[#F8F9FA] flex items-center justify-center flex-shrink-0">
                               <span className="text-xs font-semibold text-[#495057]">{inq.name?.charAt(0)?.toUpperCase() || '?'}</span>
                             </div>
                             <div className="min-w-0">
@@ -390,7 +388,7 @@ export default async function DashboardOverviewPage() {
                     {agentProfile.slug && (
                       <Link
                         href={`/agent/${agentProfile.slug}`}
-                        className="inline-flex items-center gap-1 mt-2 text-xs font-semibold text-[#212529] underline underline-offset-2 hover:no-underline"
+                        className="inline-flex items-center gap-1 mt-2 text-xs font-semibold text-[#212529] underline underline-offset-2 hover:no-underline focus:outline-none focus:ring-2 focus:ring-[#212529] focus:ring-offset-1 rounded"
                       >
                         View your public profile <ArrowUpRight size={12} />
                       </Link>
@@ -410,10 +408,10 @@ export default async function DashboardOverviewPage() {
 
             {/* Landlord: My Properties List */}
             {isLandlord && userProperties && userProperties.length > 0 && (
-              <div className="bg-white rounded-xl border border-[#E9ECEF] overflow-hidden">
-                <div className="flex items-center justify-between px-5 py-4 border-b border-[#F1F3F5]">
-                  <h2 className="text-sm font-semibold text-black">Your Listings</h2>
-                  <Link href="/dashboard/my-properties" className="text-xs text-[#495057] hover:text-black font-medium flex items-center gap-1 transition-colors">
+              <div className="bg-white rounded-lg border border-[#E9ECEF] overflow-hidden">
+                <div className="flex items-center justify-between px-5 py-4 border-b border-[#E9ECEF]">
+                  <h2 className="text-sm font-semibold text-[#212529]">Your Listings</h2>
+                  <Link href="/dashboard/my-properties" className="text-xs text-[#495057] hover:text-[#212529] font-medium flex items-center gap-1 transition-colors focus:outline-none focus:ring-2 focus:ring-[#212529] focus:ring-offset-1 rounded">
                     View all <ChevronRight size={ICON_SIZES.xs} />
                   </Link>
                 </div>
@@ -429,7 +427,7 @@ export default async function DashboardOverviewPage() {
                     return (
                       <div
                         key={property.id}
-                        className="group rounded-xl border border-[#E9ECEF] hover:border-black overflow-hidden transition-all hover:shadow-sm"
+                        className="group rounded-lg border border-[#E9ECEF] hover:border-[#212529] overflow-hidden transition-all hover:shadow-sm"
                       >
                         <div className="flex gap-0">
                           {/* Thumbnail */}
@@ -447,11 +445,10 @@ export default async function DashboardOverviewPage() {
                                 <Home size={ICON_SIZES.xl} className="text-[#ADB5BD]" />
                               </div>
                             )}
-                            {/* Listing type badge on image */}
                             <div className="absolute top-2 left-2">
                               <span className={`px-1.5 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider ${
                                 property.listing_type === 'sale'
-                                  ? 'bg-black text-white'
+                                  ? 'bg-[#212529] text-white'
                                   : 'bg-white/90 text-[#212529] backdrop-blur-sm'
                               }`}>
                                 {property.listing_type === 'sale' ? 'Sale' : 'Rent'}
@@ -465,16 +462,14 @@ export default async function DashboardOverviewPage() {
                               <div className="flex items-start justify-between gap-2 mb-1">
                                 <Link
                                   href={`/property/${property.slug || property.id}`}
-                                  className="text-sm font-semibold text-[#212529] truncate hover:underline underline-offset-2 block"
+                                  className="text-sm font-semibold text-[#212529] truncate hover:underline underline-offset-2 focus:outline-none focus:ring-2 focus:ring-[#212529] focus:ring-offset-1 rounded"
                                 >
                                   {property.title}
                                 </Link>
-                                {/* Combined status: verification_status takes priority for display */}
                                 {(() => {
                                   const vs = property.verification_status || 'pending'
                                   const st = property.status
 
-                                  // Determine display label, colors, icon
                                   if (vs === 'rejected') {
                                     return (
                                       <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold flex-shrink-0 bg-[#FF6B6B]/10 text-[#FF6B6B]">
@@ -491,7 +486,6 @@ export default async function DashboardOverviewPage() {
                                       </span>
                                     )
                                   }
-                                  // vs === 'approved' — show listing status
                                   if (st === 'rented' || st === 'sold') {
                                     return (
                                       <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold flex-shrink-0 bg-[#212529]/10 text-[#212529]">
@@ -508,7 +502,6 @@ export default async function DashboardOverviewPage() {
                                       </span>
                                     )
                                   }
-                                  // active + approved
                                   return (
                                     <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold flex-shrink-0 bg-[#51CF66]/10 text-[#51CF66]">
                                       <ShieldCheck size={ICON_SIZES.xs} />
@@ -519,7 +512,7 @@ export default async function DashboardOverviewPage() {
                               </div>
                               {location && (
                                 <p className="text-xs text-[#ADB5BD] flex items-center gap-1 mb-2">
-                                <MapPin size={ICON_SIZES.xs} />
+                                  <MapPin size={ICON_SIZES.xs} />
                                   {location}
                                 </p>
                               )}
@@ -529,13 +522,12 @@ export default async function DashboardOverviewPage() {
                                 {priceDisplay}
                               </p>
                               <div className="flex items-center gap-2">
-                                {/* Show retry verification for pending/rejected properties */}
                                 {(property.verification_status === 'pending' || property.verification_status === 'rejected') && (
                                   <RetryVerificationButton propertyId={property.id} />
                                 )}
                                 <Link
                                   href={`/dashboard/edit-property/${property.id}`}
-                                  className="text-[11px] font-medium text-[#495057] hover:text-black border border-[#E9ECEF] hover:border-black px-2.5 py-1 rounded-md transition-colors"
+                                  className="text-[11px] font-medium text-[#495057] hover:text-[#212529] border border-[#E9ECEF] hover:border-[#212529] px-2.5 py-1 rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-[#212529] focus:ring-offset-1"
                                 >
                                   Edit
                                 </Link>
@@ -552,17 +544,17 @@ export default async function DashboardOverviewPage() {
 
             {/* Landlord: Empty Properties State */}
             {isLandlord && (!userProperties || userProperties.length === 0) && (
-              <div className="bg-white rounded-xl border border-[#E9ECEF] p-8 text-center">
-                <div className="w-14 h-14 bg-[#F8F9FA] rounded-2xl flex items-center justify-center mx-auto mb-4">
+              <div className="bg-white rounded-lg border border-[#E9ECEF] p-8 text-center">
+                <div className="w-14 h-14 bg-[#F8F9FA] rounded-lg flex items-center justify-center mx-auto mb-4">
                   <Building2 size={ICON_SIZES.xl} className="text-[#ADB5BD]" />
                 </div>
-                <h3 className="text-base font-semibold text-black mb-1">No properties yet</h3>
+                <h3 className="text-base font-semibold text-[#212529] mb-1">No properties yet</h3>
                 <p className="text-sm text-[#495057] mb-5 max-w-xs mx-auto">
                   List your first property and start receiving inquiries from verified renters.
                 </p>
                 <Link
                   href="/dashboard/new-property"
-                  className="inline-flex items-center gap-2 bg-black text-white px-5 py-2.5 rounded-lg text-sm font-semibold hover:bg-black transition-colors"
+                  className="inline-flex items-center gap-2 bg-[#212529] text-white px-5 py-2.5 rounded-lg text-sm font-semibold hover:bg-black transition-colors focus:outline-none focus:ring-2 focus:ring-[#212529] focus:ring-offset-1"
                 >
                   Create listing
                   <ArrowRight size={ICON_SIZES.sm} />
@@ -572,10 +564,10 @@ export default async function DashboardOverviewPage() {
 
             {/* Renter: Recently Added */}
             {!isLandlord && recentProperties && recentProperties.length > 0 && (
-              <div className="bg-white rounded-xl border border-[#E9ECEF] overflow-hidden">
-                <div className="flex items-center justify-between px-5 py-4 border-b border-[#F1F3F5]">
-                  <h2 className="text-sm font-semibold text-black">Recently Added</h2>
-                  <Link href="/search" className="text-xs text-[#495057] hover:text-black font-medium flex items-center gap-1 transition-colors">
+              <div className="bg-white rounded-lg border border-[#E9ECEF] overflow-hidden">
+                <div className="flex items-center justify-between px-5 py-4 border-b border-[#E9ECEF]">
+                  <h2 className="text-sm font-semibold text-[#212529]">Recently Added</h2>
+                  <Link href="/search" className="text-xs text-[#495057] hover:text-[#212529] font-medium flex items-center gap-1 transition-colors focus:outline-none focus:ring-2 focus:ring-[#212529] focus:ring-offset-1 rounded">
                     View all <ChevronRight size={ICON_SIZES.xs} />
                   </Link>
                 </div>
@@ -591,7 +583,7 @@ export default async function DashboardOverviewPage() {
                       <Link
                         key={property.id}
                         href={`/property/${property.slug || property.id}`}
-                        className="group rounded-lg overflow-hidden border border-[#E9ECEF] hover:border-black hover:shadow-sm transition-all"
+                        className="group rounded-lg overflow-hidden border border-[#E9ECEF] hover:border-[#212529] hover:shadow-sm transition-all focus:outline-none focus:ring-2 focus:ring-[#212529] focus:ring-offset-1"
                       >
                         <div className="relative h-28 bg-[#F8F9FA]">
                           {primaryImage?.url ? (
@@ -611,7 +603,7 @@ export default async function DashboardOverviewPage() {
                             {priceDisplay}
                           </div>
                           {property.listing_type === 'sale' && (
-                            <div className="absolute top-2 right-2 bg-black text-white px-1.5 py-0.5 rounded text-[9px] font-bold uppercase">
+                            <div className="absolute top-2 right-2 bg-[#212529] text-white px-1.5 py-0.5 rounded text-[9px] font-bold uppercase">
                               Sale
                             </div>
                           )}
@@ -632,9 +624,9 @@ export default async function DashboardOverviewPage() {
 
             {/* Renter: Empty saved state tip */}
             {!isLandlord && (savedCount || 0) === 0 && (
-              <div className="bg-[#212529] rounded-xl p-6 text-white">
+              <div className="bg-[#212529] rounded-lg p-6 text-white">
                 <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center flex-shrink-0">
+                  <div className="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center flex-shrink-0">
                     <Sparkles size={ICON_SIZES.lg} />
                   </div>
                   <div className="flex-1">
@@ -644,7 +636,7 @@ export default async function DashboardOverviewPage() {
                     </p>
                     <Link 
                       href="/search" 
-                      className="btn btn-primary inline-flex items-center gap-1.5"
+                      className="inline-flex items-center gap-1.5 bg-white text-[#212529] px-4 py-2 rounded-lg text-sm font-semibold hover:bg-[#F8F9FA] transition-colors focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-1"
                     >
                       <Search size={ICON_SIZES.sm} />
                       Browse properties
@@ -659,10 +651,10 @@ export default async function DashboardOverviewPage() {
           <div className="lg:col-span-2 space-y-6">
 
             {/* Recent Messages */}
-            <div className="bg-white rounded-xl border border-[#E9ECEF] overflow-hidden">
-              <div className="flex items-center justify-between px-5 py-4 border-b border-[#F1F3F5]">
-                <h2 className="text-sm font-semibold text-black">Recent Messages</h2>
-                <OpenChatButton className="text-xs text-[#495057] hover:text-black font-medium flex items-center gap-1 transition-colors">
+            <div className="bg-white rounded-lg border border-[#E9ECEF] overflow-hidden">
+              <div className="flex items-center justify-between px-5 py-4 border-b border-[#E9ECEF]">
+                <h2 className="text-sm font-semibold text-[#212529]">Recent Messages</h2>
+                <OpenChatButton className="text-xs text-[#495057] hover:text-[#212529] font-medium flex items-center gap-1 transition-colors focus:outline-none focus:ring-2 focus:ring-[#212529] focus:ring-offset-1 rounded">
                   All <ChevronRight size={ICON_SIZES.xs} />
                 </OpenChatButton>
               </div>
@@ -675,7 +667,7 @@ export default async function DashboardOverviewPage() {
                       <OpenChatConversation
                         key={convo.id}
                         conversationId={convo.id}
-                        className="flex items-center gap-3 px-5 py-3.5 hover:bg-[#F8F9FA] transition-colors group w-full text-left"
+                        className="flex items-center gap-3 px-5 py-3.5 hover:bg-[#F8F9FA] transition-colors group w-full text-left focus:outline-none focus:ring-2 focus:ring-[#212529] focus:ring-inset"
                       >
                         <div className="w-9 h-9 rounded-full bg-[#F8F9FA] flex items-center justify-center flex-shrink-0 text-xs font-bold text-[#495057]">
                           {otherPerson?.avatar_url ? (
@@ -714,9 +706,9 @@ export default async function DashboardOverviewPage() {
             </div>
 
             {/* Quick Links */}
-            <div className="bg-white rounded-xl border border-[#E9ECEF] overflow-hidden">
-              <div className="px-5 py-4 border-b border-[#F1F3F5]">
-                <h2 className="text-sm font-semibold text-black">Quick Links</h2>
+            <div className="bg-white rounded-lg border border-[#E9ECEF] overflow-hidden">
+              <div className="px-5 py-4 border-b border-[#E9ECEF]">
+                <h2 className="text-sm font-semibold text-[#212529]">Quick Links</h2>
               </div>
               <div className="p-2">
                 {(isLandlord ? [
@@ -733,9 +725,9 @@ export default async function DashboardOverviewPage() {
                   <Link
                     key={href}
                     href={href}
-                    className="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-[#F8F9FA] transition-colors group"
+                    className="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-[#F8F9FA] transition-colors group focus:outline-none focus:ring-2 focus:ring-[#212529] focus:ring-offset-1"
                   >
-                    <div className="w-8 h-8 bg-[#F8F9FA] rounded-lg flex items-center justify-center group-hover:bg-black transition-colors flex-shrink-0">
+                    <div className="w-8 h-8 bg-[#F8F9FA] rounded-lg flex items-center justify-center group-hover:bg-[#212529] transition-colors flex-shrink-0">
                       <Icon size={ICON_SIZES.sm} className="text-[#495057] group-hover:text-white transition-colors" />
                     </div>
                     <div className="flex-1 min-w-0">
@@ -750,7 +742,7 @@ export default async function DashboardOverviewPage() {
 
             {/* Landlord: Performance Snapshot */}
             {isLandlord && (propertyCount || 0) > 0 && (
-              <div className="bg-[#212529] rounded-xl p-5 text-white">
+              <div className="bg-[#212529] rounded-lg p-5 text-white">
                 <div className="flex items-center gap-2 mb-4">
                   <BarChart3 size={ICON_SIZES.md} className="text-white/60" />
                   <h3 className="text-sm font-semibold">Performance</h3>
