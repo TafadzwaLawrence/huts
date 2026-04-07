@@ -63,7 +63,6 @@ export default function SearchPage() {
   const router = useRouter()
   const pathname = usePathname()
 
-  // View mode: split (desktop default), list, map
   const [viewMode, setViewMode] = useState<'split' | 'list' | 'map'>('split')
   const [listingType, setListingType] = useState<'all' | 'rent' | 'sale'>(
     (searchParams.get('type') as 'all' | 'rent' | 'sale') || 'all'
@@ -95,7 +94,6 @@ export default function SearchPage() {
   const abortRef = useRef<AbortController | null>(null)
   const listingsPanelRef = useRef<HTMLDivElement>(null)
   
-  // Save search states
   const [saveModalOpen, setSaveModalOpen] = useState(false)
   const [searchName, setSearchName] = useState('')
   const [savingSearch, setSavingSearch] = useState(false)
@@ -103,7 +101,6 @@ export default function SearchPage() {
 
   const debouncedBounds = useDebounce(mapBounds, 400)
 
-  // Save search handler
   const handleSaveSearch = async () => {
     if (!searchName.trim()) return
     
@@ -147,7 +144,6 @@ export default function SearchPage() {
     }
   }
 
-  // Build query params for API
   const buildSearchParams = useCallback(() => {
     const params = new URLSearchParams()
     const q = searchParams.get('q')
@@ -171,7 +167,6 @@ export default function SearchPage() {
       params.set('east', String(debouncedBounds.east))
       params.set('west', String(debouncedBounds.west))
     }
-    // Also pass city/neighborhood from URL
     const city = searchParams.get('city')
     const neighborhood = searchParams.get('neighborhood')
     if (city) params.set('city', city)
@@ -179,7 +174,6 @@ export default function SearchPage() {
     return params
   }, [searchParams, listingType, filters, sort, page, searchMoveMap, debouncedBounds])
 
-  // Fetch from server-side search API
   const fetchProperties = useCallback(async () => {
     abortRef.current?.abort()
     const controller = new AbortController()
@@ -203,7 +197,6 @@ export default function SearchPage() {
     }
   }, [buildSearchParams])
 
-  // Fetch schools when enabled and bounds change
   const fetchSchools = useCallback(async () => {
     if (!filters.showSchools || !debouncedBounds) {
       setSchools([])
@@ -230,7 +223,6 @@ export default function SearchPage() {
     }
   }, [filters.showSchools, filters.schoolLevels, debouncedBounds, searchParams])
 
-  // Fetch healthcare facilities within map bounds (always shown)
   const fetchHealthcare = useCallback(async () => {
     if (!debouncedBounds) {
       setHealthcareFacilities([])
@@ -254,22 +246,18 @@ export default function SearchPage() {
     }
   }, [debouncedBounds])
 
-  // Fetch on filter/sort/page change
   useEffect(() => {
     fetchProperties()
   }, [fetchProperties])
 
-  // Fetch schools when enabled or bounds change
   useEffect(() => {
     fetchSchools()
   }, [fetchSchools])
 
-  // Fetch healthcare facilities when bounds change
   useEffect(() => {
     fetchHealthcare()
   }, [fetchHealthcare])
 
-  // Sync state to URL
   useEffect(() => {
     if (isInitialMount.current) {
       isInitialMount.current = false
@@ -297,17 +285,14 @@ export default function SearchPage() {
     router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false })
   }, [listingType, filters, sort, pathname, router, searchParams])
 
-  // Reset page on filter change
   useEffect(() => {
     setPage(1)
   }, [listingType, filters, sort, debouncedBounds])
 
-  // Scroll listings panel to top on page change
   useEffect(() => {
     listingsPanelRef.current?.scrollTo({ top: 0, behavior: 'smooth' })
   }, [page])
 
-  // Sync listing type from URL
   useEffect(() => {
     const typeParam = searchParams.get('type') as 'all' | 'rent' | 'sale' | null
     if (typeParam && typeParam !== listingType) setListingType(typeParam)
@@ -344,7 +329,6 @@ export default function SearchPage() {
     (p): p is Property & { lat: number; lng: number } => p.lat !== null && p.lng !== null
   )
 
-  // Responsive: detect mobile
   const [isMobile, setIsMobile] = useState(false)
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth < 768)
@@ -383,10 +367,9 @@ export default function SearchPage() {
             />
           </div>
 
-          {/* Save Search */}
           <button 
             onClick={() => setSaveModalOpen(true)}
-            className="hidden md:inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold text-[#212529] border border-[#E9ECEF] rounded-lg hover:border-[#212529] transition-colors whitespace-nowrap"
+            className="hidden md:inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold text-[#212529] border border-[#E9ECEF] rounded-lg hover:border-[#212529] transition-colors focus:outline-none focus:ring-2 focus:ring-[#212529] focus:ring-offset-1 whitespace-nowrap"
           >
             <Bell size={14} />
             Save search
@@ -396,14 +379,18 @@ export default function SearchPage() {
           <div className="flex-shrink-0 flex items-center gap-0.5 border-l border-[#E9ECEF] pl-2 ml-1">
             <button
               onClick={() => setViewMode('list')}
-              className={`p-1.5 rounded-md transition-all ${effectiveView === 'list' ? 'bg-[#212529] text-white' : 'text-[#495057] hover:bg-[#F8F9FA]'}`}
+              className={`p-1.5 rounded-md transition-all focus:outline-none focus:ring-2 focus:ring-[#212529] focus:ring-offset-1 ${
+                effectiveView === 'list' ? 'bg-[#212529] text-white' : 'text-[#495057] hover:bg-[#F8F9FA]'
+              }`}
               aria-label="List view"
             >
               <List size={16} />
             </button>
             <button
               onClick={() => setViewMode('split')}
-              className={`hidden md:block p-1.5 rounded-md transition-all ${effectiveView === 'split' ? 'bg-[#212529] text-white' : 'text-[#495057] hover:bg-[#F8F9FA]'}`}
+              className={`hidden md:block p-1.5 rounded-md transition-all focus:outline-none focus:ring-2 focus:ring-[#212529] focus:ring-offset-1 ${
+                effectiveView === 'split' ? 'bg-[#212529] text-white' : 'text-[#495057] hover:bg-[#F8F9FA]'
+              }`}
               aria-label="Split view"
             >
               <div className="flex gap-0.5">
@@ -413,7 +400,9 @@ export default function SearchPage() {
             </button>
             <button
               onClick={() => setViewMode('map')}
-              className={`p-1.5 rounded-md transition-all ${effectiveView === 'map' ? 'bg-[#212529] text-white' : 'text-[#495057] hover:bg-[#F8F9FA]'}`}
+              className={`p-1.5 rounded-md transition-all focus:outline-none focus:ring-2 focus:ring-[#212529] focus:ring-offset-1 ${
+                effectiveView === 'map' ? 'bg-[#212529] text-white' : 'text-[#495057] hover:bg-[#F8F9FA]'
+              }`}
               aria-label="Map view"
             >
               <MapIcon size={16} />
@@ -424,7 +413,7 @@ export default function SearchPage() {
 
       {/* Main Content */}
       <div className={`flex-1 ${isMobile ? 'flex flex-col' : 'flex'} overflow-hidden`}>
-        {/* Map Panel - On mobile: stacked on top (height adjusts by view mode), On desktop: Zillow style on left */}
+        {/* Map Panel */}
         {(isMobile || effectiveView === 'split' || effectiveView === 'map') && (
           <div className={`${
             isMobile 
@@ -464,7 +453,7 @@ export default function SearchPage() {
           </div>
         )}
 
-        {/* Listings Panel - On mobile: stacked below map, On desktop: Zillow style on right */}
+        {/* Listings Panel */}
         {(isMobile || effectiveView !== 'map') && (
           <div ref={listingsPanelRef} className={`overflow-y-auto bg-white ${
             isMobile 
@@ -507,7 +496,7 @@ export default function SearchPage() {
                 <div className={`grid gap-4 ${effectiveView === 'split' ? 'grid-cols-1 lg:grid-cols-2' : 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'}`}>
                   {Array.from({ length: 6 }).map((_, i) => (
                     <div key={i} className="animate-pulse">
-                      <div className="bg-[#E9ECEF] rounded-xl h-44" />
+                      <div className="bg-[#E9ECEF] rounded-lg h-44" />
                       <div className="p-3 space-y-2">
                         <div className="h-5 w-24 bg-[#E9ECEF] rounded" />
                         <div className="h-3 w-32 bg-[#F8F9FA] rounded" />
@@ -519,13 +508,13 @@ export default function SearchPage() {
               </div>
             ) : properties.length === 0 ? (
               <div className="flex flex-col items-center justify-center py-16 px-6 text-center">
-                <div className="w-14 h-14 bg-[#F8F9FA] rounded-2xl flex items-center justify-center mb-5">
+                <div className="w-14 h-14 bg-[#F8F9FA] rounded-lg flex items-center justify-center mb-5">
                   <Search size={24} className="text-[#ADB5BD]" />
                 </div>
                 <p className="text-xl font-bold text-[#212529] mb-2">No matching results</p>
                 <p className="text-sm text-[#495057] mb-8 max-w-sm">We couldn&apos;t find properties matching your criteria. Try changing your search.</p>
                 
-                <div className="bg-[#F8F9FA] rounded-xl p-6 max-w-md w-full text-left">
+                <div className="bg-[#F8F9FA] rounded-lg p-6 max-w-md w-full text-left">
                   <div className="flex items-center gap-2 mb-4">
                     <Lightbulb size={16} className="text-[#495057]" />
                     <h3 className="text-sm font-bold text-[#212529] uppercase tracking-wide">Search Tips</h3>
@@ -548,7 +537,7 @@ export default function SearchPage() {
 
                 <button
                   onClick={() => setSaveModalOpen(true)}
-                  className="mt-6 inline-flex items-center gap-1.5 px-4 py-2 text-sm font-semibold text-[#212529] border border-[#E9ECEF] rounded-lg hover:border-[#212529] transition-colors"
+                  className="mt-6 inline-flex items-center gap-1.5 px-4 py-2 text-sm font-semibold text-[#212529] border border-[#E9ECEF] rounded-lg hover:border-[#212529] transition-colors focus:outline-none focus:ring-2 focus:ring-[#212529] focus:ring-offset-1"
                 >
                   <Bell size={14} />
                   Save this search to get alerts
@@ -562,20 +551,20 @@ export default function SearchPage() {
                       key={property.id}
                       onMouseEnter={() => setSelectedProperty(property.id)}
                       onMouseLeave={() => setSelectedProperty(null)}
-                      className={`transition-shadow duration-150 rounded-xl ${selectedProperty === property.id ? 'ring-2 ring-[#212529]' : ''}`}
+                      className={`transition-shadow duration-150 rounded-lg ${selectedProperty === property.id ? 'ring-2 ring-[#212529]' : ''}`}
                     >
                       <PropertyCard property={property as any} compact={effectiveView === 'split'} />
                     </div>
                   ))}
                 </div>
 
-                {/* Pagination — Zillow style numbered pages */}
+                {/* Pagination */}
                 {totalPages > 1 && (
                   <nav className="flex items-center justify-center gap-1 mt-8 pb-4" aria-label="Pagination">
                     <button
                       onClick={() => setPage((p) => Math.max(1, p - 1))}
                       disabled={page === 1}
-                      className="p-2 rounded-lg border border-[#E9ECEF] disabled:opacity-30 hover:border-[#212529] transition-all"
+                      className="p-2 rounded-lg border border-[#E9ECEF] disabled:opacity-30 hover:border-[#212529] transition-all focus:outline-none focus:ring-2 focus:ring-[#212529] focus:ring-offset-1"
                       aria-label="Previous page"
                     >
                       <ChevronLeft size={16} />
@@ -595,7 +584,7 @@ export default function SearchPage() {
                         <button
                           key={pageNum}
                           onClick={() => setPage(pageNum)}
-                          className={`min-w-[36px] h-9 text-sm font-medium rounded-lg transition-all ${
+                          className={`min-w-[36px] h-9 text-sm font-medium rounded-lg transition-all focus:outline-none focus:ring-2 focus:ring-[#212529] focus:ring-offset-1 ${
                             page === pageNum
                               ? 'bg-[#212529] text-white'
                               : 'text-[#495057] hover:bg-[#F8F9FA]'
@@ -608,7 +597,7 @@ export default function SearchPage() {
                     <button
                       onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
                       disabled={page === totalPages}
-                      className="p-2 rounded-lg border border-[#E9ECEF] disabled:opacity-30 hover:border-[#212529] transition-all"
+                      className="p-2 rounded-lg border border-[#E9ECEF] disabled:opacity-30 hover:border-[#212529] transition-all focus:outline-none focus:ring-2 focus:ring-[#212529] focus:ring-offset-1"
                       aria-label="Next page"
                     >
                       <ChevronRight size={16} />
@@ -624,16 +613,12 @@ export default function SearchPage() {
       {/* Save Search Modal */}
       {saveModalOpen && (
         <>
-          {/* Backdrop */}
           <div 
             className="fixed inset-0 bg-black/50 z-[10000] animate-in fade-in duration-200"
             onClick={() => !savingSearch && setSaveModalOpen(false)}
           />
-          
-          {/* Modal */}
           <div className="fixed inset-0 z-[10001] flex items-center justify-center p-4">
-            <div className="bg-white rounded-xl shadow-2xl max-w-md w-full animate-in zoom-in-95 duration-200">
-              {/* Header */}
+            <div className="bg-white rounded-lg shadow-2xl max-w-md w-full animate-in zoom-in-95 duration-200">
               <div className="flex items-center justify-between p-4 border-b border-[#E9ECEF]">
                 <h2 className="text-lg font-semibold text-[#212529]">
                   {saveSuccess ? 'Search Saved!' : 'Save Search'}
@@ -641,14 +626,13 @@ export default function SearchPage() {
                 {!savingSearch && !saveSuccess && (
                   <button
                     onClick={() => setSaveModalOpen(false)}
-                    className="p-1 hover:bg-[#F8F9FA] rounded-md transition-colors"
+                    className="p-1 hover:bg-[#F8F9FA] rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-[#212529] focus:ring-offset-1"
                   >
                     <X size={18} className="text-[#495057]" />
                   </button>
                 )}
               </div>
 
-              {/* Body */}
               <div className="p-4">
                 {saveSuccess ? (
                   <div className="flex flex-col items-center justify-center py-6">
@@ -672,7 +656,7 @@ export default function SearchPage() {
                         onChange={(e) => setSearchName(e.target.value)}
                         placeholder="e.g., 2 Bed Apartments in Harare"
                         maxLength={50}
-                        className="text-[#212529] bg-white w-full px-3 py-2.5 text-sm border border-[#E9ECEF] rounded-lg focus:border-[#212529] focus:ring-1 focus:ring-[#212529] outline-none transition-all"
+                        className="w-full px-3 py-2.5 text-sm border border-[#E9ECEF] rounded-lg text-[#212529] placeholder:text-[#ADB5BD] focus:border-[#212529] focus:ring-1 focus:ring-[#212529] outline-none transition-all"
                         disabled={savingSearch}
                         onKeyDown={(e) => e.key === 'Enter' && handleSaveSearch()}
                         autoFocus
@@ -722,20 +706,19 @@ export default function SearchPage() {
                 )}
               </div>
 
-              {/* Footer */}
               {!saveSuccess && (
                 <div className="flex gap-2 p-4 border-t border-[#E9ECEF]">
                   <button
                     onClick={() => setSaveModalOpen(false)}
                     disabled={savingSearch}
-                    className="flex-1 py-2.5 text-sm font-medium text-[#495057] border border-[#E9ECEF] rounded-lg hover:bg-[#F8F9FA] transition-colors disabled:opacity-50"
+                    className="flex-1 py-2.5 text-sm font-medium text-[#495057] border border-[#E9ECEF] rounded-lg hover:bg-[#F8F9FA] transition-colors disabled:opacity-50 focus:outline-none focus:ring-2 focus:ring-[#212529] focus:ring-offset-1"
                   >
                     Cancel
                   </button>
                   <button
                     onClick={handleSaveSearch}
                     disabled={!searchName.trim() || savingSearch}
-                    className="flex-1 py-2.5 text-sm font-semibold text-white bg-[#212529] rounded-lg hover:bg-black transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                    className="flex-1 py-2.5 text-sm font-semibold text-white bg-[#212529] rounded-lg hover:bg-black transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 focus:outline-none focus:ring-2 focus:ring-[#212529] focus:ring-offset-1"
                   >
                     {savingSearch ? (
                       <>
