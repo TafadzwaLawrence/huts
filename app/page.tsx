@@ -29,16 +29,27 @@ export default async function HomePage() {
 
   let profile: { name: string | null; role: string | null; avatar_url: string | null } | null = null
   if (user) {
-    const { data } = await supabase
+    const { data, error } = await supabase
       .from('profiles')
       .select('name, role, avatar_url')
       .eq('id', user.id)
       .single()
-    profile = data
+    
+    if (error) {
+      console.error('Error fetching profile:', error)
+    } else {
+      profile = data
+    }
   }
 
   const isLandlord = profile?.role === 'landlord'
   const firstName = profile?.name?.split(' ')[0] ?? 'there'
+
+  // Debug logging
+  console.log('User:', user ? 'logged in' : 'not logged in')
+  console.log('Profile:', profile ? 'exists' : 'null')
+  console.log('Profile role:', profile?.role)
+  console.log('isLandlord:', isLandlord)
 
   // Fetch featured properties
   let transformedProperties: any[] = []
