@@ -237,7 +237,7 @@ export default async function FindAgentPage({ searchParams }: { searchParams: Se
       {/* Results */}
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Count + sort row */}
-        <div className="flex items-center justify-between mb-6 gap-4">
+        <div className="flex items-center justify-between mb-6 gap-4 flex-wrap">
           <p className="text-sm text-[#495057]">
             <span className="font-semibold text-[#212529]">{agents.length === PAGE_SIZE ? `${PAGE_SIZE}+` : agents.length}</span> professional{agents.length !== 1 ? 's' : ''}
             {activeFilters.length > 0 && (
@@ -330,7 +330,7 @@ export default async function FindAgentPage({ searchParams }: { searchParams: Se
             })}
           </div>
         ) : (
-          <div className="border border-dashed border-[#E9ECEF] rounded-lg p-12 text-center bg-white">
+          <div className="border border-dashed border-[#E9ECEF] rounded-lg p-12 text-center bg-white shadow-sm">
             <Search size={28} className="mx-auto text-[#ADB5BD] mb-4" />
             <h3 className="text-base font-semibold text-[#212529] mb-2">No professionals found</h3>
             <p className="text-sm text-[#495057] mb-6">Try adjusting your filters or clearing the search.</p>
