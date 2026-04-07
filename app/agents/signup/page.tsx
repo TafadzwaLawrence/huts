@@ -244,7 +244,7 @@ function AgentSignupInner() {
   // Landing page (before form)
   if (!showForm) {
     return (
-      <div className="min-h-screen bg-white">
+      <div className="bg-white">
         {/* Hero Section - refined */}
         <section className="relative bg-[#212529] overflow-hidden">
           <div className="absolute inset-0">
@@ -345,10 +345,10 @@ function AgentSignupInner() {
     )
   }
 
-  if (!authChecked) return <div className="min-h-screen bg-[#F8F9FA] flex items-center justify-center"><Loader2 size={28} className="animate-spin text-[#ADB5BD]" /></div>
+  if (!authChecked) return <div className="bg-[#F8F9FA] flex items-center justify-center"><Loader2 size={28} className="animate-spin text-[#ADB5BD]" /></div>
 
   return (
-    <div className="min-h-screen flex">
+    <div className="flex">
       {/* Left Form Panel */}
       <div className="w-full lg:w-1/2 flex flex-col justify-center px-6 sm:px-12 lg:px-16 xl:px-24 py-12 bg-white">
         <div className="w-full max-w-[440px] mx-auto">
@@ -497,5 +497,5 @@ function AgentSignupInner() {
 }
 
 export default function AgentSignupPage() {
-  return <Suspense fallback={<div className="min-h-screen bg-[#F8F9FA] flex items-center justify-center"><Loader2 size={28} className="animate-spin text-[#ADB5BD]" /></div>}><AgentSignupInner /></Suspense>
+  return <Suspense fallback={<div className="bg-[#F8F9FA] flex items-center justify-center"><Loader2 size={28} className="animate-spin text-[#ADB5BD]" /></div>}><AgentSignupInner /></Suspense>
 }
