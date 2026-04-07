@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { MapPin, Heart, Home, Camera, Sofa, Users, Zap } from 'lucide-react'
+import { MapPin, Heart, Home, Camera, Users } from 'lucide-react'
 import { PropertyWithImages, isRentalProperty, isSaleProperty, isStudentProperty } from '@/types'
 import { formatPrice, formatNightlyPrice, formatSalePrice } from '@/lib/utils'
 import { ICON_SIZES } from '@/lib/constants'
@@ -20,7 +20,6 @@ export function PropertyCard({ property, compact = false }: PropertyCardProps) {
     ...images.filter((img: any) => img.is_primary),
     ...images.filter((img: any) => !img.is_primary),
   ].map((img: any) => ({
-    // Support both legacy and current payload shapes.
     url: img.url || img.image_url,
     is_primary: img.is_primary,
     alt_text: property.title,
@@ -41,7 +40,7 @@ export function PropertyCard({ property, compact = false }: PropertyCardProps) {
     : null
 
   const listingLabel = isSaleProperty(property)
-    ? 'House for sale'
+    ? 'For sale'
     : isRentalProperty(property)
     ? 'For rent'
     : null
@@ -53,89 +52,90 @@ export function PropertyCard({ property, compact = false }: PropertyCardProps) {
       prefetch={true}
       onClick={() => setIsNavigating(true)}
     >
-      {/* Loading overlay */}
+      {/* Loading overlay - matches the minimalist design */}
       {isNavigating && (
-        <div className="absolute inset-0 bg-white/60 backdrop-blur-[2px] z-50 flex items-center justify-center rounded-xl">
-          <div className="flex flex-col items-center gap-2">
-            <div className="w-8 h-8 border-3 border-[#212529] border-t-transparent rounded-full animate-spin" />
-            <span className="text-xs font-medium text-[#212529]">Loading...</span>
+        <div className="absolute inset-0 bg-white/80 backdrop-blur-[1px] z-50 flex items-center justify-center rounded-lg">
+          <div className="flex flex-col items-center gap-1.5">
+            <div className="w-6 h-6 border-2 border-[#212529] border-t-transparent rounded-full animate-spin" />
+            <span className="text-[10px] font-medium text-[#495057]">Loading...</span>
           </div>
         </div>
       )}
       
-      <article className="property-card">
-        {/* Image */}
-        <div className={`property-card-image ${compact ? 'h-40' : ''}`}>
+      <article className="bg-white rounded-lg border border-[#E9ECEF] overflow-hidden shadow-sm transition-all duration-300 hover:shadow-md hover:border-[#212529]/20">
+        {/* Image Container */}
+        <div className={`relative ${compact ? 'h-44' : 'h-56'} overflow-hidden bg-[#F8F9FA]`}>
           {sortedImages.length > 0 ? (
             <ImageCarousel images={sortedImages} title={property.title} />
           ) : (
-            <div className="w-full h-full bg-[#F8F9FA] flex items-center justify-center">
+            <div className="w-full h-full flex items-center justify-center">
               <Home className="text-[#ADB5BD]" size={ICON_SIZES['3xl']} />
             </div>
           )}
 
-          {/* Student Housing Badges */}
+          {/* Student Housing Badge */}
           {isStudentProperty(property) && (
-            <div className="absolute top-3 left-3 flex flex-wrap gap-1.5 max-w-[140px]">
-              <div className="bg-[#212529]/90 backdrop-blur-sm text-white px-2 py-1 rounded text-xs font-semibold flex items-center gap-1 shadow-md" title="Student Housing">
-                <Users size={ICON_SIZES.xs} /> Student
+            <div className="absolute top-3 left-3 z-10">
+              <div className="bg-[#212529]/90 backdrop-blur-sm text-white px-2 py-1 rounded-md text-[10px] font-semibold flex items-center gap-1 shadow-sm">
+                <Users size={12} />
+                Student
               </div>
             </div>
           )}
 
           {/* Image Count Badge */}
           {images.length > 1 && (
-            <div className="absolute bottom-3 left-3 bg-black/70 backdrop-blur-sm text-white px-2 py-1 rounded-md text-xs font-medium flex items-center gap-1 z-10">
-              <Camera size={ICON_SIZES.xs} />
+            <div className="absolute bottom-3 left-3 bg-black/60 backdrop-blur-sm text-white px-2 py-1 rounded-md text-[10px] font-medium flex items-center gap-1 z-10 shadow-sm">
+              <Camera size={10} />
               {images.length}
             </div>
           )}
 
-          {/* Save Button */}
+          {/* Save Button - improved styling */}
           <button
             onClick={(e) => {
               e.preventDefault()
               e.stopPropagation()
             }}
-            className="absolute top-3 right-3 p-2 bg-white/95 backdrop-blur-sm rounded-full hover:bg-white hover:scale-110 transition-all duration-200 shadow-md hover:shadow-lg min-w-[36px] min-h-[36px] flex items-center justify-center group/save z-10"
+            className="absolute top-3 right-3 p-2 bg-white/90 backdrop-blur-sm rounded-full hover:bg-white hover:scale-105 transition-all duration-200 shadow-sm hover:shadow-md z-10 focus:outline-none focus:ring-2 focus:ring-[#212529] focus:ring-offset-1"
             aria-label="Save property"
           >
-            <Heart size={ICON_SIZES.md} className="text-[#212529] group-hover/save:fill-[#FF6B6B] group-hover/save:text-[#FF6B6B] transition-colors" />
+            <Heart size={16} className="text-[#212529] group-hover/save:fill-[#FF6B6B] group-hover/save:text-[#FF6B6B] transition-colors" />
           </button>
         </div>
 
         {/* Content */}
-        <div className={compact ? 'px-3 py-2.5' : 'px-4 py-3'}>
-          {/* Price — biggest element (Zillow style) */}
+        <div className={compact ? 'p-3' : 'p-4'}>
+          {/* Price - bold and prominent */}
           {priceDisplay && (
-            <div className="text-lg font-bold text-[#212529] tracking-tight leading-tight mb-0.5">
+            <div className="text-xl font-bold text-[#212529] tracking-tight leading-tight mb-1">
               {priceDisplay}
             </div>
           )}
 
           {/* Beds / Baths / Sqft inline */}
-          <div className="flex items-center gap-1 text-sm text-[#495057] mb-1">
-            <span><strong className="text-[#212529]">{property.bedrooms}</strong> bd</span>
-            <span className="text-[#ADB5BD]">|</span>
-            <span><strong className="text-[#212529]">{property.bathrooms}</strong> ba</span>
+          <div className="flex flex-wrap items-center gap-x-1 text-sm text-[#495057] mb-1.5">
+            <span><span className="font-semibold text-[#212529]">{property.bedrooms}</span> bd</span>
+            <span className="text-[#ADB5BD]">·</span>
+            <span><span className="font-semibold text-[#212529]">{property.bathrooms}</span> ba</span>
             {property.square_feet && property.square_feet > 0 && (
               <>
-                <span className="text-[#ADB5BD]">|</span>
-                <span><strong className="text-[#212529]">{property.square_feet.toLocaleString()}</strong> sqft</span>
+                <span className="text-[#ADB5BD]">·</span>
+                <span><span className="font-semibold text-[#212529]">{property.square_feet.toLocaleString()}</span> sqft</span>
               </>
             )}
             {listingLabel && (
               <>
-                <span className="text-[#ADB5BD] mx-0.5">-</span>
-                <span className="text-[#495057]">{listingLabel}</span>
+                <span className="text-[#ADB5BD]">·</span>
+                <span className="text-[#495057] text-xs">{listingLabel}</span>
               </>
             )}
           </div>
 
           {/* Address */}
-          <div className="flex items-center text-sm text-[#495057]">
-            <MapPin size={12} className="mr-1 flex-shrink-0 text-[#ADB5BD]" />
-            <span className="line-clamp-1">
+          <div className="flex items-start gap-1 text-sm text-[#6C757D]">
+            <MapPin size={12} className="mt-0.5 flex-shrink-0 text-[#ADB5BD]" />
+            <span className="line-clamp-1 text-sm">
               {property.title}, {property.area ? `${property.area}, ` : ''}{property.city}
             </span>
           </div>
