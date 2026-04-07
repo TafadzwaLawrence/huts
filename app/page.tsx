@@ -21,7 +21,6 @@ export const metadata: Metadata = {
   },
 }
 
-// ISR - Revalidate every 60 seconds for fresh data while caching for speed
 export const revalidate = 60
 
 export default async function HomePage() {
@@ -41,24 +40,12 @@ export default async function HomePage() {
   const isLandlord = profile?.role === 'landlord'
   const firstName = profile?.name?.split(' ')[0] ?? 'there'
 
-  // Fetch featured properties for the carousel
+  // Fetch featured properties
   let transformedProperties: any[] = []
   let fetchError: string | null = null
   
   try {
-    // First, fetch the properties
-    console.log('[DEBUG] Starting property fetch...')
-    console.log('[DEBUG] Supabase URL:', process.env.NEXT_PUBLIC_SUPABASE_URL?.slice(0, 20) + '...')
-    
-    // Test basic connectivity first
-    const { data: testData, error: testError } = await supabase
-      .from('properties')
-      .select('count')
-      .limit(1)
-    console.log('[DEBUG] Basic connectivity test:', { testData, testError: testError?.message })
-    
-    // Now fetch with the filter
-    const { data: featuredProperties, error: propertiesError, count } = await supabase
+    const { data: featuredProperties, error: propertiesError } = await supabase
       .from('properties')
       .select(`
         id,
@@ -77,64 +64,37 @@ export default async function HomePage() {
         status,
         verification_status,
         created_at
-      `, { count: 'exact' })
+      `)
       .eq('verification_status', 'approved')
       .order('created_at', { ascending: false })
       .limit(20)
-
-    console.log('[DEBUG] Properties fetch result:', { 
-      count, 
-      dataLength: featuredProperties?.length || 0,
-      error: propertiesError?.message || null,
-      firstFew: featuredProperties?.slice(0, 2) || []
-    })
 
     if (propertiesError) {
       console.error('Error fetching featured properties:', propertiesError)
       fetchError = propertiesError.message
     } else if (featuredProperties && featuredProperties.length > 0) {
-      // Get all property IDs
       const propertyIds = featuredProperties.map(p => p.id)
-      console.log('[DEBUG] Property IDs to fetch images for:', propertyIds)
       
-      // Fetch images for these properties in a separate query
       const { data: allImages, error: imagesError } = await supabase
         .from('property_images')
         .select('property_id, url, is_primary')
         .in('property_id', propertyIds)
         .order('is_primary', { ascending: false })
       
-      console.log('[DEBUG] Images fetch result:', {
-        imagesCount: allImages?.length || 0,
-        error: imagesError?.message || null
-      })
+      if (imagesError) console.error('Error fetching property images:', imagesError)
       
-      if (imagesError) {
-        console.error('Error fetching property images:', imagesError)
-      }
-      
-      // Create a map of property_id -> images
       const imagesByProperty: Record<string, any[]> = {}
       if (allImages) {
         for (const img of allImages) {
-          if (!imagesByProperty[img.property_id]) {
-            imagesByProperty[img.property_id] = []
-          }
+          if (!imagesByProperty[img.property_id]) imagesByProperty[img.property_id] = []
           imagesByProperty[img.property_id].push(img)
         }
       }
       
-      console.log('[DEBUG] Images by property map:', Object.keys(imagesByProperty).length, 'properties have images')
-      
-      // Transform the data
       transformedProperties = featuredProperties
         .map(property => {
           const propertyImages = imagesByProperty[property.id] || []
-          const primaryImage = propertyImages.find(img => img.is_primary)?.url || 
-                              propertyImages[0]?.url || ''
-          
-          console.log(`[DEBUG] Property ${property.id}: has ${propertyImages.length} images, primary: ${primaryImage ? 'yes' : 'no'}`)
-          
+          const primaryImage = propertyImages.find(img => img.is_primary)?.url || propertyImages[0]?.url || ''
           return {
             id: property.id,
             slug: property.slug,
@@ -152,11 +112,7 @@ export default async function HomePage() {
             primary_image: primaryImage,
           }
         })
-        .filter(p => p.primary_image) // Only include properties with images
-      
-      console.log('[DEBUG] Final transformed properties count:', transformedProperties.length)
-    } else {
-      console.log('[DEBUG] No featured properties found (empty array)')
+        .filter(p => p.primary_image)
     }
   } catch (err) {
     console.error('Exception fetching featured properties:', err)
@@ -167,7 +123,6 @@ export default async function HomePage() {
     <div>
       {/* HERO SECTION */}
       <section className="relative overflow-hidden">
-        {/* Background Image (Gustavo Fring) */}
         <div className="absolute inset-0 z-0">
           <Image
             src="/pexels-rdne-8293778.jpg"
@@ -177,12 +132,10 @@ export default async function HomePage() {
             priority
             sizes="100vw"
           />
-          {/* Scrim overlay for text contrast */}
-          <div className="absolute inset-0 bg-black/30 z-[1]" />
+          <div className="absolute inset-0 bg-black/40 z-[1]" />
         </div>
-        <div className="container-main relative z-10 py-20 md:py-32 lg:py-40">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-32 lg:py-40">
           <div className="max-w-4xl mx-auto text-center">
-            {/* Headline */}
             <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold text-white tracking-tight mb-6">
               Find your
               <span className="relative mx-3">
@@ -196,16 +149,15 @@ export default async function HomePage() {
             <p className="text-lg md:text-xl text-white/80 mb-10">
               The simplest way to discover rental properties or homes for sale.
             </p>
-            {/* Search Bar */}
             <HomeSearchBar />
           </div>
         </div>
       </section>
 
-      {/* GET HOME RECOMMENDATIONS / WELCOME BANNER */}
+      {/* WELCOME BANNER */}
       <section className="py-8 bg-white border-t border-[#E9ECEF]">
-        <div className="container-main">
-          <div className="max-w-2xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 bg-[#F8F9FA] rounded-xl px-6 py-5 border border-[#E9ECEF]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-2xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 bg-[#F8F9FA] rounded-lg border border-[#E9ECEF] px-6 py-5">
             {user && profile ? (
               <>
                 <div className="flex items-center gap-4">
@@ -235,7 +187,7 @@ export default async function HomePage() {
                 </div>
                 <Link
                   href={isLandlord ? '/dashboard/my-properties' : '/search'}
-                  className="text-sm font-semibold text-[#212529] border-2 border-[#212529] px-5 py-2 rounded-lg hover:bg-[#212529] hover:text-white transition-colors whitespace-nowrap"
+                  className="text-sm font-semibold text-[#212529] border border-[#212529] px-5 py-2 rounded-lg hover:bg-[#212529] hover:text-white transition-colors whitespace-nowrap"
                 >
                   {isLandlord ? 'My properties' : 'Browse homes'}
                 </Link>
@@ -247,13 +199,13 @@ export default async function HomePage() {
                     <User size={ICON_SIZES.lg} className="text-white" />
                   </div>
                   <div>
-                    <h2 className="text-sm font-bold text-black">Get home recommendations</h2>
-                    <p className="text-xs text-black">Sign in for a more personalized experience.</p>
+                    <h2 className="text-sm font-bold text-[#212529]">Get home recommendations</h2>
+                    <p className="text-xs text-[#495057]">Sign in for a more personalized experience.</p>
                   </div>
                 </div>
                 <Link
                   href="/auth/signup"
-                  className="text-sm font-semibold text-[#212529] border-2 border-[#212529] px-5 py-2 rounded-lg hover:bg-[#212529] hover:text-white transition-colors whitespace-nowrap"
+                  className="text-sm font-semibold text-[#212529] border border-[#212529] px-5 py-2 rounded-lg hover:bg-[#212529] hover:text-white transition-colors whitespace-nowrap"
                 >
                   Sign in
                 </Link>
@@ -263,21 +215,23 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* FEATURED PROPERTIES SHOWCASE */}
-      <FeaturedPropertiesShowcase properties={transformedProperties} />
+      {/* FEATURED PROPERTIES */}
+      {transformedProperties.length > 0 && (
+        <FeaturedPropertiesShowcase properties={transformedProperties} />
+      )}
 
-      {/* ACTION CARDS — Zillow style */}
+      {/* ACTION CARDS */}
       <section className="py-12 md:py-16 bg-white">
-        <div className="container-main">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
             {/* Buy a home */}
             <div className="group">
-              <div className="relative h-48 rounded-xl overflow-hidden mb-5 bg-[#E9ECEF]">
+              <div className="relative h-48 rounded-lg overflow-hidden mb-5 bg-[#F8F9FA] border border-[#E9ECEF]">
                 <Image
                   src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=600&h=400&fit=crop"
                   alt="Buy a home"
                   fill
-                  className="object-cover group-hover:scale-105 transition-all duration-500"
+                  className="object-cover group-hover:scale-105 transition-transform duration-500"
                   sizes="(max-width: 768px) 100vw, 33vw"
                 />
               </div>
@@ -287,7 +241,7 @@ export default async function HomePage() {
               </p>
               <Link
                 href="/search?type=sale"
-                className="inline-flex items-center gap-1.5 text-sm font-bold text-[#212529] hover:underline"
+                className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#212529] hover:underline"
               >
                 Browse homes
                 <ArrowRight size={ICON_SIZES.sm} />
@@ -296,12 +250,12 @@ export default async function HomePage() {
 
             {/* Rent a home */}
             <div className="group">
-              <div className="relative h-48 rounded-xl overflow-hidden mb-5 bg-[#E9ECEF]">
+              <div className="relative h-48 rounded-lg overflow-hidden mb-5 bg-[#F8F9FA] border border-[#E9ECEF]">
                 <Image
                   src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=600&h=400&fit=crop"
                   alt="Rent a home"
                   fill
-                  className="object-cover group-hover:scale-105 transition-all duration-500"
+                  className="object-cover group-hover:scale-105 transition-transform duration-500"
                   sizes="(max-width: 768px) 100vw, 33vw"
                 />
               </div>
@@ -311,21 +265,21 @@ export default async function HomePage() {
               </p>
               <Link
                 href="/search?type=rent"
-                className="inline-flex items-center gap-1.5 text-sm font-bold text-[#212529] hover:underline"
+                className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#212529] hover:underline"
               >
                 Find rentals
                 <ArrowRight size={ICON_SIZES.sm} />
               </Link>
             </div>
 
-            {/* Sell a home */}
+            {/* List a property */}
             <div className="group">
-              <div className="relative h-48 rounded-xl overflow-hidden mb-5 bg-[#E9ECEF]">
+              <div className="relative h-48 rounded-lg overflow-hidden mb-5 bg-[#F8F9FA] border border-[#E9ECEF]">
                 <Image
                   src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600&h=400&fit=crop"
                   alt="List a property"
                   fill
-                  className="object-cover group-hover:scale-105 transition-all duration-500"
+                  className="object-cover group-hover:scale-105 transition-transform duration-500"
                   sizes="(max-width: 768px) 100vw, 33vw"
                 />
               </div>
@@ -335,7 +289,7 @@ export default async function HomePage() {
               </p>
               <Link
                 href="/dashboard/new-property"
-                className="inline-flex items-center gap-1.5 text-sm font-bold text-[#212529] hover:underline"
+                className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#212529] hover:underline"
               >
                 See your options
                 <ArrowRight size={ICON_SIZES.sm} />
