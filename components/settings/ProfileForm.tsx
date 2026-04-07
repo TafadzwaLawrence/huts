@@ -2,10 +2,12 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { User, Briefcase, Home, Loader2, Check, Camera, Clock, Award, ExternalLink } from 'lucide-react';
+import { User, Briefcase, Home, Loader2, Check, Camera, Clock, Award, ExternalLink, X } from 'lucide-react';
 import { UploadButton } from '@/lib/uploadthing';
 import { toast } from 'sonner';
 import type { Profile } from '@/types';
+import Link from 'next/link';
+import Image from 'next/image';
 
 interface ProfileFormProps {
   profile: Profile;
@@ -29,7 +31,6 @@ export default function ProfileForm({ profile, userEmail, createdAt, isAgent = f
     role: profile.role as 'renter' | 'landlord' | 'agent',
   });
 
-  // Track changes
   useEffect(() => {
     const changed = 
       formData.name !== (profile.full_name || '') ||
@@ -76,24 +77,30 @@ export default function ProfileForm({ profile, userEmail, createdAt, isAgent = f
     }
   };
 
+  const formatJoinDate = (dateString: string) => {
+    return new Date(dateString).toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+  };
+
   return (
-    <form onSubmit={handleSubmit} className="space-y-8">
-      {/* Profile Header - Clean */}
-      <div className="bg-white border-2 border-[#E9ECEF] rounded-xl p-6">
+    <form onSubmit={handleSubmit} className="space-y-6">
+      {/* Profile Header - Avatar & Basic Info */}
+      <div className="bg-white rounded-lg border border-[#E9ECEF] p-6 shadow-sm">
         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
           {/* Avatar */}
           <div className="relative group">
-            <div className="h-24 w-24 rounded-full overflow-hidden border-2 border-[#E9ECEF] bg-[#F8F9FA] flex items-center justify-center">
+            <div className="w-20 h-20 rounded-lg overflow-hidden border border-[#E9ECEF] bg-[#F8F9FA] flex items-center justify-center">
               {avatarUrl ? (
-                <img src={avatarUrl} alt="Profile" className="h-full w-full object-cover" />
+                <Image
+                  src={avatarUrl}
+                  alt="Profile"
+                  width={80}
+                  height={80}
+                  className="w-full h-full object-cover"
+                />
               ) : (
-                <User className="h-12 w-12 text-[#ADB5BD]" />
+                <User className="h-8 w-8 text-[#ADB5BD]" />
               )}
             </div>
-            <div className="absolute inset-0 rounded-full bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-              <Camera className="h-6 w-6 text-white" />
-            </div>
-            {/* Upload overlay */}
             <div className="absolute -bottom-1 -right-1">
               <UploadButton
                 endpoint="imageUploader"
@@ -107,11 +114,11 @@ export default function ProfileForm({ profile, userEmail, createdAt, isAgent = f
                   toast.error(`Upload failed: ${error.message}`);
                 }}
                 appearance={{
-                  button: 'h-9 w-9 rounded-full bg-[#212529] text-white hover:bg-black shadow-sm flex items-center justify-center p-0 ut-ready:bg-[#212529] ut-uploading:bg-[#495057]',
+                  button: 'w-8 h-8 rounded-lg bg-[#212529] text-white hover:bg-black shadow-sm flex items-center justify-center p-0 ut-ready:bg-[#212529] ut-uploading:bg-[#495057] focus:outline-none focus:ring-2 focus:ring-[#212529] focus:ring-offset-1',
                   allowedContent: 'hidden',
                 }}
                 content={{
-                  button: <Camera className="h-4 w-4" />,
+                  button: <Camera className="h-3.5 w-3.5" />,
                 }}
               />
             </div>
@@ -119,9 +126,9 @@ export default function ProfileForm({ profile, userEmail, createdAt, isAgent = f
 
           {/* Info */}
           <div className="flex-1">
-            <h2 className="text-xl font-bold text-[#212529]">{formData.name || 'Your Name'}</h2>
-            <p className="text-sm text-[#495057] mt-1">{userEmail}</p>
-            <div className="flex items-center gap-3 mt-3">
+            <h2 className="text-lg font-bold text-[#212529]">{formData.name || 'Your Name'}</h2>
+            <p className="text-sm text-[#495057] mt-0.5">{userEmail}</p>
+            <div className="flex flex-wrap items-center gap-2 mt-3">
               <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-[#F8F9FA] text-[#495057] border border-[#E9ECEF]">
                 {isAgent ? <Award size={12} /> : formData.role === 'landlord' ? <Briefcase size={12} /> : <Home size={12} />}
                 {isAgent
@@ -139,7 +146,7 @@ export default function ProfileForm({ profile, userEmail, createdAt, isAgent = f
               )}
               <span className="text-xs text-[#ADB5BD] flex items-center gap-1">
                 <Clock size={12} />
-                Joined {new Date(createdAt).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
+                Joined {formatJoinDate(createdAt)}
               </span>
             </div>
           </div>
@@ -147,15 +154,15 @@ export default function ProfileForm({ profile, userEmail, createdAt, isAgent = f
       </div>
 
       {/* Account Type */}
-      <div className="bg-white border-2 border-[#E9ECEF] rounded-xl p-6">
-        <div className="mb-6">
+      <div className="bg-white rounded-lg border border-[#E9ECEF] p-6 shadow-sm">
+        <div className="mb-5">
           <h3 className="text-base font-semibold text-[#212529] mb-1">Account Type</h3>
           <p className="text-sm text-[#495057]">Choose how you want to use Huts</p>
         </div>
         {isAgent ? (
-          <div className="flex items-start gap-4 p-5 border-2 border-[#212529] bg-[#F8F9FA] rounded-xl">
-            <div className="h-12 w-12 rounded-lg bg-[#212529] flex items-center justify-center shrink-0">
-              <Award className="h-6 w-6 text-white" />
+          <div className="flex items-start gap-4 p-4 border border-[#212529] bg-[#F8F9FA] rounded-lg">
+            <div className="w-10 h-10 rounded-lg bg-[#212529] flex items-center justify-center shrink-0">
+              <Award className="h-5 w-5 text-white" />
             </div>
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2 flex-wrap">
@@ -171,96 +178,89 @@ export default function ProfileForm({ profile, userEmail, createdAt, isAgent = f
                 Your account is registered as a licensed agent. To update your agent profile, specialisations, or service areas, use the Agent Portal.
               </p>
               <div className="flex items-center gap-4 mt-3 flex-wrap">
-                <a
-                  href="/agent/profile"
-                  className="text-sm font-medium text-[#212529] underline underline-offset-2"
+                <Link
+                  href="/dashboard/agent-profile"
+                  className="text-sm font-medium text-[#212529] underline underline-offset-2 hover:no-underline"
                 >
                   Edit Agent Profile
-                </a>
+                </Link>
                 {agentSlug && (
-                  <a
+                  <Link
                     href={`/agent/${agentSlug}`}
                     target="_blank"
-                    rel="noopener noreferrer"
                     className="inline-flex items-center gap-1.5 text-sm text-[#495057] hover:text-[#212529] transition-colors"
                   >
                     <ExternalLink size={13} />
                     View Public Profile
-                  </a>
+                  </Link>
                 )}
               </div>
             </div>
           </div>
         ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {/* Renter Option */}
-          <button
-            type="button"
-            onClick={() => setFormData({ ...formData, role: 'renter' })}
-            className={`border-2 rounded-xl p-5 transition-all text-left ${
-              formData.role === 'renter'
-                ? 'border-[#212529] bg-[#F8F9FA]'
-                : 'border-[#E9ECEF] hover:border-[#212529]'
-            }`}
-          >
-            <div className="flex items-start justify-between mb-4">
-              <div className={`h-12 w-12 rounded-lg flex items-center justify-center ${
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {/* Renter Option */}
+            <button
+              type="button"
+              onClick={() => setFormData({ ...formData, role: 'renter' })}
+              className={`relative flex items-start gap-4 p-4 border rounded-lg transition-all text-left focus:outline-none focus:ring-2 focus:ring-[#212529] focus:ring-offset-1 ${
+                formData.role === 'renter'
+                  ? 'border-[#212529] bg-[#F8F9FA]'
+                  : 'border-[#E9ECEF] hover:border-[#ADB5BD]'
+              }`}
+            >
+              <div className={`w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 ${
                 formData.role === 'renter' ? 'bg-[#212529]' : 'bg-[#F8F9FA]'
               }`}>
-                <Home className={`h-6 w-6 ${formData.role === 'renter' ? 'text-white' : 'text-[#495057]'}`} />
+                <Home className={`h-5 w-5 ${formData.role === 'renter' ? 'text-white' : 'text-[#495057]'}`} />
               </div>
-              <div className={`h-5 w-5 rounded-full border-2 flex items-center justify-center ${
+              <div className="flex-1">
+                <h4 className="font-semibold text-base text-[#212529] mb-0.5">Renter</h4>
+                <p className="text-sm text-[#495057]">Find and rent properties</p>
+              </div>
+              <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 mt-0.5 ${
                 formData.role === 'renter' 
                   ? 'border-[#212529] bg-[#212529]' 
                   : 'border-[#E9ECEF]'
               }`}>
                 {formData.role === 'renter' && <Check size={12} className="text-white" />}
               </div>
-            </div>
-            
-            <h4 className="font-semibold text-base mb-1 text-[#212529]">Renter</h4>
-            <p className="text-sm text-[#495057]">
-              Find and rent properties
-            </p>
-          </button>
+            </button>
 
-          {/* Landlord Option */}
-          <button
-            type="button"
-            onClick={() => setFormData({ ...formData, role: 'landlord' })}
-            className={`border-2 rounded-xl p-5 transition-all text-left ${
-              formData.role === 'landlord'
-                ? 'border-[#212529] bg-[#F8F9FA]'
-                : 'border-[#E9ECEF] hover:border-[#212529]'
-            }`}
-          >
-            <div className="flex items-start justify-between mb-4">
-              <div className={`h-12 w-12 rounded-lg flex items-center justify-center ${
+            {/* Landlord Option */}
+            <button
+              type="button"
+              onClick={() => setFormData({ ...formData, role: 'landlord' })}
+              className={`relative flex items-start gap-4 p-4 border rounded-lg transition-all text-left focus:outline-none focus:ring-2 focus:ring-[#212529] focus:ring-offset-1 ${
+                formData.role === 'landlord'
+                  ? 'border-[#212529] bg-[#F8F9FA]'
+                  : 'border-[#E9ECEF] hover:border-[#ADB5BD]'
+              }`}
+            >
+              <div className={`w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 ${
                 formData.role === 'landlord' ? 'bg-[#212529]' : 'bg-[#F8F9FA]'
               }`}>
-                <Briefcase className={`h-6 w-6 ${formData.role === 'landlord' ? 'text-white' : 'text-[#495057]'}`} />
+                <Briefcase className={`h-5 w-5 ${formData.role === 'landlord' ? 'text-white' : 'text-[#495057]'}`} />
               </div>
-              <div className={`h-5 w-5 rounded-full border-2 flex items-center justify-center ${
+              <div className="flex-1">
+                <h4 className="font-semibold text-base text-[#212529] mb-0.5">Landlord</h4>
+                <p className="text-sm text-[#495057]">List and manage properties</p>
+              </div>
+              <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 mt-0.5 ${
                 formData.role === 'landlord' 
                   ? 'border-[#212529] bg-[#212529]' 
                   : 'border-[#E9ECEF]'
               }`}>
                 {formData.role === 'landlord' && <Check size={12} className="text-white" />}
               </div>
-            </div>
-            
-            <h4 className="font-semibold text-base mb-1 text-[#212529]">Landlord</h4>
-            <p className="text-sm text-[#495057]">
-              List and manage properties
-            </p>
-          </button>
-        </div>
+            </button>
+          </div>
         )}
       </div>
 
       {/* Personal Information */}
-      <div className="bg-white border-2 border-[#E9ECEF] rounded-xl p-6">
-        <div className="mb-6">
+      <div className="bg-white rounded-lg border border-[#E9ECEF] p-6 shadow-sm">
+        <div className="mb-5">
           <h3 className="text-base font-semibold text-[#212529] mb-1">Personal Information</h3>
           <p className="text-sm text-[#495057]">Update your contact details</p>
         </div>
@@ -268,7 +268,7 @@ export default function ProfileForm({ profile, userEmail, createdAt, isAgent = f
         <div className="space-y-5">
           {/* Name */}
           <div>
-            <label htmlFor="name" className="block text-sm font-medium text-[#212529] mb-2">
+            <label htmlFor="name" className="block text-sm font-semibold text-[#212529] mb-1.5">
               Full Name
             </label>
             <input
@@ -276,14 +276,14 @@ export default function ProfileForm({ profile, userEmail, createdAt, isAgent = f
               id="name"
               value={formData.name}
               onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-              className="w-full px-4 py-3 border-2 border-[#E9ECEF] rounded-xl focus:border-[#212529] focus:outline-none transition-colors text-[#212529] placeholder:text-[#ADB5BD]"
+              className="w-full px-3 py-2 border border-[#E9ECEF] rounded-lg focus:border-[#212529] focus:ring-1 focus:ring-[#212529] outline-none transition-colors text-[#212529] placeholder:text-[#ADB5BD]"
               placeholder="Enter your full name"
             />
           </div>
 
           {/* Email (read-only) */}
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-[#212529] mb-2">
+            <label htmlFor="email" className="block text-sm font-semibold text-[#212529] mb-1.5">
               Email Address
             </label>
             <input
@@ -291,13 +291,13 @@ export default function ProfileForm({ profile, userEmail, createdAt, isAgent = f
               id="email"
               value={userEmail}
               disabled
-              className="w-full px-4 py-3 border-2 border-[#E9ECEF] rounded-xl bg-[#F8F9FA] text-[#ADB5BD] cursor-not-allowed"
+              className="w-full px-3 py-2 border border-[#E9ECEF] rounded-lg bg-[#F8F9FA] text-[#495057] cursor-not-allowed"
             />
           </div>
 
           {/* Phone */}
           <div>
-            <label htmlFor="phone" className="block text-sm font-medium text-[#212529] mb-2">
+            <label htmlFor="phone" className="block text-sm font-semibold text-[#212529] mb-1.5">
               Phone Number
             </label>
             <input
@@ -305,15 +305,15 @@ export default function ProfileForm({ profile, userEmail, createdAt, isAgent = f
               id="phone"
               value={formData.phone}
               onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-              className="w-full px-4 py-3 border-2 border-[#E9ECEF] rounded-xl focus:border-[#212529] focus:outline-none transition-colors text-[#212529] placeholder:text-[#ADB5BD]"
+              className="w-full px-3 py-2 border border-[#E9ECEF] rounded-lg focus:border-[#212529] focus:ring-1 focus:ring-[#212529] outline-none transition-colors text-[#212529] placeholder:text-[#ADB5BD]"
               placeholder="+263 77 123 4567"
             />
           </div>
 
           {/* Bio */}
           <div>
-            <div className="flex items-center justify-between mb-2">
-              <label htmlFor="bio" className="block text-sm font-medium text-[#212529]">
+            <div className="flex items-center justify-between mb-1.5">
+              <label htmlFor="bio" className="block text-sm font-semibold text-[#212529]">
                 Bio
               </label>
               <span className={`text-xs ${
@@ -332,7 +332,7 @@ export default function ProfileForm({ profile, userEmail, createdAt, isAgent = f
                 }
               }}
               maxLength={500}
-              className="w-full px-4 py-3 border-2 border-[#E9ECEF] rounded-xl focus:border-[#212529] focus:outline-none transition-colors resize-none text-[#212529] placeholder:text-[#ADB5BD]"
+              className="w-full px-3 py-2 border border-[#E9ECEF] rounded-lg focus:border-[#212529] focus:ring-1 focus:ring-[#212529] outline-none transition-colors resize-none text-[#212529] placeholder:text-[#ADB5BD]"
               placeholder="Tell potential landlords or renters about yourself..."
             />
           </div>
@@ -340,7 +340,7 @@ export default function ProfileForm({ profile, userEmail, createdAt, isAgent = f
       </div>
 
       {/* Submit Button */}
-      <div className="bg-white border-2 border-[#E9ECEF] rounded-xl p-6 flex items-center justify-end gap-3">
+      <div className="bg-white rounded-lg border border-[#E9ECEF] p-4 shadow-sm flex items-center justify-end gap-3">
         {hasChanges && (
           <p className="text-sm text-[#495057] mr-auto">
             Unsaved changes
@@ -349,14 +349,14 @@ export default function ProfileForm({ profile, userEmail, createdAt, isAgent = f
         <button
           type="button"
           onClick={() => router.push('/dashboard/overview')}
-          className="px-5 py-2.5 border-2 border-[#E9ECEF] text-[#495057] rounded-xl hover:border-[#212529] transition-colors font-medium"
+          className="px-4 py-2 border border-[#E9ECEF] text-[#495057] rounded-lg hover:border-[#212529] hover:text-[#212529] transition-colors font-medium focus:outline-none focus:ring-2 focus:ring-[#212529] focus:ring-offset-1"
         >
           Cancel
         </button>
         <button
           type="submit"
           disabled={isLoading || !hasChanges}
-          className="px-6 py-2.5 bg-[#212529] text-white rounded-xl hover:bg-black transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+          className="px-5 py-2 bg-[#212529] text-white rounded-lg hover:bg-black transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 focus:outline-none focus:ring-2 focus:ring-[#212529] focus:ring-offset-1"
         >
           {isLoading ? (
             <>
