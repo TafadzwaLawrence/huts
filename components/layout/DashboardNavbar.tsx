@@ -28,6 +28,7 @@ import {
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { NotificationDropdown } from './NotificationDropdown'
+import { ICON_SIZES } from '@/lib/constants'
 
 interface DashboardNavbarProps {
   user: {
@@ -58,18 +59,15 @@ export function DashboardNavbar({ user, profile }: DashboardNavbarProps) {
   const userInitial = userName.charAt(0).toUpperCase()
   const userAvatar = profile?.avatar_url || user.user_metadata?.avatar_url
 
-  // Check if user has an agent record in the new agents table
   const checkAgentProfile = useCallback(async () => {
     try {
       const { data: { user: authUser } } = await supabase.auth.getUser()
       if (!authUser) return
-
       const { data: agent } = await supabase
         .from('agents')
         .select('id')
         .eq('user_id', authUser.id)
         .single()
-
       setHasAgentProfile(!!agent)
     } catch {
       setHasAgentProfile(false)
@@ -80,30 +78,19 @@ export function DashboardNavbar({ user, profile }: DashboardNavbarProps) {
     checkAgentProfile()
   }, [checkAgentProfile])
 
-  // Handle scroll effect
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 10)
-    }
+    const handleScroll = () => setScrolled(window.scrollY > 10)
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  // Close mobile menu on route change
   useEffect(() => {
     setMobileMenuOpen(false)
   }, [pathname])
 
-  // Prevent body scroll when menu is open
   useEffect(() => {
-    if (mobileMenuOpen) {
-      document.body.style.overflow = 'hidden'
-    } else {
-      document.body.style.overflow = ''
-    }
-    return () => {
-      document.body.style.overflow = ''
-    }
+    document.body.style.overflow = mobileMenuOpen ? 'hidden' : ''
+    return () => { document.body.style.overflow = '' }
   }, [mobileMenuOpen])
 
   const mainNavLinks = isLandlord ? [
@@ -112,15 +99,11 @@ export function DashboardNavbar({ user, profile }: DashboardNavbarProps) {
     { href: '/dashboard/rent-management', label: 'Rent', icon: Handshake },
     { href: '/dashboard/map', label: 'Map', icon: MapPin },
     { href: '/dashboard/reviews', label: 'Reviews', icon: Star },
-    ...(hasAgentProfile ? [
-      { href: '/agent/overview', label: 'Agent Portal', icon: Briefcase },
-    ] : [])
+    ...(hasAgentProfile ? [{ href: '/agent/overview', label: 'Agent Portal', icon: Briefcase }] : [])
   ] : [
     { href: '/dashboard/overview', label: 'Overview', icon: LayoutDashboard },
     { href: '/dashboard/saved', label: 'Saved', icon: Heart },
-    ...(hasAgentProfile ? [
-      { href: '/agent/overview', label: 'Agent Portal', icon: Briefcase },
-    ] : [])
+    ...(hasAgentProfile ? [{ href: '/agent/overview', label: 'Agent Portal', icon: Briefcase }] : [])
   ]
 
   const isActive = (href: string) => pathname === href
@@ -130,158 +113,153 @@ export function DashboardNavbar({ user, profile }: DashboardNavbarProps) {
       <header className={`sticky top-0 z-50 transition-all duration-200 ${
         scrolled ? 'bg-white/95 backdrop-blur-md shadow-sm' : 'bg-white border-b border-[#E9ECEF]'
       }`}>
-        <nav>
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex items-center justify-between h-16">
-              {/* Left: Logo + Nav */}
-              <div className="flex items-center gap-6">
-                {/* Logo */}
-                <Link href="/" className="flex items-center gap-2 group shrink-0">
-                  <img
-                    src="/logo.svg"
-                    alt=""
-                    width={24}
-                    height={24}
-                    className="h-6 w-6 object-contain group-hover:opacity-75 transition-opacity"
-                  />
-                </Link>
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-16 gap-4">
+            {/* Logo + Desktop Nav */}
+            <div className="flex items-center gap-6">
+              <Link href="/" className="flex items-center gap-2 group shrink-0">
+                <img
+                  src="/logo.svg"
+                  alt=""
+                  width={24}
+                  height={24}
+                  className="h-6 w-6 object-contain transition-opacity group-hover:opacity-75"
+                />
+              </Link>
 
-                {/* Desktop Nav Links */}
-                <div className="hidden lg:flex items-center gap-1">
-                  {mainNavLinks.map(({ href, label, icon: Icon }) => (
-                    <Link
-                      key={href}
-                      href={href}
-                      className={`relative flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-lg transition-colors ${
-                        isActive(href)
-                          ? 'text-[#212529] bg-[#F8F9FA]'
-                          : 'text-[#495057] hover:text-[#212529] hover:bg-[#F8F9FA]'
-                      }`}
-                    >
-                      <Icon size={16} />
-                      {label}
-                    </Link>
-                  ))}
-                </div>
+              {/* Desktop Navigation */}
+              <div className="hidden lg:flex items-center gap-1">
+                {mainNavLinks.map(({ href, label, icon: Icon }) => (
+                  <Link
+                    key={href}
+                    href={href}
+                    className={`flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[#212529] focus:ring-offset-1 ${
+                      isActive(href)
+                        ? 'text-[#212529] bg-[#F8F9FA]'
+                        : 'text-[#495057] hover:text-[#212529] hover:bg-[#F8F9FA]'
+                    }`}
+                  >
+                    <Icon size={16} />
+                    {label}
+                  </Link>
+                ))}
+              </div>
+            </div>
+
+            {/* Right Section */}
+            <div className="flex items-center gap-2">
+              {/* Desktop Actions */}
+              <div className="hidden md:flex items-center gap-1">
+                <Link
+                  href="/search"
+                  className="px-3 py-2 text-sm font-medium text-[#495057] rounded-lg hover:text-[#212529] hover:bg-[#F8F9FA] transition-colors focus:outline-none focus:ring-2 focus:ring-[#212529] focus:ring-offset-1"
+                >
+                  Browse
+                </Link>
+                {isLandlord && (
+                  <Link
+                    href="/dashboard/new-property"
+                    className="flex items-center gap-1.5 px-3 py-2 text-sm font-semibold text-white bg-[#212529] rounded-lg hover:bg-black transition-colors focus:outline-none focus:ring-2 focus:ring-[#212529] focus:ring-offset-1"
+                  >
+                    New
+                  </Link>
+                )}
               </div>
 
-              {/* Right: Actions + User */}
-              <div className="flex items-center">
-                {/* Action Buttons Group - Desktop */}
-                <div className="hidden md:flex items-center gap-1 mr-4">
-                  <Link
-                    href="/search"
-                    className="px-3 py-2 text-sm font-medium text-[#495057] hover:text-[#212529] hover:bg-[#F8F9FA] rounded-lg transition-colors"
-                  >
-                    Browse
-                  </Link>
-                  
-                  {isLandlord && (
-                    <Link
-                      href="/dashboard/new-property"
-                      className="flex items-center gap-1.5 px-3 py-2 bg-[#212529] text-white text-sm font-medium rounded-lg hover:bg-black transition-colors"
-                    >
-                      <span>New</span>
-                    </Link>
-                  )}
-                </div>
+              {/* Desktop Utilities */}
+              <div className="hidden md:flex items-center gap-1 mr-2 pr-2 border-r border-[#E9ECEF]">
+                <NotificationDropdown onUnreadCountChange={setUnreadCount} />
+                <Link
+                  href="/settings"
+                  className="p-2 rounded-lg text-[#495057] hover:text-[#212529] hover:bg-[#F8F9FA] transition-colors focus:outline-none focus:ring-2 focus:ring-[#212529] focus:ring-offset-1"
+                  aria-label="Settings"
+                >
+                  <Settings size={18} />
+                </Link>
+              </div>
 
-                {/* Utilities Group - Desktop */}
-                <div className="hidden md:flex items-center gap-1 mr-3 pr-3 border-r border-[#E9ECEF]">
-                  <NotificationDropdown onUnreadCountChange={setUnreadCount} />
-                  
-                  <Link
-                    href="/settings"
-                    className="p-2 rounded-lg text-[#495057] hover:text-[#212529] hover:bg-[#F8F9FA] transition-colors"
-                  >
-                    <Settings size={18} />
-                  </Link>
-                </div>
-
-                {/* User Profile - Desktop */}
-                <div className="hidden md:block relative group">
-                  <button className="flex items-center gap-2 pl-2 pr-2.5 py-1.5 rounded-lg hover:bg-[#F8F9FA] transition-colors">
-                    {userAvatar ? (
-                      <Image
-                        src={userAvatar}
-                        alt={userName}
-                        width={32}
-                        height={32}
-                        className="w-8 h-8 rounded-full object-cover"
-                      />
-                    ) : (
-                      <div className="w-8 h-8 bg-[#212529] rounded-full flex items-center justify-center text-white font-semibold text-sm">
-                        {userInitial}
-                      </div>
-                    )}
-                    <div className="hidden xl:block text-left">
-                      <p className="text-sm font-medium text-[#212529] leading-tight">{userName.split(' ')[0]}</p>
-                      <p className="text-xs text-[#ADB5BD] capitalize leading-tight">{profile?.role}</p>
+              {/* User Menu (Desktop) */}
+              <div className="hidden md:block relative">
+                <button className="flex items-center gap-2 pl-2 pr-2.5 py-1.5 rounded-lg hover:bg-[#F8F9FA] transition-colors focus:outline-none focus:ring-2 focus:ring-[#212529] focus:ring-offset-1">
+                  {userAvatar ? (
+                    <Image
+                      src={userAvatar}
+                      alt={userName}
+                      width={32}
+                      height={32}
+                      className="w-8 h-8 rounded-full object-cover"
+                    />
+                  ) : (
+                    <div className="w-8 h-8 bg-[#212529] rounded-full flex items-center justify-center text-white font-semibold text-sm">
+                      {userInitial}
                     </div>
-                    <ChevronDown size={14} className="text-[#ADB5BD] hidden xl:block" />
-                  </button>
+                  )}
+                  <div className="hidden xl:block text-left">
+                    <p className="text-sm font-medium text-[#212529] leading-tight">{userName.split(' ')[0]}</p>
+                    <p className="text-xs text-[#ADB5BD] capitalize leading-tight">{profile?.role}</p>
+                  </div>
+                  <ChevronDown size={14} className="text-[#ADB5BD] hidden xl:block" />
+                </button>
 
-                  {/* Dropdown Menu */}
-                  <div className="absolute top-full right-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                    <div className="bg-white rounded-lg shadow-xl border border-[#E9ECEF] py-2 min-w-[200px]">
-                      <div className="px-4 py-2 border-b border-[#E9ECEF]">
-                        <p className="font-medium text-[#212529] text-sm">{userName}</p>
-                        <p className="text-xs text-[#ADB5BD] truncate">{user.email}</p>
-                      </div>
-                      
-                      <div className="py-2">
-                        <Link
-                          href="/dashboard/overview"
-                          className="flex items-center gap-2 px-4 py-2 text-sm text-[#495057] hover:bg-[#F8F9FA] transition-colors"
+                {/* Dropdown */}
+                <div className="absolute top-full right-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                  <div className="bg-white rounded-lg shadow-sm border border-[#E9ECEF] py-2 min-w-[220px]">
+                    <div className="px-4 py-2 border-b border-[#E9ECEF]">
+                      <p className="font-medium text-[#212529] text-sm">{userName}</p>
+                      <p className="text-xs text-[#ADB5BD] truncate">{user.email}</p>
+                    </div>
+                    <div className="py-2">
+                      <Link
+                        href="/dashboard/overview"
+                        className="flex items-center gap-2 px-4 py-2 text-sm text-[#495057] hover:bg-[#F8F9FA] transition-colors"
+                      >
+                        <LayoutDashboard size={16} />
+                        Dashboard
+                      </Link>
+                      <Link
+                        href="/settings/profile"
+                        className="flex items-center gap-2 px-4 py-2 text-sm text-[#495057] hover:bg-[#F8F9FA] transition-colors"
+                      >
+                        <User size={16} />
+                        Profile
+                      </Link>
+                      <Link
+                        href="/settings"
+                        className="flex items-center gap-2 px-4 py-2 text-sm text-[#495057] hover:bg-[#F8F9FA] transition-colors"
+                      >
+                        <Settings size={16} />
+                        Settings
+                      </Link>
+                    </div>
+                    <div className="border-t border-[#E9ECEF] pt-2">
+                      <form action="/auth/signout" method="post">
+                        <button
+                          type="submit"
+                          className="flex items-center gap-2 w-full px-4 py-2 text-sm text-[#495057] hover:bg-[#FFF5F5] hover:text-[#FF6B6B] transition-colors"
                         >
-                          <LayoutDashboard size={16} />
-                          Dashboard
-                        </Link>
-                        <Link
-                          href="/settings/profile"
-                          className="flex items-center gap-2 px-4 py-2 text-sm text-[#495057] hover:bg-[#F8F9FA] transition-colors"
-                        >
-                          <User size={16} />
-                          Profile
-                        </Link>
-                        <Link
-                          href="/settings"
-                          className="flex items-center gap-2 px-4 py-2 text-sm text-[#495057] hover:bg-[#F8F9FA] transition-colors"
-                        >
-                          <Settings size={16} />
-                          Settings
-                        </Link>
-                      </div>
-                      
-                      <div className="border-t border-[#E9ECEF] pt-2">
-                        <form action="/auth/signout" method="post">
-                          <button
-                            type="submit"
-                            className="flex items-center gap-2 w-full px-4 py-2 text-sm text-[#495057] hover:bg-[#FFF5F5] hover:text-[#FF6B6B] transition-colors"
-                          >
-                            <LogOut size={16} />
-                            Sign Out
-                          </button>
-                        </form>
-                      </div>
+                          <LogOut size={16} />
+                          Sign Out
+                        </button>
+                      </form>
                     </div>
                   </div>
                 </div>
-
-                {/* Mobile Menu Button */}
-                <button
-                  onClick={() => setMobileMenuOpen(true)}
-                  className="flex md:hidden items-center justify-center w-10 h-10 rounded-lg text-[#495057] hover:bg-[#F8F9FA] transition-colors"
-                >
-                  <Menu size={20} />
-                </button>
               </div>
+
+              {/* Mobile Menu Button */}
+              <button
+                onClick={() => setMobileMenuOpen(true)}
+                className="flex md:hidden items-center justify-center w-10 h-10 rounded-lg text-[#495057] hover:bg-[#F8F9FA] transition-colors focus:outline-none focus:ring-2 focus:ring-[#212529] focus:ring-offset-1"
+                aria-label="Open menu"
+              >
+                <Menu size={20} />
+              </button>
             </div>
           </div>
-        </nav>
+        </div>
       </header>
 
-      {/* Mobile Menu Overlay */}
+      {/* Mobile Overlay */}
       <div
         className={`fixed inset-0 bg-black/40 z-50 transition-opacity duration-300 md:hidden ${
           mobileMenuOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
@@ -289,9 +267,9 @@ export function DashboardNavbar({ user, profile }: DashboardNavbarProps) {
         onClick={() => setMobileMenuOpen(false)}
       />
 
-      {/* Mobile Menu Panel */}
+      {/* Mobile Panel */}
       <div
-        className={`fixed top-0 right-0 h-full w-full max-w-sm bg-white z-50 shadow-2xl transform transition-transform duration-300 md:hidden ${
+        className={`fixed top-0 right-0 h-full w-full max-w-sm bg-white z-50 shadow-xl transform transition-transform duration-300 md:hidden ${
           mobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
       >
@@ -318,22 +296,23 @@ export function DashboardNavbar({ user, profile }: DashboardNavbarProps) {
           </div>
           <button
             onClick={() => setMobileMenuOpen(false)}
-            className="p-2 rounded-lg text-[#495057] hover:bg-[#F8F9FA] transition-colors"
+            className="p-2 rounded-lg text-[#495057] hover:bg-[#F8F9FA] transition-colors focus:outline-none focus:ring-2 focus:ring-[#212529] focus:ring-offset-1"
+            aria-label="Close menu"
           >
             <X size={20} />
           </button>
         </div>
 
-        {/* Menu Content */}
-        <div className="flex flex-col h-[calc(100%-73px)]">
-          {/* Navigation */}
+        {/* Scrollable Menu */}
+        <div className="flex flex-col h-[calc(100%-73px)] overflow-y-auto">
+          {/* Main Nav */}
           <div className="p-4 space-y-1">
             {mainNavLinks.map(({ href, label, icon: Icon }) => (
               <Link
                 key={href}
                 href={href}
                 onClick={() => setMobileMenuOpen(false)}
-                className={`flex items-center justify-between px-4 py-3 rounded-lg font-medium transition-colors ${
+                className={`flex items-center justify-between px-4 py-3 rounded-lg font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-[#212529] ${
                   isActive(href)
                     ? 'bg-[#212529] text-white'
                     : 'text-[#495057] hover:bg-[#F8F9FA]'
@@ -352,7 +331,7 @@ export function DashboardNavbar({ user, profile }: DashboardNavbarProps) {
             <Link
               href="/search"
               onClick={() => setMobileMenuOpen(false)}
-              className="flex items-center gap-3 px-4 py-3 rounded-lg text-[#495057] hover:bg-[#F8F9FA] font-medium transition-colors"
+              className="flex items-center gap-3 px-4 py-3 rounded-lg text-[#495057] hover:bg-[#F8F9FA] font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-[#212529]"
             >
               <Search size={20} />
               Browse Properties
@@ -361,22 +340,22 @@ export function DashboardNavbar({ user, profile }: DashboardNavbarProps) {
               <Link
                 href="/dashboard/new-property"
                 onClick={() => setMobileMenuOpen(false)}
-                className="flex items-center gap-3 px-4 py-3 rounded-lg bg-[#212529] text-white font-medium transition-colors"
+                className="flex items-center gap-3 px-4 py-3 rounded-lg bg-[#212529] text-white font-medium transition-colors hover:bg-black focus:outline-none focus:ring-2 focus:ring-[#212529] focus:ring-offset-1"
               >
+                <Building2 size={20} />
                 New Property
               </Link>
             )}
           </div>
 
-          {/* Spacer */}
           <div className="flex-grow" />
 
-          {/* Bottom Actions */}
+          {/* Bottom Section */}
           <div className="p-4 border-t border-[#E9ECEF] space-y-1">
             <Link
               href="/settings/notifications"
               onClick={() => setMobileMenuOpen(false)}
-              className="flex items-center justify-between px-4 py-3 rounded-lg text-[#495057] hover:bg-[#F8F9FA] font-medium transition-colors"
+              className="flex items-center justify-between px-4 py-3 rounded-lg text-[#495057] hover:bg-[#F8F9FA] font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-[#212529]"
             >
               <div className="flex items-center gap-3">
                 <Bell size={20} />
@@ -391,7 +370,7 @@ export function DashboardNavbar({ user, profile }: DashboardNavbarProps) {
             <Link
               href="/settings"
               onClick={() => setMobileMenuOpen(false)}
-              className="flex items-center gap-3 px-4 py-3 rounded-lg text-[#495057] hover:bg-[#F8F9FA] font-medium transition-colors"
+              className="flex items-center gap-3 px-4 py-3 rounded-lg text-[#495057] hover:bg-[#F8F9FA] font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-[#212529]"
             >
               <Settings size={20} />
               Settings
@@ -399,7 +378,7 @@ export function DashboardNavbar({ user, profile }: DashboardNavbarProps) {
             <form action="/auth/signout" method="post">
               <button
                 type="submit"
-                className="flex items-center gap-3 w-full px-4 py-3 rounded-lg text-[#495057] hover:bg-[#FFF5F5] hover:text-[#FF6B6B] font-medium transition-colors"
+                className="flex items-center gap-3 w-full px-4 py-3 rounded-lg text-[#495057] hover:bg-[#FFF5F5] hover:text-[#FF6B6B] font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-[#FF6B6B]"
               >
                 <LogOut size={20} />
                 Sign Out
