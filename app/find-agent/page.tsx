@@ -162,77 +162,88 @@ export default async function FindAgentPage({ searchParams }: { searchParams: Se
         </div>
       </div>
 
-      {/* Filter bar */}
-      <div className="border-b border-[#E9ECEF] bg-white sticky top-0 z-10">
-        <form method="GET" action="/find-agent">
-          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-wrap items-center gap-2">
-            {/* Search */}
-            <div className="relative flex-1 min-w-[180px] max-w-xs">
-              <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#ADB5BD] pointer-events-none" />
-              <input
-                type="text"
-                name="q"
-                defaultValue={searchParams.q || ''}
-                placeholder="Search by name…"
-                className="w-full pl-9 pr-3 py-2 text-sm border border-[#E9ECEF] rounded-lg bg-white text-[#212529] placeholder:text-[#ADB5BD] focus:border-[#212529] focus:ring-1 focus:ring-[#212529] outline-none transition-colors"
-              />
-            </div>
-
-            {/* Type */}
-            <select
-              name="type"
-              defaultValue={searchParams.type || ''}
-              className="py-2 pl-3 pr-7 text-sm border border-[#E9ECEF] rounded-lg bg-white text-[#212529] focus:border-[#212529] focus:ring-1 focus:ring-[#212529] outline-none appearance-none cursor-pointer"
-            >
-              <option value="">All types</option>
-              {Object.entries(AGENT_TYPE_LABELS).map(([key, label]) => (
-                <option key={key} value={key}>{label}</option>
-              ))}
-            </select>
-
-            {/* City */}
-            <select
-              name="city"
-              defaultValue={searchParams.city || ''}
-              className="py-2 pl-3 pr-7 text-sm border border-[#E9ECEF] rounded-lg bg-white text-[#212529] focus:border-[#212529] focus:ring-1 focus:ring-[#212529] outline-none appearance-none cursor-pointer"
-            >
-              <option value="">All cities</option>
-              {ZIMBABWE_CITIES.map(city => (
-                <option key={city} value={city}>{city}</option>
-              ))}
-            </select>
-
-            {/* Verified toggle */}
-            <label className="flex items-center gap-1.5 px-3 py-2 text-sm border border-[#E9ECEF] rounded-lg bg-white cursor-pointer hover:border-[#212529] transition-colors select-none focus-within:ring-2 focus-within:ring-[#212529] focus-within:ring-offset-1">
-              <input
-                type="checkbox"
-                name="verified"
-                value="true"
-                defaultChecked={searchParams.verified === 'true'}
-                className="rounded border-[#ADB5BD] text-[#212529] focus:ring-[#212529]"
-              />
-              <CheckCircle size={12} className="text-[#495057]" />
-              Verified
-            </label>
-
-            {/* Preserve sort */}
-            {searchParams.sort && <input type="hidden" name="sort" value={searchParams.sort} />}
-
-            <button
-              type="submit"
-              className="px-4 py-2 bg-[#212529] text-white text-sm font-semibold rounded-lg hover:bg-black transition-colors focus:outline-none focus:ring-2 focus:ring-[#212529] focus:ring-offset-1"
-            >
-              Filter
-            </button>
-
-            {activeFilters.length > 0 && (
-              <Link href="/find-agent" className="text-xs text-[#ADB5BD] hover:text-[#495057] transition-colors focus:outline-none focus:ring-2 focus:ring-[#212529] focus:ring-offset-1 rounded">
-                Clear all
-              </Link>
-            )}
-          </div>
-        </form>
+{/* Filter bar - enhanced */}
+<div className="border-b border-[#E9ECEF] bg-white sticky top-0 z-10 shadow-[0_1px_2px_rgba(0,0,0,0.02)]">
+  <form method="GET" action="/find-agent">
+    <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-wrap items-center gap-2">
+      {/* Search */}
+      <div className="relative flex-1 min-w-[180px] max-w-xs">
+        <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#ADB5BD] pointer-events-none" />
+        <input
+          type="text"
+          name="q"
+          defaultValue={searchParams.q || ''}
+          placeholder="Search by name…"
+          className="w-full pl-9 pr-3 py-2 text-sm border border-[#E9ECEF] rounded-lg bg-white text-[#212529] placeholder:text-[#ADB5BD] focus:border-[#212529] focus:ring-1 focus:ring-[#212529] outline-none transition-all duration-200"
+        />
       </div>
+
+      {/* Type - custom styled select */}
+      <div className="relative">
+        <select
+          name="type"
+          defaultValue={searchParams.type || ''}
+          className="appearance-none w-full py-2 pl-3 pr-7 text-sm border border-[#E9ECEF] rounded-lg bg-white text-[#212529] focus:border-[#212529] focus:ring-1 focus:ring-[#212529] outline-none transition-all duration-200 cursor-pointer hover:border-[#ADB5BD]"
+        >
+          <option value="">All types</option>
+          {Object.entries(AGENT_TYPE_LABELS).map(([key, label]) => (
+            <option key={key} value={key}>{label}</option>
+          ))}
+        </select>
+        <ChevronRight size={12} className="absolute right-3 top-1/2 -translate-y-1/2 text-[#ADB5BD] rotate-90 pointer-events-none transition-transform duration-200" />
+      </div>
+
+      {/* City - custom styled select */}
+      <div className="relative">
+        <select
+          name="city"
+          defaultValue={searchParams.city || ''}
+          className="appearance-none w-full py-2 pl-3 pr-7 text-sm border border-[#E9ECEF] rounded-lg bg-white text-[#212529] focus:border-[#212529] focus:ring-1 focus:ring-[#212529] outline-none transition-all duration-200 cursor-pointer hover:border-[#ADB5BD]"
+        >
+          <option value="">All cities</option>
+          {ZIMBABWE_CITIES.map(city => (
+            <option key={city} value={city}>{city}</option>
+          ))}
+        </select>
+        <ChevronRight size={12} className="absolute right-3 top-1/2 -translate-y-1/2 text-[#ADB5BD] rotate-90 pointer-events-none transition-transform duration-200" />
+      </div>
+
+      {/* Verified toggle - enhanced */}
+      <label className="flex items-center gap-1.5 px-3 py-2 text-sm border border-[#E9ECEF] rounded-lg bg-white cursor-pointer hover:border-[#212529] transition-all duration-200 select-none focus-within:ring-2 focus-within:ring-[#212529] focus-within:ring-offset-1">
+        <input
+          type="checkbox"
+          name="verified"
+          value="true"
+          defaultChecked={searchParams.verified === 'true'}
+          className="rounded border-[#ADB5BD] text-[#212529] focus:ring-[#212529] w-3.5 h-3.5"
+        />
+        <CheckCircle size={12} className="text-[#495057]" />
+        Verified
+      </label>
+
+      {/* Preserve sort */}
+      {searchParams.sort && <input type="hidden" name="sort" value={searchParams.sort} />}
+
+      {/* Submit button */}
+      <button
+        type="submit"
+        className="px-4 py-2 bg-[#212529] text-white text-sm font-semibold rounded-lg hover:bg-black transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[#212529] focus:ring-offset-1 shadow-sm"
+      >
+        Filter
+      </button>
+
+      {/* Clear all link */}
+      {activeFilters.length > 0 && (
+        <Link
+          href="/find-agent"
+          className="text-xs text-[#ADB5BD] hover:text-[#495057] transition-colors focus:outline-none focus:ring-2 focus:ring-[#212529] focus:ring-offset-1 rounded px-2 py-1"
+        >
+          Clear all
+        </Link>
+      )}
+    </div>
+  </form>
+</div>
 
       {/* Results */}
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
