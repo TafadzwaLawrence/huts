@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
-import { Search, MapPin, Home, Building2, Clock, X } from 'lucide-react'
+import { Search, MapPin, Home, Clock, X } from 'lucide-react'
 import { ICON_SIZES } from '@/lib/constants'
 
 interface Suggestion {
@@ -177,7 +177,7 @@ export function SearchAutocomplete({
 
   return (
     <div ref={containerRef} className={`relative ${className}`}>
-      <div className={`flex items-center gap-2 ${compact ? 'px-3 py-2' : 'px-4 py-3'} bg-[#F8F9FA] rounded-xl border-2 border-transparent focus-within:border-[#212529] focus-within:bg-white transition-all`}>
+      <div className={`flex items-center gap-2 ${compact ? 'px-3 py-2' : 'px-4 py-2.5'} bg-white rounded-lg border border-[#E9ECEF] transition-all duration-200 focus-within:border-[#212529] focus-within:ring-1 focus-within:ring-[#212529]`}>
         <Search size={compact ? ICON_SIZES.md : ICON_SIZES.lg} className="text-[#ADB5BD] shrink-0" />
         <input
           ref={inputRef}
@@ -201,10 +201,10 @@ export function SearchAutocomplete({
         {query && (
           <button
             onClick={() => { setQuery(''); setSuggestions([]); inputRef.current?.focus() }}
-            className="p-1 hover:bg-[#E9ECEF] rounded-md transition-colors"
+            className="p-1 rounded-md text-[#ADB5BD] hover:text-[#212529] hover:bg-[#F8F9FA] transition-colors"
             aria-label="Clear search"
           >
-            <X size={ICON_SIZES.sm} className="text-[#ADB5BD]" />
+            <X size={ICON_SIZES.sm} />
           </button>
         )}
         {loading && (
@@ -217,12 +217,12 @@ export function SearchAutocomplete({
         <div
           id="search-suggestions"
           role="listbox"
-          className="absolute top-full left-0 right-0 mt-2 bg-white rounded-xl border border-[#E9ECEF] shadow-xl overflow-hidden z-50 max-h-[400px] overflow-y-auto"
+          className="absolute top-full left-0 right-0 mt-2 bg-white rounded-lg border border-[#E9ECEF] shadow-sm overflow-hidden z-50 max-h-[400px] overflow-y-auto"
         >
           {/* Recent searches */}
           {query.length === 0 && recentSearches.length > 0 && (
             <div>
-              <div className="px-4 py-2.5 text-[10px] font-bold text-[#ADB5BD] uppercase tracking-widest">
+              <div className="px-4 pt-2 pb-1 text-[10px] font-semibold uppercase tracking-wider text-[#ADB5BD]">
                 Recent Searches
               </div>
               {recentSearches.map((search, i) => (
@@ -236,7 +236,7 @@ export function SearchAutocomplete({
                     setIsOpen(false)
                     router.push(`/search?q=${encodeURIComponent(search)}`)
                   }}
-                  className={`w-full flex items-center gap-3 px-4 py-3 text-left hover:bg-[#F8F9FA] transition-colors ${
+                  className={`w-full flex items-center gap-3 px-4 py-2.5 text-left hover:bg-[#F8F9FA] transition-colors ${
                     activeIndex === i ? 'bg-[#F8F9FA]' : ''
                   }`}
                 >
@@ -261,9 +261,12 @@ export function SearchAutocomplete({
                   property: 'Properties',
                 }
 
+                const isFirstGroup = type === 'city' && query.length > 0 && recentSearches.length === 0
+                
                 return (
                   <div key={type}>
-                    <div className="px-4 py-2 text-[10px] font-bold text-[#ADB5BD] uppercase tracking-widest border-t border-[#F8F9FA] first:border-t-0">
+                    {!isFirstGroup && <div className="border-t border-[#E9ECEF]" />}
+                    <div className="px-4 pt-2 pb-1 text-[10px] font-semibold uppercase tracking-wider text-[#ADB5BD]">
                       {labels[type]}
                     </div>
                     {items.map((suggestion, i) => {
@@ -275,7 +278,7 @@ export function SearchAutocomplete({
                           role="option"
                           aria-selected={activeIndex === globalIdx}
                           onClick={() => handleSelect(suggestion)}
-                          className={`w-full flex items-center gap-3 px-4 py-3 text-left hover:bg-[#F8F9FA] transition-colors ${
+                          className={`w-full flex items-center gap-3 px-4 py-2.5 text-left hover:bg-[#F8F9FA] transition-colors ${
                             activeIndex === globalIdx ? 'bg-[#F8F9FA]' : ''
                           }`}
                         >
