@@ -154,62 +154,95 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* WELCOME BANNER */}
-      <section className="py-8 bg-white border-t border-[#E9ECEF]">
+      {/* WELCOME BANNER - Enhanced Zillow style */}
+      <section className="py-8 bg-white border-b border-[#E9ECEF]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-2xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 bg-[#F8F9FA] rounded-lg border border-[#E9ECEF] px-6 py-5">
+          <div className="max-w-3xl mx-auto">
             {user && profile ? (
-              <>
-                <div className="flex items-center gap-4">
-                  <div className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 overflow-hidden bg-[#212529]">
-                    {profile.avatar_url ? (
-                      <Image
-                        src={profile.avatar_url}
-                        alt={profile.name ?? 'User'}
-                        width={40}
-                        height={40}
-                        className="object-cover w-full h-full"
-                      />
-                    ) : isLandlord ? (
-                      <Building2 size={ICON_SIZES.lg} className="text-white" />
-                    ) : (
-                      <Home size={ICON_SIZES.lg} className="text-white" />
-                    )}
+              // Logged-in state
+              <div className="bg-gradient-to-r from-[#F8F9FA] to-white rounded-lg border border-[#E9ECEF] p-5 shadow-sm">
+                <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4">
+                  <div className="flex-shrink-0">
+                    <div className="w-14 h-14 rounded-full bg-[#212529] flex items-center justify-center overflow-hidden shadow-sm">
+                      {profile.avatar_url ? (
+                        <Image
+                          src={profile.avatar_url}
+                          alt={profile.name ?? 'User'}
+                          width={56}
+                          height={56}
+                          className="object-cover w-full h-full"
+                        />
+                      ) : isLandlord ? (
+                        <Building2 size={28} className="text-white" />
+                      ) : (
+                        <Home size={28} className="text-white" />
+                      )}
+                    </div>
                   </div>
-                  <div>
-                    <h2 className="text-sm font-bold text-[#212529]">Welcome back, {firstName}!</h2>
-                    {isLandlord ? (
-                      <p className="text-xs text-[#495057]">Manage your listings, track inquiries and grow your portfolio.</p>
-                    ) : (
-                      <p className="text-xs text-[#495057]">Continue your search — your perfect home is waiting.</p>
-                    )}
+                  <div className="flex-1 text-center sm:text-left">
+                    <h2 className="text-lg font-bold text-[#212529]">
+                      Welcome back, {firstName}! 👋
+                    </h2>
+                    <p className="text-sm text-[#495057] mt-1">
+                      {isLandlord 
+                        ? "Your properties are performing well. Check your inquiries and update your listings."
+                        : "Continue exploring homes that match your preferences. Your saved searches are ready."
+                      }
+                    </p>
+                    <div className="flex flex-wrap gap-3 mt-4 justify-center sm:justify-start">
+                      <Link
+                        href={isLandlord ? '/dashboard/my-properties' : '/search'}
+                        className="inline-flex items-center gap-1.5 text-sm font-semibold text-white bg-[#212529] px-5 py-2 rounded-lg hover:bg-black transition-colors shadow-sm"
+                      >
+                        {isLandlord ? 'Go to Dashboard' : 'Browse homes'}
+                        <ArrowRight size={14} />
+                      </Link>
+                      {!isLandlord && (
+                        <Link
+                          href="/saved-searches"
+                          className="inline-flex items-center gap-1.5 text-sm font-medium text-[#495057] border border-[#E9ECEF] px-5 py-2 rounded-lg hover:bg-[#F8F9FA] transition-colors"
+                        >
+                          Saved searches
+                        </Link>
+                      )}
+                    </div>
                   </div>
                 </div>
-                <Link
-                  href={isLandlord ? '/dashboard/my-properties' : '/search'}
-                  className="text-sm font-semibold text-[#212529] border border-[#212529] px-5 py-2 rounded-lg hover:bg-[#212529] hover:text-white transition-colors whitespace-nowrap"
-                >
-                  {isLandlord ? 'My properties' : 'Browse homes'}
-                </Link>
-              </>
+              </div>
             ) : (
-              <>
-                <div className="flex items-center gap-4">
-                  <div className="w-10 h-10 bg-[#212529] rounded-full flex items-center justify-center flex-shrink-0">
-                    <User size={ICON_SIZES.lg} className="text-white" />
+              // Logged-out state
+              <div className="bg-gradient-to-r from-[#F8F9FA] to-white rounded-lg border border-[#E9ECEF] p-5 shadow-sm">
+                <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4">
+                  <div className="flex-shrink-0">
+                    <div className="w-14 h-14 bg-gradient-to-br from-[#212529] to-[#495057] rounded-full flex items-center justify-center shadow-sm">
+                      <User size={28} className="text-white" />
+                    </div>
                   </div>
-                  <div>
-                    <h2 className="text-sm font-bold text-[#212529]">Get home recommendations</h2>
-                    <p className="text-xs text-[#495057]">Sign in for a more personalized experience.</p>
+                  <div className="flex-1 text-center sm:text-left">
+                    <h2 className="text-lg font-bold text-[#212529]">
+                      Get personalized home recommendations
+                    </h2>
+                    <p className="text-sm text-[#495057] mt-1 max-w-md">
+                      Sign in to save your favorite properties, get alerts on price drops, and receive tailored suggestions based on your activity.
+                    </p>
+                    <div className="flex flex-wrap gap-3 mt-4 justify-center sm:justify-start">
+                      <Link
+                        href="/auth/signup"
+                        className="inline-flex items-center gap-1.5 text-sm font-semibold text-white bg-[#212529] px-5 py-2 rounded-lg hover:bg-black transition-colors shadow-sm"
+                      >
+                        Sign in / Sign up
+                        <ArrowRight size={14} />
+                      </Link>
+                      <Link
+                        href="/search"
+                        className="inline-flex items-center gap-1.5 text-sm font-medium text-[#495057] border border-[#E9ECEF] px-5 py-2 rounded-lg hover:bg-[#F8F9FA] transition-colors"
+                      >
+                        Start searching
+                      </Link>
+                    </div>
                   </div>
                 </div>
-                <Link
-                  href="/auth/signup"
-                  className="text-sm font-semibold text-[#212529] border border-[#212529] px-5 py-2 rounded-lg hover:bg-[#212529] hover:text-white transition-colors whitespace-nowrap"
-                >
-                  Sign in
-                </Link>
-              </>
+              </div>
             )}
           </div>
         </div>
