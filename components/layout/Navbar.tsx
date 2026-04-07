@@ -63,91 +63,96 @@ export async function Navbar() {
 
   return (
     <ScrollHeader>
-      <div className="max-w-[1440px] mx-auto px-4 sm:px-6">
-        <div className="flex items-center h-[60px] gap-2">
+      {/* Added bottom border to match the buying guide/calculator page headers */}
+      <div className="border-b border-[#E9ECEF] bg-white">
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-6">
+          <div className="flex items-center h-[60px] gap-2">
 
-          {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 shrink-0 mr-3 group">
-            <img
-              src="/logo.svg"
-              alt=""
-              width={24}
-              height={24}
-              className="h-6 w-6 object-contain transition-opacity group-hover:opacity-75"
-            />
-          </Link>
+            {/* Logo */}
+            <Link href="/" className="flex items-center gap-2 shrink-0 mr-3 group">
+              <img
+                src="/logo.svg"
+                alt=""
+                width={24}
+                height={24}
+                className="h-6 w-6 object-contain transition-opacity group-hover:opacity-75"
+              />
+            </Link>
 
-          {/* Nav links — immediately after logo */}
-          <div className="hidden md:contents">
-            {user && isLandlord ? (
-              <NavLinks links={landlordLinks} />
-            ) : (
-              <MegaNav />
-            )}
-          </div>
+            {/* Nav links — immediately after logo */}
+            <div className="hidden md:contents">
+              {user && isLandlord ? (
+                <NavLinks links={landlordLinks} />
+              ) : (
+                <MegaNav />
+              )}
+            </div>
 
-          {/* Push right side to the edge */}
-          <div className="flex-1" />
+            {/* Push right side to the edge */}
+            <div className="flex-1" />
 
-          {/* Right: utility links + auth — desktop only */}
-          <div className="hidden md:flex items-center gap-1">
-            <AgentsDropdown />
-            {rightLinks.map(({ href, label }) => (
-              <Link
-                key={href}
-                href={href}
-                className="px-3 py-1.5 text-sm text-black hover:text-[#212529] transition-colors"
-              >
-                {label}
-              </Link>
-            ))}
-
-            {isLandlord && user && (
-              <>
-                <div className="w-px h-5 bg-[#E5E7EB] mx-1" />
+            {/* Right: utility links + auth — desktop only */}
+            <div className="hidden md:flex items-center gap-1">
+              <AgentsDropdown />
+              {rightLinks.map(({ href, label }) => (
                 <Link
-                  href="/dashboard/new-property"
-                  className="flex items-center gap-1.5 px-3 py-1.5 text-sm font-semibold text-[#212529] border border-[#212529] rounded-lg hover:bg-[#212529] hover:text-white transition-colors"
+                  key={href}
+                  href={href}
+                  className="px-3 py-1.5 text-sm text-[#495057] hover:text-[#212529] transition-colors"
                 >
-                  + List property
+                  {label}
                 </Link>
-              </>
-            )}
+              ))}
 
-            <div className="w-px h-5 bg-[#E5E7EB] mx-1" />
+              {isLandlord && user && (
+                <>
+                  {/* Divider using target palette */}
+                  <div className="w-px h-5 bg-[#E9ECEF] mx-1" />
+                  <Link
+                    href="/dashboard/new-property"
+                    className="flex items-center gap-1.5 px-3 py-1.5 text-sm font-semibold text-[#212529] border border-[#212529] rounded-lg hover:bg-[#212529] hover:text-white transition-colors"
+                  >
+                    + List property
+                  </Link>
+                </>
+              )}
 
-            {user ? (
-              <div className="flex items-center gap-0.5">
-                <NotificationDropdown />
-                <UserMenu
-                  userName={userName || 'User'}
-                  userEmail={user.email || ''}
-                  userAvatar={userAvatar}
-                  userInitial={userInitial}
-                  isLandlord={isLandlord}
-                />
-              </div>
-            ) : (
-              <Link
-                href="/auth/signup"
-                className="ml-1 px-4 py-1.5 text-sm font-semibold bg-[#212529] text-white rounded-lg hover:bg-black transition-colors"
-              >
-                Sign in
-              </Link>
-            )}
-          </div>
+              {/* Divider using target palette */}
+              <div className="w-px h-5 bg-[#E9ECEF] mx-1" />
 
-          {/* Mobile: hamburger */}
-          <div className="md:hidden flex items-center gap-0.5">
-            <MobileMenu
-              isLoggedIn={!!user}
-              userName={userName}
-              userEmail={user?.email}
-              userAvatar={userAvatar}
-              userInitial={userInitial}
-              isLandlord={isLandlord}
-              unreadMessages={0}
-            />
+              {user ? (
+                <div className="flex items-center gap-0.5">
+                  <NotificationDropdown />
+                  <UserMenu
+                    userName={userName || 'User'}
+                    userEmail={user.email || ''}
+                    userAvatar={userAvatar}
+                    userInitial={userInitial}
+                    isLandlord={isLandlord}
+                  />
+                </div>
+              ) : (
+                <Link
+                  href="/auth/signup"
+                  className="ml-1 px-4 py-1.5 text-sm font-semibold bg-[#212529] text-white rounded-lg hover:bg-black transition-colors"
+                >
+                  Sign in
+                </Link>
+              )}
+            </div>
+
+            {/* Mobile: hamburger */}
+            <div className="md:hidden flex items-center gap-0.5">
+              <MobileMenu
+                isLoggedIn={!!user}
+                userName={userName}
+                userEmail={user?.email}
+                userAvatar={userAvatar}
+                userInitial={userInitial}
+                isLandlord={isLandlord}
+                unreadMessages={0}
+              />
+            </div>
           </div>
         </div>
       </div>
