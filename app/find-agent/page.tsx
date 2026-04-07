@@ -109,7 +109,7 @@ export default async function FindAgentPage({ searchParams }: { searchParams: Se
           <Building2 size={36} className="mx-auto text-[#ADB5BD] mb-4" />
           <h1 className="text-xl font-bold text-[#212529] mb-2">Agent marketplace coming soon</h1>
           <p className="text-sm text-[#495057] mb-6">We're building an amazing marketplace for real estate professionals.</p>
-          <Link href="/" className="inline-block bg-[#212529] text-white px-5 py-2.5 rounded-lg text-sm font-medium hover:bg-black transition-colors">
+          <Link href="/" className="inline-block bg-[#212529] text-white px-5 py-2.5 rounded-lg text-sm font-semibold hover:bg-black transition-colors focus:outline-none focus:ring-2 focus:ring-[#212529] focus:ring-offset-1">
             Back to home
           </Link>
         </div>
@@ -125,7 +125,6 @@ export default async function FindAgentPage({ searchParams }: { searchParams: Se
     other: Award,
   }
 
-  // Build base query string helper (preserves all current filters, overrides one key)
   function qs(overrides: Record<string, string | undefined>) {
     const base: Record<string, string> = {}
     if (searchParams.type)     base.type     = searchParams.type
@@ -149,36 +148,33 @@ export default async function FindAgentPage({ searchParams }: { searchParams: Se
   if (searchParams.featured === 'true') activeFilters.push('Featured')
 
   return (
-    <div className="min-h-screen bg-white">
-
+    <div className="min-h-screen bg-[#F8F9FA]">
       {/* Header */}
-      <div className="border-b border-[#E9ECEF]">
+      <div className="bg-white border-b border-[#E9ECEF]">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-10">
           <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-[#ADB5BD] mb-6">
-            <Link href="/" className="hover:text-[#495057] transition-colors">Home</Link>
+            <Link href="/" className="hover:text-[#495057] transition-colors focus:outline-none focus:ring-2 focus:ring-[#212529] focus:ring-offset-1 rounded">Home</Link>
             <ChevronRight size={11} />
             <span className="text-[#495057]">Find an Agent</span>
           </nav>
           <h1 className="text-2xl md:text-3xl font-bold text-[#212529] mb-1">Find a real estate professional</h1>
-          <p className="text-sm text-[#ADB5BD]">
-            Verified agents, property managers, builders, and photographers in Zimbabwe
-          </p>
+          <p className="text-sm text-[#495057]">Verified agents, property managers, builders, and photographers in Zimbabwe</p>
         </div>
       </div>
 
       {/* Filter bar */}
-      <div className="border-b border-[#E9ECEF] bg-[#F8F9FA] sticky top-0 z-10">
+      <div className="border-b border-[#E9ECEF] bg-white sticky top-0 z-10">
         <form method="GET" action="/find-agent">
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-wrap items-center gap-2">
             {/* Search */}
             <div className="relative flex-1 min-w-[180px] max-w-xs">
-              <Search size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#ADB5BD] pointer-events-none" />
+              <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#ADB5BD] pointer-events-none" />
               <input
                 type="text"
                 name="q"
                 defaultValue={searchParams.q || ''}
                 placeholder="Search by name…"
-                className="w-full pl-8 pr-3 py-2 text-sm border border-[#E9ECEF] rounded-lg bg-white text-[#212529] placeholder:text-[#ADB5BD] focus:outline-none focus:border-[#212529] transition-colors"
+                className="w-full pl-9 pr-3 py-2 text-sm border border-[#E9ECEF] rounded-lg bg-white text-[#212529] placeholder:text-[#ADB5BD] focus:border-[#212529] focus:ring-1 focus:ring-[#212529] outline-none transition-colors"
               />
             </div>
 
@@ -186,7 +182,7 @@ export default async function FindAgentPage({ searchParams }: { searchParams: Se
             <select
               name="type"
               defaultValue={searchParams.type || ''}
-              className="py-2 pl-3 pr-7 text-sm border border-[#E9ECEF] rounded-lg bg-white text-[#212529] focus:outline-none focus:border-[#212529] transition-colors appearance-none cursor-pointer"
+              className="py-2 pl-3 pr-7 text-sm border border-[#E9ECEF] rounded-lg bg-white text-[#212529] focus:border-[#212529] focus:ring-1 focus:ring-[#212529] outline-none appearance-none cursor-pointer"
             >
               <option value="">All types</option>
               {Object.entries(AGENT_TYPE_LABELS).map(([key, label]) => (
@@ -198,7 +194,7 @@ export default async function FindAgentPage({ searchParams }: { searchParams: Se
             <select
               name="city"
               defaultValue={searchParams.city || ''}
-              className="py-2 pl-3 pr-7 text-sm border border-[#E9ECEF] rounded-lg bg-white text-[#212529] focus:outline-none focus:border-[#212529] transition-colors appearance-none cursor-pointer"
+              className="py-2 pl-3 pr-7 text-sm border border-[#E9ECEF] rounded-lg bg-white text-[#212529] focus:border-[#212529] focus:ring-1 focus:ring-[#212529] outline-none appearance-none cursor-pointer"
             >
               <option value="">All cities</option>
               {ZIMBABWE_CITIES.map(city => (
@@ -207,13 +203,13 @@ export default async function FindAgentPage({ searchParams }: { searchParams: Se
             </select>
 
             {/* Verified toggle */}
-            <label className="flex items-center gap-1.5 px-3 py-2 text-sm border border-[#E9ECEF] rounded-lg bg-white cursor-pointer hover:border-[#212529] transition-colors select-none">
+            <label className="flex items-center gap-1.5 px-3 py-2 text-sm border border-[#E9ECEF] rounded-lg bg-white cursor-pointer hover:border-[#212529] transition-colors select-none focus-within:ring-2 focus-within:ring-[#212529] focus-within:ring-offset-1">
               <input
                 type="checkbox"
                 name="verified"
                 value="true"
                 defaultChecked={searchParams.verified === 'true'}
-                className="rounded"
+                className="rounded border-[#ADB5BD] text-[#212529] focus:ring-[#212529]"
               />
               <CheckCircle size={12} className="text-[#495057]" />
               Verified
@@ -224,13 +220,13 @@ export default async function FindAgentPage({ searchParams }: { searchParams: Se
 
             <button
               type="submit"
-              className="px-4 py-2 bg-[#212529] text-white text-sm font-medium rounded-lg hover:bg-black transition-colors"
+              className="px-4 py-2 bg-[#212529] text-white text-sm font-semibold rounded-lg hover:bg-black transition-colors focus:outline-none focus:ring-2 focus:ring-[#212529] focus:ring-offset-1"
             >
               Filter
             </button>
 
             {activeFilters.length > 0 && (
-              <Link href="/find-agent" className="text-xs text-[#ADB5BD] hover:text-[#495057] transition-colors">
+              <Link href="/find-agent" className="text-xs text-[#ADB5BD] hover:text-[#495057] transition-colors focus:outline-none focus:ring-2 focus:ring-[#212529] focus:ring-offset-1 rounded">
                 Clear all
               </Link>
             )}
@@ -252,7 +248,7 @@ export default async function FindAgentPage({ searchParams }: { searchParams: Se
         </div>
 
         {agents.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {agents.map(agent => {
               const profile = agent.profiles as any
               const Icon = agentTypeIcons[agent.agent_type] ?? Award
@@ -266,16 +262,16 @@ export default async function FindAgentPage({ searchParams }: { searchParams: Se
                 <Link
                   key={agent.id}
                   href={href}
-                  className="group bg-white border border-[#E9ECEF] rounded-xl p-4 hover:border-[#212529] hover:shadow-sm transition-all"
+                  className="group bg-white border border-[#E9ECEF] rounded-lg p-5 hover:border-[#212529] hover:shadow-sm transition-all focus:outline-none focus:ring-2 focus:ring-[#212529] focus:ring-offset-1"
                 >
                   <div className="flex items-start gap-3 mb-3">
-                    <div className="w-11 h-11 rounded-lg overflow-hidden bg-[#F8F9FA] flex-shrink-0">
+                    <div className="w-12 h-12 rounded-lg overflow-hidden bg-[#F8F9FA] flex-shrink-0 border border-[#E9ECEF]">
                       {avatarUrl ? (
                         <Image
                           src={avatarUrl}
                           alt={displayName}
-                          width={44}
-                          height={44}
+                          width={48}
+                          height={48}
                           className="w-full h-full object-cover"
                         />
                       ) : (
@@ -296,8 +292,8 @@ export default async function FindAgentPage({ searchParams }: { searchParams: Se
                         )}
                       </div>
                       <div className="flex items-center gap-1 text-xs text-[#ADB5BD] mt-0.5">
-                        <Icon size={10} />
-                        {AGENT_TYPE_LABELS[agent.agent_type as keyof typeof AGENT_TYPE_LABELS]}
+                        <Icon size={12} />
+                        <span>{AGENT_TYPE_LABELS[agent.agent_type as keyof typeof AGENT_TYPE_LABELS]}</span>
                       </div>
                     </div>
                   </div>
@@ -310,22 +306,22 @@ export default async function FindAgentPage({ searchParams }: { searchParams: Se
                     <div className="flex items-center gap-2">
                       {agent.avg_rating > 0 && (
                         <span className="flex items-center gap-0.5 text-[#212529]">
-                          <Star size={10} className="fill-[#212529]" />
-                          {agent.avg_rating.toFixed(1)}
+                          <Star size={12} className="fill-[#212529]" />
+                          <span>{agent.avg_rating.toFixed(1)}</span>
                           <span className="text-[#ADB5BD] ml-0.5">({agent.total_reviews})</span>
                         </span>
                       )}
                       {primaryArea && (
                         <span className="flex items-center gap-0.5">
-                          <MapPin size={10} />
-                          {primaryArea}
+                          <MapPin size={12} />
+                          <span>{primaryArea}</span>
                           {serviceAreas.length > 1 && ` +${serviceAreas.length - 1}`}
                         </span>
                       )}
                     </div>
                     {agent.verified && (
                       <span className="flex items-center gap-0.5 text-[#495057]">
-                        <CheckCircle size={10} /> Verified
+                        <CheckCircle size={12} /> Verified
                       </span>
                     )}
                   </div>
@@ -334,11 +330,11 @@ export default async function FindAgentPage({ searchParams }: { searchParams: Se
             })}
           </div>
         ) : (
-          <div className="border border-dashed border-[#E9ECEF] rounded-xl p-12 text-center">
+          <div className="border border-dashed border-[#E9ECEF] rounded-lg p-12 text-center bg-white">
             <Search size={28} className="mx-auto text-[#ADB5BD] mb-4" />
             <h3 className="text-base font-semibold text-[#212529] mb-2">No professionals found</h3>
-            <p className="text-sm text-[#ADB5BD] mb-6">Try adjusting your filters or clearing the search.</p>
-            <Link href="/find-agent" className="inline-flex items-center gap-1.5 text-sm font-medium text-white bg-[#212529] px-5 py-2.5 rounded-lg hover:bg-black transition-colors">
+            <p className="text-sm text-[#495057] mb-6">Try adjusting your filters or clearing the search.</p>
+            <Link href="/find-agent" className="inline-flex items-center gap-1.5 text-sm font-semibold text-white bg-[#212529] px-5 py-2.5 rounded-lg hover:bg-black transition-colors focus:outline-none focus:ring-2 focus:ring-[#212529] focus:ring-offset-1">
               View all professionals
             </Link>
           </div>
@@ -352,7 +348,7 @@ export default async function FindAgentPage({ searchParams }: { searchParams: Se
               {page > 1 && (
                 <Link
                   href={qs({ page: String(page - 1) })}
-                  className="px-3 py-1.5 border border-[#E9ECEF] rounded-lg text-xs font-medium text-[#495057] hover:border-[#212529] transition-colors"
+                  className="px-3 py-1.5 border border-[#E9ECEF] rounded-lg text-xs font-medium text-[#495057] hover:border-[#212529] hover:text-[#212529] transition-colors focus:outline-none focus:ring-2 focus:ring-[#212529] focus:ring-offset-1"
                 >
                   ← Previous
                 </Link>
@@ -360,7 +356,7 @@ export default async function FindAgentPage({ searchParams }: { searchParams: Se
               {agents.length === PAGE_SIZE && (
                 <Link
                   href={qs({ page: String(page + 1) })}
-                  className="px-3 py-1.5 bg-[#212529] text-white rounded-lg text-xs font-medium hover:bg-black transition-colors"
+                  className="px-3 py-1.5 bg-[#212529] text-white rounded-lg text-xs font-semibold hover:bg-black transition-colors focus:outline-none focus:ring-2 focus:ring-[#212529] focus:ring-offset-1"
                 >
                   Next →
                 </Link>
