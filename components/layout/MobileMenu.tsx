@@ -18,7 +18,6 @@ interface MobileMenuProps {
 export function MobileMenu({ isLoggedIn, userName, userEmail, userAvatar, userInitial, isLandlord, unreadMessages = 0 }: MobileMenuProps) {
   const [isOpen, setIsOpen] = useState(false)
 
-  // Prevent body scroll when menu is open
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden'
@@ -63,11 +62,10 @@ export function MobileMenu({ isLoggedIn, userName, userEmail, userAvatar, userIn
       {/* Hamburger Button */}
       <button
         onClick={() => setIsOpen(true)}
-        className="relative p-2 text-[#212529] hover:bg-[#F8F9FA] rounded-lg min-w-[44px] min-h-[44px] flex items-center justify-center"
+        className="relative p-2 text-[#495057] hover:text-[#212529] hover:bg-[#F8F9FA] rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-[#212529] focus:ring-offset-1"
         aria-label="Open menu"
       >
-        <Menu size={24} strokeWidth={2} />
-        {/* Notification Badge */}
+        <Menu size={20} />
         {unreadMessages > 0 && (
           <span className="absolute top-1 right-1 w-2 h-2 bg-[#FF6B6B] rounded-full" />
         )}
@@ -83,13 +81,13 @@ export function MobileMenu({ isLoggedIn, userName, userEmail, userAvatar, userIn
 
       {/* Slide-out Panel */}
       <div
-        className={`fixed top-0 left-0 h-full w-[85%] max-w-[320px] bg-white z-50 shadow-lg transform transition-transform duration-250 ease-out ${
+        className={`fixed top-0 left-0 h-full w-[85%] max-w-[320px] bg-white z-50 shadow-lg transform transition-transform duration-300 ease-out ${
           isOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
         {/* Header */}
         <div className="flex items-center justify-between px-4 py-4 border-b border-[#E9ECEF]">
-          <Link href="/" onClick={() => setIsOpen(false)} className="flex items-center gap-2">
+          <Link href="/" onClick={() => setIsOpen(false)} className="flex items-center gap-2 focus:outline-none focus:ring-2 focus:ring-[#212529] focus:ring-offset-1 rounded-lg">
             <img
               src="/logo.svg"
               alt=""
@@ -100,10 +98,10 @@ export function MobileMenu({ isLoggedIn, userName, userEmail, userAvatar, userIn
           </Link>
           <button
             onClick={() => setIsOpen(false)}
-            className="p-2 rounded-lg text-[#495057] hover:text-[#212529] hover:bg-[#F8F9FA] min-w-[44px] min-h-[44px] flex items-center justify-center"
+            className="p-2 rounded-lg text-[#495057] hover:text-[#212529] hover:bg-[#F8F9FA] transition-colors focus:outline-none focus:ring-2 focus:ring-[#212529] focus:ring-offset-1"
             aria-label="Close menu"
           >
-            <X size={20} strokeWidth={2} />
+            <X size={20} />
           </button>
         </div>
 
@@ -112,22 +110,22 @@ export function MobileMenu({ isLoggedIn, userName, userEmail, userAvatar, userIn
           <Link
             href="/search"
             onClick={() => setIsOpen(false)}
-            className="flex items-center gap-2 px-3 py-2.5 bg-[#F8F9FA] border border-[#E9ECEF] rounded-lg hover:border-[#495057] transition-colors"
+            className="flex items-center gap-2 px-3 py-2.5 bg-[#F8F9FA] border border-[#E9ECEF] rounded-lg hover:border-[#495057] transition-all focus:outline-none focus:ring-2 focus:ring-[#212529] focus:ring-offset-1"
           >
-            <Search size={18} className="text-[#495057]" />
+            <Search size={16} className="text-[#ADB5BD]" />
             <span className="text-sm text-[#495057]">Search properties</span>
           </Link>
         </div>
 
-        {/* Content */}
+        {/* Scrollable Content */}
         <div className="flex flex-col h-[calc(100%-120px)] overflow-y-auto">
-          {/* User Profile Card (when logged in) */}
+          {/* User Profile Card (logged in) */}
           {isLoggedIn && (
             <div className="px-4 py-3 border-b border-[#E9ECEF]">
               <Link
                 href="/dashboard/overview"
                 onClick={() => setIsOpen(false)}
-                className="flex items-center gap-3 p-3 bg-[#F8F9FA] rounded-lg hover:bg-[#E9ECEF] transition-colors"
+                className="flex items-center gap-3 p-3 bg-[#F8F9FA] rounded-lg hover:bg-[#E9ECEF] transition-colors focus:outline-none focus:ring-2 focus:ring-[#212529] focus:ring-offset-1"
               >
                 {userAvatar ? (
                   <Image
@@ -151,21 +149,21 @@ export function MobileMenu({ isLoggedIn, userName, userEmail, userAvatar, userIn
             </div>
           )}
 
-
-
-          {/* Explore Links */}
+          {/* Explore Section */}
           <div className="py-2">
-            <p className="text-xs font-medium text-[#495057] px-4 py-2">Browse properties</p>
+            <p className="text-[10px] font-semibold uppercase tracking-wider text-[#ADB5BD] px-4 py-2">
+              Browse properties
+            </p>
             <div className="space-y-0.5">
               {navLinks.map(({ href, label, icon: Icon }) => (
                 <Link
                   key={href + label}
                   href={href}
                   onClick={() => setIsOpen(false)}
-                  className="flex items-center justify-between px-4 py-3 text-[#212529] hover:bg-[#F8F9FA] transition-colors"
+                  className="flex items-center justify-between px-4 py-3 text-[#212529] hover:bg-[#F8F9FA] transition-colors focus:outline-none focus:ring-2 focus:ring-[#212529] focus:ring-inset"
                 >
                   <div className="flex items-center gap-3">
-                    <Icon size={20} className="text-[#495057]" strokeWidth={2} />
+                    <Icon size={18} className="text-[#495057]" />
                     <span className="font-medium text-sm">{label}</span>
                   </div>
                   <ChevronRight size={16} className="text-[#ADB5BD]" />
@@ -174,22 +172,23 @@ export function MobileMenu({ isLoggedIn, userName, userEmail, userAvatar, userIn
             </div>
           </div>
 
-          {/* Divider */}
-          <div className="h-px bg-[#E9ECEF] my-2" />
+          <div className="h-px bg-[#E9ECEF] my-2 mx-4" />
 
           {/* Agents Section */}
           <div className="py-2">
-            <p className="text-xs font-medium text-[#495057] px-4 py-2">Agents</p>
+            <p className="text-[10px] font-semibold uppercase tracking-wider text-[#ADB5BD] px-4 py-2">
+              Agents
+            </p>
             <div className="space-y-0.5">
               {agentLinks.map(({ href, label, icon: Icon }) => (
                 <Link
                   key={href}
                   href={href}
                   onClick={() => setIsOpen(false)}
-                  className="flex items-center justify-between px-4 py-3 text-[#212529] hover:bg-[#F8F9FA] transition-colors"
+                  className="flex items-center justify-between px-4 py-3 text-[#212529] hover:bg-[#F8F9FA] transition-colors focus:outline-none focus:ring-2 focus:ring-[#212529] focus:ring-inset"
                 >
                   <div className="flex items-center gap-3">
-                    <Icon size={20} className="text-[#495057]" strokeWidth={2} />
+                    <Icon size={18} className="text-[#495057]" />
                     <span className="font-medium text-sm">{label}</span>
                   </div>
                   <ChevronRight size={16} className="text-[#ADB5BD]" />
@@ -198,12 +197,13 @@ export function MobileMenu({ isLoggedIn, userName, userEmail, userAvatar, userIn
             </div>
           </div>
 
-          {/* Divider */}
-          <div className="h-px bg-[#E9ECEF] my-2" />
+          <div className="h-px bg-[#E9ECEF] my-2 mx-4" />
 
           {/* Account Section */}
           <div className="py-2">
-            <p className="text-xs font-medium text-[#495057] px-4 py-2">Account</p>
+            <p className="text-[10px] font-semibold uppercase tracking-wider text-[#ADB5BD] px-4 py-2">
+              Account
+            </p>
             <div className="space-y-0.5">
               {isLoggedIn ? (
                 <>
@@ -212,23 +212,22 @@ export function MobileMenu({ isLoggedIn, userName, userEmail, userAvatar, userIn
                       key={href}
                       href={href}
                       onClick={() => setIsOpen(false)}
-                      className="flex items-center justify-between px-4 py-3 text-[#212529] hover:bg-[#F8F9FA] transition-colors"
+                      className="flex items-center justify-between px-4 py-3 text-[#212529] hover:bg-[#F8F9FA] transition-colors focus:outline-none focus:ring-2 focus:ring-[#212529] focus:ring-inset"
                     >
                       <div className="flex items-center gap-3">
-                        <Icon size={20} className="text-[#495057]" strokeWidth={2} />
+                        <Icon size={18} className="text-[#495057]" />
                         <span className="font-medium text-sm">{label}</span>
                       </div>
                       <ChevronRight size={16} className="text-[#ADB5BD]" />
                     </Link>
                   ))}
-
                   <form action="/auth/signout" method="post">
                     <button
                       type="submit"
-                      className="w-full flex items-center justify-between px-4 py-3 text-[#495057] hover:bg-[#FFF5F5] hover:text-[#FF6B6B] transition-colors"
+                      className="w-full flex items-center justify-between px-4 py-3 text-[#495057] hover:bg-[#FFF5F5] hover:text-[#FF6B6B] transition-colors focus:outline-none focus:ring-2 focus:ring-[#FF6B6B] focus:ring-inset"
                     >
                       <div className="flex items-center gap-3">
-                        <LogOut size={20} className="text-[#495057]" strokeWidth={2} />
+                        <LogOut size={18} className="text-[#495057]" />
                         <span className="font-medium text-sm">Sign out</span>
                       </div>
                       <ChevronRight size={16} className="text-[#ADB5BD]" />
@@ -239,10 +238,10 @@ export function MobileMenu({ isLoggedIn, userName, userEmail, userAvatar, userIn
                 <Link
                   href="/auth/signup"
                   onClick={() => setIsOpen(false)}
-                  className="flex items-center justify-between px-4 py-3 text-[#212529] hover:bg-[#F8F9FA] transition-colors"
+                  className="flex items-center justify-between px-4 py-3 text-[#212529] hover:bg-[#F8F9FA] transition-colors focus:outline-none focus:ring-2 focus:ring-[#212529] focus:ring-inset"
                 >
                   <div className="flex items-center gap-3">
-                    <User size={20} className="text-[#495057]" strokeWidth={2} />
+                    <User size={18} className="text-[#495057]" />
                     <span className="font-medium text-sm">Sign in</span>
                   </div>
                   <ChevronRight size={16} className="text-[#ADB5BD]" />
@@ -251,29 +250,28 @@ export function MobileMenu({ isLoggedIn, userName, userEmail, userAvatar, userIn
             </div>
           </div>
 
-          {/* Spacer */}
           <div className="flex-grow" />
 
-          {/* Help */}
-          <div className="px-4 py-2">
+          {/* Help Link */}
+          <div className="px-4 py-3">
             <Link
               href="/help"
               onClick={() => setIsOpen(false)}
-              className="flex items-center gap-2 py-2 text-sm text-[#495057] hover:text-[#212529]"
+              className="flex items-center gap-2 py-2 text-sm text-[#495057] hover:text-[#212529] transition-colors focus:outline-none focus:ring-2 focus:ring-[#212529] focus:ring-offset-1 rounded-md"
             >
               <HelpCircle size={18} />
               <span>Help center</span>
             </Link>
           </div>
 
-          {/* CTA at bottom */}
+          {/* CTA Button */}
           <div className="p-4 border-t border-[#E9ECEF]">
             <Link
               href="/dashboard/new-property"
               onClick={() => setIsOpen(false)}
-              className="flex items-center justify-center gap-2 w-full py-3 bg-[#212529] text-white font-medium rounded-lg hover:bg-black transition-colors"
+              className="flex items-center justify-center gap-2 w-full py-2.5 bg-[#212529] text-white font-semibold text-sm rounded-lg hover:bg-black transition-colors focus:outline-none focus:ring-2 focus:ring-[#212529] focus:ring-offset-1"
             >
-              <Home size={20} strokeWidth={2} />
+              <Home size={16} />
               <span>List your property</span>
             </Link>
           </div>
