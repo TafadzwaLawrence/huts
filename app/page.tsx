@@ -21,35 +21,28 @@ export const metadata: Metadata = {
   },
 }
 
-export const revalidate = 60
-
 export default async function HomePage() {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
 
   let profile: { name: string | null; role: string | null; avatar_url: string | null } | null = null
   if (user) {
-    const { data, error } = await supabase
-      .from('profiles')
-      .select('name, role, avatar_url')
-      .eq('id', user.id)
-      .single()
-    
-    if (error) {
-      console.error('Error fetching profile:', error)
-    } else {
-      profile = data
+    try {
+      const { data: profileData } = await supabase
+        .from('profiles')
+        .select('name, role, avatar_url')
+        .eq('id', user.id)
+        .single()
+      
+      profile = profileData
+    } catch (error) {
+      console.error('Profile query failed:', error)
     }
   }
 
   const isLandlord = profile?.role === 'landlord'
   const firstName = profile?.name?.split(' ')[0] ?? 'there'
-
-  // Debug logging
-  console.log('User:', user ? 'logged in' : 'not logged in')
-  console.log('Profile:', profile ? 'exists' : 'null')
-  console.log('Profile role:', profile?.role)
-  console.log('isLandlord:', isLandlord)
+  console.log('Profile before query:', profile)
 
   // Fetch featured properties
   let transformedProperties: any[] = []
