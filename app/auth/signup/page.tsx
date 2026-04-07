@@ -81,6 +81,12 @@ function SignUpPageInner() {
     }
   }
 
+  // Helper to toggle mode without error flash
+  const switchMode = (newMode: 'signin' | 'signup') => {
+    setMode(newMode)
+    setError('')
+  }
+
   return (
     <div className="min-h-screen flex">
       {/* Left Form Panel */}
@@ -105,7 +111,7 @@ function SignUpPageInner() {
           <div className="flex border-b border-[#E9ECEF] mb-6">
             <button
               type="button"
-              onClick={() => { setMode('signin'); setError('') }}
+              onClick={() => switchMode('signin')}
               className={`flex-1 pb-3 text-sm font-semibold text-center transition-colors relative ${
                 mode === 'signin'
                   ? 'text-[#212529] after:absolute after:bottom-0 after:inset-x-0 after:h-0.5 after:bg-[#212529]'
@@ -116,7 +122,7 @@ function SignUpPageInner() {
             </button>
             <button
               type="button"
-              onClick={() => { setMode('signup'); setError('') }}
+              onClick={() => switchMode('signup')}
               className={`flex-1 pb-3 text-sm font-semibold text-center transition-colors relative ${
                 mode === 'signup'
                   ? 'text-[#212529] after:absolute after:bottom-0 after:inset-x-0 after:h-0.5 after:bg-[#212529]'
@@ -161,28 +167,29 @@ function SignUpPageInner() {
             </div>
           </div>
 
-          {/* Email/Password Form */}
+          {/* Email/Password Form — with stable height using invisible placeholders */}
           <form onSubmit={handleSubmit} className="space-y-4">
-            {mode === 'signup' && (
-              <div>
-                <label htmlFor="name" className="block text-xs font-semibold text-[#212529] mb-1">
-                  Full name
-                </label>
-                <div className="relative">
-                  <User size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#ADB5BD]" />
-                  <input
-                    id="name"
-                    type="text"
-                    required
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    className="w-full pl-9 pr-3 py-2 border border-[#E9ECEF] rounded-lg text-sm text-[#212529] placeholder:text-[#ADB5BD] focus:border-[#212529] focus:ring-1 focus:ring-[#212529] outline-none transition-colors"
-                    placeholder="First Last"
-                  />
-                </div>
+            {/* Name field - visible in signup, invisible placeholder in signin */}
+            <div className={mode === 'signup' ? 'opacity-100' : 'opacity-0 pointer-events-none'}>
+              <label htmlFor="name" className="block text-xs font-semibold text-[#212529] mb-1">
+                Full name
+              </label>
+              <div className="relative">
+                <User size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#ADB5BD]" />
+                <input
+                  id="name"
+                  type="text"
+                  required={mode === 'signup'}
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  className="w-full pl-9 pr-3 py-2 border border-[#E9ECEF] rounded-lg text-sm text-[#212529] placeholder:text-[#ADB5BD] focus:border-[#212529] focus:ring-1 focus:ring-[#212529] outline-none transition-colors"
+                  placeholder="First Last"
+                  tabIndex={mode === 'signup' ? 0 : -1}
+                />
               </div>
-            )}
+            </div>
 
+            {/* Email field - always visible */}
             <div>
               <label htmlFor="email" className="block text-xs font-semibold text-[#212529] mb-1">
                 Email
@@ -201,6 +208,7 @@ function SignUpPageInner() {
               </div>
             </div>
 
+            {/* Password field - always visible */}
             <div>
               <label htmlFor="password" className="block text-xs font-semibold text-[#212529] mb-1">
                 Password
@@ -220,57 +228,58 @@ function SignUpPageInner() {
               </div>
             </div>
 
-            {/* Role Selection (signup only) */}
-            {mode === 'signup' && (
-              <div>
-                <label className="block text-xs font-semibold text-[#212529] mb-2">
-                  I want to
-                </label>
-                <div className="grid grid-cols-2 gap-3">
-                  <button
-                    type="button"
-                    onClick={() => setRole('renter')}
-                    className={`relative flex items-center gap-3 p-3 border rounded-lg transition-all text-left ${
-                      role === 'renter'
-                        ? 'border-[#212529] bg-[#F8F9FA] ring-1 ring-[#212529]'
-                        : 'border-[#E9ECEF] hover:border-[#ADB5BD]'
-                    }`}
-                  >
-                    {role === 'renter' && (
-                      <div className="absolute top-2 right-2 w-4 h-4 bg-[#212529] rounded-full flex items-center justify-center">
-                        <Check size={10} className="text-white" />
-                      </div>
-                    )}
-                    <Search size={18} className="text-[#212529] shrink-0" />
-                    <div>
-                      <p className="text-sm font-semibold text-[#212529]">Find a home</p>
-                      <p className="text-xs text-[#495057] mt-0.5">Search rentals & sales</p>
+            {/* Role selection - visible in signup, invisible placeholder in signin */}
+            <div className={mode === 'signup' ? 'opacity-100' : 'opacity-0 pointer-events-none'}>
+              <label className="block text-xs font-semibold text-[#212529] mb-2">
+                I want to
+              </label>
+              <div className="grid grid-cols-2 gap-3">
+                <button
+                  type="button"
+                  onClick={() => setRole('renter')}
+                  className={`relative flex items-center gap-3 p-3 border rounded-lg transition-all text-left ${
+                    role === 'renter'
+                      ? 'border-[#212529] bg-[#F8F9FA] ring-1 ring-[#212529]'
+                      : 'border-[#E9ECEF] hover:border-[#ADB5BD]'
+                  }`}
+                  tabIndex={mode === 'signup' ? 0 : -1}
+                >
+                  {role === 'renter' && (
+                    <div className="absolute top-2 right-2 w-4 h-4 bg-[#212529] rounded-full flex items-center justify-center">
+                      <Check size={10} className="text-white" />
                     </div>
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setRole('landlord')}
-                    className={`relative flex items-center gap-3 p-3 border rounded-lg transition-all text-left ${
-                      role === 'landlord'
-                        ? 'border-[#212529] bg-[#F8F9FA] ring-1 ring-[#212529]'
-                        : 'border-[#E9ECEF] hover:border-[#ADB5BD]'
-                    }`}
-                  >
-                    {role === 'landlord' && (
-                      <div className="absolute top-2 right-2 w-4 h-4 bg-[#212529] rounded-full flex items-center justify-center">
-                        <Check size={10} className="text-white" />
-                      </div>
-                    )}
-                    <Building2 size={18} className="text-[#212529] shrink-0" />
-                    <div>
-                      <p className="text-sm font-semibold text-[#212529]">List property</p>
-                      <p className="text-xs text-[#495057] mt-0.5">Rent or sell your space</p>
+                  )}
+                  <Search size={18} className="text-[#212529] shrink-0" />
+                  <div>
+                    <p className="text-sm font-semibold text-[#212529]">Find a home</p>
+                    <p className="text-xs text-[#495057] mt-0.5">Search rentals & sales</p>
+                  </div>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setRole('landlord')}
+                  className={`relative flex items-center gap-3 p-3 border rounded-lg transition-all text-left ${
+                    role === 'landlord'
+                      ? 'border-[#212529] bg-[#F8F9FA] ring-1 ring-[#212529]'
+                      : 'border-[#E9ECEF] hover:border-[#ADB5BD]'
+                  }`}
+                  tabIndex={mode === 'signup' ? 0 : -1}
+                >
+                  {role === 'landlord' && (
+                    <div className="absolute top-2 right-2 w-4 h-4 bg-[#212529] rounded-full flex items-center justify-center">
+                      <Check size={10} className="text-white" />
                     </div>
-                  </button>
-                </div>
+                  )}
+                  <Building2 size={18} className="text-[#212529] shrink-0" />
+                  <div>
+                    <p className="text-sm font-semibold text-[#212529]">List property</p>
+                    <p className="text-xs text-[#495057] mt-0.5">Rent or sell your space</p>
+                  </div>
+                </button>
               </div>
-            )}
+            </div>
 
+            {/* Submit button */}
             <button
               type="submit"
               disabled={loading}
