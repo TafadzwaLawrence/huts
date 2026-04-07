@@ -17,21 +17,16 @@ import {
 } from 'lucide-react'
 
 interface NotificationSettings {
-  // Email notifications
   email_new_messages: boolean
   email_property_inquiries: boolean
   email_saved_property_updates: boolean
   email_review_notifications: boolean
   email_marketing: boolean
   email_weekly_digest: boolean
-  
-  // Push notifications
   push_new_messages: boolean
   push_property_inquiries: boolean
   push_saved_property_updates: boolean
   push_review_notifications: boolean
-  
-  // In-app notifications
   inapp_new_messages: boolean
   inapp_property_inquiries: boolean
   inapp_saved_property_updates: boolean
@@ -71,11 +66,8 @@ export default function NotificationsPage() {
 
   const handleSave = async () => {
     setSaving(true)
-    
-    // Simulate API call - in production, save to database
     await new Promise(resolve => setTimeout(resolve, 500))
     localStorage.setItem('notification_settings', JSON.stringify(settings))
-    
     setSaving(false)
     setHasChanges(false)
     toast.success('Notification preferences saved')
@@ -93,19 +85,19 @@ export default function NotificationsPage() {
   }
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 pb-20">
       {/* Header */}
       <div>
         <h1 className="text-2xl font-bold text-[#212529]">Notifications</h1>
-        <p className="text-[#495057]">Choose how you want to be notified</p>
+        <p className="text-sm text-[#495057] mt-1">Choose how you want to be notified</p>
       </div>
 
       {/* Email Notifications */}
-      <div className="bg-white rounded-xl border-2 border-[#E9ECEF] overflow-hidden">
-        <div className="p-6 border-b border-[#E9ECEF] flex items-center justify-between">
+      <div className="bg-white rounded-lg border border-[#E9ECEF] overflow-hidden shadow-sm">
+        <div className="p-5 border-b border-[#E9ECEF] flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="h-10 w-10 rounded-full bg-[#F8F9FA] flex items-center justify-center">
-              <Mail className="h-5 w-5 text-[#495057]" />
+            <div className="h-10 w-10 rounded-lg bg-[#F8F9FA] flex items-center justify-center">
+              <Mail size={18} className="text-[#495057]" />
             </div>
             <div>
               <h2 className="font-semibold text-[#212529]">Email Notifications</h2>
@@ -114,7 +106,7 @@ export default function NotificationsPage() {
           </div>
           <button
             onClick={() => toggleAllInCategory('email', !settings.email_new_messages)}
-            className="text-sm text-[#495057] hover:text-[#212529] transition-colors"
+            className="text-xs font-medium text-[#495057] hover:text-[#212529] transition-colors focus:outline-none focus:ring-2 focus:ring-[#212529] focus:ring-offset-1 rounded"
           >
             Toggle all
           </button>
@@ -167,11 +159,11 @@ export default function NotificationsPage() {
       </div>
 
       {/* Push Notifications */}
-      <div className="bg-white rounded-xl border-2 border-[#E9ECEF] overflow-hidden">
-        <div className="p-6 border-b border-[#E9ECEF] flex items-center justify-between">
+      <div className="bg-white rounded-lg border border-[#E9ECEF] overflow-hidden shadow-sm">
+        <div className="p-5 border-b border-[#E9ECEF] flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="h-10 w-10 rounded-full bg-[#F8F9FA] flex items-center justify-center">
-              <Smartphone className="h-5 w-5 text-[#495057]" />
+            <div className="h-10 w-10 rounded-lg bg-[#F8F9FA] flex items-center justify-center">
+              <Smartphone size={18} className="text-[#495057]" />
             </div>
             <div>
               <h2 className="font-semibold text-[#212529]">Push Notifications</h2>
@@ -180,7 +172,7 @@ export default function NotificationsPage() {
           </div>
           <button
             onClick={() => toggleAllInCategory('push', !settings.push_new_messages)}
-            className="text-sm text-[#495057] hover:text-[#212529] transition-colors"
+            className="text-xs font-medium text-[#495057] hover:text-[#212529] transition-colors focus:outline-none focus:ring-2 focus:ring-[#212529] focus:ring-offset-1 rounded"
           >
             Toggle all
           </button>
@@ -219,11 +211,11 @@ export default function NotificationsPage() {
       </div>
 
       {/* In-App Notifications */}
-      <div className="bg-white rounded-xl border-2 border-[#E9ECEF] overflow-hidden">
-        <div className="p-6 border-b border-[#E9ECEF] flex items-center justify-between">
+      <div className="bg-white rounded-lg border border-[#E9ECEF] overflow-hidden shadow-sm">
+        <div className="p-5 border-b border-[#E9ECEF] flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="h-10 w-10 rounded-full bg-[#F8F9FA] flex items-center justify-center">
-              <Globe className="h-5 w-5 text-[#495057]" />
+            <div className="h-10 w-10 rounded-lg bg-[#F8F9FA] flex items-center justify-center">
+              <Globe size={18} className="text-[#495057]" />
             </div>
             <div>
               <h2 className="font-semibold text-[#212529]">In-App Notifications</h2>
@@ -232,7 +224,7 @@ export default function NotificationsPage() {
           </div>
           <button
             onClick={() => toggleAllInCategory('inapp', !settings.inapp_new_messages)}
-            className="text-sm text-[#495057] hover:text-[#212529] transition-colors"
+            className="text-xs font-medium text-[#495057] hover:text-[#212529] transition-colors focus:outline-none focus:ring-2 focus:ring-[#212529] focus:ring-offset-1 rounded"
           >
             Toggle all
           </button>
@@ -270,19 +262,19 @@ export default function NotificationsPage() {
         </div>
       </div>
 
-      {/* Quiet Hours - Coming Soon */}
-      <div className="bg-white rounded-xl border-2 border-[#E9ECEF] p-6">
+      {/* Quiet Hours */}
+      <div className="bg-white rounded-lg border border-[#E9ECEF] p-5 shadow-sm">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="h-10 w-10 rounded-full bg-[#F8F9FA] flex items-center justify-center">
-              <Clock className="h-5 w-5 text-[#495057]" />
+            <div className="h-10 w-10 rounded-lg bg-[#F8F9FA] flex items-center justify-center">
+              <Clock size={18} className="text-[#495057]" />
             </div>
             <div>
               <h2 className="font-semibold text-[#212529]">Quiet Hours</h2>
               <p className="text-sm text-[#495057]">Pause notifications during specific hours</p>
             </div>
           </div>
-          <span className="px-3 py-1 bg-[#F8F9FA] text-[#495057] text-sm font-medium rounded-full">
+          <span className="px-2 py-1 bg-[#F8F9FA] text-[#495057] text-xs font-medium rounded-full border border-[#E9ECEF]">
             Coming Soon
           </span>
         </div>
@@ -290,8 +282,8 @@ export default function NotificationsPage() {
 
       {/* Save Button */}
       {hasChanges && (
-        <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-[#E9ECEF] p-4 z-50">
-          <div className="max-w-6xl mx-auto flex items-center justify-between">
+        <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-[#E9ECEF] p-4 z-50 shadow-lg">
+          <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-2">
               <span className="h-2 w-2 bg-[#212529] rounded-full animate-pulse" />
               <span className="text-sm text-[#495057]">You have unsaved changes</span>
@@ -304,18 +296,18 @@ export default function NotificationsPage() {
                   else setSettings(defaultSettings)
                   setHasChanges(false)
                 }}
-                className="px-4 py-2 text-[#495057] hover:text-[#212529] transition-colors"
+                className="px-4 py-2 text-sm font-medium text-[#495057] hover:text-[#212529] transition-colors focus:outline-none focus:ring-2 focus:ring-[#212529] focus:ring-offset-1 rounded-lg"
               >
                 Cancel
               </button>
               <button
                 onClick={handleSave}
                 disabled={saving}
-                className="bg-[#212529] text-white px-6 py-2 rounded-xl font-medium hover:bg-black transition-colors disabled:opacity-50 flex items-center gap-2"
+                className="bg-[#212529] text-white px-6 py-2 rounded-lg font-semibold text-sm hover:bg-black transition-colors disabled:opacity-50 flex items-center gap-2 focus:outline-none focus:ring-2 focus:ring-[#212529] focus:ring-offset-1"
               >
                 {saving ? (
                   <>
-                    <Loader2 className="h-4 w-4 animate-spin" />
+                    <Loader2 size={16} className="animate-spin" />
                     Saving...
                   </>
                 ) : (
@@ -344,20 +336,26 @@ function NotificationToggle({
   checked: boolean
   onChange: (value: boolean) => void
 }) {
+  const id = `toggle-${title.replace(/\s/g, '-').toLowerCase()}`
+
   return (
     <div className="flex items-center justify-between p-4 hover:bg-[#F8F9FA] transition-colors">
-      <div className="flex items-center gap-3">
-        <Icon className="h-5 w-5 text-[#ADB5BD]" />
+      <div className="flex items-start gap-3">
+        <Icon size={16} className="text-[#ADB5BD] mt-0.5 flex-shrink-0" />
         <div>
-          <p className="font-medium text-[#212529]">{title}</p>
-          <p className="text-sm text-[#495057]">{description}</p>
+          <label htmlFor={id} className="font-medium text-[#212529] text-sm cursor-pointer">
+            {title}
+          </label>
+          <p className="text-xs text-[#495057] mt-0.5">{description}</p>
         </div>
       </div>
       <button
+        id={id}
         onClick={() => onChange(!checked)}
-        className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
+        className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-[#212529] focus:ring-offset-1 ${
           checked ? 'bg-[#212529]' : 'bg-[#E9ECEF]'
         }`}
+        aria-pressed={checked}
       >
         <span
           className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
