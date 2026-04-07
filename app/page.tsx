@@ -28,21 +28,35 @@ export default async function HomePage() {
   let profile: { name: string | null; role: string | null; avatar_url: string | null } | null = null
   if (user) {
     try {
-      const { data: profileData } = await supabase
+      console.log('Fetching profile for user:', user.id)
+      const { data: profiles, error } = await supabase
         .from('profiles')
         .select('name, role, avatar_url')
         .eq('id', user.id)
-        .single()
+        .limit(1)
       
-      profile = profileData
+      if (error) {
+        console.error('Profile query error:', error)
+        profile = null
+      } else if (profiles && profiles.length > 0) {
+        console.log('Profile data:', profiles[0])
+        profile = profiles[0]
+      } else {
+        console.log('No profile found')
+        profile = null
+      }
     } catch (error) {
-      console.error('Profile query failed:', error)
+      console.error('Profile query exception:', error)
+      profile = null
     }
   }
 
+  console.log('Final user:', user)
+  console.log('Final profile:', profile)
+  console.log('Condition result:', user && profile)
+
   const isLandlord = profile?.role === 'landlord'
   const firstName = profile?.name?.split(' ')[0] ?? 'there'
-  console.log('Profile before query:', profile)
 
   // Fetch featured properties
   let transformedProperties: any[] = []
