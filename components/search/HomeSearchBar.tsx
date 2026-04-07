@@ -16,16 +16,15 @@ interface DbSuggestion {
 
 interface PlaceSuggestion {
   source: 'place'
-  displayName: string      // short label e.g. "Borrowdale"
-  subtitle: string         // e.g. "Harare, Zimbabwe"
+  displayName: string
+  subtitle: string
   lat: string
   lon: string
-  searchQuery: string      // what we pass to /search?q=
+  searchQuery: string
 }
 
 type Suggestion = DbSuggestion | PlaceSuggestion
 
-// Nominatim result shape (only fields we use)
 interface NominatimResult {
   place_id: number
   display_name: string
@@ -66,10 +65,9 @@ function parseNominatim(results: NominatimResult[]): PlaceSuggestion[] {
         lat: r.lat,
         lon: r.lon,
         searchQuery: locality || city,
-      } satisfies PlaceSuggestion
+      }
     })
     .filter((s) => s.displayName)
-    // deduplicate on displayName+subtitle
     .filter((s, i, arr) => arr.findIndex((x) => x.displayName === s.displayName && x.subtitle === s.subtitle) === i)
     .slice(0, 4)
 }
@@ -85,7 +83,6 @@ export default function HomeSearchBar() {
   const wrapperRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
 
-  // Close dropdown on outside click
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
       if (wrapperRef.current && !wrapperRef.current.contains(e.target as Node)) {
@@ -109,7 +106,6 @@ export default function HomeSearchBar() {
     const searchTerm = q.toLowerCase().trim()
 
     try {
-      // Run DB query and Nominatim in parallel
       const [propertiesResult, nominatimResult] = await Promise.allSettled([
         supabase
           .from('properties')
@@ -172,7 +168,6 @@ export default function HomeSearchBar() {
           ? parseNominatim(nominatimResult.value)
           : []
 
-      // Remove place results whose displayName already appears in DB results
       const dbNames = new Set(dbResults.map((d) => d.name.toLowerCase()))
       const filteredPlaces = placeResults.filter(
         (p) => !dbNames.has(p.displayName.toLowerCase())
@@ -292,75 +287,76 @@ export default function HomeSearchBar() {
     }
   }
 
-  // Split for section headers
   const dbSuggestions = suggestions.filter((s): s is DbSuggestion => s.source === 'db')
   const placeSuggestions = suggestions.filter((s): s is PlaceSuggestion => s.source === 'place')
 
   return (
     <div ref={wrapperRef} className="max-w-2xl mx-auto relative">
-      <div className="relative bg-white rounded-2xl shadow-xl border-2 border-[#E9ECEF] p-2 hover:border-[#495057] transition-colors duration-300">
-          {/* Location Input + Search — single row */}
-          <div className="flex items-center gap-3 px-4 py-3 bg-[#F8F9FA] rounded-xl">
-            <button
-              type="button"
-              onClick={handleLocateMe}
-              title="Use my current location"
-              className="flex-shrink-0 rounded-md p-0.5 transition-colors hover:text-[#212529] focus:outline-none focus:ring-2 focus:ring-[#212529] focus:ring-offset-1"
-              disabled={isLocating}
-            >
-              {isLocating
-                ? <Loader2 size={ICON_SIZES.lg} className="text-[#212529] animate-spin" />
-                : <MapPin size={ICON_SIZES.lg} className="text-[#ADB5BD] hover:text-[#212529] transition-colors" />}
-            </button>
-            <input
-              ref={inputRef}
-              type="text"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              onKeyDown={handleKeyDown}
-              onFocus={() => suggestions.length > 0 && setIsOpen(true)}
-              placeholder="Search by city, neighborhood, or address"
-              className="w-full bg-transparent outline-none text-[#212529] placeholder:text-[#ADB5BD] text-sm font-medium"
-              autoComplete="off"
-            />
-            {isLoading && !isLocating && (
-              <Loader2 size={ICON_SIZES.md} className="text-[#ADB5BD] animate-spin flex-shrink-0" />
+      <div className="relative bg-white rounded-lg border border-[#E9ECEF] shadow-sm transition-all duration-200 focus-within:border-[#212529] focus-within:ring-1 focus-within:ring-[#212529]">
+        <div className="flex items-center gap-2 px-4 py-2.5">
+          <button
+            type="button"
+            onClick={handleLocateMe}
+            title="Use my current location"
+            className="flex-shrink-0 rounded-md p-1 text-[#ADB5BD] transition-colors hover:text-[#212529] focus:outline-none focus:ring-2 focus:ring-[#212529] focus:ring-offset-1"
+            disabled={isLocating}
+          >
+            {isLocating ? (
+              <Loader2 size={ICON_SIZES.lg} className="animate-spin" />
+            ) : (
+              <MapPin size={ICON_SIZES.lg} />
             )}
-            <button
-              type="button"
-              onClick={handleSearch}
-              aria-label="Search"
-              className="flex-shrink-0 rounded-md p-0.5 transition-colors focus:outline-none focus:ring-2 focus:ring-[#212529] focus:ring-offset-1"
-            >
-              <Search size={ICON_SIZES.lg} className="text-[#ADB5BD] hover:text-[#212529] transition-colors" />
-            </button>
-          </div>
+          </button>
+
+          <input
+            ref={inputRef}
+            type="text"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            onKeyDown={handleKeyDown}
+            onFocus={() => suggestions.length > 0 && setIsOpen(true)}
+            placeholder="Search by city, neighborhood, or address"
+            className="flex-1 bg-transparent py-2 text-sm text-[#212529] placeholder:text-[#ADB5BD] outline-none"
+            autoComplete="off"
+          />
+
+          {isLoading && !isLocating && (
+            <Loader2 size={ICON_SIZES.md} className="text-[#ADB5BD] animate-spin flex-shrink-0" />
+          )}
+
+          <button
+            type="button"
+            onClick={handleSearch}
+            aria-label="Search"
+            className="flex-shrink-0 rounded-md p-1 text-[#ADB5BD] transition-colors hover:text-[#212529] focus:outline-none focus:ring-2 focus:ring-[#212529] focus:ring-offset-1"
+          >
+            <Search size={ICON_SIZES.lg} />
+          </button>
+        </div>
       </div>
 
       {/* Suggestions Dropdown */}
       {isOpen && suggestions.length > 0 && (
-        <div className="absolute top-full left-0 right-0 mt-2 bg-white rounded-2xl shadow-2xl border-2 border-[#E9ECEF] z-50 overflow-hidden">
-          <div className="py-2">
-
-            {/* DB results — properties on platform */}
+        <div className="absolute top-full left-0 right-0 mt-2 bg-white rounded-lg border border-[#E9ECEF] shadow-sm z-50 overflow-hidden">
+          <div className="py-1">
             {dbSuggestions.length > 0 && (
               <>
-                <p className="px-5 pt-1 pb-1.5 text-[10px] font-bold uppercase tracking-widest text-[#ADB5BD]">
+                <div className="px-4 pt-2 pb-1 text-[10px] font-semibold uppercase tracking-wider text-[#ADB5BD]">
                   On Huts
-                </p>
-                {dbSuggestions.map((s, i) => {
-                  const globalIdx = i
+                </div>
+                {dbSuggestions.map((s, idx) => {
+                  const globalIdx = idx
                   return (
                     <button
-                      key={`db-${s.name}-${i}`}
+                      key={`db-${s.name}-${idx}`}
                       onClick={() => handleSelectDb(s)}
-                      className={`w-full px-5 py-2.5 flex items-center justify-between transition-colors text-left ${
+                      className={`w-full px-4 py-2.5 flex items-center justify-between transition-colors text-left ${
                         activeIndex === globalIdx ? 'bg-[#F8F9FA]' : 'hover:bg-[#F8F9FA]'
                       }`}
                     >
-                      <div className="flex items-center gap-3">
-                        <div className="w-9 h-9 bg-[#F8F9FA] border border-[#E9ECEF] rounded-lg flex items-center justify-center flex-shrink-0">
-                          <Building2 size={15} className="text-[#495057]" />
+                      <div className="flex items-center gap-3 min-w-0">
+                        <div className="w-8 h-8 bg-[#F8F9FA] border border-[#E9ECEF] rounded-lg flex items-center justify-center flex-shrink-0">
+                          <Building2 size={14} className="text-[#495057]" />
                         </div>
                         <div className="min-w-0">
                           <div className="font-semibold text-sm text-[#212529] truncate">{s.name}</div>
@@ -369,7 +365,7 @@ export default function HomeSearchBar() {
                           )}
                         </div>
                       </div>
-                      <span className="text-xs text-[#ADB5BD] font-medium flex-shrink-0 ml-2">
+                      <span className="text-xs text-[#ADB5BD] font-medium ml-2 flex-shrink-0">
                         {s.count} {s.count === 1 ? 'property' : 'properties'}
                       </span>
                     </button>
@@ -378,25 +374,24 @@ export default function HomeSearchBar() {
               </>
             )}
 
-            {/* Place results — Nominatim real places */}
             {placeSuggestions.length > 0 && (
               <>
-                {dbSuggestions.length > 0 && <div className="my-1.5 border-t border-[#F1F3F5]" />}
-                <p className="px-5 pt-1 pb-1.5 text-[10px] font-bold uppercase tracking-widest text-[#ADB5BD]">
+                {dbSuggestions.length > 0 && <div className="my-1 border-t border-[#E9ECEF]" />}
+                <div className="px-4 pt-2 pb-1 text-[10px] font-semibold uppercase tracking-wider text-[#ADB5BD]">
                   Places
-                </p>
-                {placeSuggestions.map((s, i) => {
-                  const globalIdx = dbSuggestions.length + i
+                </div>
+                {placeSuggestions.map((s, idx) => {
+                  const globalIdx = dbSuggestions.length + idx
                   return (
                     <button
-                      key={`place-${i}-${s.displayName}`}
+                      key={`place-${idx}-${s.displayName}`}
                       onClick={() => handleSelectPlace(s)}
-                      className={`w-full px-5 py-2.5 flex items-center gap-3 transition-colors text-left ${
+                      className={`w-full px-4 py-2.5 flex items-center gap-3 transition-colors text-left ${
                         activeIndex === globalIdx ? 'bg-[#F8F9FA]' : 'hover:bg-[#F8F9FA]'
                       }`}
                     >
-                      <div className="w-9 h-9 bg-[#F8F9FA] border border-[#E9ECEF] rounded-lg flex items-center justify-center flex-shrink-0">
-                        <MapPin size={15} className="text-[#495057]" />
+                      <div className="w-8 h-8 bg-[#F8F9FA] border border-[#E9ECEF] rounded-lg flex items-center justify-center flex-shrink-0">
+                        <MapPin size={14} className="text-[#495057]" />
                       </div>
                       <div className="min-w-0">
                         <div className="font-semibold text-sm text-[#212529] truncate">{s.displayName}</div>
@@ -409,7 +404,6 @@ export default function HomeSearchBar() {
                 })}
               </>
             )}
-
           </div>
         </div>
       )}
