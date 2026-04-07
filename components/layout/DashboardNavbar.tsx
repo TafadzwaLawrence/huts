@@ -52,12 +52,25 @@ export function DashboardNavbar({ user, profile }: DashboardNavbarProps) {
   const [scrolled, setScrolled] = useState(false)
   const [unreadCount, setUnreadCount] = useState(0)
   const [hasAgentProfile, setHasAgentProfile] = useState(false)
+  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false)
+  const userMenuRef = useRef<HTMLDivElement>(null)
   const supabase = createClient()
 
   const isLandlord = profile?.role === 'landlord'
   const userName = profile?.full_name || user.user_metadata?.full_name || user.user_metadata?.name || user.email?.split('@')[0] || 'User'
   const userInitial = userName.charAt(0).toUpperCase()
   const userAvatar = profile?.avatar_url || user.user_metadata?.avatar_url
+
+  // Click outside to close user menu
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (userMenuRef.current && !userMenuRef.current.contains(event.target as Node)) {
+        setIsUserMenuOpen(false)
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [])
 
   const checkAgentProfile = useCallback(async () => {
     try {
@@ -86,6 +99,7 @@ export function DashboardNavbar({ user, profile }: DashboardNavbarProps) {
 
   useEffect(() => {
     setMobileMenuOpen(false)
+    setIsUserMenuOpen(false)
   }, [pathname])
 
   useEffect(() => {
@@ -178,9 +192,16 @@ export function DashboardNavbar({ user, profile }: DashboardNavbarProps) {
                 </Link>
               </div>
 
-              {/* User Menu (Desktop) */}
-              <div className="hidden md:block relative">
-                <button className="flex items-center gap-2 pl-2 pr-2.5 py-1.5 rounded-lg hover:bg-[#F8F9FA] transition-colors focus:outline-none focus:ring-2 focus:ring-[#212529] focus:ring-offset-1">
+              {/* User Menu (Desktop) - Click to open */}
+              <div className="hidden md:block relative" ref={userMenuRef}>
+                <button
+                  onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
+                  className={`flex items-center gap-2 pl-2 pr-2.5 py-1.5 rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[#212529] focus:ring-offset-1 ${
+                    isUserMenuOpen ? 'bg-[#F8F9FA]' : 'hover:bg-[#F8F9FA]'
+                  }`}
+                  aria-label="User menu"
+                  aria-expanded={isUserMenuOpen}
+                >
                   {userAvatar ? (
                     <Image
                       src={userAvatar}
@@ -198,12 +219,12 @@ export function DashboardNavbar({ user, profile }: DashboardNavbarProps) {
                     <p className="text-sm font-medium text-[#212529] leading-tight">{userName.split(' ')[0]}</p>
                     <p className="text-xs text-[#ADB5BD] capitalize leading-tight">{profile?.role}</p>
                   </div>
-                  <ChevronDown size={14} className="text-[#ADB5BD] hidden xl:block" />
+                  <ChevronDown size={14} className={`text-[#ADB5BD] hidden xl:block transition-transform duration-200 ${isUserMenuOpen ? 'rotate-180' : ''}`} />
                 </button>
 
                 {/* Dropdown */}
-                <div className="absolute top-full right-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                  <div className="bg-white rounded-lg shadow-sm border border-[#E9ECEF] py-2 min-w-[220px]">
+                {isUserMenuOpen && (
+                  <div className="absolute top-full right-0 mt-2 bg-white rounded-lg shadow-sm border border-[#E9ECEF] py-2 min-w-[220px] z-50 animate-in fade-in slide-in-from-top-2 duration-200">
                     <div className="px-4 py-2 border-b border-[#E9ECEF]">
                       <p className="font-medium text-[#212529] text-sm">{userName}</p>
                       <p className="text-xs text-[#ADB5BD] truncate">{user.email}</p>
@@ -211,6 +232,7 @@ export function DashboardNavbar({ user, profile }: DashboardNavbarProps) {
                     <div className="py-2">
                       <Link
                         href="/dashboard/overview"
+                        onClick={() => setIsUserMenuOpen(false)}
                         className="flex items-center gap-2 px-4 py-2 text-sm text-[#495057] hover:bg-[#F8F9FA] transition-colors"
                       >
                         <LayoutDashboard size={16} />
@@ -218,6 +240,7 @@ export function DashboardNavbar({ user, profile }: DashboardNavbarProps) {
                       </Link>
                       <Link
                         href="/settings/profile"
+                        onClick={() => setIsUserMenuOpen(false)}
                         className="flex items-center gap-2 px-4 py-2 text-sm text-[#495057] hover:bg-[#F8F9FA] transition-colors"
                       >
                         <User size={16} />
@@ -225,6 +248,7 @@ export function DashboardNavbar({ user, profile }: DashboardNavbarProps) {
                       </Link>
                       <Link
                         href="/settings"
+                        onClick={() => setIsUserMenuOpen(false)}
                         className="flex items-center gap-2 px-4 py-2 text-sm text-[#495057] hover:bg-[#F8F9FA] transition-colors"
                       >
                         <Settings size={16} />
@@ -243,7 +267,7 @@ export function DashboardNavbar({ user, profile }: DashboardNavbarProps) {
                       </form>
                     </div>
                   </div>
-                </div>
+                )}
               </div>
 
               {/* Mobile Menu Button */}
