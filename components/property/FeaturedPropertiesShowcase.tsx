@@ -3,8 +3,9 @@
 import { useState, useEffect, useRef } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { ChevronLeft, ChevronRight, Bed, Bath } from 'lucide-react'
+import { ChevronLeft, ChevronRight, Bed, Bath, MapPin } from 'lucide-react'
 import { formatPrice, formatSalePrice } from '@/lib/utils'
+import { ICON_SIZES } from '@/lib/constants'
 
 interface Property {
   id: string
@@ -23,7 +24,6 @@ interface Property {
   primary_image: string
 }
 
-// Helper function for price display
 const getPriceDisplay = (property: Property) => {
   if (property.listing_type === 'sale') {
     return formatSalePrice(property.sale_price ?? 0)
@@ -34,17 +34,17 @@ const getPriceDisplay = (property: Property) => {
   return `${formatPrice(property.price ?? 0)}/mo`
 }
 
-// Skeleton loader component
+// Skeleton loader matching the design system
 const PropertyCardSkeleton = () => (
   <div className="animate-pulse">
-    <div className="relative aspect-[4/3] rounded-lg overflow-hidden bg-gray-200 mb-3" />
-    <div className="h-7 bg-gray-200 rounded w-2/3 mt-2" />
+    <div className="relative aspect-[4/3] rounded-lg overflow-hidden bg-[#F8F9FA] mb-3" />
+    <div className="h-7 bg-[#F8F9FA] rounded w-2/3 mt-2" />
     <div className="mt-3 space-y-2">
-      <div className="h-4 bg-gray-200 rounded w-full" />
-      <div className="h-4 bg-gray-200 rounded w-3/4" />
-      <div className="flex gap-3 mt-2 pt-2 border-t border-gray-100">
-        <div className="h-4 bg-gray-200 rounded w-14" />
-        <div className="h-4 bg-gray-200 rounded w-14" />
+      <div className="h-4 bg-[#F8F9FA] rounded w-full" />
+      <div className="h-4 bg-[#F8F9FA] rounded w-3/4" />
+      <div className="flex gap-3 mt-2 pt-2 border-t border-[#E9ECEF]">
+        <div className="h-4 bg-[#F8F9FA] rounded w-14" />
+        <div className="h-4 bg-[#F8F9FA] rounded w-14" />
       </div>
     </div>
   </div>
@@ -59,23 +59,20 @@ export default function FeaturedPropertiesShowcase({ properties }: { properties:
 
   if (properties.length === 0) return null
 
-  // Check if mobile on mount and resize
   useEffect(() => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768)
     }
-    
     checkMobile()
     window.addEventListener('resize', checkMobile)
     return () => window.removeEventListener('resize', checkMobile)
   }, [])
 
-  // Calculate max index based on screen size
   const itemsPerView = isMobile ? 1 : 3
   const maxIndex = Math.max(0, properties.length - itemsPerView)
   const visibleProperties = properties.slice(currentIndex, currentIndex + itemsPerView)
 
-  // Simulate loading (remove in production)
+  // Simulate loading (replace with actual loading state)
   useEffect(() => {
     const timer = setTimeout(() => setIsLoading(false), 500)
     return () => clearTimeout(timer)
@@ -89,16 +86,11 @@ export default function FeaturedPropertiesShowcase({ properties }: { properties:
     setCurrentIndex(prev => Math.min(maxIndex, prev + 1))
   }
 
-  // Keyboard navigation
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'ArrowLeft') {
-        goToPrevious()
-      } else if (e.key === 'ArrowRight') {
-        goToNext()
-      }
+      if (e.key === 'ArrowLeft') goToPrevious()
+      else if (e.key === 'ArrowRight') goToNext()
     }
-    
     const section = sectionRef.current
     if (section) {
       section.addEventListener('keydown', handleKeyDown)
@@ -106,23 +98,17 @@ export default function FeaturedPropertiesShowcase({ properties }: { properties:
     }
   }, [currentIndex, maxIndex])
 
-  // Touch swipe support
   const handleTouchStart = (e: React.TouchEvent) => {
     setTouchStart(e.touches[0].clientX)
   }
 
   const handleTouchEnd = (e: React.TouchEvent) => {
     if (!touchStart) return
-    
     const touchEnd = e.changedTouches[0].clientX
     const diff = touchStart - touchEnd
-    
     if (Math.abs(diff) > 50) {
-      if (diff > 0) {
-        goToNext()
-      } else {
-        goToPrevious()
-      }
+      if (diff > 0) goToNext()
+      else goToPrevious()
     }
     setTouchStart(0)
   }
@@ -131,155 +117,131 @@ export default function FeaturedPropertiesShowcase({ properties }: { properties:
   const isNextDisabled = currentIndex >= maxIndex
 
   return (
-    <section 
+    <section
       ref={sectionRef}
-      className="py-8 sm:py-12 md:py-16 bg-white"
+      className="py-12 md:py-16 bg-white"
       aria-labelledby="featured-heading"
       tabIndex={0}
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
     >
-      <div className="px-4 sm:px-6 md:px-8 lg:px-12 max-w-7xl mx-auto">
-        {/* Header - Mobile Optimized */}
-        <div className="mx-auto mb-8 sm:mb-10 md:mb-12 max-w-3xl text-center">
-          <h2 id="featured-heading" className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-2 sm:mb-3">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Header */}
+        <div className="text-center mb-8 md:mb-12">
+          <h2 id="featured-heading" className="text-2xl md:text-3xl font-bold text-[#212529] mb-2">
             Featured Properties
           </h2>
-          <p className="text-sm sm:text-base text-gray-600 leading-relaxed px-4 sm:px-0">
+          <p className="text-sm text-[#495057]">
             Browse our handpicked selection of premium listings
           </p>
         </div>
 
-        <div className="relative px-0 sm:px-4 md:px-8">
-          {/* Navigation Buttons - Show on tablet/desktop, hide on mobile */}
+        <div className="relative px-0 sm:px-4">
+          {/* Navigation Buttons - desktop only, styled like carousel */}
           {!isPrevDisabled && !isMobile && (
             <button
               onClick={goToPrevious}
-              className="absolute -left-2 md:-left-6 lg:-left-10 top-1/2 -translate-y-1/2 z-10 p-2 md:p-3 rounded-full bg-white text-gray-900 shadow-lg border border-gray-200 hover:bg-gray-900 hover:text-white hover:border-gray-900 hover:scale-110 active:scale-95 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:ring-offset-2"
+              className="absolute -left-3 top-1/2 -translate-y-1/2 z-10 w-9 h-9 bg-white/95 backdrop-blur-sm rounded-full flex items-center justify-center shadow-sm border border-[#E9ECEF] hover:bg-white hover:scale-105 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-[#212529] focus:ring-offset-1 transition-all duration-200"
               aria-label="Previous properties"
-              aria-disabled={isPrevDisabled}
             >
-              <ChevronLeft size={18} className="md:w-5 md:h-5" />
+              <ChevronLeft size={ICON_SIZES.md} className="text-[#212529]" />
             </button>
           )}
-          
           {!isNextDisabled && !isMobile && (
             <button
               onClick={goToNext}
-              className="absolute -right-2 md:-right-6 lg:-right-10 top-1/2 -translate-y-1/2 z-10 p-2 md:p-3 rounded-full bg-white text-gray-900 shadow-lg border border-gray-200 hover:bg-gray-900 hover:text-white hover:border-gray-900 hover:scale-110 active:scale-95 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:ring-offset-2"
+              className="absolute -right-3 top-1/2 -translate-y-1/2 z-10 w-9 h-9 bg-white/95 backdrop-blur-sm rounded-full flex items-center justify-center shadow-sm border border-[#E9ECEF] hover:bg-white hover:scale-105 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-[#212529] focus:ring-offset-1 transition-all duration-200"
               aria-label="Next properties"
-              aria-disabled={isNextDisabled}
             >
-              <ChevronRight size={18} className="md:w-5 md:h-5" />
+              <ChevronRight size={ICON_SIZES.md} className="text-[#212529]" />
             </button>
           )}
 
-          {/* Cards Grid - Responsive columns */}
-          <div 
-            className={`
-              grid gap-4 sm:gap-5 md:gap-6 lg:gap-8
-              ${isMobile ? 'grid-cols-1' : 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3'}
-            `}
+          {/* Cards Grid */}
+          <div
+            className={`grid gap-5 ${
+              isMobile ? 'grid-cols-1' : 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3'
+            }`}
             aria-live="polite"
             aria-atomic="true"
           >
-            {isLoading ? (
-              // Show skeleton loaders based on view
-              isMobile ? (
-                <PropertyCardSkeleton />
-              ) : (
-                <>
-                  <PropertyCardSkeleton />
-                  <PropertyCardSkeleton />
-                  <PropertyCardSkeleton />
-                </>
-              )
-            ) : (
-              visibleProperties.map((property, index) => (
-                <Link
-                  key={property.id}
-                  href={`/property/${property.slug}`}
-                  className="group block focus:outline-none focus:ring-2 focus:ring-gray-900 focus:ring-offset-2 rounded-lg transition-all duration-200 hover:shadow-lg active:scale-[0.98]"
-                >
-                  {/* Image Container - Responsive aspect ratio */}
-                  <div className="relative aspect-[4/3] rounded-lg overflow-hidden bg-gray-100 mb-3 sm:mb-4">
-                    <Image
-                      src={property.primary_image}
-                      alt={property.title}
-                      fill
-                      className="object-cover group-hover:scale-110 transition-transform duration-300"
-                      sizes={`
-                        (max-width: 640px) 100vw,
-                        (max-width: 768px) 50vw,
-                        (max-width: 1024px) 33vw,
-                        25vw
-                      `}
-                      priority={index === 0}
-                      loading={index < 2 ? "eager" : "lazy"}
-                      placeholder="blur"
-                      blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJrWCgAACaAACdAACdAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCwAA8A/9k="
-                    />
-                  </div>
-                  
-                  {/* Price - Responsive text sizes */}
-                  <p className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 mb-1 sm:mb-2">
-                    {getPriceDisplay(property)}
-                  </p>
-                  
-                  <div className="space-y-1 sm:space-y-2">
-                    {/* Title */}
-                    <p className="text-sm sm:text-base font-semibold text-gray-800 line-clamp-2 group-hover:text-gray-900 transition-colors">
-                      {property.title}
-                    </p>
-                    
-                    {/* Address - Smaller on mobile */}
-                    <p className="text-xs sm:text-sm text-gray-500 line-clamp-1">
-                      {property.address}, {property.city}
-                    </p>
-                    
-                    {/* Property details - Responsive spacing and text */}
-                    <div className="flex flex-wrap items-center gap-x-3 gap-y-2 text-xs sm:text-sm text-gray-600 mt-2 sm:mt-3 pt-2 sm:pt-3 border-t border-gray-100">
-                      <span className="flex items-center gap-1 sm:gap-1.5">
-                        <Bed size={14} className="sm:w-[15px] sm:h-[15px] text-gray-400" />
-                        <span>{property.bedrooms} {property.bedrooms === 1 ? 'bed' : 'beds'}</span>
-                      </span>
-                      <span className="flex items-center gap-1 sm:gap-1.5">
-                        <Bath size={14} className="sm:w-[15px] sm:h-[15px] text-gray-400" />
-                        <span>{property.bathrooms} {property.bathrooms === 1 ? 'bath' : 'baths'}</span>
-                      </span>
-                      {property.square_feet > 0 && (
-                        <>
-                          <span className="text-gray-300 hidden sm:inline">•</span>
-                          <span className="text-gray-500">
-                            {property.square_feet.toLocaleString()} sqft
+            {isLoading
+              ? (isMobile ? <PropertyCardSkeleton /> : Array(3).fill(0).map((_, i) => <PropertyCardSkeleton key={i} />))
+              : visibleProperties.map((property, index) => (
+                  <Link
+                    key={property.id}
+                    href={`/property/${property.slug}`}
+                    className="group block focus:outline-none focus:ring-2 focus:ring-[#212529] focus:ring-offset-2 rounded-lg transition-all duration-200 hover:shadow-md"
+                  >
+                    <article className="bg-white rounded-lg border border-[#E9ECEF] overflow-hidden transition-all duration-300 hover:border-[#212529]/20">
+                      {/* Image Container */}
+                      <div className="relative aspect-[4/3] overflow-hidden bg-[#F8F9FA]">
+                        <Image
+                          src={property.primary_image}
+                          alt={property.title}
+                          fill
+                          className="object-cover transition-transform duration-300 group-hover:scale-105"
+                          sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                          priority={index === 0}
+                          loading={index < 2 ? 'eager' : 'lazy'}
+                          placeholder="blur"
+                          blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAMCAgMCAgMDAwMEAwMEBQgFBQQEBQoHBwYIDAoMCwsKCwsNDhIQDQ4RDgsLEBYQERMUFRUVDA8XGBYUGBIUFRT/2wBDAQMEBAUEBQkFBQkUDQsNFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBT/wAARCAAKAAoDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAABwgJ/8QAJRAAAgEDAwMFAQAAAAAAAAAAAQIDBAURBhIHIzExCBMUQVFx/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAeEQABAwQDAQAAAAAAAAAAAAABAAIDBBEhMQUSQf/aAAwDAQACEQMRAD8Av+u25ts1Pqe8agt2qLpQwXS4T3BYadIWjRpZGkKAuh48S2M4zjOR5Gg0S0d0T0Dt/piy2Ca+3a4U1qtsNvSonaNZJRFGsfNgqkBmxkgEDPjxo306Ah6W0m+6QP/Z"
+                        />
+                      </div>
+
+                      {/* Content */}
+                      <div className="p-3">
+                        {/* Price */}
+                        <div className="text-xl font-bold text-[#212529] tracking-tight leading-tight mb-1">
+                          {getPriceDisplay(property)}
+                        </div>
+
+                        {/* Title */}
+                        <p className="text-sm font-semibold text-[#212529] line-clamp-2 mb-1">
+                          {property.title}
+                        </p>
+
+                        {/* Address */}
+                        <div className="flex items-start gap-1 text-xs text-[#6C757D] mb-2">
+                          <MapPin size={12} className="mt-0.5 flex-shrink-0 text-[#ADB5BD]" />
+                          <span className="line-clamp-1">{property.address}, {property.city}</span>
+                        </div>
+
+                        {/* Details */}
+                        <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 text-xs text-[#495057] pt-2 border-t border-[#E9ECEF]">
+                          <span className="flex items-center gap-1">
+                            <Bed size={14} className="text-[#ADB5BD]" />
+                            <span>{property.bedrooms} {property.bedrooms === 1 ? 'bed' : 'beds'}</span>
                           </span>
-                        </>
-                      )}
-                    </div>
-                  </div>
-                </Link>
-              ))
-            )}
+                          <span className="flex items-center gap-1">
+                            <Bath size={14} className="text-[#ADB5BD]" />
+                            <span>{property.bathrooms} {property.bathrooms === 1 ? 'bath' : 'baths'}</span>
+                          </span>
+                          {property.square_feet > 0 && (
+                            <>
+                              <span className="text-[#ADB5BD]">·</span>
+                              <span>{property.square_feet.toLocaleString()} sqft</span>
+                            </>
+                          )}
+                        </div>
+                      </div>
+                    </article>
+                  </Link>
+                ))}
           </div>
 
-          {/* Slide Indicators - Responsive positioning */}
+          {/* Dot Indicators */}
           {maxIndex > 0 && (
-            <div className="flex justify-center gap-1.5 sm:gap-2 mt-6 sm:mt-8 md:mt-10">
+            <div className="flex justify-center gap-1.5 mt-8">
               {Array.from({ length: maxIndex + 1 }).map((_, idx) => (
                 <button
                   key={idx}
                   onClick={() => setCurrentIndex(idx)}
-                  className={`
-                    transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:ring-offset-2
-                    ${idx === currentIndex 
-                      ? 'bg-gray-900 rounded-full' 
-                      : 'bg-gray-300 rounded-full hover:bg-gray-400'
-                    }
-                    ${idx === currentIndex 
-                      ? 'w-6 sm:w-8 h-1.5 sm:h-2' 
-                      : 'w-1.5 sm:w-2 h-1.5 sm:h-2'
-                    }
-                  `}
+                  className={`transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[#212529] focus:ring-offset-1 rounded-full ${
+                    idx === currentIndex
+                      ? 'w-6 h-1.5 bg-[#212529]'
+                      : 'w-1.5 h-1.5 bg-[#ADB5BD] hover:bg-[#495057]'
+                  }`}
                   aria-label={`Go to slide ${idx + 1}`}
                   aria-current={idx === currentIndex ? 'true' : 'false'}
                 />
@@ -287,10 +249,10 @@ export default function FeaturedPropertiesShowcase({ properties }: { properties:
             </div>
           )}
 
-          {/* Mobile Swipe Hint - Only on mobile when multiple properties */}
+          {/* Mobile Swipe Hint */}
           {isMobile && maxIndex > 0 && (
             <div className="text-center mt-4 animate-pulse">
-              <p className="text-xs text-gray-400 flex items-center justify-center gap-2">
+              <p className="text-xs text-[#ADB5BD] flex items-center justify-center gap-2">
                 <ChevronLeft size={12} />
                 Swipe to see more
                 <ChevronRight size={12} />
